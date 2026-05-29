@@ -1,0 +1,27 @@
+==== Welcome to the Alpha/Linux Wiki ====
+
+Alpha/Linux is a port of [[wp>Linux|Linux]] to the [[wp>DEC_Alpha|Alpha architecture]].
+
+=== Hardware ===
+
+[[CPUs]] – [[Systems]] – [[Motherboards]] – [[Other Hardware|Other]]
+
+=== Software ===
+
+[[Operating Systems]] – [[SRM]] – [[Emulators]]
+
+=== Documentation ===
+
+[[Porting]] – [[Toolchains]] – [[Instruction Set]] – [[Books]]
+
+=== Community ===
+
+[[Mailing Lists]] – [[IRC]] – [[Newsgroups]] – [[Forums]] – [[Distributions]]
+
+=== History ===
+
+[[Press Coverage]]
+
+=== Tasks ===
+
+[[Bugs]] – [[TODO List]]
