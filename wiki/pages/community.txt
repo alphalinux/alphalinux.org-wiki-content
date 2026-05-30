@@ -1,0 +1,48 @@
+===== Community =====
+
+==== Distributions ====
+
+=== Current ===
+
+[[https://www.gentoo.org/|Gentoo Linux]] has a maintained [[https://wiki.gentoo.org/wiki/Project:Alpha|Alpha port]].
+
+Until [[https://www.debian.org/releases/lenny/|Debian Lenny]], [[https://www.debian.org/|Debian]] maintained an Alpha port. Support for Alpha is now maintained as part of [[https://www.debian.org/ports/alpha/|Debian Ports]].
+
+=== Defunct ===
+
+Many Linux distributions once supported Alpha, but do not any longer or have been discontinued. The following lists distributions who supported Alpha in the past and the last Alpha-supporting release.
+
+  * Red Hat 7.2
+  * AlphaCore 3
+  * CentOS 4.6
+  * SuSE 7.1
+
+FreeBSD also discontinued their Alpha port after the 6.x series.
+
+==== Mailing Lists ====
+
+The Alpha/Linux Kernel mailing list is hosted at [[https://subspace.kernel.org/vger.kernel.org.html|vger.kernel.org]]. To subscribe, send an email to **majordomo@vger.kernel.org** with a blank subject line with body **subscribe linux-alpha**. Archives are located on [[https://lore.kernel.org/linux-alpha/|lore.kernel.org]] and [[https://marc.info/?l=linux-alpha|marc.info]].
+
+Both [[https://archives.gentoo.org/gentoo-alpha/|Gentoo]] and [[https://www.debian.org/ports/alpha/links#lists|Debian]] have distribution-related Alpha mailing lists.
+
+A once popular mailing list for Alpha Linux users is the [[https://web.archive.org/web/20230914041141/https://listman.redhat.com/archives/axp-list/|axp-list]] hosted by Red Hat. Its archives still hold much valuable information.
+
+While not pertaining to Linux, Alpha hardware information may be found in the [[https://lists.freebsd.org/pipermail/freebsd-alpha/|FreeBSD Alpha]], [[https://mail-index.netbsd.org/port-alpha/|NetBSD Alpha]], [[http://marc.info/?l=openbsd-alpha|OpenBSD Alpha]] mailing lists.
+
+==== IRC ====
+
+A general Alpha discussion channel exists at **#alpha** on [[https://libera.chat/|Libera]]. Also, a Gentoo oriented channel exists at **#gentoo-alpha**, also on Libera.
+
+==== Forums ====
+
+Gentoo has a [[https://forums.gentoo.org/viewforum.php?f=32|Gentoo on Alternative Architectures forum]].
+
+==== Newsgroups ====
+
+A few newsgroups exist for Alpha users, namely
+
+  * [[https://groups.google.com/group/comp.os.linux.alpha/topics|comp.os.linux.alpha]] for discussion of running Linux on Alpha
+  * [[https://groups.google.com/group/comp.sys.dec/topics|comp.sys.dec]] for discussion about DEC Computers
+  * [[https://groups.google.com/group/linux.debian.ports.alpha|linux.debian.ports.alpha]] for discussion of running Debian on Alpha
+
+While not pertaining to Linux or Alpha, hardware information may be found in the [[https://groups.google.com/group/comp.sys.vms/topics|comp.sys.vms]] and [[https://groups.google.com/group/comp.unix.tru64/topics|comp.unix.tru64]] newsgroups.
