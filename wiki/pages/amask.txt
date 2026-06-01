@@ -4,7 +4,7 @@ The Architecture Mask instruction is used to determine the presence of [[instruc
 
 ===== Example =====
 
-This program will use gcc's **%%__builtin_alpha_amask%%** instruction intrinsic to determine which architectural extensions are present in the host CPU.
+This program will use gcc's **%%__builtin_alpha_amask%%** intrinsic function to determine which architectural extensions are present in the host CPU.
 
 <code c>
 #include <stdio.h>
