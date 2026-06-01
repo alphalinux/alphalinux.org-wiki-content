@@ -1,3 +1,5 @@
+===== CPUs =====
+
 Wikipedia has many articles on Alpha CPUs that we will not duplicate:
 
   - [[wp>DEC Alpha|DEC Alpha]]
@@ -7,7 +9,7 @@ Wikipedia has many articles on Alpha CPUs that we will not duplicate:
   - [[wp>Alpha 21364|21364]]
   - [[wp>Alpha 21464|21464]]
 
-===== Socket 499 (PC164, PC164LX, PC164BX/UX, Personal Workstation) =====
+==== Socket 499 (PC164, PC164LX, PC164BX/UX, Personal Workstation) ====
 
 ^ Manufacturer ^ Part Number ^ Type ^ Frequency ^
 | Digital | 21-43918-35 | EV56 | 533 MHz |
@@ -21,7 +23,7 @@ Wikipedia has many articles on Alpha CPUs that we will not duplicate:
 | Samsung | KP21164-533CN | EV56 | 533 MHz |
 | Samsung | KP21164-633CN | EV56 | 633 MHz |
 
-===== DP264, DS20, DS20e =====
+==== DP264, DS20, DS20e ====
 
   * KN31**0** is 500 MHz
   * KN31**1** is 667 MHz
