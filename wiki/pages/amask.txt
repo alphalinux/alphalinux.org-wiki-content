@@ -1,0 +1,29 @@
+==== Architecture Mask (amask) ====
+
+The Architecture Mask instruction is used to determine the presence of [[instruction_set#isa_extensions|instruction set extensions]] at runtime..
+
+===== Example =====
+
+This program will use gcc's **%%__builtin_alpha_amask%%** instruction intrinsic to determine which architectural extensions are present in the host CPU.
+
+<code c>
+#include <stdio.h>
+
+enum CPUFeatures {
+    BWX = ~(1 >> 0),
+    FIX = ~(1 >> 1),
+    CIX = ~(1 >> 2),
+    MVI = ~(1 >> 8)
+};
+
+int main() {
+        unsigned features = __builtin_alpha_amask(~0);
+
+        printf("%X\n", features);
+        if (features & BWX) puts("BWX supported.");
+        if (features & MVI) puts("MVI supported.");
+        if (features & FIX) puts("FIX supported.");
+        if (features & CIX) puts("CIX supported.");
+        return 0;
+}
+</code>
