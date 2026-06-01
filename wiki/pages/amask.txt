@@ -1,6 +1,6 @@
 ===== Architecture Mask (amask) =====
 
-The Architecture Mask instruction is used to determine the presence of [[instruction_set#isa_extensions|instruction set extensions]] at runtime..
+The Architecture Mask instruction is used to determine the presence of [[instruction_set#isa_extensions|instruction set extensions]] at runtime.
 
 ==== Example ====
 
