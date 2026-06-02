@@ -1,6 +1,6 @@
 ===== Motherboards =====
 
-^ Motherboard ^ CPU ^^ Memory ^^ Chipset ^ Cache ^ PCI ^^ AGP ^ ISA ^
+^ Motherboard ^  CPU  ^^  Memory  ^^ Chipset ^ Cache ^  PCI  ^^ AGP ^ ISA ^
 ^ ^ Type ^ Frequency ^ Type ^ Capacity ^ ^ ^ 64-bit ^ 32-bit ^ ^ ^
 | [[EB64]] | [[wp>Alpha_21064|21064/EV4]] | 150 MHz | FPM Parity | 64 MB | | 512 KB | | | | |
 | [[EB64+]] | [[wp>Alpha_21064#Alpha_21066A|21066A/LCA45]] | 275MHz | FPM Parity | | | | 0 | 2,3 | 0 | 3 |
