@@ -12,6 +12,7 @@ Wikipedia has many articles on Alpha CPUs that we will not duplicate:
 ==== Socket 499 (PC164, PC164LX, PC164BX/UX, Personal Workstation) ====
 
 ^ Manufacturer ^ Part Number ^ Type ^ Frequency ^
+| Digital | 21-43918-10 | EV56 | 433 MHz |
 | Digital | 21-43918-35 | EV56 | 533 MHz |
 | Digital | 21-43918-37 | EV56 | 600 MHz |
 | Digital | 21-43918-44 | EV56 | 500 MHz |
