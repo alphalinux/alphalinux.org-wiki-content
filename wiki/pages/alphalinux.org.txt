@@ -1,0 +1,72 @@
+===== History of alphalinux.org =====
+
+==== Origins ====
+
+By mid-1998 the Alpha Linux community had no central home. The primary reference was David Mosberger-Tang's personal site at **azstarnet.com/~axplinux**, which had gone quiet. Several smaller sites were appearing independently, and users were losing track of what information was where.
+
+Rich Payne had been running one such site at **adam.cheshire.net/~rdp/alpha** on his machine, talisman, at his ISP in New Hampshire. In late September 1998 he raised the idea on **axp-list** of consolidating everything under a proper domain. The thread — titled "All These New Alpha Sites" — produced quick consensus: one central site, community-maintained, with a memorable URL. Several domain names were considered (**axplinux.org**, **linuxalpha.org**); **alphalinux.org** won on the grounds that "axp" was too obscure for newcomers.
+
+Barrett Lyon, a network security consultant and prolific **axp-list** contributor, registered the **alphalinux.org** domain with InterNIC on October 1, 1998 and offered to host the site on his bandwidth. Rich Payne built and maintained the site itself.
+
+==== Launch ====
+
+By November 1, 1998 Rich was signing list emails with **%%http://www.alphalinux.org%%** and reaching out to the azstarnet.com maintainers to migrate their FAQs and documentation. On November 12, 1998 he announced on **axp-list**: //"the site makeover to %%www.alphalinux.org%% has been put into place."//
+
+Community response was immediate. Maurice Hilarius suggested mirroring and indexing **axp-list** and **comp.os.linux.alpha**, noting how unreliable the Red Hat list search had become. The site's initial purpose was aggregating existing documentation: the Alpha FAQ, SRM HOWTO, kernel build guides, and high-performance computing resources.
+
+Within two weeks of launch, Adam C. Powell IV at NIST started a dedicated high-performance mailing list (**axp-linux-perf**) after Rich assembled a high-performance page on the new site. That list later migrated to alphalinux.org as one of several community lists hosted there.
+
+==== Growing the Team ====
+
+Barrett Lyon became the primary news editor and day-to-day voice of the site through 1999 and into 2000. Peter Petrakis, already a prolific **axp-list** participant since at least 1998, formally joined the team in February 1999. The same announcement introduced **%%ftp.alphalinux.org%%**, a public FTP archive for RPMs and other Alpha software — filling a long-standing gap, since Red Hat's own update servers were frequently unreliable.
+
+Daniel Frasnelli joined in March 1999 and contributed unofficial kernel 2.2.2 patches that let Alpha users compile the new kernel weeks before an official fix appeared.
+
+Ron Farrer had been active on **axp-list** as an Alpha-only hardware vendor throughout 1998–99; by April 2000 he was writing bylined articles for the site, starting with a guide to installing Netscape using Compaq's Tru64 libraries. Philip Ezolt came aboard in March 2000 to centralize games and demos on Alpha.
+
+==== Infrastructure ====
+
+The site ran on Rich Payne's machine //talisman//, co-located first at cheshire.net and later at mv.com. By late 1999 the site had moved to TheShell.com as its hosting provider. In April 1999 Compaq donated an AlphaServer 1200 to the project.
+
+In addition to the main site and FTP archive, alphalinux.org hosted several mailing lists:
+
+  * **high_perf** — high-performance Alpha Linux, November 1998 – November 2001
+  * **milo-list** — MILO bootloader development, April 1999 – November 2001
+  * **axp-hardware** and **axp-software** — distribution-neutral hardware and software discussion, launched December 4, 1999
+
+The mailing list archives became searchable in April 2000.
+
+==== Industry Backdrop ====
+
+The site operated during Alpha's most commercially turbulent years. Compaq ended Windows NT on Alpha in August 1999, concentrating its software support on Tru64 Unix and Linux — a shift that made alphalinux.org more strategically important even as it signaled long-term uncertainty for the platform. The site tracked this closely, covering Compaq's compiler releases for Linux (Fortran beta July 1999, C beta September 1999, C++ public beta March 2000), hardware announcements from Alpha Processor Inc., and the Samsung manufacturing relationship that briefly promised 1.4–1.6 GHz chips by 2000.
+
+==== Revival: the Wiki Era (2008–2012) ====
+
+By 2008 alphalinux.org had gone years without updates. In April 2008, Matt Turner emailed Peter Petrakis proposing that he take over maintenance. Peter agreed and suggested starting with a wiki section to see if it could attract contributors.
+
+Matt created a MediaWiki installation in July 2008 and announced it on **axp-list**:
+
+//"I've been working with Peter Petrakis for the last two to three months creating a wiki for AlphaLinux.org. It will provide a central location for Alpha related topics such as Alpha based computers, Alpha/Linux support, SRM versions, Alpha assembly and optimization, and Alpha software."//
+
+The announcement called on the community to contribute hardware photographs, hard-to-find SRM versions, documentation, assembly programming examples, and information about important Alpha bugs. Matt also kept a news section on the wiki, tracking developments in the Linux kernel, gcc, glibc, and X.Org as they related to Alpha. Notable events he documented included:
+
+  * **November 2009**: Matt created a DEC Alpha Linux kernel tree to collect Alpha patches; Linus Torvalds pulled it into mainline for 2.6.32.
+  * **October 2009**: Keith Packard pulled fixes from Matt Turner's xserver tree, making X.Org work on Alpha for the first time since the 1.5 series.
+  * **October 2009**: Debian demoted Alpha as a release architecture.
+  * **September 2010**: Linus pulled patches removing the Big Kernel Lock from arch/alpha and fixing a 14-year-old signal handling bug present since Linux 1.3.95.
+  * **December 2011**: Uros Bizjak fixed the long-standing gcc bug 27468, which caused gcc to emit extra sign-extending instructions.
+  * **May 2012**: Måns Rullgard's patches implementing Tru64 syscalls — enabling Tru64 binaries including the C compiler to run on Linux — were pulled by Linus.
+
+The wiki attracted a small but dedicated community, collectively running dozens of Alpha systems ranging from EV45-based AlphaStations to quad-EV68 and dual-EV7 AlphaServers.
+
+In June 2012 the server crashed and the wiki database was lost. It had not been backed up. Peter Petrakis summarized the situation in IRC:
+
+//"mysqldump: Got error: 1146: Table 'ALwiki.mw_account_credentials' doesn't exist when using LOCK TABLES ... so... every other database survived, except the one that mattered the most"//
+
+==== Transfer to Gareth Randall (2015) ====
+
+In 2015, Peter Petrakis and Rich Payne — who still held the domain — transferred alphalinux.org to Gareth Randall, who had expressed interest in carrying the site forward. Gareth maintained the site and a modestly populated wiki until mid-2026, when he transferred ownership to Matt Turner.
+
+==== Transfer to Matt Turner (2026) ====
+
+In 2026, Gareth Randall transferred alphalinux.org to Matt Turner. Matt created the [[https://github.com/alphalinux-org|alphalinux-org]] organization on GitHub to host repositories for Alpha packages (aboot, milo), mailing list archives, and the content of this wiki — publicly archived so the work of the community is not lost again.

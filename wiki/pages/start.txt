@@ -17,7 +17,7 @@ Alpha/Linux is a port of [[wp>Linux|Linux]] to the [[wp>DEC_Alpha|Alpha architec
 [[community#mailing_lists|Mailing Lists]] • [[community#irc|IRC]] • [[community#newsgroups|Newsgroups]] • [[community#forums|Forums]] • [[community#distributions|Distributions]]
 
 ==== History ====
-[[Press Coverage]] • [[This Site]]
+[[Press Coverage]] • [[alphalinux.org]]
 
 ==== Tasks ====
 [[Bugs]] • [[TODO List]]
