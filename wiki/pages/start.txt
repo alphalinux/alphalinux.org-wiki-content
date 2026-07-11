@@ -5,19 +5,19 @@
 Alpha/Linux is a port of [[wp>Linux|Linux]] to the [[wp>DEC_Alpha|Alpha architecture]].
 
 ==== Software ====
-[[Operating Systems]] • [[Boot Loaders]] • [[Firmware]] • [[Emulators]]
+[[Software:Operating Systems]] • [[Software:Boot Loaders]] • [[Software:Firmware]] • [[Software:Emulators]]
 
 ==== Hardware ====
-[[Systems]] • [[Motherboards]] • [[CPUs]] • [[Other Hardware|Other]]
+[[Hardware:Systems]] • [[Hardware:Motherboards]] • [[Hardware:CPUs]] • [[Hardware:Other]]
 
 ==== Documentation ====
-[[Porting]] • [[Toolchains]] • [[Instruction Set]] • [[Books]]
+[[Documentation:Porting]] • [[Documentation:Toolchains]] • [[Documentation:Instruction Set]] • [[Documentation:Books]]
 
 ==== Community ====
 [[community#mailing_lists|Mailing Lists]] • [[community#irc|IRC]] • [[community#newsgroups|Newsgroups]] • [[community#forums|Forums]] • [[community#distributions|Distributions]]
 
 ==== History ====
-[[Press Coverage]] • [[alphalinux.org]]
+[[History:Press Coverage]] • [[History:alphalinux.org]]
 
 ==== Tasks ====
-[[Bugs]] • [[TODO List]]
+[[Tasks:Bugs]] • [[Tasks:TODOs]]
