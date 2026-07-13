@@ -8,7 +8,7 @@ Alpha/Linux is a port of [[wp>Linux|Linux]] to the [[wp>DEC_Alpha|Alpha architec
 [[Software:Operating Systems]] • [[Software:Boot Loaders]] • [[Software:Firmware]] • [[Software:Emulators]]
 
 ==== Hardware ====
-[[Hardware:Systems]] • [[Hardware:Motherboards]] • [[Hardware:CPUs]] • [[Hardware:Other]]
+[[Hardware:Systems]] • [[hardware:motherboards:Motherboards]] • [[Hardware:CPUs]] • [[Hardware:Other]]
 
 ==== Documentation ====
 [[Documentation:Porting]] • [[Documentation:Toolchains]] • [[Documentation:Instruction Set]] • [[Documentation:Books]]
