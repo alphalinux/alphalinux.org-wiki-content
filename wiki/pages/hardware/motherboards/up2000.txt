@@ -16,7 +16,7 @@ The UP2000 is the first motherboard to be built by API NetWorks and was released
 
 {{gallery>:wiki:hardware:motherboards:up2000}}
 
-{{anchor:UP2000+}}
+{{anchor:up2000plus}}
 ==== UP2000+ ====
 
 The UP2000+ is a minor update to the UP2000. It contains only a few changes, noted below. Otherwise, all the hardware is the same.
