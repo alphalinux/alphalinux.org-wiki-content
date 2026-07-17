@@ -17,6 +17,6 @@
 | [[hardware:motherboards:UP1100]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 600 MHz | ECC SDRAM | 768 MB | AMD-751 | 2 MB | 0 | 3 | 1 | 0 |
 | [[hardware:motherboards:UP1500]] | [[wp>Alpha_21264#Alpha_21264B|21264B/EV68]] | 800 MHz | ECC DDR SDRAM | 4096 MB | AMD-761 | 2 - 8 MB | 0 | 3 | 1 | 0 |
 | [[hardware:motherboards:UP2000]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 667, 750 MHz | ECC SDRAM | 2048 MB | 21272 | 2 - 8 MB | 2 | 4 | 0 | 1 |
-| [[hardware:motherboards:UP2000#up20001+|UP2000+]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]], [[wp>Alpha_21264#Alpha_21264B|21264B/EV68]] | 667, 750, 833 MHz | ECC SDRAM | 2048 MB | 21272 | 2 - 8 MB | 4 | 2 | 0 | 1 |
+| [[hardware:motherboards:UP2000#up2000plus|UP2000+]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]], [[wp>Alpha_21264#Alpha_21264B|21264B/EV68]] | 667, 750, 833 MHz | ECC SDRAM | 2048 MB | 21272 | 2 - 8 MB | 4 | 2 | 0 | 1 |
 
 {{tag>hardware}}
