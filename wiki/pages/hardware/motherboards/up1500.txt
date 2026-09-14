@@ -8,7 +8,7 @@ wiki:hardware:motherboards:up1500:up1500-1.jpg Samsung UP1500
 
 ==== Specifications ====
 
-  * 800 MHz EV68AL with 2/4/8 MiB external L2 cache [(>{{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}})] (8.5 GiB/s [(>[[https://web.archive.org/web/20030311052727/http://www.harddata.com/Systems/up15brief|"HP-SPx264-1500 Hardware Features"]], Archived March 11, 2003)])
+  * 800 MHz EV68AL with 2/4/8 MiB external L2 cache [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}})] (8.5 GiB/s [(>[[https://web.archive.org/web/20030311052727/http://www.harddata.com/Systems/up15brief|"HP-SPx264-1500 Hardware Features"]], Archived March 11, 2003)])
   * AMD-761 Chipset, ALi M1535D+ south bridge
   * 4x 184-pin DIMMs, supports 128 MiB to 4 GiB of ECC Registered PC2100 RAM (2.13 GiB/s [(>[[https://web.archive.org/web/20020606002508/http://samsungelectronics.com/semiconductors/alpha_cpu/up1500/up1500.htm|"Samsung Semiconductor: UP1500"]], Archived June 6, 2002)])
   * 1x AGP 4x (See limitations below)
