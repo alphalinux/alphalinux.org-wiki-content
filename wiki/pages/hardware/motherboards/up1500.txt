@@ -1,0 +1,28 @@
+===== UP1500 =====
+
+The UP1500 is a motherboard built by Samsung and released in 2001.
+
+<gallery right aligned nocrop>
+wiki:hardware:motherboards:up1500:up1500-1.jpg Samsung UP1500
+</gallery>
+
+==== Specifications ====
+
+  * 800 MHz EV68AL with 2/4/8 MiB external L2 cache [(>{{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}})] (8.5 GiB/s [(>[[https://web.archive.org/web/20030311052727/http://www.harddata.com/Systems/up15brief|"HP-SPx264-1500 Hardware Features"]], Archived March 11, 2003)])
+  * AMD-761 Chipset, ALi M1535D+ south bridge
+  * 4x 184-pin DIMMs, supports 128 MiB to 4 GiB of ECC Registered PC2100 RAM (2.13 GiB/s [(>[[https://web.archive.org/web/20020606002508/http://samsungelectronics.com/semiconductors/alpha_cpu/up1500/up1500.htm|"Samsung Semiconductor: UP1500"]], Archived June 6, 2002)])
+  * 1x AGP 4x (See limitations below)
+  * 3x 33 MHz 32-bit PCI slots
+  * DECchip 21143 Ethernet
+  * ALi M5451 Sound
+
+==== Limitations ====
+
+  * The AGP slot accepts only 3.3V signalling cards, effectively limiting the selection of video cards to those supporting AGP 2x [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L4291|"Re: Graphics card for UP1500, AGP Compatibility and Signalling Voltages"]], Alex Deucher, axp-list, 27 Nov 2008)]
+  * Not all AGP cards that fit the slot actually work, see [[UP1500 Compatibility]].
+  * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB (137GB)
+  * IO space needed for PCI counts against the amount of memory usable by the AMD-761 [(>[[https://lore.kernel.org/all/20020913184310.B7498@jurassic.park.msu.ru/|"[patch 2.5.34] alpha: nautilus update"]], Ivan Kokshaysky, linux-kernel, 13 Sep 2002)]
+  * According to Ivan Kokshaysky, the UP1000, UP1100, and UP1500's AGP is limited to PCI transfers: 
+    <blockquote>There is quite fundamental conflict between the Alpha architecture and x86 AGP implementation - Alpha is entirely cache coherent by design, while x86 AGP is not (I mean native AGP DMA transactions, not a PCI over AGP). There are no such things as non-cacheable mappings or software support for cache flushing/invalidation on Alpha, so x86 AGP code won't work on Nautilus.</blockquote>
+
+{{gallery>:wiki:hardware:motherboards:up1500}}
