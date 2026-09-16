@@ -13,13 +13,35 @@ wiki:hardware:motherboards:up1000:up1000-1.jpg API NetWorks UP1000
   * 3x 168-pin DIMMs, supports 64 MiB to 768 MiB of ECC unbuffered PC100 SDRAM
   * 1x AGP 2x (See limitations below)
   * 4x 33 MHz 32-bit PCI slots
-  * 2x EISA slots
+  * 2x ISA slots [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}})]
 
 ==== Limitations ====
 
   * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB (137GB)
   * According to Ivan Kokshaysky, the UP1000, UP1100, and UP1500's AGP is limited to PCI transfers:
     <blockquote>There is quite fundamental conflict between the Alpha architecture and x86 AGP implementation - Alpha is entirely cache coherent by design, while x86 AGP is not (I mean native AGP DMA transactions, not a PCI over AGP). There are no such things as non-cacheable mappings or software support for cache flushing/invalidation on Alpha, so x86 AGP code won't work on Nautilus.</blockquote>
+  * The AMD-751 can address at most 768 MiB of memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L30727|"Re: UP1100 delivery problems"]], Rich Payne, axp-list, 26 Mar 2002)]
+  * ATI Rage II and Rage Pro based video cards do not work in the UP1000 or UP1100, although they work in the UP2000 and DP264. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L17091|"Re: (no subject)"]], Maurice Hilarius, axp-list, 22 Aug 2000)]
+  * The BIOS emulator in the UP1000 and UP1100 SRM firmware is older than the one in the UP1500's firmware. Jay Estabrook was unable to get any AGP Radeon card to work with it on a UP1100. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L2650|"AW: Some observations regarding FC* on UP2000+"]], Jay Estabrook, axp-list, 24 Apr 2008)]
+
+==== Firmware ====
+
+Initial shipments of the UP1000 came with AlphaBIOS only [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L16749|"RE: UP1000 & UP2000 Installation."]], Tom Morris, axp-list, 6 Nov 1999)], and Linux was booted from AlphaBIOS using APB. API released SRM for the UP1000 in May 2000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-June.mbox#L412|"Re: SRM For the UP1000?"]], Rich Payne, axp-list, 1 Jun 2000)] There is no MILO for Nautilus systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L9754|"Re: Upgrading to RedHat 7.1 on UP1000"]], Rich Payne, axp-list, 9 Apr 2002)]
+
+SRM is installed using the Alpha Diagnostic Environment (ADE), a firmware maintenance console unique to API boards that is invoked by a jumper. The SRM package contains three images (two ADE images and the SRM console) that are flashed over AlphaBIOS. To return to AlphaBIOS, the SRM console image is overwritten with ''nautilus.rom''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L11016|"Re: Upgrading to RedHat 7.1 on UP1000"]], Rich Payne, axp-list, 10 Apr 2002)]
+
+The UP1000 and UP1100 SRM images are different revisions and cannot be used on each other's boards. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L30608|"Re: 2.40test10 working?"]], Rich Payne, axp-list, 17 Nov 2000)]
+
+==== Linux ====
+
+  * Nautilus support was added in Linux 2.2.14. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L38331|"Re: UP1000 + RedHat 6.X + S3 = no X"]], Rich Payne, axp-list, 28 Mar 2000)]
+  * The glibc in distributions of the era (e.g. Red Hat 6.x, Debian 2.2) does not recognize the Nautilus system type, so X fails with ''xf86EnableIOPorts: Failed to set IOPL for I/O''. The workaround, documented in the API manuals, is ''ln -s Tsunami /etc/alpha_systype''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L3421|"Re: UP1100 & Matrox"]], Rich Payne, debian-alpha, 26 Oct 2000)]
+  * Linux 2.4.0 through 2.4.2 could hard lock and corrupt filesystems under heavy load on the onboard ALi IDE controller. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-February.mbox#L1023|"2.4.x/alpha/ALI chipset/IDE problems summary Re: 2.4.1 not fully sane on Alpha - file systems"]], John Jasen, axp-list, 1 Feb 2001)] Hyung Min Seo of Samsung found the cause and posted a patch raising the minimum PCI memory address on Nautilus (''IRONGATE_DEFAULT_MEM_BASE''), which fixed the problem. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-March.mbox#L1326|"RE: 2.4.x/alpha/ALI chipset/IDE problems summary Re: 2.4.1 not fully sane on Alpha - file systems"]], Hyung Min Seo, axp-list, 2 Mar 2001)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-March.mbox#L5676|"Re: 2.4.x/alpha/ALI chipset/IDE problems summary Re: 2.4.1 not fully sane on Alpha - file systems"]], Michal Jaegermann, axp-list, 6 Mar 2001)] Because of this problem, the Red Hat Linux 7.1 kernel was built without ALi IDE support. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-September.mbox#L14930|"Re: IDE Performance on API CS20"]], Bryce, axp-list, 21 Sep 2001)]
+  * The UP1000 has an LM75 temperature sensor. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L16086|"RE: UP2000 Temperature"]], Rich Payne, axp-list, 24 May 2000)] A well cooled UP1000 has a heatsink temperature of about 45 to 50 C. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L16402|"Re: UP2000 Temperature"]], Maurice Hilarius, axp-list, 24 May 2000)] API's ''hwmon'' package can read the sensors. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-May.mbox#L13624|"Re: lm-sensors and UP1000"]], Rich Payne, axp-list, 17 May 2002)]
+
+==== History ====
+
+According to Maurice Hilarius of Hard Data, Samsung developed the UP1x00 family of boards, while API took over development of the UP2000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-August.mbox#L6772|"RE: Samsung EV69"]], Maurice Hilarius, axp-list, 8 Aug 2002)] The UP1000 was also sold as a "Developers Special" system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L42106|"UP1000 and SuSE 6.3"]], Maurice Hilarius, axp-list, 30 Mar 2000)]
 
 ==== Documentation ====
 

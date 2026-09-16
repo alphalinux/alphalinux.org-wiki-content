@@ -1,6 +1,6 @@
 ===== UP2700 =====
 
-The UP2700 was a motherboard slated to be released by API NetWorks in Q1 2001, along with the [[UP1500]] and [[UP1700]]. [(>[[https://web.archive.org/web/20010531143520/http://www.digit-life.com/articles/augustdigest/index.html|"August 2000 Hardware Digest"]], Andrew Yaschenko, Digit-Life)] Of the three, only the UP1500 was released.
+The UP2700 was a motherboard slated to be released by API NetWorks in Q1 2001, along with the [[UP1500]] and [[UP1700]]. [(>[[https://web.archive.org/web/20010531143520/http://www.digit-life.com/articles/augustdigest/index.html|"August 2000 Hardware Digest"]], Andrew Yaschenko, Digit-Life)] Of the three, only the UP1500 was released. Peter Petrakis, who worked at API NetWorks when the UP1500 was released in 2001, had never heard of the board and believed it was part of a roadmap that was never completed. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-October.mbox#L35|"Does anyone know anything about the API/Samsung UP1700 and UP2700 motherboards?"]], Peter Petrakis, axp-list, 6 Oct 2008)]
 
 ==== Specifications ====
 

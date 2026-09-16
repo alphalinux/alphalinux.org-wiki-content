@@ -1,6 +1,8 @@
 ===== EB64+ =====
 
-The DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board (EB64+) is an evaluation and development board for systems based on the 21064 or 21064A microprocessor and the 21072 chipset, released in 1994. It was also sold by Aspen Systems as the Alpine.
+The DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board (EB64+) is an evaluation and development board for systems based on the 21064 or 21064A microprocessor and the 21072 chipset, released in 1994. Aspen Systems sold a closely related board as the Alpine (see [[#clones_and_oem_systems|Clones and OEM Systems]]).
+
+The EB64+ is a different board from the [[hardware:motherboards:PC64|AlphaPC64]] (Cabriolet), which was derived from it. Because Linux handles both with the same code, the names are often used interchangeably on mailing lists.
 
 ==== Specifications ====
 
@@ -22,15 +24,46 @@ The DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board (EB64+) is a
 
 The EB64+ has two ROMs, one of which contains the Windows NT ARC firmware and the other contains the Evaluation Board Debug Monitor.
 
-The Aspen Alpine is a little different in that it only has one ROM; this contains the Windows NT ARC firmware. [(>[[https://stason.org/TULARC/pc/motherboards/A/ASPEN-SYSTEMS-INC-Alpha-ALPINE.html|"ASPEN SYSTEMS, INC. Alpha ALPINE"]], The Motherboard Collection)]
-
 ==== Memory ====
 
 SIMMs are installed in two banks of four. Jumpers select the Bcache size and whether the Bcache uses 10 ns or 15 ns SRAM timing; main memory needs no jumpers.
 
+True parity SIMMs are required; "logic parity" SIMMs, which generate the parity bit with logic instead of storing it, do not work. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2007-February.mbox#L391|"Ram questions"]], Tony Hoover, axp-list, 28 Feb 2007)]
+
+==== Firmware ====
+
+The firmware is stored in UV EPROMs rather than flash, so it cannot be updated in place. DEC's ARC firmware release notes state that updating the firmware on an EB64+ requires obtaining an updated ROM from the system vendor, whereas the AlphaPC64 can be updated with ''fwupdate.exe''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L10567|"help with firmware file"]], dca2, axp-list, 5 Aug 1998)] The last ARC release for the EB64+ and AlphaPC64 was 4.49-7. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-July.mbox#L4802|"Re: firmware upgrade?"]], Phil Oleson, debian-alpha, 23 Jul 1999)]
+
+An SRM console also exists for the EB64+. DEC distributed SRM consoles for its evaluation boards (EB64, EB64+, EB66, EB66+, Cabriolet, EB164, PC164, LX164, SX164) as part of its evaluation board software development kit. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L3642|"Re: SRM license issues"]], Jay Estabrook, axp-list, 6 Jan 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-October.mbox#L21485|"Re: Milo booting other OSes?"]], Jay Estabrook, axp-list, 29 Oct 1997)]
+
 ==== Linux ====
 
-Can only boot Linux using MILO.
+The EB64+ is supported by the ''CONFIG_ALPHA_EB64P'' kernel option and by generic kernels. The kernel uses the same machine vector for the EB64+ and the Cabriolet, and distinguishes the two at boot. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-November.mbox#L5583|"Re: [PATCH] [RESENT] compilation warnings 4/6"]], Richard Henderson, axp-list, 8 Nov 2002)]
+
+Linux can be booted either from the ARC console using MILO (image name ''eb64p'') [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-September.mbox#L5923|"Alpha Core ISO Images"]], Jay Estabrook, axp-list, 29 Sep 2004)], or from an SRM console if one is installed; ''CONFIG_ALPHA_SRM'' ("Use SRM as bootloader") is offered for ''ALPHA_EB64P'' kernels. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2016-March.mbox#L1|"Re: can't boot kernel 4.x on SX164"]], Alex Winbow, debian-alpha, 1 Mar 2016)]
+
+==== Known Issues ====
+
+  * MILO could not use the floppy drive on the EB64+ and its clones until January 1996, when timer code fixes contributed by Linus Torvalds were added. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-January.mbox#L2634|"Milo : update"]], David Rusling, axp-list, 11 Jan 1996)]
+  * With ARC console 4.49-4, 2.0.3x kernels logged thousands of "unexpected interrupt" messages for IRQ 14 during boot. Michal Jaegermann worked around it by disabling the message. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-September.mbox#L53720|"Re: unexpected interrupt 0 on AS200"]], Michal Jaegermann, axp-list, 28 Sep 1998)] Jay Estabrook noted that the EB64+ has the 16 standard ISA IRQs plus 16 additional IRQs (11 used) for PCI devices. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-September.mbox#L54587|"Re: unexpected interrupt 0 on AS200"]], Jay Estabrook, axp-list, 29 Sep 1998)]
+  * The 2.2.0-pre8 kernel hung at boot on the EB64+ until a patch from Richard Henderson was applied. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L48838|"Re: Alpha/2.2.0-pre8 hang on boot"]], Michal Jaegermann, axp-list, 19 Jan 1999)]
+  * The ''eb64p'' kernel on the Red Hat 5.2 CD failed to mount the CD during installation; the generic kernel from the same CD worked. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-April.mbox#L36892|"Re: 'error opening header file'..."]], Michal Jaegermann, axp-list, 23 Apr 1999)]
+
+==== Clones and OEM Systems ====
+
+Aspen Systems built several Alpha systems. According to Aspen, the closest DEC equivalents were: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-June.mbox#L10560|"DEC systems equivalents to Aspen Systems"]], Brian Cruikshank, axp-list, 21 Jun 1996)]
+
+^ Aspen system ^ CPU ^ Closest DEC board ^
+| Alpine | 21064 | EB64+ |
+| Telluride | 21064 | PC64 |
+| Timberline | 21164 | EB164 |
+| Summit | 21164 | EB164 |
+
+Aspen described these as its own designs, with the Alpine having 3 PCI and 3 ISA slots and the Telluride 7 PCI and 3 ISA slots. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8890|"setting the record straight"]], Randy Perry, axp-list, 12 May 1996)] Jim Paradis of DEC described the Telluride as an EB64+ with an added PCI-to-PCI bridge. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8946|"Re: linux on EB164+"]], Jim Paradis, axp-list, 12 May 1996)] David Rusling of DEC called the Alpine an EB64+ clone. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-July.mbox#L33791|"Re: axp 275 Install Lockup"]], David A Rusling, axp-list, 29 Jul 1997)]
+
+The Aspen Alpine is a little different in that it only has one ROM; this contains the Windows NT ARC firmware. [(>[[https://stason.org/TULARC/pc/motherboards/A/ASPEN-SYSTEMS-INC-Alpha-ALPINE.html|"ASPEN SYSTEMS, INC. Alpha ALPINE"]], The Motherboard Collection)] The ROM is a socketed EPROM rather than flash, and Aspen supplied replacement firmware PROMs, including one containing SRM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-July.mbox#L33958|"Re: axp 275 Install Lockup"]], Maurice W. Hilarius, axp-list, 29 Jul 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-September.mbox#L6137|"Re: EB64+"]], Noah Ackerman, debian-alpha, 9 Sep 2002)] Like the EB64+, it has onboard NCR 53C810 SCSI.
+
+Later distributions do not boot on the Alpine without modification; Doc Shipley reported that Red Hat 5.2 was the last to boot without tweaking. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-August.mbox#L7208|"Aspen Alpine"]], Doc Shipley, debian-alpha, 20 Aug 2001)] Noah Ackerman found that the Debian woody MILO and generic kernel did not work, but installed woody using an older MILO (from Debian slink or Red Hat 5.2) and a kernel built for the EB64+. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-September.mbox#L5802|"EB64+"]], Noah Ackerman, debian-alpha, 9 Sep 2002)]
 
 ==== Documentation ====
 

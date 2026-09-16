@@ -1,6 +1,6 @@
 ===== PC164 =====
 
-The AlphaPC 164 is an ATX form factor motherboard produced by Digital Semiconductor.
+The AlphaPC 164 is an ATX form factor motherboard produced by Digital Semiconductor. It is a member of the EB164 family (along with the [[hardware:motherboards:eb164|EB164]], [[hardware:motherboards:pc164lx|PC164LX]], and [[hardware:motherboards:pc164sx|PC164SX]]), and was the first Digital Semiconductor board to use the 21164A (EV56) CPU [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L3768|"Re: Difference between PC164 and EB164"]], David A Rusling, axp-list, 3 Sep 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002)]. Before release it was sometimes called the "EB164+" [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8235|"Re: linux on EB164+"]], Jay Estabrook, axp-list, 10 May 1996)].
 
 <gallery right aligned nocrop>
 wiki:hardware:motherboards:pc164:pc164-1.jpg Digital AlphaPC 164
@@ -8,8 +8,8 @@ wiki:hardware:motherboards:pc164:pc164-1.jpg Digital AlphaPC 164
 
 ==== Specifications ====
 
-  * 366, 400, 433, 466, or 500 MHz 21164 CPU [(>{{wiki:hardware:motherboards:pc164:pc164_product_brief.pdf?linkonly|AlphaPC 164 Motherboard Product Brief}})]
-  * 21172 core logic chipset
+  * 366, 400, 433, 466, or 500 MHz 21164A (EV56) CPU [(>{{wiki:hardware:motherboards:pc164:pc164_product_brief.pdf?linkonly|AlphaPC 164 Motherboard Product Brief}})]; the original 21164 (EV5) is not used [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L18328|"RE: Re: ev56 optimization -> illegal instruction"]], Jay Estabrook, axp-list, 14 Mar 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-February.mbox#L6964|"Re: Weird Lockups II"]], Richard Henderson, debian-alpha, 20 Feb 2000)]
+  * 21172 core logic chipset (CIA-2)
   * One bank of 4 or 8 36-bit 70 ns SIMMs, supports 16 MiB to 512 MiB of DRAM (128-bit or 256-bit data bus)
   * 1 MiB synchronous SRAM L3 cache
   * 4x 33 MHz PCI slots (2x 64-bit, 2x 32-bit)
@@ -18,9 +18,56 @@ wiki:hardware:motherboards:pc164:pc164-1.jpg Digital AlphaPC 164
   * CMD PCI0646 IDE on PCI
   * SMC FDC37C935 Super I/O controller (floppy, 2x UARTs, parallel port, keyboard and mouse, time-of-year clock)
   * 1 MiB flash ROM
-  * Windows NT ARC firmware
-  * Standard ATX 3.3V power supply
+  * Windows NT ARC firmware or SRM console (see [[#firmware|Firmware]])
+  * ATX form factor power supply with a high-current 3.3V rail (see [[#power_supply|Power Supply]])
   * 12.0 in x 9.6 in (30.48 cm x 24.38 cm)
+
+==== CPU ====
+
+  * The CPU speed is set by the clock oscillator (crystal) together with the speed-select jumpers described in the Technical Reference Manual. Changing speed requires a crystal of the matching frequency, e.g. 50.0 MHz for 500 MHz [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L17873|"Re: Weirdness with AlphaPC 164: installing SRM firmware, etc."]], Jim Barriault, axp-list, 10 Dec 1999)].
+  * The ARC and SRM consoles leave the EV56 byte/word extension (BWX) disabled, so code compiled with ''-mcpu=ev56'' fails with "illegal instruction" [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L18328|"RE: Re: ev56 optimization -> illegal instruction"]], Jay Estabrook, axp-list, 14 Mar 1998)]. Later MILO versions enable BWX [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L42672|"Re: egcs and PC164 (ev56 ?)"]], Richard Henderson, axp-list, 18 Dec 1998)].
+  * Although the CIA-2 was intended to allow byte/word access to I/O space, this never worked, so the PC164 uses sparse I/O addressing like other CIA systems [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L18328|"RE: Re: ev56 optimization -> illegal instruction"]], Jay Estabrook, axp-list, 14 Mar 1998)].
+  * The CPU fan has a rotation sense connection, and the board will not run without a working fan [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-August.mbox#L1855|"Re: Replacing PC164 CPU fan"]], David A Rusling, axp-list, 4 Aug 1997)].
+
+==== Memory ====
+
+  * SIMMs are installed 4 at a time: 4 SIMMs give a 128-bit memory bus and 8 SIMMs give a 256-bit memory bus. All installed SIMMs must be the same size, so the maximum of 512 MiB requires 8x 64 MiB SIMMs [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L48650|"Re: Memory for alpha PC164"]], Stephen Williams, axp-list, 20 Aug 1998)].
+  * Standard page mode DRAM SIMMs are required; according to Digital Semiconductor, EDO "won't be any better & may not work" [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L183|"Answers to other PC164 questions"]], Jim Spink, axp-list, 11 Jul 1996)].
+  * One reseller reported selling PC164 systems with 1 GiB of memory, which only worked with modules from one vendor [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L13598|"Re: 1 GB RAM in PC164"]], Wolfgang Dreyer, axp-list, 13 Jun 1997)]. This is beyond the documented 512 MiB maximum.
+
+==== Power Supply ====
+
+  * The board does not drive the ATX ''PS_ON'' signal, so a standard ATX power supply will not turn on unless ''PS_ON'' (pin 14) is connected to ground, e.g. with a latching switch [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-May.mbox#L47794|"Re: PC164 Motherboards"]], Robert Bowles, axp-list, 20 May 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L33698|"RE: alphapc 164 motherboard question"]], Bernard Chew, axp-list, 26 Jul 1999)].
+  * A 500 MHz 21164A draws about 11.5 A from the 3.3V rail, and the board itself about 5 A more, which exceeds the 3.3V capacity of many ordinary ATX power supplies [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L16468|"PC164 power-supplies"]], T. S. Horsnell, axp-list, 15 Jun 1997)].
+  * The time-of-year clock battery is a CR2032. A depleted battery causes a variety of firmware problems [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L20433|"Re: Weirdness with AlphaPC 164: installing SRM firmware, etc."]], Joel Votaw, axp-list, 10 Dec 1999)].
+
+==== Firmware ====
+
+  * Boards were sold with either the ARC console (for Windows NT and Linux) or the SRM console (licensed for Digital UNIX) [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L366|"Re: questions on the PC164"]], Maurice Hilarius, axp-list, 11 Jul 1996)].
+  * Only one console fits in the flash ROM at a time. With SRM in flash, the ARC firmware can be loaded from a FAT floppy using the ''arc'' command [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L18647|"RE: Dual booting PC164"]], Jay Estabrook, axp-list, 12 Dec 1996)].
+  * Firmware is updated with ''fwupdate.exe'' from a floppy. If the update fails from the console, the fail-safe loader can be used with the firmware image and update utility on a DOS floppy [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7071|"Re: How to flash MILO? ( Not a faq )"]], Peter Rival, axp-list, 6 Oct 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L17772|"Re: Weirdness with AlphaPC 164: installing SRM firmware, etc."]], Jim Barriault, axp-list, 9 Dec 1999)].
+  * PC164 firmware development stopped before that of the PC164LX and PC164SX [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L22964|"Re: volatile SRM variables"]], Jay Estabrook, axp-list, 12 Nov 2000)]. The last SRM releases were V5.5 and V5.6 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L13722|"Re: EB164 SRM Problems"]], Stefan Schroepfer, debian-alpha, 29 Jan 2003)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-October.mbox#L5523|"KZPEA bios?"]], Jay Estabrook, axp-list, 27 Oct 2004)].
+  * The SRM console only probes the primary IDE channel, so devices on the secondary channel cannot be booted from SRM (Linux can use them) [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-April.mbox#L1773|"Second IDE port not working on PC164"]], Jay Estabrook, axp-list, 5 Apr 2004)].
+  * SRM cannot boot from Adaptec 2940UW or 39160, Symbios 53C895, or Mylex DAC1164P controllers. The KZPCM (IntraServer 4280UE-4, with two NCR 53C875 channels) works for both disk and network booting [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-October.mbox#L5523|"KZPEA bios?"]], Jay Estabrook, axp-list, 27 Oct 2004)]. Network booting from SRM works with Digital Ethernet cards such as the DE435, DE450, and DE500 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-September.mbox#L3717|"Re: What SCSI adapters are supported by the PC164 SRM?"]], Jay Estabrook, axp-list, 5 Sep 1997)].
+  * With SRM V5.5-1, the Matrox Millennium, ELSA Gloria Synergy (Permedia 2), 3Dlabs Oxygen VX1 (Permedia 3), Diamond Stealth III S540 (Savage4), and TGA/TGA2 cards work as console devices, but the 3dfx Banshee does not [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L26887|"Re: PC164 Video card support (voodoo3 ?); [ RE: Where is alphalinux.org? ]"]], Jay Estabrook, axp-list, 24 Mar 2002)]. ATI Radeon (R100, RV100, RV200) cards do not work with SRM, but do work with ARC and MILO [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-October.mbox#L5274|"Re: Video Card for PC164"]], Jay Estabrook, debian-alpha, 15 Oct 2003)].
+
+==== Linux ====
+
+  * Linux kernels are built with the EB164 family system type; the PC164 is the "PC164" variation [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002)].
+  * Red Hat Linux 7.2 was tested on the PC164 booting from both SRM and ARC (via MILO) [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L12427|"Re: RedHat 7.2 Linux for Alpha"]], Jay Estabrook, axp-list, 11 Jun 2002)].
+  * Updated MILO images for the PC164, based on MILO 2.2-18 and supporting ext2 filesystems with block sizes larger than 1 KiB, were released in 2002 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-May.mbox#L492|"XLT-PC164-Ruffian MILOs available for test"]], Jay Estabrook, axp-list, 1 May 2002)].
+
+==== Known Issues ====
+
+  * **Interrupt masking:** the PC164 was already shipping when the interrupt masking hardware was found to be broken. It was never fixed in hardware, and Linux relies on a software workaround. The SRM console reports the board as the EB164 variation instead of PC164, so Linux 2.4 kernels before 2.4.11 did not apply the workaround when booted from SRM and hung under heavy network or disk load [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-October.mbox#L5046|"Re: Hangs with 100baseTX, RedHat 7.1, kernel 2.4.x and AlphaPC 164"]], Jay Estabrook, axp-list, 4 Oct 2001)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L33173|"Re: RedHat vs. PC164/srm -- summary"]], Jay Estabrook, axp-list, 27 Mar 2002)].
+  * **Returning to SRM:** Linux 2.4 reassigns PCI resources and does not restore them at shutdown, so the SRM console may report machine checks after halting Linux [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-October.mbox#L12092|"Re: PC164 SRM problem"]], Jay Estabrook, axp-list, 15 Oct 2001)].
+  * **Time-of-year clock:** the SMC FDC37C935 clears the update-in-progress bit before the update is complete, causing early versions of ''clock'' to read bogus dates. The fix is to wait for the update-ended interrupt flag instead [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L27609|"Clock Problems on PC164 Explained"]], Jay Estabrook, axp-list, 14 Nov 1996)].
+  * **Memory size with early MILO:** early MILO versions caused instability unless ''MEMORY_SIZE'' was set slightly below the installed memory. Jay Estabrook recommended newer MILO images to fix this [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-July.mbox#L9726|"Re: PC164 MEMORY_SIZE"]], Jay Estabrook, axp-list, 8 Jul 1997)].
+
+==== Clones and OEM Systems ====
+
+  * The Aspen "Durango" is Aspen's name for the PC164 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L28087|"Durango"]], Bernd Robl, axp-list, 19 Oct 1996)].
+  * Vobis, a German computer retailer, sold PC164-based systems [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L46113|"Installing RH4.1 on PC164 from Vobis"]], Stephan Kanthak, axp-list, 25 Apr 1997)].
 
 ==== Documentation ====
 

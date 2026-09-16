@@ -9,18 +9,45 @@ wiki:hardware:motherboards:up1100:up1100-1.jpg API NetWorks UP1100
 ==== Specifications ====
 
   * 600 MHz EV67 with 2 MiB L2 cache (3.2 GiB/s) [(>{{wiki:hardware:motherboards:up1100:up1100_spec_sheet.pdf?linkonly|UP1100 Spec Sheet}}, Alpha Processor, Inc., January 2001)]
-  * AMD-751 Chipset, ALi M1543C south bridge
+  * AMD-751 Chipset, ALi M1535D south bridge [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}})] (the spec sheets list the M1543C)
   * 3x 168-pin DIMMs, supports 64 MiB to 768 MiB of ECC unbuffered PC100 SDRAM
   * 1x AGP 2x (See limitations below)
   * 3x 33 MHz 32-bit PCI slots
   * DECchip 21143 Ethernet
-  * Onboard sound
+  * ALi M5451 Sound [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L44443|"2.4.0 on UP1100"]], Michal Jaegermann, axp-list, 24 Nov 2000)]
 
 ==== Limitations ====
 
   * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB (137GB)
   * According to Ivan Kokshaysky, the UP1000, UP1100, and UP1500's AGP is limited to PCI transfers:
     <blockquote>There is quite fundamental conflict between the Alpha architecture and x86 AGP implementation - Alpha is entirely cache coherent by design, while x86 AGP is not (I mean native AGP DMA transactions, not a PCI over AGP). There are no such things as non-cacheable mappings or software support for cache flushing/invalidation on Alpha, so x86 AGP code won't work on Nautilus.</blockquote>
+  * ATI Rage II and Rage Pro based video cards do not work in the UP1000 or UP1100, although they work in the UP2000 and DP264. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L17091|"Re: (no subject)"]], Maurice Hilarius, axp-list, 22 Aug 2000)]
+  * The BIOS emulator in the UP1100's SRM firmware cannot initialize any AGP Radeon card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L2650|"AW: Some observations regarding FC* on UP2000+"]], Jay Estabrook, axp-list, 24 Apr 2008)] The UP1500's newer firmware does not have this problem. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)]
+  * There is no halt switch connector on the motherboard. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L3592|"Re: UP1100 & Matrox"]], Rich Payne, debian-alpha, 26 Oct 2000)]
+
+==== Memory ====
+
+  * The AMD-751 can address at most 768 MiB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L30727|"Re: UP1100 delivery problems"]], Rich Payne, axp-list, 26 Mar 2002)] The maximum configuration is 3x 256 MiB ECC unbuffered (not registered) CL3 SDRAM DIMMs. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L32024|"Re: UP1100 delivery problems"]], Maurice Hilarius, axp-list, 26 Mar 2002)]
+  * Unlike DEC's Alpha systems, the UP1100 works with a single DIMM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-December.mbox#L1027|"Alpha hardware"]], Jay Estabrook, axp-list, 5 Dec 2008)]
+
+==== Firmware ====
+
+The UP1100 uses the SRM console. UP1100 SRM releases include 5.6-9, 5.6-11 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L22500|"Re: volatile SRM variables"]], Rich Payne, axp-list, 11 Nov 2000)], and 5.6-13 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L31967|"Re: UP1100 and linux 2.4.0, anyone?"]], John Jasen, axp-list, 30 Jan 2001)]. After API closed, 5.6-13 was available from Microway's web site. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-November.mbox#L7025|"UP1100 and disk size"]], Robert Funnell, debian-alpha, 10 Nov 2005)] The UP1000 and UP1100 SRM images are different and cannot be used on each other's boards. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L30608|"Re: 2.40test10 working?"]], Rich Payne, axp-list, 17 Nov 2000)]
+
+Known firmware issues:
+
+  * With SRM 5.6-11, turning the system off at the wrong time during a reboot can erase all SRM environment variables. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L22280|"Re: volatile SRM variables"]], Maurice Hilarius, axp-list, 11 Nov 2000)] Rich Payne of API could not reproduce this with 5.6-9. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L22500|"Re: volatile SRM variables"]], Rich Payne, axp-list, 11 Nov 2000)]
+  * With SRM 5.6-9, the system rebooted after a Linux halt or poweroff if ''auto_action'' was set to ''boot''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-February.mbox#L4016|"Re: reboot in spite of shutdown-halt-poweroff"]], John Jasen, axp-list, 2 Feb 2001)]
+
+==== Linux ====
+
+  * Because the UP1100 boots from SRM, the generic kernel works. The Debian 2.2 "nautilus" kernel failed on the UP1100 (lost interrupts, no keyboard), while the generic kernel worked. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-August.mbox#L5596|"Can't install non-Nautilus on UP1100"]], Robert Funnell, debian-alpha, 28 Aug 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L3178|"UP1100 install tweaks"]], Major Andras, debian-alpha, 25 Oct 2000)]
+  * Onboard sound required a patch from API for Linux 2.2.16 (enable Trident sound support). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L3592|"Re: UP1100 & Matrox"]], Rich Payne, debian-alpha, 26 Oct 2000)]
+  * See the [[UP1000]] page for the ''/etc/alpha_systype'' workaround and the Linux 2.4 ALi IDE corruption bug, which also affect the UP1100.
+
+==== Power Supply ====
+
+The UP1100 can run from a good quality 300 W power supply, but 350 W to 400 W is recommended. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-September.mbox#L17709|"Re: Power Supply for UP 2000."]], Maurice Hilarius, axp-list, 22 Sep 2001)]
 
 ==== Documentation ====
 
