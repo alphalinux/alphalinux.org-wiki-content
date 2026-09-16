@@ -1,0 +1,30 @@
+===== EB164 =====
+
+The Digital Semiconductor 21164 Alpha Microprocessor Evaluation Board (EB164) is an evaluation and development board for systems based on the 21164 microprocessor and the 21171 core logic chipset.
+
+<gallery right aligned nocrop>
+wiki:hardware:motherboards:eb164:eb164-1.jpg Digital EB164
+</gallery>
+
+==== Specifications ====
+
+  * 266 MHz 21164 CPU (also supports 300 MHz and 333 MHz) [(>{{wiki:hardware:motherboards:eb164:eb164_user_guide.pdf?linkonly|Digital Semiconductor 21164 Alpha Microprocessor Evaluation Board User's Guide}})]
+  * 21171 chipset (1x 21171-CA CIA, 4x 21171-BA data switches)
+  * 2, 4, or 8 MiB L3 Bcache on cache SIMMs, 6 ns to 15 ns SRAMs
+  * 8x 36-bit SIMMs (32 data bits, 4 check bits) in one bank, supports 32 MiB to 512 MiB of DRAM (70 ns or faster), 256-bit data bus
+  * PCI bus running at 25 MHz to 33 MHz
+  * 3x PCI slots (1x 64-bit, 2x 32-bit) plus 1x shared 64-bit PCI/ISA slot
+  * 2x ISA slots plus 1x shared ISA/PCI slot
+  * Intel 82378ZB PCI-to-ISA bridge
+  * National 87312 combination controller: IDE, diskette, 2x serial ports, parallel port
+  * Intel 8242 keyboard and mouse controller
+  * Dallas Semiconductor DS1287 time-of-year clock
+  * 1 MiB flash ROM containing the debug monitor and Windows NT ARC firmware
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:eb164:eb164_user_guide.pdf?linkonly|Digital Semiconductor 21164 Alpha Microprocessor Evaluation Board User's Guide}}
+  * {{wiki:hardware:motherboards:eb164:21164_motherboard_user_manual.pdf?linkonly|Digital Semiconductor 21164 Alpha Microprocessor Motherboard User's Manual}}
+  * {{wiki:hardware:motherboards:eb164:eb164_read_me_first.pdf?linkonly|Digital Semiconductor Alpha 21164 Microprocessor Evaluation Board Read Me First}}
+
+{{gallery>:wiki:hardware:motherboards:eb164}}

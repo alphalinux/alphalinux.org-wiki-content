@@ -1,0 +1,32 @@
+===== PC264DP =====
+
+The AlphaPC 264DP is a dual-processor motherboard based on the Alpha 21264 microprocessor and the 21272 core logic chipset. The CPUs and their L2 cache are on daughtercards that plug into the mainboard.
+
+<gallery right aligned nocrop>
+wiki:hardware:motherboards:pc264dp:ds20-top.jpg Digital 54-24756 mainboard (AlphaServer DS20)
+</gallery>
+
+==== Specifications ====
+
+  * 1 or 2 daughtercards, each with a 500 MHz Alpha 21264 CPU and 2 MiB L2 cache [(>{{wiki:hardware:motherboards:pc264dp:pc264dp_user_manual.pdf?linkonly|AlphaPC 264DP User's Manual}})]
+  * 21272 core logic chipset (1 Cchip, 8 Dchips, 2 Pchips)
+  * 16x 200-pin buffered DIMMs (four arrays of four), supports 128 MiB to 4 GiB of ECC SDRAM
+  * 2x 33 MHz 64-bit PCI buses
+  * 6x 64-bit PCI slots (one shared with ISA)
+  * 1x ISA slot (shared with PCI)
+  * Cypress CY82C693UB PCI-to-ISA bridge, IDE, keyboard, mouse, and time-of-year clock
+  * Adaptec AIC-7895 dual-port Ultra Wide SCSI controller
+  * SMC FDC37C669 Super I/O controller (floppy, 2x serial, parallel)
+  * Mainboard dimensions: 42.11 cm x 33.02 cm (16.58 in x 13.0 in)
+  * AlphaBIOS and SRM console firmware
+
+The photos labeled DS20 show a Digital 54-24756-02 AlphaServer DS20 system board. It has the same layout and components as the AlphaPC 264DP described above: 16 DIMM slots, 6 PCI slots plus 1 ISA slot, two daughtercard connectors, and the AIC-7895 and CY82C693UB chips. The CPU card photos show daughtercards built by DEC and by Samsung.
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:pc264dp:pc264dp_technical_reference_manual.pdf?linkonly|AlphaPC 264DP Technical Reference Manual}}
+  * {{wiki:hardware:motherboards:pc264dp:pc264dp_user_manual.pdf?linkonly|AlphaPC 264DP User's Manual}}
+  * {{wiki:hardware:motherboards:pc264dp:pc264dp_product_brief.pdf?linkonly|AlphaPC 264DP Product Brief}}
+  * {{wiki:hardware:motherboards:pc264dp:pc264dp_data_sheet.pdf?linkonly|AlphaPC 264DP Motherboard}} (data sheet)
+
+{{gallery>:wiki:hardware:motherboards:pc264dp}}

@@ -1,0 +1,36 @@
+===== PC164 =====
+
+The AlphaPC 164 is an ATX form factor motherboard produced by Digital Semiconductor.
+
+<gallery right aligned nocrop>
+wiki:hardware:motherboards:pc164:pc164-1.jpg Digital AlphaPC 164
+</gallery>
+
+==== Specifications ====
+
+  * 366, 400, 433, 466, or 500 MHz 21164 CPU [(>{{wiki:hardware:motherboards:pc164:pc164_product_brief.pdf?linkonly|AlphaPC 164 Motherboard Product Brief}})]
+  * 21172 core logic chipset
+  * One bank of 4 or 8 36-bit 70 ns SIMMs, supports 16 MiB to 512 MiB of DRAM (128-bit or 256-bit data bus)
+  * 1 MiB synchronous SRAM L3 cache
+  * 4x 33 MHz PCI slots (2x 64-bit, 2x 32-bit)
+  * 2x ISA slots
+  * Intel 82378ZB PCI-to-ISA bridge
+  * CMD PCI0646 IDE on PCI
+  * SMC FDC37C935 Super I/O controller (floppy, 2x UARTs, parallel port, keyboard and mouse, time-of-year clock)
+  * 1 MiB flash ROM
+  * Windows NT ARC firmware
+  * Standard ATX 3.3V power supply
+  * 12.0 in x 9.6 in (30.48 cm x 24.38 cm)
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:pc164:pc164_technical_reference_manual.pdf?linkonly|AlphaPC 164 Motherboard Technical Reference Manual}}
+  * {{wiki:hardware:motherboards:pc164:pc164_user_manual.pdf?linkonly|AlphaPC 164 Motherboard User's Manual}}
+  * {{wiki:hardware:motherboards:pc164:pc164_digital_unix_user_manual.pdf?linkonly|AlphaPC 164 Motherboard DIGITAL UNIX User's Manual}}
+  * {{wiki:hardware:motherboards:pc164:pc164_product_brief.pdf?linkonly|AlphaPC 164 Motherboard Product Brief}}
+  * {{wiki:hardware:motherboards:pc164:pc164_digital_unix_product_brief.pdf?linkonly|AlphaPC 164 Motherboard DIGITAL UNIX Product Brief}}
+  * {{wiki:hardware:motherboards:pc164:pc164_read_me_first.pdf?linkonly|AlphaPC 164 Motherboard Design Kit Read Me First}}
+  * {{wiki:hardware:motherboards:pc164lx:alphapc_v5.3_firmware_release_notes.pdf?linkonly|AlphaPC 164SX/164LX/164 V5.3 Firmware Release Notes}}
+  * {{wiki:hardware:motherboards:pc164lx:alphapc_v5.7_firmware_release_notes.pdf?linkonly|AlphaPC 164SX/164LX/164 V5.7 Firmware Release Notes}}
+
+{{gallery>:wiki:hardware:motherboards:pc164}}

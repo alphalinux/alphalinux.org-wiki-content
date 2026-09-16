@@ -9,6 +9,10 @@ Wikipedia has many articles on Alpha CPUs that we will not duplicate:
   - [[wp>Alpha 21364|21364]]
   - [[wp>Alpha 21464|21464]]
 
+Documentation:
+
+  * {{wiki:hardware:cpu:21264_21364_compiler_writers_guide.pdf?linkonly|Compiler Writer's Guide for the 21264/21364}}
+
 ==== Socket 499 (PC164, PC164LX, PC164BX/UX, Personal Workstation) ====
 
 ^ Manufacturer ^ Part Number ^ Type ^ Frequency ^
@@ -37,20 +41,20 @@ Wikipedia has many articles on Alpha CPUs that we will not duplicate:
   * -//x//D is for Linux
 
 ^ Part Number ^ Type ^ Frequency ^ Cache ^ Pass ^ Notes ^
-| 54-24758-01 | EV6 | 500 MHz | 4 MB | | |
-| 54-24758-02 | EV6 | 500 MHz | 4 MB | | |
-| 54-24758-03 | EV6 | 500 MHz | 4 MB | | |
-| 54-24758-05 | EV6 | 500 MHz | 4 MB | 2.3 | |
+| 54-24758-01 | EV6 | 500 MHz | 4 MiB | | |
+| 54-24758-02 | EV6 | 500 MHz | 4 MiB | | |
+| 54-24758-03 | EV6 | 500 MHz | 4 MiB | | |
+| 54-24758-05 | EV6 | 500 MHz | 4 MiB | 2.3 | |
 | 54-24758-06 | EV6 | 500 MHz | | | |
 | 54-24758-07 | EV6 | 500 MHz | | | |
 | 54-24758-08 | EV6 | 500 MHz | | | |
-| 54-24758-35 | EV6 | 500 MHz | 4 MB | | IBM cache |
-| 54-30060-01 | EV67 | 667 MHz | 8 MB | 2.2 | IBM/Sony cache |
-| 54-30060-02 | EV67 | 667 MHz | 8 MB | 2.2.3 | IBM/Sony cache |
-| 54-30060-03 | EV67 | 667 MHz | 8 MB | 2.6 | IBM/Sony cache |
-| 54-30060-04 | EV67 | 667 MHz | 8 MB | 2.6 | IBM/Sony cache |
+| 54-24758-35 | EV6 | 500 MHz | 4 MiB | | IBM cache |
+| 54-30060-01 | EV67 | 667 MHz | 8 MiB | 2.2 | IBM/Sony cache |
+| 54-30060-02 | EV67 | 667 MHz | 8 MiB | 2.2.3 | IBM/Sony cache |
+| 54-30060-03 | EV67 | 667 MHz | 8 MiB | 2.6 | IBM/Sony cache |
+| 54-30060-04 | EV67 | 667 MHz | 8 MiB | 2.6 | IBM/Sony cache |
 | 54-30068-01 | EV67 | 667 MHz | | | |
-| 54-30482-01 | EV68 | 833 MHz | 8 MB | | IBM/Sony cache |
-| 54-30482-02 | EV68 | 833 MHz | 8 MB | | |
+| 54-30482-01 | EV68 | 833 MHz | 8 MiB | | IBM/Sony cache |
+| 54-30482-02 | EV68 | 833 MHz | 8 MiB | | |
 
 {{tag>hardware}}

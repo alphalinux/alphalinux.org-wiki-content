@@ -2,21 +2,21 @@
 
 ^ Motherboard ^  CPU  ^^  Memory  ^^ Chipset ^ Cache ^  PCI  ^^ AGP ^ ISA ^
 ^ ^ Type ^ Frequency ^ Type ^ Capacity ^ ^ ^ 64-bit ^ 32-bit ^ ^ ^
-| [[hardware:motherboards:EB64]] | [[wp>Alpha_21064|21064/EV4]] | 150 MHz | FPM Parity | 64 MB | | 512 KB | | | | |
+| [[hardware:motherboards:EB64]] | [[wp>Alpha_21064|21064/EV4]] | 150 MHz | FPM Parity | 64 MiB | | 512 KiB | 0 | 0 | 0 | 2 |
 | [[hardware:motherboards:eb64plus|EB64+]] | [[wp>Alpha_21064#Alpha_21066A|21066A/LCA45]] | 275 MHz | FPM Parity | | | | 0 | 2,3 | 0 | 3 |
-| [[hardware:motherboards:EB66+]] | [[wp>Alpha_21064#Alpha_21066A|21066A/LCA45]] | 233 MHz | FPM Parity | 384 MB | | 1 MB | 0 | 4 | 0 | 5 |
-| [[hardware:motherboards:PC64]] | [[wp>Alpha_21064#Alpha_21064A|21064A/EV45]] | 200, 233, 275 MHz | FPM Parity | 512 MB | 21072 | 512 KB - 8 MB | 0 | 4 | 0 | 3 |
-| [[hardware:motherboards:EB164]] | [[wp>Alpha_21164|21164/EV5]] | 266, 300, 333 MHz | FPM Parity | 512 MB | 21171 | 2 - 8 MB | 2 | 2 | 0 | 3 |
-| [[hardware:motherboards:PC164]] | [[wp>Alpha_21164|21164/EV5]], [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 366 - 500 MHz | FPM Parity | 512 MB (1 GB?) | 21172 | 1 MB | 2 | 2 | 0 | 2 |
-| [[hardware:motherboards:PC164LX]] | [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 466, 533, 600 MHz | ECC SDRAM | 1024 MB | 21174 | 2, 4 MB | 2 | 2 | 0 | 2 |
-| [[hardware:motherboards:PC164SX]] | [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|21164PC/PCA56]] | 400, 533 MHz | ECC SDRAM | 1024 MB | 21174 | 1 MB | 2 | 2 | 0 | 2 |
-| [[hardware:motherboards:PC164UX]], [[..:pc164ux#PC164BX|PC164BX]] | [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 300 - 800 MHz | ECC SDRAM | 3072 MB | 21174 | 2, 4 MB | 1 | 5 | 0 | 1 |
-| [[hardware:motherboards:PC164RX]] | [[wp>Alpha_21164#Alpha_21164PC_(PCA57)|21164PC/PCA57]] | 525, 575, 600 MHz | ECC SDRAM | 512 MB | Polaris | 1 MB | 0 | 5 | 0 | 1 |
-| [[hardware:motherboards:PC264DP]] | [[wp>Alpha_21264|21264/EV6]], [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 500, 667 MHz | ECC SDRAM | 4096 MB | 21272 | 2, 4 MB | 6 | 0 | 0 | 1 |
-| [[hardware:motherboards:UP1000]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 600, 700 MHz | ECC SDRAM | 768 MB | AMD-751 | 2, 4 MB | 0 | 4 | 1 | 2 |
-| [[hardware:motherboards:UP1100]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 600 MHz | ECC SDRAM | 768 MB | AMD-751 | 2 MB | 0 | 3 | 1 | 0 |
-| [[hardware:motherboards:UP1500]] | [[wp>Alpha_21264#Alpha_21264B|21264B/EV68]] | 800 MHz | ECC DDR SDRAM | 4096 MB | AMD-761 | 2 - 8 MB | 0 | 3 | 1 | 0 |
-| [[hardware:motherboards:UP2000]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 667, 750 MHz | ECC SDRAM | 2048 MB | 21272 | 2 - 8 MB | 2 | 4 | 0 | 1 |
-| [[hardware:motherboards:UP2000#up2000plus|UP2000+]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]], [[wp>Alpha_21264#Alpha_21264B|21264B/EV68]] | 667, 750, 833 MHz | ECC SDRAM | 2048 MB | 21272 | 2 - 8 MB | 4 | 2 | 0 | 1 |
+| [[hardware:motherboards:eb66plus|EB66+]] | [[wp>Alpha_21064#Alpha_21066A|21066A/LCA45]] | 233 MHz | FPM Parity (ECC) | 384 MiB | | 1 MiB | 0 | 4 (1 shared) | 0 | 5 (1 shared) |
+| [[hardware:motherboards:PC64]] | [[wp>Alpha_21064#Alpha_21064A|21064A/EV45]] | 200, 233, 275 MHz | FPM Parity | 512 MiB | 21072 | 512 KiB - 8 MiB | 0 | 4 (1 shared) | 0 | 3 (1 shared) |
+| [[hardware:motherboards:EB164]] | [[wp>Alpha_21164|21164/EV5]] | 266, 300, 333 MHz | FPM Parity (ECC) | 512 MiB | 21171 | 2 - 8 MiB | 2 (1 shared) | 2 | 0 | 3 (1 shared) |
+| [[hardware:motherboards:PC164]] | [[wp>Alpha_21164|21164/EV5]], [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 366 - 500 MHz | FPM Parity (ECC) | 512 MiB | 21172 | 1 MiB | 2 | 2 | 0 | 2 |
+| [[hardware:motherboards:PC164LX]] | [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 466, 533, 600 MHz | ECC SDRAM | 1024 MiB | 21174 | 2, 4 MiB | 2 | 2 | 0 | 2 |
+| [[hardware:motherboards:PC164SX]] | [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|21164PC/PCA56]] | 400, 533 MHz | ECC SDRAM | 1024 MiB | 21174 | 1 MiB | 2 | 2 | 0 | 2 |
+| [[hardware:motherboards:PC164UX]], [[hardware:motherboards:pc164ux#pc164bx|PC164BX]] | [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 300 - 800 MHz | ECC SDRAM | 3072 MiB | 21174 | 2, 4 MiB | 1 | 5 | 0 | 1 |
+| [[hardware:motherboards:PC164RX]] | [[wp>Alpha_21164#Alpha_21164PC_(PCA57)|21164PC/PCA57]] | 525, 575, 600 MHz | ECC SDRAM | 512 MiB | Polaris | 1 MiB | 0 | 5 (1 shared) | 0 | 1 (shared) |
+| [[hardware:motherboards:PC264DP]] | [[wp>Alpha_21264|21264/EV6]], [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 500, 667 MHz | ECC SDRAM | 4096 MiB | 21272 | 2, 4 MiB | 6 (1 shared) | 0 | 0 | 1 (shared) |
+| [[hardware:motherboards:UP1000]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 600, 700 MHz | ECC SDRAM | 768 MiB | AMD-751 | 2, 4 MiB | 0 | 4 | 1 | 2 |
+| [[hardware:motherboards:UP1100]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 600 MHz | ECC SDRAM | 768 MiB | AMD-751 | 2 MiB | 0 | 3 | 1 | 0 |
+| [[hardware:motherboards:UP1500]] | [[wp>Alpha_21264#Alpha_21264B|21264B/EV68]] | 800 MHz | ECC DDR SDRAM | 4096 MiB | AMD-761 | 2 - 8 MiB | 0 | 3 | 1 | 0 |
+| [[hardware:motherboards:UP2000]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 667, 750 MHz | ECC SDRAM | 2048 MiB | 21272 | 2 - 8 MiB | 2 | 4 | 0 | 1 |
+| [[hardware:motherboards:UP2000#up2000plus|UP2000+]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]], [[wp>Alpha_21264#Alpha_21264B|21264B/EV68]] | 667, 750, 833 MHz | ECC SDRAM | 2048 MiB | 21272 | 2 - 8 MiB | 4 | 2 | 0 | 1 |
 
 {{tag>hardware}}

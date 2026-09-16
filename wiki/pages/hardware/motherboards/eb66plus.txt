@@ -1,0 +1,21 @@
+===== EB66+ =====
+
+The Alpha 21066A Microprocessor Evaluation Board (EB66+) is a baby AT form factor evaluation and development board for systems based on the Alpha 21066A microprocessor.
+
+==== Specifications ====
+
+  * 21066A CPU running at up to 233 MHz; lower frequencies are available through onboard jumpers [(>{{wiki:hardware:motherboards:eb66plus:eb66plus_user_guide.pdf?linkonly|Alpha 21066A Microprocessor Evaluation Board (EB66+) User's Guide}})]
+  * 1 MiB external backup cache (Bcache), can emulate 256 KiB or 512 KiB by jumper
+  * 6x 72-pin 36-bit SIMMs in three banks of identical pairs, supports 8 MiB to 384 MiB of ECC DRAM (70 ns or faster)
+  * PCI bus integrated into the 21066A, running at 33 MHz
+  * 4x PCI slots (one shared with ISA)
+  * 5x ISA slots (one shared with PCI)
+  * Intel 82378ZB PCI-to-ISA bridge
+  * National PC87312 combination controller: IDE, diskette, 2x serial ports, parallel port (all on onboard headers)
+  * Intel 8242 keyboard and mouse controller
+  * Dallas Semiconductor DS1287 time-of-year clock
+  * Serial ROM and flash ROM containing a debug monitor
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:eb66plus:eb66plus_user_guide.pdf?linkonly|Alpha 21066A Microprocessor Evaluation Board (EB66+) User's Guide}}

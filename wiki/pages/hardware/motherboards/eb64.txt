@@ -1,0 +1,19 @@
+===== EB64 =====
+
+The DECchip 21064 Evaluation Board (EB64) is an evaluation board released in 1993.
+
+==== Specifications ====
+
+  * DECchip 21064 CPU at 150 MHz [(>{{wiki:hardware:motherboards:eb64:eb64_user_guide.pdf?linkonly|DECchip 21064 Evaluation Board User's Guide}})]
+  * 512 KiB external backup cache (Bcache) of 12 ns SRAMs, configurable to 256 or 128 KiB
+  * 4x 36-bit DRAM SIMMs, supports 4 MiB to 64 MiB with parity, 128-bit data path
+  * 2x ISA slots, driven by a VLSI Technology SC486 (VL82C486 and VL82C113A) ISA bus controller, which also provides the interrupt controller, DMA controller, timers, real-time clock, and keyboard and mouse interfaces
+  * SMC FDC37C651 Super I/O controller providing 2 serial ports and a floppy disk controller
+  * AMD Am79C960 PCnet-ISA Ethernet with 10BaseT and 10Base2 interfaces
+  * Serial ROM (SROM) for CPU initialization
+  * 2x PROM sockets: a 512 KiB or 1 MiB debug ROM containing the debug monitor, and one user-programmable
+  * High-speed 21064 pin-bus expansion interface
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:eb64:eb64_user_guide.pdf?linkonly|DECchip 21064 Evaluation Board User's Guide}}

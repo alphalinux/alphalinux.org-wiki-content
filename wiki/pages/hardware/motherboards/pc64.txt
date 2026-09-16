@@ -1,0 +1,21 @@
+===== PC64 =====
+
+The AlphaPC64 is a 33.0 cm x 22.1 cm motherboard released in 1995.
+
+==== Specifications ====
+
+  * Alpha 21064A CPU at 200, 233, or 275 MHz in a ZIF socket [(>{{wiki:hardware:motherboards:pc64:pc64_motherboard_user_manual.pdf?linkonly|AlphaPC64 Motherboard User's Manual}})]
+  * 512 KiB, 2 MiB, or 8 MiB external L2 cache on 2x cache SIMMs
+  * DECchip 21072 chipset (21071-CA cache/memory controller, 4x 21071-BA data path, 21071-DA PCI bridge)
+  * 8x 36-bit DRAM SIMMs in 2 banks, supports 16 MiB to 512 MiB with parity, 128-bit data path
+  * 4x 32-bit 33 MHz PCI slots and 3x ISA slots (6 total, 1 slot shared between PCI and ISA)
+  * Intel 82378ZB SIO PCI-to-ISA bridge
+  * National 87312 Super I/O controller providing floppy, IDE, 2x serial ports, and parallel port
+  * Intel 8242 PS/2 keyboard and mouse controller
+  * Dallas Semiconductor DS1287 time-of-year clock
+  * 1 MiB flash ROM containing Windows NT ARC firmware and debug monitor
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:pc64:pc64_motherboard_user_manual.pdf?linkonly|AlphaPC64 Motherboard User's Manual}}
+  * {{wiki:hardware:motherboards:pc64:pc64_evaluation_board_user_guide.pdf?linkonly|AlphaPC64 Evaluation Board User's Guide}}

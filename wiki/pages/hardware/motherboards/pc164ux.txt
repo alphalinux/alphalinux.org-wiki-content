@@ -1,0 +1,36 @@
+===== PC164UX / PC164BX =====
+
+The AlphaPC 164UX is an ATX form factor motherboard based on the Alpha 21164 microprocessor and the 21174 core logic chip.
+
+<gallery right aligned nocrop>
+wiki:hardware:motherboards:pc164ux:pc164ux-1.jpg AlphaPC 164UX
+</gallery>
+
+==== Specifications ====
+
+  * Alpha 21164 CPU, 300 to 800 MHz (selected by jumpers) [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}})]
+  * 2 or 4 MiB onboard L3 backup cache (synchronous SSRAM)
+  * 21174 core logic chip
+  * 6x 168-pin DIMMs (three banks), supports 32 MiB to 3 GiB of unbuffered ECC SDRAM
+  * 1x 33 MHz 64-bit PCI slot
+  * 5x 33 MHz 32-bit PCI slots
+  * 1x ISA slot
+  * DEC 21052 PCI-to-PCI bridge
+  * Intel 82371SB PCI-to-ISA bridge and EIDE
+  * DEC 21143 10/100 Mbit Ethernet
+  * Symbios 53C875 Ultra Wide SCSI controller
+  * SMC FDC37C666 Super I/O controller (floppy, 2x serial, parallel)
+  * PS/2 keyboard and mouse
+  * 1 MiB flash ROM
+  * Windows NT ARCSBIOS firmware
+
+{{anchor:pc164bx}}
+==== PC164BX ====
+
+The AlphaPC 164BX is the same board as the 164UX, except that it lacks the Ethernet and Ultra Wide SCSI controllers and has only a 2 MiB L3 cache.
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}}
+
+{{gallery>:wiki:hardware:motherboards:pc164ux}}
