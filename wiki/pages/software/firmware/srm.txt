@@ -1,0 +1,257 @@
+===== SRM Console =====
+
+The SRM console is the command line firmware that Digital (later Compaq and HP) shipped for Alpha systems running OpenVMS and Digital UNIX (Tru64 UNIX). Linux, NetBSD, and OpenBSD also boot from it. The name refers to the Alpha System Reference Manual, the specification whose console architecture the firmware implements. [(>{{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}}, p. 1-1)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7687|"Re: Enter IEEE 1275, OpenBoot firmware console RE: SRM multi OS'e s"]], Jay Estabrook, axp-list, 6 Oct 1999)] The command line interface will be familiar to users of Digital's VAX systems. [(>{{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}}, p. 1-1)]
+
+Systems intended for Windows NT instead use the [[software:firmware:arc|ARC or AlphaBIOS]] firmware. Some systems carry both consoles and can switch between them (see [[#switching_to_arc_or_alphabios|Switching to ARC or AlphaBIOS]]).
+
+==== Specification ====
+
+The console is specified in Part III, "Console Interface Architecture", of the Alpha System Reference Manual. [(>{{wiki:documentation:references:alpha_system_reference_manual_v7.pdf?linkonly|Alpha System Reference Manual, Version 7 (1997)}})] According to Jay Estabrook, most of the manual was published as the Alpha Architecture Reference Manual, but some of its appendices are company confidential. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7687|"Re: Enter IEEE 1275, OpenBoot firmware console RE: SRM multi OS'e s"]], Jay Estabrook, axp-list, 6 Oct 1999)] The specification requires the console to:
+
+  * initialize, test, and prepare the hardware,
+  * bootstrap system software,
+  * control each processor in a multiprocessor system when no operating system is running,
+  * provide services to system software that simplify access to the hardware, and
+  * let a console operator monitor and control the system. [(>{{wiki:documentation:references:alpha_system_reference_manual_v7.pdf?linkonly|Alpha System Reference Manual, Version 7 (1997)}}, Part III, p. 1-1)]
+
+=== HWRPB ===
+
+The console and the operating system share state through the Hardware Restart Parameter Block (HWRPB) and a set of environment variables. The console builds the HWRPB during initialization and maps it at virtual address ''0x10000000'' for the bootstrap. The HWRPB holds the system type and variation, page size, processor count, per-CPU data, memory cluster descriptors, and the location of the console callback routines. Its validation quadword is the ASCII string ''HWRPB''. [(>{{wiki:documentation:references:alpha_system_reference_manual_v7.pdf?linkonly|Alpha System Reference Manual, Version 7 (1997)}}, Part III, pp. 2-1 to 2-6)]
+
+The Linux kernel does no CPU detection of its own; it reports what the console places in the HWRPB, so values in ''/proc/cpuinfo'' come directly from the firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L15664|"Re: ev56 optimization -> illegal instruction"]], Richard Henderson, axp-list, 12 Mar 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L47865|"Re: [2.2.12] /proc/cpuinfo wrong on Alpha UP"]], Richard Henderson, axp-list, 29 Aug 1999)] The ''nr_processors'' field is not the number of CPUs actually present; the per-CPU slots must be checked. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L16654|"Re: SMP problem....maybe ??"]], Jay Estabrook, axp-list, 8 Dec 1999)] [[software:boot_loaders|MILO]] builds only as much of an HWRPB as Linux needs, which is why MILO systems report the serial number ''Linux_is_Great!''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L2526|"Re: first linux/alpha questions"]], David A Rusling, axp-list, 4 Apr 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L32014|"Re: Linux_is_Great!"]], Jay Estabrook, axp-list, 15 Dec 1998)]
+
+=== Callbacks ===
+
+The console provides callback routines, reached through a common ''DISPATCH'' procedure, that system software can use for terminal I/O (''GETC'', ''PUTS''), generic device I/O (''OPEN'', ''READ'', ''WRITE''), and environment variables (''GET_ENV'', ''SET_ENV''). [(>{{wiki:documentation:references:alpha_system_reference_manual_v7.pdf?linkonly|Alpha System Reference Manual, Version 7 (1997)}}, Part III, pp. 2-31 to 2-33)] Bootstraps such as aboot use them to read the kernel from the boot device. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-December.mbox#L2306|"Re: Milo Development"]], Jay Estabrook, axp-list, 1 Dec 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L27875|"Re: 7.1 boot problem on PC164LX using SRM 5.8-1"]], Richard Henderson, axp-list, 21 Jul 2001)]
+
+The Linux kernel uses the callbacks for:
+
+  * ''srmcons'', a console driver that shows kernel messages early in boot, which is mainly useful for debugging. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L37912|"generic axp patch 10"]], Richard Henderson, axp-list, 14 Aug 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-February.mbox#L13551|"Re: SRM & serial console & 2.4.20 & XP1000"]], Jay Estabrook, axp-list, 17 Feb 2003)] On the AlphaServer ES47, ES80, and GS1280, ''console=srm'' is required to use the "serial" console. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-September.mbox#L6269|"Alpha Core ISO Images"]], Jay Estabrook, axp-list, 30 Sep 2004)]
+  * ''srm_printk'', which cannot be used once the kernel has replaced the console's page tables. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L27222|"Re: tbia() on DEC 3000 question"]], Richard Henderson, axp-list, 18 Aug 1999)]
+  * reading and writing SRM environment variables. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L2502|"Re: access srm resources"]], Peter Petrakis, axp-list, 3 Apr 2001)]
+
+The ''BIOS_EMUL'' callback was documented but never implemented. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L7963|"Re: SRM callbacks: bios_emul"]], Jay Estabrook, axp-list, 13 Dec 2001)]
+
+=== PALcode ===
+
+SRM provides the Digital UNIX (OSF) PALcode, which Linux uses. ARC and AlphaBIOS provide PALcode for Windows NT, which is why Linux needs MILO on those systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L26796|"Re: Does DEC have a clue?"]], Jay Estabrook, axp-list, 21 Jan 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L1384|"Re: bootp with AlphaBIOS"]], Jay Estabrook, axp-list, 3 Nov 1997)] SRM was the first console used by Linux on Alpha, on a Jensen, since no evaluation board PALcode was ever available for that system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-December.mbox#L2127|"Re: booting from MILO and SRM: how is it possible?"]], Jay Estabrook, axp-list, 1 Dec 1997)]
+
+==== Licensing ====
+
+SRM was licensed separately from the hardware, as part of the cost of Digital UNIX or OpenVMS. Digital sold some boards in two variants, one for Windows NT and one with SRM; if a system shipped with SRM, running Linux from it was fine. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L956|"Re: questions on the PC164"]], David A Rusling, axp-list, 12 Jul 1996)] One reason David Rusling wrote MILO was to free Linux from SRM licensing restrictions. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L956|"Re: questions on the PC164"]], David A Rusling, axp-list, 12 Jul 1996)]
+
+  * For Digital Semiconductor boards, the Evaluation Board Software Developer's Kit (EBSDK) was the inexpensive, legal way to get an SRM license. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L3079|"Re: SRM license issues"]], Stephen J. Gaudet, axp-list, 5 Jan 1998)] It cost $75 from Digital, part number QR-21B02-03. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L55112|"Re: SRM on the SX164"]], Kevin Wood, axp-list, 21 Jan 1999)] Its SRM images only covered the EB64, EB64+, EB66, EB66+, Cabriolet, EB164, PC164, PC164LX, and PC164SX. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L3642|"Re: SRM license issues"]], Jay Estabrook, axp-list, 6 Jan 1998)]
+  * A system that previously ran Windows NT is not licensed for SRM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L40176|"RE: Alpha1200/ SRM access"]], WaiSun Chia, axp-list, 16 Jul 1998)]
+  * By 1999, the PC164LX SRM could be downloaded for free because the license was included in the price of the board. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-May.mbox#L46844|"Re: PC164 Motherboards"]], Peter Petrakis, axp-list, 20 May 1999)] By February 2000, Compaq offered SRM V5.5 and V5.6 for free download, including for the PC164SX. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-February.mbox#L36338|"srm / ide"]], Bibek Sahu, axp-list, 27 Feb 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-July.mbox#L75|"Re: MILO upgrades don't work"]], Jeff Sturm, axp-list, 1 Jul 2000)]
+  * Source code for SRM was only available with a separately purchased license. Alpha Processor, Inc. and Samsung bought one. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-February.mbox#L1437|"XL-266 install"]], Jay Estabrook, axp-list, 25 Feb 2004)]
+
+==== System Support ====
+
+Digital UNIX and OpenVMS require the SRM console. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 1-2)] Systems designed only for Windows NT generally do not:
+
+  * The Alpha XL series has no SRM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L3642|"Re: SRM license issues"]], Jay Estabrook, axp-list, 6 Jan 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-October.mbox#L20901|"Re: Milo booting other OSes?"]], Jay Estabrook, axp-list, 29 Oct 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L46358|"Re: DEC Celebris"]], Jay Estabrook, axp-list, 25 Nov 1996)]
+  * The Deskstation Ruffian ([[hardware:motherboards:pc164ux|PC164UX]]) has only its own ARCSBIOS firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L29483|"Re: AlphaBios vs SRM"]], Rich Payne, axp-list, 15 Sep 1999)]
+  * 21164 CPUs sold for Windows NT systems will not run SRM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L956|"Re: questions on the PC164"]], David A Rusling, axp-list, 12 Jul 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-February.mbox#L6260|"Re: a 21164 oddity"]], David Mosberger, axp-list, 20 Feb 1996)]
+
+Other notes on specific systems:
+
+  * The Multia (UDB) starts SRM first, which runs its diagnostics and then normally loads ARC. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L2269|"RE: UDB: SCSI on the motherboard? ARC error"]], Jay Estabrook, axp-list, 13 Jul 1996)]
+  * The [[hardware:motherboards:pc164|PC164]] and AlphaStation 500 have only enough flash for SRM or ARC, not both. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L28243|"Re: Alpha-Boards"]], Jay Estabrook, axp-list, 19 Oct 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-August.mbox#L15899|"Re: Linux running on AlphaStation 500/333?"]], Jay Estabrook, axp-list, 15 Aug 1996)] The Digital Semiconductor motherboards reserve the first 64 KiB of flash for the fail-safe booter and the last 64 KiB for environment variables. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L18441|"Re: ARC, SRM, and the PC164"]], Jay Estabrook, axp-list, 12 Dec 1996)]
+  * The [[hardware:motherboards:pc164lx|PC164LX]] was not initially sold with SRM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L31370|"Re: Alphas, miatas, sdram, and marketing"]], Jay Estabrook, axp-list, 27 Jun 1997)]
+  * The AlphaServer 800 (Noritake) and the [[hardware:motherboards:pc264dp|DP264]] have no MILO, so Linux must boot from SRM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L34327|"Re: Linux and 21264"]], Jay Estabrook, axp-list, 12 Nov 1998)]
+  * Alpha Processor, Inc. released SRM consoles for the [[hardware:motherboards:up2000|UP2000]], based on the DP264 (DS20) SRM, and for the [[hardware:motherboards:up1000|UP1000]], based on V5.6. Tru64 UNIX is not supported on either. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L10941|"Re: dual boot (slightly off topic)"]], Rich Payne, axp-list, 9 Oct 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-June.mbox#L17924|"Re: Benefits of Linux/Alpha over Linux/x86?"]], Rich Payne, axp-list, 23 Jun 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-June.mbox#L9637|"Re: Nvidia Quadro in an Alpha Box"]], Rich Payne, axp-list, 13 Jun 2000)] The UP1000 SRM does not work on the [[hardware:motherboards:up1100|UP1100]]. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L30040|"Re: 2.40test10 working?"]], Rich Payne, axp-list, 16 Nov 2000)]
+  * The Jensen SRM does not support the ''arc'' command. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L39013|"SRM and jensen [was: Jensen Redhat install]"]], Sebastian Moeller, axp-list, 21 Sep 1999)]
+  * The SRM console on the AlphaServer GS80, GS160, and GS320 (Wildfire) is larger than on other systems, which is why Linux 2.4 moved the kernel start address from ''0x310000'' to ''0x810000''. Older bootloaders need ''CONFIG_ALPHA_LEGACY_START_ADDRESS''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-June.mbox#L18501|"Re: Linux-2.4.0-test2"]], Richard Henderson, axp-list, 24 Jun 2000)]
+
+==== Console Commands ====
+
+Commands may be abbreviated if not ambiguous, and numbers are hexadecimal unless otherwise specified. ''help'' lists all commands. Multiprocessor systems show the prompt ''P00>>>'' instead of ''%%>>>%%''. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 3-2 to 3-4)] [(>{{wiki:software:firmware:es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}})]
+
+^ Command ^ Purpose ^
+| ''boot'' | Boot from a device, e.g. ''boot [-file <filename>] [-flags <flags>] [-protocols <protocol>] [-halt] [<device>]'' |
+| ''show config'' | Display the hardware configuration |
+| ''show device'' | List bootable devices |
+| ''show version'' | Display the firmware version |
+| ''show <variable>'' | Display environment variables; wildcards are allowed, e.g. ''show boot*'' or ''show *'' |
+| ''set <variable> <value>'' | Set an environment variable |
+| ''init'' | Save environment variable changes and reinitialize the system |
+| ''examine'', ''deposit'' | Read and write memory and registers |
+| ''arc'', ''alphabios'' | Start the ARC or AlphaBIOS firmware (see [[#switching_to_arc_or_alphabios|below]]) |
+| ''fwupdate'', ''lfu'' | Update firmware (see [[#updating_firmware|below]]) |
+| ''run bios'' | Run an option ROM's BIOS setup utility, e.g. an Adaptec SCSI BIOS |
+
+Sources: [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 3-4 to 3-19)] [(>{{wiki:software:firmware:es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, pp. 12-13)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L19692|"Re: 21140 NIC"]], Rich Payne, axp-list, 24 Apr 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L43768|"Re: XP1000 & MILO & SCSI"]], Peter Petrakis, axp-list, 24 Nov 2000)]
+
+Later consoles have a Unix-like shell with pipes (''show device | grep dk''), output redirection, and ''&'' to run commands in the background. [(>{{wiki:software:firmware:es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 8)]
+
+==== Environment Variables ====
+
+^ Variable ^ Meaning ^
+| ''auto_action'' | Action after power-up, error, or halt: ''halt'' (the default), ''boot'', or ''restart'' |
+| ''bootdef_dev'' | Default boot device or list of devices |
+| ''boot_file'' | Default file to boot |
+| ''boot_osflags'' | Default boot flags; for Linux, these are passed to aboot and the kernel |
+| ''boot_reset'' | ''ON'' resets the system before booting |
+| ''console'' | ''graphics'' or ''serial'' |
+| ''os_type'' | Firmware to load at the next power cycle; the values vary by system (see [[#switching_to_arc_or_alphabios|below]]) |
+| ''ewa0_mode'' | Ethernet media type for the first DEC Tulip interface |
+| ''ewa0_protocols'' | Network boot protocol, ''mop'' or ''bootp'' |
+
+Sources: [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 3-7, 3-23 to 3-26)] [(>{{wiki:software:firmware:es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, pp. 10-11)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L24546|"Re: XP1000 installation"]], Rich Payne, axp-list, 20 Jul 1999)]
+
+Changes to ''console'' take effect after ''init'' or a power cycle. If no keyboard is connected, SRM uses the serial console. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L2188|"Re: installation on PC164LX, SRM 5.1-3, serial console"]], Jay Estabrook, axp-list, 1 Jul 1998)] SRM runs fine without a keyboard or video card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-October.mbox#L22461|"Re: Autobooting (Was: Re: Milo in Flash rom)"]], Jay Estabrook, axp-list, 20 Oct 1998)]
+
+==== Device Names ====
+
+Device names have the form ''dka400.4.0.9.0''. The first two letters are the driver, the third letter is the adapter (''a'' for the first), and the number is the unit. For SCSI devices, the unit number is 100 times the SCSI ID. The remaining fields give the bus node, channel, PCI slot, and hose. [(>{{wiki:software:firmware:es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 7)] [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 2-15 to 2-16)]
+
+^ Prefix ^ Device ^
+| ''dk'' | SCSI disk or CD-ROM |
+| ''dq'' | IDE disk or CD-ROM |
+| ''dr'' | RAID set |
+| ''dg'' | Fibre Channel disk |
+| ''dv'' | Floppy drive |
+| ''mk'' | SCSI tape |
+| ''pk'', ''pq'' | SCSI and IDE controllers |
+| ''ew'' | DEC Tulip Ethernet |
+| ''ei'' | Intel Ethernet |
+| ''fw'' | FDDI |
+
+Sources: [(>{{wiki:software:firmware:es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 7)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-February.mbox#L11360|"Re: RH 7.1 installation on PWS 500a"]], Jay Estabrook, axp-list, 14 Feb 2002)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-July.mbox#L4695|"Re: SRM Console Options"]], Rich Payne, axp-list, 12 Jul 2000)]
+
+Early SRM versions on the Miata (Personal Workstation) accessed IDE CD-ROMs through SCSI emulation. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-February.mbox#L11360|"Re: RH 7.1 installation on PWS 500a"]], Jay Estabrook, axp-list, 14 Feb 2002)]
+
+==== Booting Linux ====
+
+The console reads the boot block in the first sector of the disk, which gives the starting block and length of a contiguous primary bootstrap. It loads that image into memory and jumps to it. The console knows nothing about file systems. [(>{{wiki:documentation:references:alpha_system_reference_manual_v7.pdf?linkonly|Alpha System Reference Manual, Version 7 (1997)}}, Part III, pp. 3-37 to 3-38)] For Linux, the bootstrap is normally aboot, which reads the kernel from an ext2 or ISO 9660 file system and supports network booting. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8471|"announcement: aboot-0.4 (plus updated SRM documentation)"]], David Mosberger-Tang, axp-list, 11 May 1996)]
+
+  * The disk must use a BSD disklabel, with free space before the first partition for aboot. aboot is written to the disk with ''swriteboot /dev/sda /boot/bootlx''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L60042|"Re: Questions."]], Jay Estabrook, axp-list, 23 Jul 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L24105|"Re: Linux Install on AlphaServer 4X00 5/400 21164 400MHz"]], Peter Rival, axp-list, 20 Jul 1999)] If the whole-disk ''c'' partition overlaps aboot, add ''-f3''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L35657|"Re: install /reboot problem"]], Rich Payne, axp-list, 25 Aug 1999)]
+  * A kernel on a partition is booted with e.g. ''boot dka0 -file 3/vmlinux.gz -flags "root=/dev/sda3"'', where ''3'' is the partition number. The double quotes are required when the flags contain spaces. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-March.mbox#L22902|"RE: Alpha Server 2000:Up and Running:THANKS!!"]], Jay Estabrook, axp-list, 20 Mar 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-September.mbox#L31422|"Re: can Linux run on DIGITAL Alphastation 4100 ?"]], Jay Estabrook, axp-list, 19 Sep 1998)]
+  * A numeric flag, e.g. ''boot dka0 -fl 0'', selects the numbered entry in ''/etc/aboot.conf''. ''-fl i'' starts aboot interactively; typing ''l'' at the aboot prompt lists the entries. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-December.mbox#L16134|"Re: boot failures"]], Jay Estabrook, axp-list, 12 Dec 2002)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-October.mbox#L5297|"installation problems - Help will be appreciated"]], Jay Estabrook, axp-list, 26 Oct 2004)]
+  * A kernel on a floppy is booted with ''boot dva0 -file vmlinux.gz -flags "load_ramdisk=1 root=/dev/fd0"''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-August.mbox#L7468|"Re: How to install Linux to Alpha Server 1000"]], Jay Estabrook, axp-list, 7 Aug 1996)]
+  * Network booting uses BOOTP, e.g. ''boot -proto bootp -file udb -flags root=/dev/sda2 ewa0''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L63409|"Re: Multia: Diskless Boot?"]], Jay Estabrook, axp-list, 25 Jul 1998)]
+  * To boot automatically, set ''bootdef_dev'', ''boot_file'', ''boot_osflags'', and ''auto_action boot''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L30392|"Re: Boot via SRM on poweron"]], Jay Estabrook, axp-list, 20 Oct 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L24278|"Re: Boot questions"]], Jay Estabrook, axp-list, 17 Dec 1996)]
+
+MILO can also be booted from SRM, which frees the memory that SRM would otherwise occupy. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L727|"RE: SRM rebooting"]], David A Rusling, axp-list, 4 Mar 1996)] Where SRM is available, it was generally recommended over MILO. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L32291|"Palcode, was RE: AlphaBios vs SRM"]], Kirk R. Erichsen, axp-list, 16 Sep 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L12590|"Re: SRM vs. AlphaBIOS"]], Phillip Ezolt, axp-list, 7 Sep 1999)]
+
+==== Switching to ARC or AlphaBIOS ====
+
+  * On systems with both consoles in flash, ''set os_type nt'' followed by ''init'' or a power cycle starts ARC or AlphaBIOS; ''set os_type unix'' (or ''osf'' or ''vms'', depending on the system) returns to SRM. [(>{{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}}, pp. 1-55 to 1-56)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L41107|"Re: Lost NT Boot Loader"]], Jay Estabrook, axp-list, 16 Jul 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-October.mbox#L43340|"Re: SUCCESS! (was: INSTALL PROBLEMS)"]], Jay Estabrook, axp-list, 28 Oct 1998)] On the AlphaServer 800, SRM starts first and then loads AlphaBIOS, unless the Halt button is in. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 4-11)]
+  * ''alphabios'' (or ''arc'') starts AlphaBIOS from flash for one session. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 6-23)] On the PC164, which has only one firmware in flash, ''arc'' instead loads the ARC firmware image from a FAT floppy. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L18647|"RE: Dual booting PC164"]], Jay Estabrook, axp-list, 12 Dec 1996)]
+  * From ARC, SRM is selected through the Supplementary menu, "Set up the system...", and "Switch to OpenVMS or Digital UNIX console". [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 2-21)] From AlphaBIOS, SRM is selected with "Console Selection" in Advanced CMOS Setup. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L38797|"RE: Alpha taxonomy"]], John Jemiolo, axp-list, 26 Aug 1999)]
+  * The AlphaPC 164, 164LX, and 164SX hold only one firmware in flash, so switching requires reflashing (see [[#updating_firmware|below]]). [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 2-20)]
+
+==== Updating Firmware ====
+
+  * **Firmware CD:** Digital distributed firmware for all its systems on the Alpha Systems Firmware Update CD, e.g. part number QY-003AA-A8. [(>{{wiki:hardware:motherboards:common:sdk_read_me_first.pdf?linkonly|Alpha Motherboards Software Developer's Kit Read Me First}}, p. 14)] Booting the CD (e.g. ''boot dqa0'') runs the Loadable Firmware Update utility (LFU). At its ''UPD>'' prompt, ''list'' shows the current and available versions and ''update *'' updates all firmware. [(>{{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}}, p. 6)] Type ''update srm'', not just ''update'', to update only the console. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L11323|"RE: Help: Corrupted UP2000+ won't boot anymore"]], Peter Petrakis, axp-list, 11 Jul 2001)] The CD version is not the same as the console version; for example, the V7.3 CD carries SRM V6.1-1 for the AlphaServer 4100. [(>{{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}}, p. 10)]
+  * **Floppy:** newer consoles run LFU from floppy with the ''lfu'' command. On the Digital Semiconductor motherboards, ''fwupdate'' loads ''fwupdate.exe'' from a FAT floppy together with the ROM image. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 3-16)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7397|"Re: How to flash MILO? ( Not a faq )"]], Peter Rival, axp-list, 6 Oct 1999)] SRM versions before 4.4-1 lack the ''fwupdate'' command. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 2-17)]
+  * **From AlphaBIOS:** on the PC164LX and PC164SX, SRM is installed with AlphaBIOS's "Upgrade AlphaBIOS" option, using a floppy with ''fwupdate.exe'' and the SRM ROM image (e.g. ''sx164srm.rom''). This overwrites AlphaBIOS. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 2-1)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7397|"Re: How to flash MILO? ( Not a faq )"]], Peter Rival, axp-list, 6 Oct 1999)] To go back, AlphaBIOS is flashed from SRM the same way. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L18642|"Re: How do I update an AlphaBIOS PC164LX to SRM?"]], Jim. Shipman, axp-list, 16 Nov 1997)]
+  * **Recovery:** most Digital Semiconductor motherboards (all but the AlphaPC 64) have a fail-safe booter for recovering from corrupted firmware. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 2-3)] On the PC164LX it is enabled with jumper CF7; it only loads firmware from floppy, which must then be flashed. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-February.mbox#L29667|"Re: trying to make the SRM AlphaBIOS switch"]], Rich Payne, axp-list, 22 Feb 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-June.mbox#L4399|"Re: Problems with old 164LX board"]], Rich Payne, axp-list, 10 Jun 2001)] Some AlphaServers have a fail-safe loader instead, e.g. jumper J22 on the ES40. [(>ES40 V7.3 Firmware Release Notes, p. 12, on the Alpha Systems Firmware Update V7.3 CD)]
+  * Update firmware after a clean power-up, not after shutting down an operating system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-November.mbox#L13826|"Re: Alpha Firmware wonnt update from floppy, help!"]], Rich Payne, axp-list, 26 Nov 2001)]
+
+The last firmware CD, V7.3, was released in April 2007. [(>{{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}})]
+
+==== Final Versions ====
+
+The ''SMMTABLE.TXT'' file on the V7.3 firmware CD (March 2007) lists the last SRM version for each system. [(>''SMMTABLE.TXT'', Alpha Systems Firmware Update CD V7.3, 14 Mar 2007)]
+
+^ System ^ Last SRM version ^
+| DECpc 150, DEC 2000 (Jensen) | 2.2 |
+| DEC 3000 | 7.0 |
+| DEC 4000 | 4.0 |
+| DEC 7000, DEC 10000 | 5.0 |
+| AXPpci33 (Noname) | 4.7 |
+| AlphaPC 164 | 5.5 |
+| AlphaPC 164LX | 5.8 |
+| AlphaPC 164SX | 5.8 |
+| AlphaStation 200, 250, 255 | 7.0-9 |
+| AlphaStation 400 | 7.2-1 |
+| AlphaStation 500, 600 | 7.2-2 |
+| AlphaStation 600A | 5.6-114 |
+| Personal Workstation | 7.2-1 |
+| AlphaServer 300, 400 | 7.0-9 |
+| AlphaServer 800 | 5.8-16 |
+| AlphaServer 1000 | 5.4-101 (4/xxx), 5.4-104 (5/xxx) |
+| AlphaServer 1000A | 5.7-83 (4/xxx), 5.7-80 (5/xxx) |
+| AlphaServer 1200 | 6.0-4 |
+| AlphaServer 2000, 2100, 2100A | 5.3 |
+| AlphaServer 4000, 4100 | 6.1-1 |
+| AlphaServer 8200, 8400 | 6.4 |
+| AlphaServer GS60, GS60E, GS140 | 6.6 |
+| XP1000 | 5.9-1 |
+| AlphaServer DS10, DS20, ES40 | 7.3-1 |
+| AlphaServer DS20L | 6.6-10 |
+| AlphaServer DS15, DS25, ES45 | 7.3-2 |
+| AlphaServer GS80, GS160, GS320 | 7.3-1 |
+| AlphaServer ES47, ES80, GS1280 | 7.3-1 |
+
+The PC164 table entry of 5.5 matches Jay Estabrook's statement that V5.5-1 was the last release for that board. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-April.mbox#L872|"seeking SRM device support info..."]], Jay Estabrook, axp-list, 2 Apr 2004)] See also the [[hardware:motherboards:pc164#conflicting_information|PC164 page]].
+
+==== Known Issues ====
+
+  * **Returning to SRM:** SRM expects the machine to be in the state it left it in. Linux moves the virtual page table and reassigns PCI resources, so after halting Linux the console may report machine checks or leave the screen blank. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-June.mbox#L3211|"Re: INIT errors on UDB at shutdown"]], David Mosberger-Tang, axp-list, 6 Jun 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L18595|"Re: Reboot doesn't reboot"]], Jay Estabrook, axp-list, 9 Apr 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-October.mbox#L12092|"Re: PC164 SRM problem"]], Jay Estabrook, axp-list, 15 Oct 2001)] Linux restores the PCI window mappings for Tsunami systems but not for older ones. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-October.mbox#L13028|"Re: PC164 SRM problem"]], Ivan Kokshaysky, axp-list, 16 Oct 2001)]
+  * **Wrong system variation:** the PC164 SRM reports the EB164 variation rather than PC164, so Linux 2.4 kernels before 2.4.11 did not apply the PC164 interrupt workaround. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-October.mbox#L5046|"Re: Hangs with 100baseTX, RedHat 7.1, kernel 2.4.x and AlphaPC 164"]], Jay Estabrook, axp-list, 4 Oct 2001)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L33173|"Re: RedHat vs. PC164/srm -- summary"]], Jay Estabrook, axp-list, 27 Mar 2002)] The Cabriolet SRM may also set the variation incorrectly. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-November.mbox#L5583|"Re: [PATCH] [RESENT] compilation warnings 4/6"]], Richard Henderson, axp-list, 8 Nov 2002)]
+  * **Floating point on EV4:** the Jensen and Multia SRM consoles mishandle faults from floating point instructions that EV4 does not implement, which hung the Red Hat 7.1 installer. Later 2.4 kernels work around it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L19752|"Re: RH 7.1 Install hangs on Multia"]], Jay Estabrook, axp-list, 17 Jul 2001)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-November.mbox#L8056|"Re: Red Hat 7.1 on DEC UDB via SRM"]], Jay Estabrook, axp-list, 14 Nov 2001)]
+  * **SCSI boot devices:** SRM can only boot from controllers it has drivers for. Adaptec support was added in V5.7 for EV6 systems and backported to the PC164LX and PC164SX. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-September.mbox#L1166|"Re: srm and scsi controllers."]], Jay Estabrook, debian-alpha, 6 Sep 2000)] In 2001, only the PC164LX and PC164SX with V5.8 and the DS10, DS20, ES40, and XP1000 with V5.9 could boot from Adaptec controllers. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L35378|"Re: Alpha PC164, SRM, and Adaptec 2940UW"]], Jay Estabrook, axp-list, 11 Apr 2001)] On older systems, QLogic ISP1020 and ISP1040 controllers are supported but ISP1080 and later are not. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-December.mbox#L4657|"Re: General questions about alphaserver 1200 (533AU2)"]], Jay Estabrook, debian-alpha, 9 Dec 2002)] SRM on EV6 systems dropped support for the original TGA and old Mylex RAID controllers. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-September.mbox#L1166|"Re: srm and scsi controllers."]], Jay Estabrook, debian-alpha, 6 Sep 2000)]
+  * **Video cards:** SRM initializes VGA cards with an x86 BIOS emulator, whose version determines which cards work. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L19180|"Re: Graphic card for AS200 (PCI, ARC-Bios)"]], Jay Estabrook, axp-list, 17 Jul 2001)] V5.5-1 had BIOS emulator V1.15a and V5.9 on the DS10 had X2.02. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-December.mbox#L22132|"Re: would like to do more upgrades"]], Jay Estabrook, axp-list, 20 Dec 2002)] nVidia TNT2 cards need V5.8, and ATI Radeon cards need V5.9. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L11968|"RE: Request For Comment: Low-Cost Alpha Platform Suggestion"]], Rich Payne, axp-list, 9 Apr 2001)] The Jensen SRM had no BIOS emulator and supported only specific cards. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-March.mbox#L36166|"Re: S3 928 video card on Jensen"]], Jay Estabrook, axp-list, 27 Mar 2001)]
+  * **Keyboards:** SRM is pickier about keyboards than AlphaBIOS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L6165|"Re: WAS: RE: SRM serial -> keyboard NOW: 5300 server won't boot"]], Ivan Kokshaysky, axp-list, 7 Apr 2000)]
+  * **Time-of-year clock:** SRM for Digital UNIX stores the year relative to 1952 and newer SRM versions relative to 2000, while ARC and AlphaBIOS use 1980. The Linux RTC driver detects the epoch at boot. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-April.mbox#L2166|"Re: potato install-items"]], David Huggins-Daines, debian-alpha, 8 Apr 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-July.mbox#L9915|"Re: AS2100 RAID (was: ES40 Install Problem...)"]], Earl Truss, axp-list, 17 Jul 2002)]
+
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **Meaning of "SRM"**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7687|"Re: Enter IEEE 1275, OpenBoot firmware console RE: SRM multi OS'e s"]], Jay Estabrook, axp-list, 6 Oct 1999: "System Reference Manual. The console provides an interface which follows the spec present in that manual."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-October.mbox#L58087|"Re: SRM unplugged"]], pseudonymous poster, axp-list, 5 Oct 1998: "The System Resources Monitor (SRM) is the O/S loader for OpenVMS, Digital UNIX, NetBSD, and OpenBSD on the Alpha"
+  * **Whether Linux uses SRM callbacks**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L956|"Re: questions on the PC164"]], David A Rusling, axp-list, 12 Jul 1996: "it also offers callback and console services. None of which Linux wants or uses."
+    * Later kernels use callbacks for ''srmcons'' and ''srm_printk'' (see [[#callbacks|Callbacks]]).
+  * **Memory used by SRM**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L21083|"Re: Confusion re SRM, ARC, MILO, etc."]], David A Rusling, axp-list, 14 Dec 1996: "eats around 5Mbytes of memory"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L956|"Re: questions on the PC164"]], David A Rusling, axp-list, 12 Jul 1996: "waste 3-4Mbytes of memory"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L53775|"Re: SCSI-2 and AS200/233"]], Alan Young, axp-list, 23 Aug 1998: "SRM occupies about 2MB of RAM."
+  * **Whether an SRM license can be bought without Digital UNIX**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L43326|"RE: Alpha1200/ SRM access"]], WaiSun Chia, axp-list, 17 Jul 1998: "you probably cannot just _BUY_ a SRM license for regular SBU products (i.e. the Alphaservers & Alphastation line) without buying DU"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L8376|"Re: AlphaBIOS and milo"]], Maurice W. Hilarius, axp-list, 11 Nov 1997: "One may buy a board and CPU and a license for SRM for it without buying DU."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-May.mbox#L39871|"Re: Questions about 433a"]], Maurice Hilarius, axp-list, 26 May 1998, describing the EBSDK: "includes a license for SRM legal on all Alpha machine types." This conflicts with Jay Estabrook's statement that the EBSDK only includes SRM images for Digital Semiconductor boards.
+  * **Whether the Multia requires SRM to run ARC**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L2269|"RE: UDB: SCSI on the motherboard? ARC error"]], Jay Estabrook, axp-list, 13 Jul 1996: "*ALL* UDB's come with an SRM console, which typically loads ARC after it does some POST diagnostics and all..."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L28148|"Re: Confusion re SRM, ARC, MILO, etc."]], David A Rusling, axp-list, 20 Dec 1996: "That's just the UDB, you do not need SRM in your system to boot ARC."
+  * **Whether rebooting into SRM works**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L885|"Re: SRM rebooting"]], David Mosberger-Tang, axp-list, 4 Mar 1996: "Switching back to SRM is trivial and does work."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L16159|"Re: Kernel 2.1.131 compiles but hangs..."]], Richard Henderson, axp-list, 7 Dec 1998: "Booting and rebooting from SRM should be clean."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-April.mbox#L25397|"Re: DS20 Assorted Difficulties"]], Jay Estabrook, axp-list, 15 Apr 1999: "SRM shutdown/reboot is quite problematic at this time"
+  * **Auto-boot variable name**
+    * {{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 3-23, documents ''auto_action''.
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-July.mbox#L4695|"Re: SRM Console Options"]], Rich Payne, axp-list, 12 Jul 2000: "auto boot is: set auto_boot (halt or boot)"
+  * **Version that added ''run bios''**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L43521|"Re: XP1000 & MILO & SCSI"]], Rich Payne, axp-list, 24 Nov 2000: "you should be able to use the run bios commmand in SRM V5.7 and later (I think)"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L43768|"Re: XP1000 & MILO & SCSI"]], Peter Petrakis, axp-list, 24 Nov 2000: "it's just been introduced in SRM 5.8"
+  * **Adaptec boot support on the PC164LX**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L18663|"Re: SRM vs. ARC; serial output mode of ARC"]], Rich Payne, axp-list, 11 Mar 2000: "It will work for the 2940 (I have one of these at work, with SRM V5.6)"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L35378|"Re: Alpha PC164, SRM, and Adaptec 2940UW"]], Jay Estabrook, axp-list, 11 Apr 2001: "LX and SX with 5.8 firmware (their last)"
+  * **Space to reserve for aboot**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L60042|"Re: Questions."]], Jay Estabrook, axp-list, 23 Jul 1998: "you reseve 1024 sectors in front of the first partition"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-February.mbox#L19351|"DAC960 Alpha support (was: Re: Redhat 7.2 on a DEC ALPHA 2100)"]], Jay Estabrook, axp-list, 26 Feb 2003: "leaving ~5MB unused space at the beginning"
+  * **Booting from IDE**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-February.mbox#L9171|"Re: Quick Question for the list"]], David Mosberger-Tang, axp-list, 29 Feb 1996: "I don't think the SRM console can boot from IDE drives."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-August.mbox#L2406|"Re: Miata srm + Symbios Logic 53c786 dual UW card"]], Jay Estabrook, axp-list, 2 Aug 2002: "SRM on MIATA is very happy to boot from IDE devices"
+  * **Same BIOS emulator in ARC and SRM**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-June.mbox#L257|"RE: Need Env Variables for old Jensen booting with ARC"]], Jay A Estabrook, axp-list, 2 Jun 1996: "both ARC and SRM use the same BIOS emulation code... ???"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L26266|"Re: PC 164 adventures"]], Jay Estabrook, axp-list, 16 Nov 2000: "SRM and ARC consoles have/had different BIOS emulators, the latter (ARC) being much more likely to support more/newer cards."
+  * **''boot_osflags'' default**
+    * {{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 3-23: "The default is 0."
+    * {{wiki:software:firmware:es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 15: "Preset default boot flag values are 0,0"
+  * **Number of firmware images in PC164LX and PC164SX flash**
+    * {{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 2-20: "all the AlphaPC motherboards, except the AlphaPC 64, support only one firmware in the flash ROM"
+    * {{wiki:hardware:motherboards:pc164lx:alphapc_v5.7_firmware_release_notes.pdf?linkonly|AlphaPC 164SX/164LX/164 Firmware Update Procedures (V5.7)}}: the boards "contain a flash ROM for the Alpha SRM console and AlphaBIOS firmware"
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide (EC-QK8DF-TE, September 1997)}}
+  * {{wiki:software:firmware:es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Server Management SRM Console Reference, Version 1.0 (December 2002)}}
+  * {{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide (EK-AXPFW-RM. C01)}}
+  * {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview (AA-RGKNV-TS, April 2007)}}
+  * {{wiki:hardware:motherboards:pc164lx:alphapc_v5.7_firmware_release_notes.pdf?linkonly|AlphaPC 164SX/164LX/164 Firmware Update Procedures (V5.7, March 2000)}}
+  * {{wiki:documentation:references:alpha_system_reference_manual_v7.pdf?linkonly|Alpha System Reference Manual, Version 7 (1997)}} (Part III: Console Interface Architecture)

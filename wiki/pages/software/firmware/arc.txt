@@ -1,0 +1,230 @@
+===== ARC Firmware =====
+
+ARC firmware is the menu-driven firmware that Alpha systems use to boot Windows NT. It implements the [[wp>Advanced_RISC_Computing|Advanced RISC Computing]] (ARC) specification, which standardizes features of RISC computers including their firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1998-December.mbox#L6768|"Re: Booting problem"]], Nikita Schmidt, debian-alpha, 22 Dec 1998)] [(>AlphaServer 1000 Service Guide (EK-DTLSV-SV. B01))] Microsoft published the specification. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L56955|"ARC Specification"]], Bill Roman, axp-list, 24 Aug 1998)]
+
+There are three families of ARC firmware on Alpha:
+
+  * **ARC** (Windows NT ARC firmware, also "ARC Multiboot" or "ARC console"): Digital's original firmware, used on the Jensen, Multia, AlphaStation 200 and 250, AlphaServer 1000 and 2100, and the Digital Semiconductor evaluation boards and motherboards up to the [[hardware:motherboards:pc164|PC164]].
+  * **AlphaBIOS**: the successor to ARC, with a different user interface. Digital introduced it with the Alpha XLT series. [(>AlphaBIOS-HOWTO, Linux-Alpha archive, ftp.digital.com, 19 Dec 1996)]
+  * **ARCSBIOS**: firmware written by Deskstation for its Ruffian boards (see [[#arcsbios|ARCSBIOS]]).
+
+On the mailing lists, "ARC BIOS" and "ARCBIOS" are used loosely for Digital's ARC and AlphaBIOS firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L53599|"Re: SCSI-2 and AS200/233"]], Alan Young, axp-list, 23 Aug 1998)] "ARCS" in the Alpha Linux community refers to Deskstation's firmware, not to [[wp>Advanced_RISC_Computing#ARCS|SGI's ARCS]].
+
+Systems intended for OpenVMS and Digital UNIX use the [[software:firmware:srm|SRM console]] instead. Some systems carry both, and can switch between them (see [[#switching_to_srm|Switching to SRM]]).
+
+==== Windows NT and Linux ====
+
+The firmware reads the operating system loader from the disk and runs it, and provides I/O services to the loader through ARC callback routines. The loader then loads the Windows NT HAL and PALcode, and the kernel switches to that PALcode. [(>{{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6 (1994)}}, Part II-C, section 1.1)] ARC also stays in memory after Windows NT boots so that NT can make callbacks. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L21083|"Re: Confusion re SRM, ARC, MILO, etc."]], David A Rusling, axp-list, 14 Dec 1996)]
+
+ARC and AlphaBIOS provide PALcode for Windows NT, which Linux cannot use, so they cannot load a Linux kernel directly. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L26796|"Re: Does DEC have a clue?"]], Jay Estabrook, axp-list, 21 Jan 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/cooker-axp-mbox/2000-November.mbox#L201|"Re: AlphaBIOS boot problem - anything possible to do to trace ?"]], Rich Payne, cooker-axp, 11 Nov 2000)] Linux on these systems is booted through [[software:boot_loaders|MILO]], which supplies its own PALcode and reclaims all of the memory used by the firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L21083|"Re: Confusion re SRM, ARC, MILO, etc."]], David A Rusling, axp-list, 14 Dec 1996)] The [[hardware:motherboards:up1000|UP1000]] uses APB instead of MILO. [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, p. 4-14)] NetBSD does not run on ARC or AlphaBIOS systems, since it needs the OSF PALcode. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/milo-list-mbox/1999-July.mbox#L1|"MILO thoughts (Was Re: MILO init-command)"]], Martin Lucina, milo-list, 11 Jul 1999)]
+
+In 1998, most Linux users booted from ARC or AlphaBIOS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L26537|"Re: Does DEC have a clue?"]], Maurice W. Hilarius, axp-list, 21 Jan 1998)] Once SRM became freely available for more systems, it was generally recommended instead, because MILO's PALcode had known bugs. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L12590|"Re: SRM vs. AlphaBIOS"]], Phillip Ezolt, axp-list, 7 Sep 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-July.mbox#L75|"Re: MILO upgrades don't work"]], Jeff Sturm, axp-list, 1 Jul 2000)]
+
+==== ARC ====
+
+=== Menus ===
+
+ARC is operated from a set of text menus. [(>{{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}}, pp. 15-24)]
+
+  * **Boot menu:** "Boot Windows NT", "Boot an alternate operating system...", "Run a program...", and "Supplementary menu...". "Run a program" runs any ARC application, given its path.
+  * **Supplementary menu:** "Install new firmware...", "Install Windows NT from CD-ROM", "Set up the system...", and "Display hardware configuration".
+  * **Setup menu:** set the time, default environment variables, default configuration, boot selections, autoboot, machine-specific settings (including switching to SRM), and editing environment variables directly.
+
+=== Device Names ===
+
+ARC names devices by a path of bus, controller, and device, e.g. ''scsi(0)disk(1)rdisk(0)partition(1)''. ''multi()'' devices are on the system board (keyboard and serial ports), ''eisa()'' devices are on the EISA bus (video and floppy on the AlphaServer 2100), and ''scsi()'' devices are SCSI disks and CD-ROMs. [(>{{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}}, p. 3-22)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L3740|"RE: MILO and PC164"]], James Livingston, axp-list, 2 Mar 1999)] On the evaluation boards, IDE drives are listed as SCSI devices. [(>''README.TXT'', ARC firmware V4.49-7 kit for the EB164, Digital Semiconductor, October 1996)]
+
+=== Environment Variables ===
+
+^ Variable ^ Meaning ^
+| ''CONSOLEIN'', ''CONSOLEOUT'' | Console input and output devices |
+| ''FWSEARCHPATH'' | Search path for files; defaults to the system partition |
+| ''AUTOLOAD'' | ''Y'' to boot automatically, ''N'' to stay in the firmware |
+| ''COUNTDOWN'' | Seconds to wait before booting automatically; defaults to 10 |
+| ''TIMEZONE'' | POSIX time zone |
+| ''FLOPPY'', ''FLOPPY2'' | Floppy drive types |
+
+Sources: [(>{{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}}, pp. 3-38 to 3-39)]
+
+Each boot selection is a set of variables:
+
+^ Variable ^ Meaning ^
+| ''LOADIDENTIFIER'' | Name of the boot selection |
+| ''SYSTEMPARTITION'' | Partition containing the operating system loader |
+| ''OSLOADER'' | Full path of the operating system loader |
+| ''OSLOADPARTITION'' | Partition containing the operating system |
+| ''OSLOADFILENAME'' | Operating system directory, e.g. ''\WINNT35'' |
+| ''OSLOADOPTIONS'' | String passed to the operating system |
+
+Sources: [(>{{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}}, p. 4-3)]
+
+The firmware passes ''SYSTEMPARTITION'', ''OSLOADFILENAME'', ''OSLOADPARTITION'', and ''OSLOADOPTIONS'' to the loader it runs. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/milo-list-mbox/1999-September.mbox#L271|"Re: Milo 2.2 - things are becoming generic."]], Nikita Schmidt, milo-list, 8 Sep 1999)]
+
+=== System Partition ===
+
+The ARC specification requires a DOS-formatted primary partition, the system partition, to hold operating system loaders. The specification allows FAT12 or FAT16, but Bill Roman believed both ARC and AlphaBIOS on Alpha only read FAT16. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-September.mbox#L32455|"Re: ARC boot options qstn"]], Bill Roman, axp-list, 19 Sep 1998)] ARC only understands PC (fdisk) partition tables, not BSD disklabels. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L53775|"Re: SCSI-2 and AS200/233"]], Alan Young, axp-list, 23 Aug 1998)] The standard location for loaders is a directory under ''\os'', e.g. ''\os\linux''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L19502|"Re: How to make a MILO partition?"]], Bill Roman, axp-list, 7 Nov 1998)]
+
+Older ARC versions cannot create a system partition; ''arcinst.exe'' from the Windows NT CD, started with "Run a program", does this. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-September.mbox#L32455|"Re: ARC boot options qstn"]], Bill Roman, axp-list, 19 Sep 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L10280|"Re: Linux/NT dual boot (Was: Moving to Digtal Alpha system"]], Maurice W. Hilarius, axp-list, 4 Apr 1997)] ARC V4.48 added a disk partitioning utility. [(>{{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}}, p. 25)]
+
+=== Booting MILO ===
+
+ARC runs ''linload.exe'', a small ARC program that loads MILO and switches to MILO's PALcode. MILO then relocates itself and boots Linux. [(>''Alpha Miniloader Howto'', v0.85, David A Rusling, 15 Apr 1997, section 5.1)] A typical boot selection is: [(>''Alpha Miniloader Howto'', v0.85, David A Rusling, 15 Apr 1997, section 5.1)]
+
+<code>
+LOADIDENTIFIER=Linux
+SYSTEMPARTITION=multi(0)disk(0)fdisk(0)
+OSLOADER=multi(0)disk(0)fdisk(0)\linload.exe
+OSLOADPARTITION=multi(0)disk(0)fdisk(0)
+OSLOADFILENAME=\noname.arc
+OSLOADOPTIONS=
+</code>
+
+  * ''OSLOADFILENAME'' names the MILO image. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/milo-list-mbox/1999-September.mbox#L271|"Re: Milo 2.2 - things are becoming generic."]], Nikita Schmidt, milo-list, 8 Sep 1999)]
+  * MILO runs the contents of ''OSLOADOPTIONS'' as a command, e.g. ''boot sda2:vmlinux.gz'', which allows unattended booting. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L9693|"Re: MILO on Multia: environment corruption?"]], Stephen C. Tweedie, axp-list, 14 May 1996)]
+  * MILO relies on ''linload.exe'' to pass it the memory size from the firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L9271|"Re: Troubles with Linux/Alpha BLADE 0.3 for Alpha XL 266"]], Jay Estabrook, axp-list, 18 Apr 1996)] ''linload.exe'' version 1.3 or later is required with more than 128 MiB of memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L759|"Miniloader area on gatekeeper cleaned up, new images available"]], David A Rusling, axp-list, 2 Apr 1996)]
+  * MILO can also be started by copying it to a DOS floppy as ''fwupdate.exe'' and selecting "Install new firmware". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L6752|"RE: cabriolet and RedHAt 2.1 AXP"]], David A Rusling, axp-list, 15 Apr 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-August.mbox#L7350|"Rescue Disks, the result..."]], Ryan Kirkpatrick, axp-list, 11 Aug 1997)]
+
+=== Jensen ===
+
+The Jensen (DEC 2000 AXP, DECpc 150 AXP) has both ARC and SRM, but its ARC cannot switch to the OSF PALcode, so Linux is booted from SRM. ARC was used for partitioning, with standalone ARC versions of ''minlabel'' and ''copyboot''. [(>''Jensen-HOWTO'', Jim Paradis, Linux-Alpha archive, April 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L4787|"Jensen-HOWTO: First pass"]], Jim Paradis, axp-list, 15 Mar 1996)] Linux requires Jensen firmware version 1.7; later versions interfere with the boot process. [(>''firmware_1.7/README'', Linux-Alpha archive, ftp.digital.com, January 1998)]
+
+The Jensen's EISA Configuration Utility (ECU) configures devices for Windows NT and is not needed for Linux. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L37764|"RE: Jensen Redhat Install"]], Michael Champigny, axp-list, 21 Sep 1999)] Separate, incompatible ECU disks existed for ARC and SRM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L50079|"RE: Jensen NT ECU"]], Tony Hoover, axp-list, 28 Sep 1999)]
+
+==== AlphaBIOS ====
+
+AlphaBIOS replaced ARC with the Alpha XLT series. [(>AlphaBIOS-HOWTO, Linux-Alpha archive, ftp.digital.com, 19 Dec 1996)] Digital Semiconductor described it as having "an improved user interface, more user features", and used it on the [[hardware:motherboards:pc164lx|PC164LX]] and [[hardware:motherboards:pc164sx|PC164SX]]; its earlier boards kept ARC. [(>''dsc-software-alpha.html'', Digital Semiconductor web site, c. 1998)] The AlphaBIOS release notes of July 1999 list these supported products: [(>''AlphaBIOS Release Notes'', Compaq, July 1999, on the Alpha Systems Firmware Update V7.3 CD)]
+
+  * AlphaPC 164LX, 164RX, 164SX, and 264DP
+  * AlphaServer 800, 1000 5/xxx, 1000A 5/xxx, 1200, 4000, 4100, and DS20
+  * AlphaStation 255 and 600A
+  * Alpha XLT
+  * Compaq Professional Workstation XP1000
+  * Digital Personal Workstation and Digital Ultimate Workstation
+  * Digital Server 3000/3300, 5000/5300, and 7000/7300
+
+The final V7.3 firmware CD also includes AlphaBIOS for the AlphaServer 4000, 4100, 8200, 8400, GS140, DS10, DS20, and ES40. [(>''FWREADME.TXT'' files, Alpha Systems Firmware Update V7.3 CD)]
+
+=== Setup ===
+
+Press F2 during startup to enter AlphaBIOS Setup. Its main menu offers "Display System Configuration...", "Upgrade AlphaBIOS", "Hard Disk Setup", "CMOS Setup...", "Install Windows NT", "Utilities", and "About AlphaBIOS...". [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 7-20)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L38797|"RE: Alpha taxonomy"]], John Jemiolo, axp-list, 26 Aug 1999)]
+
+  * **CMOS Setup** sets the date, time, floppy and keyboard type, and "Auto Start". Advanced CMOS Setup (F6) includes "Console Selection" and SCSI BIOS emulation. [(>{{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}}, pp. 5-6)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-April.mbox#L37209|"Re: Automating  boot process"]], Greg Lindahl, axp-list, 23 Apr 1998)]
+  * **Hard Disk Setup** creates and formats partitions, including the FAT system partition. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-September.mbox#L32455|"Re: ARC boot options qstn"]], Bill Roman, axp-list, 19 Sep 1998)]
+  * **Utilities** has "OS Selection Setup...", "Run ECU from floppy...", and "Run Maintenance Program...". [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 7-36)] An operating system selection has a boot name, boot file, OS path, and OS options. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, pp. 7-38 to 7-39)]
+  * Newer versions have a "Network Setup" menu. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L53929|"Re: SCSI-2 and AS200/233"]], Alan Young, axp-list, 23 Aug 1998)]
+
+On a serial console, AlphaBIOS requires a VT220-compatible terminal. Control keys stand in for function keys, e.g. Ctrl-B for F2 and Ctrl-U for F10. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-October.mbox#L50594|"Re: serial console & 5.66"]], Stephen J. Gaudet, axp-list, 1 Oct 1998)] [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 7-50)] AlphaBIOS 5.60-3 on the PC164LX would not boot without a keyboard; 5.66 boots headless on the PC164LX and PC164SX. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-October.mbox#L9031|"Linux on DEC Alpha PC164LX"]], Andreas Haumer, axp-list, 15 Oct 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-September.mbox#L56813|"AlphaBios 5.66: LX now auto-booting without keyboard attached!"]], Andreas Haumer, axp-list, 29 Sep 1998)]
+
+=== Booting MILO ===
+
+To boot MILO, add an operating system selection in "OS Selection Setup" with ''\linload.exe'' as the boot file on the FAT partition and ''\'' as the OS path, and put a MILO command such as ''boot sda2:vmlinux.gz'' in the OS options. AlphaBIOS warns that the selection is not valid, which only matters for Windows NT. [(>AlphaBIOS-HOWTO, Linux-Alpha archive, ftp.digital.com, 19 Dec 1996)]
+
+  * ''linload.exe'' 1.3 or later is required. Earlier versions loaded MILO at a fixed address, which crashed AlphaBIOS; 1.3 searches the memory map for a free location. It also accepts a directory for ''OSLOADFILENAME'', for AlphaBIOS versions that only accept a directory. [(>linload 1.3 ''README'', Linux-Alpha archive, ftp.digital.com, 19 Dec 1996)]
+  * AlphaBIOS 5.60 would not accept a floppy or a small FAT partition as the loader location, and did not allow the name of the second stage to be set. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L6770|"AlphaBIOS and milo"]], Michal Jaegermann, axp-list, 9 Nov 1997)]
+  * AlphaBIOS only lists primary partitions (1 to 4). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L14239|"Re: SRM vs. AlphaBIOS"]], Helge Kreutzmann, axp-list, 8 Sep 1999)]
+  * On the UP1000, AlphaBIOS loads APB, which reads the AlphaBIOS boot configuration to find the kernel. [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, pp. 4-14 to 4-15)] APB and old MILO versions hardcode the kernel start address, so Linux 2.4 kernels for them need ''CONFIG_ALPHA_LEGACY_START_ADDRESS''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-June.mbox#L18501|"Re: Linux-2.4.0-test2"]], Richard Henderson, axp-list, 24 Jun 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L29979|"Re: 2.40test10 working?"]], Rich Payne, axp-list, 16 Nov 2000)]
+
+=== AlphaBIOS on SRM Systems ===
+
+On AlphaServers and workstations that support both Windows NT and Digital UNIX, AlphaBIOS is a separate, compressed image in flash. SRM always starts first, and then loads AlphaBIOS if ''os_type'' is ''nt'' or the ''alphabios'' command is entered. [(>AlphaServer 4100/4000 V6.0 Firmware Release Notes, January 2001, on the Alpha Systems Firmware Update V7.3 CD)] [(>{{wiki:hardware:motherboards:pc264dp:pc264dp_user_manual.pdf?linkonly|AlphaPC 264DP User's Manual}}, p. 6-1)] AlphaBIOS moved to a new location in flash in version 5.67, which requires SRM 5.3 or later. [(>''AlphaBIOS Release Notes'', Compaq, July 1999, on the Alpha Systems Firmware Update V7.3 CD)]
+
+==== Switching to SRM ====
+
+  * **ARC:** Supplementary menu, "Set up the system...", then "Switch to OpenVMS or OSF console" (on later versions "Switch to OpenVMS or Digital UNIX console"), then "Switch to OSF", and power-cycle. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L4787|"Jensen-HOWTO: First pass"]], Jim Paradis, axp-list, 15 Mar 1996)] [(>{{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}})] On the evaluation boards, this is under "Machine specific setup...". [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 2-21)]
+  * **AlphaBIOS:** in Advanced CMOS Setup, set "Console Selection" to "Digital UNIX Console (SRM)" or "OpenVMS Console (SRM)", then save with F10. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L38797|"RE: Alpha taxonomy"]], John Jemiolo, axp-list, 26 Aug 1999)] [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 7-46)]
+  * **Back from SRM:** ''set os_type nt'' and power-cycle. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L36322|"Re: UDB Firmware Prob"]], Maurice Hilarius, axp-list, 24 Oct 1996)] On the Jensen, the command is ''set os nt''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L4787|"Jensen-HOWTO: First pass"]], Jim Paradis, axp-list, 15 Mar 1996)] The ''arc'' and ''alphabios'' commands start ARC or AlphaBIOS without changing ''os_type''. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 6-23)]
+  * **Single-image boards:** the PC164, PC164LX, and PC164SX hold only one firmware in flash, so switching requires flashing the other firmware. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 2-20)] On the PC164LX and PC164SX, this is done with "Upgrade AlphaBIOS" and a floppy containing the SRM image (''LX164SRM.ROM'' or ''SX164SRM.ROM''). [(>{{wiki:hardware:motherboards:pc164lx:alphapc_v5.7_firmware_release_notes.pdf?linkonly|AlphaPC 164SX/164LX/164 Firmware Update Procedures (V5.7)}}, p. 11)]
+
+Systems designed only for Windows NT have no SRM. These include the Alpha XL series, which has only ARC or AlphaBIOS, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L25578|"Re: Does DEC have a clue?"]], Jay Estabrook, axp-list, 20 Jan 1998)] and the Digital Server 3300 series. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L11764|"Re: DEC ALPHA 3305"]], William H. Magill, axp-list, 21 May 2000)] Digital Server 3300, 5300, and 7300 systems can be switched to SRM, but will not boot Digital UNIX or OpenVMS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L13782|"RE: Compaq to offer Tru64 for $99"]], John Jemiolo, axp-list, 5 Nov 1999)]
+
+==== Updating Firmware ====
+
+  * **ARC:** "Install new firmware" in the Supplementary menu searches the CD-ROM and floppy for ''FWUPDATE.EXE'' and runs it. [(>''update.txt'', AXPpci33 firmware update instructions, Digital, 3 Aug 1995)] Versions before 4.42 can only run it from a floppy. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 2-12 to 2-13)] The EB64+ and EB66 store ARC in a UVPROM, which must be replaced instead. [(>{{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}}, p. 25)]
+  * **AlphaBIOS:** "Upgrade AlphaBIOS" searches the CD-ROM and then the floppy for an update. On the PC164LX, the floppy holds ''lx164nt.rom''. [(>{{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}}, p. 5)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L27224|"Re: XLT300 and more hardware questions"]], Aspen Systems Technical Support, axp-list, 23 Nov 1997)] Version 5.69 changed the search order to CD-ROM, floppy, then network. [(>''AlphaBIOS Release Notes'', Compaq, July 1999, on the Alpha Systems Firmware Update V7.3 CD)] On AlphaServers with SRM, "Upgrade AlphaBIOS" starts the Loadable Firmware Update utility. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 7-21)]
+  * **Jensen:** ''jnupdate.exe'' and the firmware image ''jensfw.bin'' are run from a FAT floppy with "Install New Firmware". [(>''jensen_firmware_procedure.html'', Linux-Alpha archive, ftp.digital.com, February 1998)]
+
+==== Versions ====
+
+^ Firmware ^ Version ^ Notes ^
+| ARC | 1.7 | Last Jensen version usable with Linux [(>''firmware_1.7/README'', Linux-Alpha archive, ftp.digital.com, January 1998)] |
+| ARC | 3.5-4 | Minimum for Windows NT on the EB64+ and EB66 [(>{{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}}, p. 13)] |
+| ARC | 4.42 | Last for the AXPpci33 (Noname); first to run ''fwupdate.exe'' from CD-ROM [(>''read_me.txt'', AXPpci33 firmware, Digital)] |
+| ARC | 4.48 | Adds disk partitioning utility |
+| ARC | 4.49-7 | October 1996; last release for the EB64+, AlphaPC 64, EB66, EB66+, EB164, and PC164 [(>''README.TXT'', ARC firmware V4.49-7 kits, Digital Semiconductor, October 1996)] |
+| ARC | 4.58 | April 1999 interim release; allows a zeroed time-of-year clock to be set [(>''ARC Firmware V4.58'' release notes, April 1999, on the Alpha Systems Firmware Update V7.3 CD)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-April.mbox#L10409|"ARC version 4.58 (URL)"]], Bill Roman, axp-list, 6 Apr 1999)] |
+| AlphaBIOS | 5.60 | First release for the PC164LX [(>''history.txt'', AlphaBIOS V5.66-1 kit, Digital Semiconductor, October 1998)] |
+| AlphaBIOS | 5.66 | Adds SCSI BIOS emulation on CIA systems; limits operating system selections to three [(>''AlphaBIOS Release Notes'', Compaq, July 1999, on the Alpha Systems Firmware Update V7.3 CD)] |
+| AlphaBIOS | 5.66-1 | October 1998; last kit for the PC164LX from Digital Semiconductor [(>''history.txt'', AlphaBIOS V5.66-1 kit, Digital Semiconductor, October 1998)] |
+| AlphaBIOS | 5.68 | Adds 21264 support [(>''AlphaBIOS Release Notes'', Compaq, July 1999, on the Alpha Systems Firmware Update V7.3 CD)] |
+| AlphaBIOS | 5.70 | July 1999; 21264 systems need HAL revision G first [(>''AlphaBIOS Release Notes'', Compaq, July 1999, on the Alpha Systems Firmware Update V7.3 CD)] |
+| AlphaBIOS | 5.71 | Last version, for the DS10 and DS20 [(>{{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}}, p. 10)] |
+
+In October 1999, Kirk R. Erichsen reported that Compaq's AlphaBIOS team said AlphaBIOS and Windows 2000 for Alpha were frozen, with 5.7 as the last version. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L8382|"OpenBoot, SRM, AlphaBIOS and Slot B"]], Kirk R. Erichsen, axp-list, 6 Oct 1999)]
+
+==== ARCSBIOS ====
+
+Deskstation wrote its own ARC-compatible firmware, ARCSBIOS, for the Ruffian (the [[hardware:motherboards:pc164ux|PC164UX]] and PC164BX), along with an ARCS program, ''ldmilo'', to load MILO. The Ruffian has no SRM, ARC, or AlphaBIOS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-July.mbox#L2762|"Re: Deskstation Ruffian compatibility"]], Dean Hall, axp-list, 3 Jul 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-hardware-mbox/2000-March.mbox#L336|"Re: Various UX questions"]], Ron Farrer, axp-hardware, 10 Mar 2000)]
+
+  * ''ldmilo'' ignores ''OSLOADFILENAME''. It differs from ''linload.exe'' because ARCSBIOS lacks Digital's vendor callback vector. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/milo-list-mbox/1999-September.mbox#L685|"Re: Milo 2.2 - things are becoming generic."]], Nikita Schmidt, milo-list, 9 Sep 1999)]
+  * ARCSBIOS requires the VGA card to be in a 64-bit slot and beeps three times otherwise. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L62368|"Re: Alpha newbie Q's about UX."]], Paul Jakma, axp-list, 20 Mar 1999)]
+  * According to its documentation, ARCSBIOS probably does not support a serial console. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-hardware-mbox/2000-March.mbox#L97|"Re: Various UX questions"]], Ron Farrer, axp-hardware, 9 Mar 2000)]
+  * Deskstation's ARC firmware and HAL were developed independently of Digital's, descended from Deskstation's MIPS versions. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-February.mbox#L5967|"re:  Linux on a Deskstation Raptor 3 - System?"]], Neal Crook, axp-list, 20 Feb 1996)]
+  * The rights to the Ruffian and ARCSBIOS were bought by either Alpha Processor, Inc. or Samsung. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-hardware-mbox/2000-July.mbox#L32|"[Axp-hardware] Re: What happened to Deskstation?"]], Jay Estabrook, axp-hardware, 20 Jul 2000)]
+
+==== Known Issues ====
+
+  * **Time-of-year clock:** ARC and AlphaBIOS store the year relative to 1980, while SRM uses 1952 (Digital UNIX), 1900 (OpenVMS), or 2000 (newer versions). Old Linux clock utilities that did not account for this showed dates 20 years in the future. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-April.mbox#L2166|"Re: potato install-items"]], David Huggins-Daines, debian-alpha, 8 Apr 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-January.mbox#L28480|"Re: Problem with system date on PC164"]], a sun, axp-list, 23 Jan 1997)] ''clock -A'' reads the clock in ARC mode; Red Hat configured this with ''CLOCKMODE=ARC'' in ''/etc/sysconfig/clock''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L978|"Re: Are these known bugs?"]], Jay Estabrook, axp-list, 2 Apr 1996)] Later kernels detect the epoch at boot and print e.g. ''rtc: ARC console epoch (1980) detected''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-September.mbox#L1164|"ARC time on slink"]], Dragos-Anton Manolescu, debian-alpha, 12 Sep 1999)] The epoch cannot be changed, which is a problem when dual-booting with SRM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L29613|"RE: MoBo or Frimware Problem?"]], Peter Petrakis, axp-list, 25 Mar 2002)]
+  * **Wrong day of week:** ''clock -A -u -w'' wrote an incorrect day of the week, after which ARC reported an invalid system time. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L42186|"some more (old) problems..."]], Harald Koenig, axp-list, 24 Nov 1996)]
+  * **Video cards:** ARC and AlphaBIOS initialize VGA cards with an x86 BIOS emulator. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L11197|"RE: Which graphics accelerator should one use for Linux-Alpha XL266?"]], David A Rusling, axp-list, 23 Apr 1996)] nVidia TNT2 cards fail in it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-hardware-mbox/2000-February.mbox#L249|"Re: ASUS V3800 TNT2"]], Rich Payne, axp-hardware, 18 Feb 2000)] A 3dfx Voodoo3 works with AlphaBIOS, but not with ARC on a Multia. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L8551|"Re: 3DFX graphics card/AlphaBIOS/MILO - help!"]], Rich Payne, axp-list, 4 Dec 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L10290|"Re: 3DFX - it works!!"]], Adam K Kirchhoff, axp-list, 6 Dec 1999)] AlphaBIOS allows no BIOS emulation if a Digital TGA card is installed. [(>''AlphaBIOS Release Notes'', Compaq, July 1999, on the Alpha Systems Firmware Update V7.3 CD)] If ARC cannot use the graphics card, it uses the serial port. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L10519|"S3 BIOS"]], Bernd Lind, axp-list, 10 Sep 1996)]
+  * **SCSI boot devices:** in 1997, only ARC and AlphaBIOS, not SRM, could boot from Adaptec controllers. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L15694|"Re: Any1 with a working PC164!"]], Jay A Estabrook, axp-list, 13 Jun 1997)] BusLogic controllers cannot be used to boot MILO from ARC or AlphaBIOS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L15694|"Re: Any1 with a working PC164!"]], Jay A Estabrook, axp-list, 13 Jun 1997)]
+  * **Serial console:** ARC on a serial console requires a real VT200-compatible terminal. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L8289|"RE: switching from ARC back to SRM"]], William H. Magill, axp-list, 14 Aug 2000)]
+  * **Memory:** an Alpha XLT 366 with AlphaBIOS 5.13 or 5.24 hung at "Swapping to PALcode" with 256 MiB of memory, but booted with 128 MiB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-February.mbox#L5206|"Booting XLT-366 with 256 meg?"]], David Applegate, axp-list, 5 Feb 1997)]
+  * **MILO with NCR SCSI:** on a PC164LX with AlphaBIOS 5.60-3, MILO could not boot Linux with NCR-based controllers; downgrading to 5.60 mostly worked. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-October.mbox#L9031|"Linux on DEC Alpha PC164LX"]], Andreas Haumer, axp-list, 15 Oct 1997)]
+  * **ECU availability:** EISA systems need the ECU floppy, which contains proprietary code and cannot be freely distributed. [(>''readme.txt'', ECU directory, ftp.digital.com)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-July.mbox#L490|"Sound on AS500/500"]], M. Grabert, debian-alpha, 2 Jul 2002)]
+
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **Whether Windows NT systems can switch to SRM**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L8289|"RE: switching from ARC back to SRM"]], William H. Magill, axp-list, 14 Aug 2000: "I believe that there was only ever one box which had NO SRM console accessable by setting the CMOS "console selection".
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L11764|"Re: DEC ALPHA 3305"]], William H. Magill, axp-list, 21 May 2000: "the 3300 series has no SRM console; it has the ARC console only."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L13782|"RE: Compaq to offer Tru64 for $99"]], John Jemiolo, axp-list, 5 Nov 1999: "You can switch the 33,53,73 to srm console, but they will still not boot unix or vms."
+  * **Whether ''OSLOADOPTIONS'' reaches MILO**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L9693|"Re: MILO on Multia: environment corruption?"]], Stephen C. Tweedie, axp-list, 14 May 1996: "that variable's contents will be executed as a command line by MILO when it starts up."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L20166|"Maximum Memory size"]], Brian Cruikshank, axp-list, 13 Dec 1996: "The OSLOADOPTIONS does not seem to be sent to Milo."
+  * **Whether the ARC clock is UTC**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L30331|"Re: Setting Time and NFS Blocks"]], Michal Jaegermann, axp-list, 23 Dec 1996: "Instead of a line 'clock -A -a' they have 'clock -A -a -u' (which would work if your ARC console would be set to UTC"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-March.mbox#L1994|"Re: PC164 - 3C509 broadcasting and set time problems"]], Przemek Klosowski, axp-list, 3 Mar 1997: "I think that all ARC-based systems (including PC164) must use GMT-based time"
+  * **Adaptec support in AlphaBIOS**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-December.mbox#L5065|"ncr 53c810 or 2940?"]], Matt Wagner, axp-list, 4 Dec 1997: "the PLAIN scsi-2 2940 is not recognized by the alphabios, and that the only adaptec card recognized is the 2940UW."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-September.mbox#L51506|"Re: new PC164LX doesn't grok partition table"]], David Alan Gilbert, axp-list, 28 Sep 1998: "Thats with an adaptec 2940-U - AlphaBIOS has no trobule finding that."
+  * **Adaptec support in AlphaStation 200 ARC**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L53599|"Re: SCSI-2 and AS200/233"]], Alan Young, axp-list, 23 Aug 1998: "earlier versions of ARC did not support the Adaptec, but the latest version does."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L53978|"Re: AS200 4/233 and Adaptec 2940UW"]], Jeff Noxon, axp-list, 23 Dec 1998: "If you find a way to make ARC detect a 2940UW, I'd love to know about it."
+  * **Same BIOS emulator in ARC and SRM**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-June.mbox#L257|"RE: Need Env Variables for old Jensen booting with ARC"]], Jay A Estabrook, axp-list, 2 Jun 1996: "both ARC and SRM use the same BIOS emulation code... ???"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-June.mbox#L196|"Need Env Variables for old Jensen booting with ARC"]], miked, axp-list, 1 Jun 1996: "I must boot through ARC so that the #9 GXE video BIOS gets loaded"
+  * **Maximum number of AlphaBIOS operating system selections**
+    * {{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 7-39: "Up to four images of Windows NT can be resident"
+    * ''AlphaBIOS Release Notes'', Compaq, July 1999, version 5.66: "reduce the maximum number of Operating System (OS) boot selections from four to three."
+  * **System partition size**
+    * {{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}}, p. 27: "System partition 5MB FAT"
+    * AlphaServer 1000 Owner's Guide (EK-DTLSV-OG. A01), p. 3-5, describes creating a 6 MB system partition.
+  * **Last AlphaBIOS on the ES40**
+    * ''FWREADME.TXT'' for the ES40 on the V7.3 firmware CD lists AlphaBIOS V5.71.
+    * {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}}, p. 10, lists no Windows NT firmware for the ES40.
+  * **Last AlphaBIOS version**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L8382|"OpenBoot, SRM, AlphaBIOS and Slot B"]], Kirk R. Erichsen, axp-list, 6 Oct 1999: "The last version of AlphaBIOS is 5.7, end of story."
+    * {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}}, p. 10, lists AlphaBIOS V5.71 for the DS10 and DS20.
+
+==== Documentation ====
+
+No copy of the ARC specification has been located.
+
+  * {{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}} (ARC and AlphaBIOS menus on the Digital Semiconductor motherboards)
+  * {{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide (EK-AXPFW-RM. C01)}} (ARC environment variables, boot selections, and device names)
+  * {{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide (EK-ASV80-UG. B01, November 1997)}} (AlphaBIOS, chapter 7)
+  * {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview (AA-RGKNV-TS, April 2007)}}
+  * {{wiki:hardware:motherboards:pc164lx:alphapc_v5.7_firmware_release_notes.pdf?linkonly|AlphaPC 164SX/164LX/164 Firmware Update Procedures (V5.7, March 2000)}}
+  * {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6 (1994)}} (Part II-C describes how Windows NT uses the ARC firmware)
