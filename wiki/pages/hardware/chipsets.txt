@@ -1,0 +1,45 @@
+===== Chipsets =====
+
+^ Chipset ^ CPUs ^ Motherboards ^
+| [[#21071 and 21072|21071/21072]] | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | [[hardware:motherboards:eb64plus|EB64+]], [[hardware:motherboards:PC64]] |
+| [[#21171|21171 (CIA)]] | [[wp>Alpha_21164|21164]] | [[hardware:motherboards:EB164]] |
+| [[#21172|21172 (CIA)]] | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | [[hardware:motherboards:PC164]] |
+| [[#21174|21174 (Pyxis)]] | [[wp>Alpha_21164#Alpha_21164A|21164A]], [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|21164PC]] | [[hardware:motherboards:PC164LX]], [[hardware:motherboards:PC164SX]], [[hardware:motherboards:pc164ux|PC164UX/BX]] |
+| [[#21272|21272 (Tsunami/Typhoon)]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:PC264DP]], [[hardware:motherboards:UP2000]], [[hardware:motherboards:UP2000#up2000plus|UP2000+]] |
+| [[#AMD-751|AMD-751 (Irongate)]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:UP1000]], [[hardware:motherboards:UP1100]] |
+| [[#AMD-761|AMD-761]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:UP1500]] |
+
+The [[wp>Alpha_21064#Alpha_21066A|21066 and 21066A]] integrate their memory and PCI controllers, so boards such as the [[hardware:motherboards:eb66plus|EB66+]] need no separate chipset.
+
+==== 21071 and 21072 ====
+
+  * {{wiki:hardware:chipsets:21071:21071_21072_data_sheet.pdf?linkonly|DECchip 21071 and DECchip 21072 Core Logic Chipsets Data Sheet (EC-QAEMB-TE)}}
+  * {{wiki:hardware:chipsets:21071:21071-aa_21072-aa_data_sheet_1993.pdf?linkonly|DECchip 21071-AA and 21072-AA Chipsets Data Sheet (EC-N0648-72, November 1993)}}
+
+==== 21171 ====
+
+  * {{wiki:hardware:chipsets:21171:21171_technical_reference_manual.pdf?linkonly|DECchip 21171 Core Logic Chipset Technical Reference Manual}}
+  * {{wiki:hardware:chipsets:21171:21171_product_brief.pdf?linkonly|DECchip 21171 Core Logic Chipset Product Brief}}
+
+==== 21172 ====
+
+  * {{wiki:hardware:chipsets:21172:21172_technical_reference_manual.pdf?linkonly|Digital Semiconductor 21172 Core Logic Chipset Technical Reference Manual}}
+  * {{wiki:hardware:chipsets:21172:21172_product_brief.pdf?linkonly|Digital Semiconductor 21172 Core Logic Chipset Product Brief}}
+
+==== 21174 ====
+
+  * {{wiki:hardware:chipsets:21174:21174_technical_reference_manual.pdf?linkonly|Digital Semiconductor 21174 Core Logic Chip Technical Reference Manual}}
+
+==== 21272 ====
+
+  * {{wiki:hardware:chipsets:21272:21272_hardware_reference_manual.pdf?linkonly|Tsunami/Typhoon 21272 Chipset Hardware Reference Manual}}
+
+==== AMD-751 ====
+
+  * {{wiki:hardware:chipsets:amd-751:amd-751_data_sheet.pdf?linkonly|AMD-751 System Controller Data Sheet}}
+
+==== AMD-761 ====
+
+  * {{wiki:hardware:chipsets:amd-761:amd-761_software_bios_design_guide.pdf?linkonly|AMD-761 System Controller Software/BIOS Design Guide}}
+
+{{tag>hardware}}

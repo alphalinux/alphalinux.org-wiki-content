@@ -42,6 +42,9 @@ KAC330/64, KAL7200/64, KGW0281/64, KGW-E0236/32, KTA-G3/256, KTA-G3100/256, KTA-
 
 ==== Documentation ====
 
+  * {{wiki:hardware:motherboards:pc164lx:pc164lx_windows_nt_user_manual.pdf?linkonly|AlphaPC 164LX Motherboard Windows NT User's Manual (DEC, March 1999)}}
+  * {{wiki:hardware:motherboards:pc164lx:pc164lx_windows_nt_user_manual_samsung.pdf?linkonly|AlphaPC 164LX Motherboard Windows NT User's Manual (Samsung, 1997)}}
+  * {{wiki:hardware:motherboards:pc164lx:pc164lx_technical_reference_manual_errata.pdf?linkonly|AlphaPC 164LX Motherboard Errata Sheet (June 1997)}}
   * {{wiki:hardware:motherboards:pc164lx:pc164lx_technical_reference_manual.pdf?linkonly|AlphaPC 164LX Motherboard Technical Reference Manual}}
   * {{wiki:hardware:motherboards:pc164lx:pc164lx_tru64_unix_user_manual.pdf?linkonly|AlphaPC 164LX Motherboard Tru64 UNIX User's Manual}}
   * {{wiki:hardware:motherboards:pc164lx:pc164lx_product_brief.pdf?linkonly|AlphaPC 164LX Motherboard Product Brief}}

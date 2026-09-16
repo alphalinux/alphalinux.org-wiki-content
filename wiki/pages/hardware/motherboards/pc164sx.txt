@@ -39,6 +39,7 @@ The PC164SX requires a CPU fan with a rotation sensor. Most standard PC fans are
 
 ==== Documentation ====
 
+  * {{wiki:hardware:motherboards:pc164sx:pc164sx_windows_nt_user_manual.pdf?linkonly|AlphaPC 164SX Motherboard Windows NT User's Manual}}
   * {{wiki:hardware:motherboards:pc164sx:pc164sx_technical_reference_manual.pdf?linkonly|AlphaPC 164SX Motherboard Technical Reference Manual}}
   * {{wiki:hardware:motherboards:pc164sx:pc164sx_digital_unix_user_manual.pdf?linkonly|AlphaPC 164SX Motherboard DIGITAL UNIX User's Manual}}
   * {{wiki:hardware:motherboards:pc164sx:pc164sx_product_brief.pdf?linkonly|AlphaPC 164SX Motherboard Product Brief}}
