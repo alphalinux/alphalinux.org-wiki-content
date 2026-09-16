@@ -3,8 +3,8 @@
 Alpha systems use one of two kinds of firmware, depending on the operating system they were designed for. Some systems carry both and can switch between them.
 
 ^ Firmware ^ Interface ^ Operating systems ^ Linux boot loader ^
-| [[software:firmware:srm|SRM console]] | Command line | OpenVMS, Digital UNIX (Tru64 UNIX), Linux, NetBSD, OpenBSD | aboot |
-| [[software:firmware:arc|ARC, AlphaBIOS, and ARCSBIOS]] | Menus | Windows NT, Linux | MILO (APB on the UP1000) |
+| [[software:firmware:srm|SRM console]] | Command line | OpenVMS, Digital UNIX (Tru64 UNIX), Linux, NetBSD, OpenBSD | [[software:boot_loaders:aboot|aboot]] |
+| [[software:firmware:arc|ARC, AlphaBIOS, and ARCSBIOS]] | Menus | Windows NT, Linux | [[software:boot_loaders:milo|MILO]] (APB on the UP1000) |
 
 See also [[hardware:motherboards:motherboards|Motherboards]], whose pages describe the firmware available for each board.
 

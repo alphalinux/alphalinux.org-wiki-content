@@ -1,0 +1,15 @@
+===== Boot Loaders =====
+
+Which boot loader an Alpha system uses depends on its [[software:firmware|firmware]].
+
+^ Boot loader ^ Firmware ^ Description ^
+| [[software:boot_loaders:aboot|aboot]] | SRM console | Loads Linux from a disk, CD, or the network, using the console's PALcode and services |
+| [[software:boot_loaders:milo|MILO]] | ARC, AlphaBIOS, ARCSBIOS | Miniloader that provides its own PALcode and device drivers, loaded through ''linload.exe'' or ''ldmilo.exe'' |
+| APB | AlphaBIOS on the [[hardware:motherboards:up1000|UP1000]] | Loaded by AlphaBIOS; reads the AlphaBIOS boot configuration to find the kernel [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, pp. 4-14 to 4-15)] |
+
+The SRM console can also boot a Linux kernel directly over the network with BOOTP, without a boot loader. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2007-August.mbox#L1139|"Re: [BUG] 2.6.23-rc3 won't boot on alpha (fwd)"]], Jay Estabrook, debian-alpha, 16 Aug 2007)] See [[software:firmware:srm#booting_linux|Booting Linux]] on the SRM page.
+
+==== Documentation ====
+
+  * {{wiki:software:boot_loaders:milo_howto.pdf?linkonly|Alpha Miniloader Howto, v0.85 (David A. Rusling, April 1997)}}
+  * [[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1 (Rich Payne and David Huggins-Daines, February 2004)
