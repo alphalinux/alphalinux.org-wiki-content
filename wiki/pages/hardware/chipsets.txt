@@ -9,7 +9,7 @@
 | [[#AMD-751|AMD-751 (Irongate)]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:UP1000]], [[hardware:motherboards:UP1100]] |
 | [[#AMD-761|AMD-761]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:UP1500]] |
 
-The [[wp>Alpha_21064#Alpha_21066A|21066 and 21066A]] integrate their memory and PCI controllers, so boards such as the [[hardware:motherboards:eb66plus|EB66+]] need no separate chipset.
+The [[wp>Alpha_21064#Alpha_21066A|21066 and 21066A]] integrate their memory and PCI controllers, so boards such as the [[hardware:motherboards:eb66|EB66]] and [[hardware:motherboards:eb66plus|EB66+]] need no separate chipset.
 
 ==== 21071 and 21072 ====
 
