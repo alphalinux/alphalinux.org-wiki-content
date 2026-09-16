@@ -1,19 +1,24 @@
 ===== EB64+ =====
 
-The EB64+ (also sold by Aspen Systems as the Alpine) is an AT form factor motherboard released in 1994(?).
+The DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board (EB64+) is an evaluation and development board for systems based on the 21064 or 21064A microprocessor and the 21072 chipset, released in 1994. It was also sold by Aspen Systems as the Alpine.
 
 ==== Specifications ====
 
-  * 166, 200, 233, or 275 MHz CPU
-  * 8x 36-bit DRAM SIM slots
-  * 2 or 3 32-bit PCI slots
-  * 3x ISA slots
-  * Floppy
-  * SCSI (NCR 810), internal and external headers on motherboard
-  * AT keyboard connector
-  * PS/2 mouse header on motherboard
-  * 2x RS-232 serial ports, headers on motherboard
-  * AT power supply with extra 3.3V
+  * 21064 or 21064A CPU running at 150 MHz to 275 MHz [(>{{wiki:hardware:motherboards:eb64plus:eb64plus_user_guide.pdf?linkonly|DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board User's Guide}})]
+  * 21072 chipset (1x 21071-CA cache/memory controller, 1x 21071-DA PCI bridge, 4x 21071-BA data slices)
+  * 512 KiB, 1 MiB, or 2 MiB Bcache
+  * 8x 72-pin 36-bit SIMMs (32 data bits, 1 parity bit, 3 unused bits) in two banks of four, supports 16 MiB to 512 MiB of 70 ns or faster FPM DRAM, 128-bit data bus
+  * PCI bus running at 25 MHz to 33 MHz
+  * 1x 32-bit PCI slot plus 1x shared PCI/ISA slot
+  * 2x ISA slots plus 1x shared ISA/PCI slot
+  * Intel 82378ZB or 82378IB PCI-to-ISA bridge
+  * NCR 53C810 SCSI, internal and external headers on motherboard
+  * DECchip 21040 Ethernet with 10BASE-T and 10BASE2 interfaces
+  * National 87312 combination controller: floppy, 2x serial ports, parallel port
+  * Intel 8242 keyboard and mouse controller
+  * 512 KiB UVPROM containing the debug monitor
+  * Board dimensions: 33.02 cm x 30.48 cm (13.0 in x 12.0 in)
+  * Standard PC power supply (not included)
 
 The EB64+ has two ROMs, one of which contains the Windows NT ARC firmware and the other contains the Evaluation Board Debug Monitor.
 
@@ -21,8 +26,13 @@ The Aspen Alpine is a little different in that it only has one ROM; this contain
 
 ==== Memory ====
 
-Requires 36-bit DRAM SIMs, 2 pairs at a time. Memory size and speed are set using jumpers on the motherboard.
+SIMMs are installed in two banks of four. Jumpers select the Bcache size and whether the Bcache uses 10 ns or 15 ns SRAM timing; main memory needs no jumpers.
 
 ==== Linux ====
 
 Can only boot Linux using MILO.
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:eb64plus:eb64plus_user_guide.pdf?linkonly|DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board User's Guide}}
+  * {{wiki:hardware:motherboards:eb64plus:eb64plus_product_brief.pdf?linkonly|DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board Product Brief}}
