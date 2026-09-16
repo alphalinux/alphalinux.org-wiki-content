@@ -63,7 +63,7 @@ See also [[hardware:chipsets|Chipsets]].
   * {{wiki:hardware:cpu:21064:21064a_data_sheet.pdf?linkonly|Alpha 21064A Microprocessors Data Sheet}}
   * {{wiki:hardware:cpu:21064:21064-aa_preliminary_data_sheet_1992.pdf?linkonly|DECchip 21064-AA RISC Microprocessor Preliminary Data Sheet (April 1992)}}
   * {{wiki:hardware:cpu:21064:21064-aa_product_brief_1992.pdf?linkonly|DECchip 21064-AA Microprocessor Product Brief (July 1992)}}
-  * {{wiki:hardware:cpu:21064:21064_fact_sheet.pdf?linkonly|DECchip 21064 Fact Sheet}}
+  * {{wiki:hardware:cpu:21064:21064_fact_sheet.pdf?linkonly|21064 Fact Sheet}}
   * {{wiki:hardware:cpu:21064:introduction_to_designing_a_system_with_21064.pdf?linkonly|Introduction to Designing a System with the DECchip 21064 Microprocessor (April 1992)}}
   * {{wiki:hardware:cpu:21064:ev3_ev4_specification_v2.0.pdf?linkonly|EV3 and EV4 Specification, DC227 and DC228, Version 2.0 (May 1991)}}
 
