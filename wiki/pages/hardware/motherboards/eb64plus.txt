@@ -65,6 +65,18 @@ The Aspen Alpine is a little different in that it only has one ROM; this contain
 
 Later distributions do not boot on the Alpine without modification; Doc Shipley reported that Red Hat 5.2 was the last to boot without tweaking. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-August.mbox#L7208|"Aspen Alpine"]], Doc Shipley, debian-alpha, 20 Aug 2001)] Noah Ackerman found that the Debian woody MILO and generic kernel did not work, but installed woody using an older MILO (from Debian slink or Red Hat 5.2) and a kernel built for the EB64+. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-September.mbox#L5802|"EB64+"]], Noah Ackerman, debian-alpha, 9 Sep 2002)]
 
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **Aspen Telluride**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-June.mbox#L10560|"DEC systems equivalents to Aspen Systems"]], Brian Cruikshank, axp-list, 21 Jun 1996: "Telluride PC64"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8890|"setting the record straight"]], Randy Perry, axp-list, 12 May 1996: "Telluride 21064 7 PCI and 3 ISA"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8946|"Re: linux on EB164+"]], Jim Paradis, axp-list, 12 May 1996: "Aspen Telluride.  This is an EB64+ with the PCI-PCI bridge."
+  * **EB64+ and PC64 as the same board**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L37352|"RE: Memory on my new Alpha PCI64-275"]], Bob Segrest, axp-list, 16 Dec 1998: "The names Cabrieolet, EB64+, EB64P, Alpha PCI64-275 and AlphaPC 64, all refer to the same ATX form factor motherboard."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L37647|"Re: Memory on my new Alpha PCI64-275"]], John Anstreicher, axp-list, 16 Dec 1998: "The PC64 motherboard (21A01-xx) is not ATX format. It is a slightly modified (thank you again, Digital) baby AT."
+
 ==== Documentation ====
 
   * {{wiki:hardware:motherboards:eb64plus:eb64plus_user_guide.pdf?linkonly|DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board User's Guide}}

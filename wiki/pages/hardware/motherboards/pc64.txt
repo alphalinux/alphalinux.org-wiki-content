@@ -48,6 +48,18 @@ Both SRM (with aboot) and ARC (with MILO) can boot Linux. Jay Estabrook tested R
   * The board has no onboard SCSI, and the old ARC firmware can boot from only a few SCSI adapters. Maurice Hilarius reported that Intraserver 3140U-N and 4140UE-N cards worked, while the Diamond Fireport40, BusLogic BT958, and Adaptec 2940 did not. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L21001|"RE: questions about the Cabriolet"]], Maurice Hilarius, axp-list, 9 Dec 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L69662|"Re: XP1000 and Linux"]], Maurice Hilarius, axp-list, 23 Mar 1999)]
   * SRM 4.8 supports booting only from NCR 53C810 and QLogic ISP1020 SCSI adapters, according to the evaluation board SDK documentation; one user found that an NCR 53C875 adapter was not recognized. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-January.mbox#L18434|"Re: (pc64-275) SRM v4.8 SCSI controllers"]], Robert Parnell, axp-list, 12 Jan 2000)]
 
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **EB64+ and PC64 as the same board**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L37352|"RE: Memory on my new Alpha PCI64-275"]], Bob Segrest, axp-list, 16 Dec 1998: "The names Cabrieolet, EB64+, EB64P, Alpha PCI64-275 and AlphaPC 64, all refer to the same ATX form factor motherboard."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L37647|"Re: Memory on my new Alpha PCI64-275"]], John Anstreicher, axp-list, 16 Dec 1998: "The PC64 motherboard (21A01-xx) is not ATX format. It is a slightly modified (thank you again, Digital) baby AT."
+  * **Aspen Telluride**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-June.mbox#L10560|"DEC systems equivalents to Aspen Systems"]], Brian Cruikshank, axp-list, 21 Jun 1996: "Telluride PC64"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8890|"setting the record straight"]], Randy Perry, axp-list, 12 May 1996: "Telluride 21064 7 PCI and 3 ISA"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8946|"Re: linux on EB164+"]], Jim Paradis, axp-list, 12 May 1996: "Aspen Telluride.  This is an EB64+ with the PCI-PCI bridge."
+
 ==== Documentation ====
 
   * {{wiki:hardware:motherboards:pc64:pc64_motherboard_user_manual.pdf?linkonly|AlphaPC64 Motherboard User's Manual}}

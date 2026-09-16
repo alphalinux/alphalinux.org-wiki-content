@@ -60,6 +60,21 @@ Linux is booted with MILO, which ARCSBIOS starts through a DeskStation-specific 
   * **Linux 2.4:** The onboard SCSI controller is behind the 21052 PCI-to-PCI bridge [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-December.mbox#L3095|"Re: ruffian ether problems"]], Ron Farrer, debian-alpha, 13 Dec 2000)]. Booting 2.4 kernels required fixes to PCI-to-PCI bridge setup and to type 1 PCI configuration space access, which failed randomly on this board, apparently because of timing [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L37511|"ux164 (ruffian) fixes"]], Ivan Kokshaysky, axp-list, 21 Nov 2000)].
   * **Linux 2.6:** One user reported that 2.6.22.19 was the last kernel that booted on a 164UX and that 2.6.23 was the first that did not [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2010-August.mbox#L709|"kernel regression on 164UX"]], Ian Las, debian-alpha, 3 Aug 2010)].
 
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **Maximum memory**
+    * {{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}}: "Main memory 32MB to 3GB memory array"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-November.mbox#L4719|"Ruffian maximum memory and debian"]], unai, debian-alpha, 12 Nov 2002: "the user's manual tell one place up to 3GB, but in other place up to 1,5GB"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L35069|"Re: hardware ramblings  Re: Request For Comment: "]], Maurice Hilarius, axp-list, 11 Apr 2001: "the UX version with 1.5GB capacity."
+  * **SRM firmware**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L76569|"Re: Ruffian/UX to be unsupported"]], Maurice Hilarius, axp-list, 27 Jan 1999: "As there is SRM firmware available for the UX ( UX is not a DEC/Copaq part but a Deskstation/Samsung/API part) the only choice is the LX."
+    * The same message concludes that the LX is the board to use for SRM, and other sources in the Firmware section say no SRM exists for the UX.
+  * **Support status**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L77141|"RE: Ruffian/UX to be unsupported"]], Stig Telfer, axp-list, 27 Jan 1999: "By no means is it about to become "unsupported""
+    * Stig Telfer of API was responding to a report that an API employee had unofficially called the UX unsupported.
+
 ==== Documentation ====
 
   * {{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}}

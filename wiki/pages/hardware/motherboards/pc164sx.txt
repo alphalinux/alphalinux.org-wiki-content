@@ -99,6 +99,14 @@ The CPU fan connector also uses a different pin order from PC fans. On the Alpha
   * DCG Computers [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L15655|"vendors selling 164SX systems"]], Scott Alexander, axp-list, 15 January 1998)]
   * Enorex [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L17218|"Anyone with an Enorex PC164sx have problems with milo?"]], Racter, axp-list, 13 March 1998)]
 
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **ECC memory requirement**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-April.mbox#L33061|"Re: PC164SX system building questions"]], Eric Dittman, axp-list, 21 Apr 1999: "I tried a pair of non-ECC PC-100 memory on mine and they didn't work.  I installed a pair of ECC PC-100 memory and they worked."
+    * Later reports cited in the Memory section say non-ECC memory works.
+
 ==== Documentation ====
 
   * {{wiki:hardware:motherboards:pc164sx:pc164sx_windows_nt_user_manual.pdf?linkonly|AlphaPC 164SX Motherboard Windows NT User's Manual}}

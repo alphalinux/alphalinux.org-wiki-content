@@ -118,6 +118,25 @@ The 164LX was manufactured by both Digital and Samsung. Digital boards use an In
   * Highscreen Alpha 5000 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1998-August.mbox#L2720|"Installing debian on Highscreen Alpha 5000 / Alpha PC 164LX"]], Dirk Luetjens, debian-alpha, 20 August 1998)]
   * Transtec [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L1540|"Sig11 errors on a new lx164"]], Stefan Boresch, axp-list, 2 March 1998)]
 
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **Registered memory**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L3792|"Re: PC164LX board in an ATX case?"]], Maurice Hilarius, axp-list, 4 Jul 2001: "RAM: PC100 Registered ECC (in pairs)."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L20919|"Re: Memory for LX164 Alpha's"]], Maurice Hilarius, axp-list, 18 Mar 2002: "You need SDRAM, PC100, ECC, Registered."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-May.mbox#L3212|"memory for an LX164"]], Steven Moix, axp-list, 12 May 2005: "Registered will NOT work..."
+  * **Maximum memory**
+    * {{wiki:hardware:motherboards:pc164lx:pc164lx_technical_reference_manual.pdf?linkonly|AlphaPC 164LX Motherboard Technical Reference Manual}}: "The AlphaPC 164LX supports a maximum of 512MB of main memory."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L15627|"RE: Memory Issues on an 164LX"]], Maurice Hilarius, axp-list, 18 Jan 2002: "4 x 256MB works. We have built over 400 with that.."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L15694|"Re: Memory Issues on an 164LX"]], Greg Lindahl, axp-list, 18 Jan 2002: "According to Compaq, the manual said that because there's a capitance [sic]"
+  * **Cache size and CPU speed**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-December.mbox#L2469|"RE: SX164 RAM - (current) state with 512MB dimms ?"]], Kurt Ludwig, axp-list, 4 Dec 2000: "You could also get an LX board w/ 8MB of on board cache through Microway."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L4051|"Re: PC164LX board in an ATX case?"]], Maurice Hilarius, axp-list, 4 Jul 2001: "And a 667 with 4MB cache likes more juice than that..."
+    * The manuals list 2 or 4 MiB of cache and CPU speeds up to 600 MHz.
+  * **Fail-safe loader jumper name**
+    * Maurice Hilarius refers to the jumper as "CF7" in some messages and "JF7" in others.
+
 ==== Documentation ====
 
   * {{wiki:hardware:motherboards:pc164lx:pc164lx_windows_nt_user_manual.pdf?linkonly|AlphaPC 164LX Motherboard Windows NT User's Manual (DEC, March 1999)}}

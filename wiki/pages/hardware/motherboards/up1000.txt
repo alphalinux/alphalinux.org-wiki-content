@@ -43,6 +43,17 @@ The UP1000 and UP1100 SRM images are different revisions and cannot be used on e
 
 According to Maurice Hilarius of Hard Data, Samsung developed the UP1x00 family of boards, while API took over development of the UP2000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-August.mbox#L6772|"RE: Samsung EV69"]], Maurice Hilarius, axp-list, 8 Aug 2002)] The UP1000 was also sold as a "Developers Special" system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L42106|"UP1000 and SuSE 6.3"]], Maurice Hilarius, axp-list, 30 Mar 2000)]
 
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **Latest SRM version**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L30608|"Re: 2.40test10 working?"]], Rich Payne, axp-list, 17 Nov 2000: "The latest for the UP1000 is 5.6-4.1-9."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L50553|"Re: Ultra ATA 100 on UP1000"]], Rich Payne, axp-list, 26 Nov 2000: "5.6-12 should be the latest."
+  * **ISA or EISA slots**
+    * {{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}: "Two ISA expansion slots"
+    * This page previously listed "2x EISA slots", carried over from the old wiki.
+
 ==== Documentation ====
 
   * {{wiki:hardware:motherboards:up1000:up1000_technical_reference_manual.pdf?linkonly|UP1000 Technical Reference Manual}}

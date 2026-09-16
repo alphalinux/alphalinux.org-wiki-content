@@ -47,6 +47,15 @@ With 256 MiB DIMMs, the largest available when the board was introduced, the 16 
 
 All six PCI slots are 64-bit. The three slots nearest the DIMMs are on PCI bus 0, and the three nearest the board edge are on PCI bus 1, where a VGA card is not expected to work [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-August.mbox#L3004|"Re: ATI Rage 128 and UP2000/264DP board"]], Jay Estabrook, debian-alpha, 7 Aug 2001)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-August.mbox#L2858|"Re: ATI Rage 128 and UP2000/264DP board"]], Jay Estabrook, debian-alpha, 7 Aug 2001)]. Jay Estabrook ran ATI Rage 128 and Radeon cards in a DP264 with SRM 5.8 and later [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-August.mbox#L2790|"Re: ATI Rage 128 and UP2000/264DP board"]], Jay Estabrook, debian-alpha, 7 Aug 2001)].
 
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **CPU speeds**
+    * {{wiki:hardware:motherboards:pc264dp:pc264dp_user_manual.pdf?linkonly|AlphaPC 264DP User's Manual}}: "operating at 500 MHz"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L10574|"Re: Upgrade paths"]], Maurice Hilarius, axp-list, 16 Aug 2000: "One may buy 667MHz 4MB cache daughtercards for DP264 from the usual API [resellers]"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L10449|"Re: Upgrade paths"]], Iwao Makino, axp-list, 17 Aug 2000: "Compaq/API have no plan on releasing beyond 667MHz/4MB cache CPU"
+
 ==== Documentation ====
 
   * {{wiki:hardware:motherboards:pc264dp:pc264dp_technical_reference_manual.pdf?linkonly|AlphaPC 264DP Technical Reference Manual}}

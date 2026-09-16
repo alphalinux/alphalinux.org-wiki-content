@@ -69,6 +69,26 @@ wiki:hardware:motherboards:pc164:pc164-1.jpg Digital AlphaPC 164
   * The Aspen "Durango" is Aspen's name for the PC164 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L28087|"Durango"]], Bernd Robl, axp-list, 19 Oct 1996)].
   * Vobis, a German computer retailer, sold PC164-based systems [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L46113|"Installing RH4.1 on PC164 from Vobis"]], Stephan Kanthak, axp-list, 25 Apr 1997)].
 
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **Last SRM version**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-October.mbox#L5523|"KZPEA bios?"]], Jay Estabrook, axp-list, 27 Oct 2004: "The latest SRM console on a PC164 is V5.5"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L22964|"Re: volatile SRM variables"]], Jay Estabrook, axp-list, 12 Nov 2000: "If the problem appeared with the 5.6 PC164 SRM, perhaps backing off to the 5.5 would solve the problem?"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L13722|"Re: EB164 SRM Problems"]], Stefan Schroepfer, debian-alpha, 29 Jan 2003: "SRM 5.6 is the latest version for PC164 (old!)"
+  * **Maximum memory**
+    * {{wiki:hardware:motherboards:pc164:pc164_product_brief.pdf?linkonly|AlphaPC 164 Motherboard Product Brief}}: "16MB-to-512MB memory array"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L13598|"Re: 1 GB RAM in PC164"]], Wolfgang Dreyer, axp-list, 13 Jun 1997: "Yes but as far as i know only one vendor of memory modules worldwide works."
+  * **CPU speeds**
+    * {{wiki:hardware:motherboards:pc164:pc164_product_brief.pdf?linkonly|AlphaPC 164 Motherboard Product Brief}}: "366, 400, 433, 466, and 500 MHz"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002: "PC164 EV56 (433-500) CIA-2 AlphaPC164"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-October.mbox#L4952|"Re: Hangs with 100baseTX, RedHat 7.1, kernel 2.4.x and AlphaPC 164"]], Mads Peter Bach, axp-list, 4 Oct 2001: "2900 BogoMIPS from a 366 MHz EV56"
+  * **CPU type**
+    * {{wiki:hardware:motherboards:pc164:pc164_product_brief.pdf?linkonly|AlphaPC 164 Motherboard Product Brief}}: "Digital Semiconductor 21164 Alpha microprocessor"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002: "PC164 EV56 (433-500) CIA-2 AlphaPC164"
+    * The overview table previously listed both the 21164 (EV5) and 21164A (EV56).
+
 ==== Documentation ====
 
   * {{wiki:hardware:motherboards:pc164:pc164_technical_reference_manual.pdf?linkonly|AlphaPC 164 Motherboard Technical Reference Manual}}

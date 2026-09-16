@@ -77,3 +77,16 @@ According to Maurice Hilarius of Hard Data, API took over the barely started dev
 ==== Related Systems ====
 
 The API NetWorks CS20 is a 1U dual processor system similar to the UP2000+. It uses the Tsunami chipset, but has CPUs soldered to the board instead of Slot B modules, an ALi south bridge instead of the Cypress, LSI Ultra160 SCSI instead of Adaptec, and dual onboard Ethernet. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L13502|"Re: 1U DUAL 833MHz Alpha"]], Rich Payne, axp-list, 7 Nov 2000)] Cray used the CS20 as the building block of its SuperCluster systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L31275|"RE: Cray chooses Alpha Linux ..."]], Tom Morris, axp-list, 30 Jan 2001)] API designed the CS20 and sold the design to Compaq, which produced it as the AlphaServer DS20L. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-July.mbox#L18051|"Re: API / CS20"]], Rich Payne, axp-list, 30 Jul 2002)]
+
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **Cache on 750 MHz CPUs**
+    * {{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}}: "4MB or 8 MB cache per 750 MHz processor"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L11176|"Re: Can I swap the 21264A in a UP2000 processor cardridge ?"]], Rich Payne, axp-list, 21 Dec 2001: "SROM code for 667-(2MB/4MB) and 750-8MB"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L10940|"Re: Can I swap the 21264A in a UP2000 processor cardridge ?"]], Maurice Hilarius, axp-list, 20 Dec 2001: "That is why the 750's that were sold all had bigger (8mb) cache."
+  * **667 MHz Slot B modules with DDR cache**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L11134|"Re: API Networks article on The Register"]], Rich Payne, axp-list, 6 Nov 2000: "There are no 667/750 DDR SlotBs."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-March.mbox#L1|"RE: UP2000"]], Maurice Hilarius, axp-list, 28 Feb 2001: "EV68 in 667 and 833, both with 4MB DDR is the current offering."
+    * The same Rich Payne message also mentions "dual 667 4MB (DDR) CPUs", possibly referring to the CS20.
