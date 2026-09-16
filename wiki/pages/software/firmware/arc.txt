@@ -1,6 +1,6 @@
 ===== ARC Firmware =====
 
-ARC firmware is the menu-driven firmware that Alpha systems use to boot Windows NT. It implements the [[wp>Advanced_RISC_Computing|Advanced RISC Computing]] (ARC) specification, which standardizes features of RISC computers including their firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1998-December.mbox#L6768|"Re: Booting problem"]], Nikita Schmidt, debian-alpha, 22 Dec 1998)] [(>AlphaServer 1000 Service Guide (EK-DTLSV-SV. B01))] Microsoft published the specification. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L56955|"ARC Specification"]], Bill Roman, axp-list, 24 Aug 1998)]
+ARC firmware is the menu-driven firmware that Alpha systems use to boot Windows NT. It implements the [[wp>Advanced_RISC_Computing|Advanced RISC Computing]] (ARC) specification, which standardizes features of RISC computers including their firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1998-December.mbox#L6768|"Re: Booting problem"]], Nikita Schmidt, debian-alpha, 22 Dec 1998)] [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}})] Microsoft published the specification. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L56955|"ARC Specification"]], Bill Roman, axp-list, 24 Aug 1998)]
 
 There are three families of ARC firmware on Alpha:
 
@@ -126,7 +126,7 @@ To boot MILO, add an operating system selection in "OS Selection Setup" with ''\
 
 === AlphaBIOS on SRM Systems ===
 
-On AlphaServers and workstations that support both Windows NT and Digital UNIX, AlphaBIOS is a separate, compressed image in flash. SRM always starts first, and then loads AlphaBIOS if ''os_type'' is ''nt'' or the ''alphabios'' command is entered. [(>AlphaServer 4100/4000 V6.0 Firmware Release Notes, January 2001, on the Alpha Systems Firmware Update V7.3 CD)] [(>{{wiki:hardware:motherboards:pc264dp:pc264dp_user_manual.pdf?linkonly|AlphaPC 264DP User's Manual}}, p. 6-1)] AlphaBIOS moved to a new location in flash in version 5.67, which requires SRM 5.3 or later. [(>''AlphaBIOS Release Notes'', Compaq, July 1999, on the Alpha Systems Firmware Update V7.3 CD)]
+On AlphaServers and workstations that support both Windows NT and Digital UNIX, AlphaBIOS is a separate, compressed image in flash. SRM always starts first, and then loads AlphaBIOS if ''os_type'' is ''nt'' or the ''alphabios'' command is entered. [(>{{wiki:software:firmware:alphaserver_4000_4100_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 4100/4000 Firmware Release Notes (V6.0)}})] [(>{{wiki:hardware:motherboards:pc264dp:pc264dp_user_manual.pdf?linkonly|AlphaPC 264DP User's Manual}}, p. 6-1)] AlphaBIOS moved to a new location in flash in version 5.67, which requires SRM 5.3 or later. [(>''AlphaBIOS Release Notes'', Compaq, July 1999, on the Alpha Systems Firmware Update V7.3 CD)]
 
 ==== Switching to SRM ====
 
@@ -210,7 +210,7 @@ The following sources disagree with each other or with this page. They are liste
     * ''AlphaBIOS Release Notes'', Compaq, July 1999, version 5.66: "reduce the maximum number of Operating System (OS) boot selections from four to three."
   * **System partition size**
     * {{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}}, p. 27: "System partition 5MB FAT"
-    * AlphaServer 1000 Owner's Guide (EK-DTLSV-OG. A01), p. 3-5, describes creating a 6 MB system partition.
+    * {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide}}, p. 3-5, describes creating a 6 MB system partition.
   * **Last AlphaBIOS on the ES40**
     * ''FWREADME.TXT'' for the ES40 on the V7.3 firmware CD lists AlphaBIOS V5.71.
     * {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}}, p. 10, lists no Windows NT firmware for the ES40.
