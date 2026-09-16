@@ -1,0 +1,31 @@
+===== UP1000 =====
+
+The UP1000 is a motherboard built by Samsung and API NetWorks and released in 2000.
+
+<gallery right aligned nocrop>
+wiki:hardware:motherboards:up1000:up1000-1.jpg API NetWorks UP1000
+</gallery>
+
+==== Specifications ====
+
+  * 600 MHz EV67 with 2 MiB L2 cache or 700 MHz EV67 with 4 MiB L2 cache, L2 cache bandwidth 3.2 GiB/s [(>{{wiki:hardware:motherboards:up1000:up1000_spec_sheet.pdf?linkonly|UP1000 Spec Sheet}}, Alpha Processor, Inc., January 2000)]
+  * AMD-751 Chipset, ALi M1543C south bridge
+  * 3x 168-pin DIMMs, supports 64 MiB to 768 MiB of ECC unbuffered PC100 SDRAM
+  * 1x AGP 2x (See limitations below)
+  * 4x 33 MHz 32-bit PCI slots
+  * 2x EISA slots
+
+==== Limitations ====
+
+  * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB (137GB)
+  * According to Ivan Kokshaysky, the UP1000, UP1100, and UP1500's AGP is limited to PCI transfers:
+    <blockquote>There is quite fundamental conflict between the Alpha architecture and x86 AGP implementation - Alpha is entirely cache coherent by design, while x86 AGP is not (I mean native AGP DMA transactions, not a PCI over AGP). There are no such things as non-cacheable mappings or software support for cache flushing/invalidation on Alpha, so x86 AGP code won't work on Nautilus.</blockquote>
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:up1000:up1000_technical_reference_manual.pdf?linkonly|UP1000 Technical Reference Manual}}
+  * {{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}
+  * {{wiki:hardware:motherboards:up1000:up1000_quick_start.pdf?linkonly|UP1000 Quick Start Installation Guide}}
+  * {{wiki:hardware:motherboards:up1000:up1000_spec_sheet.pdf?linkonly|UP1000 Spec Sheet}}
+
+{{gallery>:wiki:hardware:motherboards:up1000}}

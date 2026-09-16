@@ -1,0 +1,49 @@
+===== PC164LX =====
+
+The AlphaPC 164LX is an OEM ATX form factor motherboard released in 1997.
+
+<gallery right aligned nocrop>
+wiki:hardware:motherboards:pc164lx:pc164lx-1.jpg Digital AlphaPC 164LX
+</gallery>
+
+==== Specifications ====
+
+  * 466, 533, or 600 MHz EV56 CPU [(>{{wiki:hardware:motherboards:pc164lx:pc164lx_product_brief.pdf?linkonly|AlphaPC 164LX Motherboard Product Brief}})]
+  * 2 or 4 MiB external L2 cache
+  * 21174-CA chipset
+  * 4x 168-pin DIMMs, supports up to 1 GiB of unbuffered ECC SDRAM
+  * 2x 33 MHz 64-bit PCI slots
+  * 2x 33 MHz 32-bit PCI slots
+  * 2x ISA slots
+  * CMD646 IDE on PCI
+  * Intel 82378ZB PCI-to-ISA bridge
+  * SMC FDC37C935 Super I/O controller
+  * Floppy disk controller
+  * PS/2 keyboard and mouse
+  * 2x RS-232
+  * 1x Parallel port
+  * MMJ SROM console port
+
+==== Memory ====
+
+Memory reported to work with the 164LX (and by extension, the [[PC164SX]]):
+
+  * Kingston KVR100X72C2/256 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-May.mbox#L967|"Max. memory on 164LX"]], Juhana Helovuo, axp-list, 5 May 2008)]
+  * Micron MT18LSDT1672G-10EC2 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-May.mbox#L1209|"Max. memory on 164LX"]], Kazuyoshi Furutaka, axp-list, 8 May 2008)]
+  * Micron MT18LSDT3272AG-10EB1
+
+Memory reported not to work:
+
+  * Kingston KVR133X72C3/256, due to wrong layout
+
+Memory listed as compatible by a memory vendor (untested):
+
+KAC330/64, KAL7200/64, KGW0281/64, KGW-E0236/32, KTA-G3/256, KTA-G3100/256, KTA-G3100/32, KTA-G3100/64, KTA-G4/256, KTA-iMAC100/256, KTA-iMAC100/512, KTC3088/256, KTC6611/256, KTC6615/64, KTC-EN133/256, KTD-OPGX1N/128, KTD-OPGX1N/256, KTD-WS410/256, KTD-XPSR/64, KTD-XPSRN/256, KTH6521/64, KTH-PVL100/256, KTH-PVL100/32, KTM1133/64, KTM1136/256, KTT-EQ7100/32, KVR100X64C2/256, KVR100X64C2/32, KVR100X64C3/256, KVR100X64C3/32, KVR100X72C2/128, KVR100X72C2/32, KVR100X72C2/64, KVR100X72C3/32, KVR100X72C3/64, KVR133X64C3/256, KVR133X72C3/64, SAC-A330/32, SHP-VVL8/256
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:pc164lx:pc164lx_technical_reference_manual.pdf?linkonly|AlphaPC 164LX Motherboard Technical Reference Manual}}
+  * {{wiki:hardware:motherboards:pc164lx:pc164lx_tru64_unix_user_manual.pdf?linkonly|AlphaPC 164LX Motherboard Tru64 UNIX User's Manual}}
+  * {{wiki:hardware:motherboards:pc164lx:pc164lx_product_brief.pdf?linkonly|AlphaPC 164LX Motherboard Product Brief}}
+
+{{gallery>:wiki:hardware:motherboards:pc164lx}}

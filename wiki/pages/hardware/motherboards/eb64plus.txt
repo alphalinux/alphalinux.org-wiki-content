@@ -1,0 +1,28 @@
+===== EB64+ =====
+
+The EB64+ (also sold by Aspen Systems as the Alpine) is an AT form factor motherboard released in 1994(?).
+
+==== Specifications ====
+
+  * 166, 200, 233, or 275 MHz CPU
+  * 8x 36-bit DRAM SIM slots
+  * 2 or 3 32-bit PCI slots
+  * 3x ISA slots
+  * Floppy
+  * SCSI (NCR 810), internal and external headers on motherboard
+  * AT keyboard connector
+  * PS/2 mouse header on motherboard
+  * 2x RS-232 serial ports, headers on motherboard
+  * AT power supply with extra 3.3V
+
+The EB64+ has two ROMs, one of which contains the Windows NT ARC firmware and the other contains the Evaluation Board Debug Monitor.
+
+The Aspen Alpine is a little different in that it only has one ROM; this contains the Windows NT ARC firmware. [(>[[https://stason.org/TULARC/pc/motherboards/A/ASPEN-SYSTEMS-INC-Alpha-ALPINE.html|"ASPEN SYSTEMS, INC. Alpha ALPINE"]], The Motherboard Collection)]
+
+==== Memory ====
+
+Requires 36-bit DRAM SIMs, 2 pairs at a time. Memory size and speed are set using jumpers on the motherboard.
+
+==== Linux ====
+
+Can only boot Linux using MILO.

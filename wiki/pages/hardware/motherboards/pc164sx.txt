@@ -1,0 +1,46 @@
+===== PC164SX =====
+
+The AlphaPC 164SX is an ATX form factor motherboard released in 1997.
+
+<gallery right aligned nocrop>
+wiki:hardware:motherboards:pc164sx:pc164sx-1.jpg Digital AlphaPC 164SX
+</gallery>
+
+==== Specifications ====
+
+  * 533 MHz [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|PCA56]] CPU
+  * 1 MiB external L2 cache
+  * 21174-CA chipset
+  * 4x 168-pin 100 MHz unbuffered SDRAM DIMMs (see below)
+  * 2x 33 MHz 64-bit PCI slots
+  * 2x 33 MHz 32-bit PCI slots
+  * 2x ISA slots
+  * Cypress CY82C693U-NC EIDE controller and ISA bridge
+  * SMSC FDC37C669 Super I/O controller
+  * Floppy disk controller
+  * PS/2 keyboard and mouse
+  * 2x RS-232
+  * 1x Parallel port
+
+==== Memory ====
+
+Both 64-bit and 72-bit (ECC) 100 MHz SDRAM modules are supported and must be installed in pairs. Modules up to 128 MiB are officially supported, but some 256 MiB modules work in reality. The following table lists some RAM modules known to work or not work with the 164SX board.
+
+^ Vendor ^ Part # ^ Size ^ Chip # ^ Works ^
+| Kingston | KVR133X64C3Q/256 | 256 MiB | D1608SV1R-75 | Yes |
+| Unknown | 2910103282 | 256 MiB | S80016LK7TW-75AD | Yes |
+| Unknown | Unknown | 128 MiB | 48LC8M8B4-8E | Yes |
+| Kingston | KVR133X72C3/256 | 256 MiB | HYB39S256800DT-7 | No |
+| Acer | 71.85325.111 | 256 MiB | HYB39S256800CT-7.5 | No |
+
+==== CPU Fan ====
+
+The PC164SX requires a CPU fan with a rotation sensor. Most standard PC fans are not capable of driving the motherboard sensor input directly, so an adaptor must be used.
+
+==== Documentation ====
+
+  * {{wiki:hardware:motherboards:pc164sx:pc164sx_technical_reference_manual.pdf?linkonly|AlphaPC 164SX Motherboard Technical Reference Manual}}
+  * {{wiki:hardware:motherboards:pc164sx:pc164sx_digital_unix_user_manual.pdf?linkonly|AlphaPC 164SX Motherboard DIGITAL UNIX User's Manual}}
+  * {{wiki:hardware:motherboards:pc164sx:pc164sx_product_brief.pdf?linkonly|AlphaPC 164SX Motherboard Product Brief}}
+
+{{gallery>:wiki:hardware:motherboards:pc164sx}}
