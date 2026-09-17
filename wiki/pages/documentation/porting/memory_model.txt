@@ -1,0 +1,440 @@
+===== Memory Model =====
+
+Alpha has the weakest memory ordering model of any architecture Linux has ever supported. It is the reason the Linux kernel's memory model is shaped the way it is, and the reason ''READ_ONCE()'' costs more on Alpha than anywhere else.
+
+This page describes what the architecture actually guarantees, what the hardware actually does, and what the compiler and the kernel actually emit. Claims here are backed by the [[documentation:references|Architecture Reference Manual]], by current Linux and GCC source, or by compiler output reproduced below.
+
+See also [[documentation:porting:unaligned_access|Unaligned Access]] and [[documentation:porting:byte_word_access|Byte and Word Access]].
+
+==== Permitted Reorderings ====
+
+^ Reordering ^ Alpha ^ x86 (TSO) ^ ARMv7 ^ SPARC TSO ^
+| Store to store | Yes | No | Yes | No |
+| Load to load | Yes | No | Yes | No |
+| Load to store | Yes | No | Yes | No |
+| Store to load | Yes | Yes | Yes | Yes |
+| **Dependent load to load** | **Yes** | No | No | No |
+
+The last row is the one that matters. Every other architecture guarantees that if you load a pointer and then load through that pointer, the second load sees memory at least as new as the first. Alpha does not.
+
+''Documentation/memory-barriers.txt'' names Alpha as the only machine on which the address dependency is not honored:
+
+<code>
+While this may seem like a failure of coherency or causality maintenance, it
+isn't, and this behaviour can be observed on certain real CPUs (such as the DEC
+Alpha).
+</code>
+
+==== Why Dependent Loads Reorder ====
+
+This is not speculation, and it is not the out-of-order engine guessing. The cause is the cache:
+
+<code>
+AND THEN THERE'S THE ALPHA
+--------------------------
+
+The DEC Alpha CPU is one of the most relaxed CPUs there is.  Not only that,
+some versions of the Alpha CPU have a split data cache, permitting them to have
+two semantically-related cache lines updated at separate times.  This is where
+the address-dependency barrier really becomes necessary as this synchronises
+both caches with the memory coherence system, thus making it seem like pointer
+changes vs new data occur in the right order.
+</code>
+
+The two loads go to different cache banks, and the banks are updated independently. The dereferencing processor can see the new pointer from one bank while the old contents of the target are still live in another. Note the wording "some versions of the Alpha CPU": this is an implementation property that the architecture permits, not something every Alpha does.
+
+The kernel's own source comment is blunter:
+
+<code c>
+/*
+ * Alpha is apparently daft enough to reorder address-dependent loads
+ * on some CPU implementations. Knock some common sense into it with
+ * a memory barrier in READ_ONCE().
+ *
+ * For the curious, more information about this unusual reordering is
+ * available in chapter 15 of the "perfbook":
+ *
+ *  https://kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html
+ *
+ */
+</code>
+
+==== Barrier Instructions ====
+
+Alpha has exactly two memory barrier instructions, plus a PALcode call for the instruction stream.
+
+^ Instruction ^ Effect ^
+| ''MB'' | Full barrier. All previous loads and stores access memory before any subsequent load or store does, as observed by other processors. |
+| ''WMB'' | Write barrier. Writes before it complete before writes after it, and are not aggregated with them. Loads may cross it freely. |
+| ''CALL_PAL IMB'' | Instruction memory barrier, for self-modifying or newly loaded code. |
+
+There is **no read barrier instruction**. ''grep'' the binutils opcode table and you will find ''mb'' and ''wmb'' and nothing else of the kind. Linux therefore defines ''rmb()'' as a full ''mb'':
+
+<code c>
+#define mb()	__asm__ __volatile__("mb": : :"memory")
+#define rmb()	__asm__ __volatile__("mb": : :"memory")
+#define wmb()	__asm__ __volatile__("wmb": : :"memory")
+</code>
+
+The Architecture Reference Manual is careful about what ''MB'' does and does not buy you:
+
+> Note that MB ensures serialization only; it does not necessarily accelerate the progress of memory operations.
+
+and about what happens without ''WMB'':
+
+> In the absence of a WMB instruction, stores to memory or non-memory-like regions can be aggregated and/or buffered and completed in any order.
+
+==== The Dependent Load Problem in Practice ====
+
+<code c>
+/* Thread A, the writer */
+node->value = 42;
+smp_wmb();                /* value store is visible before the pointer store */
+list->head = node;
+
+/* Thread B, the reader. BROKEN on Alpha. */
+struct node *p = list->head;
+int v = p->value;         /* may read the pre-initialization contents */
+</code>
+
+Thread B needs a barrier between the two loads even though the second load depends on the first. In the kernel this was spelled ''smp_read_barrier_depends()'', which expanded to an inline ''mb'' on Alpha (there being no read barrier) and to nothing at all on every other architecture.
+
+That macro is gone. The history is worth getting right, because it is often told wrong:
+
+^ Version ^ Change ^ Commit ^
+| v4.15 | ''READ_ONCE()'' on Alpha gained an unconditional barrier, which subsumes the problem for almost all kernel code | ''76ebbe78f739'' "locking/barriers: Add implicit smp_read_barrier_depends() to READ_ONCE()" |
+| v5.9 | Alpha got its own ''__READ_ONCE()'', and ''smp_read_barrier_depends()'' was deleted outright | ''d64628588515'', ''93fab07c2293'' "locking/barriers: Remove definitions for [smp_]read_barrier_depends()" |
+
+''Documentation/memory-barriers.txt'' records the v4.15 change:
+
+<code>
+As of v4.15 of the Linux kernel, an smp_mb() was added to READ_ONCE() for
+DEC Alpha, which means that about the only people who need to pay attention
+to this section are those working on DEC Alpha architecture-specific code
+</code>
+
+What Alpha does today is a plain volatile load followed by a full ''mb'', whenever ''CONFIG_SMP'' is set:
+
+<code c>
+#define __READ_ONCE(x)							\
+({									\
+	__unqual_scalar_typeof(x) __x =					\
+		(*(volatile typeof(__x) *)(&(x)));			\
+	mb();								\
+	(typeof(x))__x;							\
+})
+</code>
+
+Because that barrier is already there, ''smp_load_acquire()'' on Alpha is nothing more than ''__READ_ONCE()'':
+
+<code c>
+#define __smp_load_acquire(p)						\
+({									\
+	compiletime_assert_atomic_type(*p);				\
+	__READ_ONCE(*p);						\
+})
+</code>
+
+**Porting consequence:** if you are writing kernel code, use ''READ_ONCE()'', ''rcu_dereference()'' or ''smp_load_acquire()'' and the dependent-load problem is handled for you. If you are writing userspace code, use C11 or C++11 atomics with ''memory_order_consume'' promoted to ''memory_order_acquire'', which is what every real implementation does anyway. Hand-rolled lock-free code that relies on data dependencies for ordering is broken on Alpha.
+
+==== Load-Locked / Store-Conditional ====
+
+Alpha has no atomic read-modify-write instruction. Every atomic operation is built from ''LDL_L''/''LDQ_L'' and ''STL_C''/''STQ_C''. ''STx_C'' writes 1 into its source register on success and 0 on failure, and clears the lock flag either way.
+
+=== Forward progress rules ===
+
+The Architecture Reference Manual places hard restrictions on what may appear between the load-locked and the store-conditional. These are not advice, they are correctness requirements:
+
+> * If any other memory access (LDx, LDQ_U, STx, STQ_U) is done on the given processor between the LDx_L and the STx_C, the sequence above may always fail on some implementations; hence, no useful program should do this.
+> * If a branch is taken between the LDx_L and the STx_C, the sequence above may always fail on some implementations; hence, no useful program should do this. (CMOVxx may be used to avoid branching.)
+> * If a subsetted instruction (for example, floating-point) is done between the LDx_L and the STx_C, the sequence above may always fail on some implementations, because of the Illegal Instruction Trap; hence, no useful program should do this.
+> * If a large number of instructions are executed between the LDx_L and the STx_C, the sequence above may always fail on some implementations, because of a timer interrupt always clearing the lock_flag before the sequence completes; hence, no useful program should do this.
+> * Hardware implementations are encouraged to lock no more than 128 bytes.
+
+In short: between the two instructions, do register-to-register integer work and nothing else.
+
+=== Atomic increment ===
+
+The kernel's implementation shows the idiom, including the branch layout:
+
+<code c>
+/*
+ * To get proper branch prediction for the main line, we must branch
+ * forward to code at the end of this object's .text section, then
+ * branch back to restart the operation.
+ */
+
+#define ATOMIC_OP(op, asm_op)						\
+static __inline__ void arch_atomic_##op(int i, atomic_t * v)		\
+{									\
+	unsigned long temp;						\
+	__asm__ __volatile__(						\
+	"1:	ldl_l %0,%1\n"						\
+	"	" #asm_op " %0,%2,%0\n"					\
+	"	stl_c %0,%1\n"						\
+	"	beq %0,2f\n"						\
+	".subsection 2\n"						\
+	"2:	br 1b\n"						\
+	".previous"							\
+	:"=&r" (temp), "=m" (v->counter)				\
+	:"Ir" (i), "m" (v->counter));					\
+}									\
+</code>
+
+The retry path lives in ''.subsection 2'' so that both in-line conditional branches are forward branches, and are therefore predicted not taken. The Architecture Reference Manual makes the same point: "Both conditional branches are forward branches, so they are properly predicted not to be taken (to match the common case of no contention for the lock)."
+
+Note that this macro generates the //unordered// form. A fully ordered read-modify-write needs a barrier on **both** sides; Linux puts them outside the assembly.
+
+=== Compare and swap ===
+
+<code c>
+static inline unsigned long
+____cmpxchg_u32(volatile int *m, int old, int new)
+{
+	unsigned long prev, cmp;
+
+	__asm__ __volatile__(
+	"1:	ldl_l %0,%5\n"
+	"	cmpeq %0,%3,%1\n"
+	"	beq %1,2f\n"
+	"	mov %4,%1\n"
+	"	stl_c %1,%2\n"
+	"	beq %1,3f\n"
+	"2:\n"
+	".subsection 2\n"
+	"3:	br 1b\n"
+	".previous"
+	: "=&r"(prev), "=&r"(cmp), "=m"(*m)
+	: "r"((long) old), "r"(new), "m"(*m) : "memory");
+
+	return prev;
+}
+</code>
+
+with the barriers wrapped around the whole thing:
+
+<code c>
+/*
+ * The leading and the trailing memory barriers guarantee that these
+ * operations are fully ordered.
+ */
+</code>
+
+<code c>
+#define arch_cmpxchg(ptr, o, n)						\
+({									\
+	__typeof__(*(ptr)) __ret;					\
+	__typeof__(*(ptr)) _o_ = (o);					\
+	__typeof__(*(ptr)) _n_ = (n);					\
+	smp_mb();							\
+	__ret = (__typeof__(*(ptr))) ____cmpxchg((ptr),			\
+		(unsigned long)_o_, (unsigned long)_n_, sizeof(*(ptr)));\
+	smp_mb();							\
+	__ret;								\
+})
+</code>
+
+Because the barriers are outside, a //failing// ''cmpxchg()'' is still fully ordered. A common mistake in hand-written CAS loops is to branch out of the loop on mismatch and skip the trailing barrier.
+
+On the mismatch path the reservation is simply abandoned. That is architecturally fine and not a leak: "LDx_L and STx_C instructions need not be paired. In particular, an LDx_L may be followed by a conditional branch: on the fall-through path an STx_C is done, whereas on the taken path no matching STx_C is done."
+
+==== Locks ====
+
+Alpha has no load-acquire or store-release instruction. Acquire and release semantics are built out of ''MB''.
+
+The important and non-obvious rule is that you must **not** spin on ''LDx_L''. The Architecture Reference Manual:
+
+> It would be a performance mistake to spin-wait by repeating the full LDQ_L..STQ_C sequence (to move the BLBS after the BEQ) because that sequence may repeatedly change the software lock_variable from "locked" to "locked," with each write causing extra access delays in all other caches that contain the lock_variable. In the extreme, spin-waits that contain writes may deadlock.
+
+Linux gets this right. Note that the contended spin loop at label ''2'' uses a plain ''ldl'', not ''ldl_l'':
+
+<code c>
+static inline void arch_spin_lock(arch_spinlock_t * lock)
+{
+	long tmp;
+
+	__asm__ __volatile__(
+	"1:	ldl_l	%0,%1\n"
+	"	bne	%0,2f\n"
+	"	lda	%0,1\n"
+	"	stl_c	%0,%1\n"
+	"	beq	%0,2f\n"
+	"	mb\n"
+	".subsection 2\n"
+	"2:	ldl	%0,%1\n"
+	"	bne	%0,2b\n"
+	"	br	1b\n"
+	".previous"
+	: "=&r" (tmp), "=m" (lock->lock)
+	: "m"(lock->lock) : "memory");
+}
+
+static inline void arch_spin_unlock(arch_spinlock_t * lock)
+{
+	mb();
+	lock->lock = 0;
+}
+</code>
+
+Alpha has not been converted to qspinlock; this is the live implementation.
+
+On barrier placement, the Architecture Reference Manual prescribes:
+
+<code>
+      <acquire software lock>
+      MB (memory barrier #1)
+      <critical section -- read/write shared data>
+      WMB or MB (memory barrier #2)
+      <clear software lock>
+</code>
+
+> The first memory barrier prevents any reads (from within the critical section) from being prefetched before the software lock is acquired; such prefetched reads would potentially contain stale data.
+> The second memory barrier prevents any writes (and reads if MB is used instead of WMB) from within the critical section from being delayed past the clearing of the software lock.
+
+The acquire-side barrier must be ''MB''. The release-side barrier may be ''WMB'' if the critical section's //loads// need not be contained, which is only safe if you are relying on causal ordering. Linux does not take that risk and uses a full ''mb()''.
+
+==== Memory-Mapped I/O ====
+
+Use ''readl()''/''writel()'' and friends. On Alpha they already carry the barriers, and ''writel_relaxed'' is defined to plain ''writel'':
+
+<code c>
+extern inline u32 readl(const volatile void __iomem *addr)
+{
+	u32 ret;
+	mb();
+	ret = __raw_readl(addr);
+	mb();
+	return ret;
+}
+
+extern inline void writel(u32 b, volatile void __iomem *addr)
+{
+	mb();
+	__raw_writel(b, addr);
+}
+</code>
+
+Note the asymmetry: ''writel()'' has a leading barrier and no trailing one. That is deliberate, because a trailing ''MB'' would not achieve what people usually want it to. A barrier does not make a write to a device register //complete//:
+
+> If an Alpha AXP processor writes a location that is a control register within an I/O device, then executes a memory barrier, then writes a location in memory (in a memory-like or non-memory-like region), the I/O device may be able to detect (via read access) the result of the memory write before receiving and responding to the write of its own control register.
+> In almost every case, a mechanism that ensures the completion of writes to control register locations within I/O devices is provided. The normal and strongly recommended mechanism is to read a location after writing it, which guarantees that the write is complete.
+
+So: to force a device write to land, **read it back**. The kernel does exactly this when setting the HAE register:
+
+<code c>
+	alpha_mv.hae_cache = new_hae;
+	*alpha_mv.hae_register = new_hae;
+	mb();
+	/* Re-read to make sure it was written.  */
+	new_hae = *alpha_mv.hae_register;
+</code>
+
+For a single processor accessing the //same// address, no barrier is needed at all. The Architecture Reference Manual: "A read to physical address x will always return the value written by the immediately preceding write to x in the processor issue sequence." The exposure is ordering between //different// registers, and ordering as the device sees it across a bus bridge.
+
+==== Address Space Numbers and TB Invalidation ====
+
+Alpha optionally implements address space numbers, which tag translation buffer entries so that entries belonging to a different address space do not match. A context switch can then install a different ASN instead of flushing the TB.
+
+ASN width is per-implementation, and on EV4 the feature is close to useless:
+
+<code c>
+#define EV4_MAX_ASN 63
+#define EV5_MAX_ASN 127
+#define EV6_MAX_ASN 255
+</code>
+
+When the ASN space is exhausted, Linux bumps an ASN version and issues ''tbiap()''.
+
+''TBIA'' and ''TBIS'' are **not instructions**. Under the OSF/1 PALcode that Linux uses they are a PALcode call, ''CALL_PAL tbi'', with the operation selected by a value in ''$16''. (Under the OpenVMS PALcode they are internal processor registers instead.) Linux wraps them:
+
+<code c>
+#define tbi(x,y)	__tbi(x,__r17=(y),"1" (__r17))
+#define tbisi(x)	__tbi(1,__r17=(x),"1" (__r17))
+#define tbisd(x)	__tbi(2,__r17=(x),"1" (__r17))
+#define tbis(x)		__tbi(3,__r17=(x),"1" (__r17))
+#define tbiap()		__tbi(-1, /* no second argument */)
+#define tbia()		__tbi(-2, /* no second argument */)
+</code>
+
+On a multiprocessor, invalidating one processor's TB is not enough: "An operating system must arrange to perform the above actions on each processor that could possibly have copies of the PTE or data for any affected page." Linux does this with a cross-processor shootdown. For the instruction stream the required operation is ''CALL_PAL IMB'', not ''MB''.
+
+==== What GCC Actually Emits ====
+
+The output below is from ''alpha-unknown-linux-gnu-gcc 16.2.0'' at ''-O2''. The GP-relative address computation has been elided for readability.
+
+<code c>
+_Atomic int flag;
+void st_rel(void)  { atomic_store_explicit(&flag, 1, memory_order_release); }
+int  ld_acq(void)  { return atomic_load_explicit(&flag, memory_order_acquire); }
+void st_sc(void)   { atomic_store_explicit(&flag, 1, memory_order_seq_cst); }
+void fence(void)   { atomic_thread_fence(memory_order_seq_cst); }
+</code>
+
+<code asm>
+st_rel:  mb  ;  stl $2,flag($1)  ;  ret
+ld_acq:  ldl $0,flag($1)  ;  mb  ;  ret
+st_sc:   mb  ;  stl $2,flag($1)  ;  mb  ;  ret
+fence:   mb  ;  ret
+</code>
+
+Two things are worth knowing:
+
+  * A **release store emits ''MB'' before the store, not ''WMB''**. This is frequently misstated.
+  * GCC's Alpha back end has **no ''WMB'' pattern at all**. ''mb'' is the only barrier it will ever emit. The single barrier pattern in ''gcc/config/alpha/sync.md'' expands ''UNSPEC_MB'' to the string ''"mb"'', and ''grep -r wmb gcc/config/alpha/'' returns nothing.
+
+The legacy ''%%__sync%%'' builtins are full barriers by definition, and GCC brackets them accordingly:
+
+<code asm>
+faa:                      ; __sync_fetch_and_add(p, 1)
+	mb
+$L10:
+	ldl_l $0,0($16)
+	addl $0,1,$1
+	stl_c $1,0($16)
+	beq $1,$L10
+	mb
+	ret $31,($26),1
+
+cas:                      ; __sync_bool_compare_and_swap(p, old, new)
+	mb
+$L12:
+	ldl_l $1,0($16)
+	cmpeq $1,$17,$0
+	beq $0,$L13
+	mov $18,$0
+	stl_c $0,0($16)
+	beq $0,$L12
+$L13:
+	mb
+	ret $31,($26),1
+</code>
+
+Label ''$L13'' is the detail to notice: the trailing ''mb'' covers the failure path as well as the success path, matching what the kernel's ''arch_cmpxchg()'' does.
+
+==== Summary ====
+
+^ Need ^ On Alpha ^
+| Full barrier | ''MB'' |
+| Write barrier | ''WMB'' (architecture only; GCC never emits it) |
+| Read barrier | does not exist; use ''MB'' |
+| Atomic read-modify-write | ''LDx_L''/''STx_C'' loop, forward branches, register operates only in between |
+| Fully ordered RMW | ''MB'' before **and** after the loop |
+| Publish a pointer, writer | ''WMB'' (or ''MB'') before the pointer store |
+| Publish a pointer, reader | ''MB'' after the pointer load; in the kernel, ''READ_ONCE()'' does it for you |
+| Acquire a lock | ''LDx_L''/''STx_C'' loop, spin on a plain ''LDx'', then ''MB'' |
+| Release a lock | ''MB'' (''WMB'' permitted), then the clearing store |
+| MMIO | ''readl()''/''writel()''; read back to force completion |
+| Invalidate the TB | ''CALL_PAL tbi'', not an instruction |
+| Invalidate the I-cache | ''CALL_PAL IMB'', not ''MB'' |
+
+==== References ====
+
+  * {{wiki:documentation:references:alpha_architecture_reference_manual_2nd_edition.pdf?linkonly|Alpha AXP Architecture Reference Manual, Second Edition}}. Section 4.11 covers ''MB'', ''WMB'', ''LDx_L'' and ''STx_C''; Chapter 5 covers the memory model, atomic update of data structures (5.5), ordering considerations for shared data structures (5.5.4) and memory-mapped I/O (5.6.4.7).
+  * [[https://www.kernel.org/doc/Documentation/memory-barriers.txt|''Documentation/memory-barriers.txt'']], Linux kernel. See "AND THEN THERE'S THE ALPHA".
+  * Paul E. McKenney, [[https://kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html|"Is Parallel Programming Hard, And, If So, What Can You Do About It?"]] ("perfbook"), chapter 15.
+  * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/barrier.h|''arch/alpha/include/asm/barrier.h'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/rwonce.h|''rwonce.h'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/atomic.h|''atomic.h'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/cmpxchg.h|''cmpxchg.h'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/spinlock.h|''spinlock.h'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/io.h|''io.h'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/pal.h|''pal.h'']].
+  * Will Deacon, [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=93fab07c22930c9ac4f01212fd92913c9a812f9f|''93fab07c2293'' "locking/barriers: Remove definitions for [smp_]read_barrier_depends()"]], Linux v5.9.
+  * Will Deacon, [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d6462858851549c62d73eaa14b31132b0f32d6b6|''d64628588515'' "alpha: Override READ_ONCE() with barriered implementation"]], Linux v5.9.
+  * Peter Zijlstra, [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=76ebbe78f7390aee075a7f3768af197ded1bdfbb|''76ebbe78f739'' "locking/barriers: Add implicit smp_read_barrier_depends() to READ_ONCE()"]], Linux v4.15.
+
+{{tag>documentation porting}}

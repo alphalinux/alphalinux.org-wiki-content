@@ -1,0 +1,364 @@
+===== Floating Point =====
+
+Alpha's floating point is where the largest number of porting surprises live. Programs that run everywhere else produce ''SIGFPE'' on Alpha, or produce zero where they should produce a denormal, or produce the right answer several hundred times more slowly than expected.
+
+Almost all of it traces to one design decision: **arithmetic traps on Alpha are imprecise**. The processor does not stop at the instruction that overflowed. It keeps going, and the trap arrives somewhere later. Making IEEE 754 work on top of that requires cooperation from the compiler, the kernel and the C library, and if any of the three is not cooperating you get wrong answers.
+
+See also [[documentation:instruction_set|Instruction Set]] and [[documentation:amask|Architecture Mask (amask)]].
+
+==== Formats ====
+
+Alpha supports two families. Four formats have hardware arithmetic.
+
+^ Format ^ Family ^ Size ^ Sign + exponent + fraction ^ Bias ^ Hardware arithmetic ^
+| F_floating | VAX | 32-bit | 1 + 8 + 23 | excess-128 | yes |
+| G_floating | VAX | 64-bit | 1 + 11 + 52 | excess-1024 | yes |
+| D_floating | VAX | 64-bit | 1 + 8 + 55 | excess-128 | no |
+| S_floating | IEEE | 32-bit | 1 + 8 + 23 | excess-127 | yes |
+| T_floating | IEEE | 64-bit | 1 + 11 + 52 | excess-1023 | yes |
+| X_floating | IEEE | 128-bit | 1 + 15 + 112 | excess-16383 | no |
+
+H_floating is a VAX format with **no support of any kind** on Alpha. The Architecture Reference Manual lists it under "Data Types with No Hardware Support" and, unlike D_floating, promises no emulation either.
+
+D_floating is partly supported: it is loaded and stored with the //G_floating// instructions (the bit reordering is identical), and ''CVTDG''/''CVTGD'' convert to and from G. There is no D arithmetic. As the Architecture Reference Manual puts it, you get "'format compatibility' in which binary files of D_floating numbers may be processed, but without the last 3 bits of fraction precision".
+
+**There is no instruction that converts between the VAX and IEEE families.** No ''CVTGT'', no ''CVTTG'', nothing. Any G to T conversion is a software operation on the exponent field plus special-value handling.
+
+=== G and T are not interchangeable ===
+
+Both are 1 + 11 + 52, which invites the assumption that they are the same layout with a different bias. They are not usefully interchangeable: VAX normalization puts the fraction in [0.5, 1) while IEEE uses an implicit leading 1, and the biases differ by one. The net effect is that the **same 64-bit register pattern denotes a value four times larger read as T than read as G**.
+
+Check it: ''0x3FF0000000000000'' is 1.0 as T_floating. As G_floating the exponent field is 1023, a true exponent of 1023 - 1024 = -1, giving 0.5 x 2^-1 = 0.25. The same factor of four holds between F and S.
+
+==== Register Formats ====
+
+Values do not sit in registers the way they sit in memory.
+
+**F_floating** is expanded on load. ''LDF'' reorders the bits, widens the exponent from 8 to 11 bits and zeroes the low fraction bits, producing "in the register an equivalent G_floating number suitable for either F_floating or G_floating operations". So an F value in a register //is// in G register format: sign at 63, exponent at 62:52, the 23 fraction bits at 51:29, zeros at 28:0. This is why there is no F-to-G conversion instruction: none is needed.
+
+**S_floating** is likewise stored as a canonical subset of T_floating: sign at 63, exponent at 62:52, fraction at 51:29, zeros at 28:0. The exponent is re-biased on load; for non-extreme values the effect is to add 896.
+
+=== No excess precision ===
+
+A consequence worth stating explicitly, because it differs from x86:
+
+> Single-precision values are stored in the floating-point registers in canonical form, as subsets of double-precision values, with 3 exponent bits set to a fixed value and the low-order fraction bits restricted to be all zero. Single-precision operations applied to canonical single-precision values give single-precision results. Single-precision operations applied to non-canonical operands give UNPREDICTABLE results.
+
+Alpha has no equivalent of x87's 80-bit intermediate precision. ''float'' arithmetic on Alpha is genuinely single precision, and ''FLT_EVAL_METHOD'' is 0. Code that accidentally depends on x87 excess precision will change behavior on Alpha, usually for the better.
+
+There are 32 floating-point registers, ''F0'' through ''F31''. ''F31'' reads as a true zero and writes to it are discarded.
+
+==== Rounding Modes ====
+
+Alpha encodes the rounding mode in two bits of the instruction's function field.
+
+^ Encoding ^ Suffix ^ Mode ^
+| 00 | ''/C'' | chopped (toward zero) |
+| 01 | ''/M'' | toward minus infinity |
+| 10 | (none) | round to nearest, ties to even |
+| 11 | ''/D'' | dynamic: take the mode from FPCR<DYN> |
+
+This is the same assignment used by ''FPCR<DYN>'', with 11 reinterpreted as "dynamic". **There is no static encoding for round toward plus infinity.** To get it you must use ''/D'' and set ''FPCR<DYN>'' to 11.
+
+Directed rounding is an //optional// architectural feature:
+
+> An implementation that includes IEEE floating-point may subset the ability to perform rounding to plus infinity and minus infinity. If not implemented, instructions requesting these rounding modes take Illegal Instruction Trap.
+
+The 21064 (EV4) does not implement it. Its hardware reference manual says the Fbox supports "all rounding modes except round to +/- infinity, which can be provided in software". The 21164 (EV5) does: "The 21164 supports IEEE S_floating and T_floating data types, and all rounding modes."
+
+So on an EV4, a program using ''fesetround(FE_UPWARD)'' relies on the kernel emulating the resulting illegal instruction.
+
+==== Trap Modes and Software Completion ====
+
+=== The four IEEE trap modes ===
+
+^ Suffix ^ Meaning ^
+| (none) | imprecise, underflow disabled, inexact disabled |
+| ''/U'' | imprecise, underflow enabled, inexact disabled |
+| ''/SU'' | software completion, underflow enabled, inexact disabled |
+| ''/SUI'' | software completion, underflow enabled, inexact enabled |
+
+and for conversions to integer:
+
+^ Suffix ^ Meaning ^
+| (none) | imprecise, integer overflow disabled, inexact disabled |
+| ''/V'' | imprecise, integer overflow enabled, inexact disabled |
+| ''/SV'' | software completion, integer overflow enabled, inexact disabled |
+| ''/SVI'' | software completion, integer overflow enabled, inexact enabled |
+
+There is **no ''/I'' qualifier**. Inexact is only ever enabled as part of ''/SUI'' or ''/SVI''. (''/S'' alone exists, but only on VAX-format operations and on ''CVTST''.)
+
+=== What /S actually does ===
+
+Nothing, at execution time. This is the most commonly misunderstood point on the whole page.
+
+> The /S modifier does not affect instruction operation or trap behavior; it is an informational bit passed to a software trap handler. It allows a trap handler to test easily whether an instruction is intended to be completed.
+
+The hardware does not become more precise because you asked for ''/SU''. The bit is carried into the exception summary so that a trap handler can tell "this instruction was compiled to be completable" without decoding the instruction stream. **All of the real work falls on the compiler**, which must obey a set of trap-shadow rules and must mark every instruction to be completed:
+
+> Each floating-point instruction to be completed must be so marked, by specifying the /S software completion modifier. The /S modifier must not be used on any floating-point instruction that is not in a trap shadow that meets these conditions.
+
+=== Trap shadows, TRAPB and EXCB ===
+
+Because traps are imprecise, the trap arrives with the PC pointing at some instruction after the one that faulted. The region in which a trap may still surface is the //trap shadow//:
+
+> The extent of the trap shadow is bounded only by an EXCB or TRAPB instruction (or the implicit TRAPB within a CALL_PAL instruction).
+
+''TRAPB'' forces all previous arithmetic traps to be taken before any following instruction issues. ''EXCB'' is a superset of it. Bounding the shadow is what lets the trap handler find the trigger instruction by scanning backwards, and the Architecture Reference Manual's guidance is "in effect, one TRAPB instruction per basic block can be used".
+
+This is what ''-mtrap-precision=i'' buys you, and it is why IEEE conformance costs performance on pre-EV6 Alpha: a barrier per basic block defeats the scheduling the whole architecture was designed around.
+
+On EV6 and later the cost disappears, because the hardware reports arithmetic traps precisely. GCC knows this:
+
+<code c>
+  if (alpha_cpu == PROCESSOR_EV6)
+    { /* Except for EV6 pass 1 (not released), we always have precise
+         arithmetic traps.  Which means we can do software completion
+         without minding trap shadows.  */
+      alpha_tp = ALPHA_TP_PROG; }
+</code>
+
+Precise trap support is reported by ''AMASK'' bit 9. Remember that ''AMASK'' //clears// bits for features that are present, so ''amask(1UL << 9) == 0'' means precise traps are implemented. (Note that section 4.7.7.3 of the Architecture Handbook states the polarity backwards; the normative definition in section 4.11.1, and Linux's use of it, are the ones to trust.)
+
+==== FPCR and SWCR: Two Different Registers ====
+
+Confusing these two is the most common way to get Alpha floating point wrong.
+
+=== FPCR, the hardware register ===
+
+^ Bits ^ Field ^
+| 63 | Summary (SUM), bitwise OR of the exception bits |
+| 62 | Inexact Disable (INED) |
+| 61 | Underflow Disable (UNFD) |
+| 60 | Underflow to Zero (UNDZ) |
+| 59:58 | Dynamic Rounding Mode (DYN) |
+| 57 | Integer Overflow (IOV) |
+| 56 | Inexact Result (INE) |
+| 55 | Underflow (UNF) |
+| 54 | Overflow (OVF) |
+| 53 | Division by Zero (DZE) |
+| 52 | Invalid Operation (INV) |
+| 51 | Overflow Disable (OVFD) |
+| 50 | Division by Zero Disable (DZED) |
+| 49 | Invalid Operation Disable (INVD) |
+| 48:0 | reserved, read as zero |
+
+Linux adds two implementation bits the Architecture Reference Manual's table omits: ''FPCR_DNOD'' at bit 47 (denormal invalid-operation trap disable) and ''FPCR_DNZ'' at bit 48 (denormals to zero). The five trap disable bits may be subsetted by an implementation.
+
+=== SWCR, the software register ===
+
+''ieee_set_fp_control()'' does **not** take an FPCR value. It takes the //software// IEEE control word, which the kernel keeps per thread.
+
+^ Bit ^ Meaning ^
+| 1 | trap enable, invalid operation |
+| 2 | trap enable, division by zero |
+| 3 | trap enable, overflow |
+| 4 | trap enable, underflow |
+| 5 | trap enable, inexact |
+| 6 | trap enable, denormal |
+| 12 | map denormals to zero |
+| 13 | map underflow to zero |
+| 17 to 22 | status bits: INV, DZE, OVF, UNF, INE, DNO |
+| 63 | ''IEEE_INHERIT'' |
+
+The reason for the duplication is stated in the kernel source, and it is the crux of Alpha IEEE conformance:
+
+<code c>
+	/* Alpha Architecture Handbook 4.7.7.3:
+	   To be fully IEEE compiant, we must track the current IEEE
+	   exception state in software, because spurious bits can be
+	   set in the trap shadow of a software-complete insn.  */
+</code>
+
+Because a trap can surface in the shadow of a completed instruction, the FPCR's sticky status bits are not trustworthy. **The authoritative exception state on Linux/Alpha lives in software**, in ''thread_info->ieee_state''. The kernel merges the software word into the hardware register on each ''SSI_IEEE_FP_CONTROL'' call:
+
+<code c>
+	*state = (*state & ~IEEE_SW_MASK) | (swcr & IEEE_SW_MASK);
+	fpcr = rdfpcr() & FPCR_DYN_MASK;
+	fpcr |= ieee_swcr_to_fpcr(swcr);
+	wrfpcr(fpcr);
+</code>
+
+==== The Kernel Side ====
+
+=== Arithmetic traps ===
+
+''do_entArith()'' in ''arch/alpha/kernel/traps.c'' handles arithmetic traps. It emulates only when the software-completion summary bit is set, and it takes one of two paths depending on whether the processor reports traps precisely:
+
+<code c>
+	if (summary & 1) {
+		/* Software-completion summary bit is set, so try to
+		   emulate the instruction.  If the processor supports
+		   precise exceptions, we don't have to search.  */
+		if (!amask(AMASK_PRECISE_TRAP))
+			si_code = alpha_fp_emul(regs->pc - 4, summary);
+		else
+			si_code = alpha_fp_emul_imprecise(regs, write_mask);
+		if (si_code == 0)
+			return;
+	}
+</code>
+
+The imprecise path scans backwards through the trap shadow to find the trigger instruction, then hands it to the same emulator.
+
+=== CONFIG_MATHEMU ===
+
+All of the above is gated on ''CONFIG_MATHEMU''. Without it, the emulator entry points are stubs:
+
+<code c>
+#ifndef CONFIG_MATHEMU
+static long dummy_emul(void) { return 0; }
+long (*alpha_fp_emul_imprecise)(...) = (void *)dummy_emul;
+long (*alpha_fp_emul)(...) = (void *)dummy_emul;
+#else
+</code>
+
+and **every software-completion trap becomes ''SIGFPE''**. The option lives in ''arch/alpha/Kconfig.debug'', not ''arch/alpha/Kconfig'', is enabled in the shipped ''defconfig'', and can be built as a module.
+
+This became a user-visible option in February 1998, in the course of fixing FP correctness bugs found by ''paranoia''. Richard Henderson's patch, on the Alpha list:
+
+> Attached is a patch that cures the problems as reported by paranoia.
+>
+> Note that to fix the sqrt tests, I removed the optimized sqrt routine from libc/sysdeps/alpha/w_sqrt.S, falling back on the libm-ieee764 version, and rebuilt libm.so. At some point someone might want to fix up the alpha-optimized sqrt to cope with denormals, but ...
+
+The emulator has had real bugs. In September 2000, a user reported that ''x *= 0.5'' and ''x /= 2.0'' gave different results for denormals. Henderson:
+
+> Yes indeed you've found a bug in the kernel's FP emulation. I'll see about fixing it.
+>
+> Rather than fix the old udiv128 function, which was trying to do 128/128 bit division, I've pulled in a subroutine from libgcc that does 128/64 bit division, which is all we need here.
+
+=== Illegal instructions ===
+
+An instruction the hardware does not implement (a directed-rounding operation on EV4, for instance) arrives as ''opDEC'' in ''do_entIF()''. Linux does **not** emulate it; it delivers ''SIGILL'' with ''ILL_ILLOPC''.
+
+==== The glibc Side ====
+
+The Alpha-specific interface is:
+
+<code c>
+extern unsigned long int __ieee_get_fp_control (void);
+extern void __ieee_set_fp_control (unsigned long int __value);
+</code>
+
+declared in ''sysdeps/alpha/fpu/bits/fenv.h'' and exported from ''sysdeps/alpha/fpu/Versions''. They are thin wrappers over ''osf_getsysinfo(GSI_IEEE_FP_CONTROL)'' and ''osf_setsysinfo(SSI_IEEE_FP_CONTROL)''. Everything portable, ''fegetround'', ''fesetround'', ''feenableexcept'', ''fetestexcept'' and the rest, is built on top of them. GCC also emits calls to them directly when handling ''FENV_ACCESS''-style requirements.
+
+Two practical facts:
+
+  * **glibc builds itself with ''-mieee''.** ''sysdeps/alpha/Makefile'' sets ''sysdep-CFLAGS += -mieee -mfp-rounding-mode=d'', and uses ''-mieee-with-inexact'' for a handful of files (''s_fma.c'', ''s_fmaf.c'', the ''lrint'' and ''llrint'' family).
+  * Because IEEE behavior is a property of //how each object was compiled//, mixing ''-mieee'' and non-''-mieee'' objects gives you a program that is IEEE-conformant in some functions and not others. Henderson once proposed shipping a separate ''libm_ieee'' to address this; it never happened.
+
+Historically, Linux/Alpha's default behavior differed visibly from Linux/x86 because the trap-enable bits were inherited from Digital UNIX:
+
+> Linux follows DEC in calling those functions ieee_get_fp_control() and ieee_set_fp_control() respectively.
+>
+> And to answer the question that came up elsewhere: those bits are on by default on Linux/Alpha because they are on by default on DU.
+
+==== Compiler Flags ====
+
+^ Flag ^ Effect ^
+| ''-mieee'' | IEEE-conformant **except** that the inexact flag is not maintained. Sets ''-mtrap-precision=i'' and emits ''/SU''. Defines ''_IEEE_FP''. Digital's compilers call this ''-ieee_with_no_inexact''. |
+| ''-mieee-with-inexact'' | as above but maintains the inexact flag; emits ''/SUI''. Additionally defines ''_IEEE_FP_EXACT''. Significantly slower. |
+| ''-mfp-trap-mode='' | ''n'' (default), ''u'', ''su'', ''sui''. Digital's compilers call this ''-fptm''. |
+| ''-mfp-rounding-mode='' | ''n'' (default), ''m'', ''c'', ''d''. There is no ''p'' value, matching the ISA. ''-frounding-math'' makes ''d'' the default. |
+| ''-mtrap-precision='' | ''p'' (default, program), ''f'' (function), ''i'' (instruction). Digital's equivalents are ''-scope_safe'' and ''-resumption_safe''. |
+| ''-mieee-conformant'' | marks the code IEEE conformant. Requires ''-mtrap-precision=i'' and ''-mfp-trap-mode=su'' or ''sui''. Its only effect is to emit ''.eflag 48'' in the prologue. |
+
+**''-mieee'' is not the default on Alpha Linux**, and the reason is worth reading in the original. Richard Henderson, 1997, answering exactly the question this page's readers will ask:
+
+> > Why isn't -mieee the default?
+>
+> (A) It isn't for Digital Unix either, so in theory people building packages for Alpha know to expect it.
+>
+> (B) It is a noticable performance hit; the pipeline stalls while instructions are determining whether they will fault for software completion.
+>
+> (C) Not very many programs actually care about non-finite arithmetic. Sure, so you give them a NaN, but they can't deal with that any better than if you just went ahead and faulted.
+>
+>     There are exceptions, but that is why -mieee is there as opposed to be missing entirely.
+
+and, on what it actually switches on:
+
+> Not directly. You must compile with -mieee to get them which turns on software completion. Incidentally, libm must be built with -mieee as well in this case.
+
+David Mosberger-Tang added the observation that makes ''-mieee'' useful even when you do not care about NaNs:
+
+> It's not recommended when you care about performance but it's extremely useful for debugging (since with -mieee you'll see the SIGFPE where it happens and not a dozen or so instructions later).
+
+That is the practical summary: ''-mieee'' does not only change results, it makes traps precise enough to debug.
+
+==== Comparisons ====
+
+''CMPTxx'' writes a floating 2.0 for true and a true zero for false, rather than setting condition codes.
+
+> The two operands in Fa and Fb are compared. If the relationship specified by the qualifier is true, a non-zero floating value (2.0) is written to register Fc; otherwise, a true zero is written to Fc... The unordered relation is true if one or both operands are NaN. (This behavior must be provided by a software trap handler, since NaNs trap.) Comparisons ignore the sign of zero, so +0 = -0.
+
+Note the parenthetical: **unordered comparison on Alpha requires the trap handler**. A ''CMPTUN'' against a NaN traps, and the software-completion path supplies the answer.
+
+Only the less-than forms exist, because "Compare Less Than A,B is the same as Compare Greater Than B,A". The available operations are ''CMPTEQ'', ''CMPTLT'', ''CMPTLE'' and ''CMPTUN'' for IEEE, and ''CMPGEQ'', ''CMPGLT'', ''CMPGLE'' for VAX.
+
+Two traps for the unwary, from the Architecture Reference Manual:
+
+  * "To branch properly on non-finite operands, compare to F31, then branch on the result of the compare." The ''FBxx'' branches do not interpret NaNs.
+  * "The largest negative integer (8000 0000 0000 0000) is the same bit pattern as floating minus zero, so it is treated as equal to zero by the branch instructions."
+
+==== Denormals ====
+
+Alpha hardware does not produce denormal results. Without a trap qualifier, underflow is disabled and the result is forced to a true zero. With ''/SU'' the underflow trap fires and the software-completion handler produces the correct denormal. GCC's own comment:
+
+<code c>
+  /* ... Without software completion -- which the compiler only arranges for
+     -mieee, i.e. alpha_fptm >= ALPHA_FPTM_SU -- a subnormal operand is either
+     flushed to zero, which makes it indistinguishable from a zero, or traps
+     with no completion information, which is fatal. */
+</code>
+
+So ''-mieee'' is what you need for denormals; ''-mieee-with-inexact'' adds nothing here. ''-mieee-with-inexact'' is expensive because inexact fires on nearly every rounded operation, not because of the underflow path.
+
+==== Conversions ====
+
+^ Instruction ^ Conversion ^
+| ''CVTQS'', ''CVTQT'' | quadword integer to S, T |
+| ''CVTQF'', ''CVTQG'' | quadword integer to F, G |
+| ''CVTTQ'' | T to quadword integer |
+| ''CVTGQ'' | G to quadword integer |
+| ''CVTLQ'', ''CVTQL'' | longword and quadword integer, in registers |
+| ''CVTTS'' | T to S |
+| ''CVTST'' | S to T |
+| ''CVTGF'' | G to F (F to G needs no instruction) |
+| ''CVTDG'', ''CVTGD'' | D to G, G to D |
+
+''CVTST'' is exact and, for finite values, is the identity transformation on the register contents: "No rounding occurs. No underflow, overflow, or inexact result can occur." Its one listed exception is invalid operation, so a signaling NaN input does trap.
+
+''CVTGF'' rounds a 52-bit fraction to 23 bits, losing 29.
+
+Again: there is **no** conversion instruction between the VAX and IEEE families, in either direction.
+
+==== Practical Guidance ====
+
+  - If your program cares about NaNs, infinities, denormals or the IEEE exception flags, compile **everything** with ''-mieee''. Objects compiled without it will not conform, and you will get a program that behaves inconsistently between translation units.
+  - Use ''-mieee-with-inexact'' only if you genuinely read the inexact flag. It is the expensive mode.
+  - Use ''-mieee'' while debugging any FP problem, even one you do not think is IEEE related. It converts "SIGFPE somewhere over there" into "SIGFPE here".
+  - Make sure ''CONFIG_MATHEMU'' is enabled in your kernel. Without it, software completion does not work and correct programs get ''SIGFPE''.
+  - Do not read the FPCR status bits directly to test exception flags. Use ''<fenv.h>''. On Alpha the authoritative state is the kernel's software word, and the FPCR can carry spurious bits from trap shadows.
+  - Expect ''float'' arithmetic to be genuinely single precision. Code tuned around x87 excess precision will behave differently.
+
+==== References ====
+
+  * {{wiki:documentation:references:alpha_architecture_reference_manual_2nd_edition.pdf?linkonly|Alpha AXP Architecture Reference Manual, Second Edition}}. Section 2.2 covers the data formats; 4.7 covers the floating-point subsets, rounding modes, trap modes and the FPCR (Table 4-8); 4.7.6.1 states the seven software-completion conditions; 4.10 is the instruction reference.
+  * {{wiki:documentation:references:alpha_architecture_handbook_v4.pdf?linkonly|Alpha Architecture Handbook, Version 4}}, section 4.11.1 for ''AMASK'' and Appendix D, Table D-3 for the bit assignments.
+  * DECchip 21064 and 21164 hardware reference manuals, for which rounding modes each implements.
+  * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/fpu.h|''arch/alpha/include/uapi/asm/fpu.h'']] for the FPCR and SWCR definitions, [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/traps.c|''traps.c'']] for ''do_entArith'', [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/osf_sys.c|''osf_sys.c'']] for ''osf_setsysinfo'', and ''arch/alpha/math-emu/'' for the emulator.
+  * GCC: ''gcc/config/alpha/alpha.opt'' and the DEC Alpha Options node of ''gcc/doc/invoke.texi''.
+  * glibc: ''sysdeps/alpha/fpu/'' and ''sysdeps/unix/sysv/linux/alpha/''.
+
+=== Mailing list sources ===
+
+All on ''axp-list''. See [[community#mailing_lists|Mailing Lists]] for archive locations.
+
+  * Richard Henderson, "Re: log(-1) raises SIGFPE", 9 and 14 May 1997. Why ''-mieee'' is not the default, and what it turns on.
+  * Richard Henderson, "Re: SIGFPE -- the answer", 17 April 1997, and "Re: Ieee on linux/alpha", 9 December 1997. ''ieee_set_fp_control()''.
+  * Richard Henderson, "Re: [2.1.82] SERIOUS FLAWS in IEEE math handling on ALPHA.", 12 February 1998. ''CONFIG_MATHEMU''.
+  * Richard Henderson, "Re: Alpha/Linux FP denormal processing", 19 September 2000. A real denormal bug in the kernel emulator.
+  * David Mosberger-Tang, "gcc -mieee flag", 7 April 1997.
+  * Jim Paradis, "SIGFPE", 9 April 1997, and Jerry Feldman, "Re: Ieee on linux/alpha", 10 December 1997. Trap shadows and the ''/S'' qualifier.
+
+{{tag>documentation porting}}

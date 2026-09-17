@@ -1,0 +1,543 @@
+===== Byte and Word Access =====
+
+The original Alpha has no byte and no 16-bit word memory instructions. Every integer load and store is a longword or a quadword. Byte and word access is synthesized from ''LDQ_U''/''STQ_U'' plus the extract, insert and mask instructions.
+
+This one design decision produced most of Alpha's porting folklore: the sparse I/O windows, the ''readb''/''writeb'' discipline, and, eventually, the removal of pre-EV56 Alpha from both Debian and the Linux kernel. That last part is the short version of why this page matters, and it is told in full below.
+
+See also [[documentation:porting:unaligned_access|Unaligned Access]], [[documentation:porting:memory_model|Memory Model]] and [[documentation:amask|Architecture Mask (amask)]].
+
+==== Pre-BWX Byte and Word Access ====
+
+=== Loading a byte ===
+
+<code asm>
+	ldq_u $0,0($16)      /* aligned quadword containing the byte */
+	extbl $0,$16,$0      /* extract, selecting the byte by $16<2:0> */
+</code>
+
+''EXTBL'' uses the **low three bits** of its second operand, that is, the byte offset within a //quadword//. This detail matters later.
+
+A signed byte costs two more instructions, because there is no sign-extending load:
+
+<code asm>
+	ldq_u $0,0($16)
+	extbl $0,$16,$0
+	sll $0,56,$0
+	sra $0,56,$0
+</code>
+
+=== Storing a byte ===
+
+A store is a read-modify-write of the surrounding quadword. The Architecture Reference Manual gives the canonical sequence:
+
+<code asm>
+	LDA      R6, X(R11)    ; R6<2:0> = (X mod 8) = 5
+	LDQ_U    R1, X(R11)    ; Ignores va<2:0>, R1 = yyAx xxxx
+	INSBL    R5, R6, R3    ; R3 = 00A0 0000
+	MSKBL    R1, R6, R1    ; R1 = yy0x xxxx
+	OR       R1, R3, R1    ; R1 = yyAx xxxx
+	STQ_U    R1, X(R11)
+</code>
+
+Five instructions, plus the address materialization, for what x86 does in one ''MOV''. GCC emits the same shape, using ''insql'' rather than ''insbl'' (equivalent when the source register already holds a zero-extended byte):
+
+<code asm>
+	insql $17,$16,$17
+	ldq_u $1,0($16)
+	mskbl $1,$16,$1
+	bis $17,$1,$17
+	stq_u $17,0($16)
+</code>
+
+**This read-modify-write is the source of Alpha's most notorious class of bug.** It is not atomic. Two processors storing to two different bytes of the same quadword can lose one of the two stores entirely. See [[#atomicity_of_byte_and_word_access|Atomicity of Byte and Word Access]].
+
+=== Loading a 16-bit word ===
+
+An //aligned// word is two instructions, exactly like a byte:
+
+<code asm>
+	ldq_u $0,0($16)
+	extwl $0,$16,$0
+</code>
+
+An //unaligned// word may straddle a quadword boundary, so it needs both halves:
+
+<code asm>
+	ldq_u $0,0($16)
+	ldq_u $1,1($16)
+	extwl $0,$16,$0
+	extwh $1,$16,$1
+	bis $0,$1,$0
+	zapnot $0,3,$0
+</code>
+
+=== Storing a 16-bit word ===
+
+The unaligned case is the worst sequence on this page: two read-modify-writes, ten instructions.
+
+<code asm>
+	LDA      R6, X(R11)    ; R6<2:0> = (X mod 8) = 5
+	LDQ_U    R2, X+1(R11)
+	LDQ_U    R1, X(R11)
+	INSWH    R5, R6, R4
+	INSWL    R5, R6, R3
+	MSKWH    R2, R6, R2
+	MSKWL    R1, R6, R1
+	OR       R2, R4, R2
+	OR       R1, R3, R1
+	STQ_U    R2, X+1(R11)  ; Must store high then low for
+	STQ_U    R1, X(R11)    ; degenerate case of aligned
+</code>
+
+Note the ordering constraint in the Architecture Reference Manual's own comment: the high quadword must be stored **before** the low one, so that the degenerate case where both ''LDQ_U'' hit the same quadword still produces the right answer.
+
+An //aligned// word store is a single read-modify-write, as for a byte.
+
+==== BWX: the Byte/Word Extension ====
+
+BWX comprises exactly **six** instructions. From Appendix D of the Architecture Reference Manual, 4th edition:
+
+<code>
+0      Support for the byte/word extension (BWX)
+       The instructions that comprise the BWX extension are LDBU, LDWU, SEXTB, SEXTW,
+       STB, and STW.
+</code>
+
+^ Instruction ^ Opcode ^ Operation ^
+| ''LDBU Ra, disp(Rb)'' | 0x0A | load byte, zero-extended to 64 bits |
+| ''LDWU Ra, disp(Rb)'' | 0x0C | load 16-bit word, zero-extended to 64 bits |
+| ''STW Ra, disp(Rb)'' | 0x0D | store 16-bit word |
+| ''STB Ra, disp(Rb)'' | 0x0E | store byte |
+| ''SEXTB Rb, Rc'' | 0x1C.00 | sign-extend byte |
+| ''SEXTW Rb, Rc'' | 0x1C.01 | sign-extend word |
+
+There is no sign-extending byte or word //load//; use ''LDBU'' plus ''SEXTB''.
+
+The Architecture Reference Manual is unambiguous about which to prefer: "LDBU and STB are the recommended way to perform byte load and store operations on Alpha implementations that support them; use them rather than the extract, insert, and mask byte instructions described in this section."
+
+On implementations without BWX, these six instructions are **supported by software emulation**, so encountering one is not automatically fatal. It is, however, ruinously slow.
+
+=== Which processors have BWX ===
+
+^ Processor ^ BWX ^
+| 21064, 21064A (EV4, EV45) | no |
+| 21066, 21068 (LCA) | no |
+| 21164 (EV5) | no |
+| 21164A (EV56) | **yes** |
+| 21164PC (PCA56) | **yes** |
+| 21264 and variants (EV6, EV67, EV68) | yes |
+| 21364 (EV7) | yes |
+
+PCA56 is easy to forget and is often omitted from lists of BWX parts.
+
+=== Getting BWX out of the compiler ===
+
+<code sh>
+alpha-unknown-linux-gnu-gcc -mcpu=ev56 …    # or pca56, ev6, ev67
+alpha-unknown-linux-gnu-gcc -mbwx …         # explicit
+alpha-unknown-linux-gnu-gcc -mno-bwx …      # force the pre-BWX sequences
+</code>
+
+With BWX enabled, ordinary C produces single instructions:
+
+<code asm>
+lb:	ldbu $0,0($16)
+lsb:	ldbu $0,0($16) ; sextb $0,$0
+sb:	stb  $17,0($16)
+lw:	ldwu $0,0($16)
+sw:	stw  $17,0($16)
+</code>
+
+Two further flags exist and are worth knowing, because they address exactly the non-atomicity described below:
+
+^ Flag ^ Meaning ^
+| ''-msafe-bwa'' | emit multi-thread and async-signal safe code for byte and word memory accesses |
+| ''-msafe-partial'' | the same for partial memory accesses |
+
+The compile-time predicate is ''%%__alpha_bwx__%%'', defined when BWX code generation is enabled.
+
+**GCC has no builtins for the BWX instructions.** ''%%__builtin_alpha_ldbu%%'', ''%%__builtin_alpha_ldwu%%'', ''%%__builtin_alpha_stb%%'' and ''%%__builtin_alpha_stw%%'' do not exist and never have. Compile with ''-mbwx'' and write ordinary ''unsigned char'' and ''unsigned short'' accesses. GCC //does// provide builtins for the pre-BWX byte-manipulation instructions: ''%%__builtin_alpha_extbl%%'', ''%%__builtin_alpha_insbl%%'', ''%%__builtin_alpha_mskbl%%'' and the rest of the extract, insert and mask family, along with ''%%__builtin_alpha_amask%%'', ''%%__builtin_alpha_implver%%'', ''%%__builtin_alpha_cmpbge%%'', ''%%__builtin_alpha_zap%%'' and ''%%__builtin_alpha_zapnot%%''.
+
+=== Detecting BWX at runtime ===
+
+''AMASK'' **clears** the bits of its operand that correspond to extensions the processor //implements//. A zero result means every requested feature is present.
+
+<code c>
+#define AMASK_BWX (1UL << 0)
+
+static inline unsigned long amask(unsigned long mask)
+{
+	unsigned long r;
+	__asm__ ("amask %1,%0" : "=r"(r) : "rI"(mask));
+	return r;
+}
+
+int has_bwx = (amask(AMASK_BWX) == 0);
+</code>
+
+The bit assignments, from Appendix D of the Architecture Reference Manual:
+
+^ Bit ^ Extension ^
+| 0 | byte/word extension (BWX) |
+| 1 | square-root and floating-point convert extension (FIX) |
+| 2 | count extension (CIX) |
+| 8 | multimedia extension (MVI) |
+| 9 | precise arithmetic trap reporting in hardware |
+| 12 | prefetch with modify intent |
+
+On EV4, EV45, LCA and EV5, ''AMASK'' simply copies its operand through unchanged, so every extension correctly reports as absent.
+
+The kernel spells this ''amask()'' in ''arch/alpha/include/asm/special_insns.h'', and inverts the sense before exporting it to userspace: ''%%#define ELF_HWCAP (~amask(-1))%%'', so bits in ''AT_HWCAP'' are **set** for features that are present.
+
+==== Atomicity of Byte and Word Access ====
+
+This is the part with consequences.
+
+=== The problem ===
+
+On a pre-BWX Alpha, storing a byte means loading the containing quadword, modifying one byte of it, and storing the whole quadword back. If another processor stores to a //different// byte of the same quadword in between, that store is silently lost.
+
+C and C++ both require that distinct scalar objects can be updated concurrently without interfering. Pre-BWX Alpha cannot honor that for ''char'' and ''short'' without ''-msafe-bwa''. Neither can the Linux kernel's expectations.
+
+Michael Cree, then maintaining Debian's Alpha port, in December 2022:
+
+> Yes. The first extension added is the byte-word extension which came in with EV56. That provides CPU instructions for byte and word (16-bit) memory accesses. That is the most important one: possibly a third of the bugs in the repository extend from non-atomic byte and word accesses. The kernel developers have expressed a view that they would like to assume on all arches that byte and word memory accesses are atomic and the only architecture that is holding them back from that assumption are old Alphas without BWX. There is an old open bug on gcc related to the non-atomic memory accesses of old Alphas and that one is basically cannot fix.
+
+A third of the bugs in the port. He had made the same argument eight years earlier, in 2014:
+
+> There is a discussion on the Linux kernel mailing list that the kernel in future will only support architectures that can guarantee atomic aligned scalar accesses down to the byte level (at the moment the requirement is only for int (32bit) and long (64bit)). The only architecture that does not meet this new requirement is older Alphas that do not have the byte-word extension (BWX) CPU instructions, that is, EV4, EV45 and EV5. Thus the writing is on the wall that there will be no more Linux kernels for these older Alphas.
+>
+> Furthermore, I estimate that a majority of the bugs I have fixed in the Debian Alpha distribution over the last couple of years could have been fixed by compiling with the BWX.
+
+=== How it ended ===
+
+Debian-Ports raised its Alpha baseline to EV56 in 2023. Linux followed for 6.10. Arnd Bergmann's pull request, quoted on debian-alpha in May 2024:
+
+> I had investigated dropping support for alpha EV5 and earlier a while ago after noticing that this is the only supported CPU family in the kernel without native byte access and that Debian has already dropped support for this generation last year [1] in order to improve performance for the newer machines.
+>
+> This topic came up again when Paul E. McKenney noticed that parts of the RCU code already rely on byte access and do not work on alpha EV5 reliably, so we decided on using my series to avoid the problem entirely.
+
+RCU was quietly unreliable on pre-BWX Alpha. Linux 6.10 dropped pre-EV56 support, and Jensen, LCA and APECS support was removed along with it.
+
+**Practical upshot:** if you are building for Alpha today, build for EV56 or later. There is no supported alternative.
+
+=== Load-locked and store-conditional are not affected ===
+
+The locked primitives exist only at longword and quadword granularity:
+
+  * ''LDL_L'' / ''STL_C'', 32-bit
+  * ''LDQ_L'' / ''STQ_C'', 64-bit
+
+There is no ''LDB_L'', ''STB_C'', ''LDW_L'' or ''STW_C'', and **BWX does not add any**. Atomic byte and word operations must be synthesized, on every Alpha, from the quadword primitives plus masking.
+
+Here is what GCC actually generates for ''%%__sync_fetch_and_add((unsigned char *)p, 1)%%'' at ''-mcpu=ev4'':
+
+<code asm>
+afa:
+	bic $16,7,$3          /* round down to a QUADWORD */
+	ldq_u $1,0($16)
+	extbl $1,$16,$1
+$L8:
+	mb
+	addl $1,1,$2
+	and $1,0xff,$5
+	insbl $2,$16,$2
+$L11:
+	ldq_l $6,0($3)        /* load-locked the containing quadword */
+	extbl $6,$16,$1
+	cmpeq $1,$5,$4
+	beq $4,$L12
+	mskbl $6,$16,$4
+	bis $4,$2,$4
+	stq_c $4,0($3)
+	beq $4,$L11
+	mb
+$L12:
+	beq $4,$L8
+	mov $5,$0
+	ret $31,($26),1
+</code>
+
+Three things to take from this:
+
+  * The alignment mask is ''bic $16,7'', rounding to a **quadword**, not a longword. It has to be: ''extbl'', ''insbl'' and ''mskbl'' all index by the low //three// bits of the address.
+  * The primitive is ''LDQ_L''/''STQ_C''. A hand-written version using ''LDL_L'' with quadword-relative extract and insert offsets silently corrupts memory for every address whose bit 2 is set.
+  * At ''-mcpu=ev56'' the loop body is **identical**; only the initial load becomes ''ldbu''. BWX changes nothing here.
+
+=== Reservation granularity, and why neighbors interfere ===
+
+The reservation is not per-byte, and it is not per-longword. From the Architecture Reference Manual:
+
+> When a LDx_L instruction is executed without faulting, the processor records the target physical address in a per-processor locked_physical_address register and sets the per-processor lock_flag.
+>
+> If processor A's lock_flag is set and processor B successfully does a store within A's locked range of physical addresses, then A's lock_flag is cleared. A processor's locked range is the aligned block of 2**N bytes that includes the locked_physical_address. The 2**N value is implementation dependent. It is at least 8 (minimum lock range is an aligned quadword) and is at most the page size for that implementation (maximum lock range is one physical page).
+
+and, on what to do about it:
+
+> * Hardware implementations are encouraged to lock no more than 128 bytes.
+> * Software implementations are encouraged to separate locked locations by at least 128 bytes from other locations that could potentially be written by another processor while the first location is locked.
+
+So the granularity that matters for contention is neither a byte, a longword nor a quadword: it is an implementation-defined aligned block, in practice a cache block. Two atomic variables 64 bytes apart can still make each other's ''STQ_C'' fail.
+
+<code c>
+/* BAD: two independently-updated atomic bytes inside one lock range.
+   Every update to one makes the other's STQ_C fail and retry. */
+struct {
+	_Atomic unsigned char producer_flag;
+	_Atomic unsigned char consumer_flag;
+} state;
+
+/* BETTER: separate them by the architecture's recommended distance. */
+struct {
+	_Atomic unsigned char producer_flag;
+	char pad[127];
+	_Atomic unsigned char consumer_flag;
+} state_padded;
+</code>
+
+Better still, fold the flags into a single word and use bit operations, so there is only one contended location to begin with:
+
+<code c>
+_Atomic uint32_t flags;
+
+atomic_fetch_or_explicit(&flags,  1U << 0, memory_order_relaxed);
+atomic_fetch_and_explicit(&flags, ~(1U << 1), memory_order_relaxed);
+</code>
+
+Note that an //atomic bit-field// is not a solution, and is not even legal C: a bit-field's type may only be ''_Bool'', ''signed int'', ''unsigned int'' or an implementation-defined type, so ''%%_Atomic unsigned char flag : 1;%%'' is rejected by the compiler.
+
+=== Contention costs retries, not deadlock ===
+
+Sustained contention can starve an individual thread, but it cannot wedge the system. The architecture requires that "if two processors attempt STx_C instructions to the same lock range and that lock range was accessed by both processors' preceding LDx_L instructions, exactly one of the stores succeeds."
+
+The real portability hazard is different, and is covered under [[documentation:porting:memory_model#forward_progress_rules|Forward progress rules]]: an ''LDx_L''/''STx_C'' body containing any other memory access, a taken branch, a subsetted instruction, or simply too many instructions may fail **every** time on some implementations.
+
+==== I/O Space: Sparse and Dense ====
+
+=== Why sparse windows exist ===
+
+An EV4 cannot issue a byte or word write to the bus. ISA and EISA devices require byte-granular access. The solution is to encode the transfer length and the byte lane **in the physical address**, and let the chipset decode them from a longword access.
+
+For the mainstream chipsets (APECS, LCA, CIA/Pyxis, T2) the layout is:
+
+<code>
+Physical address = IO_BASE + (io_port << 5) + ((length - 1) << 3)
+</code>
+
+^ Field ^ Bits ^ Values ^
+| length - 1 | addr<4:3> | 0 = byte, 1 = word, 2 = tribyte, 3 = longword or quadword |
+| byte lane | addr<6:5> | from ''io_port & 3'', placed there by the ''<< 5'' |
+
+In practice the offsets are ''0x00'' for a byte, ''0x08'' for a word and ''0x18'' for a longword. Note that a longword is **3**, not 2; value 2 is a tribyte transfer.
+
+**The chipset does no byte shifting.** From the DECchip 21171-CA Technical Reference Manual:
+
+> Software must use longword load or store instructions (LDL/STL) to perform a reference that is of longword length or less on the PCI bus.
+> The bytes to be transferred must be positioned within the longword in the correct byte lanes as indicated by the PCI byte enable.
+> The hardware will do no byte shifting within the longword.
+
+So the byte must be placed in the correct lane by software. Linux uses ''%%__kernel_insbl(b, addr & 3)%%'' on write and ''%%__kernel_extbl(result, addr & 3)%%'' on read:
+
+<code c>
+__EXTERN_INLINE void cia_iowrite8(u8 b, void __iomem *xaddr)
+{
+	...
+	w = __kernel_insbl(b, addr & 3);
+	*(vuip) ((addr << 5) + base_and_type) = w;
+}
+</code>
+
+Replicating the byte to all four lanes is a **Jensen-specific** technique, not the general one.
+
+Barriers are mandatory, not advisory. From the same manual: "Programmers are required to insert memory barrier (MB) instructions between sparse space accesses to prevent collapsing in the 21164 write buffer."
+
+Sparse access is markedly slower than dense: every read is a load plus an extract, every write a load plus an insert, each needs an ''MB'', and consecutive ports are 32 bytes apart so nothing coalesces.
+
+=== Dense windows ===
+
+A **dense** mapping is linear: physical byte N corresponds to bus address N, with no stride and no lane encoding.
+
+Dense space is a **chipset** feature, not a CPU feature. This is the article-length correction to a widespread misconception. Pre-BWX chipsets such as APECS, LCA and T2 do provide a dense memory window, usable for longword and quadword access on an EV4. What they cannot do is byte and word access through it, so Linux converts a dense address back into the sparse window to service ''readb''/''writeb'':
+
+<code c>
+	if (addr >= APECS_DENSE_MEM) {
+		addr -= APECS_DENSE_MEM;
+		APECS_SET_HAE;
+		base_and_type = APECS_SPARSE_MEM + 0x00;
+	}
+</code>
+
+Byte/word-capable windows arrived with Pyxis, which added them as **separate** windows rather than making the existing dense window byte-capable:
+
+<code c>
+#define CIA_DENSE_MEM		(IDENT_ADDR + 0x8600000000UL)
+#define CIA_BW_MEM		(IDENT_ADDR + 0x8800000000UL)
+#define CIA_BW_IO		(IDENT_ADDR + 0x8900000000UL)
+#define CIA_BW_CFG_0		(IDENT_ADDR + 0x8a00000000UL)
+#define CIA_BW_CFG_1		(IDENT_ADDR + 0x8b00000000UL)
+</code>
+
+Tsunami, Polaris and Irongate likewise. The kernel expresses the capability per machine vector, not by a runtime CPU check:
+
+<code c>
+#define t2_trivial_rw_bw	0        /* T2: must use sparse */
+#define cia_bwx_trivial_rw_bw	1        /* Pyxis: plain dereference */
+#define tsunami_trivial_rw_bw	1
+#define irongate_trivial_rw_bw	1
+</code>
+
+''trivial_rw_bw = 1'' means ''readb''/''writeb'' are ordinary dereferences, which the compiler turns into ''LDBU''/''STB'' when built for BWX. So the BWX CPU and the byte/word-capable chipset work together; neither alone is sufficient.
+
+^ ^ Sparse ^ Dense ^
+| Chipset requirement | any | a chipset that provides a dense window |
+| Byte/word access | yes, via lane encoding | only through a byte/word window (Pyxis and later) plus a BWX CPU |
+| Address stride | 32x | 1x |
+| Physical space used | large | compact |
+| Software complexity | high | low |
+| Performance | slow | fast |
+
+=== Never touch I/O memory as memory ===
+
+Linus Torvalds, on the Alpha list in 1996, making the point that has been kernel policy ever since:
+
+> You MUST NOT access IO memory any other way than read/write[bwl]().
+> or memcpy_fromio/toio(). EVER.
+> [...]
+> On other architectures you'll only see a _window_ into the IO space, so that the IO access functions have to set up the window correctly, and the same processor virtual address can actually be _different_ IO ports depending on where the window happens to be. Or look at the Jensen, for example: it has _no_ support for dense memory, and you _cannot_ make the IO memory look like a memory access.
+
+That "window" is the HAE (host address extension) register, which supplies the high address bits that do not fit in the sparse encoding. Every sparse access has to set it, and the kernel caches its value in ''alpha_mv.hae_cache'' to avoid rewriting it needlessly.
+
+=== BWX had to be switched on ===
+
+A historical trap worth recording. Jay Estabrook, March 1998:
+
+> Now, the PC164 *does* have an EV56, but by default (SRM and ARC consoles) the BWX (Byte-Word Extension) is *not* enabled, I believe. So when you attempt to run code that includes BWX instructions, you *will* get an illegal instruction fault. Control of this option is in one of those CPU registers that can only be accessed via PALcode, so I guess one could modify the MILO PALcode init to enable this, if one wanted.
+>
+> [...] And even though CIA-2 purportedly allowed byte-word access to I/O space (ie in addition to the normal SPARSE and analogous to DENSE), it never worked. PYXIS was the first core logic to implement this and have it work.
+
+Richard Henderson confirmed the workaround later that year: "You need a different MILO. There is a bit on the CPU that determines if BWX support is enabled, and for some reason that bit was off in early versions of the EBSDK PALcode."
+
+==== Jensen ====
+
+The [[hardware:systems|Jensen]], sold as the DEC 2000 AXP Model 300 and the DECpc AXP 150 (which differed only in bundled software), was an early EV4-based EISA machine that predates every later Alpha I/O convention. Linux support for it was removed in 6.10.
+
+It was never an HP product.
+
+=== Windows ===
+
+<code c>
+#define EISA_INTA		(IDENT_ADDR + 0x100000000UL)
+#define EISA_FEPROM0		(IDENT_ADDR + 0x180000000UL)
+#define EISA_FEPROM1		(IDENT_ADDR + 0x1A0000000UL)
+#define EISA_VL82C106		(IDENT_ADDR + 0x1C0000000UL)
+#define EISA_HAE		(IDENT_ADDR + 0x1D0000000UL)
+#define EISA_SYSCTL		(IDENT_ADDR + 0x1E0000000UL)
+#define EISA_SPARE		(IDENT_ADDR + 0x1F0000000UL)
+#define EISA_MEM		(IDENT_ADDR + 0x200000000UL)
+#define EISA_IO			(IDENT_ADDR + 0x300000000UL)
+</code>
+
+=== Local versus bus I/O ===
+
+This is the single most distinctive thing about Jensen, and it is missing from most descriptions. The keyboard, RTC, parallel port and first two serial lines are **not on the EISA bus at all**. They live in a VL82C106 combination chip with its own window, a 512-byte stride, no size encoding, no lane encoding and no HAE:
+
+<code c>
+__EXTERN_INLINE void jensen_local_outb(u8 b, unsigned long addr)
+{
+	*(vuip)((addr << 9) + EISA_VL82C106) = b;
+	mb();
+}
+
+#define jensen_is_local(addr) ( \
+/* keyboard */	(addr == 0x60 || addr == 0x64) || \
+/* RTC */	(addr == 0x170 || addr == 0x171) || \
+/* mb COM2 */	(addr >= 0x2f8 && addr <= 0x2ff) || \
+/* mb LPT1 */	(addr >= 0x3bc && addr <= 0x3be) || \
+/* mb COM2 */	(addr >= 0x3f8 && addr <= 0x3ff))
+
+__EXTERN_INLINE void jensen_outb(u8 b, unsigned long addr)
+{
+	if (jensen_is_local(addr))
+		jensen_local_outb(b, addr);
+	else
+		jensen_bus_outb(b, addr);
+}
+</code>
+
+=== Bus I/O encoding ===
+
+Only the bus path uses the sparse encoding, and Jensen's stride is **128 bytes**, not the 32 of later systems:
+
+<code>
+Physical = EISA_IO + (port << 7) + ((length - 1) << 5)
+</code>
+
+with offsets ''0x00'' byte, ''0x20'' word, ''0x60'' longword and quadword. Again, longword is 3, not 2.
+
+<code c>
+__EXTERN_INLINE void jensen_bus_outb(u8 b, unsigned long addr)
+{
+	jensen_set_hae(0);
+	*(vuip)((addr << 7) + EISA_IO + 0x00) = b * 0x01010101;
+	mb();
+}
+</code>
+
+Here, and only here, is the byte replicated to all four lanes. Port I/O calls ''jensen_set_hae(0)'' because EISA I/O addresses are only 16 bits wide.
+
+=== Memory space ===
+
+Jensen's EISA memory window uses the **same 128-byte stride**, with the top address bits supplied by the HAE:
+
+<code>
+Physical = EISA_MEM + ((addr & JENSEN_HAE_MASK) << 7) + ((length - 1) << 5)
+</code>
+
+<code c>
+#define JENSEN_HAE_MASK		0x1ffffff
+
+__EXTERN_INLINE void jensen_set_hae(unsigned long addr)
+{
+	/* hae on the Jensen is bits 31:25 shifted right */
+	addr >>= 25;
+	if (addr != alpha_mv.hae_cache)
+		set_hae(addr);
+}
+</code>
+
+==== Summary ====
+
+^ Topic ^ Key point ^
+| Pre-BWX byte load | ''LDQ_U'' + ''EXTBL'', 2 instructions |
+| Pre-BWX byte store | ''LDQ_U'' + ''INSBL'' + ''MSKBL'' + ''OR'' + ''STQ_U'', 5 instructions, and **not atomic** |
+| Pre-BWX unaligned word store | two read-modify-writes, 10 instructions, high quadword stored first |
+| BWX | six instructions: ''LDBU'', ''LDWU'', ''STB'', ''STW'', ''SEXTB'', ''SEXTW'' |
+| BWX availability | EV56, PCA56, EV6 and later; emulated in software elsewhere |
+| BWX detection | ''amask(1) == 0'' means present; ''AMASK'' clears bits for features that exist |
+| BWX builtins | none exist; use ''-mbwx'' and ordinary C |
+| Byte/word atomicity | pre-BWX cannot provide it; this is why Linux 6.10 dropped pre-EV56 |
+| Byte atomics | ''LDQ_L''/''STQ_C'' on the containing quadword, on every Alpha; BWX adds no locked byte access |
+| Reservation granularity | implementation-defined aligned block: quadword minimum, page maximum, 128 bytes recommended |
+| Sparse I/O | length-1 in addr<4:3>, lane in addr<6:5>; software positions the byte; ''MB'' required |
+| Dense I/O | a chipset property; byte/word through it needs a Pyxis-or-later window plus a BWX CPU |
+| Jensen | 128-byte stride, byte replication, no dense space, and a separate local I/O path |
+
+==== References ====
+
+  * {{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}. §4.6 covers the extract, insert and mask instructions and the canonical byte and word sequences; §4.11.1 covers ''AMASK''; Appendix D, Table D-3 gives the AMASK bit assignments. This is the **only** edition that documents BWX and AMASK; the 1992 and 1995 editions predate both.
+  * {{wiki:documentation:references:alpha_architecture_reference_manual_1st_edition.pdf?linkonly|Alpha Architecture Reference Manual, First Edition}}, §4.2, for the ''LDx_L''/''STx_C'' lock range definition.
+  * DECchip 21171-CA Technical Reference Manual, Chapter 6, for the PCI sparse space encodings and the memory barrier requirement.
+  * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/special_insns.h|''arch/alpha/include/asm/special_insns.h'']] for ''amask()''. The ''core_apecs.h'', ''core_lca.h'', ''core_t2.h'', ''core_cia.h'' and ''jensen.h'' headers were removed in Linux 6.10 by ''430ad3f0ddd7'' ("alpha: remove LCA and APECS based machines") and ''f81f335a56a8'' ("alpha: remove DECpc AXP150 (Jensen) support"); read them from before those commits.
+  * Arnd Bergmann, ''a4184174be36'' ("alpha: drop pre-EV56 support"), Linux 6.10.
+  * [[documentation:amask|Architecture Mask (amask)]] on this wiki.
+
+=== Mailing list sources ===
+
+  * Michael Cree, "Re: glibc regression on alpha with 2.34+", debian-alpha, 13 December 2022, [[https://lists.debian.org/msgid-search/Y5gtYxqv78cTCdau@creeky|Y5gtYxqv78cTCdau@creeky]].
+  * Michael Cree, "RFC: compile with BWX thus only support EV56 and later CPUs", debian-alpha, 5 September 2014, [[https://lists.debian.org/msgid-search/20140905084622.GC5281@omega|20140905084622.GC5281@omega]].
+  * John Paul Adrian Glaubitz, quoting Arnd Bergmann, "Re: [GIT PULL] alpha: cleanups and build fixes for 6.10", debian-alpha, 12 May 2024, [[https://lists.debian.org/msgid-search/b4adb884e4c1014ecce7d1857adb7feb48ba837f.camel@physik.fu-berlin.de|b4adb884e4c1014ecce7d1857adb7feb48ba837f.camel@physik.fu-berlin.de]].
+  * Linus Torvalds, "Re: MMIO for new NCR810 driver?", axp-list, 13 July 1996.
+  * Jay Estabrook, "RE: Re: ev56 optimization -> illegal instruction", axp-list, 14 March 1998; Richard Henderson, "Re: egcs and PC164 (ev56 ?)", axp-list, 18 December 1998.
+  * Eric Smith, "Re: which new alpha chips are which", axp-list, 19 March 1997.
+
+{{tag>documentation porting}}
