@@ -1,0 +1,103 @@
+===== Emulators =====
+
+This page covers emulators of Alpha systems, which run Alpha operating systems on other hardware, and emulators that run on Alpha, which let Alpha systems run software built for x86.
+
+^ Emulator ^ Emulated system ^ Host ^ License ^ Linux guest ^
+| [[#qemu|QEMU]] | DP264/Clipper (AlphaServer ES40 class), Linux user mode | Many | GPL | Yes, with ''-kernel'' |
+| [[#es40_and_axpbox|ES40, AXPbox, ES40-Emu]] | AlphaServer ES40 | Linux, Windows, macOS | GPL v2 | Limited |
+| [[#avanti_and_freeaxp|FreeAXP, Avanti]] | AlphaServer 400 | 64-bit Windows | Freeware; commercial | Not supported |
+| [[#charon-axp_and_personal_alpha|Charon-AXP, Personal Alpha]] | Various; AlphaServer DS10 (Personal Alpha+) | Windows | Commercial; freeware | Not supported |
+| [[#alphavm|AlphaVM]] | Tsunami/Typhoon systems | Windows, Linux | Commercial | Boots, not supported |
+| [[#incomplete_emulators|SimH, GXemul]] | Personal Workstation 500au, AlphaBook 1 | Many | Open source | No |
+| [[#em86|EM86]] | Linux/x86 programs, on Linux/Alpha | Linux/Alpha | Binary x86 core | n/a |
+| [[#fx32|FX!32]] | Win32 x86 programs, on Windows NT/Alpha | Windows NT/Alpha | Commercial | n/a |
+
+===== Emulators of Alpha Systems =====
+
+==== QEMU ====
+
+QEMU is the emulator most used to run Linux/Alpha today. Jocelyn Mayer added Alpha CPU emulation and Linux user-mode emulation in April 2007, [(>[[https://gitlab.com/qemu-project/qemu/-/commit/4c9649a967e45bc3086d2e752871878e08d6cdf2|"Alpha architecture emulation core."]], Jocelyn Mayer, 5 Apr 2007, QEMU 0.9.1)] [(>[[https://gitlab.com/qemu-project/qemu/-/commit/86cc1ce08362ac8f7da40b7c2aafb9093ab3ae24|"Definitions needed for Alpha linux user-mode emulation."]], Jocelyn Mayer, 5 Apr 2007, QEMU 0.9.1)] which first shipped in QEMU 0.9.1. In 2008, QEMU "has apparently has some kind of beginnings of alpha emulation." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-December.mbox#L2700|"How to upload compiled packages?"]], Alan Young, axp-list, 17 Dec 2008)]
+
+Richard Henderson added system emulation in 2011, while debugging Alpha toolchain problems: "I've been working on getting QEMU working for alpha-softmmu recently". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2011-May.mbox#L230|"Re: Problems with linker on Alpha"]], Richard Henderson, debian-alpha, 2 May 2011)] His "CLIPPER" machine is "a DP264 variant, SMP capable, no unusual hardware present", [(>[[https://gitlab.com/qemu-project/qemu/-/commit/80bb2ff770e3e6ff2922a7b60978394571ec64cb|"target-alpha: Add CLIPPER emulation."]], Richard Henderson, 25 Aug 2011, QEMU 1.0)] and first shipped in QEMU 1.0 in December 2011. It is the platform of the AlphaServer ES40. [(>[[https://raymii.org/s/articles/NetBSD_on_QEMU_Alpha.html|"Install NetBSD 9.2 on a DEC Alpha CPU in QEMU with X11"]], Remy van Elst, 18 Aug 2021)] Henderson maintains QEMU's Alpha CPU and machine code. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/MAINTAINERS|MAINTAINERS]], QEMU 11.1.0)]
+
+The ''clipper'' machine is QEMU's default Alpha machine. It emulates up to 4 CPUs, EV67 by default, with the 21272 Tsunami/Typhoon chipset, an Intel i82378 PCI-ISA bridge, an SMC37C669 Super I/O chip, a CMD646 IDE controller, VGA, and an Intel e1000 network card. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/hw/alpha/dp264.c|hw/alpha/dp264.c]], QEMU 11.1.0)] The i82378 "wouldn't have been on any Tsunami/Typhoon systems", but was chosen over modeling the real system's Cypress CY82C693UB. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/hw/alpha/dp264.c|hw/alpha/dp264.c]], QEMU 11.1.0)] QEMU also emulates the older ev4, ev5, ev56, and pca56 CPUs, and user-mode emulation also defaults to ev67. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/linux-user/alpha/elfload.c|linux-user/alpha/elfload.c]], QEMU 11.1.0)] [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/target/alpha/cpu.c|target/alpha/cpu.c]], QEMU 11.1.0)]
+
+=== qemu-palcode ===
+
+QEMU uses its own firmware, [[https://gitlab.com/qemu-project/qemu-palcode|qemu-palcode]], also written by Richard Henderson, instead of Digital's [[software:firmware:srm|SRM console]]. In 2011 there was "exactly enough support in the emulation PALcode to convince Linux that it's running on SRM instead of MILO." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2011-May.mbox#L823|"Re: QEMU Alpha system status"]], Richard Henderson, debian-alpha, 5 May 2011)] As Jason Thorpe put it, "The Qemu "bios" (palcode-clipper) for its Alpha emulation does not contain any of the I/O callbacks implemented by real DEC SRM firmware. Nor does it contain any of the CLI implemented by real DEC SRM firmware." [(>[[https://raymii.org/s/articles/NetBSD_on_QEMU_Alpha.html|"Install NetBSD 9.2 on a DEC Alpha CPU in QEMU with X11"]], Remy van Elst, 18 Aug 2021)] Boot loaders such as [[software:boot_loaders:aboot|aboot]] therefore cannot be used, and the kernel and initrd are passed to QEMU directly, "so only direct kernel boot is usable". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L470|"Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image (fwd)"]], Thorsten Glaser, debian-alpha, 27 Mar 2021)] For example:
+
+<code>
+qemu-system-alpha -M clipper -m 2G -kernel vmlinux -initrd initrd.img \
+    -append 'root=/dev/sda2 console=ttyS0' -hda disk.img -nographic
+</code>
+
+The firmware sets the system serial number to "QEMU". Generic Linux kernels detect this and use a high-resolution clock and alarm that the firmware provides, and kernels built for QEMU alone can select ''CONFIG_ALPHA_QEMU''. [(>[[https://git.kernel.org/torvalds/c/994dcf7055df|"alpha: Notice if we're being run under QEMU"]], Linux 3.13)] [(>[[https://git.kernel.org/torvalds/c/4914d7b458e3|"alpha: Use qemu+cserve provided high-res clock and alarm."]], Linux 3.13)]
+
+=== Linux under QEMU ===
+
+In 2020 John Paul Adrian Glaubitz could "install current versions Debian for Alpha and HPPA inside qemu-system without any problems", [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-March.mbox#L126|"Re: [Sbcl-devel] Alpha, HPPA support at risk"]], John Paul Adrian Glaubitz, debian-alpha, 12 Mar 2020)] and he planned QEMU-based build daemons for Debian's Alpha port. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-January.mbox#L2472|"Re: Booting Debian in qemu-system-alpha"]], John Paul Adrian Glaubitz, debian-alpha, 24 Jan 2020)] Philippe Mathieu-Daudé recommended giving build daemons "at least 2GB instead of 512MB." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-January.mbox#L2582|"Re: Booting Debian in qemu-system-alpha"]], Philippe Mathieu-Daudé, debian-alpha, 27 Jan 2020)] Debian's Alpha packages have since been built on both "the real hardware buildd and on the qemu buildds". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2023-September.mbox#L1|"Bug#1051650: cmake: Problems finding libraries on Alpha"]], Adrian Bunk, debian-alpha, 11 Sep 2023)] QEMU's own test suite boots a Linux kernel on the ''clipper'' machine. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/tests/functional/alpha/test_clipper.py|tests/functional/alpha/test_clipper.py]], QEMU 11.1.0)]
+
+QEMU's user-mode emulator, ''qemu-alpha'', runs Linux/Alpha programs on other architectures. Michael Cree suggested using it to prepare disks for real Alphas: run debootstrap on an x86-64 system, then "use qemu-alpha to 2nd stage bootstrap". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2019-July.mbox#L1219|"Re: systemd woes continue"]], Michael Cree, debian-alpha, 17 Jul 2019)] glibc developers use it to test Alpha changes. [(>[[https://sourceware.org/git/?p=glibc.git;a=commit;h=80a40a9e14|"alpha: Fix fesetexceptflag (BZ 30998)"]], Bruno Haible, glibc 2.39)]
+
+Other operating systems: in QEMU 6.1, Jason Thorpe added a PCI-ISA bridge device to the ''clipper'' machine, since without one "some operating systems won't notice there's an ISA bus to configure", [(>[[https://gitlab.com/qemu-project/qemu/-/commit/5ec4f1d348e164355ff0e50486d537973e517e19|"hw/alpha: Provide a PCI-ISA bridge device node"]], Jason Thorpe, 16 Jun 2021, QEMU 6.1)] and NetBSD 9.2 runs under QEMU, but "OpenVMS does not boot yet" and "Tru64 will not run on QEMU currently." [(>[[https://raymii.org/s/articles/NetBSD_on_QEMU_Alpha.html|"Install NetBSD 9.2 on a DEC Alpha CPU in QEMU with X11"]], Remy van Elst, 18 Aug 2021)]
+
+==== ES40 and AXPbox ====
+
+The ES40 emulator, written by Camiel Vanderhoeven, emulates an AlphaServer ES40 and runs its firmware from an ES40 ROM image. [(>[[https://github.com/lenticularis39/axpbox/wiki/Guest-support|"Guest support"]], AXPbox wiki)] In 2008 its wiki said it "can boot OpenVMS." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-December.mbox#L2700|"How to upload compiled packages?"]], Alan Young, axp-list, 17 Dec 2008)] "The emulator is not under active development since 2008". [(>[[https://raymii.org/s/blog/Installing_the_es40_AlphaServer_emulator_0.18_on_Ubuntu_16.04_and_trying_to_install_openVMS_8.4_on_es40.html|"Installing the es40 AlphaServer emulator 0.18 on Ubuntu 16.04, and trying to install OpenVMS 8.4 on es40"]], Remy van Elst)]
+
+[[https://github.com/lenticularis39/axpbox|AXPbox]] "is a fork of the discontinued es40 emulator", renamed "to avoid confusion with the physical machine (AlphaServer ES40)". It emulates "SCSI, sound, IDE, serial ports, Ethernet (using pcap, or TUN/TAP on Linux) and VGA graphics (using SDL)". [(>[[https://github.com/lenticularis39/axpbox|AXPbox README]])] Version 1.0.0 was released on 23 January 2021 and 1.2.0 on 11 July 2026. [(>[[https://github.com/lenticularis39/axpbox/releases|AXPbox releases]])] Its guest support table lists OpenVMS 8.4 and NetBSD 9.2 as working, and "Debian 5.0 lenny | doesn't boot | Hangs on boot." [(>[[https://github.com/lenticularis39/axpbox/wiki/Guest-support|"Guest support"]], AXPbox wiki)]
+
+AXPbox now says that "active development happens over at the ES40-Emu project". [(>[[https://github.com/lenticularis39/axpbox|AXPbox README]])] [[https://github.com/ES40-Emu/es40|ES40-Emu]] added a JIT compiler, S3 graphics, and the ARC firmware, so it can run Windows NT and Windows 2000 for Alpha. [(>[[https://www.osnews.com/story/145445/|"Improved DEC Alpha emulator runs Windows 2000 for Alpha and OpenVMS and Tru64 with X11"]], Thom Holwerda, OSnews, 5 Jul 2026)] Its supported operating systems include "SOME Linux - Red Hat Enigma / 7.2 tested". [(>[[https://github.com/ES40-Emu/es40|ES40-Emu README]], 7 May 2026 entry)]
+
+==== Avanti and FreeAXP ====
+
+Migration Specialties' FreeAXP "provides a virtual AlphaServer 400 equipped with 1 CPU, 128MB memory, 7 disk drives, two NICs, and two virtual serial ports. It is hosted on Microsoft Windows 64-bit operating systems. Usage is unrestricted." [(>[[https://migrationspecialties.com/index.php/products/freeaxp|"FreeAXP"]], Migration Specialties)] The beta was announced in March 2010. [(>[[https://comp.os.vms.narkive.com/0eBzgyoE/freeaxp-a-free-virtual-alpha-system|"FreeAXP - A Free Virtual Alpha System"]], Ian Miller, comp.os.vms, 22 Mar 2010)] FreeAXP is a demonstrator for the commercial Avanti and AvantiFlex, which support EV4, EV5, and EV6 instruction sets [(>[[https://migrationspecialties.com/index.php/products/avanti|"Avanti"]], Migration Specialties)] and run OpenVMS and Tru64 UNIX. The current version of Avanti and FreeAXP is V5.0.0.702, from 13 February 2023. [(>[[https://migrationspecialties.com/index.php/products/freeaxp|"FreeAXP"]], Migration Specialties)] Linux is not listed as a supported guest.
+
+==== Charon-AXP and Personal Alpha ====
+
+Stromasys sells Charon-AXP, a commercial Alpha emulator that runs "the original, unmodified OpenVMS or TRU64 environment". Its free Personal Alpha was "the first freeware virtual Alpha system, downloaded more than 10'000 times." Its successor, Personal Alpha+, provided "the functionality of a virtual AlphaServer DS10, running on a 64-bit Windows (version 7 or server 2008) host system." [(>[[https://www.chipestimate.com/Stromasys-Boosts-CHARON-Performance-by-Introducing-AXP-and-Free-Personal-Alpha/Semiconductor-IP-Core/news/14777|"Stromasys Boosts CHARON Performance by Introducing AXP+ and Free Personal Alpha+"]], Stromasys, November 2011)] "Charon had a personal version but that is nowhere to be found nowdays". [(>[[https://raymii.org/s/blog/The_sad_state_of_Alpha_emulators_for_OpenVMS.html|"The sad state of Alpha emulators (for OpenVMS)"]], Remy van Elst, updated 30 Jun 2023)] The same article lists AVTware's vtAlpha, which "has no free version or trial".
+
+==== AlphaVM ====
+
+EmuVM's commercial AlphaVM emulates Tsunami/Typhoon systems, and AlphaVM-Pro 2.0 "also supports Gamma, Rawhide, Titan and Wildfire" with up to 32 CPUs. It runs OpenVMS and Tru64 UNIX; "Linux boots as well, but we do not support it." [(>[[https://emuvm.com/products/alphavm-pro/|"AlphaVM-Pro"]], EmuVM)] The hobbyist AlphaVM-Basic "emulates an Alpha system with one CPU and up to 1GB RAM", at a license cost of 400 EUR for the first year. [(>[[https://emuvm.com/products/alphavm-basic/|"AlphaVM-Basic"]], EmuVM)]
+
+==== Incomplete Emulators ====
+
+  * **SimH:** Bob Supnik's SimH includes the start of an Alpha simulator. Its system definitions file says "This is a STUB!" [(>[[https://github.com/simh/simh/blob/master/alpha/alpha_sys_defs.h|alpha/alpha_sys_defs.h]], SimH)]
+  * **GXemul:** Anders Gavare's GXemul enabled Alpha emulation "even though no guest OSes for Alpha can run yet". NetBSD/alpha printed "its first boot messages" on an emulated AlphaBook 1 on 3 June 2006. Alpha support was removed on 3 July 2009 and revived on 2 September 2011, but never booted an operating system. [(>''HISTORY'', GXemul)]
+
+===== Emulators on Alpha =====
+
+==== EM86 ====
+
+EM86 let Linux/Alpha run Linux/x86 programs. Jim Paradis of Digital's Linux/Alpha team announced it on 4 April 1997: "EM86 is a software emulator that enables Linux/Alpha systems to run Linux/x86 software without modification". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L10643|"EM86: Official Announcement"]], Jim Paradis, axp-list, 4 Apr 1997)] It used "components of the award-winning DIGITAL FX!32 technology" and supported "statically linked and dynamically linked x86 ELF32 binaries". [(>[[http://ftp.dreamtime.org/pub/linux/Linux-Alpha/em86/v0.2/docs/status.html|"EM86 - Project Status"]], Digital)] An earlier version had been based on the Bochs emulator. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L27679|"EM86 - getting closer!"]], Jim Paradis, axp-list, 22 Jan 1998)]
+
+Beta 2 followed on 22 September 1997, with RPM packages and native Alpha versions of some shared libraries. "Performance is better, but not rip-roaring". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-September.mbox#L17802|"EM86 Beta 2 now available!"]], Jim Paradis, axp-list, 22 Sep 1997)] EM86's sources were released, except the x86 emulation library from FX!32: "It's the one part of EM86 that I *cannot* distribute in source form." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-February.mbox#L12214|"Re: EM86"]], Jim Paradis, axp-list, 18 Feb 1998)]
+
+EM86 did not keep up with later systems. By 2006, "the only way to get em86 working is to run it on and old system", and it could not be fixed because it used "closed-source FX!32 code which HP is not at liberty to release". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-February.mbox#L14578|"Re: em86"]], Steve Langasek, debian-alpha, 22 Feb 2006)] Linux 5.14 removed the kernel's EM86 binary format support, noting that "The latest binaries available for em86 are from 2000". [(>[[https://git.kernel.org/torvalds/c/6208721f1399|"binfmt: remove support for em86 (alpha only)"]], Linux 5.14)]
+
+==== FX!32 ====
+
+Digital's FX!32 ran x86 programs on Windows NT for Alpha. It "is a unique combination of emulation and binary translation which makes it so that any 32-bit program that runs on an x86 system running Windows NT 4.0 will install and run on an Alpha Windows NT 4.0 system. After translation, x86 applications run as fast under DIGITAL FX!32 on a 500Mz Alpha system as on a 200Mz Pentium-Pro." [(>[[https://www.usenix.org/legacy/publications/library/proceedings/usenix-nt97/chernoff.html|"DIGITAL FX!32: Running 32-Bit x86 Applications on Alpha NT"]], Anton Chernoff and Ray Hookway, USENIX Windows NT Workshop, 1997)] FX!32 was not available for Linux, but its x86 interpreter was the core of EM86.
+
+===== Conflicting Information =====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **CPU emulated by QEMU**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2023-May.mbox#L629|"Re: Bug#1036158: gcc-13: Please raise baseline for alpha to EV56"]], John Paul Adrian Glaubitz, debian-alpha, 17 May 2023: "EV56 is currently the baseline for QEMU when emulating Alpha."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2023-May.mbox#L1183|"Bug#1036158: gcc-13: Please raise baseline for alpha to EV56"]], Michael Cree, debian-alpha, 20 May 2023: "qemu was ev6/ev67 being machine type clipper which emulates an ES40"
+    * [[https://gitlab.com/qemu-project/qemu/-/blob/v8.0.0/target/alpha/cpu.c|target/alpha/cpu.c]], QEMU 8.0.0 (April 2023): "Default to ev67; no reason not to emulate insns by default."
+    * [[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/hw/alpha/dp264.c|hw/alpha/dp264.c]] and [[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/linux-user/alpha/elfload.c|linux-user/alpha/elfload.c]], QEMU 11.1.0, set the default CPU to ev67 for both system and user-mode emulation.
+  * **System emulated by Personal Alpha**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-December.mbox#L2842|"Alpha Emulators"]], Alexey Chupahin, axp-list, 18 Dec 2008: "you get DEC 3000 emulated hardware."
+    * [[https://www.chipestimate.com/Stromasys-Boosts-CHARON-Performance-by-Introducing-AXP-and-Free-Personal-Alpha/Semiconductor-IP-Core/news/14777|"Stromasys Boosts CHARON Performance by Introducing AXP+ and Free Personal Alpha+"]], Stromasys, 2011, describes its successor, Personal Alpha+, as a virtual AlphaServer DS10.
+  * **When ES40 emulator development stopped**
+    * [[https://raymii.org/s/blog/Installing_the_es40_AlphaServer_emulator_0.18_on_Ubuntu_16.04_and_trying_to_install_openVMS_8.4_on_es40.html|"Installing the es40 AlphaServer emulator 0.18 on Ubuntu 16.04, and trying to install OpenVMS 8.4 on es40"]], Remy van Elst: "The emulator is not under active development since 2008"
+    * The same article: "the development halted around 2009"
+  * **Linux on AXPbox and ES40-Emu**
+    * [[https://github.com/lenticularis39/axpbox/wiki/Guest-support|"Guest support"]], AXPbox wiki: "Debian 5.0 lenny | doesn't boot | Hangs on boot."
+    * [[https://github.com/lenticularis39/axpbox|AXPbox README]] lists Linux among the operating systems it "could theoretically" run.
+    * [[https://github.com/ES40-Emu/es40|ES40-Emu README]], 7 May 2026 entry: "Red Hat 7.2 works."
+
+{{tag>software}}
