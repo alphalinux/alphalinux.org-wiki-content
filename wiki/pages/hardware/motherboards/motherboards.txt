@@ -26,14 +26,15 @@ See also [[hardware:chipsets|Chipsets]].
 
 These documents apply to Digital's Alpha evaluation boards and motherboards in general.
 
-  * {{wiki:hardware:motherboards:common:debug_monitor_user_guide.pdf?linkonly|Alpha Microprocessors Motherboard Debug Monitor User's Guide}}
-  * {{wiki:hardware:motherboards:common:srom_mini-debugger_user_guide.pdf?linkonly|Alpha Microprocessors SROM Mini-Debugger User's Guide}}
-  * {{wiki:hardware:motherboards:common:software_design_tools_user_guide.pdf?linkonly|Alpha Microprocessors Motherboard Software Design Tools User's Guide}}
-  * {{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}
-  * {{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}}
-  * {{wiki:hardware:motherboards:common:sdk_product_brief.pdf?linkonly|Alpha Motherboards Software Developer's Kit Version 4.0 Product Brief}}
-  * {{wiki:hardware:motherboards:common:sdk_read_me_first.pdf?linkonly|Alpha Motherboards Software Developer's Kit Read Me First}}
-  * {{wiki:hardware:motherboards:common:palcode_system_design_guide.pdf?linkonly|PALcode for Alpha Microprocessors System Design Guide}}
-  * {{wiki:hardware:motherboards:common:spice_models_application_note.pdf?linkonly|SPICE Models for Alpha Microprocessors: An Application Note}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:motherboards:common:debug_monitor_user_guide.pdf?linkonly|Alpha Microprocessors Motherboard Debug Monitor User's Guide}} | EC-QHUVG-TE | April 1999 |
+| {{wiki:hardware:motherboards:common:srom_mini-debugger_user_guide.pdf?linkonly|Alpha Microprocessors SROM Mini-Debugger User's Guide}} | EC-QHUXD-TE | April 1999 |
+| {{wiki:hardware:motherboards:common:software_design_tools_user_guide.pdf?linkonly|Alpha Microprocessors Motherboard Software Design Tools User's Guide}} | EC-QHUWE-TE | April 1999 |
+| {{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}} | EC-QK8DF-TE | September 1997 |
+| {{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}} | EC-QLUAH-TE | October 1997 |
+| {{wiki:hardware:motherboards:common:sdk_product_brief.pdf?linkonly|Alpha Motherboards Software Developer's Kit Version 4.0 Product Brief}} | EC-QXQKD-TE | April 1999 |
+| {{wiki:hardware:motherboards:common:sdk_read_me_first.pdf?linkonly|Alpha Motherboards Software Developer's Kit Read Me First}} | EC-QERSJ-TE | April 1999 |
+| {{wiki:hardware:motherboards:common:palcode_system_design_guide.pdf?linkonly|PALcode for Alpha Microprocessors System Design Guide}} | EC-QFGLC-TE | May 1996 |
+| {{wiki:hardware:motherboards:common:spice_models_application_note.pdf?linkonly|SPICE Models for Alpha Microprocessors: An Application Note}} | EC-QA4XG-TE | March 1997 |
 
 {{tag>hardware}}

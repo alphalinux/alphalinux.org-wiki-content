@@ -62,7 +62,8 @@ The following sources disagree with each other or with this page. They are liste
 
 ==== Documentation ====
 
-  * {{wiki:hardware:motherboards:pc64:pc64_motherboard_user_manual.pdf?linkonly|AlphaPC64 Motherboard User's Manual}}
-  * {{wiki:hardware:motherboards:pc64:pc64_evaluation_board_user_guide.pdf?linkonly|AlphaPC64 Evaluation Board User's Guide}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:motherboards:pc64:pc64_motherboard_user_manual.pdf?linkonly|AlphaPC64 Motherboard User's Manual}} | EC-QLJKB-TE | July 1995 |
+| {{wiki:hardware:motherboards:pc64:pc64_evaluation_board_user_guide.pdf?linkonly|AlphaPC64 Evaluation Board User's Guide}} | EC-QGY2C-TE | July 1995 |
 
 {{tag>hardware motherboard 21064 digital}}

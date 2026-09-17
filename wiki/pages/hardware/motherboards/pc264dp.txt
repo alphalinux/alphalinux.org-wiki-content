@@ -58,10 +58,11 @@ The following sources disagree with each other or with this page. They are liste
 
 ==== Documentation ====
 
-  * {{wiki:hardware:motherboards:pc264dp:pc264dp_technical_reference_manual.pdf?linkonly|AlphaPC 264DP Technical Reference Manual}}
-  * {{wiki:hardware:motherboards:pc264dp:pc264dp_user_manual.pdf?linkonly|AlphaPC 264DP User's Manual}}
-  * {{wiki:hardware:motherboards:pc264dp:pc264dp_product_brief.pdf?linkonly|AlphaPC 264DP Product Brief}}
-  * {{wiki:hardware:motherboards:pc264dp:pc264dp_data_sheet.pdf?linkonly|AlphaPC 264DP Motherboard}} (data sheet)
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:motherboards:pc264dp:pc264dp_technical_reference_manual.pdf?linkonly|AlphaPC 264DP Technical Reference Manual}} | EC-RB0DA-TE | February 1999 |
+| {{wiki:hardware:motherboards:pc264dp:pc264dp_user_manual.pdf?linkonly|AlphaPC 264DP User's Manual}} | EC-RB0BA-TE | February 1999 |
+| {{wiki:hardware:motherboards:pc264dp:pc264dp_product_brief.pdf?linkonly|AlphaPC 264DP Product Brief}} | EC-RBD0A-TE | December 1998 |
+| {{wiki:hardware:motherboards:pc264dp:pc264dp_data_sheet.pdf?linkonly|AlphaPC 264DP Motherboard Data Sheet}} | EC-F9643-56 | December 1998 |
 
 {{gallery>:wiki:hardware:motherboards:pc264dp}}
 

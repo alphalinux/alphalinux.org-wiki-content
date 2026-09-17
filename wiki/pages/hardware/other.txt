@@ -185,10 +185,12 @@ The following sources disagree with each other or with this page. They are liste
 
 ==== Documentation ====
 
-  * {{wiki:hardware:other:kzpsa_a12_release_notes.pdf?linkonly|Release Notes KZPSA SCSI Storage Adapter Module (EK-KZPSA-RN.M01, July 1999)}}
-  * {{wiki:software:firmware:alphaserver_4000_4100_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 4100/4000 Firmware Release Notes, V6.0 (September 2001)}}, with the list of SRM boot devices
-  * {{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes (April 2007)}}, with option-specific console notes
-  * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs (July 2007)}}, with option support by operating system including Red Hat Linux 7.2
-  * The Systems and Options Catalogs listed on the [[software:operating_systems#documentation|Operating Systems]] page, with option part numbers
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:other:kzpsa_a12_release_notes.pdf?linkonly|Release Notes KZPSA SCSI Storage Adapter Module}} | EK-KZPSA-RN.M01 | July 1999 |
+| {{wiki:software:firmware:alphaserver_4000_4100_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 4100/4000 Firmware Release Notes, V6.0}}, with the list of SRM boot devices | | September 2001 |
+| {{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40, ES40cv, ES40lp, TS40, and TS20 V7.3 Firmware Release Notes}}, with option-specific console notes | | April 2007 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer/AlphaStation ES47 Tower, AlphaServer ES47, and AlphaServer ES80 Systems QuickSpecs, Version 25}}, with option support by operating system including Red Hat Linux 7.2 | DA-11922 | July 2007 |
+
+See also the Systems and Options Catalogs listed on the [[software:operating_systems#documentation|Operating Systems]] page, with option part numbers.
 
 {{tag>hardware}}

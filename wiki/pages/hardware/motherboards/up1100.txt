@@ -61,10 +61,11 @@ The following sources disagree with each other or with this page. They are liste
 
 ==== Documentation ====
 
-  * {{wiki:hardware:motherboards:up1100:up1100_technical_reference_manual.pdf?linkonly|UP1100 Technical Reference Manual}}
-  * {{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}
-  * {{wiki:hardware:motherboards:up1100:up1100_specsheet.pdf?linkonly|UP1100 Spec Sheet}} (May 2000)
-  * {{wiki:hardware:motherboards:up1100:up1100_spec_sheet.pdf?linkonly|UP1100 Spec Sheet}} (December 2000)
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:motherboards:up1100:up1100_technical_reference_manual.pdf?linkonly|UP1100 Technical Reference Manual}} | 51-0049-1A | May 2000 |
+| {{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}} | 51-0048-1A | May 2000 |
+| {{wiki:hardware:motherboards:up1100:up1100_specsheet.pdf?linkonly|UP1100 Motherboard Spec Sheet}} | 200104-00 | April 2000 |
+| {{wiki:hardware:motherboards:up1100:up1100_spec_sheet.pdf?linkonly|UP1100 Spec Sheet}} | 200104-01 | January 2001 |
 
 {{gallery>:wiki:hardware:motherboards:up1100}}
 

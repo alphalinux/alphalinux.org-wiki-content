@@ -222,11 +222,12 @@ The following sources disagree with each other or with this page. They are liste
 
 No copy of the ARC specification has been located.
 
-  * {{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}} (ARC and AlphaBIOS menus on the Digital Semiconductor motherboards)
-  * {{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide (EK-AXPFW-RM. C01)}} (ARC environment variables, boot selections, and device names)
-  * {{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide (EK-ASV80-UG. B01, November 1997)}} (AlphaBIOS, chapter 7)
-  * {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview (AA-RGKNV-TS, April 2007)}}
-  * {{wiki:hardware:motherboards:pc164lx:alphapc_v5.7_firmware_release_notes.pdf?linkonly|AlphaPC 164SX/164LX/164 Firmware Update Procedures (V5.7, March 2000)}}
-  * {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6 (1994)}} (Part II-C describes how Windows NT uses the ARC firmware)
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}} (ARC and AlphaBIOS menus on the Digital Semiconductor motherboards) | EC-QLUAH-TE | October 1997 |
+| {{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}} (ARC environment variables, boot selections, and device names) | EK-AXPFW-RM.C01 | December 1995 |
+| {{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}} (AlphaBIOS, chapter 7) | EK-ASV80-UG.B01 | November 1997 |
+| {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}} | AA-RGKNV-TS | April 2007 |
+| {{wiki:hardware:motherboards:pc164lx:alphapc_v5.7_firmware_release_notes.pdf?linkonly|AlphaPC 164SX/164LX/164 Motherboards Firmware Update Procedures, V5.7}} | | March 2000 |
+| {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6}} (Part II-C describes how Windows NT uses the ARC firmware) | | 1994 |
 
 {{tag>software firmware}}

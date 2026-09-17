@@ -318,10 +318,11 @@ The following sources disagree with each other or with this page. They are liste
 
 ==== Documentation ====
 
-  * {{wiki:software:boot_loaders:milo_howto.pdf?linkonly|Alpha Miniloader Howto, v0.85 (David A. Rusling, April 1997)}}
-  * [[https://github.com/alphalinux-org/milo/blob/main/Documentation/README.milo|README.milo]] (MILO 2.2)
-  * [[https://github.com/alphalinux-org/milo/blob/main/tools/boot/milo.conf.5|milo.conf(5)]] and [[https://github.com/alphalinux-org/milo/blob/main/tools/boot/miloctl.8|miloctl(8)]]
-  * [[https://github.com/alphalinux-org/milo/blob/main/Documentation/ChangeLog|ChangeLog]] (MILO 2.2)
-  * [[https://github.com/alphalinux-org/mailing-list-archives/tree/main/milo-list-mbox|milo-list archive]] (1999 to 2001)
+^ Document ^ Part number ^ Date ^
+| {{wiki:software:boot_loaders:milo_howto.pdf?linkonly|Alpha Miniloader Howto, v0.85}} | | April 1997 |
+| [[https://github.com/alphalinux-org/milo/blob/main/Documentation/README.milo|README.milo]] (MILO 2.2) | | |
+| [[https://github.com/alphalinux-org/milo/blob/main/tools/boot/milo.conf.5|milo.conf(5)]] and [[https://github.com/alphalinux-org/milo/blob/main/tools/boot/miloctl.8|miloctl(8)]] | | |
+| [[https://github.com/alphalinux-org/milo/blob/main/Documentation/ChangeLog|ChangeLog]] (MILO 2.2) | | |
+| [[https://github.com/alphalinux-org/mailing-list-archives/tree/main/milo-list-mbox|milo-list archive]] (1999 to 2001) | | |
 
 {{tag>software boot_loader linux}}

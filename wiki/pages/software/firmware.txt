@@ -16,58 +16,60 @@ See also the documentation sections of the [[software:firmware:srm|SRM]] and [[s
 
 These release notes are from the Alpha Systems Firmware Update V7.3 CD (April 2007) and describe the Loadable Firmware Update utility, update procedures, and changes in each release.
 
-  * {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview (AA-RGKNV-TS, April 2007)}}
-  * {{wiki:software:firmware:alphaserver_4000_4100_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 4100/4000 Firmware Release Notes, V6.0 (September 2001)}}
-  * {{wiki:software:firmware:alphaserver_8200_8400_v6.4_firmware_release_notes.pdf?linkonly|AlphaServer 8200 and 8400 V6.4 Firmware Update Procedures and Release Notes (December 2002)}}
-  * {{wiki:software:firmware:alphaserver_gs140_v6.4_firmware_release_notes.pdf?linkonly|AlphaServer GS60/GS60E/GS140 V6.4 Firmware Update Procedures and Release Notes (December 2002)}}
-  * {{wiki:software:firmware:alphaserver_gs140_v6.6_firmware_release_notes.pdf?linkonly|AlphaServer GS60/GS60E/GS140 V6.6 Firmware Update Procedures and Release Notes (November 2003)}}
-  * {{wiki:software:firmware:alphaserver_ds10_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer DS10 V7.2 Console Firmware Release Notes}}
-  * {{wiki:software:firmware:alphaserver_ds10_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer DS10 V7.3 Console Firmware Release Notes}}
-  * {{wiki:software:firmware:alphaserver_ds15_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer/AlphaStation DS15 and DS15A V7.2 Firmware Release Notes and Update Procedures}}
-  * {{wiki:software:firmware:alphaserver_ds15_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer/AlphaStation DS15 and DS15A V7.3 Firmware Release Notes}}
-  * {{wiki:software:firmware:alphaserver_ds20_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer DS20 V7.2 Firmware Release Notes and Update Procedures}}
-  * {{wiki:software:firmware:alphaserver_ds20_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer DS20 V7.3 Firmware Release Notes}}
-  * {{wiki:software:firmware:alphaserver_ds20l_v6.5_firmware_release_notes.pdf?linkonly|AlphaServer DS20L V6.5 Console Firmware Release Notes (June 2003)}}
-  * {{wiki:software:firmware:alphaserver_ds20l_v6.6_firmware_release_notes.pdf?linkonly|AlphaServer DS20L V6.6 Console Firmware Release Notes (December 2003)}}
-  * {{wiki:software:firmware:alphaserver_ds25_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation DS25 V7.2 Firmware Release Notes and Update Procedures}}
-  * {{wiki:software:firmware:alphaserver_es40_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer ES40, ES40cv, ES40lp, and TS40 V7.2 Firmware Release Notes and Update Procedures}}
-  * {{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40, ES40cv, ES40lp, TS40, and TS20 V7.3 Firmware Release Notes}}
-  * {{wiki:software:firmware:alphaserver_es45_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation ES45 V7.2 Firmware Release Notes and Update Procedures}}
-  * {{wiki:software:firmware:alphaserver_es45_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation ES45 V7.3 Firmware Release Notes}}
-  * {{wiki:software:firmware:alphaserver_gs1280_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer ES47, ES80, and GS1280 V7.2 Firmware Release Notes and Update Procedures}}
-  * {{wiki:software:firmware:alphaserver_gs1280_v7.2a_firmware_release_notes.pdf?linkonly|AlphaServer ES47, ES80, and GS1280 V7.2A Firmware Release Notes and Update Procedures}}
-  * {{wiki:software:firmware:alphaserver_gs1280_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES47, ES80, and GS1280 V7.3 Firmware Release Notes and Update Procedures}}
-  * {{wiki:software:firmware:alphaserver_gs320_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.2 Firmware Release Notes and Update Procedures (June 2006)}}
-  * {{wiki:software:firmware:alphaserver_gs320_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.3 Firmware Release Notes}}
-  * {{wiki:software:firmware:alphaserver_ts202c_v6.8a_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8a Firmware Release Notes and Update Procedure}}
-  * {{wiki:software:firmware:alphaserver_ts202c_v6.8b_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8B Firmware Release Notes and Update Procedures}}
-  * {{wiki:hardware:other:kzpsa_a12_release_notes.pdf?linkonly|KZPSA SCSI Storage Adapter Module Release Notes (July 1999)}}
-  * {{wiki:software:firmware:wwidmgr_v1.3_users_manual.pdf?linkonly|WWIDMGR Users' Manual: Alpha Systems' Console World Wide ID Manager for Fibre Channel Devices, V1.3 (May 2004)}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}} | AA-RGKNV-TS | April 2007 |
+| {{wiki:software:firmware:alphaserver_4000_4100_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 4100/4000 Firmware Release Notes, V6.0}} | | September 2001 |
+| {{wiki:software:firmware:alphaserver_8200_8400_v6.4_firmware_release_notes.pdf?linkonly|AlphaServer 8200 and AlphaServer 8400 Systems V6.4 Firmware Update Procedures and Release Notes}} | | December 2002 |
+| {{wiki:software:firmware:alphaserver_gs140_v6.4_firmware_release_notes.pdf?linkonly|AlphaServer GS60/GS60E/GS140 Systems V6.4 Firmware Update Procedures and Release Notes}} | | December 2002 |
+| {{wiki:software:firmware:alphaserver_gs140_v6.6_firmware_release_notes.pdf?linkonly|AlphaServer GS60/GS60E/GS140 V6.6 Firmware Update Procedures and Release Notes}} | | November 2003 |
+| {{wiki:software:firmware:alphaserver_ds10_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer DS10 V7.2 Console Firmware Release Notes}} | | June 2006 |
+| {{wiki:software:firmware:alphaserver_ds10_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer DS10 V7.3 Console Firmware Release Notes}} | | April 2007 |
+| {{wiki:software:firmware:alphaserver_ds15_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer/AlphaStation DS15 and DS15A V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
+| {{wiki:software:firmware:alphaserver_ds15_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer/AlphaStation DS15 and DS15A V7.3 Firmware Release Notes}} | | April 2007 |
+| {{wiki:software:firmware:alphaserver_ds20_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer DS20 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
+| {{wiki:software:firmware:alphaserver_ds20_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer DS20 V7.3 Firmware Release Notes}} | | April 2007 |
+| {{wiki:software:firmware:alphaserver_ds20l_v6.5_firmware_release_notes.pdf?linkonly|AlphaServer DS20L V6.5 Console Firmware Release Notes}} | | June 2003 |
+| {{wiki:software:firmware:alphaserver_ds20l_v6.6_firmware_release_notes.pdf?linkonly|AlphaServer DS20L V6.6 Console Firmware Release Notes}} | | December 2003 |
+| {{wiki:software:firmware:alphaserver_ds25_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation DS25 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
+| {{wiki:software:firmware:alphaserver_es40_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer ES40, ES40cv, ES40lp, and TS40 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
+| {{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40, ES40cv, ES40lp, TS40, and TS20 V7.3 Firmware Release Notes}} | | April 2007 |
+| {{wiki:software:firmware:alphaserver_es45_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation ES45 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
+| {{wiki:software:firmware:alphaserver_es45_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation ES45 V7.3 Firmware Release Notes}} | | April 2007 |
+| {{wiki:software:firmware:alphaserver_gs1280_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer ES47, ES80, and GS1280 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
+| {{wiki:software:firmware:alphaserver_gs1280_v7.2a_firmware_release_notes.pdf?linkonly|AlphaServer ES47, ES80, and GS1280 V7.2A Firmware Release Notes and Update Procedures}} | | October 2006 |
+| {{wiki:software:firmware:alphaserver_gs1280_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES47, ES80, and GS1280 V7.3 Firmware Release Notes and Update Procedures}} | | April 2007 |
+| {{wiki:software:firmware:alphaserver_gs320_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
+| {{wiki:software:firmware:alphaserver_gs320_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.3 Firmware Release Notes}} | | April 2007 |
+| {{wiki:software:firmware:alphaserver_ts202c_v6.8a_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8A Firmware Release Notes and Update Procedures}} | | October 2004 |
+| {{wiki:software:firmware:alphaserver_ts202c_v6.8b_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8B Firmware Release Notes and Update Procedures}} | | September 2005 |
+| {{wiki:hardware:other:kzpsa_a12_release_notes.pdf?linkonly|Release Notes KZPSA SCSI Storage Adapter Module}} | EK-KZPSA-RN.M01 | July 1999 |
+| {{wiki:software:firmware:wwidmgr_v1.3_users_manual.pdf?linkonly|WWIDMGR Users' Manual: Alpha Systems' Console World Wide ID Manager for Fibre Channel Devices, V1.3}} | | May 2004 |
 
 === System Guides ===
 
 These guides include chapters on the SRM, ARC, or AlphaBIOS firmware of their systems.
 
-  * {{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide (EK-AS300-UG. A01, November 1996)}}
-  * {{wiki:hardware:systems:alphaserver_300:alphaserver_300_release_notes.pdf?linkonly|AlphaServer 300 Release Notes (EK-AS300-RN. A01, December 1996)}}
-  * {{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide (EK-ASV80-UG. B01, November 1997)}}
-  * {{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide (EK-ASV80-SG. A01, April 1997)}}
-  * {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide (EK-DTLSV-OG. A01, November 1994)}}
-  * {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide (EK-DTLSV-SV. B01, July 1995)}}
-  * {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_release_notes.pdf?linkonly|AlphaServer 1000 Release Notes}}
-  * {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_owners_guide.pdf?linkonly|AlphaServer 1000A Owner's Guide (EK-ALPSV-OG. A02, October 1996)}}
-  * {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_service_guide.pdf?linkonly|AlphaServer 1000A Service Guide (EK-ALPSV-SV. A01, March 1996)}}
-  * {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_release_notes.pdf?linkonly|AlphaServer 1000A Release Notes}}
-  * {{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide (EK-AXPFW-RM. C01)}}
-  * {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_release_notes.pdf?linkonly|AlphaServer 2000/2100 Release Notes}}
-  * {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100a_owners_guide.pdf?linkonly|AlphaServer 2100A Owner's Guide}}
-  * {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_system_drawer_users_guide.pdf?linkonly|AlphaServer 4000 System Drawer User's Guide (EK-4000A-UG. B01, March 1997)}}
-  * {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_system_drawer_users_guide.pdf?linkonly|AlphaServer 4100 System Drawer User's Guide (EK-4100A-UG. D01, September 1996)}}
-  * {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_configuration_and_installation_guide.pdf?linkonly|AlphaServer 4000/4100 Configuration and Installation Guide (EK-4100A-CG. E01, June 1997)}}
-  * {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_operations_manual.pdf?linkonly|AlphaServer 8200/8400 Operations Manual (EK-T8030-OP. B01, March 1998)}}
-  * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_cli_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Server Management Command Line Interface Reference, V3.0 (October 2003)}}
-  * {{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Server Management SRM Console Reference, V1.0 (December 2002)}}
-  * {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_release_notes_v5.2.0.pdf?linkonly|AlphaServer Management Release Notes, V5.2.0 (August 2006)}}
-  * {{wiki:hardware:systems:personal_workstation:personal_workstation_au_series_installation_and_setup_guide.pdf?linkonly|Digital Personal Workstation a/au-Series Installation and Setup Guide (EK-ALMIG-SI. A01, April 1998)}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide}} | EK-AS300-UG.A01 | November 1996 |
+| {{wiki:hardware:systems:alphaserver_300:alphaserver_300_release_notes.pdf?linkonly|AlphaServer 300 Release Notes}} | EK-AS300-RN.A01 | December 1996 |
+| {{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}} | EK-ASV80-UG.B01 | November 1997 |
+| {{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}} | EK-ASV80-SG.A01 | April 1997 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide}} | EK-DTLSV-OG.A01 | November 1994 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}} | EK-DTLSV-SV.B01 | July 1995 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_release_notes.pdf?linkonly|AlphaServer 1000 Read This First}} | EK-DTLSV-CL.C01 | June 1995 |
+| {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_owners_guide.pdf?linkonly|AlphaServer 1000A Owner's Guide}} | EK-ALPSV-OG.A02 | October 1996 |
+| {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_service_guide.pdf?linkonly|AlphaServer 1000A Service Guide}} | EK-ALPSV-SV.A01 | March 1996 |
+| {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_release_notes.pdf?linkonly|AlphaServer 1000A Read This First}} | EK-ALPSV-CL.A01 | February 1996 |
+| {{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}} | EK-AXPFW-RM.C01 | December 1995 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_release_notes.pdf?linkonly|AlphaServer 2000/2100 Read This First}} | EK-KN450-CL.G01 | January 1996 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100a_owners_guide.pdf?linkonly|AlphaServer 2100A Owner's Guide}} | EK-2100A-OP.A01 | December 1995 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_system_drawer_users_guide.pdf?linkonly|AlphaServer 4000 System Drawer User's Guide}} | EK-4000A-UG.B01 | March 1997 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_system_drawer_users_guide.pdf?linkonly|AlphaServer 4100 System Drawer User's Guide}} | EK-4100A-UG.D01 | September 1996 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_configuration_and_installation_guide.pdf?linkonly|AlphaServer 4000/4100 Configuration and Installation Guide}} | EK-4100A-CG.E01 | June 1997 |
+| {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_operations_manual.pdf?linkonly|AlphaServer 8200/8400 Operations Manual}} | EK-T8030-OP.B01 | March 1998 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_cli_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Server Management Command Line Interface Reference, Version 3.0}} | | October 2003 |
+| {{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Server Management SRM Console Reference, Version 1.0}} | | December 2002 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_release_notes_v5.2.0.pdf?linkonly|HP AlphaServer Management Release Notes V5.2.0}} | | August 2006 |
+| {{wiki:hardware:systems:personal_workstation:personal_workstation_au_series_installation_and_setup_guide.pdf?linkonly|DIGITAL Personal Workstation a/au-Series Installation and Setup Guide}} | EK-ALMIG-SI.A01 | April 1998 |
 
 {{tag>software}}

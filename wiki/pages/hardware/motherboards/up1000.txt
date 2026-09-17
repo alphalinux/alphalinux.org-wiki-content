@@ -56,10 +56,11 @@ The following sources disagree with each other or with this page. They are liste
 
 ==== Documentation ====
 
-  * {{wiki:hardware:motherboards:up1000:up1000_technical_reference_manual.pdf?linkonly|UP1000 Technical Reference Manual}}
-  * {{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}
-  * {{wiki:hardware:motherboards:up1000:up1000_quick_start.pdf?linkonly|UP1000 Quick Start Installation Guide}}
-  * {{wiki:hardware:motherboards:up1000:up1000_spec_sheet.pdf?linkonly|UP1000 Spec Sheet}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:motherboards:up1000:up1000_technical_reference_manual.pdf?linkonly|UP1000 Technical Reference Manual}} | 51-0034-1A | December 1999 |
+| {{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}} | 51-0036-0A | December 1999 |
+| {{wiki:hardware:motherboards:up1000:up1000_quick_start.pdf?linkonly|UP1000 Quick Start Installation Guide}} | 51-0035-0B | |
+| {{wiki:hardware:motherboards:up1000:up1000_spec_sheet.pdf?linkonly|UP1000 Spec Sheet}} | | 2000 |
 
 {{gallery>:wiki:hardware:motherboards:up1000}}
 

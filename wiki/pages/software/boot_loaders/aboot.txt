@@ -250,10 +250,12 @@ The following sources disagree with each other or with this page. They are liste
 
 ==== Documentation ====
 
-  * [[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1 (Rich Payne and David Huggins-Daines, February 2004), in the aboot repository
-  * [[https://github.com/alphalinux-org/aboot/tree/master/doc/man|Man pages]] for aboot, aboot.conf, abootconf, swriteboot, e2writeboot, isomarkboot, netabootwrap, and sdisklabel
-  * [[https://github.com/alphalinux-org/aboot/blob/master/README.md|README.md]] (aboot 2.0)
-  * [[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/ChangeLog|ChangeLog]] and [[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]] from before aboot 2.0, with the history of versions 0.1 to 1.0_pre20040408
-  * [[software:firmware:srm#booting_linux|SRM console: Booting Linux]]
+^ Document ^ Part number ^ Date ^
+| [[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1 by Rich Payne and David Huggins-Daines, in the aboot repository | | February 2004 |
+| [[https://github.com/alphalinux-org/aboot/tree/master/doc/man|Man pages]] for aboot, aboot.conf, abootconf, swriteboot, e2writeboot, isomarkboot, netabootwrap, and sdisklabel | | |
+| [[https://github.com/alphalinux-org/aboot/blob/master/README.md|README.md]] (aboot 2.0) | | |
+| [[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/ChangeLog|ChangeLog]] and [[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]] from before aboot 2.0, with the history of versions 0.1 to 1.0_pre20040408 | | |
+
+See also [[software:firmware:srm#booting_linux|SRM console: Booting Linux]].
 
 {{tag>software boot_loader linux}}

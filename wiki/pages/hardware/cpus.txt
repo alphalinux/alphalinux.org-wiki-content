@@ -66,57 +66,63 @@ Samsung part numbers: [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt
 
 === 21064 ===
 
-  * {{wiki:hardware:cpu:21064:21064_21064a_hardware_reference_manual.pdf?linkonly|Alpha 21064 and Alpha 21064A Microprocessors Hardware Reference Manual}}
-  * {{wiki:hardware:cpu:21064:21064a_data_sheet.pdf?linkonly|Alpha 21064A Microprocessors Data Sheet}}
-  * {{wiki:hardware:cpu:21064:21064-aa_preliminary_data_sheet_1992.pdf?linkonly|DECchip 21064-AA RISC Microprocessor Preliminary Data Sheet (April 1992)}}
-  * {{wiki:hardware:cpu:21064:21064-aa_product_brief_1992.pdf?linkonly|DECchip 21064-AA Microprocessor Product Brief (July 1992)}}
-  * {{wiki:hardware:cpu:21064:21064_fact_sheet.pdf?linkonly|21064 Fact Sheet}}
-  * {{wiki:hardware:cpu:21064:introduction_to_designing_a_system_with_21064.pdf?linkonly|Introduction to Designing a System with the DECchip 21064 Microprocessor (April 1992)}}
-  * {{wiki:hardware:cpu:21064:ev3_ev4_specification_v2.0.pdf?linkonly|EV3 and EV4 Specification, DC227 and DC228, Version 2.0 (May 1991)}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:cpu:21064:21064_21064a_hardware_reference_manual.pdf?linkonly|Alpha 21064 and Alpha 21064A Microprocessors Hardware Reference Manual}} | EC-Q9ZUC-TE | June 1996 |
+| {{wiki:hardware:cpu:21064:21064a_data_sheet.pdf?linkonly|Alpha 21064A Microprocessors Data Sheet}} | EC-QFGKC-TE | January 1996 |
+| {{wiki:hardware:cpu:21064:21064-aa_preliminary_data_sheet_1992.pdf?linkonly|DECchip 21064-AA RISC Microprocessor Preliminary Data Sheet}} | | April 1992 |
+| {{wiki:hardware:cpu:21064:21064-aa_product_brief_1992.pdf?linkonly|DECchip 21064-AA Microprocessor Product Brief}} | | July 1992 |
+| {{wiki:hardware:cpu:21064:21064_fact_sheet.pdf?linkonly|Digital Equipment Corporation Fact Sheet: 21064 150 MHz Microprocessor}} | | |
+| {{wiki:hardware:cpu:21064:introduction_to_designing_a_system_with_21064.pdf?linkonly|Introduction to Designing a System with the DECchip 21064 Microprocessor, Revision 1.0}} | | April 1992 |
+| {{wiki:hardware:cpu:21064:ev3_ev4_specification_v2.0.pdf?linkonly|EV3 and EV4 Specification, DC227 and DC228, Version 2.0}} | | May 1991 |
 
 === 21066 ===
 
-  * {{wiki:hardware:cpu:21066:21066_21066a_data_sheet.pdf?linkonly|Alpha 21066 and Alpha 21066A Microprocessors Data Sheet}}
-  * {{wiki:hardware:cpu:21066:21066_21066a_hardware_reference_manual.pdf?linkonly|Alpha 21066 and Alpha 21066A Microprocessors Hardware Reference Manual}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:cpu:21066:21066_21066a_data_sheet.pdf?linkonly|Alpha 21066 and Alpha 21066A Microprocessors Data Sheet}} | EC-QC4HB-TE | December 1995 |
+| {{wiki:hardware:cpu:21066:21066_21066a_hardware_reference_manual.pdf?linkonly|Alpha 21066 and Alpha 21066A Microprocessors Hardware Reference Manual}} | EC-QC4GB-TE | January 1996 |
 
 === 21164 ===
 
-  * {{wiki:hardware:cpu:21164:21164_hardware_reference_manual.pdf?linkonly|Alpha 21164 Microprocessor Hardware Reference Manual (EC-QAEQD-TE)}}
-  * {{wiki:hardware:cpu:21164:21164_366-600_hardware_reference_manual.pdf?linkonly|Alpha 21164 Microprocessor Hardware Reference Manual (EC-QP99C-TE)}}
-  * {{wiki:hardware:cpu:21164:21164_hardware_reference_manual_preliminary_1994.pdf?linkonly|Alpha 21164 Microprocessor Hardware Reference Manual, Preliminary (EC-QAEQA-TE, September 1994)}}
-  * {{wiki:hardware:cpu:21164:21164_data_sheet.pdf?linkonly|Alpha 21164 Microprocessor Data Sheet (EC-QAEPD-TE)}}
-  * {{wiki:hardware:cpu:21164:21164_366-600_data_sheet.pdf?linkonly|Alpha 21164 Microprocessor Data Sheet (EC-QP98C-TE)}}
-  * {{wiki:hardware:cpu:21164:21164_product_brief_1995.pdf?linkonly|Alpha 21164 Microprocessor Product Brief (March 1995)}}
-  * {{wiki:hardware:cpu:21164:21164_product_brief.pdf?linkonly|21164 Alpha Microprocessor Product Brief}}
-  * {{wiki:hardware:cpu:21164:ev5_functional_specification_rev_1.5.pdf?linkonly|DECchip 21164-AA (EV5 CPU) Functional Specification, Revision 1.5 (December 1992)}}
-  * {{wiki:hardware:cpu:21164:ev5_functional_specification_rev_1.9.pdf?linkonly|DECchip 21164-AA (EV5 CPU) Functional Specification, Revision 1.9 (October 1993)}}
-  * {{wiki:hardware:cpu:21164:ev5_internal_specification_rev_0.0.pdf?linkonly|EV5 CPU Chip Internal Specification, Revision 0.0 (February 1992)}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:cpu:21164:21164_hardware_reference_manual.pdf?linkonly|Alpha 21164 Microprocessor Hardware Reference Manual}} | EC-QAEQD-TE | July 1996 |
+| {{wiki:hardware:cpu:21164:21164_366-600_hardware_reference_manual.pdf?linkonly|Alpha 21164 Microprocessor Hardware Reference Manual}} | EC-QP99C-TE | December 1998 |
+| {{wiki:hardware:cpu:21164:21164_hardware_reference_manual_preliminary_1994.pdf?linkonly|Alpha 21164 Microprocessor Hardware Reference Manual, Preliminary}} | EC-QAEQA-TE | September 1994 |
+| {{wiki:hardware:cpu:21164:21164_data_sheet.pdf?linkonly|Alpha 21164 Microprocessor Data Sheet}} | EC-QAEPD-TE | July 1996 |
+| {{wiki:hardware:cpu:21164:21164_366-600_data_sheet.pdf?linkonly|Alpha 21164 Microprocessor Data Sheet}} | EC-QP98C-TE | August 1998 |
+| {{wiki:hardware:cpu:21164:21164_product_brief_1995.pdf?linkonly|Digital Semiconductor Alpha 21164 Microprocessor Product Brief}} | EC-QAENB-TE | March 1995 |
+| {{wiki:hardware:cpu:21164:21164_product_brief.pdf?linkonly|21164 Alpha Microprocessor Product Brief}} | EC-QP97D-TE | March 1997 |
+| {{wiki:hardware:cpu:21164:ev5_functional_specification_rev_1.5.pdf?linkonly|DECchip 21164-AA (EV5 CPU) Functional Specification, Revision 1.9}} | | December 1992 |
+| {{wiki:hardware:cpu:21164:ev5_functional_specification_rev_1.9.pdf?linkonly|DECchip 21164-AA (EV5 CPU) Functional Specification, Revision 1.9}} | | December 1992 |
+| {{wiki:hardware:cpu:21164:ev5_internal_specification_rev_0.0.pdf?linkonly|EV5 CPU Chip Internal Specification, Revision 0.0}} | | February 1992 |
 
 === 21164PC ===
 
-  * {{wiki:hardware:cpu:21164pc:21164pc_data_sheet.pdf?linkonly|Alpha 21164PC Microprocessor Data Sheet}}
-  * {{wiki:hardware:cpu:21164pc:21164pc_product_brief.pdf?linkonly|Alpha 21164PC Microprocessor Product Brief}}
-  * {{wiki:hardware:cpu:21164pc:21164pc_hardware_reference_manual.pdf?linkonly|Alpha 21164PC Microprocessor Hardware Reference Manual}}
-  * {{wiki:hardware:cpu:21164pc:21164pc_0.28um_hardware_reference_manual.pdf?linkonly|Alpha 21164PC (.28 um) Microprocessor Hardware Reference Manual}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:cpu:21164pc:21164pc_data_sheet.pdf?linkonly|Alpha 21164PC Microprocessor Data Sheet}} | EC-R2W1A-TE | September 1997 |
+| {{wiki:hardware:cpu:21164pc:21164pc_product_brief.pdf?linkonly|Alpha 21164PC Microprocessor Product Brief}} | EC-R2W2B-TE | June 1997 |
+| {{wiki:hardware:cpu:21164pc:21164pc_hardware_reference_manual.pdf?linkonly|Digital Semiconductor Alpha 21164PC Microprocessor Hardware Reference Manual (Preliminary)}} | EC-R2W0A-TE | September 1997 |
+| {{wiki:hardware:cpu:21164pc:21164pc_0.28um_hardware_reference_manual.pdf?linkonly|Alpha 21164PC (.28 um) Microprocessor Hardware Reference Manual}} | EC-RADPA-TE | December 1998 |
 
 === 21264 ===
 
-  * {{wiki:hardware:cpu:21264:21264_data_sheet.pdf?linkonly|Alpha 21264 Microprocessor Data Sheet}}
-  * {{wiki:hardware:cpu:21264:21264_product_brief.pdf?linkonly|Alpha 21264 Microprocessor Product Brief}}
-  * {{wiki:hardware:cpu:21264:21264_hardware_reference_manual.pdf?linkonly|Alpha 21264 Microprocessor Hardware Reference Manual (EC-RJRZA-TE)}}
-  * {{wiki:hardware:cpu:21264:21264_ev6_hardware_reference_manual.pdf?linkonly|Alpha 21264/EV6 Microprocessor Hardware Reference Manual}}
-  * {{wiki:hardware:cpu:21264:21264_ev67_hardware_reference_manual.pdf?linkonly|Alpha 21264/EV67 Microprocessor Hardware Reference Manual}}
-  * {{wiki:hardware:cpu:21264:21264_ev68a_hardware_reference_manual.pdf?linkonly|21264/EV68A Microprocessor Hardware Reference Manual}}
-  * {{wiki:hardware:cpu:21264:21264_ev68cb_ev68dc_hardware_reference_manual.pdf?linkonly|21264/EV68CB and 21264/EV68DC Hardware Reference Manual}}
-  * {{wiki:hardware:cpu:21264:21264_compiler_writers_guide.pdf?linkonly|Compiler Writer's Guide for the Alpha 21264}}
-  * {{wiki:hardware:cpu:21264:ev6_specification_rev_2.0.pdf?linkonly|EV6 Specification, Revision 2.0 (April 1996)}}
-  * {{wiki:hardware:cpu:21264:21264a_specifications_rev_1.1.pdf?linkonly|21264A Specifications, Revision 1.1 (May 1999)}}
-  * {{wiki:hardware:cpu:21264:21264_microprocessor_architecture.pdf?linkonly|The Alpha 21264 Microprocessor Architecture (R. E. Kessler, E. J. McLellan, and D. A. Webb, Compaq)}}
-  * {{wiki:hardware:cpu:21264:21264_keller_presentation.pdf?linkonly|21264 presentation (Jim Keller, Digital Semiconductor)}}
-  * {{wiki:hardware:cpu:21264_21364_compiler_writers_guide.pdf?linkonly|Compiler Writer's Guide for the 21264/21364}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:cpu:21264:21264_data_sheet.pdf?linkonly|Alpha 21264 Microprocessor Data Sheet, Revision 1.0}} | EC-R4CFA-TE | February 1999 |
+| {{wiki:hardware:cpu:21264:21264_product_brief.pdf?linkonly|Alpha 21264 Microprocessor Product Brief}} | EC-R2YTB-TE | September 1998 |
+| {{wiki:hardware:cpu:21264:21264_hardware_reference_manual.pdf?linkonly|Alpha 21264 Microprocessor Hardware Reference Manual}} | EC-RJRZA-TE | July 1999 |
+| {{wiki:hardware:cpu:21264:21264_ev6_hardware_reference_manual.pdf?linkonly|Alpha 21264/EV6 Microprocessor Hardware Reference Manual}} | DS-0027C-TE | March 2002 |
+| {{wiki:hardware:cpu:21264:21264_ev67_hardware_reference_manual.pdf?linkonly|Alpha 21264/EV67 Microprocessor Hardware Reference Manual}} | DS-0028C-TE | March 2002 |
+| {{wiki:hardware:cpu:21264:21264_ev68a_hardware_reference_manual.pdf?linkonly|21264/EV68A Microprocessor Hardware Reference Manual}} | DS-0038B-TE | March 2002 |
+| {{wiki:hardware:cpu:21264:21264_ev68cb_ev68dc_hardware_reference_manual.pdf?linkonly|21264/EV68CB and 21264/EV68DC Hardware Reference Manual, Revision 1.2}} | DS-0031C-TE | May 2002 |
+| {{wiki:hardware:cpu:21264:21264_compiler_writers_guide.pdf?linkonly|Compiler Writer's Guide for the Alpha 21264}} | EC-RJ66A-TE | June 1999 |
+| {{wiki:hardware:cpu:21264:ev6_specification_rev_2.0.pdf?linkonly|EV6 Specification, Revision 2.0}} | | April 1996 |
+| {{wiki:hardware:cpu:21264:21264a_specifications_rev_1.1.pdf?linkonly|21264A Specifications, Revision 1.1}} | DS-0014B-TE | May 1999 |
+| {{wiki:hardware:cpu:21264:21264_microprocessor_architecture.pdf?linkonly|The Alpha 21264 Microprocessor Architecture}} | | |
+| {{wiki:hardware:cpu:21264:21264_keller_presentation.pdf?linkonly|21264 presentation (Jim Keller, Digital Semiconductor)}} | | |
+| {{wiki:hardware:cpu:21264_21364_compiler_writers_guide.pdf?linkonly|Compiler Writer's Guide for the 21264/21364}} | EC-0100A-TE | January 2002 |
 
 === 21464 ===
 
-  * {{wiki:hardware:cpu:21464:21464_internal_design_specification_rev_1.1k.pdf?linkonly|21464 Internal Design Specification, Revision 1.1k (January 2001)}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:cpu:21464:21464_internal_design_specification_rev_1.1k.pdf?linkonly|21464 Internal Design Specification, Revision 1.1k}} | | January 2001 |
 
 {{tag>hardware}}

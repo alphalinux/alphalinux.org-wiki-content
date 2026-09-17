@@ -13,33 +13,40 @@ The [[wp>Alpha_21064#Alpha_21066A|21066 and 21066A]] integrate their memory and 
 
 ==== 21071 and 21072 ====
 
-  * {{wiki:hardware:chipsets:21071:21071_21072_data_sheet.pdf?linkonly|DECchip 21071 and DECchip 21072 Core Logic Chipsets Data Sheet (EC-QAEMB-TE)}}
-  * {{wiki:hardware:chipsets:21071:21071-aa_21072-aa_data_sheet_1993.pdf?linkonly|DECchip 21071-AA and 21072-AA Chipsets Data Sheet (EC-N0648-72, November 1993)}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:chipsets:21071:21071_21072_data_sheet.pdf?linkonly|DECchip 21071 and DECchip 21072 Core Logic Chipsets Data Sheet}} | EC-QAEMB-TE | January 1996 |
+| {{wiki:hardware:chipsets:21071:21071-aa_21072-aa_data_sheet_1993.pdf?linkonly|DECchip 21071-AA and 21072-AA Chipsets Data Sheet}} | EC-N0648-72 | November 1993 |
 
 ==== 21171 ====
 
-  * {{wiki:hardware:chipsets:21171:21171_technical_reference_manual.pdf?linkonly|DECchip 21171 Core Logic Chipset Technical Reference Manual}}
-  * {{wiki:hardware:chipsets:21171:21171_product_brief.pdf?linkonly|DECchip 21171 Core Logic Chipset Product Brief}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:chipsets:21171:21171_technical_reference_manual.pdf?linkonly|DECchip 21171 Core Logic Chipset Technical Reference Manual}} | EC-QE18B-TE | September 1995 |
+| {{wiki:hardware:chipsets:21171:21171_product_brief.pdf?linkonly|DECchip 21171 Core Logic Chipset Product Brief}} | EC-QC3EB-TE | March 1995 |
 
 ==== 21172 ====
 
-  * {{wiki:hardware:chipsets:21172:21172_technical_reference_manual.pdf?linkonly|Digital Semiconductor 21172 Core Logic Chipset Technical Reference Manual}}
-  * {{wiki:hardware:chipsets:21172:21172_product_brief.pdf?linkonly|Digital Semiconductor 21172 Core Logic Chipset Product Brief}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:chipsets:21172:21172_technical_reference_manual.pdf?linkonly|Digital Semiconductor 21172 Core Logic Chipset Technical Reference Manual}} | EC-QUQJA-TE | April 1996 |
+| {{wiki:hardware:chipsets:21172:21172_product_brief.pdf?linkonly|Digital Semiconductor 21172 Core Logic Chipset Product Brief}} | EC-QUQHA-TE | March 1996 |
 
 ==== 21174 ====
 
-  * {{wiki:hardware:chipsets:21174:21174_technical_reference_manual.pdf?linkonly|Digital Semiconductor 21174 Core Logic Chip Technical Reference Manual}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:chipsets:21174:21174_technical_reference_manual.pdf?linkonly|Digital Semiconductor 21174 Core Logic Chip Technical Reference Manual}} | EC-R12GB-TE | August 1997 |
 
 ==== 21272 ====
 
-  * {{wiki:hardware:chipsets:21272:21272_hardware_reference_manual.pdf?linkonly|Tsunami/Typhoon 21272 Chipset Hardware Reference Manual}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:chipsets:21272:21272_hardware_reference_manual.pdf?linkonly|Tsunami/Typhoon 21272 Chipset Hardware Reference Manual, Revision 4.0}} | DS-0025A-TE | October 1999 |
 
 ==== AMD-751 ====
 
-  * {{wiki:hardware:chipsets:amd-751:amd-751_data_sheet.pdf?linkonly|AMD-751 System Controller Data Sheet}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:chipsets:amd-751:amd-751_data_sheet.pdf?linkonly|AMD-751 System Controller Data Sheet}} | 21910E | March 2000 |
 
 ==== AMD-761 ====
 
-  * {{wiki:hardware:chipsets:amd-761:amd-761_software_bios_design_guide.pdf?linkonly|AMD-761 System Controller Software/BIOS Design Guide}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:chipsets:amd-761:amd-761_software_bios_design_guide.pdf?linkonly|AMD-761 System Controller Software/BIOS Design Guide}} | 24081D | February 2002 |
 
 {{tag>hardware}}

@@ -137,15 +137,16 @@ Windows NT ran on Alpha systems with the [[software:firmware:arc|ARC or AlphaBIO
 
 ==== Documentation ====
 
-  * {{wiki:hardware:motherboards:eb164:eb164_product_brief.pdf?linkonly|Digital Semiconductor Alpha 21164 Microprocessor Evaluation Board Product Brief (October 1995)}}
-  * {{wiki:hardware:cpu:21264:21264_keller_presentation.pdf?linkonly|21264 presentation (Jim Keller, Digital Semiconductor)}}
-  * {{wiki:hardware:cpu:21264:21264_microprocessor_architecture.pdf?linkonly|The Alpha 21264 Microprocessor Architecture (R. E. Kessler, E. J. McLellan, and D. A. Webb, Compaq)}}
-  * {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_product_profile.pdf?linkonly|Compaq AlphaServer DS10 Alpha 21264 Processor Product Profile (April 1999)}}
-  * {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_brochure.pdf?linkonly|Compaq AlphaServer DS10 (June 1999)}}
-  * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_tower_quickspecs.pdf?linkonly|HP AlphaServer ES47 Tower and AlphaStation ES47 Tower QuickSpecs (DA-11508, Version 20, November 2003)}}
-  * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer/AlphaStation ES47 Tower, AlphaServer ES47, and AlphaServer ES80 Systems QuickSpecs (DA-11922, Version 25, July 2007)}}
-  * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_upgrade.pdf?linkonly|HP AlphaServer ES47 Upgrade (EK-ES470-UP. C01, June 2004)}}
-  * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_drawer_upgrade.pdf?linkonly|HP AlphaServer ES47/ES80/GS1280 I/O Drawer Upgrade (EK-EGIOD-UP. B01, September 2003)}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:motherboards:eb164:eb164_product_brief.pdf?linkonly|Digital Semiconductor Alpha 21164 Microprocessor Evaluation Board Product Brief}} | EC-QCZZD-TE | October 1995 |
+| {{wiki:hardware:cpu:21264:21264_keller_presentation.pdf?linkonly|21264 presentation (Jim Keller, Digital Semiconductor)}} | | |
+| {{wiki:hardware:cpu:21264:21264_microprocessor_architecture.pdf?linkonly|The Alpha 21264 Microprocessor Architecture}} | | |
+| {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_product_profile.pdf?linkonly|Compaq AlphaServer DS10 Alpha 21264 Processor Product Profile}} | EC-F9920-10 | June 1999 |
+| {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_brochure.pdf?linkonly|Compaq AlphaServer DS10 Brochure}} | EC-F9944-10 | June 1999 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_tower_quickspecs.pdf?linkonly|HP AlphaServer ES47 Tower and AlphaStation ES47 Tower QuickSpecs, Version 20}} | DA-11508 | November 2003 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer/AlphaStation ES47 Tower, AlphaServer ES47, and AlphaServer ES80 Systems QuickSpecs, Version 25}} | DA-11922 | July 2007 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_upgrade.pdf?linkonly|HP AlphaServer ES47 Upgrade}} | EK-ES470-UP.C01 | June 2004 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_drawer_upgrade.pdf?linkonly|HP AlphaServer ES47/ES80/GS1280 I/O Drawer Upgrade}} | EK-EGIOD-UP.B01 | September 2003 |
 
 ==== Conflicting Information ====
 

@@ -42,10 +42,11 @@ wiki:hardware:motherboards:eb164:eb164-1.jpg Digital EB164
 
 ==== Documentation ====
 
-  * {{wiki:hardware:motherboards:eb164:eb164_user_guide.pdf?linkonly|Digital Semiconductor 21164 Alpha Microprocessor Evaluation Board User's Guide}}
-  * {{wiki:hardware:motherboards:eb164:21164_motherboard_user_manual.pdf?linkonly|Digital Semiconductor 21164 Alpha Microprocessor Motherboard User's Manual}}
-  * {{wiki:hardware:motherboards:eb164:eb164_read_me_first.pdf?linkonly|Digital Semiconductor Alpha 21164 Microprocessor Evaluation Board Read Me First}}
-  * {{wiki:hardware:motherboards:eb164:eb164_product_brief.pdf?linkonly|Digital Semiconductor Alpha 21164 Microprocessor Evaluation Board Product Brief (October 1995)}}
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:motherboards:eb164:eb164_user_guide.pdf?linkonly|Digital Semiconductor 21164 Alpha Microprocessor Evaluation Board User's Guide}} | EC-QD2UD-TE | March 1996 |
+| {{wiki:hardware:motherboards:eb164:21164_motherboard_user_manual.pdf?linkonly|Digital Semiconductor 21164 Alpha Microprocessor Motherboard User's Manual}} | EC-QLJLC-TE | March 1996 |
+| {{wiki:hardware:motherboards:eb164:eb164_read_me_first.pdf?linkonly|Digital Semiconductor Alpha 21164 Microprocessor Evaluation Board Read Me First}} | EC-QD2VB-TE | July 1995 |
+| {{wiki:hardware:motherboards:eb164:eb164_product_brief.pdf?linkonly|Digital Semiconductor Alpha 21164 Microprocessor Evaluation Board Product Brief}} | EC-QCZZD-TE | October 1995 |
 
 {{gallery>:wiki:hardware:motherboards:eb164}}
 
