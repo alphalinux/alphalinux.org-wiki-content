@@ -1,6 +1,6 @@
 ===== UP1000 =====
 
-The UP1000 is a motherboard built by Samsung and API NetWorks and released in 2000.
+The UP1000 is a motherboard built by Samsung and Alpha Processor, Inc. (API), later API NetWorks. The first product release of the UP1000 User Manual is dated December 1999. [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, p. iii)]
 
 <gallery right aligned nocrop>
 wiki:hardware:motherboards:up1000:up1000-1.jpg API NetWorks UP1000
@@ -8,7 +8,7 @@ wiki:hardware:motherboards:up1000:up1000-1.jpg API NetWorks UP1000
 
 ==== Specifications ====
 
-  * 600 MHz EV67 with 2 MiB L2 cache or 700 MHz EV67 with 4 MiB L2 cache, L2 cache bandwidth 3.2 GiB/s [(>{{wiki:hardware:motherboards:up1000:up1000_spec_sheet.pdf?linkonly|UP1000 Spec Sheet}}, Alpha Processor, Inc., January 2000)]
+  * 600 MHz EV67 with 2 MiB L2 cache or 700 MHz EV67 with 4 MiB L2 cache, L2 cache bandwidth 3.2 GiB/s [(>{{wiki:hardware:motherboards:up1000:up1000_spec_sheet.pdf?linkonly|UP1000 Spec Sheet}}, Alpha Processor, Inc. and Samsung Electronics, January 2000)]
   * AMD-751 Chipset, ALi M1543C south bridge
   * 3x 168-pin DIMMs, supports 64 MiB to 768 MiB of ECC unbuffered PC100 SDRAM
   * 1x AGP 2x (See limitations below)

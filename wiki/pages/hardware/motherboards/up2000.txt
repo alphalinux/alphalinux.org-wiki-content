@@ -1,10 +1,10 @@
 ===== UP2000 / UP2000+ =====
 
-The UP2000 and UP2000+ are motherboards produced by API NetWorks which featured the Tsunami chipset and a Slot B processor interface.
+The UP2000 and UP2000+ are motherboards produced by Alpha Processor, Inc. (API), renamed API NetWorks at the end of 2000, which featured the Tsunami chipset and a Slot B processor interface. [(>{{wiki:hardware:motherboards:up2000plus:up2000plus_user_manual.pdf?linkonly|UP2000+ User Manual}}, p. iii)]
 
 ==== UP2000 ====
 
-The UP2000 is the first motherboard to be built by API NetWorks and was released in 1999.
+The first release of the UP2000 User Manual is dated April 2000. [(>{{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}}, p. iii)]
 
   * 1-2 667 MHz EV67 CPUs with 2/4 MiB external L2 cache or 750 MHz EV67 CPUs with 8 MiB external L2 cache [(>{{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}})] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L11176|"Re: Can I swap the 21264A in a UP2000 processor cardridge ?"]], Rich Payne, axp-list, 21 Dec 2001)]
   * Tsunami chipset (1x Cchip, 4x Dchips, 2x Pchips)
@@ -19,7 +19,7 @@ The UP2000 is the first motherboard to be built by API NetWorks and was released
 {{anchor:up2000plus}}
 ==== UP2000+ ====
 
-The UP2000+ is a minor update to the UP2000. It contains only a few changes, noted below. Otherwise, all the hardware is the same.
+The UP2000+ is a minor update to the UP2000. It contains only a few changes, noted below. Otherwise, all the hardware is the same. The first release of the UP2000+ User Manual is dated June 2000. [(>{{wiki:hardware:motherboards:up2000plus:up2000plus_user_manual.pdf?linkonly|UP2000+ User Manual}}, p. iii)]
 
 A feature added to the UP2000+ was the ability to automatically detect the frequency of the CPUs, whereas the UP2000 required jumpered configuration. [(>[[https://www.theregister.com/on-prem/2000/09/15/api-messes-up-alpha-mobo-upgrade/1545403|"API messes up Alpha mobo upgrade"]], Mike Magee, The Register, 15 Sept 2000)]
   * 1-2 833 MHz EV68AL CPUs with 4/8 MiB external L2 cache (in addition to CPUs supported by UP2000) [(>{{wiki:hardware:motherboards:up2000plus:up2000plus_user_manual.pdf?linkonly|UP2000+ User Manual}})]

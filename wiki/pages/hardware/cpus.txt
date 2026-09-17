@@ -26,8 +26,15 @@ See also [[hardware:chipsets|Chipsets]].
 | | 21-43918-S6 | EV56 | 533 MHz |
 | | 21-43918-S7 | EV56 | 600 MHz |
 | | 21-43918-S8 | EV56 | 633 MHz |
+| Samsung | KP21164-466CN | EV56 | 466 MHz |
+| Samsung | KP21164-500CN | EV56 | 500 MHz |
 | Samsung | KP21164-533CN | EV56 | 533 MHz |
+| Samsung | KP21164-566CN | EV56 | 566 MHz |
+| Samsung | KP21164-600CN | EV56 | 600 MHz |
 | Samsung | KP21164-633CN | EV56 | 633 MHz |
+| Samsung | KP21164-667CN | EV56 | 667 MHz |
+
+Samsung part numbers: [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}}, Samsung, 1998, p. B-2)]
 
 ==== DP264, DS20, DS20e ====
 
