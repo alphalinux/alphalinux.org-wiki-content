@@ -101,3 +101,5 @@ The following sources disagree with each other or with this page. They are liste
   * {{wiki:hardware:motherboards:pc164lx:alphapc_v5.7_firmware_release_notes.pdf?linkonly|AlphaPC 164SX/164LX/164 V5.7 Firmware Release Notes}}
 
 {{gallery>:wiki:hardware:motherboards:pc164}}
+
+{{tag>hardware motherboard 21164 digital}}

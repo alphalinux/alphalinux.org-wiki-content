@@ -90,3 +90,5 @@ The following sources disagree with each other or with this page. They are liste
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L11134|"Re: API Networks article on The Register"]], Rich Payne, axp-list, 6 Nov 2000: "There are no 667/750 DDR SlotBs."
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-March.mbox#L1|"RE: UP2000"]], Maurice Hilarius, axp-list, 28 Feb 2001: "EV68 in 667 and 833, both with 4MB DDR is the current offering."
     * The same Rich Payne message also mentions "dual 667 4MB (DDR) CPUs", possibly referring to the CS20.
+
+{{tag>hardware motherboard 21264 api}}

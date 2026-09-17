@@ -33,3 +33,5 @@ The EB66+ uses the interrupt handling design of the [[hardware:motherboards:PC64
 ==== Documentation ====
 
   * {{wiki:hardware:motherboards:eb66plus:eb66plus_user_guide.pdf?linkonly|Alpha 21066A Microprocessor Evaluation Board (EB66+) User's Guide}}
+
+{{tag>hardware motherboard 21066 digital}}

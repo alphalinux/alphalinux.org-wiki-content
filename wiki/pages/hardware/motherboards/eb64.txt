@@ -27,3 +27,5 @@ The EB64 should not be confused with the PCI-based [[hardware:motherboards:eb64p
 ==== Documentation ====
 
   * {{wiki:hardware:motherboards:eb64:eb64_user_guide.pdf?linkonly|DECchip 21064 Evaluation Board User's Guide}}
+
+{{tag>hardware motherboard 21064 digital}}

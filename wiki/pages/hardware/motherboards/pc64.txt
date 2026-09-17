@@ -64,3 +64,5 @@ The following sources disagree with each other or with this page. They are liste
 
   * {{wiki:hardware:motherboards:pc64:pc64_motherboard_user_manual.pdf?linkonly|AlphaPC64 Motherboard User's Manual}}
   * {{wiki:hardware:motherboards:pc64:pc64_evaluation_board_user_guide.pdf?linkonly|AlphaPC64 Evaluation Board User's Guide}}
+
+{{tag>hardware motherboard 21064 digital}}

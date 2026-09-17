@@ -64,3 +64,5 @@ The following sources disagree with each other or with this page. They are liste
   * {{wiki:hardware:motherboards:pc264dp:pc264dp_data_sheet.pdf?linkonly|AlphaPC 264DP Motherboard}} (data sheet)
 
 {{gallery>:wiki:hardware:motherboards:pc264dp}}
+
+{{tag>hardware motherboard 21264 digital}}

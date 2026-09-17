@@ -81,3 +81,5 @@ The following sources disagree with each other or with this page. They are liste
 
   * {{wiki:hardware:motherboards:eb64plus:eb64plus_user_guide.pdf?linkonly|DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board User's Guide}}
   * {{wiki:hardware:motherboards:eb64plus:eb64plus_product_brief.pdf?linkonly|DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board Product Brief}}
+
+{{tag>hardware motherboard 21064 digital}}

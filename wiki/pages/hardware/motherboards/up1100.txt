@@ -67,3 +67,5 @@ The following sources disagree with each other or with this page. They are liste
   * {{wiki:hardware:motherboards:up1100:up1100_spec_sheet.pdf?linkonly|UP1100 Spec Sheet}} (December 2000)
 
 {{gallery>:wiki:hardware:motherboards:up1100}}
+
+{{tag>hardware motherboard 21264 api samsung}}

@@ -228,3 +228,5 @@ No copy of the ARC specification has been located.
   * {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview (AA-RGKNV-TS, April 2007)}}
   * {{wiki:hardware:motherboards:pc164lx:alphapc_v5.7_firmware_release_notes.pdf?linkonly|AlphaPC 164SX/164LX/164 Firmware Update Procedures (V5.7, March 2000)}}
   * {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6 (1994)}} (Part II-C describes how Windows NT uses the ARC firmware)
+
+{{tag>software firmware}}

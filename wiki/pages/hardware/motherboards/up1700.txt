@@ -5,3 +5,5 @@ The UP1700 was a motherboard slated to be released by API NetWorks in Q1 2001, a
 ==== Specifications ====
 
 The UP1700 was to support a single socketed [[wp>Alpha_21264#Alpha_21264B|EV68]] processor. API also planned support for 200 MHz DDR SDRAM and other features similar to the [[UP2700]]. [(>[[https://www.theregister.com/off-prem/2000/08/27/alpha-strikes-back-against-intel/1158583|"Alpha strikes back against Intel"]], Mike Magee, The Register, 27 Aug 2000)]
+
+{{tag>hardware motherboard 21264 api}}

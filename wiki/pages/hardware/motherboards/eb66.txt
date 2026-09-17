@@ -27,3 +27,5 @@ Many mailing list posts use "EB66" to refer to the [[hardware:motherboards:eb66p
 No EB66 user's guide has been located.
 
   * {{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}} (includes EB66 firmware and POST codes)
+
+{{tag>hardware motherboard 21066 digital}}

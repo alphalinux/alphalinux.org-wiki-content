@@ -5,3 +5,5 @@ The UP2700 was a motherboard slated to be released by API NetWorks in Q1 2001, a
 ==== Specifications ====
 
 The UP2700 was to use the Caspian chipset and dual Slot B [[wp>Alpha_21264#Alpha_21264B|EV68]] processors exceeding 1 GHz. API also planned support for up to 8 GiB of 200 MHz DDR SDRAM, onboard SCSI, dual Ethernet, and 66 MHz 64-bit PCI. [(>[[https://www.theregister.com/off-prem/2000/08/27/alpha-strikes-back-against-intel/1158583|"Alpha strikes back against Intel"]], Mike Magee, The Register, 27 Aug 2000)]
+
+{{tag>hardware motherboard 21264 api}}

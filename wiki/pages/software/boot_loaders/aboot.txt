@@ -255,3 +255,5 @@ The following sources disagree with each other or with this page. They are liste
   * [[https://github.com/alphalinux-org/aboot/blob/master/README.md|README.md]] (aboot 2.0)
   * [[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/ChangeLog|ChangeLog]] and [[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]] from before aboot 2.0, with the history of versions 0.1 to 1.0_pre20040408
   * [[software:firmware:srm#booting_linux|SRM console: Booting Linux]]
+
+{{tag>software boot_loader linux}}

@@ -48,3 +48,5 @@ wiki:hardware:motherboards:eb164:eb164-1.jpg Digital EB164
   * {{wiki:hardware:motherboards:eb164:eb164_product_brief.pdf?linkonly|Digital Semiconductor Alpha 21164 Microprocessor Evaluation Board Product Brief (October 1995)}}
 
 {{gallery>:wiki:hardware:motherboards:eb164}}
+
+{{tag>hardware motherboard 21164 digital}}

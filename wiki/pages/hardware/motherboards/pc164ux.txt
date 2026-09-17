@@ -80,3 +80,5 @@ The following sources disagree with each other or with this page. They are liste
   * {{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}}
 
 {{gallery>:wiki:hardware:motherboards:pc164ux}}
+
+{{tag>hardware motherboard 21164 deskstation}}
