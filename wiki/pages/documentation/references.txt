@@ -22,3 +22,5 @@ Specifications and reference manuals for the Alpha architecture and its software
 ==== Software ====
 
   * {{wiki:documentation:references:fx32_product_brief.pdf?linkonly|DIGITAL FX!32 Translation-Emulation Software for Alpha and Windows NT 4.0 Product Brief}}
+
+{{tag>documentation}}

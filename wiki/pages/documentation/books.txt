@@ -11,3 +11,5 @@
 | Alpha Architecture Reference Manual, Fourth Edition ({{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|PDF}}) |
 | Alpha RISC Architecture for Programmers | [[https://search.worldcat.org/title/40449540|978-0130814388]] |
 | Alpha Implementations and Architecture: Complete Reference and Guide | [[https://search.worldcat.org/title/32821055|978-1555581305]] |
+
+{{tag>documentation}}

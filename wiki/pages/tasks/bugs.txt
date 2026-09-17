@@ -5,3 +5,5 @@
   * [[https://www.sourceware.org/bugzilla/buglist.cgi?bug_status=__open__&cf_gcchost=alpha&cf_gcchost_type=regexp&product=glibc&query_format=advanced|glibc]]
   * [[https://www.sourceware.org/bugzilla/buglist.cgi?bug_status=__open__&cf_gcchost=alpha&cf_gcchost_type=regexp&product=binutils|binutils]]
   * [[https://bugs.gentoo.org/buglist.cgi?bug_status=__open__&email1=alpha%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=exact&list_id=4510828|Gentoo]]
+
+{{tag>tasks}}

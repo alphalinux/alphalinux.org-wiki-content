@@ -225,3 +225,5 @@
 
 ^ Source ^ Date ^ Title ^
 | The Inquirer | 2008-04-29 | [[http://www.theinquirer.net/gb/inquirer/news/2008/04/29/intel-upcoming-avx-instructions|Intel's upcoming AVX instructions go back to the future]] |
+
+{{tag>history}}

@@ -70,3 +70,5 @@ In 2015, Peter Petrakis and Rich Payne — who still held the domain — transfe
 ==== Transfer to Matt Turner (2026) ====
 
 In 2026, Gareth Randall transferred alphalinux.org to Matt Turner. Matt created the [[https://github.com/alphalinux-org|alphalinux-org]] organization on GitHub to host repositories for Alpha packages (aboot, milo), mailing list archives, and the content of this wiki — publicly archived so the work of the community is not lost again.
+
+{{tag>history}}

@@ -197,3 +197,5 @@ The following sources disagree with each other or with this page. They are liste
   * **Whether SuSE shipped Netscape for Alpha**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L22278|"Re: Netscape for Alpha"]], Matt Wilson, axp-list, 28 Aug 2000: "To my knowledge, SuSE doesn't ship Netscape on Alpha."
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L22461|"RE: Netscape for Alpha"]], Michael Champigny, axp-list, 28 Aug 2000: "includes both Mozilla and the Tru64 Netscape"
+
+{{tag>history}}

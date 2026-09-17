@@ -46,3 +46,5 @@ A few newsgroups exist for Alpha users, namely
   * [[https://groups.google.com/group/linux.debian.ports.alpha|linux.debian.ports.alpha]] for discussion of running Debian on Alpha
 
 While not pertaining to Linux or Alpha, hardware information may be found in the [[https://groups.google.com/group/comp.sys.vms/topics|comp.sys.vms]] and [[https://groups.google.com/group/comp.unix.tru64/topics|comp.unix.tru64]] newsgroups.
+
+{{tag>community}}

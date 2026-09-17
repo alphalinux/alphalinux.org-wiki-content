@@ -153,3 +153,5 @@ The [[wp>DEC_Alpha#Count_Extensions_(CIX)|Count Instruction eXtensions (CIX)]] w
 | **ctlz** | Count Leading Zeros |
 | **ctpop** | Count Population (Count number of 1's) |
 | **cttz** | Count Trailing Zeros |
+
+{{tag>documentation}}

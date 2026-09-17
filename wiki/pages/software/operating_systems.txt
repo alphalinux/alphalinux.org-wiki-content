@@ -196,3 +196,5 @@ The following sources disagree with each other or with this page. They are liste
   * {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_catalog.pdf?linkonly|AlphaStation XP900, Systems and Options Catalog (September 1999)}}
   * {{wiki:hardware:systems:personal_workstation:personal_workstation_a_au_series_catalog.pdf?linkonly|Compaq DPW Enhanced a-Series & au-Series, Systems and Options Catalog (September 2000)}}
   * {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview (April 2007)}}, with minimum firmware versions for each OpenVMS and Tru64 UNIX release
+
+{{tag>software}}
