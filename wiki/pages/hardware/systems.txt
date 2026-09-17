@@ -333,6 +333,10 @@ The following sources disagree with each other or with this page. They are liste
 ==== Documentation ====
 
   * {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6 (1994)}}, with system type numbers and codenames in Appendix D
+  * {{wiki:hardware:systems:dec_7000:dec_7000_10000_kn7aa_cpu_technical_manual.pdf?linkonly|DEC 7000/10000 AXP KN7AA CPU Technical Manual (EK-KN7AA-TM.001, July 1993)}}
+  * {{wiki:hardware:systems:dec_7000:dec_7000_10000_diagnostics_student_workbook.pdf?linkonly|DEC 7000/10000 Diagnostics and Module Level Repair Student Workbook (EY-Q755E-SG-0001)}}
+  * {{wiki:hardware:motherboards:axppci33:axppci33_oem_design_guide.pdf?linkonly|Digital AXPpci 33 Alpha PC Motherboard OEM Design Guide (EK-AXPCI-DG.C01, August 1995)}}
+  * {{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4 User Guide and Technical Description (EK-DAVME-TD.B01, September 1996)}}
   * {{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide}}
   * {{wiki:hardware:systems:alphaserver_300:alphaserver_300_release_notes.pdf?linkonly|AlphaServer 300 Release Notes}}
   * {{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}}
@@ -347,10 +351,17 @@ The following sources disagree with each other or with this page. They are liste
   * {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary (1997)}}
   * {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_catalog.pdf?linkonly|AlphaServer 1200 Systems and Options Catalog}}
   * {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_technical_summary.pdf?linkonly|AlphaServer 2000, AlphaServer 2100, and AlphaServer 2100A Technical Summary (1996)}}
+  * {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_owners_guide.pdf?linkonly|AlphaServer 2000 Owner's Guide (EK-400MP-OP.A01, October 1994)}}
+  * {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100_owners_guide.pdf?linkonly|AlphaServer 2100 Owner's Guide (EK-KN450-OP.B01, February 1995)}}
+  * {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100_rm_owners_guide.pdf?linkonly|AlphaServer 2100 RM Series Installation/Owner's Guide (EK-KN450-RM.B01, December 1994)}}
+  * {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100a_lp_owners_guide.pdf?linkonly|AlphaServer 2100A LP Installation/Owner's/Service Guide (EK-21ALP-IN.A01, March 1996)}}
+  * {{wiki:hardware:systems:alphaserver_2100:alphaserver_2x00_2100a_cpu_upgrade.pdf?linkonly|AlphaServer 2x00/2100A CPU Upgrade (EK-KN470-IN.B01, December 1995)}}
+  * {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_wide_scsi_technical_bulletin.pdf?linkonly|Technical Bulletin: Application of Wide SCSI on AlphaServer 2000/2100/2100A (V1.5, December 1995)}}
   * {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100a_owners_guide.pdf?linkonly|AlphaServer 2100A Owner's Guide}}
   * {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_release_notes.pdf?linkonly|AlphaServer 2000/2100 Release Notes}}
   * {{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}}
   * {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_configuration_and_installation_guide.pdf?linkonly|AlphaServer 4000/4100 Configuration and Installation Guide}}
+  * {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_technical_summary.pdf?linkonly|AlphaServer 4000/4100 Systems Technical Summary (1997)}}
   * {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_system_drawer_users_guide.pdf?linkonly|AlphaServer 4000 System Drawer User's Guide}}
   * {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_system_drawer_users_guide.pdf?linkonly|AlphaServer 4100 System Drawer User's Guide}}
   * {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_catalog.pdf?linkonly|AlphaServer 4100 Systems and Options Catalog}}
@@ -363,16 +374,21 @@ The following sources disagree with each other or with this page. They are liste
   * {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_brochure.pdf?linkonly|Compaq AlphaServer DS10 Brochure}}
   * {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_product_profile.pdf?linkonly|Compaq AlphaServer DS10 Product Profile}}
   * {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_catalog.pdf?linkonly|AlphaStation XP900 Systems and Options Catalog}}
+  * {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_product_profile.pdf?linkonly|Compaq AlphaStation XP900 Product Profile (June 1999)}}
+  * {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_product_brief.pdf?linkonly|Compaq AlphaStation XP900 Workstation Product Brief (June 1999)}}
   * {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_windows_nt_catalog.pdf?linkonly|AlphaServer DS20 Windows NT Systems and Options Catalog}}
   * {{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_tru64_openvms_catalog.pdf?linkonly|AlphaServer ES40 Tru64 UNIX and OpenVMS Systems and Options Catalog}}
   * {{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60_8200_tru64_openvms_systems_catalog.pdf?linkonly|Compaq AlphaServer GS60 and AlphaServer 8200 Tru64 UNIX and OpenVMS Systems Catalog}}
   * {{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60_gs140_product_profile.pdf?linkonly|AlphaServer GS60 and GS140 Series with Alpha 21264 Processor Product Profile (1999)}}
+  * {{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15a_quickspecs.pdf?linkonly|HP AlphaServer/AlphaStation DS15A QuickSpecs (May 2007)}}
+  * {{wiki:hardware:systems:alphaserver_ds25:alphaserver_ds25_quickspecs.pdf?linkonly|HP AlphaServer/AlphaStation DS25 QuickSpecs (May 2007)}}
   * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_tower_quickspecs.pdf?linkonly|HP AlphaServer ES47 Tower QuickSpecs}}
   * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}
   * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_cli_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 CLI Reference}}
   * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_drawer_upgrade.pdf?linkonly|HP AlphaServer ES47/ES80/GS1280 I/O Drawer Upgrade}}
   * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_upgrade.pdf?linkonly|HP AlphaServer ES47 Upgrade}}
   * {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_release_notes_v5.2.0.pdf?linkonly|AlphaServer Management Release Notes V5.2.0}}
+  * {{wiki:hardware:systems:alphaserver_es47:us6973517_partition_formation_patent.pdf?linkonly|US Patent 6,973,517, Partition Formation Using Microprocessors in a Multiprocessor Computer System (2005)}}
   * Firmware release notes for most systems are listed on the [[software:firmware:srm#documentation|SRM]] page.
 
 {{tag>hardware}}
