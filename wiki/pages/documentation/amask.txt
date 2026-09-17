@@ -2,30 +2,91 @@
 
 The Architecture Mask instruction is used to determine the presence of [[instruction_set#isa_extensions|instruction set extensions]] at runtime.
 
+==== Semantics ====
+
+''AMASK'' **clears** the bits of its operand that correspond to extensions the processor //implements//, and copies through unchanged the bits for reserved and absent extensions. From the Architecture Reference Manual:
+
+> Rbv represents a mask of the requested architectural extensions. Bits are cleared that correspond to architectural extensions that are present. Reserved bits and bits that correspond to absent extensions are copied unchanged. In either case, the result is placed in Rc. If the result is zero, all requested features are present.
+>
+> Software may specify an Rbv of all 1's to determine the complete set of architectural extensions implemented by a processor.
+
+The polarity is the opposite of what most people expect: a bit that remains **set** means the extension is **absent**.
+
+==== Bit Assignments ====
+
+^ Bit ^ Extension ^
+| 0 | byte/word extension (BWX): ''LDBU'', ''LDWU'', ''SEXTB'', ''SEXTW'', ''STB'', ''STW'' |
+| 1 | square-root and floating-point convert extension (FIX) |
+| 2 | count extension (CIX): ''CTLZ'', ''CTPOP'', ''CTTZ'' |
+| 8 | multimedia extension (MVI) |
+| 9 | precise arithmetic trap reporting in hardware |
+| 12 | prefetch with modify intent |
+
+==== Per-Processor Behavior ====
+
+On the earliest implementations ''AMASK'' is a no-op that copies its operand straight through, so every extension correctly reports as absent:
+
+> * On 21064/21064A/21066/21068/21066A (EV4/EV45/LCA/LCA45 chips), AMASK copies Rbv to Rc.
+> * On 21164 (EV5), AMASK copies Rbv to Rc.
+> * On 21164A (EV56), 21164PC (PCA56), and 21264 (EV6), AMASK correctly indicates support for architecture extensions by copying Rbv to Rc and clearing appropriate bits.
+
 ==== Example ====
 
-This program will use gcc's **%%__builtin_alpha_amask%%** intrinsic function to determine which architectural extensions are present in the host CPU.
+This program uses gcc's ''%%__builtin_alpha_amask%%'' intrinsic to determine which architectural extensions are present in the host CPU.
 
 <code c>
 #include <stdio.h>
 
 enum CPUFeatures {
-    BWX = ~(1 >> 0),
-    FIX = ~(1 >> 1),
-    CIX = ~(1 >> 2),
-    MVI = ~(1 >> 8)
+    BWX = 1UL << 0,
+    FIX = 1UL << 1,
+    CIX = 1UL << 2,
+    MVI = 1UL << 8,
 };
 
-int main() {
-        unsigned features = __builtin_alpha_amask(~0);
+int main(void)
+{
+	/* amask clears the bits of extensions that are implemented, so a
+	   bit remaining set means the extension is absent. */
+	unsigned long absent = __builtin_alpha_amask(~0UL);
 
-        printf("%X\n", features);
-        if (features & BWX) puts("BWX supported.");
-        if (features & MVI) puts("MVI supported.");
-        if (features & FIX) puts("FIX supported.");
-        if (features & CIX) puts("CIX supported.");
-        return 0;
+	printf("%lX\n", absent);
+	if (!(absent & BWX)) puts("BWX supported.");
+	if (!(absent & FIX)) puts("FIX supported.");
+	if (!(absent & CIX)) puts("CIX supported.");
+	if (!(absent & MVI)) puts("MVI supported.");
+	return 0;
 }
 </code>
+
+==== In the Kernel ====
+
+Linux wraps the instruction in ''arch/alpha/include/asm/special_insns.h'':
+
+<code c>
+enum amask_enum {
+	AMASK_BWX = (1UL << 0),
+	AMASK_FIX = (1UL << 1),
+	AMASK_CIX = (1UL << 2),
+	AMASK_MAX = (1UL << 8),
+	AMASK_PRECISE_TRAP = (1UL << 9),
+};
+
+#define amask(mask)						\
+({ unsigned long __amask, __input = (mask);			\
+   __asm__ ("amask %1,%0" : "=r"(__amask) : "rI"(__input));	\
+   __amask; })
+</code>
+
+Kernel code tests it with the architectural polarity, for example ''if (!amask(AMASK_PRECISE_TRAP))''. The sense is inverted once, on the way out to userspace, so that the bits in ''AT_HWCAP'' are set for features that //are// present:
+
+<code c>
+#define ELF_HWCAP  (~amask(-1))
+</code>
+
+==== References ====
+
+  * {{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}, section 4.11.1 and Appendix D, Table D-3. This is the only edition that documents ''AMASK''; the 1992 and 1995 editions predate it.
+  * [[documentation:porting:byte_word_access|Byte and Word Access]] for what BWX actually adds.
 
 {{tag>documentation}}
