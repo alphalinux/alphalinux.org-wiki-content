@@ -111,6 +111,8 @@ Samsung part numbers: [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt
   * {{wiki:hardware:cpu:21264:21264_compiler_writers_guide.pdf?linkonly|Compiler Writer's Guide for the Alpha 21264}}
   * {{wiki:hardware:cpu:21264:ev6_specification_rev_2.0.pdf?linkonly|EV6 Specification, Revision 2.0 (April 1996)}}
   * {{wiki:hardware:cpu:21264:21264a_specifications_rev_1.1.pdf?linkonly|21264A Specifications, Revision 1.1 (May 1999)}}
+  * {{wiki:hardware:cpu:21264:21264_microprocessor_architecture.pdf?linkonly|The Alpha 21264 Microprocessor Architecture (R. E. Kessler, E. J. McLellan, and D. A. Webb, Compaq)}}
+  * {{wiki:hardware:cpu:21264:21264_keller_presentation.pdf?linkonly|21264 presentation (Jim Keller, Digital Semiconductor)}}
   * {{wiki:hardware:cpu:21264_21364_compiler_writers_guide.pdf?linkonly|Compiler Writer's Guide for the 21264/21364}}
 
 === 21464 ===
