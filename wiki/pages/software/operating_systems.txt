@@ -47,6 +47,17 @@ Minimum versions on the OEM motherboards were Digital UNIX 4.0 for the AlphaPC 1
 
 Linux runs on most Alpha systems, booting from SRM with aboot or from ARC, AlphaBIOS, or ARCSBIOS with MILO. Systems without SRM, such as the Alpha XL and XLT and the Ruffian, can only boot Linux with MILO. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-September.mbox#L5923|"Alpha Core ISO Images"]], Jay Estabrook, axp-list, 29 Sep 2004)] See [[software:boot_loaders|Boot Loaders]].
 
+Linux 6.10 removed support for processors without the BWX extension (the EV4, EV45, and EV5 generations) and for the systems that can only use them. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] The removed systems are:
+
+  * the Jensen (DEC 2000 AXP and DECpc 150 AXP), [(>[[https://git.kernel.org/torvalds/c/f81f335a56a8|"alpha: remove DECpc AXP150 (Jensen) support"]], Linux 6.10)]
+  * all systems with the LCA processors or the APECS chipset: the AlphaStation 200, 250, 255, and 400 and AlphaServer 300 and 400 (Avanti), the Alpha XL, the Multia and AXPpci 33 (Noname), the AlphaBook 1, the Platform 2000, the EB64+, EB66, EB66+, and AlphaPC 64, and the EV4 versions of the AlphaServer 1000 and 1000A, [(>[[https://git.kernel.org/torvalds/c/430ad3f0ddd7|"alpha: remove LCA and APECS based machines"]], Linux 6.10)]
+  * the EV4 and EV45 versions of the AlphaServer 2000 and 2100, and the AlphaServer 2100A (Lynx), [(>[[https://git.kernel.org/torvalds/c/d2b1e353dacc|"alpha: sable: remove early machine support"]], Linux 6.10)]
+  * the EB164, which only supports EV5 processors. [(>[[https://git.kernel.org/torvalds/c/4bf859076b16|"alpha: cabriolet: remove EV5 CPU support"]], Linux 6.10)]
+
+Systems with EV5 processors that also support EV56 processors, such as the AlphaStation 500 and 600 and Personal Workstation, are still supported, but need an EV56 processor. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)]
+
+The kernel does not support the DEC 3000, DEC 4000, DEC 7000, or the AlphaServer 8200, 8400, GS60, and GS140 (TurboLaser): it has no machine vector for them, before or after Linux 6.10. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v6.10|arch/alpha/kernel/setup.c]], Linux 6.10)]
+
 Hewlett-Packard's Red Hat Linux 7.2 for Alpha was officially supported on the AlphaServer DS10, DS20, ES40, and ES45. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L12427|"Re: RedHat 7.2 Linux for Alpha"]], Jay Estabrook, axp-list, 11 Jun 2002)] The DS25 and ES45 firmware release notes list Red Hat Linux 7.2 among the supported operating systems. [(>{{wiki:software:firmware:alphaserver_ds25_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation DS25 V7.2 Firmware Release Notes}})] [(>{{wiki:software:firmware:alphaserver_es45_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation ES45 V7.3 Firmware Release Notes}}, p. 6)] Installing it on the ES47, ES80, and AlphaServer 2100A required an HP installation wrapper CD. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-July.mbox#L2911|"Installation HPWrapper ISO for ES47, ES80, 2100A and DAC960 systems for RH-7.2."]], George France, axp-list, 11 Jul 2003)]
 
 The DS15, DS25, and ES45 (Titan), the GS80, GS160, and GS320 (Wildfire), and the ES47, ES80, and GS1280 (Marvel) need kernels built without ''CONFIG_ALPHA_LEGACY_START_ADDRESS''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-February.mbox#L7443|"Re: testing wanted: debian-installer, now with 2.6.15"]], Jay Estabrook, debian-alpha, 9 Feb 2006)] Debian 3.1's prepackaged kernels did not support the Titan systems for this reason. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-November.mbox#L1252|"Sanity checking needed of Alpha subarch codenames in d-i manual"]], Steve Langasek, debian-alpha, 7 Nov 2004)] Linux support for the Marvel systems returned "after a long hiatus" in Alpha Core 3 in 2007. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2007-March.mbox#L1087|"Torrents galore...but has anyone actually tried it?"]], Jay Estabrook, axp-list, 7 Mar 2007)]
@@ -58,14 +69,20 @@ The tables summarize which operating systems each system supported. "Unofficial"
 === Digital, Compaq, and HP Systems ===
 
 ^ System ^ Windows NT ^ OpenVMS ^ Tru64 UNIX ^ Linux ^
-| DEC 2000 AXP, DECpc 150 AXP (Jensen) | Yes | Yes (V1.5-1H1 and later) | Yes (to V5.1) | Yes |
-| DEC 3000 | | Yes | Yes (to V5.1) | |
-| DEC 4000, DEC 7000 | | Yes | Yes (to V5.1) | |
-| Multia (UDB) | Yes | Unofficial | Unofficial | Yes |
-| Alpha XL, Alpha XLT | Yes | No | No | Yes (MILO only) |
+| DEC 2000 AXP, DECpc 150 AXP (Jensen) | Yes | Yes (V1.5-1H1 and later) | Yes (to V5.1) | To 6.9 |
+| DEC 3000 | | Yes | Yes (to V5.1) | No |
+| DEC 4000, DEC 7000 | | Yes | Yes (to V5.1) | No |
+| Multia (UDB) | Yes | Unofficial | Unofficial | To 6.9 |
+| Alpha XL | Yes | No | No | To 6.9 (MILO only) |
+| Alpha XLT | Yes | No | No | Yes (MILO only) |
 | Digital Server 3300, 5300, 7300 | Yes | No | No | |
-| AlphaStation 200, 250, 255, 400, 500, 600 | Yes | Yes | Yes | Yes |
-| AlphaServer 300, 400, 800, 1000, 1000A, 1200, 2000, 2100, 4000, 4100 | Yes | Yes | Yes | Yes |
+| AlphaStation 200, 250, 255, 400, AlphaServer 300, 400 | Yes | Yes | Yes | To 6.9 |
+| AlphaStation 500, 600, 600A | Yes | Yes | Yes | Yes |
+| AlphaServer 800 | Yes | Yes | Yes | Yes |
+| AlphaServer 1000, 1000A | Yes | Yes | Yes | Yes; EV4 and EV45 versions to 6.9 |
+| AlphaServer 2000, 2100 | Yes | Yes | Yes | Yes; EV4 and EV45 versions to 6.9 |
+| AlphaServer 2100A | Yes | Yes | Yes | To 6.9 |
+| AlphaServer 1200, 4000, 4100 | Yes | Yes | Yes | Yes |
 | AlphaServer 8200, 8400 | Yes | Yes | Yes | No |
 | Personal Workstation a series | Yes | | | Yes |
 | Personal Workstation au series, XP1000 | Yes | Yes | Yes | Yes |
@@ -74,18 +91,20 @@ The tables summarize which operating systems each system supported. "Unofficial"
 | AlphaServer GS60, GS140 | | Yes | Yes | No |
 | AlphaServer DS20L | | | Yes | Yes |
 | AlphaServer DS15, DS25, ES45 | No | Yes | Yes | Yes |
-| AlphaServer GS80, GS160, GS320 | No | Yes | Yes | Unofficial |
+| AlphaServer GS80, GS160, GS320 | No | Yes | Yes | Yes |
 | AlphaServer ES47, ES80, GS1280 | No | Yes | Yes | Yes |
+
+Linux support is according to the platforms in ''arch/alpha'' in Linux 6.10 and earlier. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v6.10|arch/alpha/kernel/setup.c]], Linux 6.10)] "To 6.9" means that Linux 6.9 was the last version to support the system.
 
 === Evaluation Boards and OEM Motherboards ===
 
 ^ Board ^ Windows NT ^ OpenVMS ^ Tru64 UNIX ^ Linux ^
-| [[hardware:motherboards:eb64plus|EB64+]] | Yes | | Yes | Yes |
-| [[hardware:motherboards:eb66|EB66]] | Yes | | | Yes |
-| [[hardware:motherboards:eb66plus|EB66+]] | Yes | | Yes | Yes |
-| AXPpci 33 (Noname) | Yes | | Yes | Yes |
-| [[hardware:motherboards:pc64|AlphaPC 64]] | Yes | | Yes | Yes |
-| [[hardware:motherboards:eb164|EB164]] | Yes | No | Yes | Yes |
+| [[hardware:motherboards:eb64plus|EB64+]] | Yes | | Yes | To 6.9 |
+| [[hardware:motherboards:eb66|EB66]] | Yes | | | To 6.9 |
+| [[hardware:motherboards:eb66plus|EB66+]] | Yes | | Yes | To 6.9 |
+| AXPpci 33 (Noname) | Yes | | Yes | To 6.9 |
+| [[hardware:motherboards:pc64|AlphaPC 64]] | Yes | | Yes | To 6.9 |
+| [[hardware:motherboards:eb164|EB164]] | Yes | No | Yes | To 6.9 |
 | [[hardware:motherboards:pc164|AlphaPC 164]] | Yes | | Yes | Yes |
 | [[hardware:motherboards:pc164lx|AlphaPC 164LX]], [[hardware:motherboards:pc164sx|AlphaPC 164SX]] | Yes | | Yes | Yes |
 | [[hardware:motherboards:pc164rx|AlphaPC 164RX]] | Yes | No | No | Yes |
@@ -121,8 +140,9 @@ The tables summarize which operating systems each system supported. "Unofficial"
 
 === No Linux ===
 
-  * **AlphaServer 8200, 8400, GS60, and GS140 (TurboLaser):** Jay Estabrook: "no Linux support for 8200/8400-class machines". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L17415|"Re: AlphaServer GS140 (8400)"]], Jay Estabrook, debian-alpha, 23 Sep 2003)] An attempt to boot Alpha Core 3 on a GS60 locked up. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-February.mbox#L341|"GS60 available for porting"]], Adrian Looker, axp-list, 18 Feb 2008)]
-  * **AlphaServer GS80, GS160, and GS320 (Wildfire):** these were not supported by the kernel in 2000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L39933|"Re: 2.3.99-3 axp combo patch"]], Richard Henderson, axp-list, 29 Mar 2000)] Red Hat Linux 7.2 was tested on the GS160, but not officially supported on it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L13968|"Re: AlphaServer GS140 (8400)"]], George France, debian-alpha, 24 Sep 2003)]
+  * **DEC 3000, DEC 4000, and DEC 7000:** the kernel has no support for these systems. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v6.10|arch/alpha/kernel/setup.c]], Linux 6.10)]
+  * **AlphaServer 8200, 8400, GS60, and GS140 (TurboLaser):** the kernel has no support for these systems. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v6.10|arch/alpha/kernel/setup.c]], Linux 6.10)] Jay Estabrook: "no Linux support for 8200/8400-class machines". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L17415|"Re: AlphaServer GS140 (8400)"]], Jay Estabrook, debian-alpha, 23 Sep 2003)] An attempt to boot Alpha Core 3 on a GS60 locked up. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-February.mbox#L341|"GS60 available for porting"]], Adrian Looker, axp-list, 18 Feb 2008)]
+  * **Systems removed in Linux 6.10:** the Jensen, the EV4 and EV45 systems, and the EB164; see [[#linux|Linux]].
 
 ==== Conflicting Information ====
 
@@ -154,6 +174,10 @@ The following sources disagree with each other or with this page. They are liste
   * **Last Tru64 UNIX release for older systems**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-September.mbox#L37862|"end of life for DEC branded Alphas (and Tru64)"]], William H. Magill, axp-list, 20 Sep 2000, forwards Tom Blinn: "V5.1 is the last release that will support the older "DEC" branded Alpha systems (the ones that do NOT have PCI buses for I/O"
     * The same message summarizes this as "any EV56 or earlier processor will no longer be supported by Tru64 after 5.1".
+  * **Linux on the AlphaServer GS80, GS160, and GS320 (Wildfire)**
+    * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_wildfire.c?h=v6.10|arch/alpha/kernel/sys_wildfire.c]], Linux 6.10, supports the Wildfire systems.
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L39933|"Re: 2.3.99-3 axp combo patch"]], Richard Henderson, axp-list, 29 Mar 2000: "It's not supported in current sources, but I know it's being worked on."
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L13968|"Re: AlphaServer GS140 (8400)"]], George France, debian-alpha, 24 Sep 2003: "Although this hardware it is not officially supported by HP on the RH-7.2 distribution, it should just work."
   * **Latest Windows 2000 build for Alpha**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-January.mbox#L2396|"w2k alpha"]], Steven Moix, axp-list, 9 Jan 2009: "it's the most recent build as far as I know, build 2072"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-January.mbox#L703|"w2k alpha"]], Alexander Huemer, axp-list, 7 Jan 2009, lists "professional build 2128".
