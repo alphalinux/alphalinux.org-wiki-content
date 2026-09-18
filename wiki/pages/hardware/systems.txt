@@ -5,32 +5,32 @@ This page covers complete Alpha systems sold by Digital, Compaq, HP, and others.
 ==== Overview ====
 
 ^ System ^ Codenames ^ CPU ^ Core logic ^ Kernel platform ^ Linux ^
-| DEC 2000 AXP, DECpc 150 AXP | Jensen, Culzean | 21064 | None (EISA) | Jensen | To 6.9 |
-| DEC 3000 | Pelican, Sandpiper, Flamingo | 21064, 21064A | TURBOchannel | None | No |
-| DEC 4000 | Cobra, Fang | 21064 | Futurebus+ | None | No |
-| DEC 7000, DEC 10000 | Ruby (Laser, Blazer) | 21064, 21064A | LSB | None | No |
-| Multia | UDB | 21066, 21066A | LCA | Noname | To 6.9 |
-| [[hardware:motherboards:axppci33|AXPpci 33]] | Noname | 21066, 21066A, 21068, 21068A | LCA | Noname | To 6.9 |
-| AlphaBook 1 | Burns | 21066 | LCA | AlphaBook1 | To 6.9 |
-| AlphaStation 200, 205, 250, 255, 400, AlphaServer 300, 400 | Mustang, LX3, M3, LX3+, Avanti, Melmac | 21064, 21064A | APECS | Avanti | To 6.9 |
-| Alpha XL 233, 266 | XL | 21064, 21064A | APECS | XL | To 6.9 |
-| AlphaServer 1000 | Mikasa, Mikasa-Primo | 21064, 21164 | APECS, CIA | Mikasa | Yes; EV4 versions to 6.9 |
-| AlphaServer 1000A, 800, AlphaStation 600A, Digital Server 3300 | Noritake, Noritake-Primo, Corelle, Alcor-Primo | 21064A, 21164, 21164A | APECS, CIA | Noritake | Yes; EV4 versions to 6.9 |
-| AlphaServer 2000, 2100 | Demi-Sable, Sable, Gamma | 21064, 21064A, 21164 | T2 | Sable | Yes; EV4 versions to 6.9 |
-| AlphaServer 2100A | Lynx | 21064A, 21164 | T2 | Lynx | To 6.9 |
-| AlphaStation 500, 600, Alpha XL 300, 366, 433 | Maverick, Bret, Alcor, XLT | 21164, 21164A | CIA | Alcor | Yes |
-| AlphaServer 1200, 4000, 4100, Digital Server 5300, 7300 | Tincup, DaVinci, Wrangler, Durango, Dodge | 21164, 21164A | MCPCIA | Rawhide | Yes |
-| Personal Workstation a and au series | Miata, Miata GL | 21164A | Pyxis | Miata | Yes |
-| AlphaServer 8200, 8400 | TurboLaser | 21164, 21164A | TLSB | None | No |
-| AlphaStation XP1000 | Monet, Brisbane | 21264 | Tsunami | DP264 | Yes |
-| AlphaServer DS10, DS10L, AlphaStation XP900 | Webbrick, Slate | 21264 | Tsunami | DP264 | Yes |
-| AlphaServer DS20, DS20E | Goldrush, Catamaran, Goldrack | 21264 | Tsunami | DP264 | Yes |
-| AlphaServer ES40 | Clipper | 21264 | Tsunami | DP264 | Yes |
-| AlphaServer DS20L, API NetWorks CS20 | Shark | 21264 | Tsunami | Shark | Yes |
-| AlphaServer GS60, GS60E, GS140 | TurboLaser | 21264 | TLSB | None | No |
-| AlphaServer GS80, GS160, GS320 | Wildfire | 21264 | Wildfire | Wildfire | Yes |
-| AlphaServer DS15, DS25, ES45, TS202c | HyperBrick, Granite, Privateer, Falcon | 21264 | Titan | Titan | Yes |
-| AlphaServer ES47, ES80, GS1280 | Marvel | 21364 | IO7 | Marvel | Yes |
+| DEC 2000 AXP, DECpc 150 AXP | Jensen, Culzean | [[wp>Alpha_21064|21064]] | None (EISA) | Jensen | To 6.9 |
+| DEC 3000 | Pelican, Sandpiper, Flamingo | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | TURBOchannel | None | No |
+| DEC 4000 | Cobra, Fang | [[wp>Alpha_21064|21064]] | Futurebus+ | None | No |
+| DEC 7000, DEC 10000 | Ruby (Laser, Blazer) | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | LSB | None | No |
+| Multia | UDB | [[wp>Alpha_21064#Alpha_21066|21066]], [[wp>Alpha_21064#Alpha_21066A|21066A]] | LCA | Noname | To 6.9 |
+| [[hardware:motherboards:axppci33|AXPpci 33]] | Noname | [[wp>Alpha_21064#Alpha_21066|21066]], [[wp>Alpha_21064#Alpha_21066A|21066A]], [[wp>Alpha_21064#Alpha_21068|21068]], [[wp>Alpha_21064#Alpha_21068A|21068A]] | LCA | Noname | To 6.9 |
+| AlphaBook 1 | Burns | [[wp>Alpha_21064#Alpha_21066|21066]] | LCA | AlphaBook1 | To 6.9 |
+| AlphaStation 200, 205, 250, 255, 400, AlphaServer 300, 400 | Mustang, LX3, M3, LX3+, Avanti, Melmac | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | APECS | Avanti | To 6.9 |
+| Alpha XL 233, 266 | XL | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | APECS | XL | To 6.9 |
+| AlphaServer 1000 | Mikasa, Mikasa-Primo | [[wp>Alpha_21064|21064]], [[wp>Alpha_21164|21164]] | APECS, CIA | Mikasa | Yes; EV4 versions to 6.9 |
+| AlphaServer 1000A, 800, AlphaStation 600A, Digital Server 3300 | Noritake, Noritake-Primo, Corelle, Alcor-Primo | [[wp>Alpha_21064#Alpha_21064A|21064A]], [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | APECS, CIA | Noritake | Yes; EV4 versions to 6.9 |
+| AlphaServer 2000, 2100 | Demi-Sable, Sable, Gamma | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]], [[wp>Alpha_21164|21164]] | T2 | Sable | Yes; EV4 versions to 6.9 |
+| AlphaServer 2100A | Lynx | [[wp>Alpha_21064#Alpha_21064A|21064A]], [[wp>Alpha_21164|21164]] | T2 | Lynx | To 6.9 |
+| AlphaStation 500, 600, Alpha XL 300, 366, 433 | Maverick, Bret, Alcor, XLT | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | CIA | Alcor | Yes |
+| AlphaServer 1200, 4000, 4100, Digital Server 5300, 7300 | Tincup, DaVinci, Wrangler, Durango, Dodge | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | MCPCIA | Rawhide | Yes |
+| Personal Workstation a and au series | Miata, Miata GL | [[wp>Alpha_21164#Alpha_21164A|21164A]] | Pyxis | Miata | Yes |
+| AlphaServer 8200, 8400 | TurboLaser | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | TLSB | None | No |
+| AlphaStation XP1000 | Monet, Brisbane | [[wp>Alpha_21264|21264]] | Tsunami | DP264 | Yes |
+| AlphaServer DS10, DS10L, AlphaStation XP900 | Webbrick, Slate | [[wp>Alpha_21264|21264]] | Tsunami | DP264 | Yes |
+| AlphaServer DS20, DS20E | Goldrush, Catamaran, Goldrack | [[wp>Alpha_21264|21264]] | Tsunami | DP264 | Yes |
+| AlphaServer ES40 | Clipper | [[wp>Alpha_21264|21264]] | Tsunami | DP264 | Yes |
+| AlphaServer DS20L, API NetWorks CS20 | Shark | [[wp>Alpha_21264|21264]] | Tsunami | Shark | Yes |
+| AlphaServer GS60, GS60E, GS140 | TurboLaser | [[wp>Alpha_21264|21264]] | TLSB | None | No |
+| AlphaServer GS80, GS160, GS320 | Wildfire | [[wp>Alpha_21264|21264]] | Wildfire | Wildfire | Yes |
+| AlphaServer DS15, DS25, ES45, TS202c | HyperBrick, Granite, Privateer, Falcon | [[wp>Alpha_21264|21264]] | Titan | Titan | Yes |
+| AlphaServer ES47, ES80, GS1280 | Marvel | [[wp>Alpha_21364|21364]] | IO7 | Marvel | Yes |
 
 The kernel platforms, core logic, and the systems each platform covers are from the kernel configuration. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)] Codenames are from the kernel's system variation tables, [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v6.9|arch/alpha/kernel/setup.c]], Linux 6.9)] the Alpha AXP System Reference Manual, [(>{{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual}}, Version 6, 1994, pp. D-2 to D-6)] and lists posted by Digital engineers. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-November.mbox#L1365|"Re: Sanity checking needed of Alpha subarch codenames in d-i manual"]], Jay Estabrook, debian-alpha, 8 Nov 2004)] "To 6.9" means that Linux 6.9 was the last version to support the system (see [[software:operating_systems#linux|Operating Systems]]).
 
