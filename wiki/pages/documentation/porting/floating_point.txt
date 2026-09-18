@@ -309,6 +309,37 @@ It's not recommended when you care about performance but it's extremely useful f
 
 That is the practical summary: ''-mieee'' does not only change results, it makes traps precise enough to debug.
 
+=== What -mieee costs ===
+
+The size of Henderson's "noticable performance hit" depends entirely on how dense the floating-point work is. Hidetoshi Shimokawa measured it in 1999 on a 21164 at 600 MHz, multiplying two 1000x1000 matrices: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-July.mbox#L2459|"Re: alpha/12623: strtod(3) FPE on alphaev56"]], Hidetoshi Shimokawa, freebsd-alpha, 16 Jul 1999)]
+
+<code>
+% cc -mcpu=ev56 -O2 matrix2a.c
+% time ./a.out
+./a.out  5.95s user 0.10s system 99% cpu 6.052 total
+% cc -mieee -mcpu=ev56 -O2 matrix2a.c 
+% time ./a.out
+./a.out  21.86s user 0.08s system 99% cpu 21.976 total
+</code>
+
+That is 3.7 times slower, on a loop that is nothing but floating-point multiply and add. It is the worst case, not the typical one: the cost is per floating-point instruction, so a program that spends most of its time elsewhere pays almost nothing.
+
+=== The same argument on the BSDs ===
+
+Every Alpha operating system had this argument, and all of them reached the same answer Linux did. FreeBSD did not build with ''-mieee'' either, and in 1999 a bug report showed what that costs in the C library: ''strtod("2.49521e-297")'' raised ''SIGFPE'' on a 21164A while working on i586. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-July.mbox#L3215|"alpha/12623: strtod(3) FPE on alphaev56"]], Matthew Seaman, freebsd-alpha, 13 Jul 1999)] Shimokawa's diagnosis names the mechanism exactly: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-July.mbox#L3180|"Re: alpha/12623: strtod(3) FPE on alphaev56"]], Hidetoshi Shimokawa, freebsd-alpha, 13 Jul 1999)]
+
+<blockquote>
+It generates denormal numbers which can not be treaded by the hardware on alpha. It should be compiled with the option `-mtrap-precision=i -mfp-trap-mode=su' to enable software completion.
+</blockquote>
+
+This is the denormal rule above, hit by ordinary library code: a string-to-double conversion near the bottom of the exponent range produces a denormal, the hardware cannot produce one without software completion, and the process dies. John Polstra drew the conclusion that a library, unlike an application, does not get to choose: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-July.mbox#L3100|"Re: alpha/12623: strtod(3) FPE on alphaev56"]], John Polstra, freebsd-alpha, 13 Jul 1999)]
+
+<blockquote>
+Yes, or the equivalent "-mieee". In my opinion, all of the libraries (if not the whole world) should be compiled that way. In fact, this option should be the default. Users who wanted a little extra speed and who knew what they are doing could turn it off.
+</blockquote>
+
+The same reasoning applies on Linux: whatever an application chooses, ''libm'' and ''libc'' have to be built for software completion, which is why Henderson's answer above ends with "libm must be built with -mieee as well in this case".
+
 ==== Comparisons ====
 
 ''CMPTxx'' writes a floating 2.0 for true and a true zero for false, rather than setting condition codes.

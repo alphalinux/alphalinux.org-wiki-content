@@ -390,6 +390,22 @@ An operating system must arrange to perform the above actions on each processor 
 
 Linux does this with a cross-processor shootdown. For the instruction stream the required operation is ''CALL_PAL IMB'', not ''MB''.
 
+=== When an IMB is actually required ===
+
+How often an operating system must issue ''CALL_PAL IMB'' is a question about the architecture, not about any one processor. Kernels that answered it by reasoning about a particular implementation have been bitten. In 1999 FreeBSD issued an IMB only when it ran out of ASNs, on the assumption that I-cache blocks are tagged with the ASN the way translation buffer entries are, while NetBSD issued one from a great many more places. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L4906|"I-stream memory barrier"]], Dmitrij Tejblum, freebsd-alpha, 25 Apr 1999)] Jason Thorpe, who wrote much of the NetBSD/alpha pmap, explained why NetBSD does not make that assumption: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L4776|"Re: I-stream memory barrier"]], Jason Thorpe, freebsd-alpha, 26 Apr 1999)]
+
+<blockquote>
+`On many implementations', not on all. Even though I know the I-cache layout on the 21164, I didn't allow my pmap module to make any assumptions based on that knowledge (I even ignored how IMB is implemented in the 21164 PALcode :-).
+
+The architecture manual states that an IMB should be done whenever the mapping for the I-stream changes. This is in the IMB PALcode op description. I optimize out unnecessary IMBs on unmap by tracking VM_PROT_EXECUTE in a software PTE bit.
+</blockquote>
+
+<blockquote>
+Basically, the NetBSD/alpha pmap is written to the architecture manual, not to any specific processor manual, and will therefore Just Work with any Alpha processor implementation.
+</blockquote>
+
+The rule is therefore: issue ''CALL_PAL IMB'' whenever the mapping for the instruction stream changes, and use a software PTE bit to skip the ones that provably cannot matter. Doug Rabson agreed, and proposed giving the FreeBSD pmap the same software ''PG_EXEC'' bit. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L341|"Re: I-stream memory barrier"]], Doug Rabson, freebsd-alpha, 27 Apr 1999)] The symptom of getting it wrong is not a clean failure: Tejblum went looking after single-threaded builds failed "mysteriously". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L4837|"Re: I-stream memory barrier"]], Dmitrij Tejblum, freebsd-alpha, 26 Apr 1999)]
+
 ==== What GCC Actually Emits ====
 
 The output below is from ''alpha-unknown-linux-gnu-gcc 16.2.0'' at ''-O2''. The GP-relative address computation has been elided for readability.

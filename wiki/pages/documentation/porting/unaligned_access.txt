@@ -315,6 +315,51 @@ That sysctl is real, but it belongs to other architectures. It originated on par
 
 **Alpha selects neither**, and registers no sysctls of its own. It also takes only the values 0 and 1, never 2. Alpha's controls are the two per-process interfaces above and nothing else.
 
+=== The same knobs on other operating systems ===
+
+The Linux behavior is not a Linux invention. Every Alpha operating system fixes user unaligned accesses up by default, prints a warning, and lets the program continue, and every one of them provides a way to switch each of those three behaviors off. On NetBSD and FreeBSD the three behaviors are three sysctls, with these defaults: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-May.mbox#L2901|"Re: unaligned access"]], Chris G. Demetriou, port-alpha, 19 May 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L7696|"Re: egcs ready for alpha?"]], Andrew Gallatin, freebsd-alpha, 18 Apr 1999)]
+
+<code>
+machdep.unaligned_print: 1
+machdep.unaligned_fix: 1
+machdep.unaligned_sigbus: 0
+</code>
+
+Andrew Gallatin named the arrangement: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L7696|"Re: egcs ready for alpha?"]], Andrew Gallatin, freebsd-alpha, 18 Apr 1999)]
+
+<blockquote>
+This amounts to what I call 'whiny fixup', which is the behaviour people have come to expect when running on this platform. At least this is what Digital UNIX, NetBSD and Linux default to.
+</blockquote>
+
+^ Operating system ^ Control ^ Scope ^
+| Linux | ''prctl(PR_SET_UNALIGN)'', ''osf_setsysinfo(SSIN_UACPROC)'' | per process |
+| NetBSD, FreeBSD | ''machdep.unaligned_print'', ''machdep.unaligned_fix'', ''machdep.unaligned_sigbus'' | system wide |
+| Digital UNIX, Tru64 UNIX | ''uac''(1), ''setsysinfo()'' with ''SSIN_UACPROC'', ''SSIN_UACPARNT'' or ''SSIN_UACSYS'' | per process, per parent, system wide |
+
+These are the same three bits Linux keeps per process, in the same order and with the same defaults, differing only in being system wide rather than per process.
+
+NetBSD's warning carries more than Linux's does, including the return address and a decoded opcode name rather than a raw number: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-May.mbox#L2901|"Re: unaligned access"]], Chris G. Demetriou, port-alpha, 19 May 1998)]
+
+<code>
+pid 20482 (a.out): unaligned access: va=0x1fffff284 pc=0x120000ae0 ra=0x120000750 op=ldq
+</code>
+
+Two NetBSD details are worth knowing. Unaligned accesses made by VAX floating-point instructions are //not// fixed up unless a kernel option is compiled in, which has no Linux equivalent, and, exactly as on Linux, an unaligned access in the kernel panics rather than being repaired. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-May.mbox#L2901|"Re: unaligned access"]], Chris G. Demetriou, port-alpha, 19 May 1998)]
+
+Why fix up at all, if the access is a bug? Because the architecture says a general-purpose operating system should. Demetriou, who would have preferred the opposite default: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1997-October.mbox#L4697|"Re: unaligned access from traceroute"]], Chris G. Demetriou, port-alpha, 31 Oct 1997)]
+
+<blockquote>
+I _really_ would have preferred to make "kill on unaligned access" the default, but the Alpha Architecture Reference Manual indicates that programs can expect general-purpose OSes to do unaligned fixups. In my opinion, in a properly-ported program, they're a bug.
+</blockquote>
+
+On Digital UNIX and Tru64 UNIX the same fixup happens in the kernel, and the messages are switched off with ''uac''(1). Tony Verhulst of Digital's kernel group, answering the question this generates every time: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-tru64-mbox/googlegroups-2000-October.mbox#L6637|"Re: Unaligned access error"]], Tony Verhulst, comp.unix.tru64, 13 Oct 2000)]
+
+<blockquote>
+The kernel traps this error and fixes it but you lose performance - however, the program will work correctly. You can disable the messages, see the man page for uac(1).
+</blockquote>
+
+The practical consequence is the same everywhere: the message means your program contains a bug that the kernel is paying for on every execution of that instruction. Silencing the message does not make the cost go away.
+
 ==== What an Unaligned Access Costs ====
 
 Per-instruction cycle counts for Alpha unaligned-trap fixup are difficult to source, and the figures circulating on the web do not survive checking. What can be cited is an end-to-end measurement by Jay Estabrook, posted to the Alpha list in May 2008: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-May.mbox#L2761|"Getting rid of Unaligned Accesses (UA)"]], Jay Estabrook, axp-list, 23 May 2008)]

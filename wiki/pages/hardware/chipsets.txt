@@ -31,6 +31,19 @@ The [[wp>Alpha_21064#Alpha_21066A|21066 and 21066A]] integrate their memory and 
 
 ==== 21174 ====
 
+Early 21174 (Pyxis) parts have a DMA erratum that operating systems work around by hand. NetBSD prints a warning whenever it attaches to one: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-July.mbox#L4288|"Miata"]], Johan Danielsson, port-alpha, 28 Jul 1998)]
+
+<code>
+cia0 at mainbus0: DECchip 2117x Core Logic Chipset (Pyxis), pass 1
+cia0: extended capabilities: 1<BWEN>
+cia0: using BWX for PCI config and device access
+cia0: WARNING: Pyxis pass 1 DMA bug; no bets...
+</code>
+
+On the Digital Personal Workstation (Miata) the bug is masked for most cards by the PCI-PCI bridge that the 32-bit slots sit behind: the bridge breaks transfers up, according to Chris Demetriou on cache-line boundaries, so the chip never sees the access pattern that provokes it. The two 64-bit slots are in front of the bridge, and Hal Murray of Digital reported that the firmware complains about any card there that it does not recognize as safe. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-December.mbox#L9759|"Re: Pyxis chip on a 500a."]], Hal Murray, port-alpha, 28 Dec 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-December.mbox#L9909|"Re: Pyxis chip on a 500a."]], Chris G. Demetriou, port-alpha, 29 Dec 1999)] The SRM ''set_pci_device_override'' variable overrides that refusal. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-December.mbox#L9909|"Re: Pyxis chip on a 500a."]], Chris G. Demetriou, port-alpha, 29 Dec 1999)] Andrew Gallatin reported that bursty writes to PCI dense space could lock up a buggy revision as well. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-December.mbox#L10001|"Re: Pyxis chip on a 500a."]], Andrew Gallatin, port-alpha, 29 Dec 1999)]
+
+Pyxis was also, according to Jay Estabrook, the first Alpha core logic on which byte and word access to I/O space worked; see [[documentation:porting:byte_word_access#bwx_in_the_core_logic|Byte and Word Access]].
+
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:chipsets:21174:21174_technical_reference_manual.pdf?linkonly|Digital Semiconductor 21174 Core Logic Chip Technical Reference Manual}} | EC-R12GB-TE | August 1997 |
 

@@ -26,7 +26,14 @@ No archive of axp-kernel-list from before April 2002 is known to survive. Header
 
 === Other Operating Systems ===
 
-While not pertaining to Linux, Alpha hardware information may be found in the [[https://lists.freebsd.org/pipermail/freebsd-alpha/|FreeBSD Alpha]], [[https://mail-index.netbsd.org/port-alpha/|NetBSD Alpha]], [[http://marc.info/?l=openbsd-alpha|OpenBSD Alpha]] mailing lists.
+While not pertaining to Linux, Alpha hardware and porting information may be found in the [[https://lists.freebsd.org/pipermail/freebsd-alpha/|FreeBSD Alpha]], [[https://mail-index.netbsd.org/port-alpha/|NetBSD Alpha]], and [[http://marc.info/?l=openbsd-alpha|OpenBSD Alpha]] mailing lists. These three lists are mirrored in the same [[https://github.com/alphalinux-org/mailing-list-archives|archive repository]], assembled from marc.info, mail-index.netbsd.org, Gmane and the FreeBSD Pipermail archive. They are the best surviving record of the parts of Alpha that Linux shares with the BSDs: PALcode and console behavior, chipset errata, unaligned access and floating-point trap handling.
+
+^ List ^ Project ^ Coverage ^
+| freebsd-alpha | FreeBSD | January 1998 to December 2010 |
+| port-alpha | NetBSD | January 1996 to present |
+| alpha (openbsd-alpha) | OpenBSD | September 2001 to present |
+
+FreeBSD retired its Alpha port after the 6.x series and closed the list at the end of 2010. The NetBSD and OpenBSD lists are still active.
 
 ==== IRC ====
 
@@ -40,7 +47,13 @@ A few newsgroups exist for Alpha users, namely
   * [[https://groups.google.com/group/comp.sys.dec/topics|comp.sys.dec]] for discussion about DEC Computers
   * [[https://groups.google.com/group/linux.debian.ports.alpha|linux.debian.ports.alpha]], a gateway to the debian-alpha mailing list, for discussion of running Debian on Alpha
 
-Google Groups stopped carrying new Usenet posts in February 2024, so these links serve historic content only.
+Google Groups stopped carrying new Usenet posts in February 2024, so these links serve historic content only. Complete mbox archives of all four groups, built from the Internet Archive's ''usenet-comp'' collection, are kept alongside the mailing lists in [[https://github.com/alphalinux-org/mailing-list-archives|alphalinux-org/mailing-list-archives]].
+
+^ Newsgroup ^ Coverage ^ Messages ^
+| comp.os.linux.alpha | August 1997 to May 2013 | 29,127 |
+| comp.sys.dec | April 1990 to May 2013 | 108,195 |
+| comp.sys.vms | January 1990 to September 2004 | 876 |
+| comp.unix.tru64 | April 2000 to March 2013 | 14,500 |
 
 While not pertaining to Linux or Alpha, hardware information may be found in the [[https://groups.google.com/group/comp.sys.vms/topics|comp.sys.vms]] and [[https://groups.google.com/group/comp.unix.tru64/topics|comp.unix.tru64]] newsgroups.
 
@@ -71,7 +84,5 @@ Many Linux distributions once supported Alpha, but do not any longer or have bee
 | CentOS | 4 | The Alpha tree was declared end of life by its maintainer, Pasi Pirhonen, in August 2006. Packages continued to be rebuilt informally through RHEL 4 Update 4. The later CentOS 4 point releases on vault.centos.org carry an unchanged copy of this tree. |
 
 A Slackware port to Alpha was attempted more than once, most seriously in 2001, but was never completed and had been abandoned by 2004.
-
-FreeBSD also discontinued their Alpha port after the 6.x series.
 
 {{tag>community}}

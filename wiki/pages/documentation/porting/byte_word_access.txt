@@ -162,6 +162,17 @@ The compile-time predicate is ''%%__alpha_bwx__%%'', defined when BWX code gener
 
 **GCC has no builtins for the BWX instructions.** ''%%__builtin_alpha_ldbu%%'', ''%%__builtin_alpha_ldwu%%'', ''%%__builtin_alpha_stb%%'' and ''%%__builtin_alpha_stw%%'' do not exist and never have. Compile with ''-mbwx'' and write ordinary ''unsigned char'' and ''unsigned short'' accesses. GCC //does// provide builtins for the pre-BWX byte-manipulation instructions: ''%%__builtin_alpha_extbl%%'', ''%%__builtin_alpha_insbl%%'', ''%%__builtin_alpha_mskbl%%'' and the rest of the extract, insert and mask family, along with ''%%__builtin_alpha_amask%%'', ''%%__builtin_alpha_implver%%'', ''%%__builtin_alpha_cmpbge%%'', ''%%__builtin_alpha_zap%%'' and ''%%__builtin_alpha_zapnot%%''.
 
+=== What BWX is worth ===
+
+Whole-program numbers are scarce, because almost nobody had two otherwise identical machines with and without BWX. What exists is before-and-after measurements of rebuilding the same source with and without ''-mcpu=ev56''. John Polstra timed a FreeBSD ''make buildworld'' on an AlphaPC 164LX at 533 MHz in 1999: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-June.mbox#L4698|"Significant speedups from -mcpu=ev56"]], John Polstra, freebsd-alpha, 21 Jun 1999)]
+
+<code>
+Without -mcpu=ev56:  6570.76 real      4855.53 user       963.15 sys
+With    -mcpu=ev56:  5913.08 real      4156.91 user       991.84 sys
+</code>
+
+That is 10% off wall-clock time and 14% off user time, for a workload (compiling) that is mostly pointer chasing and byte-at-a-time string handling, which is exactly what the pre-BWX sequences make expensive. Note what the measurement is not: ''-mcpu=ev56'' selects scheduling for the 21164A as well as BWX, so the figure is an upper bound on what BWX alone contributes. The kernel in this test was built //without// the option.
+
 === Detecting BWX at runtime ===
 
 ''AMASK'' **clears** the bits of its operand that correspond to extensions the processor //implements//. A zero result means every requested feature is present.
@@ -448,6 +459,20 @@ Richard Henderson confirmed the workaround later that year: [(>"Re: egcs and PC1
 <blockquote>
 You need a different MILO. There is a bit on the CPU that determines if BWX support is enabled, and for some reason that bit was off in early versions of the EBSDK PALcode.
 </blockquote>
+
+=== BWX in the core logic ===
+
+A processor with BWX still cannot make byte-granular accesses to I/O space unless the core logic implements them too, and that capability is enabled separately. NetBSD reports both facts at attach time:
+
+<code>
+cia0 at mainbus0: DECchip 2117x Core Logic Chipset (Pyxis), pass 1
+cia0: extended capabilities: 1<BWEN>
+cia0: using BWX for PCI config and device access
+</code>
+
+''BWEN'' is the chipset's byte/word enable; on the 21171 and 21172 it is reported alongside ''DWEN''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-July.mbox#L4288|"Miata"]], Johan Danielsson, port-alpha, 28 Jul 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/2002-January.mbox#L2435|"hw.chipset.bwx = 0 on PC164 with EV56-CPU?"]], Bernd Walter, freebsd-alpha, 13 Jan 2002)] NetBSD added this path for the 21172 and Pyxis in June 1998. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-June.mbox#L69|"README: BWX support added for PCI on ALCOR2/Pyxis"]], Jason Thorpe, port-alpha, 4 Jun 1998)]
+
+Estabrook's remark above, that I/O-space byte and word access "never worked" on CIA-2 and that Pyxis was the first core logic to get it right, does not match later BSD experience. FreeBSD's ''alpha/pci/cia.c'' treated the 21171 and 21172 identically and so left the 21172's BWX off; Paul V. Bolotoff's 2005 patch distinguished them, after which an AlphaServer 800 reported ''hw.chipset.type: alcor2'' with ''hw.chipset.bwx: 1'' and, in his words, was "up and running as usual". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2005-September.mbox#L5417|"[patch] cia BWX oddity in RELENG4"]], Paul V. Bolotoff, freebsd-alpha, 30 Sep 2005)] Both statements may be true of different silicon revisions; treat "CIA-2 has usable I/O BWX" as untested on any particular board rather than settled either way.
 
 ==== Jensen ====
 

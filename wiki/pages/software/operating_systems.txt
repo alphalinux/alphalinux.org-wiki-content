@@ -1,12 +1,12 @@
 ===== Operating Systems =====
 
-Digital supported three operating systems on Alpha: OpenVMS, DEC OSF/1 (renamed Digital UNIX and then Tru64 UNIX), and Microsoft Windows NT. Linux, NetBSD, and OpenBSD were ported by others. Which of these a system can run depends mostly on its [[software:firmware|firmware]]:
+Digital supported three operating systems on Alpha: OpenVMS, DEC OSF/1 (renamed Digital UNIX and then Tru64 UNIX), and Microsoft Windows NT. Linux, FreeBSD, NetBSD, and OpenBSD were ported by others. Which of these a system can run depends mostly on its [[software:firmware|firmware]]:
 
 ^ Operating system ^ Firmware ^
 | OpenVMS, Digital UNIX / Tru64 UNIX | [[software:firmware:srm|SRM console]] |
 | Windows NT | [[software:firmware:arc|ARC or AlphaBIOS]] |
 | Linux | SRM (with [[software:boot_loaders:aboot|aboot]]), or ARC, AlphaBIOS, or ARCSBIOS (with [[software:boot_loaders:milo|MILO]]) |
-| NetBSD, OpenBSD | SRM |
+| FreeBSD, NetBSD, OpenBSD | SRM |
 
 "All motherboard systems that run the DIGITAL UNIX or OpenVMS operating system require the Alpha SRM Console." [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 1-2)] Systems designed only for Windows NT, such as the Alpha XL, have no SRM console, and so cannot run OpenVMS or Tru64 UNIX. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L25578|"Re: Does DEC have a clue?"]], Jay Estabrook, axp-list, 20 Jan 1998)] The SRM console for evaluation boards and OEM motherboards was licensed separately (see [[software:firmware:srm#licensing|SRM licensing]]).
 
@@ -61,6 +61,40 @@ The kernel does not support the DEC 3000, DEC 4000, DEC 7000, or the AlphaServer
 Hewlett-Packard's Red Hat Linux 7.2 for Alpha was officially supported on the AlphaServer DS10, DS20, ES40, and ES45. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L12427|"Re: RedHat 7.2 Linux for Alpha"]], Jay Estabrook, axp-list, 11 Jun 2002)] The DS25 and ES45 firmware release notes list Red Hat Linux 7.2 among the supported operating systems. [(>{{wiki:software:firmware:alphaserver_ds25_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation DS25 V7.2 Firmware Release Notes}})] [(>{{wiki:software:firmware:alphaserver_es45_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation ES45 V7.3 Firmware Release Notes}}, p. 6)] Installing it on the ES47, ES80, and AlphaServer 2100A required an HP installation wrapper CD. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-July.mbox#L2911|"Installation HPWrapper ISO for ES47, ES80, 2100A and DAC960 systems for RH-7.2."]], George France, axp-list, 11 Jul 2003)]
 
 The DS15, DS25, and ES45 (Titan), the GS80, GS160, and GS320 (Wildfire), and the ES47, ES80, and GS1280 (Marvel) need kernels built without ''CONFIG_ALPHA_LEGACY_START_ADDRESS''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-February.mbox#L7443|"Re: testing wanted: debian-installer, now with 2.6.15"]], Jay Estabrook, debian-alpha, 9 Feb 2006)] Debian 3.1's prepackaged kernels did not support the Titan systems for this reason. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-November.mbox#L1252|"Sanity checking needed of Alpha subarch codenames in d-i manual"]], Steve Langasek, debian-alpha, 7 Nov 2004)] Linux support for the Marvel systems returned "after a long hiatus" in Alpha Core 3 in 2007. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2007-March.mbox#L1087|"Torrents galore...but has anyone actually tried it?"]], Jay Estabrook, axp-list, 7 Mar 2007)]
+
+==== BSD ====
+
+All three BSDs boot only from the [[software:firmware:srm|SRM console]], because they use the OSF/1 PALcode and cannot use the PALcode that ARC and AlphaBIOS provide. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1998-October.mbox#L4692|"PALcode"]], David Seifert, freebsd-alpha, 9 Oct 1998)] There is no BSD equivalent of MILO: asked in 1999 how to boot FreeBSD on an Alpha XL, which has no SRM, Andrew Gallatin answered that SRM was the only option, and that work on booting FreeBSD from AlphaBIOS had stalled for lack of documentation. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L3081|"Re: MILO for fbsd?"]], Andrew Gallatin, freebsd-alpha, 8 Apr 1999)]
+
+=== NetBSD ===
+
+NetBSD/alpha was started by Chris Demetriou and is the oldest of the three. Snapshots of the 1.2 development line were circulating by June 1996, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1996-June.mbox#L1468|"Another NetBSD/Alpha 1.2_ALPHA snapshot (960615) available!"]], Chris G Demetriou, port-alpha, 16 Jun 1996)] and users were running the 1.2 release by October 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1996-October.mbox#L134|"alpha 1.2 release"]], Michael Graff, port-alpha, 7 Oct 1996)] That release was statically linked ECOFF; ELF and shared libraries were still being finished at the end of 1996, blocked on identifying NetBSD/alpha ELF binaries, on weak references in ''libc'', and on integrating the shared linker. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1996-October.mbox#L149|"Re: alpha 1.2 release"]], Chris G Demetriou, port-alpha, 8 Oct 1996)]
+
+The port is still maintained: ''port-alpha@netbsd.org'' carries traffic to the present day.
+
+=== FreeBSD ===
+
+FreeBSD/alpha was Doug Rabson's work and was the first non-x86 port added to FreeBSD, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2006-May.mbox#L972|"HEADSUP: Alpha support is being retired in 7.0"]], John Baldwin, freebsd-alpha, 11 May 2006)] which is why its history is bound up with the project's 64-bit and machine-independence cleanups. The Release Engineering Team said so when it demoted the port to Tier 2 in June 2004: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2004-June.mbox#L2662|"Demotion of alpha to Tier 2"]], Scott Long, freebsd-alpha, 14 Jun 2004)]
+
+<blockquote>
+Alpha was a very important platform for FreeBSD. It paved the way both for 64-bit cleanliness and for being able to support multiple architectures. [...] Thanks to Doug Rabson for porting to it in the first place and thanks to everyone who supported it afterwards.
+</blockquote>
+
+Tier 2 meant no guaranteed release images, no prebuilt packages and no guaranteed security advisories from FreeBSD 5.3 onward, though 4.x releases and errata kept their support. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2004-June.mbox#L2662|"Demotion of alpha to Tier 2"]], Scott Long, freebsd-alpha, 14 Jun 2004)] The port was retired outright two years later, announced by John Baldwin in May 2006: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2006-May.mbox#L972|"HEADSUP: Alpha support is being retired in 7.0"]], John Baldwin, freebsd-alpha, 11 May 2006)]
+
+<blockquote>
+After considering all of this, it is time to part with Alpha for 7.0 and beyond. At this time it is still planned to provide 6.x releases for FreeBSD/alpha. [...] Users with Alpha systems are welcome to use existing releases of FreeBSD/alpha or another BSD such as NetBSD/alpha.
+</blockquote>
+
+FreeBSD 6.x was therefore the last series to support Alpha. The ''freebsd-alpha'' list ran on until the end of 2010.
+
+=== OpenBSD ===
+
+OpenBSD/alpha is still supported, and has SMP support. Miod Vallat, February 2026, on a dual-processor AlphaServer DS20E: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/openbsd-alpha-mbox/2026-February.mbox#L1|"Re: SMP on AlphaServer DS20E"]], Miod Vallat, openbsd-alpha, 14 Feb 2026)]
+
+<blockquote>
+Yes, OpenBSD/alpha has SMP support and will use the two processors of the DS20.
+</blockquote>
 
 ==== Support by System ====
 
