@@ -58,13 +58,19 @@ Until [[https://www.debian.org/releases/lenny/|Debian Lenny]], [[https://www.deb
 
 === Defunct ===
 
-Many Linux distributions once supported Alpha, but do not any longer or have been discontinued. The following lists distributions who supported Alpha in the past and the last Alpha-supporting release.
+Many Linux distributions once supported Alpha, but do not any longer or have been discontinued. The following lists distributions that supported Alpha in the past and the last Alpha-supporting release. Dates and versions are taken from the mailing list archives described above.
 
-  * Red Hat 7.2
-  * AlphaCore 3
-  * CentOS 4.6
-  * SuSE 7.1
-  * Mandrake 7.1
+^ Distribution ^ Last Alpha release ^ Notes ^
+| BLADE | 0.3 | Digital's own Linux/Alpha distribution, largely the work of Jim Paradis. In use from late 1995 and superseded during 1996 by Red Hat's Alpha release. |
+| Craftworks Linux/AXP | 2.2 | Commercial distribution sold on CD, widely used on Alpha during 1996 and 1997. |
+| Red Hat Linux | 7.2 | |
+| SuSE Linux | 7.1 | 7.1 was the last shipping Alpha product. Former members of the SuSE Alpha team released an unofficial **SuSE Linux 8.1 Alpha Edition** in their own time, announced on 13 May 2003. |
+| Mandrake Linux | 7.1 | Developed in the open on the cooker-axp list. A 7.2 release for Alpha was asked about in November 2000 but never appeared. |
+| TurboLinux | 6.0 | Alpha edition shipped in July 2000. |
+| AlphaCore | 3 | Unofficial port of Fedora Core to Alpha. Version 1.0, named "Svetlana" and based on Fedora Core 3, was released on 8 May 2005 by Balint Cristian and Sergey Tikhonov. |
+| CentOS | 4 | The Alpha tree was declared end of life by its maintainer, Pasi Pirhonen, in August 2006. Packages continued to be rebuilt informally through RHEL 4 Update 4. The later CentOS 4 point releases on vault.centos.org carry an unchanged copy of this tree. |
+
+A Slackware port to Alpha was attempted more than once, most seriously in 2001, but was never completed and had been abandoned by 2004.
 
 FreeBSD also discontinued their Alpha port after the 6.x series.
 
