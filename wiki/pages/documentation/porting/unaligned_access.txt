@@ -25,7 +25,9 @@ An access is //aligned// when the address is a multiple of the operand size.
 
 Every load and store except ''LDQ_U''/''STQ_U'' faults on an unaligned address. From the Architecture Reference Manual, on ''LDS'':
 
-> If the data is not naturally aligned, an alignment exception is generated.
+<blockquote>
+If the data is not naturally aligned, an alignment exception is generated.
+</blockquote>
 
 The same sentence appears for ''LDT'', ''STS'' and ''STT''.
 
@@ -33,21 +35,29 @@ No Alpha implementation fixes unaligned accesses up in hardware. The unaligned d
 
 In particular, **BWX does not help**. It adds byte and word instructions; it does not make misaligned longword or quadword access work. David Mosberger-Tang, 1996:
 
-> even the newer Alpha chips don't do unaligned accesses in hw.
+<blockquote>
+even the newer Alpha chips don't do unaligned accesses in hw.
+</blockquote>
 
 Jay Estabrook put it the same way in 2008:
 
-> the later CPUs have the same restriction, they just support more data types, like shorts and bytes, and their lesser requirements.
+<blockquote>
+the later CPUs have the same restriction, they just support more data types, like shorts and bytes, and their lesser requirements.
+</blockquote>
 
 ==== It Is Undefined Behavior in C ====
 
 The relevant rule is about the //cast//, not the dereference. **C11/C17 §6.3.2.3 paragraph 7**:
 
-> A pointer to an object type may be converted to a pointer to a different object type. If the resulting pointer is not correctly aligned for the referenced type, the behavior is undefined. Otherwise, when converted back again, the result shall compare equal to the original pointer.
+<blockquote>
+A pointer to an object type may be converted to a pointer to a different object type. If the resulting pointer is not correctly aligned for the referenced type, the behavior is undefined. Otherwise, when converted back again, the result shall compare equal to the original pointer.
+</blockquote>
 
 and **Annex J.2**, in the list of undefined behaviors:
 
-> Conversion between two pointer types produces a result that is incorrectly aligned (6.3.2.3).
+<blockquote>
+Conversion between two pointer types produces a result that is incorrectly aligned (6.3.2.3).
+</blockquote>
 
 Three consequences that are worth stating separately, because each one is routinely missed:
 
@@ -173,15 +183,19 @@ The ''split_lock_detect='' boot parameter selects the policy. The default on cap
 
 A networking regression in 2.1.9, reported on the Alpha list:
 
-> The problem is some breakage in the skb_clone() routines that wasn't noticed on x86 because the unaligned accesses were silently handled by the hardware, obviously.
->
-> 2.1.10 will fix this one,
+<blockquote>
+The problem is some breakage in the skb_clone() routines that wasn't noticed on x86 because the unaligned accesses were silently handled by the hardware, obviously.
+
+2.1.10 will fix this one,
+</blockquote>
 
 The bug was in generic networking code. It was present on x86. x86 hardware hid it. Alpha did not.
 
 David Huggins-Daines made the general form of the argument on the same list in 2000:
 
-> Yup, there has been just such a bug in Emacs on all GNU/Linux platforms (see http://bugs.debian.org/63993) for a long time now (since at least ncurses-4.2), but it only showed up on Alpha due to the unaligned trap messages.
+<blockquote>
+Yup, there has been just such a bug in Emacs on all GNU/Linux platforms (see http://bugs.debian.org/63993) for a long time now (since at least ncurses-4.2), but it only showed up on Alpha due to the unaligned trap messages.
+</blockquote>
 
 === Real bugs, in code that thought it was safe ===
 
@@ -271,19 +285,25 @@ Beware that the two interfaces use **different bit values**: ''UAC_NOFIX'' is 2 
 
 This interface was deliberately cloned from Digital UNIX. Richard Henderson, who implemented it, in 1997:
 
-> The 2.1 kernels have this very same feature. Implemented with the same interface I might add. Look for setsysinfo(2), SSI_NVPAIRS and SSIN_UACPROC in either the DU documentation or the kernel sources.
+<blockquote>
+The 2.1 kernels have this very same feature. Implemented with the same interface I might add. Look for setsysinfo(2), SSI_NVPAIRS and SSIN_UACPROC in either the DU documentation or the kernel sources.
+</blockquote>
 
 and in 1998, recommending precisely the technique above:
 
-> The following will tell both Digital Unix and Linux (post 2.1.20 or so) to deliver a SIGBUS rather than fix up the access. This makes the problem significantly easier to debug.
+<blockquote>
+The following will tell both Digital Unix and Linux (post 2.1.20 or so) to deliver a SIGBUS rather than fix up the access. This makes the problem significantly easier to debug.
+</blockquote>
 
 Note that only the per-process case was ever implemented. Henderson again, in 1999, listing the Digital UNIX constants:
 
-> #define SSIN_UACSYS     4       /* set system printing on/off */
-> #define SSIN_UACPARNT   5       /* set parent proc on/off */
-> #define SSIN_UACPROC    6       /* set current proc on/off */
->
-> I only implemented the SSIN_UACPROC case. If you'd like to implement the rest, be my guest.  ;-)
+<blockquote>
+#define SSIN_UACSYS     4       /* set system printing on/off */
+#define SSIN_UACPARNT   5       /* set parent proc on/off */
+#define SSIN_UACPROC    6       /* set current proc on/off */
+
+I only implemented the SSIN_UACPROC case. If you'd like to implement the rest, be my guest.  ;-)
+</blockquote>
 
 Putting one of these at the top of ''main()'' in a test harness is the most effective single thing you can do. Every unaligned access then becomes a core dump with a usable backtrace instead of a line in ''dmesg'' that nobody reads.
 
@@ -299,13 +319,17 @@ That sysctl is real, but it belongs to other architectures. It originated on par
 
 Per-instruction cycle counts for Alpha unaligned-trap fixup are difficult to source, and the figures circulating on the web do not survive checking. What can be cited is an end-to-end measurement by Jay Estabrook, posted to the Alpha list in May 2008:
 
-> Recently, I happened to try printing a webpage from firefox; the ghostscript interpreter was used to render it for the print job. It seemed to take a really long time [...] I looked at /proc/cpuinfo before and after the render; it indicated that over 200 MILLION UAs had occurred during that single operation. When I fixed it, the render time dropped from more than 30 seconds to only a second or two.
->
-> Was that not enough to care? :-)
+<blockquote>
+Recently, I happened to try printing a webpage from firefox; the ghostscript interpreter was used to render it for the print job. It seemed to take a really long time [...] I looked at /proc/cpuinfo before and after the render; it indicated that over 200 MILLION UAs had occurred during that single operation. When I fixed it, the render time dropped from more than 30 seconds to only a second or two.
+
+Was that not enough to care? :-)
+</blockquote>
 
 A better than tenfold speedup of a real workload, from fixing unaligned accesses in one library. Estabrook had made the same point in 2000, to someone asking how to turn the log messages off:
 
-> Sure, you can make the *messages* go away, but your program's performance is going to continue to be terrible, as the traps into the kernel to handle the unaligned access will still be happening.
+<blockquote>
+Sure, you can make the *messages* go away, but your program's performance is going to continue to be terrible, as the traps into the kernel to handle the unaligned access will still be happening.
+</blockquote>
 
 Beyond the measurement, the structure of the cost is worth understanding.
 
@@ -345,7 +369,9 @@ And note the ordering of badness: six instructions is the **cheap** case, the on
 
 Ivan Kokshaysky gave the same advice on the Alpha list in 2001, and it has only become more true since:
 
-> Using memcpy() with constant size is fine as well, and is portable. Modern GCC (>= 2.95) generates quite a good inline code for this.
+<blockquote>
+Using memcpy() with constant size is fine as well, and is portable. Modern GCC (>= 2.95) generates quite a good inline code for this.
+</blockquote>
 
 This is also the answer to "but ''memcpy'' is a function call". It is not. In an optimized build ''memcpy'' of a scalar is not a call on any target: on x86-64 it is a single ''movl''; on Alpha it is the sequence above. ''%%memcpy(&v, p, sizeof v)%%'' is simply the portable spelling of "load this, however this machine has to do it", and unlike the cast it is well-defined C.
 
@@ -471,17 +497,21 @@ memcpy(&val, buf + 3, sizeof val);
 
 The classic. Wire formats pack fields without padding, and a receive buffer offset by a header length is aligned only by luck. David Huggins-Daines, on the Alpha list in 2000:
 
-> Lots of legacy binary data formats have unaligned fields, because at the time, saving a few bytes on the 16-bit machines of the time was a higher priority than planning for 32 and 64-bit RISC machines of the future.
->
-> For example ... IP headers, DOS partition tables, DWARF2 exception frame info.
->
-> In general whenever you cast from a pointer to a smaller type to a pointer of a larger type you have a potential alignment problem. (and of course, if the smaller type is not char*, you will also have problems with strict aliasing).
+<blockquote>
+Lots of legacy binary data formats have unaligned fields, because at the time, saving a few bytes on the 16-bit machines of the time was a higher priority than planning for 32 and 64-bit RISC machines of the future.
+
+For example ... IP headers, DOS partition tables, DWARF2 exception frame info.
+
+In general whenever you cast from a pointer to a smaller type to a pointer of a larger type you have a potential alignment problem. (and of course, if the smaller type is not char*, you will also have problems with strict aliasing).
+</blockquote>
 
 Note that he draws the same distinction this page does: the alignment problem and the aliasing problem are two separate defects in the same line of code.
 
 This is also why network drivers on Alpha copy packets. Ivan Kokshaysky, 2001:
 
-> Yes - it's a common problem on alpha and several other platforms with network cards capable to DMA only on a 32-bit boundary (via-rhine is one of those). Without copying the packet to another buffer IP header will be misaligned, and you'll have tons of unaligned traps in the TCP/IP layer.
+<blockquote>
+Yes - it's a common problem on alpha and several other platforms with network cards capable to DMA only on a 32-bit boundary (via-rhine is one of those). Without copying the packet to another buffer IP header will be misaligned, and you'll have tons of unaligned traps in the TCP/IP layer.
+</blockquote>
 
 The fix was to default ''rx_copybreak'' to the full MTU on ''__alpha__'', ''__sparc__'', ''__mips__'' and ''__arm__''. Four architectures, not one.
 

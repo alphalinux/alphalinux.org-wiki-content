@@ -115,7 +115,9 @@ There is no sign-extending byte or word //load//; use ''LDBU'' plus ''SEXTB''.
 
 The Architecture Reference Manual is unambiguous about which to prefer:
 
-> LDBU and STB are the recommended way to perform byte load and store operations on Alpha implementations that support them; use them rather than the extract, insert, and mask byte instructions described in this section.
+<blockquote>
+LDBU and STB are the recommended way to perform byte load and store operations on Alpha implementations that support them; use them rather than the extract, insert, and mask byte instructions described in this section.
+</blockquote>
 
 On implementations without BWX, these six instructions are **supported by software emulation**, so encountering one is not automatically fatal. It is, however, ruinously slow.
 
@@ -203,21 +205,27 @@ C and C++ both require that distinct scalar objects can be updated concurrently 
 
 Michael Cree, then maintaining Debian's Alpha port, in December 2022:
 
-> Yes. The first extension added is the byte-word extension which came in with EV56. That provides CPU instructions for byte and word (16-bit) memory accesses. That is the most important one: possibly a third of the bugs in the repository extend from non-atomic byte and word accesses. The kernel developers have expressed a view that they would like to assume on all arches that byte and word memory accesses are atomic and the only architecture that is holding them back from that assumption are old Alphas without BWX. There is an old open bug on gcc related to the non-atomic memory accesses of old Alphas and that one is basically cannot fix.
+<blockquote>
+Yes. The first extension added is the byte-word extension which came in with EV56. That provides CPU instructions for byte and word (16-bit) memory accesses. That is the most important one: possibly a third of the bugs in the repository extend from non-atomic byte and word accesses. The kernel developers have expressed a view that they would like to assume on all arches that byte and word memory accesses are atomic and the only architecture that is holding them back from that assumption are old Alphas without BWX. There is an old open bug on gcc related to the non-atomic memory accesses of old Alphas and that one is basically cannot fix.
+</blockquote>
 
 A third of the bugs in the port. He had made the same argument eight years earlier, in 2014:
 
-> There is a discussion on the Linux kernel mailing list that the kernel in future will only support architectures that can guarantee atomic aligned scalar accesses down to the byte level (at the moment the requirement is only for int (32bit) and long (64bit)). The only architecture that does not meet this new requirement is older Alphas that do not have the byte-word extension (BWX) CPU instructions, that is, EV4, EV45 and EV5. Thus the writing is on the wall that there will be no more Linux kernels for these older Alphas.
->
-> Furthermore, I estimate that a majority of the bugs I have fixed in the Debian Alpha distribution over the last couple of years could have been fixed by compiling with the BWX.
+<blockquote>
+There is a discussion on the Linux kernel mailing list that the kernel in future will only support architectures that can guarantee atomic aligned scalar accesses down to the byte level (at the moment the requirement is only for int (32bit) and long (64bit)). The only architecture that does not meet this new requirement is older Alphas that do not have the byte-word extension (BWX) CPU instructions, that is, EV4, EV45 and EV5. Thus the writing is on the wall that there will be no more Linux kernels for these older Alphas.
+
+Furthermore, I estimate that a majority of the bugs I have fixed in the Debian Alpha distribution over the last couple of years could have been fixed by compiling with the BWX.
+</blockquote>
 
 === How it ended ===
 
 Debian-Ports raised its Alpha baseline to EV56 in 2023. Linux followed for 6.10. Arnd Bergmann's pull request, quoted on debian-alpha in May 2024:
 
-> I had investigated dropping support for alpha EV5 and earlier a while ago after noticing that this is the only supported CPU family in the kernel without native byte access and that Debian has already dropped support for this generation last year [1] in order to improve performance for the newer machines.
->
-> This topic came up again when Paul E. McKenney noticed that parts of the RCU code already rely on byte access and do not work on alpha EV5 reliably, so we decided on using my series to avoid the problem entirely.
+<blockquote>
+I had investigated dropping support for alpha EV5 and earlier a while ago after noticing that this is the only supported CPU family in the kernel without native byte access and that Debian has already dropped support for this generation last year [1] in order to improve performance for the newer machines.
+
+This topic came up again when Paul E. McKenney noticed that parts of the RCU code already rely on byte access and do not work on alpha EV5 reliably, so we decided on using my series to avoid the problem entirely.
+</blockquote>
 
 RCU was quietly unreliable on pre-BWX Alpha. Linux 6.10 dropped pre-EV56 support, and Jensen, LCA and APECS support was removed along with it.
 
@@ -270,9 +278,11 @@ Three things to take from this:
 
 The reservation is not per-byte, and it is not per-longword. From the Architecture Reference Manual:
 
-> When a LDx_L instruction is executed without faulting, the processor records the target physical address in a per-processor locked_physical_address register and sets the per-processor lock_flag.
->
-> If processor A's lock_flag is set and processor B successfully does a store within A's locked range of physical addresses, then A's lock_flag is cleared. A processor's locked range is the aligned block of %%2**N%% bytes that includes the locked_physical_address. The %%2**N%% value is implementation dependent. It is at least 8 (minimum lock range is an aligned quadword) and is at most the page size for that implementation (maximum lock range is one physical page).
+<blockquote>
+When a LDx_L instruction is executed without faulting, the processor records the target physical address in a per-processor locked_physical_address register and sets the per-processor lock_flag.
+
+If processor A's lock_flag is set and processor B successfully does a store within A's locked range of physical addresses, then A's lock_flag is cleared. A processor's locked range is the aligned block of %%2**N%% bytes that includes the locked_physical_address. The %%2**N%% value is implementation dependent. It is at least 8 (minimum lock range is an aligned quadword) and is at most the page size for that implementation (maximum lock range is one physical page).
+</blockquote>
 
 and, on what to do about it:
 
@@ -314,7 +324,9 @@ Note that an //atomic bit-field// is not a solution, and is not even legal C: a 
 
 Sustained contention can starve an individual thread, but it cannot wedge the system. The architecture requires that:
 
-> If two processors attempt STx_C instructions to the same lock range and that lock range was accessed by both processors' preceding LDx_L instructions, exactly one of the stores succeeds.
+<blockquote>
+If two processors attempt STx_C instructions to the same lock range and that lock range was accessed by both processors' preceding LDx_L instructions, exactly one of the stores succeeds.
+</blockquote>
 
 The real portability hazard is different, and is covered under [[documentation:porting:memory_model#forward_progress_rules|Forward progress rules]]: an ''LDx_L''/''STx_C'' body containing any other memory access, a taken branch, a subsetted instruction, or simply too many instructions may fail **every** time on some implementations.
 
@@ -338,9 +350,11 @@ In practice the offsets are ''0x00'' for a byte, ''0x08'' for a word and ''0x18'
 
 **The chipset does no byte shifting.** From the DECchip 21171-CA Technical Reference Manual:
 
-> Software must use longword load or store instructions (LDL/STL) to perform a reference that is of longword length or less on the PCI bus.
-> The bytes to be transferred must be positioned within the longword in the correct byte lanes as indicated by the PCI byte enable.
-> The hardware will do no byte shifting within the longword.
+<blockquote>
+Software must use longword load or store instructions (LDL/STL) to perform a reference that is of longword length or less on the PCI bus.
+The bytes to be transferred must be positioned within the longword in the correct byte lanes as indicated by the PCI byte enable.
+The hardware will do no byte shifting within the longword.
+</blockquote>
 
 So the byte must be placed in the correct lane by software. Linux uses ''%%__kernel_insbl(b, addr & 3)%%'' on write and ''%%__kernel_extbl(result, addr & 3)%%'' on read:
 
@@ -357,7 +371,9 @@ Replicating the byte to all four lanes is a **Jensen-specific** technique, not t
 
 Barriers are mandatory, not advisory. From the same manual:
 
-> Programmers are required to insert memory barrier (MB) instructions between sparse space accesses to prevent collapsing in the 21164 write buffer.
+<blockquote>
+Programmers are required to insert memory barrier (MB) instructions between sparse space accesses to prevent collapsing in the 21164 write buffer.
+</blockquote>
 
 Sparse access is markedly slower than dense: every read is a load plus an extract, every write a load plus an insert, each needs an ''MB'', and consecutive ports are 32 bytes apart so nothing coalesces.
 
@@ -408,10 +424,12 @@ Tsunami, Polaris and Irongate likewise. The kernel expresses the capability per 
 
 Linus Torvalds, on the Alpha list in 1996, making the point that has been kernel policy ever since:
 
-> You MUST NOT access IO memory any other way than read/write[bwl]().
-> or memcpy_fromio/toio(). EVER.
-> [...]
-> On other architectures you'll only see a _window_ into the IO space, so that the IO access functions have to set up the window correctly, and the same processor virtual address can actually be _different_ IO ports depending on where the window happens to be. Or look at the Jensen, for example: it has _no_ support for dense memory, and you _cannot_ make the IO memory look like a memory access.
+<blockquote>
+You MUST NOT access IO memory any other way than read/write[bwl]().
+or memcpy_fromio/toio(). EVER.
+[...]
+On other architectures you'll only see a _window_ into the IO space, so that the IO access functions have to set up the window correctly, and the same processor virtual address can actually be _different_ IO ports depending on where the window happens to be. Or look at the Jensen, for example: it has _no_ support for dense memory, and you _cannot_ make the IO memory look like a memory access.
+</blockquote>
 
 That "window" is the HAE (host address extension) register, which supplies the high address bits that do not fit in the sparse encoding. Every sparse access has to set it, and the kernel caches its value in ''alpha_mv.hae_cache'' to avoid rewriting it needlessly.
 
@@ -419,13 +437,17 @@ That "window" is the HAE (host address extension) register, which supplies the h
 
 A historical trap worth recording. Jay Estabrook, March 1998:
 
-> Now, the PC164 *does* have an EV56, but by default (SRM and ARC consoles) the BWX (Byte-Word Extension) is *not* enabled, I believe. So when you attempt to run code that includes BWX instructions, you *will* get an illegal instruction fault. Control of this option is in one of those CPU registers that can only be accessed via PALcode, so I guess one could modify the MILO PALcode init to enable this, if one wanted.
->
-> [...] And even though CIA-2 purportedly allowed byte-word access to I/O space (ie in addition to the normal SPARSE and analogous to DENSE), it never worked. PYXIS was the first core logic to implement this and have it work.
+<blockquote>
+Now, the PC164 *does* have an EV56, but by default (SRM and ARC consoles) the BWX (Byte-Word Extension) is *not* enabled, I believe. So when you attempt to run code that includes BWX instructions, you *will* get an illegal instruction fault. Control of this option is in one of those CPU registers that can only be accessed via PALcode, so I guess one could modify the MILO PALcode init to enable this, if one wanted.
+
+[...] And even though CIA-2 purportedly allowed byte-word access to I/O space (ie in addition to the normal SPARSE and analogous to DENSE), it never worked. PYXIS was the first core logic to implement this and have it work.
+</blockquote>
 
 Richard Henderson confirmed the workaround later that year:
 
-> You need a different MILO. There is a bit on the CPU that determines if BWX support is enabled, and for some reason that bit was off in early versions of the EBSDK PALcode.
+<blockquote>
+You need a different MILO. There is a bit on the CPU that determines if BWX support is enabled, and for some reason that bit was off in early versions of the EBSDK PALcode.
+</blockquote>
 
 ==== Jensen ====
 

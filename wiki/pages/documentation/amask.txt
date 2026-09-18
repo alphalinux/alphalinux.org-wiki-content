@@ -6,9 +6,11 @@ The Architecture Mask instruction is used to determine the presence of [[instruc
 
 ''AMASK'' **clears** the bits of its operand that correspond to extensions the processor //implements//, and copies through unchanged the bits for reserved and absent extensions. From the Architecture Reference Manual:
 
-> Rbv represents a mask of the requested architectural extensions. Bits are cleared that correspond to architectural extensions that are present. Reserved bits and bits that correspond to absent extensions are copied unchanged. In either case, the result is placed in Rc. If the result is zero, all requested features are present.
->
-> Software may specify an Rbv of all 1's to determine the complete set of architectural extensions implemented by a processor.
+<blockquote>
+Rbv represents a mask of the requested architectural extensions. Bits are cleared that correspond to architectural extensions that are present. Reserved bits and bits that correspond to absent extensions are copied unchanged. In either case, the result is placed in Rc. If the result is zero, all requested features are present.
+
+Software may specify an Rbv of all 1's to determine the complete set of architectural extensions implemented by a processor.
+</blockquote>
 
 The polarity is the opposite of what most people expect: a bit that remains **set** means the extension is **absent**.
 

@@ -51,19 +51,25 @@ Note what is //not// changed: i386 and m68k keep ''libc=6'' in the very same hun
 
 The ChangeLog sentence about ''sigset_t'' is terse and has been widely over-read. Richard Henderson gave the fuller reason on the Alpha list five days later, answering a user whose binaries had stopped working:
 
-> > Numerous existing utilities are (apparently) hard-coded into requiring libc.so.6, while the new glibc is libc.so.6.1.
->
-> Indeed.  Programs remember what version of the library that they were compiled against.  As of the 970104 snapshot, several of the basic types like sigset_t and dev_t changed size, and sanity required that the library version be changed.
+<blockquote>
+> Numerous existing utilities are (apparently) hard-coded into requiring libc.so.6, while the new glibc is libc.so.6.1.
+
+Indeed.  Programs remember what version of the library that they were compiled against.  As of the 970104 snapshot, several of the basic types like sigset_t and dev_t changed size, and sanity required that the library version be changed.
+</blockquote>
 
 In a later message he gave the sizes:
 
-> Several fundamental types were changed to accomodate expected needs in the near future: dev_t is now 64-bits wide, and sigset_t is now 1024 bits wide.
->
-> I'm actually surprised to hear that it works.
+<blockquote>
+Several fundamental types were changed to accomodate expected needs in the near future: dev_t is now 64-bits wide, and sigset_t is now 1024 bits wide.
+
+I'm actually surprised to hear that it works.
+</blockquote>
 
 So the cause was **a set of basic-type size changes**, of which the ''clone()'' rework is the most visible symptom, not the root. Philip Blundell summarized the practical position in the same thread:
 
-> lib.so.6.1 is not just a minor release of libc.so.6.  The soname is different because incompatible changes have happened.  Your binaries will not work if you try to use libc.so.6.1 as libc.so.6, or vice versa.
+<blockquote>
+lib.so.6.1 is not just a minor release of libc.so.6.  The soname is different because incompatible changes have happened.  Your binaries will not work if you try to use libc.so.6.1 as libc.so.6, or vice versa.
+</blockquote>
 
 === What the clone() change was ===
 
@@ -157,13 +163,17 @@ ld=ld-linux.so.2
 
 The transition was painful, because the whole system had to be rebuilt against a library that existing binaries could not load. Henderson's advice at the time was to do it in a chroot containing statically linked ''bash'', ''make'', ''gcc'' and ''binutils''. Ulrich Drepper, in the same thread:
 
-> For Alpha probably all number must be increased. It must not be a problem and since most people running Linux/Alpha today will probably have a RedHat based system the update will hopefully remove all references to the old libc and other libs so that these can be removed soon.
+<blockquote>
+For Alpha probably all number must be increased. It must not be a problem and since most people running Linux/Alpha today will probably have a RedHat based system the update will hopefully remove all references to the old libc and other libs so that these can be removed soon.
+</blockquote>
 
 A year later, users were still hitting it as the Red Hat 4.x to 5.0 upgrade. Henderson, February 1998:
 
-> The libc shipped with RH 4.x was not an official release of glibc, and is not binary compatible with the 2.0 release of glibc. Those are the breaks for using snapshots.
->
-> In order to catch problems that this incompatibility would cause, the sonames of the libraries were changed from e.g. 6.0 to 6.1.
+<blockquote>
+The libc shipped with RH 4.x was not an official release of glibc, and is not binary compatible with the 2.0 release of glibc. Those are the breaks for using snapshots.
+
+In order to catch problems that this incompatibility would cause, the sonames of the libraries were changed from e.g. 6.0 to 6.1.
+</blockquote>
 
 Thirty years on, the ''.1'' is still there. Nothing about current Alpha glibc requires it; it is a fossil of a 1997 snapshot ABI, kept because changing it back would break every Alpha binary ever built.
 

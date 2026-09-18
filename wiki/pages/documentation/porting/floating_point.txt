@@ -42,7 +42,9 @@ Values do not sit in registers the way they sit in memory.
 
 A consequence worth stating explicitly, because it differs from x86:
 
-> Single-precision values are stored in the floating-point registers in canonical form, as subsets of double-precision values, with 3 exponent bits set to a fixed value and the low-order fraction bits restricted to be all zero. Single-precision operations applied to canonical single-precision values give single-precision results. Single-precision operations applied to non-canonical operands give UNPREDICTABLE results.
+<blockquote>
+Single-precision values are stored in the floating-point registers in canonical form, as subsets of double-precision values, with 3 exponent bits set to a fixed value and the low-order fraction bits restricted to be all zero. Single-precision operations applied to canonical single-precision values give single-precision results. Single-precision operations applied to non-canonical operands give UNPREDICTABLE results.
+</blockquote>
 
 Alpha has no equivalent of x87's 80-bit intermediate precision. ''float'' arithmetic on Alpha is genuinely single precision, and ''FLT_EVAL_METHOD'' is 0. Code that accidentally depends on x87 excess precision will change behavior on Alpha, usually for the better.
 
@@ -62,7 +64,9 @@ This is the same assignment used by ''FPCR<DYN>'', with 11 reinterpreted as "dyn
 
 Directed rounding is an //optional// architectural feature:
 
-> An implementation that includes IEEE floating-point may subset the ability to perform rounding to plus infinity and minus infinity. If not implemented, instructions requesting these rounding modes take Illegal Instruction Trap.
+<blockquote>
+An implementation that includes IEEE floating-point may subset the ability to perform rounding to plus infinity and minus infinity. If not implemented, instructions requesting these rounding modes take Illegal Instruction Trap.
+</blockquote>
 
 The 21064 (EV4) does not implement it. Its hardware reference manual says the Fbox supports "all rounding modes except round to +/- infinity, which can be provided in software". The 21164 (EV5) does: "The 21164 supports IEEE S_floating and T_floating data types, and all rounding modes."
 
@@ -92,17 +96,23 @@ There is **no ''/I'' qualifier**. Inexact is only ever enabled as part of ''/SUI
 
 Nothing, at execution time. This is the most commonly misunderstood point on the whole page.
 
-> The /S modifier does not affect instruction operation or trap behavior; it is an informational bit passed to a software trap handler. It allows a trap handler to test easily whether an instruction is intended to be completed.
+<blockquote>
+The /S modifier does not affect instruction operation or trap behavior; it is an informational bit passed to a software trap handler. It allows a trap handler to test easily whether an instruction is intended to be completed.
+</blockquote>
 
 The hardware does not become more precise because you asked for ''/SU''. The bit is carried into the exception summary so that a trap handler can tell "this instruction was compiled to be completable" without decoding the instruction stream. **All of the real work falls on the compiler**, which must obey a set of trap-shadow rules and must mark every instruction to be completed:
 
-> Each floating-point instruction to be completed must be so marked, by specifying the /S software completion modifier. The /S modifier must not be used on any floating-point instruction that is not in a trap shadow that meets these conditions.
+<blockquote>
+Each floating-point instruction to be completed must be so marked, by specifying the /S software completion modifier. The /S modifier must not be used on any floating-point instruction that is not in a trap shadow that meets these conditions.
+</blockquote>
 
 === Trap shadows, TRAPB and EXCB ===
 
 Because traps are imprecise, the trap arrives with the PC pointing at some instruction after the one that faulted. The region in which a trap may still surface is the //trap shadow//:
 
-> The extent of the trap shadow is bounded only by an EXCB or TRAPB instruction (or the implicit TRAPB within a CALL_PAL instruction).
+<blockquote>
+The extent of the trap shadow is bounded only by an EXCB or TRAPB instruction (or the implicit TRAPB within a CALL_PAL instruction).
+</blockquote>
 
 ''TRAPB'' forces all previous arithmetic traps to be taken before any following instruction issues. ''EXCB'' is a superset of it. Bounding the shadow is what lets the trap handler find the trigger instruction by scanning backwards, and the Architecture Reference Manual's guidance is "in effect, one TRAPB instruction per basic block can be used".
 
@@ -217,15 +227,19 @@ and **every software-completion trap becomes ''SIGFPE''**. The option lives in '
 
 This became a user-visible option in February 1998, in the course of fixing FP correctness bugs found by ''paranoia''. Richard Henderson's patch, on the Alpha list:
 
-> Attached is a patch that cures the problems as reported by paranoia.
->
-> Note that to fix the sqrt tests, I removed the optimized sqrt routine from libc/sysdeps/alpha/w_sqrt.S, falling back on the libm-ieee764 version, and rebuilt libm.so. At some point someone might want to fix up the alpha-optimized sqrt to cope with denormals, but ...
+<blockquote>
+Attached is a patch that cures the problems as reported by paranoia.
+
+Note that to fix the sqrt tests, I removed the optimized sqrt routine from libc/sysdeps/alpha/w_sqrt.S, falling back on the libm-ieee764 version, and rebuilt libm.so. At some point someone might want to fix up the alpha-optimized sqrt to cope with denormals, but ...
+</blockquote>
 
 The emulator has had real bugs. In September 2000, a user reported that ''x *= 0.5'' and ''x /= 2.0'' gave different results for denormals. Henderson:
 
-> Yes indeed you've found a bug in the kernel's FP emulation. I'll see about fixing it.
->
-> Rather than fix the old udiv128 function, which was trying to do 128/128 bit division, I've pulled in a subroutine from libgcc that does 128/64 bit division, which is all we need here.
+<blockquote>
+Yes indeed you've found a bug in the kernel's FP emulation. I'll see about fixing it.
+
+Rather than fix the old udiv128 function, which was trying to do 128/128 bit division, I've pulled in a subroutine from libgcc that does 128/64 bit division, which is all we need here.
+</blockquote>
 
 === Illegal instructions ===
 
@@ -249,9 +263,11 @@ Two practical facts:
 
 Historically, Linux/Alpha's default behavior differed visibly from Linux/x86 because the trap-enable bits were inherited from Digital UNIX:
 
-> Linux follows DEC in calling those functions ieee_get_fp_control() and ieee_set_fp_control() respectively.
->
-> And to answer the question that came up elsewhere: those bits are on by default on Linux/Alpha because they are on by default on DU.
+<blockquote>
+Linux follows DEC in calling those functions ieee_get_fp_control() and ieee_set_fp_control() respectively.
+
+And to answer the question that came up elsewhere: those bits are on by default on Linux/Alpha because they are on by default on DU.
+</blockquote>
 
 ==== Compiler Flags ====
 
@@ -265,23 +281,29 @@ Historically, Linux/Alpha's default behavior differed visibly from Linux/x86 bec
 
 **''-mieee'' is not the default on Alpha Linux**, and the reason is worth reading in the original. Richard Henderson, 1997, answering exactly the question this page's readers will ask:
 
-> > Why isn't -mieee the default?
->
-> (A) It isn't for Digital Unix either, so in theory people building packages for Alpha know to expect it.
->
-> (B) It is a noticable performance hit; the pipeline stalls while instructions are determining whether they will fault for software completion.
->
-> (C) Not very many programs actually care about non-finite arithmetic. Sure, so you give them a NaN, but they can't deal with that any better than if you just went ahead and faulted.
->
->     There are exceptions, but that is why -mieee is there as opposed to be missing entirely.
+<blockquote>
+> Why isn't -mieee the default?
+
+(A) It isn't for Digital Unix either, so in theory people building packages for Alpha know to expect it.
+
+(B) It is a noticable performance hit; the pipeline stalls while instructions are determining whether they will fault for software completion.
+
+(C) Not very many programs actually care about non-finite arithmetic. Sure, so you give them a NaN, but they can't deal with that any better than if you just went ahead and faulted.
+
+    There are exceptions, but that is why -mieee is there as opposed to be missing entirely.
+</blockquote>
 
 and, on what it actually switches on:
 
-> Not directly. You must compile with -mieee to get them which turns on software completion. Incidentally, libm must be built with -mieee as well in this case.
+<blockquote>
+Not directly. You must compile with -mieee to get them which turns on software completion. Incidentally, libm must be built with -mieee as well in this case.
+</blockquote>
 
 David Mosberger-Tang added the observation that makes ''-mieee'' useful even when you do not care about NaNs:
 
-> It's not recommended when you care about performance but it's extremely useful for debugging (since with -mieee you'll see the SIGFPE where it happens and not a dozen or so instructions later).
+<blockquote>
+It's not recommended when you care about performance but it's extremely useful for debugging (since with -mieee you'll see the SIGFPE where it happens and not a dozen or so instructions later).
+</blockquote>
 
 That is the practical summary: ''-mieee'' does not only change results, it makes traps precise enough to debug.
 
@@ -289,7 +311,9 @@ That is the practical summary: ''-mieee'' does not only change results, it makes
 
 ''CMPTxx'' writes a floating 2.0 for true and a true zero for false, rather than setting condition codes.
 
-> The two operands in Fa and Fb are compared. If the relationship specified by the qualifier is true, a non-zero floating value (2.0) is written to register Fc; otherwise, a true zero is written to Fc... The unordered relation is true if one or both operands are NaN. (This behavior must be provided by a software trap handler, since NaNs trap.) Comparisons ignore the sign of zero, so +0 = -0.
+<blockquote>
+The two operands in Fa and Fb are compared. If the relationship specified by the qualifier is true, a non-zero floating value (2.0) is written to register Fc; otherwise, a true zero is written to Fc... The unordered relation is true if one or both operands are NaN. (This behavior must be provided by a software trap handler, since NaNs trap.) Comparisons ignore the sign of zero, so +0 = -0.
+</blockquote>
 
 Note the parenthetical: **unordered comparison on Alpha requires the trap handler**. A ''CMPTUN'' against a NaN traps, and the software-completion path supplies the answer.
 

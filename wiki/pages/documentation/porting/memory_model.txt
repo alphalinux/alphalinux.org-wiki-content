@@ -78,11 +78,15 @@ There is **no read barrier instruction**. ''grep'' the binutils opcode table and
 
 The Architecture Reference Manual is careful about what ''MB'' does and does not buy you:
 
-> Note that MB ensures serialization only; it does not necessarily accelerate the progress of memory operations.
+<blockquote>
+Note that MB ensures serialization only; it does not necessarily accelerate the progress of memory operations.
+</blockquote>
 
 and about what happens without ''WMB'':
 
-> In the absence of a WMB instruction, stores to memory or non-memory-like regions can be aggregated and/or buffered and completed in any order.
+<blockquote>
+In the absence of a WMB instruction, stores to memory or non-memory-like regions can be aggregated and/or buffered and completed in any order.
+</blockquote>
 
 ==== The Dependent Load Problem in Practice ====
 
@@ -185,7 +189,9 @@ static __inline__ void arch_atomic_##op(int i, atomic_t * v)		\
 
 The retry path lives in ''.subsection 2'' so that both in-line conditional branches are forward branches, and are therefore predicted not taken. The Architecture Reference Manual makes the same point:
 
-> Both conditional branches are forward branches, so they are properly predicted not to be taken (to match the common case of no contention for the lock).
+<blockquote>
+Both conditional branches are forward branches, so they are properly predicted not to be taken (to match the common case of no contention for the lock).
+</blockquote>
 
 Note that this macro generates the //unordered// form. A fully ordered read-modify-write needs a barrier on **both** sides; Linux puts them outside the assembly.
 
@@ -242,7 +248,9 @@ Because the barriers are outside, a //failing// ''cmpxchg()'' is still fully ord
 
 On the mismatch path the reservation is simply abandoned. That is architecturally fine and not a leak:
 
-> LDx_L and STx_C instructions need not be paired. In particular, an LDx_L may be followed by a conditional branch: on the fall-through path an STx_C is done, whereas on the taken path no matching STx_C is done.
+<blockquote>
+LDx_L and STx_C instructions need not be paired. In particular, an LDx_L may be followed by a conditional branch: on the fall-through path an STx_C is done, whereas on the taken path no matching STx_C is done.
+</blockquote>
 
 ==== Locks ====
 
@@ -250,7 +258,9 @@ Alpha has no load-acquire or store-release instruction. Acquire and release sema
 
 The important and non-obvious rule is that you must **not** spin on ''LDx_L''. The Architecture Reference Manual:
 
-> It would be a performance mistake to spin-wait by repeating the full LDQ_L..STQ_C sequence (to move the BLBS after the BEQ) because that sequence may repeatedly change the software lock_variable from "locked" to "locked," with each write causing extra access delays in all other caches that contain the lock_variable. In the extreme, spin-waits that contain writes may deadlock.
+<blockquote>
+It would be a performance mistake to spin-wait by repeating the full LDQ_L..STQ_C sequence (to move the BLBS after the BEQ) because that sequence may repeatedly change the software lock_variable from "locked" to "locked," with each write causing extra access delays in all other caches that contain the lock_variable. In the extreme, spin-waits that contain writes may deadlock.
+</blockquote>
 
 Linux gets this right. Note that the contended spin loop at label ''2'' uses a plain ''ldl'', not ''ldl_l'':
 
@@ -294,8 +304,10 @@ On barrier placement, the Architecture Reference Manual prescribes:
       <clear software lock>
 </code>
 
-> The first memory barrier prevents any reads (from within the critical section) from being prefetched before the software lock is acquired; such prefetched reads would potentially contain stale data.
-> The second memory barrier prevents any writes (and reads if MB is used instead of WMB) from within the critical section from being delayed past the clearing of the software lock.
+<blockquote>
+The first memory barrier prevents any reads (from within the critical section) from being prefetched before the software lock is acquired; such prefetched reads would potentially contain stale data.
+The second memory barrier prevents any writes (and reads if MB is used instead of WMB) from within the critical section from being delayed past the clearing of the software lock.
+</blockquote>
 
 The acquire-side barrier must be ''MB''. The release-side barrier may be ''WMB'' if the critical section's //loads// need not be contained, which is only safe if you are relying on causal ordering. Linux does not take that risk and uses a full ''mb()''.
 
@@ -322,8 +334,10 @@ extern inline void writel(u32 b, volatile void __iomem *addr)
 
 Note the asymmetry: ''writel()'' has a leading barrier and no trailing one. That is deliberate, because a trailing ''MB'' would not achieve what people usually want it to. A barrier does not make a write to a device register //complete//:
 
-> If an Alpha AXP processor writes a location that is a control register within an I/O device, then executes a memory barrier, then writes a location in memory (in a memory-like or non-memory-like region), the I/O device may be able to detect (via read access) the result of the memory write before receiving and responding to the write of its own control register.
-> In almost every case, a mechanism that ensures the completion of writes to control register locations within I/O devices is provided. The normal and strongly recommended mechanism is to read a location after writing it, which guarantees that the write is complete.
+<blockquote>
+If an Alpha AXP processor writes a location that is a control register within an I/O device, then executes a memory barrier, then writes a location in memory (in a memory-like or non-memory-like region), the I/O device may be able to detect (via read access) the result of the memory write before receiving and responding to the write of its own control register.
+In almost every case, a mechanism that ensures the completion of writes to control register locations within I/O devices is provided. The normal and strongly recommended mechanism is to read a location after writing it, which guarantees that the write is complete.
+</blockquote>
 
 So: to force a device write to land, **read it back**. The kernel does exactly this when setting the HAE register:
 
@@ -337,7 +351,9 @@ So: to force a device write to land, **read it back**. The kernel does exactly t
 
 For a single processor accessing the //same// address, no barrier is needed at all. From the Architecture Reference Manual:
 
-> A read to physical address x will always return the value written by the immediately preceding write to x in the processor issue sequence.
+<blockquote>
+A read to physical address x will always return the value written by the immediately preceding write to x in the processor issue sequence.
+</blockquote>
 
 The exposure is ordering between //different// registers, and ordering as the device sees it across a bus bridge.
 
@@ -368,7 +384,9 @@ When the ASN space is exhausted, Linux bumps an ASN version and issues ''tbiap()
 
 On a multiprocessor, invalidating one processor's TB is not enough:
 
-> An operating system must arrange to perform the above actions on each processor that could possibly have copies of the PTE or data for any affected page.
+<blockquote>
+An operating system must arrange to perform the above actions on each processor that could possibly have copies of the PTE or data for any affected page.
+</blockquote>
 
 Linux does this with a cross-processor shootdown. For the instruction stream the required operation is ''CALL_PAL IMB'', not ''MB''.
 
