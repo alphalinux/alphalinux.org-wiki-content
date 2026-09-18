@@ -1,0 +1,8 @@
+===== AlphaServer GS60, GS60E, and GS140 =====
+
+
+EV6 versions of the TurboLaser, with "2-6 (GS60) or 2-14 (GS140) Alpha 21264 CPU processors". [(>{{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60_gs140_product_profile.pdf?linkonly|AlphaServer GS60 and GS140 Series with Alpha 21264 Processor}}, Product Profile, Compaq, June 1999)] The AlphaServer 8200 could be upgraded to a GS60 and the 8400 to a GS140. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_dec_7000_upgrades_catalog.pdf?linkonly|Compaq AlphaServer 8200/8400 and VAX/DEC 7000 Upgrades}}, Systems and Options Catalog, June 1999, p. 2.211)]
+
+  * Linux does not run on them. An 8400 upgraded to a GS140 loaded a kernel from aboot, but "It's HALT:ing right after it's trying to start the kernel." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L12103|"Re: AlphaServer GS140 (8400)"]], Pasi Pirhonen, debian-alpha, 24 Sep 2003)] Alpha Core 3 on a GS60 "drew a bunch of gibberish on the screen and locked up". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-February.mbox#L341|"GS60 available for porting"]], Adrian Looker, axp-list, 18 Feb 2008)]
+
+{{tag>hardware system 21264 compaq}}

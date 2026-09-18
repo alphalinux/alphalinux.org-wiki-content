@@ -1,0 +1,19 @@
+===== AlphaServer 2000 and 2100 (Sable) =====
+
+
+The AlphaServer 2100 supports up to four CPUs and the 2000 up to two; "DEMI-SABLE (AS2000) is half a SABLE (AS2100); ie only 2 CPU boards possible." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-September.mbox#L2324|"Powerup Problem on AS2000"]], Jay Estabrook, axp-list, 26 Sep 2005)] Both use the T2 core logic with PCI and EISA, and were sold as 4/200, 4/275, 5/250, and 5/300 models, the last "running at 291 MHz". [(>{{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_technical_summary.pdf?linkonly|AlphaServer 2000, AlphaServer 2100, and AlphaServer 2100A Technical Summary}}, Digital, 1996, p. 3)] "2100 (SABLE) and 2000 (Demi-SABLE) are called GAMMA when equipped with EV5 CPUs." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L678|"Re: Help with aboot / kernel startup"]], Jay Estabrook, axp-list, 1 May 2000)] Linux 6.10 kept only the Gamma machines. [(>[[https://git.kernel.org/torvalds/c/d2b1e353dacc|"alpha: sable: remove early machine support"]], Linux 6.10)]
+
+  * The Sable is "bootable from SRM console only, and there is no MILO for it (and prolly never will be)." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-March.mbox#L22902|"RE: Alpha Server 2000:Up and Running:THANKS!!"]], Jay Estabrook, axp-list, 20 Mar 1997)]
+  * SMP on "a 4-processor SABLE (aka AS2100 4/200)" ran kernel builds "continuously over a weekend with nary a hiccough" in 1998. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L29385|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 12 Jul 1998)] Later distributions were less reliable: in 2008, the "AS2100 (SABLE) runs nicely with the UP kernel, but crashes attempting to do SMP". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L560|"Fedora 8-based distro /UP2000+"]], Jay Estabrook, axp-list, 15 Apr 2008)]
+  * For Red Hat 7.2 on a Sable with more than 1 GB of memory, "you should add the "mem=1G" argument". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L12345|"Re: RedHat 7.2 Linux for Alpha"]], Jay Estabrook, axp-list, 11 Jun 2002)]
+  * Richard Henderson: "The only SMP machine left (that we support) using an HAE is the T2 (Sable)... if you've got one, I'd suggest you not use X." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L52247|"axp update for 2.3.15"]], Richard Henderson, axp-list, 30 Aug 1999)]
+
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **AlphaServer 2000 maximum CPUs**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-September.mbox#L2324|"Powerup Problem on AS2000"]], Jay Estabrook, axp-list, 26 Sep 2005: "only 2 CPU boards possible"
+    * {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual}}, Version 6, p. D-6, lists three and four CPU Demi-Sable model codes.
+
+{{tag>hardware system 21064 21164 digital}}

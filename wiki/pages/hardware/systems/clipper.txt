@@ -1,0 +1,18 @@
+===== AlphaServer ES40 (Clipper) =====
+
+
+The ES40 supports four CPUs. "Model 1 supports six 64-bit PCI I/O expansion slots and four memory options", and "Model 2 supports ten 64-bit PCI I/O expansion slots and eight memory options". [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_tru64_openvms_catalog.pdf?linkonly|AlphaServer ES40 Tru64 UNIX and OpenVMS}}, Systems and Options Catalog, June 1999, p. 1)] Its firmware also covers the ES40cv, ES40lp, TS40, and TS20. [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 1)]
+
+  * "THere is no MILO for ES40 - you MUST use SRM console." Red Hat 7.0 "will NOT install with more than 2GB of memory, unless you add "memsize=2G" to the boot command flags." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L10001|"Re: HELP Linux on ES40"]], Jay Estabrook, axp-list, 10 Jul 2001)]
+  * "ES40's are very sensitive to how memory is inserted. It is easy to get a bad connection." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-July.mbox#L11473|"Re: 630/670 machine checks on SMP's"]], Phillip Ezolt, axp-list, 28 Jul 2000)] Stacked and monolithic DIMMs are "NOT interchangeable. This means that each memory array requires the same DIMM type." [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 29)]
+  * QEMU emulates an ES40 (see [[software:emulators|Emulators]]).
+
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **ES40 maximum memory**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-September.mbox#L23936|"Re: In sdearch of an 8GB machine (fwd)"]], Peter Rival, axp-list, 11 Sep 2000: "an ES40 maxes out with 32GB. I believe when they first came out it was 16GB"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L53899|"Memory max on Compaq AlphaServer running Linux"]], Lew Randerson, axp-list, 27 Nov 2000: "2GB is the max on Compaq's Linux-Ready AlphaServer ES40"
+
+{{tag>hardware system 21264 compaq}}

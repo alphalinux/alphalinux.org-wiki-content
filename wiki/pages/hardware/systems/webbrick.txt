@@ -1,0 +1,18 @@
+===== AlphaServer DS10, DS10L, and AlphaStation XP900 (Webbrick, Slate) =====
+
+
+The DS10 has "One 466 MHz Alpha 21264 processor with 2 MB of L2 cache", "Up to 2 GB of ECC 100 MHz SDRAM DIMM memory", "4 PCI slots (3 64-bit PCI, 1 32-bit PCI)", and "Dual 10/100 Ethernet embedded". [(>{{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_brochure.pdf?linkonly|Compaq AlphaServer DS10}}, Compaq, June 1999, p. 6)] It has a single PCI bus. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_dp264.c?h=v6.10|arch/alpha/kernel/sys_dp264.c]], Linux 6.10)] The XP900 is "just a rebadged DS10 aimed at the OpenVMS workstation market". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L981|"Re: Debian on XP900?"]], David Huggins-Daines, debian-alpha, 12 Oct 2000)] The DS10 and DS10L are similar: "CPU speed-wise, and memory expansion-wise, they should be identical", but the DS10 has "room for 4 HDDs (vs 1 on the 10L), 4 64-bit PCI slots (vs 1 on the 10L)." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-November.mbox#L3445|"Re: Seeking opinion on DS10 veersus DS10L"]], Jay Estabrook, axp-list, 19 Nov 2003)]
+
+  * "DS10 boots and runs LINUX just fine with IDE HD and CDROM." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L19640|"Re: DS10 EIDE Disk"]], Jay Estabrook, axp-list, 15 Jul 1999)] Its IDE controller is "part of ALI 1543C chip used in DS10 for multi-IO". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L52462|"Re: DS10's"]], Ivan Kokshaysky, axp-list, 31 Aug 1999)]
+  * Jay Estabrook on the DS10L: "I'd NEVER want a 10L in an office, let alone two..." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-November.mbox#L3445|"Re: Seeking opinion on DS10 veersus DS10L"]], Jay Estabrook, axp-list, 19 Nov 2003)] "the DS10L is limited in its heat-handling capabilities." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-July.mbox#L11968|"Re: DS10L overcloking"]], Jay Estabrook, debian-alpha, 27 Jul 2005)]
+  * The DS10 was one of the machines LinuxBIOS was ported to, at Los Alamos. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/milo-list-mbox/2001-April.mbox#L385|"[Milo-list] [Fwd: linuxbios on Compaq DS10 at LANL]"]], Jeff Garzik, milo-list, 30 Apr 2001)]
+
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **XP900 maximum memory**
+    * {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_catalog.pdf?linkonly|AlphaStation XP900}}, Systems and Options Catalog, September 1999, p. 2: "up to 1 GB maximum"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L981|"Re: Debian on XP900?"]], David Huggins-Daines, debian-alpha, 12 Oct 2000, calls it "just a rebadged DS10", and {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_brochure.pdf?linkonly|Compaq AlphaServer DS10}}, June 1999, p. 6, gives the DS10 "Up to 2 GB of ECC 100 MHz SDRAM DIMM memory".
+
+{{tag>hardware system 21264 compaq}}

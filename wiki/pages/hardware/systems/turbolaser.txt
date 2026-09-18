@@ -1,0 +1,25 @@
+===== AlphaServer 8200 and 8400 (TurboLaser) =====
+
+
+The 8200 and 8400 "use the same system bus, the TLSB". "The AlphaServer 8200 can have up to three processor modules for a total of six CPUs. The AlphaServer 8400 can have up to seven processor modules for a total of 14 CPUs." I/O buses connect through "hoses", and "In an 8200, only PCI buses are supported, regardless of operating system." [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_operations_manual.pdf?linkonly|AlphaServer 8200/8400 Operations Manual}}, March 1998, pp. 1-2, 1-7)] The EV6 AlphaServer GS60 and GS140 use the same bus (see [[hardware:systems:gs140|GS60 and GS140]]).
+
+  * Linux never supported them. In 1997, "It doesn't currently run on the 8000 series, AFAIK. I believe NetBSD *does*, however, but only single CPU." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L11094|"Re: AlphaServer 8400"]], Jay Estabrook, axp-list, 10 Jun 1997)] In 2003, "Correct; no Linux support for 8200/8400-class machines. Trade it in for a Wildfire or Marvel... ;-}" [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L17415|"Re: AlphaServer GS140 (8400)"]], Jay Estabrook, debian-alpha, 23 Sep 2003)]
+  * Matthew Jacob, of NASA Ames: "I started getting somewhere with a Linux port a while back but dropped it. Instead we ported NetBSD to it". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L27651|"Re: AS 8400 (was: Re: Prices for AlphaLinux systems with 4-8GB RAM"]], Matthew Jacob, axp-list, 10 Mar 1999)]
+
+===== 21264 Systems =====
+
+The Tsunami systems share one kernel platform: "Various 21264 systems with the tsunami core logic chipset. API Networks: 264DP, UP2000(+), CS20; Compaq: DS10(E,L), XP900, XP1000, DS20(E), ES40." [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)] Hewlett-Packard's Red Hat Linux 7.2 "has been tested on specific AlphaServers, namely the DS10/DS10L, DS20E, DS20L, ES40, and ES45." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/axp-kernel-2002-June.mbox#L1364|"Red Hat 7.2 Alpha from HP (CPQ) released!"]], David Addison, axp-kernel, 14 Jun 2002)]
+
+  * "The latest consoles for the DS10/DS20/ES40/XP1000 all now have a separate device for IDE, rather than SCSI emulation as previous boxes." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-June.mbox#L8097|"Re: booting from IDE drive on DS10's"]], Jay Estabrook, axp-list, 7 Jun 1999)]
+  * Early kernels only supported VGA on PCI bus 0, while "SRM and Tru64 know how to talk VGA to bus 1." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L30857|"Re: XP1000-667MHz no boot"]], Jay Estabrook, axp-list, 23 Jul 2001)] Current kernels have ''CONFIG_VGA_HOSE'' for "several platforms which always have multiple hoses". [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10)]
+
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **AlphaServer 8400 maximum CPUs**
+    * {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_operations_manual.pdf?linkonly|AlphaServer 8200/8400 Operations Manual}}, March 1998, p. 1-7: "up to seven processor modules for a total of 14 CPUs"
+    * {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, 1996, p. 2: "Up to 6 CPU modules, for a maximum of 12 CPUs"
+    * {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_windows_nt_systems_catalog.pdf?linkonly|AlphaServer 8200 and 8400 Windows NT Systems}}, June 1999, p. 2.4: "maximum of four CPU modules (total of 8 CPUs)"
+
+{{tag>hardware system 21164 digital}}

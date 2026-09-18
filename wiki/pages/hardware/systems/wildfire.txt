@@ -1,0 +1,19 @@
+===== AlphaServer GS80, GS160, and GS320 (Wildfire) =====
+
+
+Wildfire systems are built from "quads": the "Largest config has 8 "quads" (4 CPUs and up to 8 PCI buses per quad)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L18535|"Re: Linux Driver"]], Jay Estabrook, axp-list, 8 Nov 2000)] They can be split into hard partitions, each with its own System Control Manager. [(>{{wiki:software:firmware:alphaserver_gs320_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.3 Firmware Release Notes}}, April 2007, pp. 2-3, 2-8)]
+
+  * The kernel support is copyright 2000 Andrea Arcangeli of SuSE. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_wildfire.c?h=v6.10|arch/alpha/kernel/sys_wildfire.c]], Linux 6.10)] Linux 2.4 moved the kernel start address to make room for its SRM console (see [[software:firmware:srm#system_support|SRM]]).
+  * A GS160 booted Linux 2.4.0-test4 in 2000, reporting "SMP: Total of 16 processors activated". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-September.mbox#L24136|"RE: ANNOUNCE Hardware Compatibility Database"]], Huw Davies, axp-list, 12 Sep 2000)]
+  * Peter Rival in 2003: "RH 7.2 will install cleanly (as will RH 7.0 and SuSE 7.2 (I think))", and it was "as stable as any other Alpha system I had available to me (ES40, ES45, Miata)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L9448|"Re: linux on gs80?"]], Peter Rival, axp-list, 21 Jan 2003)]
+  * In 2006, on a 32-CPU GS320, CentOS 4.3's SMP kernel "invariably stops after Freeing unused kernel memory", while kernel.org 2.6.17.8 was "close to working though - except for a lost irq4". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2006-August.mbox#L1|"CentOS on wildfire"]], Robin Humble, axp-list, 13 Aug 2006)] A typo "that undoubtedly prevents WILDFIRE support from working" was fixed in Linux 2.6.22. [(>[[https://git.kernel.org/torvalds/c/d7083174a2ca|"ALPHA: misc fixes"]], Linux 2.6.22)] No later success has been reported.
+
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **Wildfire model names**
+    * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10: "AlphaServer GS 40/80/160/320"
+    * No HP document found mentions a GS40.
+
+{{tag>hardware system 21264 compaq}}

@@ -1,0 +1,11 @@
+===== AlphaServer 1000 (Mikasa) =====
+
+
+A single CPU server with "Up to three PCI slots" and "Up to eight EISA slots", [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide}}, p. 1-10)] with a CPU daughtercard and the APECS chipset. [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}}, p. 5-19)] The 5/xxx models, with EV5 CPUs and CIA core logic, are Mikasa-Primo.
+
+  * "MIKASA, whether EV4 or EV5, should really be booted only from SRM console." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L37128|"Re: AlphaServer 1000 5/xxx isntall"]], Jay Estabrook, axp-list, 29 Jul 1999)] "The MILO for MIKASA is no longer supported by DEC; you're on your own." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L897|"Re: Alphaserver 1000 4/233 install probs"]], Jay Estabrook, axp-list, 1 Nov 1998)]
+  * The AlphaServer 1000 and 1000A "have quite different interrupt delivery mechanisms", so their kernels are not interchangeable. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L36383|"Re: Kernel for AlphaServer 1000 (Success!... and a question)"]], Jay Estabrook, axp-list, 29 Nov 1997)]
+  * 2.4 generic kernels gave "false ECC errors" on a 4/233, while a Mikasa-only kernel worked. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-March.mbox#L3898|"Re: Linux 2.4 on AS1000 4/233 (Mikasa)?"]], Joel Kociolek, debian-alpha, 11 Mar 2003)]
+  * X crashes on the 4/xxx models resemble those on "AVANTI-class machines (ie EV4/APECS) with Trio64 cards". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L20949|"Re: Crash when starting X-windows (RedHat 7.1 on Alphaserver 1000)"]], Jay Estabrook, axp-list, 18 Jul 2001)]
+
+{{tag>hardware system 21064 21164 digital}}

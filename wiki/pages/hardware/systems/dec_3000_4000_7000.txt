@@ -1,0 +1,18 @@
+===== DEC 3000, DEC 4000, and DEC 7000 =====
+
+
+These systems have no PCI bus, and Linux never supported them. "The DEC 3000 series was the first Alpha-based workstation ever produced. Its system bus was TurboChannel". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-October.mbox#L63171|"Re: DEC 3000"]], Jim Paradis, axp-list, 6 Oct 1998)] The DEC 3000 Models 300 are Pelican, the 400, 600, and 700 Sandpiper, and the 500, 800, and 900 Flamingo; the Models 700 and 900 have EV45 CPUs. The DEC 4000 (Cobra and Fang) is a Futurebus+ server with up to two CPUs, and the DEC 7000 and 10000 (Ruby) have up to six. [(>{{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual}}, Version 6, 1994, pp. D-2, D-5, D-6)]
+
+  * "Support for TC devices should work for DEC 3000 out of the box as drivers are platform-independent. Glue code is for the core chipset is missing". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-July.mbox#L6100|"Re: Flogging a dead computer - DEC 3000/300"]], Maciej W. Rozycki, axp-list, 21 Jul 2000)] Attempts at a port in 1999 and plans in 2009 did not result in support. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L22983|"tbia() on DEC 3000 question"]], Craig P Prescott, axp-list, 16 Aug 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-September.mbox#L528|"[RFC] Dropping Alpha sparse mapping support from X"]], Maciej W. Rozycki, axp-list, 4 Sep 2009)]
+  * "NetBSD has been ported to the TurboChannel machines." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L45909|"Re: Install Linux AXP"]], Jim Paradis, axp-list, 25 Nov 1996)]
+  * The DEC 7000 could be upgraded in its cabinet to an AlphaServer 8400 by changing the centerplane, since the 8400 "uses the same DEC/VAX 7000 cabinet, 3-phase power and cooling systems, and I/O options". [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, Digital, 1996, p. 4)]
+
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **DEC 3000 codename**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-February.mbox#L1437|"XL-266 install"]], Jay Estabrook, axp-list, 25 Feb 2004, refers to the "3000, aka Flamingo".
+    * {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual}}, Version 6, p. D-2, gives Flamingo only for the Models 500, 800, and 900.
+
+{{tag>hardware system 21064 digital}}

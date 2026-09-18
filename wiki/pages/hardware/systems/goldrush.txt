@@ -1,0 +1,18 @@
+===== AlphaServer DS20 and DS20E (Goldrush) =====
+
+
+The DS20 has up to two CPUs, "up to 4 GB of memory", [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_windows_nt_catalog.pdf?linkonly|AlphaServer DS20 Windows NT}}, Systems and Options Catalog, June 1999, p. 2.45)] "Five 64-bit PCI slots and one 64-bit PCI/ISA combination slot", and "16 DIMM memory slots". [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_windows_nt_catalog.pdf?linkonly|AlphaServer DS20 Windows NT}}, Systems and Options Catalog, June 1999, p. 2.46)] "DS20 == DP264 == GOLDRUSH (1 or 2 CPUs on daughtercards, 2 PCI buses)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L24945|"FAQ info (was Re: Linux on Compaq XP1000)"]], Jay Estabrook, axp-list, 9 Mar 1999)] See also [[hardware:motherboards:pc264dp|AlphaPC 264DP]].
+
+  * "The original DP264/DS20 motherboards were designed with the Adaptec 7895 (?) dual-channel SCSI controller built into the motherboard. We discovered some problems with using it that has forced us to disable it." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-May.mbox#L41852|"Re: DS20 Q"]], Jay Estabrook, axp-list, 18 May 1999)]
+  * "There were two backplanes for the DS20E, one 4 x ULTRA-2, the other one 6 x ULTRA-3". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-July.mbox#L7150|"Re: Hardware question: AS1200, SRM, LSI 53c1010"]], Jay Estabrook, debian-alpha, 12 Jul 2003)] The DS20E and DS25 "have integrated Adaptec SCSI controllers", so their installation avoids the ''qla1280'' firmware problem of the Debian installer. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2019-July.mbox#L1737|"Re: systemd woes continue"]], Frank Scheiner, debian-alpha, 17 Jul 2019)]
+  * "the ES40 CPU daughtercards will NOT fit into a DS20." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-October.mbox#L12881|"Re: DP264 Processor Modules"]], Jay Estabrook, axp-list, 21 Oct 2002)]
+
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **DS20E maximum CPU speed**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-February.mbox#L31456|"RE: UP2000"]], KirkE@paccessglobal.com, axp-list, 28 Feb 2001: "neither the DS20E nor DP264 support CPUs faster than the 667MHz EV67"
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-March.mbox#L6004|"Re: No more Debian/Alpha?"]], Steve Langasek, debian-alpha, 19 Mar 2005: "The current live buildd is a DS20E EV68 833MHz with 4GB RAM"
+
+{{tag>hardware system 21264 compaq}}
