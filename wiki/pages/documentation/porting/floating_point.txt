@@ -282,7 +282,9 @@ And to answer the question that came up elsewhere: those bits are on by default 
 **''-mieee'' is not the default on Alpha Linux**, and the reason is worth reading in the original. Richard Henderson, 1997, answering exactly the question this page's readers will ask:
 
 <blockquote>
-> Why isn't -mieee the default?
+<blockquote>
+Why isn't -mieee the default?
+</blockquote>
 
 (A) It isn't for Digital Unix either, so in theory people building packages for Alpha know to expect it.
 

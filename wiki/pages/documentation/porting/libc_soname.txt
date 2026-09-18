@@ -52,7 +52,9 @@ Note what is //not// changed: i386 and m68k keep ''libc=6'' in the very same hun
 The ChangeLog sentence about ''sigset_t'' is terse and has been widely over-read. Richard Henderson gave the fuller reason on the Alpha list five days later, answering a user whose binaries had stopped working:
 
 <blockquote>
-> Numerous existing utilities are (apparently) hard-coded into requiring libc.so.6, while the new glibc is libc.so.6.1.
+<blockquote>
+Numerous existing utilities are (apparently) hard-coded into requiring libc.so.6, while the new glibc is libc.so.6.1.
+</blockquote>
 
 Indeed.  Programs remember what version of the library that they were compiled against.  As of the 970104 snapshot, several of the basic types like sigset_t and dev_t changed size, and sanity required that the library version be changed.
 </blockquote>
