@@ -421,8 +421,6 @@ Richard Henderson confirmed the workaround later that year: "You need a differen
 
 The [[hardware:systems|Jensen]], sold as the DEC 2000 AXP Model 300 and the DECpc AXP 150 (which differed only in bundled software), was an early EV4-based EISA machine that predates every later Alpha I/O convention. Linux support for it was removed in 6.10.
 
-It was never an HP product.
-
 === Windows ===
 
 <code c>
