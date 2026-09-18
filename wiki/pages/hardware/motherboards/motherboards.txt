@@ -21,6 +21,8 @@
 | [[hardware:motherboards:UP2000]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 667, 750 MHz | ECC SDRAM | 2048 MiB | 21272 | 2 - 8 MiB | 2 | 4 | 0 | 1 |
 | [[hardware:motherboards:UP2000#up2000plus|UP2000+]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]], [[wp>Alpha_21264#Alpha_21264B|21264B/EV68]] | 667, 750, 833 MHz | ECC SDRAM | 2048 MiB | 21272 | 2 - 8 MiB | 4 | 2 | 0 | 1 |
 
+Digital's VMEbus single-board computers are on the [[hardware:motherboards:alpha_vme|AXPvme and Alpha VME]] page.
+
 See also [[hardware:chipsets|Chipsets]].
 
 ==== Documentation ====

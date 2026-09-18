@@ -348,7 +348,6 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6}}, with system type numbers and codenames in Appendix D | | 1994 |
 | {{wiki:hardware:systems:dec_7000:dec_7000_10000_kn7aa_cpu_technical_manual.pdf?linkonly|DEC 7000/10000 AXP KN7AA CPU Technical Manual}} | EK-KN7AA-TM.001 | July 1993 |
 | {{wiki:hardware:systems:dec_7000:dec_7000_10000_diagnostics_student_workbook.pdf?linkonly|DEC 7000/10000 Diagnostics and Module Level Repair Student Workbook}} | EY-Q755E-SG-0001 | |
-| {{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}} | EK-DAVME-TD.B01 | September 1996 |
 | {{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide}} | EK-AS300-UG.A01 | November 1996 |
 | {{wiki:hardware:systems:alphaserver_300:alphaserver_300_release_notes.pdf?linkonly|AlphaServer 300 Release Notes}} | EK-AS300-RN.A01 | December 1996 |
 | {{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}} | EK-ASV80-SG.A01 | April 1997 |

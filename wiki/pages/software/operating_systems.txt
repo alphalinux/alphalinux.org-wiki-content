@@ -35,7 +35,7 @@ Early versions were called DEC OSF/1, [(>{{wiki:hardware:systems:alphaserver_100
   * DEC 2000, DEC 3000, DEC 4000, and DEC 7000
   * AlphaServer 300, 400, 800, 1000, 1000A, 1200, 2000, 2100, 2100A, 4000, 4100, 8200, 8400, DS20, ES40, GS60, and GS140
   * AlphaStation 200, 250, 255, 400, 500, 600, and 600A, the Personal Workstation au series, and the Professional Workstation XP1000
-  * the AXPpci 33, AXPvme and Alpha VME boards, and the single board computers EB66+, EB164, AlphaPC 64, AlphaPC 164, AlphaPC 164LX, and AlphaPC 164SX
+  * the [[hardware:motherboards:axppci33|AXPpci 33]], [[hardware:motherboards:alpha_vme|AXPvme and Alpha VME]] boards, and the single board computers EB66+, EB164, AlphaPC 64, AlphaPC 164, AlphaPC 164LX, and AlphaPC 164SX
 
 The list omits some systems that V4.0F did support, such as the AlphaServer DS10, [(>{{wiki:software:firmware:alphaserver_ds10_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer DS10 V7.3 Console Firmware Release Notes}})] so the absence of a system from it does not show that the system was unsupported.
 
