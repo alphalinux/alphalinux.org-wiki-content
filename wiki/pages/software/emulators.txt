@@ -64,13 +64,13 @@ EmuVM's commercial AlphaVM emulates Tsunami/Typhoon systems, and AlphaVM-Pro 2.0
 
 ==== ISP ====
 
-ISP was Digital's own Alpha AXP CPU software simulator, and the oldest Alpha emulator described on this page. Jim Paradis, describing the toolchain he used to bootstrap the first Linux/AXP port in 1994: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-October.mbox#L31130|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 9 Sep 1994, quoted on comp.sys.dec, 10 Oct 1994)]
+ISP was Digital's own Alpha AXP CPU software simulator, and the oldest Alpha emulator described on this page. Jim Paradis, describing the toolchain he used to bootstrap the first Linux/AXP port in 1994: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)]
 
 <blockquote>
 ISP is an Alpha AXP CPU software simulator that runs on Ultrix, DEC OSF/1, Linux, OpenVMS, and Windows NT AXP. Only the DEC OSF/1 and Linux versions support remote debugging via gdb.
 </blockquote>
 
-Paradis patched ''gdb'' to allow source-level debugging of the Linux kernel running under ISP, and planned to ship the simulator's sources in the Linux/AXP developer's kit alongside the kernel and cross-tools. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-October.mbox#L31130|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 9 Sep 1994, quoted on comp.sys.dec, 10 Oct 1994)] See [[software:operating_systems#the_first_port|Operating Systems]].
+Paradis patched ''gdb'' to allow source-level debugging of the Linux kernel running under ISP, and planned to ship the simulator's sources in the Linux/AXP developer's kit alongside the kernel and cross-tools. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)] See [[software:operating_systems#the_first_port|Operating Systems]].
 
 ==== Incomplete Emulators ====
 
