@@ -132,7 +132,7 @@ On implementations without BWX, these six instructions are **supported by softwa
 | 21264 and variants (EV6, EV67, EV68) | yes |
 | 21364 (EV7) | yes |
 
-PCA56 is easy to forget and is often omitted from lists of BWX parts.
+PCA56 is easy to forget and is often omitted from lists of BWX parts. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-March.mbox#L20844|"Re: which new alpha chips are which"]], Eric Smith, axp-list, 19 Mar 1997)]
 
 === Getting BWX out of the compiler ===
 
@@ -203,13 +203,13 @@ On a pre-BWX Alpha, storing a byte means loading the containing quadword, modify
 
 C and C++ both require that distinct scalar objects can be updated concurrently without interfering. Pre-BWX Alpha cannot honor that for ''char'' and ''short'' without ''-msafe-bwa''. Neither can the Linux kernel's expectations.
 
-Michael Cree, then maintaining Debian's Alpha port, in December 2022:
+Michael Cree, then maintaining Debian's Alpha port, in December 2022: [(>[[https://lists.debian.org/msgid-search/Y5gtYxqv78cTCdau@creeky|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, debian-alpha, 13 Dec 2022)]
 
 <blockquote>
 Yes. The first extension added is the byte-word extension which came in with EV56. That provides CPU instructions for byte and word (16-bit) memory accesses. That is the most important one: possibly a third of the bugs in the repository extend from non-atomic byte and word accesses. The kernel developers have expressed a view that they would like to assume on all arches that byte and word memory accesses are atomic and the only architecture that is holding them back from that assumption are old Alphas without BWX. There is an old open bug on gcc related to the non-atomic memory accesses of old Alphas and that one is basically cannot fix.
 </blockquote>
 
-A third of the bugs in the port. He had made the same argument eight years earlier, in 2014:
+A third of the bugs in the port. He had made the same argument eight years earlier, in 2014: [(>[[https://lists.debian.org/msgid-search/20140905084622.GC5281@omega|"RFC: compile with BWX thus only support EV56 and later CPUs"]], Michael Cree, debian-alpha, 5 Sep 2014)]
 
 <blockquote>
 There is a discussion on the Linux kernel mailing list that the kernel in future will only support architectures that can guarantee atomic aligned scalar accesses down to the byte level (at the moment the requirement is only for int (32bit) and long (64bit)). The only architecture that does not meet this new requirement is older Alphas that do not have the byte-word extension (BWX) CPU instructions, that is, EV4, EV45 and EV5. Thus the writing is on the wall that there will be no more Linux kernels for these older Alphas.
@@ -219,7 +219,7 @@ Furthermore, I estimate that a majority of the bugs I have fixed in the Debian A
 
 === How it ended ===
 
-Debian-Ports raised its Alpha baseline to EV56 in 2023. Linux followed for 6.10. Arnd Bergmann's pull request, quoted on debian-alpha in May 2024:
+Debian-Ports raised its Alpha baseline to EV56 in 2023. Linux followed for 6.10. Arnd Bergmann's pull request, quoted on debian-alpha in May 2024: [(>[[https://lists.debian.org/msgid-search/b4adb884e4c1014ecce7d1857adb7feb48ba837f.camel@physik.fu-berlin.de|"Re: [GIT PULL] alpha: cleanups and build fixes for 6.10"]], John Paul Adrian Glaubitz quoting Arnd Bergmann, debian-alpha, 12 May 2024)]
 
 <blockquote>
 I had investigated dropping support for alpha EV5 and earlier a while ago after noticing that this is the only supported CPU family in the kernel without native byte access and that Debian has already dropped support for this generation last year [1] in order to improve performance for the newer machines.
@@ -422,7 +422,7 @@ Tsunami, Polaris and Irongate likewise. The kernel expresses the capability per 
 
 === Never touch I/O memory as memory ===
 
-Linus Torvalds, on the Alpha list in 1996, making the point that has been kernel policy ever since:
+Linus Torvalds, on the Alpha list in 1996, making the point that has been kernel policy ever since: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L2088|"Re: MMIO for new NCR810 driver?"]], Linus Torvalds, axp-list, 13 Jul 1996)]
 
 <blockquote>
 You MUST NOT access IO memory any other way than read/write[bwl]().
@@ -435,7 +435,7 @@ That "window" is the HAE (host address extension) register, which supplies the h
 
 === BWX had to be switched on ===
 
-A historical trap worth recording. Jay Estabrook, March 1998:
+A historical trap worth recording. Jay Estabrook, March 1998: [(>"RE: Re: ev56 optimization -> illegal instruction", Jay Estabrook, axp-list, 14 Mar 1998)]
 
 <blockquote>
 Now, the PC164 *does* have an EV56, but by default (SRM and ARC consoles) the BWX (Byte-Word Extension) is *not* enabled, I believe. So when you attempt to run code that includes BWX instructions, you *will* get an illegal instruction fault. Control of this option is in one of those CPU registers that can only be accessed via PALcode, so I guess one could modify the MILO PALcode init to enable this, if one wanted.
@@ -443,7 +443,7 @@ Now, the PC164 *does* have an EV56, but by default (SRM and ARC consoles) the BW
 [...] And even though CIA-2 purportedly allowed byte-word access to I/O space (ie in addition to the normal SPARSE and analogous to DENSE), it never worked. PYXIS was the first core logic to implement this and have it work.
 </blockquote>
 
-Richard Henderson confirmed the workaround later that year:
+Richard Henderson confirmed the workaround later that year: [(>"Re: egcs and PC164 (ev56 ?)", Richard Henderson, axp-list, 18 Dec 1998)]
 
 <blockquote>
 You need a different MILO. There is a bit on the CPU that determines if BWX support is enabled, and for some reason that bit was off in early versions of the EBSDK PALcode.
@@ -561,13 +561,6 @@ __EXTERN_INLINE void jensen_set_hae(unsigned long addr)
   * Arnd Bergmann, ''a4184174be36'' ("alpha: drop pre-EV56 support"), Linux 6.10.
   * [[documentation:amask|Architecture Mask (amask)]] on this wiki.
 
-=== Mailing list sources ===
-
-  * Michael Cree, "Re: glibc regression on alpha with 2.34+", debian-alpha, 13 December 2022, [[https://lists.debian.org/msgid-search/Y5gtYxqv78cTCdau@creeky|Y5gtYxqv78cTCdau@creeky]].
-  * Michael Cree, "RFC: compile with BWX thus only support EV56 and later CPUs", debian-alpha, 5 September 2014, [[https://lists.debian.org/msgid-search/20140905084622.GC5281@omega|20140905084622.GC5281@omega]].
-  * John Paul Adrian Glaubitz, quoting Arnd Bergmann, "Re: [GIT PULL] alpha: cleanups and build fixes for 6.10", debian-alpha, 12 May 2024, [[https://lists.debian.org/msgid-search/b4adb884e4c1014ecce7d1857adb7feb48ba837f.camel@physik.fu-berlin.de|b4adb884e4c1014ecce7d1857adb7feb48ba837f.camel@physik.fu-berlin.de]].
-  * Linus Torvalds, "Re: MMIO for new NCR810 driver?", axp-list, 13 July 1996.
-  * Jay Estabrook, "RE: Re: ev56 optimization -> illegal instruction", axp-list, 14 March 1998; Richard Henderson, "Re: egcs and PC164 (ev56 ?)", axp-list, 18 December 1998.
-  * Eric Smith, "Re: which new alpha chips are which", axp-list, 19 March 1997.
+See [[:community#mailing_lists|Mailing Lists]] for archive locations.
 
 {{tag>documentation porting}}

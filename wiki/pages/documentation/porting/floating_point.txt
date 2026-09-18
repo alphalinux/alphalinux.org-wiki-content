@@ -225,7 +225,7 @@ long (*alpha_fp_emul)(...) = (void *)dummy_emul;
 
 and **every software-completion trap becomes ''SIGFPE''**. The option lives in ''arch/alpha/Kconfig.debug'', not ''arch/alpha/Kconfig'', is enabled in the shipped ''defconfig'', and can be built as a module.
 
-This became a user-visible option in February 1998, in the course of fixing FP correctness bugs found by ''paranoia''. Richard Henderson's patch, on the Alpha list:
+This became a user-visible option in February 1998, in the course of fixing FP correctness bugs found by ''paranoia''. Richard Henderson's patch, on the Alpha list: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-February.mbox#L4204|"Re: [2.1.82] SERIOUS FLAWS in IEEE math handling on ALPHA."]], Richard Henderson, axp-list, 12 Feb 1998)]
 
 <blockquote>
 Attached is a patch that cures the problems as reported by paranoia.
@@ -233,7 +233,7 @@ Attached is a patch that cures the problems as reported by paranoia.
 Note that to fix the sqrt tests, I removed the optimized sqrt routine from libc/sysdeps/alpha/w_sqrt.S, falling back on the libm-ieee764 version, and rebuilt libm.so. At some point someone might want to fix up the alpha-optimized sqrt to cope with denormals, but ...
 </blockquote>
 
-The emulator has had real bugs. In September 2000, a user reported that ''x *= 0.5'' and ''x /= 2.0'' gave different results for denormals. Henderson:
+The emulator has had real bugs. In September 2000, a user reported that ''x *= 0.5'' and ''x /= 2.0'' gave different results for denormals. Henderson: [(>"Re: Alpha/Linux FP denormal processing", Richard Henderson, axp-list, 19 Sep 2000)]
 
 <blockquote>
 Yes indeed you've found a bug in the kernel's FP emulation. I'll see about fixing it.
@@ -259,9 +259,9 @@ declared in ''sysdeps/alpha/fpu/bits/fenv.h'' and exported from ''sysdeps/alpha/
 Two practical facts:
 
   * **glibc builds itself with ''-mieee''.** ''sysdeps/alpha/Makefile'' sets ''sysdep-CFLAGS += -mieee -mfp-rounding-mode=d'', and uses ''-mieee-with-inexact'' for a handful of files (''s_fma.c'', ''s_fmaf.c'', the ''lrint'' and ''llrint'' family).
-  * Because IEEE behavior is a property of //how each object was compiled//, mixing ''-mieee'' and non-''-mieee'' objects gives you a program that is IEEE-conformant in some functions and not others. Henderson once proposed shipping a separate ''libm_ieee'' to address this; it never happened.
+  * Because IEEE behavior is a property of //how each object was compiled//, mixing ''-mieee'' and non-''-mieee'' objects gives you a program that is IEEE-conformant in some functions and not others. Henderson once proposed shipping a separate ''libm_ieee'' to address this; it never happened. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-May.mbox#L12795|"Re: log(-1) raises SIGFPE"]], Richard Henderson, axp-list, 9 May 1997)]
 
-Historically, Linux/Alpha's default behavior differed visibly from Linux/x86 because the trap-enable bits were inherited from Digital UNIX:
+Historically, Linux/Alpha's default behavior differed visibly from Linux/x86 because the trap-enable bits were inherited from Digital UNIX: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L33734|"Re: SIGFPE -- the answer"]], Richard Henderson, axp-list, 17 Apr 1997)]
 
 <blockquote>
 Linux follows DEC in calling those functions ieee_get_fp_control() and ieee_set_fp_control() respectively.
@@ -279,7 +279,7 @@ And to answer the question that came up elsewhere: those bits are on by default 
 | ''-mtrap-precision='' | ''p'' (default, program), ''f'' (function), ''i'' (instruction). Digital's equivalents are ''-scope_safe'' and ''-resumption_safe''. |
 | ''-mieee-conformant'' | marks the code IEEE conformant. Requires ''-mtrap-precision=i'' and ''-mfp-trap-mode=su'' or ''sui''. Its only effect is to emit ''.eflag 48'' in the prologue. |
 
-**''-mieee'' is not the default on Alpha Linux**, and the reason is worth reading in the original. Richard Henderson, 1997, answering exactly the question this page's readers will ask:
+**''-mieee'' is not the default on Alpha Linux**, and the reason is worth reading in the original. Richard Henderson, 1997, answering exactly the question this page's readers will ask: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-May.mbox#L18387|"Re: log(-1) raises SIGFPE"]], Richard Henderson, axp-list, 14 May 1997)]
 
 <blockquote>
 <blockquote>
@@ -295,13 +295,13 @@ Why isn't -mieee the default?
     There are exceptions, but that is why -mieee is there as opposed to be missing entirely.
 </blockquote>
 
-and, on what it actually switches on:
+and, on what it actually switches on: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-May.mbox#L12795|"Re: log(-1) raises SIGFPE"]], Richard Henderson, axp-list, 9 May 1997)]
 
 <blockquote>
 Not directly. You must compile with -mieee to get them which turns on software completion. Incidentally, libm must be built with -mieee as well in this case.
 </blockquote>
 
-David Mosberger-Tang added the observation that makes ''-mieee'' useful even when you do not care about NaNs:
+David Mosberger-Tang added the observation that makes ''-mieee'' useful even when you do not care about NaNs: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L14170|"gcc -mieee flag (was: Request for Jim)"]], David Mosberger-Tang, axp-list, 7 Apr 1997)]
 
 <blockquote>
 It's not recommended when you care about performance but it's extremely useful for debugging (since with -mieee you'll see the SIGFPE where it happens and not a dozen or so instructions later).
@@ -376,15 +376,11 @@ Again: there is **no** conversion instruction between the VAX and IEEE families,
   * GCC: ''gcc/config/alpha/alpha.opt'' and the DEC Alpha Options node of ''gcc/doc/invoke.texi''.
   * glibc: ''sysdeps/alpha/fpu/'' and ''sysdeps/unix/sysv/linux/alpha/''.
 
-=== Mailing list sources ===
+=== Further mailing list reading ===
 
-All on ''axp-list''. See [[community#mailing_lists|Mailing Lists]] for archive locations.
+All on ''axp-list''. See [[:community#mailing_lists|Mailing Lists]] for archive locations.
 
-  * Richard Henderson, "Re: log(-1) raises SIGFPE", 9 and 14 May 1997. Why ''-mieee'' is not the default, and what it turns on.
-  * Richard Henderson, "Re: SIGFPE -- the answer", 17 April 1997, and "Re: Ieee on linux/alpha", 9 December 1997. ''ieee_set_fp_control()''.
-  * Richard Henderson, "Re: [2.1.82] SERIOUS FLAWS in IEEE math handling on ALPHA.", 12 February 1998. ''CONFIG_MATHEMU''.
-  * Richard Henderson, "Re: Alpha/Linux FP denormal processing", 19 September 2000. A real denormal bug in the kernel emulator.
-  * David Mosberger-Tang, "gcc -mieee flag", 7 April 1997.
-  * Jim Paradis, "SIGFPE", 9 April 1997, and Jerry Feldman, "Re: Ieee on linux/alpha", 10 December 1997. Trap shadows and the ''/S'' qualifier.
+  * Richard Henderson, "Re: Ieee on linux/alpha", 9 December 1997, on ''ieee_set_fp_control()''.
+  * Jim Paradis, "SIGFPE", 9 April 1997, and Jerry Feldman, "Re: Ieee on linux/alpha", 10 December 1997, on trap shadows and the ''/S'' qualifier.
 
 {{tag>documentation porting}}

@@ -33,13 +33,13 @@ The same sentence appears for ''LDT'', ''STS'' and ''STT''.
 
 No Alpha implementation fixes unaligned accesses up in hardware. The unaligned data reference is an architecturally defined trap on every part from the 21064 to the 21364.
 
-In particular, **BWX does not help**. It adds byte and word instructions; it does not make misaligned longword or quadword access work. David Mosberger-Tang, 1996:
+In particular, **BWX does not help**. It adds byte and word instructions; it does not make misaligned longword or quadword access work. David Mosberger-Tang, 1996: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L10934|"Re: UNALIGNED TRAPS!!!!!!!?"]], David Mosberger-Tang, axp-list, 11 Sep 1996)]
 
 <blockquote>
 even the newer Alpha chips don't do unaligned accesses in hw.
 </blockquote>
 
-Jay Estabrook put it the same way in 2008:
+Jay Estabrook put it the same way in 2008: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-May.mbox#L2761|"Getting rid of Unaligned Accesses (UA)"]], Jay Estabrook, axp-list, 23 May 2008)]
 
 <blockquote>
 the later CPUs have the same restriction, they just support more data types, like shorts and bytes, and their lesser requirements.
@@ -181,7 +181,7 @@ The ''split_lock_detect='' boot parameter selects the policy. The default on cap
 
 === Linus Torvalds, 1996, on exactly this ===
 
-A networking regression in 2.1.9, reported on the Alpha list:
+A networking regression in 2.1.9, reported on the Alpha list: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L29714|"Re: 2.1.9"]], Linus Torvalds, axp-list, 15 Nov 1996)]
 
 <blockquote>
 The problem is some breakage in the skb_clone() routines that wasn't noticed on x86 because the unaligned accesses were silently handled by the hardware, obviously.
@@ -191,7 +191,7 @@ The problem is some breakage in the skb_clone() routines that wasn't noticed on 
 
 The bug was in generic networking code. It was present on x86. x86 hardware hid it. Alpha did not.
 
-David Huggins-Daines made the general form of the argument on the same list in 2000:
+David Huggins-Daines made the general form of the argument on the same list in 2000: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L12059|"Re: Fixing 'unaligned trap' errors"]], David Huggins-Daines, axp-list, 21 May 2000)]
 
 <blockquote>
 Yup, there has been just such a bug in Emacs on all GNU/Linux platforms (see http://bugs.debian.org/63993) for a long time now (since at least ncurses-4.2), but it only showed up on Alpha due to the unaligned trap messages.
@@ -283,19 +283,19 @@ syscall(__NR_osf_setsysinfo, SSI_NVPAIRS, buf);
 
 Beware that the two interfaces use **different bit values**: ''UAC_NOFIX'' is 2 while ''PR_UNALIGN_SIGBUS'' is 2.
 
-This interface was deliberately cloned from Digital UNIX. Richard Henderson, who implemented it, in 1997:
+This interface was deliberately cloned from Digital UNIX. Richard Henderson, who implemented it, in 1997: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-October.mbox#L4654|"Re: Unaligned Traps - have they been turned off !!!!"]], Richard Henderson, axp-list, 6 Oct 1997)]
 
 <blockquote>
 The 2.1 kernels have this very same feature. Implemented with the same interface I might add. Look for setsysinfo(2), SSI_NVPAIRS and SSIN_UACPROC in either the DU documentation or the kernel sources.
 </blockquote>
 
-and in 1998, recommending precisely the technique above:
+and in 1998, recommending precisely the technique above: [(>"Re: tracking down unaligned accesses", Richard Henderson, axp-list, 6 Apr 1998)]
 
 <blockquote>
 The following will tell both Digital Unix and Linux (post 2.1.20 or so) to deliver a SIGBUS rather than fix up the access. This makes the problem significantly easier to debug.
 </blockquote>
 
-Note that only the per-process case was ever implemented. Henderson again, in 1999, listing the Digital UNIX constants:
+Note that only the per-process case was ever implemented. Henderson again, in 1999, listing the Digital UNIX constants: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L27175|"Re: Unaligned traps et al"]], Richard Henderson, axp-list, 18 Aug 1999)]
 
 <blockquote>
 #define SSIN_UACSYS     4       /* set system printing on/off */
@@ -317,7 +317,7 @@ That sysctl is real, but it belongs to other architectures. It originated on par
 
 ==== What an Unaligned Access Costs ====
 
-Per-instruction cycle counts for Alpha unaligned-trap fixup are difficult to source, and the figures circulating on the web do not survive checking. What can be cited is an end-to-end measurement by Jay Estabrook, posted to the Alpha list in May 2008:
+Per-instruction cycle counts for Alpha unaligned-trap fixup are difficult to source, and the figures circulating on the web do not survive checking. What can be cited is an end-to-end measurement by Jay Estabrook, posted to the Alpha list in May 2008: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-May.mbox#L2761|"Getting rid of Unaligned Accesses (UA)"]], Jay Estabrook, axp-list, 23 May 2008)]
 
 <blockquote>
 Recently, I happened to try printing a webpage from firefox; the ghostscript interpreter was used to render it for the print job. It seemed to take a really long time [...] I looked at /proc/cpuinfo before and after the render; it indicated that over 200 MILLION UAs had occurred during that single operation. When I fixed it, the render time dropped from more than 30 seconds to only a second or two.
@@ -325,7 +325,7 @@ Recently, I happened to try printing a webpage from firefox; the ghostscript int
 Was that not enough to care? :-)
 </blockquote>
 
-A better than tenfold speedup of a real workload, from fixing unaligned accesses in one library. Estabrook had made the same point in 2000, to someone asking how to turn the log messages off:
+A better than tenfold speedup of a real workload, from fixing unaligned accesses in one library. Estabrook had made the same point in 2000, to someone asking how to turn the log messages off: [(>"Re: Turning off 'unaligned trap' logging", Jay Estabrook, axp-list, 8 Nov 2000)]
 
 <blockquote>
 Sure, you can make the *messages* go away, but your program's performance is going to continue to be terrible, as the traps into the kernel to handle the unaligned access will still be happening.
@@ -367,7 +367,7 @@ Six instructions instead of one. The aligned version, ''%%return *(const uint32_
 
 And note the ordering of badness: six instructions is the **cheap** case, the one where the compiler knew the pointer might be misaligned. The expensive case is where the compiler emitted a plain ''LDL'' because you told it the pointer was a ''uint32_t *'', and the hardware trapped.
 
-Ivan Kokshaysky gave the same advice on the Alpha list in 2001, and it has only become more true since:
+Ivan Kokshaysky gave the same advice on the Alpha list in 2001, and it has only become more true since: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L36126|"Re: Unaligned accesses"]], Ivan Kokshaysky, axp-list, 26 Jul 2001)]
 
 <blockquote>
 Using memcpy() with constant size is fine as well, and is portable. Modern GCC (>= 2.95) generates quite a good inline code for this.
@@ -495,7 +495,7 @@ memcpy(&val, buf + 3, sizeof val);
 
 === Network and file format parsing ===
 
-The classic. Wire formats pack fields without padding, and a receive buffer offset by a header length is aligned only by luck. David Huggins-Daines, on the Alpha list in 2000:
+The classic. Wire formats pack fields without padding, and a receive buffer offset by a header length is aligned only by luck. David Huggins-Daines, on the Alpha list in 2000: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L10130|"Re: Fixing 'unaligned trap' errors"]], David Huggins-Daines, axp-list, 19 May 2000)]
 
 <blockquote>
 Lots of legacy binary data formats have unaligned fields, because at the time, saving a few bytes on the 16-bit machines of the time was a higher priority than planning for 32 and 64-bit RISC machines of the future.
@@ -507,7 +507,7 @@ In general whenever you cast from a pointer to a smaller type to a pointer of a 
 
 Note that he draws the same distinction this page does: the alignment problem and the aliasing problem are two separate defects in the same line of code.
 
-This is also why network drivers on Alpha copy packets. Ivan Kokshaysky, 2001:
+This is also why network drivers on Alpha copy packets. Ivan Kokshaysky, 2001: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L6642|"Re: Kernel unaligned accesses"]], Ivan Kokshaysky, axp-list, 11 Dec 2001)]
 
 <blockquote>
 Yes - it's a common problem on alpha and several other platforms with network cards capable to DMA only on a 32-bit boundary (via-rhine is one of those). Without copying the packet to another buffer IP header will be misaligned, and you'll have tons of unaligned traps in the TCP/IP layer.
@@ -585,17 +585,8 @@ These are no longer the packed-struct trick they once were. The current implemen
   * [[https://www.kernel.org/doc/html/latest/arch/x86/buslock.html|''Documentation/arch/x86/buslock.rst'']] and the ''split_lock_detect='' entry in ''Documentation/admin-guide/kernel-parameters.txt''.
   * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/traps.c|''arch/alpha/kernel/traps.c'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/osf_sys.c|''osf_sys.c'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/sysinfo.h|''uapi/asm/sysinfo.h'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/thread_info.h|''asm/thread_info.h'']].
   * Raymond Chen, [[https://devblogs.microsoft.com/oldnewthing/20170815-00/?p=96816|"The Alpha AXP, part 7: Memory access, loading unaligned data"]] and [[https://devblogs.microsoft.com/oldnewthing/20170816-00/?p=96825|"part 8: Memory access, storing bytes and words and unaligned data"]].
+  * Richard Henderson, "Re: Unaligned traps on kernel startup", axp-list, 31 August 1998, on the compiler merging two byte loads in ''msdos_partition()'' and the ''__attribute__((packed))'' fix.
 
-=== Mailing list sources ===
-
-All on ''axp-list''. See [[community#mailing_lists|Mailing Lists]] for archive locations.
-
-  * David Huggins-Daines, "Re: Fixing 'unaligned trap' errors", 19 and 21 May 2000. Natural alignment, the legacy formats that violate it, the pointer-cast and strict-aliasing distinction, and the Emacs/ncurses bug that existed on every platform but only showed up on Alpha.
-  * Linus Torvalds, "Re: 2.1.9", 15 November 1996. The ''skb_clone()'' breakage "that wasn't noticed on x86 because the unaligned accesses were silently handled by the hardware".
-  * Richard Henderson, "Re: Unaligned Traps - have they been turned off !!!!", 6 October 1997; "Re: tracking down unaligned accesses", 6 April 1998; "Re: Unaligned traps et al", 18 August 1999. The ''setsysinfo(2)''/''SSIN_UACPROC'' interface and its limits.
-  * Richard Henderson, "Re: Unaligned traps on kernel startup", 31 August 1998. The compiler merging two byte loads in ''msdos_partition()'', and the ''__attribute__((packed))'' fix.
-  * David Mosberger-Tang, "Re: UNALIGNED TRAPS!!!!!!!?", 11 September 1996. Fix them, do not silence them.
-  * Jay Estabrook, "Getting rid of Unaligned Accesses (UA)", 23 May 2008, and "Re: Turning off 'unaligned trap' logging", 8 November 2000.
-  * Ivan Kokshaysky, "Re: Kernel unaligned accesses", 11 December 2001, and "Re: Unaligned accesses", 26 July 2001.
+See [[:community#mailing_lists|Mailing Lists]] for archive locations.
 
 {{tag>documentation porting}}
