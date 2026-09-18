@@ -8,6 +8,7 @@ This page covers emulators of Alpha systems, which run Alpha operating systems o
 | [[#avanti_and_freeaxp|FreeAXP, Avanti]] | AlphaServer 400 | 64-bit Windows | Freeware; commercial | Not supported |
 | [[#charon-axp_and_personal_alpha|Charon-AXP, Personal Alpha]] | Various; AlphaServer DS10 (Personal Alpha+) | Windows | Commercial; freeware | Not supported |
 | [[#alphavm|AlphaVM]] | Tsunami/Typhoon systems | Windows, Linux | Commercial | Boots, not supported |
+| [[#isp|ISP]] | Alpha AXP CPU only | Ultrix, DEC OSF/1, Linux, OpenVMS, Windows NT/Alpha | Digital | Yes, the 1994 32-bit port |
 | [[#incomplete_emulators|SimH, GXemul]] | Personal Workstation 500au, AlphaBook 1 | Many | Open source | No |
 | [[#em86|EM86]] | Linux/x86 programs, on Linux/Alpha | Linux/Alpha | Binary x86 core | n/a |
 | [[#fx32|FX!32]] | Win32 x86 programs, on Windows NT/Alpha | Windows NT/Alpha | Commercial | n/a |
@@ -60,6 +61,16 @@ Stromasys sells Charon-AXP, a commercial Alpha emulator that runs "the original,
 ==== AlphaVM ====
 
 EmuVM's commercial AlphaVM emulates Tsunami/Typhoon systems, and AlphaVM-Pro 2.0 "also supports Gamma, Rawhide, Titan and Wildfire" with up to 32 CPUs. It runs OpenVMS and Tru64 UNIX; "Linux boots as well, but we do not support it." [(>[[https://emuvm.com/products/alphavm-pro/|"AlphaVM-Pro"]], EmuVM)] The hobbyist AlphaVM-Basic "emulates an Alpha system with one CPU and up to 1GB RAM", at a license cost of 400 EUR for the first year. [(>[[https://emuvm.com/products/alphavm-basic/|"AlphaVM-Basic"]], EmuVM)]
+
+==== ISP ====
+
+ISP was Digital's own Alpha AXP CPU software simulator, and the oldest Alpha emulator described on this page. Jim Paradis, describing the toolchain he used to bootstrap the first Linux/AXP port in 1994: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-October.mbox#L31130|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 9 Sep 1994, quoted on comp.sys.dec, 10 Oct 1994)]
+
+<blockquote>
+ISP is an Alpha AXP CPU software simulator that runs on Ultrix, DEC OSF/1, Linux, OpenVMS, and Windows NT AXP. Only the DEC OSF/1 and Linux versions support remote debugging via gdb.
+</blockquote>
+
+Paradis patched ''gdb'' to allow source-level debugging of the Linux kernel running under ISP, and planned to ship the simulator's sources in the Linux/AXP developer's kit alongside the kernel and cross-tools. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-October.mbox#L31130|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 9 Sep 1994, quoted on comp.sys.dec, 10 Oct 1994)] See [[software:operating_systems#the_first_port|Operating Systems]].
 
 ==== Incomplete Emulators ====
 
