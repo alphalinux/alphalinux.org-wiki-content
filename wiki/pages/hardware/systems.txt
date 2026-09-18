@@ -11,7 +11,7 @@ This page covers complete Alpha systems sold by Digital, Compaq, HP, and others.
 | DEC 7000, DEC 10000 | Ruby (Laser, Blazer) | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | LSB | None | No |
 | Multia | UDB | [[wp>Alpha_21064#Alpha_21066|21066]], [[wp>Alpha_21064#Alpha_21066A|21066A]] | LCA | Noname | To 6.9 |
 | [[hardware:motherboards:axppci33|AXPpci 33]] | Noname | [[wp>Alpha_21064#Alpha_21066|21066]], [[wp>Alpha_21064#Alpha_21066A|21066A]], [[wp>Alpha_21064#Alpha_21068|21068]], [[wp>Alpha_21064#Alpha_21068A|21068A]] | LCA | Noname | To 6.9 |
-| AlphaBook 1 | Burns | [[wp>Alpha_21064#Alpha_21066|21066]] | LCA | AlphaBook1 | To 6.9 |
+| [[hardware:systems:alphabook1|AlphaBook 1]] | Burns | [[wp>Alpha_21064#Alpha_21066|21066]] | LCA | AlphaBook1 | To 6.9 |
 | AlphaStation 200, 205, 250, 255, 400, AlphaServer 300, 400 | Mustang, LX3, M3, LX3+, Avanti, Melmac | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | APECS | Avanti | To 6.9 |
 | Alpha XL 233, 266 | XL | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | APECS | XL | To 6.9 |
 | AlphaServer 1000 | Mikasa, Mikasa-Primo | [[wp>Alpha_21064|21064]], [[wp>Alpha_21164|21164]] | APECS, CIA | Mikasa | Yes; EV4 versions to 6.9 |
@@ -106,7 +106,7 @@ The Multia, or UDB ("Universal Desktop Box"), is a small desktop with a 21066 or
 
 ==== AlphaBook 1 ====
 
-Tadpole's Alpha laptop. "AlphaBook1 was based on LCA45 @ 233MHz (same as top-end UDB), but typically it could run only at 116 MHz (or even 57 MHz) because of heat", and it was "*very* heavy (metal case)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L9388|"Re: Alpha laptops"]], Jay Estabrook, axp-list, 13 Apr 2000)] It has only SRM: "You boot it from SRM console (that's the only thing available, anyway :-)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-August.mbox#L12298|"Re: Alpha based notebook available????"]], Jay Estabrook, axp-list, 15 Aug 1997)] The kernel fixes its console at 800x600 and disables SCSI burst mode because "the PCMCIA chip (Cirrus 6729) is sensitive to PCI bus bursts". [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_sio.c?h=v6.9|arch/alpha/kernel/sys_sio.c]], Linux 6.9)]
+Tadpole's Alpha laptop, described in detail on the [[hardware:systems:alphabook1|AlphaBook 1]] page. "AlphaBook1 was based on LCA45 @ 233MHz (same as top-end UDB), but typically it could run only at 116 MHz (or even 57 MHz) because of heat", and it was "*very* heavy (metal case)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L9388|"Re: Alpha laptops"]], Jay Estabrook, axp-list, 13 Apr 2000)] It has only SRM: "You boot it from SRM console (that's the only thing available, anyway :-)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-August.mbox#L12298|"Re: Alpha based notebook available????"]], Jay Estabrook, axp-list, 15 Aug 1997)] The kernel fixes its console at 800x600 and disables SCSI burst mode because "the PCMCIA chip (Cirrus 6729) is sensitive to PCI bus bursts". [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_sio.c?h=v6.9|arch/alpha/kernel/sys_sio.c]], Linux 6.9)]
 
 ==== AlphaStation 200, 250, 255, 400 and AlphaServer 300, 400 (Avanti) ====
 
