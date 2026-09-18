@@ -181,7 +181,9 @@ static __inline__ void arch_atomic_##op(int i, atomic_t * v)		\
 }									\
 </code>
 
-The retry path lives in ''.subsection 2'' so that both in-line conditional branches are forward branches, and are therefore predicted not taken. The Architecture Reference Manual makes the same point: "Both conditional branches are forward branches, so they are properly predicted not to be taken (to match the common case of no contention for the lock)."
+The retry path lives in ''.subsection 2'' so that both in-line conditional branches are forward branches, and are therefore predicted not taken. The Architecture Reference Manual makes the same point:
+
+> Both conditional branches are forward branches, so they are properly predicted not to be taken (to match the common case of no contention for the lock).
 
 Note that this macro generates the //unordered// form. A fully ordered read-modify-write needs a barrier on **both** sides; Linux puts them outside the assembly.
 
@@ -236,7 +238,9 @@ with the barriers wrapped around the whole thing:
 
 Because the barriers are outside, a //failing// ''cmpxchg()'' is still fully ordered. A common mistake in hand-written CAS loops is to branch out of the loop on mismatch and skip the trailing barrier.
 
-On the mismatch path the reservation is simply abandoned. That is architecturally fine and not a leak: "LDx_L and STx_C instructions need not be paired. In particular, an LDx_L may be followed by a conditional branch: on the fall-through path an STx_C is done, whereas on the taken path no matching STx_C is done."
+On the mismatch path the reservation is simply abandoned. That is architecturally fine and not a leak:
+
+> LDx_L and STx_C instructions need not be paired. In particular, an LDx_L may be followed by a conditional branch: on the fall-through path an STx_C is done, whereas on the taken path no matching STx_C is done.
 
 ==== Locks ====
 
@@ -329,7 +333,11 @@ So: to force a device write to land, **read it back**. The kernel does exactly t
 	new_hae = *alpha_mv.hae_register;
 </code>
 
-For a single processor accessing the //same// address, no barrier is needed at all. The Architecture Reference Manual: "A read to physical address x will always return the value written by the immediately preceding write to x in the processor issue sequence." The exposure is ordering between //different// registers, and ordering as the device sees it across a bus bridge.
+For a single processor accessing the //same// address, no barrier is needed at all. From the Architecture Reference Manual:
+
+> A read to physical address x will always return the value written by the immediately preceding write to x in the processor issue sequence.
+
+The exposure is ordering between //different// registers, and ordering as the device sees it across a bus bridge.
 
 ==== Address Space Numbers and TB Invalidation ====
 
@@ -356,7 +364,11 @@ When the ASN space is exhausted, Linux bumps an ASN version and issues ''tbiap()
 #define tbia()		__tbi(-2, /* no second argument */)
 </code>
 
-On a multiprocessor, invalidating one processor's TB is not enough: "An operating system must arrange to perform the above actions on each processor that could possibly have copies of the PTE or data for any affected page." Linux does this with a cross-processor shootdown. For the instruction stream the required operation is ''CALL_PAL IMB'', not ''MB''.
+On a multiprocessor, invalidating one processor's TB is not enough:
+
+> An operating system must arrange to perform the above actions on each processor that could possibly have copies of the PTE or data for any affected page.
+
+Linux does this with a cross-processor shootdown. For the instruction stream the required operation is ''CALL_PAL IMB'', not ''MB''.
 
 ==== What GCC Actually Emits ====
 

@@ -113,7 +113,9 @@ BWX comprises exactly **six** instructions. From Appendix D of the Architecture 
 
 There is no sign-extending byte or word //load//; use ''LDBU'' plus ''SEXTB''.
 
-The Architecture Reference Manual is unambiguous about which to prefer: "LDBU and STB are the recommended way to perform byte load and store operations on Alpha implementations that support them; use them rather than the extract, insert, and mask byte instructions described in this section."
+The Architecture Reference Manual is unambiguous about which to prefer:
+
+> LDBU and STB are the recommended way to perform byte load and store operations on Alpha implementations that support them; use them rather than the extract, insert, and mask byte instructions described in this section.
 
 On implementations without BWX, these six instructions are **supported by software emulation**, so encountering one is not automatically fatal. It is, however, ruinously slow.
 
@@ -308,7 +310,9 @@ Note that an //atomic bit-field// is not a solution, and is not even legal C: a 
 
 === Contention costs retries, not deadlock ===
 
-Sustained contention can starve an individual thread, but it cannot wedge the system. The architecture requires that "if two processors attempt STx_C instructions to the same lock range and that lock range was accessed by both processors' preceding LDx_L instructions, exactly one of the stores succeeds."
+Sustained contention can starve an individual thread, but it cannot wedge the system. The architecture requires that:
+
+> If two processors attempt STx_C instructions to the same lock range and that lock range was accessed by both processors' preceding LDx_L instructions, exactly one of the stores succeeds.
 
 The real portability hazard is different, and is covered under [[documentation:porting:memory_model#forward_progress_rules|Forward progress rules]]: an ''LDx_L''/''STx_C'' body containing any other memory access, a taken branch, a subsetted instruction, or simply too many instructions may fail **every** time on some implementations.
 
@@ -349,7 +353,9 @@ __EXTERN_INLINE void cia_iowrite8(u8 b, void __iomem *xaddr)
 
 Replicating the byte to all four lanes is a **Jensen-specific** technique, not the general one.
 
-Barriers are mandatory, not advisory. From the same manual: "Programmers are required to insert memory barrier (MB) instructions between sparse space accesses to prevent collapsing in the 21164 write buffer."
+Barriers are mandatory, not advisory. From the same manual:
+
+> Programmers are required to insert memory barrier (MB) instructions between sparse space accesses to prevent collapsing in the 21164 write buffer.
 
 Sparse access is markedly slower than dense: every read is a load plus an extract, every write a load plus an insert, each needs an ''MB'', and consecutive ports are 32 bytes apart so nothing coalesces.
 
@@ -415,7 +421,9 @@ A historical trap worth recording. Jay Estabrook, March 1998:
 >
 > [...] And even though CIA-2 purportedly allowed byte-word access to I/O space (ie in addition to the normal SPARSE and analogous to DENSE), it never worked. PYXIS was the first core logic to implement this and have it work.
 
-Richard Henderson confirmed the workaround later that year: "You need a different MILO. There is a bit on the CPU that determines if BWX support is enabled, and for some reason that bit was off in early versions of the EBSDK PALcode."
+Richard Henderson confirmed the workaround later that year:
+
+> You need a different MILO. There is a bit on the CPU that determines if BWX support is enabled, and for some reason that bit was off in early versions of the EBSDK PALcode.
 
 ==== Jensen ====
 

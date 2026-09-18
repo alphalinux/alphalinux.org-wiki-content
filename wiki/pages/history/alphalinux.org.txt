@@ -46,7 +46,7 @@ By 2008 alphalinux.org had gone years without updates. In April 2008, Matt Turne
 
 Matt created a MediaWiki installation in July 2008 and announced it on **axp-list**:
 
-//"I've been working with Peter Petrakis for the last two to three months creating a wiki for AlphaLinux.org. It will provide a central location for Alpha related topics such as Alpha based computers, Alpha/Linux support, SRM versions, Alpha assembly and optimization, and Alpha software."//
+> I've been working with Peter Petrakis for the last two to three months creating a wiki for AlphaLinux.org. It will provide a central location for Alpha related topics such as Alpha based computers, Alpha/Linux support, SRM versions, Alpha assembly and optimization, and Alpha software.
 
 The announcement called on the community to contribute hardware photographs, hard-to-find SRM versions, documentation, assembly programming examples, and information about important Alpha bugs. Matt also kept a news section on the wiki, tracking developments in the Linux kernel, gcc, glibc, and X.Org as they related to Alpha. Notable events he documented included:
 
@@ -61,7 +61,7 @@ The wiki attracted a small but dedicated community, collectively running dozens 
 
 In June 2012 the server crashed and the wiki database was lost. It had not been backed up. Peter Petrakis summarized the situation in IRC:
 
-//"mysqldump: Got error: 1146: Table 'ALwiki.mw_account_credentials' doesn't exist when using LOCK TABLES ... so... every other database survived, except the one that mattered the most"//
+> mysqldump: Got error: 1146: Table 'ALwiki.mw_account_credentials' doesn't exist when using LOCK TABLES ... so... every other database survived, except the one that mattered the most
 
 ==== Transfer to Gareth Randall (2015) ====
 

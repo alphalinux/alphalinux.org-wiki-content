@@ -23,11 +23,21 @@ An access is //aligned// when the address is a multiple of the operand size.
 
 ''LDBU'', ''LDWU'', ''STB'' and ''STW'' are the Byte/Word Extension (BWX, ''amask'' bit 0), introduced with the 21164A (EV56). There is **no ''LDB'' and no ''LDW'' instruction** on any Alpha. Earlier parts have no byte or word memory instructions at all; see [[documentation:porting:byte_word_access|Byte and Word Access]].
 
-Every load and store except ''LDQ_U''/''STQ_U'' faults on an unaligned address. From the Architecture Reference Manual, on ''LDS'': "If the data is not naturally aligned, an alignment exception is generated." The same sentence appears for ''LDT'', ''STS'' and ''STT''.
+Every load and store except ''LDQ_U''/''STQ_U'' faults on an unaligned address. From the Architecture Reference Manual, on ''LDS'':
+
+> If the data is not naturally aligned, an alignment exception is generated.
+
+The same sentence appears for ''LDT'', ''STS'' and ''STT''.
 
 No Alpha implementation fixes unaligned accesses up in hardware. The unaligned data reference is an architecturally defined trap on every part from the 21064 to the 21364.
 
-In particular, **BWX does not help**. It adds byte and word instructions; it does not make misaligned longword or quadword access work. David Mosberger-Tang, 1996: "even the newer Alpha chips don't do unaligned accesses in hw." Jay Estabrook put it the same way in 2008: "the later CPUs have the same restriction, they just support more data types, like shorts and bytes, and their lesser requirements."
+In particular, **BWX does not help**. It adds byte and word instructions; it does not make misaligned longword or quadword access work. David Mosberger-Tang, 1996:
+
+> even the newer Alpha chips don't do unaligned accesses in hw.
+
+Jay Estabrook put it the same way in 2008:
+
+> the later CPUs have the same restriction, they just support more data types, like shorts and bytes, and their lesser requirements.
 
 ==== It Is Undefined Behavior in C ====
 
