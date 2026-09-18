@@ -39,5 +39,6 @@ Except where noted, the following comes from the ES47 and ES80 QuickSpecs. [(>{{
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_upgrade.pdf?linkonly|HP AlphaServer ES47 Upgrade}} | EK-ES470-UP.C01 | June 2004 |
 | {{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Server Management SRM Console Reference, Version 1.0}} | | December 2002 |
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_release_notes_v5.2.0.pdf?linkonly|HP AlphaServer Management Release Notes V5.2.0}} | | August 2006 |
+| {{wiki:hardware:systems:alphaserver_es47:us6973517_partition_formation_patent.pdf?linkonly|US Patent 6,973,517, Partition Formation Using Microprocessors in a Multiprocessor Computer System}} | | December 2005 |
 
 {{tag>hardware system 21364 hp}}
