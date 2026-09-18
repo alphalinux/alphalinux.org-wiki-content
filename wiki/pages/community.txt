@@ -1,5 +1,53 @@
 ===== Community =====
 
+==== Mailing Lists ====
+
+The Alpha/Linux kernel mailing list is **linux-alpha@vger.kernel.org**, hosted at [[https://subspace.kernel.org/vger.kernel.org.html|vger.kernel.org]] and managed by mlmmj. To subscribe, send an email to **linux-alpha+subscribe@vger.kernel.org**; the subject and body are ignored. Use **linux-alpha+subscribe-digest@vger.kernel.org** to receive a daily digest instead, and **linux-alpha+unsubscribe@vger.kernel.org** to unsubscribe. The list may also be read over NNTP at **nntp://nntp.lore.kernel.org**. Archives are located on [[https://lore.kernel.org/linux-alpha/|lore.kernel.org]], covering April 2002 onward, and [[https://marc.info/?l=linux-alpha|marc.info]], covering May 1998 onward.
+
+Both [[https://archives.gentoo.org/gentoo-alpha/|Gentoo]] and [[https://lists.debian.org/debian-alpha/|Debian]] have distribution-related Alpha mailing lists.
+
+=== Historic Lists ===
+
+Several once popular Alpha Linux mailing lists are no longer hosted anywhere. The largest was **axp-list**, run by Red Hat from 22 November 1995 until its last message in February 2022, alongside the kernel-focused **axp-kernel-list**. Separate lists ran on alphalinux.org: **axp-hardware**, **axp-software**, **milo-list** (MILO development), and **high_perf** (High Performance Alpha Linux). Mandrake ran **cooker-axp** for the Alpha port of its Cooker development branch.
+
+Mirrors of all of these, reconstructed from Pipermail and MHonArc pages, Gmane, and Wayback Machine captures, are preserved at [[https://github.com/alphalinux-org/mailing-list-archives|alphalinux-org/mailing-list-archives]] on GitHub. The same repository holds a complete mbox archive of the Debian **debian-alpha** list, which lists.debian.org serves only as per-message HTML.
+
+^ List ^ Host ^ Coverage ^ Messages ^
+| axp-list | Red Hat | November 1995 to February 2022 | 61,178 |
+| axp-kernel-list | Red Hat | April 2002 to September 2003 | 137 |
+| axp-hardware | alphalinux.org | December 1999 to September 2001 | 249 |
+| axp-software | alphalinux.org | December 1999 to September 2001 | 116 |
+| high_perf | alphalinux.org | November 1998 to November 2001 | 152 |
+| milo-list | alphalinux.org | April 1999 to November 2001 | 89 |
+| cooker-axp | Mandrake | July 2000 to November 2001 | 110 |
+| debian-alpha | Debian | November 1995 to present | 19,902 |
+
+No archive of axp-kernel-list from before April 2002 is known to survive. Headers in the surviving messages show it was a private Mailman list, and Red Hat's copy is gone.
+
+=== Other Operating Systems ===
+
+While not pertaining to Linux, Alpha hardware information may be found in the [[https://lists.freebsd.org/pipermail/freebsd-alpha/|FreeBSD Alpha]], [[https://mail-index.netbsd.org/port-alpha/|NetBSD Alpha]], [[http://marc.info/?l=openbsd-alpha|OpenBSD Alpha]] mailing lists.
+
+==== IRC ====
+
+A general Alpha discussion channel exists at **#alpha** on [[https://libera.chat/|Libera]]. Also, a Gentoo oriented channel exists at **#gentoo-alpha**, also on Libera.
+
+==== Newsgroups ====
+
+A few newsgroups exist for Alpha users, namely
+
+  * [[https://groups.google.com/group/comp.os.linux.alpha/topics|comp.os.linux.alpha]] for discussion of running Linux on Alpha
+  * [[https://groups.google.com/group/comp.sys.dec/topics|comp.sys.dec]] for discussion about DEC Computers
+  * [[https://groups.google.com/group/linux.debian.ports.alpha|linux.debian.ports.alpha]], a gateway to the debian-alpha mailing list, for discussion of running Debian on Alpha
+
+Google Groups stopped carrying new Usenet posts in February 2024, so these links serve historic content only.
+
+While not pertaining to Linux or Alpha, hardware information may be found in the [[https://groups.google.com/group/comp.sys.vms/topics|comp.sys.vms]] and [[https://groups.google.com/group/comp.unix.tru64/topics|comp.unix.tru64]] newsgroups.
+
+==== Forums ====
+
+Gentoo has a [[https://forums.gentoo.org/viewforum.php?f=32|Gentoo on Alternative Architectures forum]].
+
 ==== Distributions ====
 
 === Current ===
@@ -16,35 +64,8 @@ Many Linux distributions once supported Alpha, but do not any longer or have bee
   * AlphaCore 3
   * CentOS 4.6
   * SuSE 7.1
+  * Mandrake 7.1
 
 FreeBSD also discontinued their Alpha port after the 6.x series.
-
-==== Mailing Lists ====
-
-The Alpha/Linux Kernel mailing list is hosted at [[https://subspace.kernel.org/vger.kernel.org.html|vger.kernel.org]]. To subscribe, send an email to **majordomo@vger.kernel.org** with a blank subject line with body **subscribe linux-alpha**. Archives are located on [[https://lore.kernel.org/linux-alpha/|lore.kernel.org]] and [[https://marc.info/?l=linux-alpha|marc.info]].
-
-Both [[https://archives.gentoo.org/gentoo-alpha/|Gentoo]] and [[https://www.debian.org/ports/alpha/links#lists|Debian]] have distribution-related Alpha mailing lists.
-
-A once popular mailing list for Alpha Linux users is the [[https://web.archive.org/web/20230914041141/https://listman.redhat.com/archives/axp-list/|axp-list]] hosted by Red Hat. Its archives still hold much valuable information.
-
-While not pertaining to Linux, Alpha hardware information may be found in the [[https://lists.freebsd.org/pipermail/freebsd-alpha/|FreeBSD Alpha]], [[https://mail-index.netbsd.org/port-alpha/|NetBSD Alpha]], [[http://marc.info/?l=openbsd-alpha|OpenBSD Alpha]] mailing lists.
-
-==== IRC ====
-
-A general Alpha discussion channel exists at **#alpha** on [[https://libera.chat/|Libera]]. Also, a Gentoo oriented channel exists at **#gentoo-alpha**, also on Libera.
-
-==== Forums ====
-
-Gentoo has a [[https://forums.gentoo.org/viewforum.php?f=32|Gentoo on Alternative Architectures forum]].
-
-==== Newsgroups ====
-
-A few newsgroups exist for Alpha users, namely
-
-  * [[https://groups.google.com/group/comp.os.linux.alpha/topics|comp.os.linux.alpha]] for discussion of running Linux on Alpha
-  * [[https://groups.google.com/group/comp.sys.dec/topics|comp.sys.dec]] for discussion about DEC Computers
-  * [[https://groups.google.com/group/linux.debian.ports.alpha|linux.debian.ports.alpha]] for discussion of running Debian on Alpha
-
-While not pertaining to Linux or Alpha, hardware information may be found in the [[https://groups.google.com/group/comp.sys.vms/topics|comp.sys.vms]] and [[https://groups.google.com/group/comp.unix.tru64/topics|comp.unix.tru64]] newsgroups.
 
 {{tag>community}}
