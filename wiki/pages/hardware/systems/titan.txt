@@ -26,8 +26,34 @@
   * Six hot swap disk bays, up to 872 GB, IDE DVD-ROM/CD-R combo drive
   * Two 500 W hot pluggable power supplies, with an optional third for N+1 redundancy
 
+=== AlphaServer ES45 ===
+
+Except where noted, the following comes from the ES45 Technical Summary. [(>{{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_technical_summary.pdf?linkonly|AlphaServer ES45 Systems Technical Summary}}, August 2002, pp. 1-16)]
+
+  * One to four [[wp>Alpha_21264|21264C]] (EV68, 0.18 micron) CPUs at 1 GHz with 8 MB of L2 cache at 250 MHz DDR, or at 1.25 GHz with 16 MB at 313 MHz DDR, each with 64 KB instruction and 64 KB data caches on chip
+  * A switch-based interconnect in place of the ES40's bus, built from one C-chip, two P-chips, and eight D-chips. In the ES40 the whole chipset was on the system board; in the ES45 the C-chip and D-chips are on the system board and the P-chips moved to the PCI backplane
+  * Two 256-bit memory buses at 125 MHz, 4 GB/s each and 8 GB/s in total, 120 ns latency, ECC protected. Four memory motherboards take memory options of four identical 200-pin SDRAM DIMMs, sold as 512 MB, 1 GB, 2 GB, and 4 GB options. One option gives no interleaving, two give two-way, and four give four-way. ES40 and ES45 DIMMs are not interchangeable
+  * Each P-chip drives two 64-bit PCI buses, or one PCI and one 4X AGP bus on Model 1. An Acer Labs 1543C bridges PCI 0 to ISA for the serial, parallel, keyboard, mouse, floppy, and DVD-ROM logic
+  * Two serial ports, a dedicated 6-pin MMJ RMC modem port, a 25-pin parallel port, PS/2 keyboard and mouse, and two SCSI breakouts
+  * Up to twelve 1-inch Ultra3 SCSI disks in two six-disk cages, each cage needing its own SCSI adapter, plus a DVD-ROM, a 1.44 MB floppy drive, and two half-height 5.25-inch removable media bays
+  * One to three 1080 W (DC) power supplies. A second is required for more than two CPUs, more than one disk cage, or more than 16 DIMMs; a third provides N+1 redundancy. Three AC cords allow three separate power sources
+  * A remote management console (RMC) on a PIC17C44 microprocessor on the system board, powered from auxiliary 5 V so that it is reachable while the system is powered off
+  * Sold as a tower, a pedestal with room for two additional StorageWorks shelves, and an 8U rackmount chassis
+
+The models differ only in the PCI backplane and memory motherboards. The B suffix marks the 1 GHz variants; the 1.25 GHz variants drop it.
+
+^ Model ^ Maximum memory ^ I/O slots ^ PCI throughput ^
+| 1B / 1 | 16 GB | Two 33 MHz PCI, four 66 MHz PCI, one 4X AGP | 1.32 GB/s plus 1 GB/s AGP |
+| 2B / 2 | 32 GB | Four 33 MHz PCI, six 66 MHz PCI | 1.85 GB/s |
+| 3B / 3 | 32 GB | Eight 33 MHz PCI, two 66 MHz PCI | 1.32 GB/s |
+
+The 33 MHz slots are 5 V and the 66 MHz slots are 3.3 V. Seven of the ten slots are hot pluggable on Models 2 and 3, and four of the seven on Model 1.
+
 ==== Linux ====
 
+  * Compaq sold the ES45 Model 2 as a "Linux-Ready" system: no operating system, no factory installed software, and CarePaq support packs sold separately for Red Hat Linux and SuSE Linux. [(>{{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_linux_ready_quickspecs.pdf?linkonly|Compaq AlphaServer ES45 Linux-Ready QuickSpecs}}, March 2002, pp. 1-2, 15)] [(>{{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_owners_guide.pdf?linkonly|AlphaServer ES45 Owner's Guide}}, February 2002, p. 3-1)]
+  * Installing Linux on the ES45 needs SRM V5.6-3 or later. [(>{{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_service_guide.pdf?linkonly|AlphaServer ES45 Service Guide}}, July 2001, p. 6-34)] The Service Guide's example boot output is from Red Hat Linux 7.0 with a ''2.4.3-7privateer2smp'' kernel, and shows "Booting GENERIC on Titan variation Privateer using machine vector PRIVATEER from SRM". [(>{{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_service_guide.pdf?linkonly|AlphaServer ES45 Service Guide}}, July 2001, pp. 6-35 to 6-36)]
+  * The DS-SWLA4-PD PCI to Fibre Channel adapter was supported only on Linux, up to four adapters, in 66 MHz slots only, and only with the HSG80 controller in transparent failover mode, with no multi-path or multi-bus support. [(>{{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_quickspecs.pdf?linkonly|HP AlphaServer ES45 QuickSpecs}}, April 2005, p. 26)]
   * These systems need a kernel without ''CONFIG_ALPHA_LEGACY_START_ADDRESS'': "On the TITAN-based machines (DS15/DS25/ES45) the console (SRM) lives in that area, so the base address of the kernel needs to be AT LEAST 8MB and better 16MB." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-August.mbox#L1628|"Re: AlphaServer DS25 failure"]], Jay Estabrook, debian-alpha, 6 Aug 2004)]
   * Peter Rival on the ES45 in 2001: "Works wonderfully. :) I use it all the time - just select "Titan" for your kernel type." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-October.mbox#L15863|"Re: Linux 2.4 on ES45?"]], Peter Rival, axp-list, 18 Oct 2001)]
   * 2004 kernels crashed on the DS15 because "core_titan.c:titan_agp_info() code expects there to be two PA chips, and when there is only one (as in DS15), a machine check will occur". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-February.mbox#L3848|"Re: Dbian Linux (woody) for AXP can't boot on DS15"]], Jay Estabrook, debian-alpha, 9 Feb 2004)] The "TITAN P-Chip (aka PA-chip) supports 2 PCI buses (or 1 PCI and 1 AGP), so the builtin devices (NIC/etc) are on 1 PCI bus, and the riser PCI slots are on the other". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-October.mbox#L8940|"Re: Blimey New Alpha Workstation"]], Jay Estabrook, axp-list, 27 Oct 2003)]
@@ -51,6 +77,14 @@ The following sources disagree with each other or with this page. They are liste
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15a_quickspecs.pdf?linkonly|HP AlphaServer DS15A and HP AlphaStation DS15A QuickSpecs, Version 23}} | DA-11748 | May 2007 |
 | {{wiki:hardware:systems:alphaserver_ds25:alphaserver_ds25_quickspecs.pdf?linkonly|HP AlphaServer/AlphaStation DS25 QuickSpecs, Version 21}} | DA-11432 | May 2007 |
+| {{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_quickspecs.pdf?linkonly|HP AlphaServer ES45 QuickSpecs, Version 54}} | DA-10994 | April 2005 |
+| {{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_linux_ready_quickspecs.pdf?linkonly|Compaq AlphaServer ES45 Linux-Ready QuickSpecs, Version 4}} | DA-11042 | March 2002 |
+| {{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_technical_summary.pdf?linkonly|AlphaServer ES45 Systems Technical Summary}} | | August 2002 |
+| {{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_owners_guide.pdf?linkonly|AlphaServer ES45 Owner's Guide}} | EK-ES450-UG.B01 | February 2002 |
+| {{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_service_guide.pdf?linkonly|AlphaServer ES45 Service Guide}} | EK-ES450-SV.A01 | July 2001 |
+| {{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_rackmount_installation_guide.pdf?linkonly|AlphaServer ES45 Rackmount Installation Guide}} | EK-ES450-RG.A01 | June 2001 |
+| {{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_pedestal_tower_basic_installation.pdf?linkonly|Alpha ES45 Pedestal and Tower Basic Installation}} | EK-ES450-PD.A01 | June 2001 |
+| {{wiki:hardware:systems:alphaserver_es45:trucluster_server_es45_technical_update.pdf?linkonly|TruCluster Server Cluster Hardware Configuration Technical Update for the AlphaServer ES45}} | | May 2002 |
 | {{wiki:software:firmware:alphaserver_ds15_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer/AlphaStation DS15 and DS15A V7.3 Firmware Release Notes}} | | April 2007 |
 | {{wiki:software:firmware:alphaserver_ds25_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation DS25 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
 | {{wiki:software:firmware:alphaserver_es45_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation ES45 V7.3 Firmware Release Notes}} | | April 2007 |
