@@ -276,8 +276,10 @@ The reservation is not per-byte, and it is not per-longword. From the Architectu
 
 and, on what to do about it:
 
-> * Hardware implementations are encouraged to lock no more than 128 bytes.
-> * Software implementations are encouraged to separate locked locations by at least 128 bytes from other locations that could potentially be written by another processor while the first location is locked.
+<blockquote>
+  * Hardware implementations are encouraged to lock no more than 128 bytes.
+  * Software implementations are encouraged to separate locked locations by at least 128 bytes from other locations that could potentially be written by another processor while the first location is locked.
+</blockquote>
 
 So the granularity that matters for contention is neither a byte, a longword nor a quadword: it is an implementation-defined aligned block, in practice a cache block. Two atomic variables 64 bytes apart can still make each other's ''STQ_C'' fail.
 

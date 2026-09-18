@@ -26,9 +26,11 @@ The polarity is the opposite of what most people expect: a bit that remains **se
 
 On the earliest implementations ''AMASK'' is a no-op that copies its operand straight through, so every extension correctly reports as absent:
 
-> * On 21064/21064A/21066/21068/21066A (EV4/EV45/LCA/LCA45 chips), AMASK copies Rbv to Rc.
-> * On 21164 (EV5), AMASK copies Rbv to Rc.
-> * On 21164A (EV56), 21164PC (PCA56), and 21264 (EV6), AMASK correctly indicates support for architecture extensions by copying Rbv to Rc and clearing appropriate bits.
+<blockquote>
+  * On 21064/21064A/21066/21068/21066A (EV4/EV45/LCA/LCA45 chips), AMASK copies Rbv to Rc.
+  * On 21164 (EV5), AMASK copies Rbv to Rc.
+  * On 21164A (EV56), 21164PC (PCA56), and 21264 (EV6), AMASK correctly indicates support for architecture extensions by copying Rbv to Rc and clearing appropriate bits.
+</blockquote>
 
 ==== Example ====
 
