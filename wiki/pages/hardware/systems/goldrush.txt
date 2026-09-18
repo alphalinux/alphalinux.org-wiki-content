@@ -1,11 +1,34 @@
 ===== AlphaServer DS20 and DS20E (Goldrush) =====
 
+"DS20 == DP264 == GOLDRUSH (1 or 2 CPUs on daughtercards, 2 PCI buses)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L24945|"FAQ info (was Re: Linux on Compaq XP1000)"]], Jay Estabrook, axp-list, 9 Mar 1999)] The system is the Compaq product built from the same design as the [[hardware:motherboards:pc264dp|AlphaPC 264DP]], sold as a pedestal that also fits M-series cabinets. [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_windows_nt_catalog.pdf?linkonly|AlphaServer DS20 Windows NT}}, Systems and Options Catalog, June 1999, p. 2.45)]
 
-The DS20 has up to two CPUs, "up to 4 GB of memory", [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_windows_nt_catalog.pdf?linkonly|AlphaServer DS20 Windows NT}}, Systems and Options Catalog, June 1999, p. 2.45)] "Five 64-bit PCI slots and one 64-bit PCI/ISA combination slot", and "16 DIMM memory slots". [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_windows_nt_catalog.pdf?linkonly|AlphaServer DS20 Windows NT}}, Systems and Options Catalog, June 1999, p. 2.46)] "DS20 == DP264 == GOLDRUSH (1 or 2 CPUs on daughtercards, 2 PCI buses)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L24945|"FAQ info (was Re: Linux on Compaq XP1000)"]], Jay Estabrook, axp-list, 9 Mar 1999)] See also [[hardware:motherboards:pc264dp|AlphaPC 264DP]].
+==== Specifications ====
+
+Except where noted, the following comes from the Windows NT catalog. [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_windows_nt_catalog.pdf?linkonly|AlphaServer DS20 Windows NT}}, Systems and Options Catalog, June 1999, pp. 2.45-2.47)]
+
+  * One or two 500 MHz [[wp>Alpha_21264|21264]] CPUs with 4 MB of level 2 cache, on daughtercards
+  * 21272 (Tsunami) core logic with two PCI buses
+  * "Five 64-bit PCI slots and one 64-bit PCI/ISA combination slot", and "16 DIMM memory slots"
+  * Memory in kits of four industry-standard ECC DIMMs, up to four kits for 4 GB; kits of 128 MB, 256 MB, 512 MB, and 1 GB
+  * Onboard diskette controller, two serial ports, one parallel port, keyboard and mouse controller; SCSI and Ethernet are PCI options
+  * Ten internal storage slots: floppy, CD-ROM, one further 5.25-inch removable media bay, and seven hot swap StorageWorks disks, up to 128 GB with 18.2 GB disks
+  * Hot swap disks, redundant power supplies, ECC memory, heat, fan, and power supply sensors
+
+The console and kernel identify Tsunami family machines by a variation name; a DS20E reports Catamaran: "Booting GENERIC on Tsunami variation Catamaran using machine vector DP264 from SRM". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2000-May.mbox#L16600|"linux does not find second cpu on DS20E"]], Wayne Hall, comp.os.linux.alpha, 15 May 2000)]
+
+==== SCSI ====
 
   * "The original DP264/DS20 motherboards were designed with the Adaptec 7895 (?) dual-channel SCSI controller built into the motherboard. We discovered some problems with using it that has forced us to disable it." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-May.mbox#L41852|"Re: DS20 Q"]], Jay Estabrook, axp-list, 18 May 1999)]
   * "There were two backplanes for the DS20E, one 4 x ULTRA-2, the other one 6 x ULTRA-3". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-July.mbox#L7150|"Re: Hardware question: AS1200, SRM, LSI 53c1010"]], Jay Estabrook, debian-alpha, 12 Jul 2003)] The DS20E and DS25 "have integrated Adaptec SCSI controllers", so their installation avoids the ''qla1280'' firmware problem of the Debian installer. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2019-July.mbox#L1737|"Re: systemd woes continue"]], Frank Scheiner, debian-alpha, 17 Jul 2019)]
-  * "the ES40 CPU daughtercards will NOT fit into a DS20." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-October.mbox#L12881|"Re: DP264 Processor Modules"]], Jay Estabrook, axp-list, 21 Oct 2002)]
+
+==== Linux ====
+
+  * See [[hardware:systems#tsunami_systems|Tsunami Systems]] for notes shared with the other Tsunami machines.
+  * The XP1000, DS20, and Miata GL share a Cypress IDE quirk, fixed in Jay Estabrook's 2008 kernels: "The problem on CYPRESS IDE machines (XP1000, DS20, MIATA) is fixed." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-January.mbox#L289|"My lucky day"]], Jay Estabrook, axp-list, 9 Jan 2008)]
+
+==== Upgrades ====
+
+"the ES40 CPU daughtercards will NOT fit into a DS20." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-October.mbox#L12881|"Re: DP264 Processor Modules"]], Jay Estabrook, axp-list, 21 Oct 2002)]
 
 ==== Conflicting Information ====
 
@@ -14,5 +37,12 @@ The following sources disagree with each other or with this page. They are liste
   * **DS20E maximum CPU speed**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-February.mbox#L31456|"RE: UP2000"]], KirkE@paccessglobal.com, axp-list, 28 Feb 2001: "neither the DS20E nor DP264 support CPUs faster than the 667MHz EV67"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-March.mbox#L6004|"Re: No more Debian/Alpha?"]], Steve Langasek, debian-alpha, 19 Mar 2005: "The current live buildd is a DS20E EV68 833MHz with 4GB RAM"
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_windows_nt_catalog.pdf?linkonly|AlphaServer DS20 Windows NT Systems and Options Catalog, V1.6}} | | June 1999 |
+| {{wiki:software:firmware:alphaserver_ds20_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer DS20 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
+| {{wiki:software:firmware:alphaserver_ds20_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer DS20 V7.3 Firmware Release Notes}} | | April 2007 |
 
 {{tag>hardware system 21264 compaq}}

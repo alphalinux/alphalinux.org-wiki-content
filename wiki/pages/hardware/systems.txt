@@ -17,7 +17,7 @@ This page covers complete Alpha systems sold by Digital, Compaq, HP, and others.
 | [[hardware:systems:mikasa|AlphaServer 1000]] | Mikasa, Mikasa-Primo | [[wp>Alpha_21064|21064]], [[wp>Alpha_21164|21164]] | APECS, CIA | Mikasa | Yes; EV4 versions to 6.9 |
 | [[hardware:systems:noritake|AlphaServer 1000A, 800, AlphaStation 600A, Digital Server 3300]] | Noritake, Noritake-Primo, Corelle, Alcor-Primo | [[wp>Alpha_21064#Alpha_21064A|21064A]], [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | APECS, CIA | Noritake | Yes; EV4 versions to 6.9 |
 | [[hardware:systems:sable|AlphaServer 2000, 2100]] | Demi-Sable, Sable, Gamma | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]], [[wp>Alpha_21164|21164]] | T2 | Sable | Yes; EV4 versions to 6.9 |
-| [[hardware:systems:lynx|AlphaServer 2100A]] | Lynx | [[wp>Alpha_21064#Alpha_21064A|21064A]], [[wp>Alpha_21164|21164]] | T2 | Lynx | To 6.9 |
+| [[hardware:systems:lynx|AlphaServer 2100A, 2000A]] | Lynx, Demi-Lynx | [[wp>Alpha_21064#Alpha_21064A|21064A]], [[wp>Alpha_21164|21164]] | T2 | Lynx | To 6.9 |
 | [[hardware:systems:alcor|AlphaStation 500, 600, Alpha XL 300, 366, 433]] | Maverick, Bret, Alcor, XLT | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | CIA | Alcor | Yes |
 | [[hardware:systems:rawhide|AlphaServer 1200, 4000, 4100, Digital Server 5300, 7300]] | Tincup, DaVinci, Wrangler, Durango, Dodge | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | MCPCIA | Rawhide | Yes |
 | [[hardware:systems:miata|Personal Workstation a and au series]] | Miata, Miata GL | [[wp>Alpha_21164#Alpha_21164A|21164A]] | Pyxis | Miata | Yes |
@@ -75,6 +75,8 @@ These notes apply to the [[hardware:systems:monet|XP1000]], [[hardware:systems:w
 | {{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide}} | EK-AS300-UG.A01 | November 1996 |
 | {{wiki:hardware:systems:alphaserver_300:alphaserver_300_release_notes.pdf?linkonly|AlphaServer 300 Release Notes}} | EK-AS300-RN.A01 | December 1996 |
 | {{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}} | EK-ASV80-SG.A01 | April 1997 |
+| {{wiki:hardware:systems:alphaserver_800:alphaserver_800_technical_summary.pdf?linkonly|AlphaServer 800 Technical Summary}} | | 1997 |
+| {{wiki:hardware:systems:alphaserver_800:alphaserver_800_brochure.pdf?linkonly|DIGITAL AlphaServer 800 system}} | EC-F8375-10 | 1997 |
 | {{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}} | EK-ASV80-UG.B01 | November 1997 |
 | {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide}} | EK-DTLSV-OG.A01 | November 1994 |
 | {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}} | EK-DTLSV-SV.B01 | July 1995 |
@@ -100,6 +102,7 @@ These notes apply to the [[hardware:systems:monet|XP1000]], [[hardware:systems:w
 | {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_system_drawer_users_guide.pdf?linkonly|AlphaServer 4000 System Drawer User's Guide}} | EK-4000A-UG.B01 | March 1997 |
 | {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_system_drawer_users_guide.pdf?linkonly|AlphaServer 4100 System Drawer User's Guide}} | EK-4100A-UG.D01 | September 1996 |
 | {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_catalog.pdf?linkonly|AlphaServer 4100 Systems and Options Catalog, V3.10}} | | March 2000 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_custom_solution_system.pdf?linkonly|AlphaServer 4100 Custom Solution System}} | 0031-0499-A | April 1999 |
 | {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_operations_manual.pdf?linkonly|AlphaServer 8200/8400 Operations Manual}} | EK-T8030-OP.B01 | March 1998 |
 | {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}} | | 1996 |
 | {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_windows_nt_systems_catalog.pdf?linkonly|AlphaServer 8200 and 8400 Windows NT Systems and Options Catalog, V3.10}} | | June 1999 |

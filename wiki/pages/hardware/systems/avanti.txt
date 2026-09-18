@@ -1,11 +1,38 @@
 ===== AlphaStation 200, 250, 255, 400 and AlphaServer 300, 400 (Avanti) =====
 
+The Avanti family is Digital's first generation of 21064 desktop workstations and small servers with PCI. Codenames: AlphaStation 200 Mustang, 205 LX3, 250 M3, 255 LX3+, 400 Avanti, and AlphaServer 300 Melmac. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] The AlphaStation 200 is "identical to AVANTIs, as MILO and the kernel see them, although the MB is not daughtercard based". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L9214|"Re: AlphaStation info"]], Jay Estabrook, axp-list, 18 Apr 1996)] These systems have both SRM and ARC.
 
-Codenames: AlphaStation 200 Mustang, 205 LX3, 250 M3, 255 LX3+, 400 Avanti, and AlphaServer 300 Melmac. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] The AlphaServer 300 has a 21064A with the 21072 (APECS) chipset, 2 MB of cache, and up to 512 MB of parity SIMMs. [(>{{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide}}, p. A-2)] These systems have both SRM and ARC.
+The [[hardware:systems:xl|Alpha XL 233 and 266]] are close relatives, and some early XL machines are in fact Avantis. "Note that a true XL has a *different* motherboard than AVANTIs, and consequently the AVANTI MILOs and kernels will *not* work correctly. You can tell a true XL by the SIO (PCI<->ISA bridge chip); its a 82379AB and *not* the AVANTIs 82378IB/ZB." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L6843|"Alpha XL Support"]], Jay Estabrook, axp-list, 22 Mar 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L2473|"RE: SRM/bootp questions"]], Jay Estabrook, axp-list, 13 Jul 1996)]
 
-  * The AlphaStation 200 is "identical to AVANTIs, as MILO and the kernel see them, although the MB is not daughtercard based". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L9214|"Re: AlphaStation info"]], Jay Estabrook, axp-list, 18 Apr 1996)]
+==== Specifications ====
+
+The following describes the AlphaServer 300, which is the member of the family with published documentation here. [(>{{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide}}, pp. 1-1, A-2)]
+
+  * DECchip [[wp>Alpha_21064#Alpha_21064A|21064A]] at 266 MHz
+  * DECchip 21072-AA (APECS) core logic
+  * 2 MB write-back secondary cache
+  * Memory controller with a 128-bit data bus to main memory and a 128-bit bus to the secondary cache, longword parity protected
+  * Expandable to 512 MB of memory, added as options of four SIMMs each in 32, 64, 128, or 256 MB sizes [(>{{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide}}, p. 4-7)]
+  * 33 MHz PCI: one PCI-only slot, one shared PCI/ISA slot, and one half-size ISA-only slot
+  * PCI-based embedded SCSI-2 controller supporting seven peripherals, and a PCI-based Ethernet adapter
+  * Floppy disk controller supporting a floppy drive and one CD drive
+  * Keyboard and mouse ports, two serial ports, one enhanced bidirectional parallel port
+
+==== Booting Linux ====
+
   * MILO must not be written to flash: "You MUST NOT, as the AVANTI family is not supported for doing this." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L59698|"Re: Questions."]], Jay Estabrook, axp-list, 23 Jul 1998)] Richard Henderson: "Booting and rebooting from SRM should be clean. That is how I boot my Avanti." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L16159|"Re: Kernel 2.1.131 compiles but hangs..."]], Richard Henderson, axp-list, 7 Dec 1998)]
+  * Early MILO images for the family came from gatekeeper.dec.com, in TGA and VGA variants, and were loaded from the ARC console with ''linload.exe''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L5863|"RE: booting Linux from ARC"]], David Rusling, axp-list, 19 Mar 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L5932|"Re: booting Linux from ARC"]], Jay Estabrook, axp-list, 19 Mar 1996)]
+
+==== Linux ====
+
   * The built-in 21040 and 21041 Ethernet controllers on the AlphaStation 200, 250, 255, and AlphaServer 300 "give problems with the current default driver ("de2104x")". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-January.mbox#L4129|""no link beat found" on digital alpha-station 255"]], Jay Estabrook, debian-alpha, 17 Jan 2006)]
   * The S3 Trio64 "is notorious, especially in AS200/AS400 boxes" (see [[hardware:other#pc_graphics_cards|Other Hardware]]).
+  * On an AlphaStation 200 4/166, a Microsoft Sound System card at its default IRQ 11 conflicted with the SCSI controller. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-August.mbox#L9692|"Re: MSS sound and Avanti (was: MSS sound and UDB)"]], Jay Estabrook, axp-list, 8 Aug 1996)]
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide}} | EK-AS300-UG.A01 | November 1996 |
+| {{wiki:hardware:systems:alphaserver_300:alphaserver_300_release_notes.pdf?linkonly|AlphaServer 300 Release Notes}} | EK-AS300-RN.A01 | December 1996 |
 
 {{tag>hardware system 21064 digital}}

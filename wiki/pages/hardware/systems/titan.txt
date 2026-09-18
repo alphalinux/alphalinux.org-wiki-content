@@ -1,14 +1,42 @@
 ===== AlphaServer DS15, DS25, ES45, and TS202c (Titan) =====
 
+"DS15 (aka HyperBrick), DS25 (aka Granite), and ES45 (Privateer) are all TITAN-based machines". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-November.mbox#L1365|"Re: Sanity checking needed of Alpha subarch codenames in d-i manual"]], Jay Estabrook, debian-alpha, 8 Nov 2004)] "DS15 CPU is indeed EV68, I think around 1GHz. DS15 core logic is TITAN, successor to TSUNAMI, and used in DS25/ES45. DS15 is intended as replacement/upgrade from DS10, necessitated primarily because of EOL on TSUNAMI chipset by INTEL." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-October.mbox#L8451|"Re: Blimey New Alpha Workstation"]], Jay Estabrook, axp-list, 27 Oct 2003)] In 2002 the ES45 was the only Alpha with 66 MHz PCI. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L7350|"Re: Looking for a "good" video card for a DS5305"]], Jay Estabrook, axp-list, 5 Apr 2002)] The TS202c (Falcon) firmware lists only Tru64 UNIX. [(>{{wiki:software:firmware:alphaserver_ts202c_v6.8b_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8B Firmware Release Notes and Update Procedures}}, September 2005, p. 6)] Each model was sold both as an AlphaServer and, with graphics, as an AlphaStation.
 
-"DS15 (aka HyperBrick), DS25 (aka Granite), and ES45 (Privateer) are all TITAN-based machines". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-November.mbox#L1365|"Re: Sanity checking needed of Alpha subarch codenames in d-i manual"]], Jay Estabrook, debian-alpha, 8 Nov 2004)] "DS15 CPU is indeed EV68, I think around 1GHz. DS15 core logic is TITAN, successor to TSUNAMI, and used in DS25/ES45. DS15 is intended as replacement/upgrade from DS10, necessitated primarily because of EOL on TSUNAMI chipset by INTEL." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-October.mbox#L8451|"Re: Blimey New Alpha Workstation"]], Jay Estabrook, axp-list, 27 Oct 2003)] In 2002 the ES45 was the only Alpha with 66 MHz PCI. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L7350|"Re: Looking for a "good" video card for a DS5305"]], Jay Estabrook, axp-list, 5 Apr 2002)] The TS202c (Falcon) firmware lists only Tru64 UNIX. [(>{{wiki:software:firmware:alphaserver_ts202c_v6.8b_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8B Firmware Release Notes and Update Procedures}}, September 2005, p. 6)]
+==== Specifications ====
+
+=== AlphaServer and AlphaStation DS15A ===
+
+[(>{{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15a_quickspecs.pdf?linkonly|HP AlphaServer DS15A and HP AlphaStation DS15A QuickSpecs}}, May 2007, p. 2)]
+
+  * One 1 GHz [[wp>Alpha_21264|21264]] with 2 MB of onboard ECC cache, in a 3U enclosure
+  * 512 MB, 1 GB, or 2 GB of SDRAM, up to 4 GB
+  * Four 64-bit PCI expansion slots on a riser card, two of them capable of 66 MHz, with no support for 5 V cards [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-October.mbox#L8940|"Re: Blimey New Alpha Workstation"]], Jay Estabrook, axp-list, 27 Oct 2003)]
+  * Onboard Ultra160 SCSI controller and dual 10/100BaseT Ethernet
+  * Internal or front access storage cage, up to 218.4 GB or 745.6 GB
+  * Two serial ports, COM1 doubling as the remote management console (RMC) port, PS/2 keyboard and mouse, DVD/CD-RW, 400 W power supply
+
+=== AlphaServer and AlphaStation DS25 ===
+
+[(>{{wiki:hardware:systems:alphaserver_ds25:alphaserver_ds25_quickspecs.pdf?linkonly|HP AlphaServer/AlphaStation DS25 QuickSpecs}}, May 2007, pp. 1-2)]
+
+  * One or two 1 GHz [[wp>Alpha_21264|21264C]] CPUs with 8 MB of dual data rate L2 cache each
+  * ECC protected memory bus and cache, 512 MB to 16 GB using 512 MB, 1 GB, 2 GB, and 4 GB options
+  * Six 64-bit PCI slots on three PCI buses: slots 1 to 4 at 66 MHz and slots 5 and 6 at 33 MHz
+  * Integrated dual Ultra3 SCSI adapter and dual Ethernet (10/100 and 10/100/1000)
+  * Six hot swap disk bays, up to 872 GB, IDE DVD-ROM/CD-R combo drive
+  * Two 500 W hot pluggable power supplies, with an optional third for N+1 redundancy
+
+==== Linux ====
 
   * These systems need a kernel without ''CONFIG_ALPHA_LEGACY_START_ADDRESS'': "On the TITAN-based machines (DS15/DS25/ES45) the console (SRM) lives in that area, so the base address of the kernel needs to be AT LEAST 8MB and better 16MB." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-August.mbox#L1628|"Re: AlphaServer DS25 failure"]], Jay Estabrook, debian-alpha, 6 Aug 2004)]
   * Peter Rival on the ES45 in 2001: "Works wonderfully. :) I use it all the time - just select "Titan" for your kernel type." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-October.mbox#L15863|"Re: Linux 2.4 on ES45?"]], Peter Rival, axp-list, 18 Oct 2001)]
-  * The DS15 "TITAN P-Chip (aka PA-chip) supports 2 PCI buses (or 1 PCI and 1 AGP), so the builtin devices (NIC/etc) are on 1 PCI bus, and the riser PCI slots are on the other; note also that two of the PCI slots are capable of 66MHz speed, and NONE of the slots support 5V cards." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-October.mbox#L8940|"Re: Blimey New Alpha Workstation"]], Jay Estabrook, axp-list, 27 Oct 2003)] 2004 kernels crashed on it because "core_titan.c:titan_agp_info() code expects there to be two PA chips, and when there is only one (as in DS15), a machine check will occur". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-February.mbox#L3848|"Re: Dbian Linux (woody) for AXP can't boot on DS15"]], Jay Estabrook, debian-alpha, 9 Feb 2004)]
+  * 2004 kernels crashed on the DS15 because "core_titan.c:titan_agp_info() code expects there to be two PA chips, and when there is only one (as in DS15), a machine check will occur". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-February.mbox#L3848|"Re: Dbian Linux (woody) for AXP can't boot on DS15"]], Jay Estabrook, debian-alpha, 9 Feb 2004)] The "TITAN P-Chip (aka PA-chip) supports 2 PCI buses (or 1 PCI and 1 AGP), so the builtin devices (NIC/etc) are on 1 PCI bus, and the riser PCI slots are on the other". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-October.mbox#L8940|"Re: Blimey New Alpha Workstation"]], Jay Estabrook, axp-list, 27 Oct 2003)]
   * "both the SYMBIOS 1010 and the Adaptec 29160 and 39160 have been successfully used here on ES45 under Linux". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-February.mbox#L3437|"Re: U160 controllers for ES45/Alpha Linux????"]], Jay Estabrook, axp-list, 5 Feb 2002)]
   * Debian's SMP kernels were broken on the ES45 and DS25 from 5.4 until about 6.0. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2022-February.mbox#L260|"MP kernels broken with version 5.4.0-1"]], Frank Scheiner, debian-alpha, 20 Feb 2022)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2022-November.mbox#L1|"Linux 6.0.7 MP kernel works on DS25"]], Frank Scheiner, debian-alpha, 11 Nov 2022)]
-  * A Debian build daemon, "an ES45 with three 1.25GHz CPUs and 4 Gbyte memory", drew about 600 W. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2012-April.mbox#L4811|"Re: Alpha ES45 buildd"]], Michael Cree, debian-alpha, 30 Apr 2012)]
+
+==== Power ====
+
+A Debian build daemon, "an ES45 with three 1.25GHz CPUs and 4 Gbyte memory", drew about 600 W. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2012-April.mbox#L4811|"Re: Alpha ES45 buildd"]], Michael Cree, debian-alpha, 30 Apr 2012)]
 
 ==== Conflicting Information ====
 
@@ -17,5 +45,15 @@ The following sources disagree with each other or with this page. They are liste
   * **Titan systems in the kernel configuration**
     * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10: the ''ALPHA_TITAN'' help text says "AlphaServer ES45/DS25 SMP based on EV68 and Titan chipset."
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-November.mbox#L1365|"Re: Sanity checking needed of Alpha subarch codenames in d-i manual"]], Jay Estabrook, debian-alpha, 8 Nov 2004, includes the DS15.
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15a_quickspecs.pdf?linkonly|HP AlphaServer DS15A and HP AlphaStation DS15A QuickSpecs, Version 23}} | DA-11748 | May 2007 |
+| {{wiki:hardware:systems:alphaserver_ds25:alphaserver_ds25_quickspecs.pdf?linkonly|HP AlphaServer/AlphaStation DS25 QuickSpecs, Version 21}} | DA-11432 | May 2007 |
+| {{wiki:software:firmware:alphaserver_ds15_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer/AlphaStation DS15 and DS15A V7.3 Firmware Release Notes}} | | April 2007 |
+| {{wiki:software:firmware:alphaserver_ds25_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation DS25 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
+| {{wiki:software:firmware:alphaserver_es45_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation ES45 V7.3 Firmware Release Notes}} | | April 2007 |
+| {{wiki:software:firmware:alphaserver_ts202c_v6.8b_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8B Firmware Release Notes and Update Procedures}} | | September 2005 |
 
 {{tag>hardware system 21264 compaq hp}}

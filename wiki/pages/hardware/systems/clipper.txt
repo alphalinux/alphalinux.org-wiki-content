@@ -1,11 +1,27 @@
 ===== AlphaServer ES40 (Clipper) =====
 
+The ES40 is a four processor 21264 server, sold in tower, pedestal, and rackmount enclosures. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_tru64_openvms_catalog.pdf?linkonly|AlphaServer ES40 Tru64 UNIX and OpenVMS}}, Systems and Options Catalog, June 1999, p. 2.1)] Its firmware also covers the ES40cv, ES40lp, TS40, and TS20. [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 1)] QEMU emulates an ES40 (see [[software:emulators|Emulators]]).
 
-The ES40 supports four CPUs. "Model 1 supports six 64-bit PCI I/O expansion slots and four memory options", and "Model 2 supports ten 64-bit PCI I/O expansion slots and eight memory options". [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_tru64_openvms_catalog.pdf?linkonly|AlphaServer ES40 Tru64 UNIX and OpenVMS}}, Systems and Options Catalog, June 1999, p. 1)] Its firmware also covers the ES40cv, ES40lp, TS40, and TS20. [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 1)]
+==== Specifications ====
 
-  * "THere is no MILO for ES40 - you MUST use SRM console." Red Hat 7.0 "will NOT install with more than 2GB of memory, unless you add "memsize=2G" to the boot command flags." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L10001|"Re: HELP Linux on ES40"]], Jay Estabrook, axp-list, 10 Jul 2001)]
-  * "ES40's are very sensitive to how memory is inserted. It is easy to get a bad connection." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-July.mbox#L11473|"Re: 630/670 machine checks on SMP's"]], Phillip Ezolt, axp-list, 28 Jul 2000)] Stacked and monolithic DIMMs are "NOT interchangeable. This means that each memory array requires the same DIMM type." [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 29)]
-  * QEMU emulates an ES40 (see [[software:emulators|Emulators]]).
+Except where noted, the following comes from the systems and options catalog. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_tru64_openvms_catalog.pdf?linkonly|AlphaServer ES40 Tru64 UNIX and OpenVMS}}, Systems and Options Catalog, June 1999, p. 2.1)]
+
+  * Up to four 500 MHz [[wp>Alpha_21264|21264]] CPUs with 4 MB of secondary cache each
+  * 21272 (Tsunami) core logic [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10)]
+  * "Model 1 supports six 64-bit PCI I/O expansion slots and four memory options", and "Model 2 supports ten 64-bit PCI I/O expansion slots and eight memory options"
+  * Memory options are sets of four DIMMs; each memory array must use one DIMM type, because the stacked and monolithic MS610-DA and MS610-EA options share part numbers but are "NOT interchangeable" [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 29)]
+  * 1.44 MB floppy drive, CD-ROM, two EIA-232 serial ports, one bidirectional enhanced parallel port, a dedicated serial port for the remote management console (RMC), keyboard and mouse ports
+  * Up to two internal disk drive cages, each with a one-port Ultra2 SCSI adapter and four 3.5-inch disks; StorageWorks shelves are also supported
+
+==== Linux ====
+
+  * "THere is no MILO for ES40 - you MUST use SRM console." Red Hat 7.0 "will NOT install with more than 2GB of memory, unless you add "memsize=2G" to the boot command flags." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L10001|"Re: HELP Linux on ES40"]], Jay Estabrook, axp-list, 10 Jul 2001)] See also [[hardware:systems#tsunami_systems|Tsunami Systems]].
+  * "ES40's are very sensitive to how memory is inserted. It is easy to get a bad connection." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-July.mbox#L11473|"Re: 630/670 machine checks on SMP's"]], Phillip Ezolt, axp-list, 28 Jul 2000)]
+
+==== Firmware ====
+
+  * "Only one VGA graphic controller card, that is VGA-Enabled, is supported in PCI0 bus slots", and removing the mouse at the SRM console "will prevent any response from the keyboard (until the mouse is plugged back in)." [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 20)]
+  * SRM V5.6 added "an X86 bios emulator" to support the KZPCC-CE RAID controller (see [[hardware:other|Other Hardware]]). [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 38)]
 
 ==== Conflicting Information ====
 
@@ -14,5 +30,12 @@ The following sources disagree with each other or with this page. They are liste
   * **ES40 maximum memory**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-September.mbox#L23936|"Re: In sdearch of an 8GB machine (fwd)"]], Peter Rival, axp-list, 11 Sep 2000: "an ES40 maxes out with 32GB. I believe when they first came out it was 16GB"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L53899|"Memory max on Compaq AlphaServer running Linux"]], Lew Randerson, axp-list, 27 Nov 2000: "2GB is the max on Compaq's Linux-Ready AlphaServer ES40"
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_tru64_openvms_catalog.pdf?linkonly|AlphaServer ES40 Tru64 UNIX and OpenVMS Systems and Options Catalog, V1.8}} | | June 1999 |
+| {{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40, ES40cv, ES40lp, TS40, and TS20 V7.3 Firmware Release Notes}} | | April 2007 |
+| {{wiki:software:firmware:alphaserver_es40_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer ES40, ES40cv, ES40lp, and TS40 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
 
 {{tag>hardware system 21264 compaq}}

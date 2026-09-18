@@ -1,11 +1,73 @@
 ===== AlphaServer 1000A, AlphaServer 800, and AlphaStation 600A (Noritake) =====
 
+"AS800 is known internally as CORELLE and comes only as 5/xxx. NORTIAKE is AS1000A, and can be 4/xxx or 5/xxx (PRIMO). Also part of the NORITAKE family is AS600A, known as ALCOR-PRIMO which is also 5/xxx only. All have EISA bus". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L14347|"Re: Alpha Server 1000A - Noritake Image (Kernel)"]], Jay Estabrook, axp-list, 8 Jan 1999)] The Digital Server 3300 and 3305 are AlphaServer 800 models (see [[hardware:systems#naming|Naming]]). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L1874|"Re: 3305 and RH6 boot problems"]], Rich Payne, axp-list, 2 Dec 1999)]
 
-"AS800 is known internally as CORELLE and comes only as 5/xxx. NORTIAKE is AS1000A, and can be 4/xxx or 5/xxx (PRIMO). Also part of the NORITAKE family is AS600A, known as ALCOR-PRIMO which is also 5/xxx only. All have EISA bus". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L14347|"Re: Alpha Server 1000A - Noritake Image (Kernel)"]], Jay Estabrook, axp-list, 8 Jan 1999)] The Digital Server 3300 is an AlphaServer 800 (see [[hardware:systems#naming|Naming]]).
+The AlphaServer 1000A is a revision of the [[hardware:systems:mikasa|AlphaServer 1000]] with most of the EISA slots traded for PCI slots behind a PCI-to-PCI bridge. It was sold as pedestal, rackmount, and cabinet systems. [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 1)]
 
-  * The AlphaServer 1000A has "Seven PCI expansion slots, and two EISA expansion slots" and up to 1 GB of memory. [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_owners_guide.pdf?linkonly|AlphaServer 1000A Owner's Guide}}, p. 1-4)] "Physical PCI slots 11, 12, and 13 (primary PCI) are located before the bridge. Physical PCI slots 1, 2, 3 and 4 (secondary PCI) are located behind the bridge. Some PCI options are restricted to the primary PCI bus". [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_service_guide.pdf?linkonly|AlphaServer 1000A Service Guide}}, p. 5-34)]
-  * The AlphaServer 800 has a 21164 at 300 to 500 MHz, memory "from 32 Mbytes to 2 Gbytes", [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, pp. 1-3, 1-4)] "Three 32-bit PCI slots, one shared 64-bit PCI/EISA slot, and two dedicated EISA slots", [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 1-5)] and an onboard QLogic SCSI controller and S3 Trio64. [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}}, p. 6-18)]
-  * "Please, use SRM, as there's no MILO for any of that family." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L29808|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] "I don't believe the NORITAKEs have IDE ports". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-February.mbox#L7551|"Re: Debian on Digital 3305"]], Jay Estabrook, debian-alpha, 12 Feb 2003)]
+==== Specifications ====
+
+=== AlphaServer 1000A ===
+
+[(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, pp. 2-3)]
+
+  * One CPU on an upgradable daughtercard: 266 MHz [[wp>Alpha_21064#Alpha_21064A|21064A]] (Model 4/266), or 333 or 400 MHz [[wp>Alpha_21164#Alpha_21164A|21164A]] (Models 5/333 and 5/400)
+  * 2 MB of direct-mapped, ECC protected level 2 cache and 8 KB of serial ROM on each CPU card
+  * 128-bit ECC protected memory bus
+  * Model 4/266: 20 SIMM sockets in banks of five (four data plus ECC); Models 5/333 and 5/400: 16 SIMM sockets in banks of four including ECC
+  * 4, 8, 16, 32, and 64 MB SIMMs, 32 MB to 1 GB total
+  * Seven 33 MHz PCI slots, of which slots 11, 12, and 13 are on the primary bus and slots 1 to 4 behind the 21050 PCI-to-PCI bridge; some options are restricted to the primary bus [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_service_guide.pdf?linkonly|AlphaServer 1000A Service Guide}}, p. 5-34)]
+  * Two 8.33 MHz EISA/ISA slots, both bus master capable
+  * Onboard fast wide SCSI-2 controller, PCI-to-EISA bridge, 1 MB of flash ROM, 8 KB of NVRAM, TOY clock, two serial ports, bidirectional parallel port, floppy controller, keyboard and mouse interface, PC-style speaker
+  * Onboard SVGA controller on the Model 4/266 only
+  * Dual SCSI backplane, up to 30.1 GB of internal storage in the pedestal, optional RAID controllers and redundant power supplies [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 1)]
+
+=== AlphaServer 800 ===
+
+Except where noted, the following comes from the technical summary. [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_technical_summary.pdf?linkonly|AlphaServer 800 Technical Summary}}, pp. 1-3)]
+
+  * One [[wp>Alpha_21164|21164]] at 333 or 400 MHz on a CPU and cache daughtercard, with 2 MB of third-level cache and 8 KB of serial ROM; 500 MHz models were also sold [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_brochure.pdf?linkonly|DIGITAL AlphaServer 800 system}}, 1997)]
+  * 256-bit wide ECC protected memory subsystem and a 64-bit PCI bus
+  * Memory banks on the motherboard, expandable from 32 MB to 1 GB
+  * "Three 32-bit PCI slots, one shared 64-bit PCI/EISA slot, and two dedicated EISA slots" [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 1-5)]; the PCI bus runs at 33 MHz and the EISA bus at 8.33 MHz, and the EISA bus also carries the Xbus with the real-time clock, NVRAM, and operator control panel interface
+  * Onboard SVGA controller with 1 MB of video RAM, an S3 Trio64 [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}}, p. 6-18)]
+  * Onboard fast wide single-ended SCSI controller, a QLogic part [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}}, p. 6-18)], with an UltraSCSI-ready storage backplane
+  * Remote management console (RMC) for monitoring the system remotely, plus internal temperature, fan, and status sensors with variable speed fans
+  * Bidirectional parallel port, two serial ports, keyboard and mouse interface
+  * Up to four 3.5-inch full-height SCSI devices with hot swap, up to three 5.25-inch half-height devices, and a 3.5-inch floppy drive
+  * Sold as a pedestal or as a rackmount box taking up to four internal drives
+
+==== Booting Linux ====
+
+  * "Please, use SRM, as there's no MILO for any of that family." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L29808|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] "Use of MILO is deprecated on MIKASA, and unavailable on NORITAKE." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)]
+  * Separate kernels were published for the two CPU generations, ''noritake-s.gz'' for the 4/xxx models and ''noritake-s-5.gz'' (Noritake-Primo) for the 5/xxx models. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-May.mbox#L19781|"RE: alpha-patches-2.0.34 Testers Wanted!"]], Jay Estabrook, axp-list, 13 May 1998)] Both Noritake kernels shipped with Red Hat 5.2 were built without SRM console support and so were unusable. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L14347|"Re: Alpha Server 1000A - Noritake Image (Kernel)"]], Jay Estabrook, axp-list, 8 Jan 1999)]
+  * The AlphaServer 1000 and 1000A "have quite different interrupt delivery mechanisms, and the built-in PCI-PCI bridge on NORITAKE requires some special code to deal with it", so their kernels are not interchangeable. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L36383|"Re: Kernel for AlphaServer 1000 (Success!... and a question)"]], Jay Estabrook, axp-list, 29 Nov 1997)]
+  * Early glibc did not recognize the platform names, so the X server failed on the AlphaServer 800: "glibc doesn't currently know what "noritake" or "corelle" means." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-September.mbox#L17721|"Re: Xserver on a AS800 CORELLE fails...."]], Richard Henderson, axp-list, 13 Sep 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-October.mbox#L70779|"Re: AS800 Problem"]], Jay Estabrook, axp-list, 9 Oct 1998)]
+
+==== Linux ====
+
+  * "I don't believe the NORITAKEs have IDE ports". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-February.mbox#L7551|"Re: Debian on Digital 3305"]], Jay Estabrook, debian-alpha, 12 Feb 2003)]
+  * Graphics cards can sit behind the onboard PCI-to-PCI bridge on this family, which early consoles and kernels did not handle: "On most boxes this isn't a problem - there are no slots behind a bridge to put a VGA into, but on UX, MIATA, and NORITAKE family, there are." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L26968|"Re: PC164UX doesnt work - anyone got details"]], Jay Estabrook, axp-list, 11 Aug 1998)]
   * With 2.6.11 kernels, the AlphaServer 800 and 1000A could hang with a DE500-BA (21143) Ethernet card "if the network cable is connected. Simply disconnect the cable" during boot. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-September.mbox#L1248|"AS1000A"]], Jay Estabrook, axp-list, 20 Sep 2005)]
+
+==== Conflicting Information ====
+
+The following sources disagree with each other or with this page. They are listed here for further investigation.
+
+  * **AlphaServer 800 CPU speeds and maximum memory**
+    * {{wiki:hardware:systems:alphaserver_800:alphaserver_800_technical_summary.pdf?linkonly|AlphaServer 800 Technical Summary}}, 1997, pp. 1, 3: two CPU cards, 333 and 400 MHz, and "incremental memory expansion from 32 MB to 1 GB"
+    * {{wiki:hardware:systems:alphaserver_800:alphaserver_800_brochure.pdf?linkonly|DIGITAL AlphaServer 800 system}}, 1997: 21164 at 333, 400, and 500 MHz, each with 2 GB of memory
+    * {{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, November 1997, pp. 1-3, 1-4: a 21164 at 300 to 500 MHz and memory "from 32 Mbytes to 2 Gbytes"
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_owners_guide.pdf?linkonly|AlphaServer 1000A Owner's Guide}} | EK-ALPSV-OG.A02 | October 1996 |
+| {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_service_guide.pdf?linkonly|AlphaServer 1000A Service Guide}} | EK-ALPSV-SV.A01 | March 1996 |
+| {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}} | | 1997 |
+| {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_release_notes.pdf?linkonly|AlphaServer 1000A Read This First}} | EK-ALPSV-CL.A01 | February 1996 |
+| {{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}} | EK-ASV80-UG.B01 | November 1997 |
+| {{wiki:hardware:systems:alphaserver_800:alphaserver_800_technical_summary.pdf?linkonly|AlphaServer 800 Technical Summary}} | | 1997 |
+| {{wiki:hardware:systems:alphaserver_800:alphaserver_800_brochure.pdf?linkonly|DIGITAL AlphaServer 800 system}} | EC-F8375-10 | 1997 |
+| {{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}} | EK-ASV80-SG.A01 | April 1997 |
 
 {{tag>hardware system 21064 21164 digital}}

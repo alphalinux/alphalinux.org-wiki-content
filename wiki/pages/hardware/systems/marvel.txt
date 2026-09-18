@@ -1,12 +1,43 @@
 ===== AlphaServer ES47, ES80, and GS1280 (Marvel) =====
 
+The Marvel systems are the last Alpha machines, built from 21364 (EV7) processors whose on-chip memory controllers and router links connect directly to each other, without core logic between them. "the gs320 and gs160 are both large smp ev6 based machines. They are not Marvels, thats the gs1280/es80." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L13814|"RE: Fwd: Marvel"]], Colin Sauze, axp-list, 28 Jan 2003)] The GS1280 was sold in models with up to 64 CPUs. [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_drawer_upgrade.pdf?linkonly|HP AlphaServer ES47/ES80/GS1280 I/O Drawer Upgrade}}, p. 1-3)]
 
-The ES47 and ES80 have "Up to 8 Alpha 21364 EV7 processors at 1150 MHz and 1000 MHz" with "up to 8 GB of RDRAM memory per CPU"; each two-processor building block drawer has "5 PCI-X/PCI slots and one AGP slot". [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, p. 4)] The GS1280 was sold in models with up to 64 CPUs. [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_drawer_upgrade.pdf?linkonly|HP AlphaServer ES47/ES80/GS1280 I/O Drawer Upgrade}}, p. 1-3)] "the gs320 and gs160 are both large smp ev6 based machines. They are not Marvels, thats the gs1280/es80." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L13814|"RE: Fwd: Marvel"]], Colin Sauze, axp-list, 28 Jan 2003)]
+==== Specifications ====
 
-  * "The AlphaServer ES47/ES80 "serial" console is not a serial port. It is an interface provided by system management software ... ttyS0 cannot be used ... be sure to specify "console=srm" when booting." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-July.mbox#L2911|"Installation HPWrapper ISO for ES47, ES80, 2100A and DAC960 systems for RH-7.2."]], George France, axp-list, 11 Jul 2003)]
+Except where noted, the following comes from the ES47 and ES80 QuickSpecs. [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, pp. 4-5)]
+
+  * "Up to 8 Alpha 21364 EV7 processors at 1150 MHz and 1000 MHz with advanced on-chip memory controllers and switch logic capable of providing 12.3 GB/s of memory bandwidth per processor"
+  * 1.75 MB of seven-way set associative ECC protected L2 cache on each chip
+  * Up to 8 GB of RDRAM per CPU, with optional RAID memory
+  * A glueless multiprocessor architecture assembled from system building block drawers, dual CPU building block modules, and I/O expansion drawers; the ES47 Tower holds one drawer, and the ES80 models 2, 3, 6, and 8 hold one to four
+  * Each two-processor building block drawer has "5 PCI-X/PCI slots and one AGP slot"
+  * Maximums: ES47 Tower two CPUs, 16 GB, five PCI slots; ES47 four CPUs, 32 GB, 32 PCI slots; ES80 Model 8 eight CPUs and 64 GB
+  * Optional standard I/O drawer with 11 configurable PCI-X/PCI slots and one AGP slot, or high performance I/O drawer with eight 133 MHz PCI-X slots
+  * N+1 voltage regulator modules, hot plug redundant power supplies and fans, dual AC input, ECC on memory, cache, and system data paths
+  * A system can be split into hardware partitions as small as two processors, each with its own dedicated CPU, memory, and I/O and its own console [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, p. 6)]
+  * The console is not a serial port: user access is "via the USB port in a Master I/O Drawer, a network connection ... or local terminal" [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, p. 6)]
+
+==== Console ====
+
+"The AlphaServer ES47/ES80 "serial" console is not a serial port. It is an interface provided by system management software ... ttyS0 cannot be used ... be sure to specify "console=srm" when booting." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-July.mbox#L2911|"Installation HPWrapper ISO for ES47, ES80, 2100A and DAC960 systems for RH-7.2."]], George France, axp-list, 11 Jul 2003)]
+
+==== Linux ====
+
   * Linux supports at most 32 CPUs, because "MARVEL support is limited to 32 CPUs whan using 42-bit KSEG - one needs 48-bit KSEG to handle up to 64, and we've never supported 48-bit KSEG." [(>[[https://git.kernel.org/torvalds/c/d7083174a2ca|"ALPHA: misc fixes"]], Linux 2.6.22)]
   * The Marvel has no real PC clock: "RTC accesses are emulated via PAL calls. Unfortunately, for unknown reason these calls work only on CPU #0." [(>[[https://git.kernel.org/torvalds/c/5f7dc5d75076|"alpha: fix RTC on marvel"]], Linux 2.6.29)]
   * For Alpha Core 3 in 2007, "support for MARVEL (ES47/ES80/GS1280) is back after a long hiatus; I've only an ES47 to test on". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2007-March.mbox#L1087|"Torrents galore...but has anyone actually tried it?"]], Jay Estabrook, axp-list, 7 Mar 2007)] Jay Estabrook's Fedora 8 based release listed "No NUMA support on MARVEL (ES47 et al)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L1|"Fedora 8-based distro for Alpha CD Announcement"]], Jay Estabrook, axp-list, 14 Apr 2008)]
+  * HP's QuickSpecs list Tru64 UNIX and OpenVMS as the supported operating systems, and point at alphalinux.org for Linux. [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, p. 6)]
   * Linux 7.3 fixed interrupt setup bugs on the Marvel dating from 2.6.38. [(>[[https://git.kernel.org/torvalds/c/3a3ac1f6c6a6|"alpha: marvel: Fix irq_set_status_flags to use correct IRQ number"]], Linux 7.3)] [(>[[https://git.kernel.org/torvalds/c/24d68db713d6|"alpha: marvel: Fix lock ordering in init_io7_irqs()"]], Linux 7.3)]
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer/AlphaStation ES47 Tower, AlphaServer ES47, and AlphaServer ES80 Systems QuickSpecs, Version 25}} | DA-11922 | July 2007 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_tower_quickspecs.pdf?linkonly|HP AlphaServer ES47 Tower and AlphaStation ES47 Tower QuickSpecs, Version 20}} | DA-11508 | November 2003 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_drawer_upgrade.pdf?linkonly|HP AlphaServer ES47/ES80/GS1280 I/O Drawer Upgrade}} | EK-EGIOD-UP.B01 | September 2003 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_cli_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Server Management Command Line Interface Reference, Version 3.0}} | | October 2003 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_upgrade.pdf?linkonly|HP AlphaServer ES47 Upgrade}} | EK-ES470-UP.C01 | June 2004 |
+| {{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Server Management SRM Console Reference, Version 1.0}} | | December 2002 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_release_notes_v5.2.0.pdf?linkonly|HP AlphaServer Management Release Notes V5.2.0}} | | August 2006 |
 
 {{tag>hardware system 21364 hp}}

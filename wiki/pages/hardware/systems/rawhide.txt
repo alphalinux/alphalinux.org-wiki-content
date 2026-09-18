@@ -1,14 +1,47 @@
 ===== AlphaServer 1200, 4000, and 4100 (Rawhide) =====
 
-
 "Model names for the RAWHIDE (AS4100) family are: Dodge, Wrangler, and Durango, although the AS1200s, which are actually part of the family, are named weirdly, ie TinCUp and DaVinci". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-October.mbox#L15721|"Re: Rawhide problems: TGA2 and SMP crash"]], Jay Estabrook, axp-list, 25 Oct 2002)] The core logic is MCPCIA. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_mcpcia.c?h=v6.10|arch/alpha/kernel/core_mcpcia.c]], Linux 6.10)]
 
-  * The AlphaServer 4100 "supports up to four CPUs" and has "two 64-bit PCI buses". [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_system_drawer_users_guide.pdf?linkonly|AlphaServer 4100 System Drawer User's Guide}}, p. 1-5)] The AlphaServer 4000 has "up to two CPU modules" and up to four PCI buses. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_system_drawer_users_guide.pdf?linkonly|AlphaServer 4000 System Drawer User's Guide}}, p. 1-5)] The AlphaServer 1200 supports two CPUs, [(>{{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_catalog.pdf?linkonly|AlphaServer 1200 Systems and Options Catalog}}, p. 2.1)] and "AS1200 has 6 slots, 3 per peer PCI bus." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-July.mbox#L6312|"Re: Hardware question: AS1200, SRM, LSI 53c1010"]], Jay Estabrook, debian-alpha, 10 Jul 2003)]
-  * "There's no MILO for AS1200 or AS4000/AS4100; you must use SRM console. If building a kernel, use GENERIC or RAWHIDE." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L4599|"Re: Debian on Alphastation1200"]], Jay Estabrook, debian-alpha, 1 Nov 2000)]
+The AlphaServer 4000 and 4100 are built around a system drawer that fits either a pedestal or a 19-inch cabinet, and which carries the system bus, the PCI I/O, power, and cooling. The two differ only in the drawer: the BA30A drawer of the 4100 has four CPU slots, four memory pairs, and one PCI card cage, while the narrower BA30B drawer of the 4000 has two CPU slots, two memory pairs, and room for a second PCI card cage. Systems could be upgraded in either direction. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_technical_summary.pdf?linkonly|AlphaServer 4000/4100 Systems Technical Summary}}, pp. 1-2)]
+
+==== Specifications ====
+
+=== AlphaServer 4000 and 4100 ===
+
+Except where noted, the following comes from the technical summary. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_technical_summary.pdf?linkonly|AlphaServer 4000/4100 Systems Technical Summary}}, pp. 4-7)]
+
+  * Up to four CPUs in the AlphaServer 4100 and two in the AlphaServer 4000; all CPUs in a drawer must be the same type and speed, and slot CPU0 must be populated because the clock is tied to it
+  * [[wp>Alpha_21164#Alpha_21164A|21164A]] at 300 MHz with 2 MB of cache, or at 400 or 466 MHz with 4 MB of cache; later 533 MHz models with 4 MB and 600 MHz models with 8 MB of cache were sold [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_catalog.pdf?linkonly|AlphaServer 4100 Systems and Options Catalog}}, V3.10, March 2000, p. 2.1)]
+  * 128-bit data bus with a separate 40-bit command and address bus, clocked synchronously with the CPU: 1 GB/s with a 300 MHz CPU and 1.1 GB/s with a 400 or 466 MHz CPU, 120 ns memory latency, ECC on data and parity on commands and addresses
+  * Memory in identical pairs of modules, up to four pairs (8 GB) in the 4100 and two pairs (4 GB) in the 4000, in 128 MB, 512 MB, 1 GB, and 2 GB options; the 128 MB option uses SDRAM and the larger ones EDO DRAM
+  * The largest pair must be in MEM 0L and MEM 0H, and all pairs are then decoded as that size, with the resulting holes mapped out as bad pages
+  * Each system bus to PCI bridge module drives two independent 64-bit PCI buses on a PCI motherboard with eight slots; only PCI bus 0 has an EISA bridge
+  * Eight PCI slots in the 4100, and up to 16 in the 4000 with the H7150 second PCI card cage option
+  * Three EISA slots at 8.33 MHz, shared with PCI slots
+  * One to three power supplies per drawer for N+1 redundancy, three drawer fans plus a fan on each CPU, CD-ROM and floppy in each drawer
+  * Up to three StorageWorks shelves in the pedestal and up to eight in a cabinet [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_technical_summary.pdf?linkonly|AlphaServer 4000/4100 Systems Technical Summary}}, p. 3)]
+
+=== AlphaServer 1200 ===
+
+  * Two 533 MHz CPUs with 4 MB of ECC cache [(>{{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_catalog.pdf?linkonly|AlphaServer 1200 Systems and Options Catalog}}, V3.8, June 1999, p. 2.1)]
+  * "AS1200 has 6 slots, 3 per peer PCI bus." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-July.mbox#L6312|"Re: Hardware question: AS1200, SRM, LSI 53c1010"]], Jay Estabrook, debian-alpha, 10 Jul 2003)]
+  * Onboard fast narrow single-ended SCSI-2 for removable media, floppy controller, two serial ports, one parallel port, keyboard and mouse controller [(>{{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_catalog.pdf?linkonly|AlphaServer 1200 Systems and Options Catalog}}, V3.8, June 1999, p. 2.1)]
+  * Up to ten internal storage devices in the pedestal, seven of them hot swap StorageWorks disks [(>{{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_catalog.pdf?linkonly|AlphaServer 1200 Systems and Options Catalog}}, V3.8, June 1999, p. 2.1)]
+
+==== Custom Solution System ====
+
+Compaq also sold an AlphaServer 4100 Custom Solution System: a low profile commercial-off-the-shelf platform 8.75 inches high, holding one to four 533 MHz processors and two embedded drives, rugged enough for "land, sea, or air" use, with up to seven systems (28 processors) in one 19-inch RETMA cabinet. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_custom_solution_system.pdf?linkonly|AlphaServer 4100 Custom Solution System}}, Compaq, 1999)]
+
+==== Booting Linux ====
+
+"There's no MILO for AS1200 or AS4000/AS4100; you must use SRM console. If building a kernel, use GENERIC or RAWHIDE." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L4599|"Re: Debian on Alphastation1200"]], Jay Estabrook, debian-alpha, 1 Nov 2000)] The AlphaServer 4100 SRM "does not support any EISA options as boot devices." [(>{{wiki:software:firmware:alphaserver_4000_4100_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 4100/4000 Firmware Release Notes, V6.0}}, September 2001, p. 3-4)]
+
+==== Linux ====
+
   * The Rawhide timer runs at 1200 Hz: "for RAWHIDE, HZ should be 1200 ... whereas the GENERIC HZ is always 1024 ... You MUST build a RAWHIDE-specific kernel". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-November.mbox#L11560|"Re: Clock skew on Rawhide, was Re: Rawhide problems: TGA2 and SMP crash"]], Jay Estabrook, axp-list, 15 Nov 2002)] Current kernels default to 1200 Hz on Rawhide. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10)]
   * "If your RAWHIDE has more than 2GB of memory, then it most likely WILL be a problem at some point." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-December.mbox#L1434|"Re: kernel: Bogus pci_unmap_single: dma_addr 0  base 800000 size 800000"]], Jay Estabrook, axp-list, 11 Dec 2003)]
   * "There was a problem on 4100 when PCI cards with builtin bridges were installed, a not uncommon occurrence on 4100 as the KZPCM option was often present ... I believe 2.4.18 or later may solve the problem." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-November.mbox#L7388|"Re: AlphaServer 4100 support?"]], Jay Estabrook, debian-alpha, 16 Nov 2002)]
-  * "RAWHIDE (AS4000/4100) and TINCUP (AS1200) machines never even had pinouts for the IDE controllers". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-July.mbox#L1749|"Hardware compat with Fc8"]], Jay Estabrook, axp-list, 25 Jul 2008)] The AlphaServer 4100 SRM "does not support any EISA options as boot devices." [(>{{wiki:software:firmware:alphaserver_4000_4100_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 4100/4000 Firmware Release Notes, V6.0}}, September 2001, p. 3-4)]
+  * "RAWHIDE (AS4000/4100) and TINCUP (AS1200) machines never even had pinouts for the IDE controllers". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-July.mbox#L1749|"Hardware compat with Fc8"]], Jay Estabrook, axp-list, 25 Jul 2008)]
   * "SRM on AS1200 does NOT recognize the 1010", and "the builtin shelf in the AS1200 will only support to ULTRA SCSI speed". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-July.mbox#L6817|"Re: Hardware question: AS1200, SRM, LSI 53c1010"]], Jay Estabrook, debian-alpha, 11 Jul 2003)]
 
 ==== Conflicting Information ====
@@ -18,5 +51,17 @@ The following sources disagree with each other or with this page. They are liste
   * **Rawhide maximum memory under Linux**
     * {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_catalog.pdf?linkonly|AlphaServer 4100 Systems and Options Catalog}}, p. 9: "Tru64 UNIX and OpenVMS systems support a maximum of 8 GB of memory"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L12769|"RE: Linux on Alpha 7300"]], John Jemiolo, axp-list, 5 Mar 1999: "if it hads more than 2Gb of memory installed it will fail."
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_technical_summary.pdf?linkonly|AlphaServer 4000/4100 Systems Technical Summary}} | | 1997 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_system_drawer_users_guide.pdf?linkonly|AlphaServer 4100 System Drawer User's Guide}} | EK-4100A-UG.D01 | September 1996 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_system_drawer_users_guide.pdf?linkonly|AlphaServer 4000 System Drawer User's Guide}} | EK-4000A-UG.B01 | March 1997 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_configuration_and_installation_guide.pdf?linkonly|AlphaServer 4000/4100 Configuration and Installation Guide}} | EK-4100A-CG.E01 | June 1997 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_catalog.pdf?linkonly|AlphaServer 4100 Systems and Options Catalog, V3.10}} | | March 2000 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_custom_solution_system.pdf?linkonly|AlphaServer 4100 Custom Solution System}} | 0031-0499-A | April 1999 |
+| {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_catalog.pdf?linkonly|AlphaServer 1200 Pedestal/Rackmount Systems and Options Catalog, V3.8}} | | June 1999 |
+| {{wiki:software:firmware:alphaserver_4000_4100_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 4100/4000 Firmware Release Notes, V6.0}} | | September 2001 |
 
 {{tag>hardware system 21164 digital}}

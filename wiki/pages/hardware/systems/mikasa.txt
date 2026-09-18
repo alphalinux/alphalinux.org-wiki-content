@@ -1,11 +1,51 @@
 ===== AlphaServer 1000 (Mikasa) =====
 
+The AlphaServer 1000 is a single processor PCI/EISA server introduced in November 1994. [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide}}, November 1994)] The CPU is on a daughtercard, so the same enclosure was sold with 21064 and 21064A CPUs as the 4/200, 4/233 [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}}, pp. A-4, A-5)], and 4/266 models [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_technical_summary.pdf?linkonly|AlphaServer 1000 Technical Summary}}, p. 2)] and later with 21164 CPUs as the 5/xxx models. "Uh, 1000 is MIKASA, 1000A is NORITAKE. Both can be either EV4-based (models 4/xxx) or EV5-based (models 5/xxx)." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] The EV5 models are Mikasa-Primo, also called Mikasa-Pinnacle, and use CIA core logic rather than the APECS of the EV4 models. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L23114|"Re: kernel for mikasa"]], Jay Estabrook, axp-list, 19 Jan 1998)] [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}}, p. 5-19)] The system was sold as a deskside unit, in a cabinet, and as a rackmount unit. [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_technical_summary.pdf?linkonly|AlphaServer 1000 Technical Summary}}, p. 2)]
 
-A single CPU server with "Up to three PCI slots" and "Up to eight EISA slots", [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide}}, p. 1-10)] with a CPU daughtercard and the APECS chipset. [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}}, p. 5-19)] The 5/xxx models, with EV5 CPUs and CIA core logic, are Mikasa-Primo.
+==== Specifications ====
 
-  * "MIKASA, whether EV4 or EV5, should really be booted only from SRM console." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L37128|"Re: AlphaServer 1000 5/xxx isntall"]], Jay Estabrook, axp-list, 29 Jul 1999)] "The MILO for MIKASA is no longer supported by DEC; you're on your own." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L897|"Re: Alphaserver 1000 4/233 install probs"]], Jay Estabrook, axp-list, 1 Nov 1998)]
+Except where noted, the following describes the 4/266 model. [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_technical_summary.pdf?linkonly|AlphaServer 1000 Technical Summary}}, pp. 2-3)]
+
+  * 266 MHz [[wp>Alpha_21064#Alpha_21064A|21064A]] on an upgradable CPU daughtercard, with 8 KB of serial ROM for power-up code
+  * 2 MB of direct-mapped, ECC protected level 2 cache on the daughtercard
+  * 21071/21072 (APECS) core logic on EV4 models, 21171 (CIA) on the EV5 models
+  * 128-bit ECC protected memory bus
+  * 20 SIMM sockets in four banks of five (four data plus one for ECC), taking 16, 32, 64, 128, and 256 MB modules, 16 MB to 1 GB total; all modules in a bank must be the same capacity, and bank 0 must be populated
+  * Three 33 MHz PCI slots [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide}}, p. 1-10)]
+  * Eight 8.33 MHz EISA/ISA slots, all bus master capable [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide}}, p. 1-10)]
+  * Onboard Cirrus SVGA controller [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}}, p. 5-20)], reported to be a Cirrus 5424 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L36383|"Re: Kernel for AlphaServer 1000 (Success!... and a question)"]], Jay Estabrook, axp-list, 29 Nov 1997)]
+  * Onboard NCR 53C810 Fast SCSI-2 controller with an external connector [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}}, p. 2-2)]
+  * PCI-to-EISA bridge, Xbus for the real-time clock, NVRAM, FlashROM, and operator control panel
+  * 1 MB of FlashROM for firmware and diagnostics, 8 KB of NVRAM for configuration
+  * Bidirectional parallel port, two serial ports, floppy disk controller, keyboard and mouse interface, PC-style speaker
+  * Wide-ready dual SCSI backplane and one internal BA350 StorageWorks shelf for up to seven 3.5-inch devices, plus 3.5-inch floppy, 5.25-inch CD-ROM, and an optional 5.25-inch tape bay
+  * Optional redundant power supply
+  * Both SRM and ARC firmware
+
+==== Booting Linux ====
+
+  * "MIKASA, whether EV4 or EV5, should really be booted only from SRM console." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L37128|"Re: AlphaServer 1000 5/xxx isntall"]], Jay Estabrook, axp-list, 29 Jul 1999)] A MILO for the Mikasa existed, built by David Rusling in 1996 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L2211|"Re: Linux on AlphaServer1000 (aka MIKASA) ?"]], Jay Estabrook, axp-list, 13 Jul 1996)], but "The MILO for MIKASA is no longer supported by DEC; you're on your own." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L897|"Re: Alphaserver 1000 4/233 install probs"]], Jay Estabrook, axp-list, 1 Nov 1998)] "Yes, I know there's an available MILO for MIKASA, but it was a hack and has proven to be incomplete/unstable under various conditions." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L12903|"Re: installing as1000a (noritake)"]], Jay Estabrook, axp-list, 7 Nov 2000)]
+  * Red Hat shipped separate kernels for the two CPU generations: ''MIKASA-s.gz'' for the 4/xxx models and ''MIKASA-s-5.gz'' for the 5/xxx models. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-May.mbox#L19781|"RE: alpha-patches-2.0.34 Testers Wanted!"]], Jay Estabrook, axp-list, 13 May 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L40663|"Re: Mikasa SRM booting problem"]], Jay Estabrook, axp-list, 17 Dec 1998)] The kernel still selects the machine vector at run time by CPU type, using ''mikasa_primo_mv'' for EV5 and EV56 and ''mikasa_mv'' otherwise. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_mikasa.c?h=v6.10|arch/alpha/kernel/sys_mikasa.c]], Linux 6.10)]
   * The AlphaServer 1000 and 1000A "have quite different interrupt delivery mechanisms", so their kernels are not interchangeable. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L36383|"Re: Kernel for AlphaServer 1000 (Success!... and a question)"]], Jay Estabrook, axp-list, 29 Nov 1997)]
+
+==== Linux ====
+
+  * With 2.2 kernels, a Mikasa-specific kernel was "known to be problematic", and a generic kernel was recommended instead. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L21953|"Re: RedHat 6.1 kernel on mikasa ??"]], Jay Estabrook, axp-list, 12 Mar 2000)]
   * 2.4 generic kernels gave "false ECC errors" on a 4/233, while a Mikasa-only kernel worked. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-March.mbox#L3898|"Re: Linux 2.4 on AS1000 4/233 (Mikasa)?"]], Joel Kociolek, debian-alpha, 11 Mar 2003)]
-  * X crashes on the 4/xxx models resemble those on "AVANTI-class machines (ie EV4/APECS) with Trio64 cards". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L20949|"Re: Crash when starting X-windows (RedHat 7.1 on Alphaserver 1000)"]], Jay Estabrook, axp-list, 18 Jul 2001)]
+  * Early ECOFF X servers did not recognize the platform, because the libc in them had no Mikasa entry in its table of platforms; glibc knew it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L7622|"Re: troubles with s3 :("]], Richard Henderson, axp-list, 8 Sep 1996)]
+
+==== Graphics ====
+
+The onboard Cirrus VGA can be disabled by a jumper at the top left of the motherboard, not on the CPU daughtercard, and through the EISA Configuration Utility, in order to use another card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L36383|"Re: Kernel for AlphaServer 1000 (Success!... and a question)"]], Jay Estabrook, axp-list, 29 Nov 1997)] [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}}, p. 5-38)]
+
+X crashes on the 4/xxx models resemble those on "AVANTI-class machines (ie EV4/APECS) with Trio64 cards". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L20949|"Re: Crash when starting X-windows (RedHat 7.1 on Alphaserver 1000)"]], Jay Estabrook, axp-list, 18 Jul 2001)] The S3 Trio64 "is notorious, especially in AS200/AS400 boxes" (see [[hardware:other#pc_graphics_cards|Other Hardware]]).
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide}} | EK-DTLSV-OG.A01 | November 1994 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}} | EK-DTLSV-SV.B01 | July 1995 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_technical_summary.pdf?linkonly|AlphaServer 1000 Technical Summary}} | EC-N3820-10 | |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_release_notes.pdf?linkonly|AlphaServer 1000 Read This First}} | EK-DTLSV-CL.C01 | June 1995 |
 
 {{tag>hardware system 21064 21164 digital}}

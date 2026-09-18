@@ -1,23 +1,54 @@
-===== Personal Workstation (Miata) =====
+===== Personal Workstation a and au series (Miata) =====
 
+"The internal code-name for the PWS series is 'Miata'." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L4503|"Re: Personal Workstation 433a"]], Jim Paradis, axp-list, 3 Jun 1997)] The a-series models run Windows NT and the au-series Tru64 UNIX and OpenVMS; the models are named for their clock speed, such as the 433a, 500a, 500au, and 600au. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_a_au_series_catalog.pdf?linkonly|Compaq DPW Enhanced a-Series & au-Series}}, Systems and Options Catalog, September 2000, p. 1)] "MIATAs were never built with EV5, only with EV56". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-April.mbox#L1885|"Re: 2.1.92 and PWS 433a (21164 CPU, not 21164A!)"]], Jay Estabrook, axp-list, 2 Apr 1998)] The flash holds both SRM and AlphaBIOS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-June.mbox#L4706|"Re: PWS AlphaBIOS to SRM"]], Jay Estabrook, debian-alpha, 9 Jun 2005)]
 
-"The internal code-name for the PWS series is 'Miata'." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L4503|"Re: Personal Workstation 433a"]], Jim Paradis, axp-list, 3 Jun 1997)] "MIATA motherboard has 2 64-bit PCI slots in front of a builtin PCI-PCI bridge, which is where the remaining 3 32-bit PCI slots live. Core logic is PYXIS, same as on the LX and SX and UX." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L34900|"Re: PWS-500a ext cache question..."]], Jay Estabrook, axp-list, 13 Aug 1998)] "MIATAs were never built with EV5, only with EV56". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-April.mbox#L1885|"Re: 2.1.92 and PWS 433a (21164 CPU, not 21164A!)"]], Jay Estabrook, axp-list, 2 Apr 1998)] The flash holds both SRM and AlphaBIOS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-June.mbox#L4706|"Re: PWS AlphaBIOS to SRM"]], Jay Estabrook, debian-alpha, 9 Jun 2005)]
+==== Specifications ====
 
-There are two generations. "There are two flavours of the Miata: the old MX5 with the CMD646 IDE controller and a newer MiataGL with a Cypress 82C693 IDE controller." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L9612|"Re: IDE disk problems with RH7.2 on DPW500a"]], Magnus Lindstrom, axp-list, 22 Jan 2003)] The Miata GL has an onboard QLogic SCSI controller, "And it was never made obvious from the model numbers". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L22318|"Re: Can someone check the specs of this machine?"]], Jay Estabrook, axp-list, 11 Dec 1999)] Compaq's catalog calls the later models "Enhanced" and the earlier ones "Classic Digital Personal Workstations (DPW without onboard SCSI)". [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_a_au_series_catalog.pdf?linkonly|Compaq DPW Enhanced a-Series & au-Series}}, Systems and Options Catalog, September 2000, p. 8)]
+The following describes the later "Enhanced" 500 and 600 MHz models. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_a_au_series_catalog.pdf?linkonly|Compaq DPW Enhanced a-Series & au-Series}}, Systems and Options Catalog, September 2000, p. 1)]
 
-  * **DMA bug:** the 21174 "has a bug that corrupts DMA transfers that crosses a page boundary ... on the primary PCI bus, but that is where the IDE controller is located." Use an add-on IDE controller "in one of the free 32-bit PCI-slots. Don't use a 64-bit slot." "The MiataGL doesn't have the DMA bug, it was fixed with a factory installed hardware patch." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L9612|"Re: IDE disk problems with RH7.2 on DPW500a"]], Magnus Lindstrom, axp-list, 22 Jan 2003)] "Early MIATA had the most problems, LX and SX many fewer, and final MIATA (aka MIATA-GL) none to speak of". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-April.mbox#L2335|"Second IDE port not working on PC164"]], Jay Estabrook, axp-list, 8 Apr 2004)] See also [[hardware:other#personal_workstation_64-bit_slots|Personal Workstation 64-bit Slots]].
-  * On a first generation PWS 433a, the ''cmd64x'' driver ignores ''ide=nodma'', so DMA has to be disabled with ''hdparm''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2007-August.mbox#L7000|"Re: Hmm, IDE DMA seems broken with Etch on my PWS433a (Miata MX5)."]], Lennart Sorensen, debian-alpha, 31 Aug 2007)]
-  * "There are two versions of MIATA motherboards: they differ in the PCI "slot" where the onboard PCI-to-PCI bridge lives". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L2291|"Re: PWS 433a"]], Jay Estabrook, axp-list, 3 Jan 1998)]
+  * 500 or 600 MHz [[wp>Alpha_21164#Alpha_21164A|21164A]] with an optional 4 MB cache
+  * 21174 (Pyxis) core logic, the same as on the [[hardware:motherboards:pc164lx|164LX]], [[hardware:motherboards:pc164sx|164SX]], and [[hardware:motherboards:pc164ux|164UX]] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L34900|"Re: PWS-500a ext cache question..."]], Jay Estabrook, axp-list, 13 Aug 1998)]
+  * Three DIMM banks (six slots), 1.5 GB maximum
+  * Five I/O slots: two PCI and three PCI/ISA. "MIATA motherboard has 2 64-bit PCI slots in front of a builtin PCI-PCI bridge, which is where the remaining 3 32-bit PCI slots live." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L34900|"Re: PWS-500a ext cache question..."]], Jay Estabrook, axp-list, 13 Aug 1998)]
+  * Onboard QLogic Wide UltraSCSI adapter (on the Enhanced models only, see below)
+  * Onboard 16-bit audio, an ES1888 that is "(at least) SBPro compatible", not supported under OpenVMS [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L23336|"Re: Sound on Miata (PWS500a)"]], Jay Estabrook, axp-list, 9 Jul 1998)]
+  * 10/100BaseT Ethernet, twisted pair, with ThinWire optional
+  * Short tower with six storage bays: two 3.5-inch disk bays, a floppy bay, a dedicated 5.25-inch CD-ROM bay, and two further removable media bays
+  * 300 W power supply
+
+==== Generations ====
+
+"There are two flavours of the Miata: the old MX5 with the CMD646 IDE controller and a newer MiataGL with a Cypress 82C693 IDE controller." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L9612|"Re: IDE disk problems with RH7.2 on DPW500a"]], Magnus Lindstrom, axp-list, 22 Jan 2003)] The Miata GL has an onboard QLogic SCSI controller, "And it was never made obvious from the model numbers". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L22318|"Re: Can someone check the specs of this machine?"]], Jay Estabrook, axp-list, 11 Dec 1999)] Compaq's catalog calls the later models "Enhanced" and the earlier ones "Classic Digital Personal Workstations (DPW without onboard SCSI)"; a classic machine could be upgraded to an enhanced one with a new motherboard and riser. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_a_au_series_catalog.pdf?linkonly|Compaq DPW Enhanced a-Series & au-Series}}, Systems and Options Catalog, September 2000, p. 8)]
+
+"There are two versions of MIATA motherboards: they differ in the PCI "slot" where the onboard PCI-to-PCI bridge lives". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L2291|"Re: PWS 433a"]], Jay Estabrook, axp-list, 3 Jan 1998)]
+
+==== DMA Bug ====
+
+The 21174 "has a bug that corrupts DMA transfers that crosses a page boundary ... on the primary PCI bus, but that is where the IDE controller is located." Use an add-on IDE controller "in one of the free 32-bit PCI-slots. Don't use a 64-bit slot." "The MiataGL doesn't have the DMA bug, it was fixed with a factory installed hardware patch." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L9612|"Re: IDE disk problems with RH7.2 on DPW500a"]], Magnus Lindstrom, axp-list, 22 Jan 2003)] "Early MIATA had the most problems, LX and SX many fewer, and final MIATA (aka MIATA-GL) none to speak of". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-April.mbox#L2335|"Second IDE port not working on PC164"]], Jay Estabrook, axp-list, 8 Apr 2004)] See also [[hardware:other#personal_workstation_64-bit_slots|Personal Workstation 64-bit Slots]].
+
+On a first generation PWS 433a, the ''cmd64x'' driver ignores ''ide=nodma'', so DMA has to be disabled with ''hdparm''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2007-August.mbox#L7000|"Re: Hmm, IDE DMA seems broken with Etch on my PWS433a (Miata MX5)."]], Lennart Sorensen, debian-alpha, 31 Aug 2007)]
+
+==== Linux ====
+
   * Kernels before 2.2.18 limited Pyxis systems to 1 GB: "a problem a while ago, with PYXIS support (MIATA/LX/SX) being limited to 1GB of RAM ... This was fixed". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-March.mbox#L38336|"Re: PYXIS machine checks w/ 1.5GB RAM"]], Jay Estabrook, axp-list, 29 Mar 2001)]
-  * "MIATA has an ES1888 builtin, which is (at least) SBPro compatible". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L23336|"Re: Sound on Miata (PWS500a)"]], Jay Estabrook, axp-list, 9 Jul 1998)]
-  * With Kryotech, Compaq sold "a 767Mhz EV56 chilled with the Kryotech "refrigerator" slapped onto one side of the normal Miata GL case". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-June.mbox#L2778|"RE: Chilled Miata ... anyone?"]], Jeff Donsbach, axp-list, 6 Jun 2001)]
+  * The XP1000, DS20, and Miata GL share a Cypress IDE quirk, fixed in Jay Estabrook's 2008 kernels: "The problem on CYPRESS IDE machines (XP1000, DS20, MIATA) is fixed." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-January.mbox#L289|"My lucky day"]], Jay Estabrook, axp-list, 9 Jan 2008)]
+
+==== Kryotech ====
+
+With Kryotech, Compaq sold "a 767Mhz EV56 chilled with the Kryotech "refrigerator" slapped onto one side of the normal Miata GL case". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-June.mbox#L2778|"RE: Chilled Miata ... anyone?"]], Jeff Donsbach, axp-list, 6 Jun 2001)]
 
 ==== Conflicting Information ====
 
 The following sources disagree with each other or with this page. They are listed here for further investigation.
 
   * **Personal Workstation maximum memory**
-    * {{wiki:hardware:systems:personal_workstation:personal_workstation_a_au_series_catalog.pdf?linkonly|Compaq DPW Enhanced a-Series & au-Series}}, September 2000, p. 2: "1.5 GB maximum"
+    * {{wiki:hardware:systems:personal_workstation:personal_workstation_a_au_series_catalog.pdf?linkonly|Compaq DPW Enhanced a-Series & au-Series}}, September 2000, p. 1: "Three DIMM banks (six slots) (1.5 GB maximum)"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-March.mbox#L39539|"Re: PYXIS machine checks w/ 1.5GB RAM"]], Jay Estabrook, axp-list, 29 Mar 2001: "I've heard that someone stuck 3GB into a MIATA and it was fine. And the MIATA internal doc I have even talks about 6GB (!)"
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:personal_workstation:personal_workstation_a_au_series_catalog.pdf?linkonly|Compaq DPW Enhanced a-Series & au-Series Systems and Options Catalog, V4.3}} | | September 2000 |
+| {{wiki:hardware:systems:personal_workstation:personal_workstation_au_series_installation_and_setup_guide.pdf?linkonly|DIGITAL Personal Workstation a/au-Series Installation and Setup Guide}} | EK-ALMIG-SI.A01 | April 1998 |
 
 {{tag>hardware system 21164 digital}}

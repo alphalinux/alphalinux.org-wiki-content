@@ -1,10 +1,34 @@
 ===== AlphaServer 2000 and 2100 (Sable) =====
 
+The AlphaServer 2100 is a symmetric multiprocessing PCI/EISA server supporting up to four CPUs, and the AlphaServer 2000 is a two CPU version of it: "DEMI-SABLE (AS2000) is half a SABLE (AS2100); ie only 2 CPU boards possible." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-September.mbox#L2324|"Powerup Problem on AS2000"]], Jay Estabrook, axp-list, 26 Sep 2005)] Both use the T2 core logic, and were sold as 4/275, 5/250, and 5/300 models, the last "running at 291 MHz with a 4-megabyte secondary cache". [(>{{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_technical_summary.pdf?linkonly|AlphaServer 2000, AlphaServer 2100, and AlphaServer 2100A Technical Summary}}, p. 3)] Earlier 4/200 and 4/233 models were also sold. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-February.mbox#L15109|"Re: 2.4.20 kernel panics on boot w/ AS2100"]], Soren Harward, debian-alpha, 27 Feb 2003)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-April.mbox#L22932|"Re: I take a deep breath, and I suck down my pride..."]], Jay Estabrook, debian-alpha, 30 Apr 2002)] "2100 (SABLE) and 2000 (Demi-SABLE) are called GAMMA when equipped with EV5 CPUs." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L678|"Re: Help with aboot / kernel startup"]], Jay Estabrook, axp-list, 1 May 2000)] Linux 6.10 kept only the Gamma machines. [(>[[https://git.kernel.org/torvalds/c/d2b1e353dacc|"alpha: sable: remove early machine support"]], Linux 6.10)] The successors are the [[hardware:systems:lynx|AlphaServer 2100A and 2000A]].
 
-The AlphaServer 2100 supports up to four CPUs and the 2000 up to two; "DEMI-SABLE (AS2000) is half a SABLE (AS2100); ie only 2 CPU boards possible." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-September.mbox#L2324|"Powerup Problem on AS2000"]], Jay Estabrook, axp-list, 26 Sep 2005)] Both use the T2 core logic with PCI and EISA, and were sold as 4/200, 4/275, 5/250, and 5/300 models, the last "running at 291 MHz". [(>{{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_technical_summary.pdf?linkonly|AlphaServer 2000, AlphaServer 2100, and AlphaServer 2100A Technical Summary}}, Digital, 1996, p. 3)] "2100 (SABLE) and 2000 (Demi-SABLE) are called GAMMA when equipped with EV5 CPUs." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L678|"Re: Help with aboot / kernel startup"]], Jay Estabrook, axp-list, 1 May 2000)] Linux 6.10 kept only the Gamma machines. [(>[[https://git.kernel.org/torvalds/c/d2b1e353dacc|"alpha: sable: remove early machine support"]], Linux 6.10)]
+The systems were sold as pedestal, rackmount, and cabinet systems; a single cabinet could hold a three node, twelve CPU cluster. [(>{{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_technical_summary.pdf?linkonly|AlphaServer 2000, AlphaServer 2100, and AlphaServer 2100A Technical Summary}}, pp. 1-2)]
 
-  * The Sable is "bootable from SRM console only, and there is no MILO for it (and prolly never will be)." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-March.mbox#L22902|"RE: Alpha Server 2000:Up and Running:THANKS!!"]], Jay Estabrook, axp-list, 20 Mar 1997)]
-  * SMP on "a 4-processor SABLE (aka AS2100 4/200)" ran kernel builds "continuously over a weekend with nary a hiccough" in 1998. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L29385|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 12 Jul 1998)] Later distributions were less reliable: in 2008, the "AS2100 (SABLE) runs nicely with the UP kernel, but crashes attempting to do SMP". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L560|"Fedora 8-based distro /UP2000+"]], Jay Estabrook, axp-list, 15 Apr 2008)]
+==== Specifications ====
+
+Except where noted, the following comes from the technical summary. [(>{{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_technical_summary.pdf?linkonly|AlphaServer 2000, AlphaServer 2100, and AlphaServer 2100A Technical Summary}}, pp. 3-6)]
+
+  * Up to four CPU modules on the AlphaServer 2100 and two on the AlphaServer 2000, in a shared set of system bus slots with the memory modules; slot CPU0 must be filled
+  * 275 MHz [[wp>Alpha_21064#Alpha_21064A|21064A]] with 1 MB of backup cache on the 4/275 models, [[wp>Alpha_21164|21164]] on the 5/250 and 5/300 models; CPU modules carry 8 KB of serial ROM, a power-up diagnostic microprocessor, the system bus arbiter, and 1 or 4 MB of direct-mapped backup cache
+  * 128-bit multiplexed address and data system bus with central arbitration, longword parity, 32-byte transfers, and 666 MB/s peak bandwidth
+  * AlphaServer 2100: up to four memory modules, 2 GB total, in 64, 128, and 512 MB modules, interleaved two or four ways
+  * AlphaServer 2000: up to two memory modules, 1 GB total, built from 4 MB (1M x 36) or 16 MB (4M x 36) 70 ns 72-pin SIMMs, four banks per module, interleaved two ways
+  * 256-bit interface to the DRAMs, ECC and address parity, read stream and write transaction buffers
+  * Three 33 MHz 32-bit PCI slots on both systems
+  * Eight 8.33 MHz EISA slots on the AlphaServer 2100 and seven on the AlphaServer 2000, all bus master capable
+  * PCI Ethernet controller with AUI or twisted-pair, onboard on the AlphaServer 2100 and an adapter on the AlphaServer 2000
+  * PCI single-ended 8-bit Fast SCSI-2 controller; wide SCSI is supported through option controllers [(>{{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_wide_scsi_technical_bulletin.pdf?linkonly|Application of Wide SCSI on AlphaServer 2000/2100/2100A}}, Version 1.5, December 1995)]
+  * 1 MB of flash ROM, 8 KB of NVRAM, TOY clock, two serial ports, bidirectional parallel port, floppy controller, PS/2 keyboard and mouse, PC-style speaker
+  * On the AlphaServer 2100 this I/O is on a separate standard I/O module; on the AlphaServer 2000 it is on the I/O backplane
+  * BA35E StorageWorks shelves holding up to eight 3.5-inch SCSI drives each, configurable as a single or dual bus
+
+==== Booting Linux ====
+
+The Sable is "bootable from SRM console only, and there is no MILO for it (and prolly never will be)." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-March.mbox#L22902|"RE: Alpha Server 2000:Up and Running:THANKS!!"]], Jay Estabrook, axp-list, 20 Mar 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-July.mbox#L2646|"Re: AS2100"]], Jay Estabrook, debian-alpha, 16 Jul 2001)] Digital published ''sable-s.img'' and ''sable-2029.gz'' kernels from 1997. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1997-November.mbox#L1143|"Re: Linux running on a Digital 2100 Server?"]], Jim Paradis, comp.os.linux.alpha, 24 Nov 1997)]
+
+==== Linux ====
+
+  * SMP on "a 4-processor SABLE (aka AS2100 4/200)" ran kernel builds "continuously over a weekend with nary a hiccough" in 1998. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L29385|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 12 Jul 1998)] Later distributions were less reliable: in 2008, the "AS2100 (SABLE) runs nicely with the UP kernel, but crashes attempting to do SMP". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L560|"Fedora 8-based distro /UP2000+"]], Jay Estabrook, axp-list, 15 Apr 2008)] In 2007 Jay Estabrook reported "SABLE/LYNX (AS2100/AS2100A) support is currently broken" in the Alpha Core 3 kernels. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2007-March.mbox#L1087|"Torrents galore...but has anyone actually tried it?"]], Jay Estabrook, axp-list, 7 Mar 2007)]
   * For Red Hat 7.2 on a Sable with more than 1 GB of memory, "you should add the "mem=1G" argument". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L12345|"Re: RedHat 7.2 Linux for Alpha"]], Jay Estabrook, axp-list, 11 Jun 2002)]
   * Richard Henderson: "The only SMP machine left (that we support) using an HAE is the T2 (Sable)... if you've got one, I'd suggest you not use X." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L52247|"axp update for 2.3.15"]], Richard Henderson, axp-list, 30 Aug 1999)]
 
@@ -15,5 +39,17 @@ The following sources disagree with each other or with this page. They are liste
   * **AlphaServer 2000 maximum CPUs**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-September.mbox#L2324|"Powerup Problem on AS2000"]], Jay Estabrook, axp-list, 26 Sep 2005: "only 2 CPU boards possible"
     * {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual}}, Version 6, p. D-6, lists three and four CPU Demi-Sable model codes.
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_technical_summary.pdf?linkonly|AlphaServer 2000, AlphaServer 2100, and AlphaServer 2100A Technical Summary}} | | 1996 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_owners_guide.pdf?linkonly|AlphaServer 2000 Owner's Guide}} | EK-400MP-OP.A01 | October 1994 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100_owners_guide.pdf?linkonly|AlphaServer 2100 Owner's Guide}} | EK-KN450-OP.B01 | February 1995 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100_rm_owners_guide.pdf?linkonly|AlphaServer 2100 RM Series Installation/Owner's Guide}} | EK-KN450-RM.B01 | December 1994 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_release_notes.pdf?linkonly|AlphaServer 2000/2100 Read This First}} | EK-KN450-CL.G01 | January 1996 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_wide_scsi_technical_bulletin.pdf?linkonly|Technical Bulletin: Application of Wide SCSI on AlphaServer 2000/2100/2100A, Version 1.5}} | | December 1995 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2x00_2100a_cpu_upgrade.pdf?linkonly|AlphaServer 2x00/2100A CPU Upgrade}} | EK-KN470-IN.B01 | December 1995 |
+| {{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}} | EK-AXPFW-RM.C01 | December 1995 |
 
 {{tag>hardware system 21064 21164 digital}}
