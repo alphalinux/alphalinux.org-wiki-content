@@ -71,5 +71,6 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}} | EK-ASV80-SG.A01 | April 1997 |
 | {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_systems_and_options_catalog.pdf?linkonly|AlphaServer 1000A Systems V2.0, Digital Systems and Options Catalog}} | | 1996 |
 | {{wiki:hardware:systems:alphaserver_800:alphaserver_800_illustrated_parts_breakdown.pdf?linkonly|DIGITAL AlphaServer 800 Series Illustrated Parts Breakdown}} | EK-ASV80-IP.B01 | |
+| {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_data_sheet.pdf?linkonly|AlphaServer 1000A system data sheet}} | | |
 
 {{tag>hardware system 21064 21164 digital}}
