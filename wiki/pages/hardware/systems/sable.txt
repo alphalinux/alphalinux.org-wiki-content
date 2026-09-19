@@ -12,6 +12,8 @@ Two //Digital Technical Journal// papers posted in February 1995 describe the ar
 
 Digital backported support for the AlphaServer 2000 4/200 to DEC OSF/1 V2.1 in February 1995, "given the success of the AlphaServer 2100 4/200 running DEC OSF/1 V2.1", so that users did not have to wait for applications to be requalified on V3.0. The backport was limited to uniprocessor configurations and the EISA and PCI options supported when V2.1 first shipped in July 1994, and it supported neither network boot and installation as a client nor the coming EV45 upgrades. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L9665|"DEC OSF/1 V2.1 Now Supports AlphaServer 2000 4/200"]], Customer Update, biz.digital.articles, 7 Feb 1995)]
 
+On 7 November 1996 Digital added 5/375 models of the AlphaServer 2000, rated at 11.6 SPECint95 and 14.4 SPECfp95, cut add-on memory prices for the line by 20 percent, and made a 7200 RPM 4.3 GB disk standard. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1996-November.mbox#L502|"Press/Digital Reduces Prices, Adds Power to Midrange AlphaServer Systems"]], Digital Press and Analysts News, biz.digital.announce, 8 Nov 1996)]
+
 ==== Specifications ====
 
 Except where noted, the following comes from the technical summary. [(>{{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_technical_summary.pdf?linkonly|AlphaServer 2000, AlphaServer 2100, and AlphaServer 2100A Technical Summary}}, pp. 3-6)]
