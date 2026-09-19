@@ -44,5 +44,15 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_windows_nt_catalog.pdf?linkonly|AlphaServer DS20 Windows NT Systems and Options Catalog, V1.6}} | | June 1999 |
 | {{wiki:software:firmware:alphaserver_ds20_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer DS20 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
 | {{wiki:software:firmware:alphaserver_ds20_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer DS20 V7.3 Firmware Release Notes}} | | April 2007 |
+| {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_users_guide.pdf?linkonly|AlphaServer DS20 User's Guide}} | EK-AS140-UG.A01 | 1998 |
+| {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_service_manual.pdf?linkonly|AlphaServer DS20 Service Manual}} | EK-AS140-SV.A01 | 1999 |
+| {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_illustrated_parts_breakdown.pdf?linkonly|AlphaServer DS20 Illustrated Parts Breakdown}} | EK-ADS20-IP.A01 | |
+| {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_technical_summary.pdf?linkonly|Compaq AlphaServer DS20 Systems Technical Summary}} | | 1999 |
+| {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_product_brief.pdf?linkonly|Compaq AlphaServer DS20 product brief}} | EC-F9526-10 | 1999 |
+| {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_quickspecs.pdf?linkonly|Compaq AlphaServer DS20 QuickSpecs}} | DA-10050-00A-003 | February 2000 |
+| {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_ultra_scsi_storageworks_shelf_configuration_guide.pdf?linkonly|AlphaServer DS20 Ultra SCSI Internal StorageWorks Shelf Configuration Guide}} | EK-H8253-IN.A01 | November 1998 |
+| {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_power_supply_installation_card.pdf?linkonly|AlphaServer DS20 Power Supply Installation Card}} | EK-H7899-IN.A01 | 1998 |
+| {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_ds20e_cpu_installation_card.pdf?linkonly|Compaq AlphaServer DS20 and AlphaServer/AlphaStation DS20E CPU Installation Card}} | EK-KN310-IN.B01 | 1999 |
+| {{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_installation_card.pdf?linkonly|AlphaServer DS20 Installation Card}} | EK-AS140-IN | 1998 |
 
 {{tag>hardware system 21264 compaq}}
