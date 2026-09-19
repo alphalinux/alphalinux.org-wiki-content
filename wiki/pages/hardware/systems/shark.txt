@@ -30,5 +30,8 @@ On a DS20L, "2.4.27-2-smp works nicely but requires the eepro100 driver instead 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:software:firmware:alphaserver_ds20l_v6.6_firmware_release_notes.pdf?linkonly|AlphaServer DS20L V6.6 Console Firmware Release Notes}} | | December 2003 |
 | {{wiki:software:firmware:alphaserver_ds20l_v6.5_firmware_release_notes.pdf?linkonly|AlphaServer DS20L V6.5 Console Firmware Release Notes}} | | June 2003 |
+| {{wiki:hardware:systems:alphaserver_ds20l:alphaserver_ds20l_users_guide.pdf?linkonly|AlphaServer DS20L User's Guide}} | EK-DS20L-UG.B01 | May 2002 |
+| {{wiki:hardware:systems:alphaserver_ds20l:alphaserver_ds20l_technical_summary.pdf?linkonly|AlphaServer DS20L System Technical Summary}} | | |
+| {{wiki:hardware:systems:alphaserver_ds20l:alphaserver_ds20l_quickspecs.pdf?linkonly|HP AlphaServer DS20L QuickSpecs, Version 4}} | DA-11054 | October 2003 |
 
 {{tag>hardware system 21264 compaq api}}
