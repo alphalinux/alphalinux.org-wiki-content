@@ -69,5 +69,7 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:hardware:systems:alphaserver_ds10l:alphaserver_ds10l_quick_setup.pdf?linkonly|AlphaServer DS10L Quick Setup}} | EK-DS10L-CP | |
 | {{wiki:hardware:systems:alphaserver_ds10l:alphaserver_ds10l_golden_eggs_poster.pdf?linkonly|AlphaServer DS10L 67/600 Systems, Golden Eggs Visual Configuration}} | BN25G-07 | 2000 |
 | {{wiki:hardware:other:ali_m1543c_datasheet.pdf?linkonly|Acer Laboratories M1543C Desktop Southbridge Preliminary Datasheet, Version 1.10}} | | |
+| {{wiki:hardware:systems:alphaserver_ds10l:alphaserver_ds10l_quadbracket_rackmount_installation.pdf?linkonly|AlphaServer DS10L Quadbracket Rackmount Installation}} | EK-DS10L-QM.B01 | |
+| {{wiki:hardware:systems:alphaserver_ds10l:alphaserver_ds10l_single_bracket_rackmount_installation.pdf?linkonly|AlphaServer DS10L Single Bracket Rackmount Installation}} | EK-DS10L-RM.B01 | |
 
 {{tag>hardware system 21264 compaq}}
