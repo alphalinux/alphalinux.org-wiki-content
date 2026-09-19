@@ -24,7 +24,7 @@ Mirrors of all of these, reconstructed from Pipermail and MHonArc pages, Gmane, 
 | cooker-axp | Mandrake | July 2000 to November 2001 | 110 |
 | debian-alpha | Debian | November 1995 to present | 19,902 |
 
-No archive of axp-kernel-list from before April 2002 is known to survive. Headers in the surviving messages show it was a private Mailman list, and Red Hat's copy is gone.
+axp-kernel-list, for "Alpha kernel issues", was running by 3 August 1998, when it appeared in Red Hat's periodic list of its mailing lists. [(>[[https://mail.gnome.org/archives/gtk-list/1998-August/msg00060.html|"Mailing List Lists"]], listmaster@redhat.com, gtk-list, 3 Aug 1998)] No archive of it from before April 2002 is known to survive. Headers in the surviving messages show it was by then a private Mailman list, and Red Hat's copy is gone.
 
 === Other Operating Systems ===
 
