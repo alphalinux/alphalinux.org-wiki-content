@@ -20,6 +20,8 @@ Except where noted, the following comes from the systems and options catalog. [(
 
 ==== Firmware ====
 
+  * The SRM console treats Linux as a first-class operating system on the ES40: ''os_type'' takes ''unix'', ''vms'', or ''linux'', and setting it to ''linux'' starts the SRM firmware at power-up or reset. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, EK-ES240-UI.B01, p. 2-78)]
+  * The manual gives the per-distribution boot settings: ''boot_file'' is ''2/boot/vmlinux.gz'' for Red Hat and ''2/boot/vmlinuz'' for SuSE, and ''boot_osflags'' takes the root device and run level, as in ''set boot os_flags "root=/dev/sda2 1 rw"'' for Red Hat single-user mode with read and write privileges. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, pp. 2-51 to 2-53)]
   * "Only one VGA graphic controller card, that is VGA-Enabled, is supported in PCI0 bus slots", and removing the mouse at the SRM console "will prevent any response from the keyboard (until the mouse is plugged back in)." [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 20)]
   * SRM V5.6 added "an X86 bios emulator" to support the KZPCC-CE RAID controller (see [[hardware:other|Other Hardware]]). [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 38)]
 
@@ -38,6 +40,7 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40, ES40cv, ES40lp, TS40, and TS20 V7.3 Firmware Release Notes}} | | April 2007 |
 | {{wiki:software:firmware:alphaserver_es40_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer ES40, ES40cv, ES40lp, and TS40 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
 | {{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_owners_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 Owner's Guide}} | EK-ES240-UG.B01 | February 2000 |
+| {{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}} | EK-ES240-UI.B01 | February 2000 |
 | {{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_technical_summary.pdf?linkonly|Compaq AlphaServer ES40 Systems Technical Summary}} | | |
 | {{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_performance_analysis.pdf?linkonly|Performance Analysis of the Alpha 21264-based Compaq ES40 System (Zarka Cvetanovic and R. E. Kessler)}} | | |
 
