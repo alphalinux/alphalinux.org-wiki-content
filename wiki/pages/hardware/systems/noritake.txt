@@ -38,6 +38,17 @@ Except where noted, the following comes from the technical summary. [(>{{wiki:ha
   * Up to four 3.5-inch full-height SCSI devices with hot swap, up to three 5.25-inch half-height devices, and a 3.5-inch floppy drive
   * Sold as a pedestal or as a rackmount box taking up to four internal drives
 
+=== AlphaStation 600A ===
+
+[(>{{wiki:hardware:systems:alphastation_600a:alphastation_600a_user_information.pdf?linkonly|AlphaStation 600A User Information}}, January 1997, pp. 3-8 to 3-9)]
+
+  * CPU on a module: the 600A 5/500 reports a 500 MHz [[wp>Alpha_21164#Alpha_21164A|21164A]] [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600a_user_information.pdf?linkonly|AlphaStation 600A User Information}}, p. 6-3)]
+  * 16 SIMM sockets in four banks of four; memory options of 16, 32, 64, 128, and 256 MB, for 16 MB to 1 GB, with one bank required and all modules in a bank of the same capacity
+  * Primary and secondary PCI slots plus EISA slots, an onboard SCSI controller, and an onboard graphics controller that the EISA Configuration Utility can disable
+  * Both SRM and AlphaBIOS, with an ''os_type'' environment variable selecting which the NVRAM boots, and a ''pci_parity'' variable whose default depends on the SCSI controller revision [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600a_user_information.pdf?linkonly|AlphaStation 600A User Information}}, p. 5-53)]
+
+Digital sold an upgrade from the [[hardware:systems:alcor|AlphaStation 600]], which shows how little the two share: the kit replaces the main logic board and the CPU module, the Alcor memory towers are returned to Digital, and the SIMMs, option modules, I/O subsystem module, and drive assembly are moved onto the new board. The I/O subsystem module goes into one of the three primary PCI slots, the new board's onboard SCSI controller takes over the internal bus, and the ECU is then run to disable the onboard graphics. [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600_to_600a_upgrade_information.pdf?linkonly|AlphaStation 600 to AlphaStation 600A Upgrade Information}}, January 1997, pp. 1-1 to 1-4)]
+
 ==== Booting Linux ====
 
   * "Please, use SRM, as there's no MILO for any of that family." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L29808|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] "Use of MILO is deprecated on MIKASA, and unavailable on NORITAKE." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)]
@@ -74,5 +85,8 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_systems_and_options_catalog.pdf?linkonly|AlphaServer 1000A Systems V2.0, Digital Systems and Options Catalog}} | | 1996 |
 | {{wiki:hardware:systems:alphaserver_800:alphaserver_800_illustrated_parts_breakdown.pdf?linkonly|DIGITAL AlphaServer 800 Series Illustrated Parts Breakdown}} | EK-ASV80-IP.B01 | |
 | {{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_data_sheet.pdf?linkonly|AlphaServer 1000A system data sheet}} | | |
+| {{wiki:hardware:systems:alphastation_600a:alphastation_600a_user_information.pdf?linkonly|AlphaStation 600A Series User Information}} | EK-AL655-UI.A01 | January 1997 |
+| {{wiki:hardware:systems:alphastation_600a:alphastation_600_to_600a_upgrade_information.pdf?linkonly|AlphaStation 600 to AlphaStation 600A Upgrade Information}} | EK-AL655-UP.A01 | January 1997 |
+| {{wiki:hardware:systems:alphastation_600a:alphastation_600a_illustrated_parts_breakdown.pdf?linkonly|AlphaStation 600A Illustrated Parts Breakdown}} | EK-AL655-IP.A01 | |
 
 {{tag>hardware system 21064 21164 digital}}
