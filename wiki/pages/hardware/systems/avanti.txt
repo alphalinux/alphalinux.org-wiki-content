@@ -34,5 +34,17 @@ The following describes the AlphaServer 300, which is the member of the family w
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide}} | EK-AS300-UG.A01 | November 1996 |
 | {{wiki:hardware:systems:alphaserver_300:alphaserver_300_release_notes.pdf?linkonly|AlphaServer 300 Release Notes}} | EK-AS300-RN.A01 | December 1996 |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_400_technical_information.pdf?linkonly|Digital AlphaStation 200/400 Series Technical Information}} | EK-PCDSA-TI.A01 | April 1995 |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_user_information.pdf?linkonly|Digital AlphaStation 200 Series User Information}} | EK-PCDTA-UI.E01 | July 1995 |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_upgrade_information.pdf?linkonly|Digital AlphaStation 200 Series Upgrade Information}} | EK-ALPST-UP.A01 | October 1994 |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_4-233_cpu_upgrade_information.pdf?linkonly|Digital AlphaStation 200 4/233 CPU Upgrade Information}} | EK-PCDTA-CP.A01 | December 1995 |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_4-166_cpu_upgrade_information.pdf?linkonly|Digital AlphaStation 200 4/166 CPU Upgrade Information}} | EK-PCDTA-PU.A01 | December 1995 |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_illustrated_parts_breakdown.pdf?linkonly|Digital AlphaStation 200 Series Illustrated Parts Breakdown}} | EK-PCDTA-IP.A01 | |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_installation_information.pdf?linkonly|AlphaStation 200 Series Installation Information}} | EK-PCDTA-II.B01 | 1996 |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_drive_bracket_note.pdf?linkonly|AlphaStation 200 Series Drive Bracket Note}} | EK-PCDTA-BN.A01 | |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_customer_letter.pdf?linkonly|AlphaStation 200 Series System Customer Letter}} | EK-PCDTT-CL | March 1995 |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_4-100_systems_and_options_catalog.pdf?linkonly|AlphaStation 200 4/100 V2.1, Digital Systems and Options Catalog}} | | 1996 |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_4-233_systems_and_options_catalog.pdf?linkonly|AlphaStation 200 4/233 V2.1, Digital Systems and Options Catalog}} | | 1996 |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_golden_eggs_poster.pdf?linkonly|AlphaStation 200 4/100 166 233, Golden Eggs Visual Configuration}} | GEAW200A | February 1996 |
 
 {{tag>hardware system 21064 digital}}
