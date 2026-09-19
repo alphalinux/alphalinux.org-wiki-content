@@ -25,5 +25,8 @@ Linux does not run on them. An 8400 upgraded to a GS140 loaded a kernel from abo
 | {{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60_8200_tru64_openvms_systems_catalog.pdf?linkonly|Compaq AlphaServer GS60 and AlphaServer 8200 Tru64 UNIX and OpenVMS Systems and Options Catalog, V3.4}} | | April 1999 |
 | {{wiki:software:firmware:alphaserver_gs140_v6.6_firmware_release_notes.pdf?linkonly|AlphaServer GS60/GS60E/GS140 V6.6 Firmware Update Procedures and Release Notes}} | | November 2003 |
 | {{wiki:software:firmware:alphaserver_gs140_v6.4_firmware_release_notes.pdf?linkonly|AlphaServer GS60/GS60E/GS140 Systems V6.4 Firmware Update Procedures and Release Notes}} | | December 2002 |
+| {{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs140_getting_started_with_logical_partitions.pdf?linkonly|AlphaServer GS140 Getting Started with Logical Partitions}} | EK-TUNLP-SF | May 1999 |
+| {{wiki:hardware:systems:alphaserver_8400:alphaserver_gs60_8200_installation_guide.pdf?linkonly|AlphaServer GS60 and 8200 Installation Guide}} | EK-T8230-IN.B01 | October 1998 |
+| {{wiki:hardware:systems:alphaserver_8400:alphaserver_gs60_140_8200_8400_release_notes.pdf?linkonly|AlphaServer GS60/140 and 8200/8400 Release Notes}} | EK-T8284-RN.G01 | November 1998 |
 
 {{tag>hardware system 21264 compaq}}
