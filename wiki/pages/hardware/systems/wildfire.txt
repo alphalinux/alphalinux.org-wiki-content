@@ -5,6 +5,10 @@ The Wildfire systems are large 21264 SMP servers built from "quads", also called
 ==== Specifications ====
 
   * Four [[wp>Alpha_21264|21264]] CPUs and up to eight PCI buses per quad, up to eight quads in the largest configuration [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L18535|"Re: Linux Driver"]], Jay Estabrook, axp-list, 8 Nov 2000)]
+  * Compaq's name for the quad is the quad building block, QBB: "The GS160/320 system uses up to four Alpha microprocessors in each quad building block (QBB). Two QBBs are paired back-to-back and rotated 180 degrees with reference to each other and then enclosed in a system box." A GS160 cabinet holds up to two system boxes and so 16 CPU modules; a GS320 adds a second cabinet for four boxes and 32 CPU modules. The GS80 is a rack system whose QBBs are drawers, up to two drawers of four CPUs each, so eight CPUs in all. The three share the same switch technology and the same CPU, memory, and power modules. [(>{{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_users_guide.pdf?linkonly|AlphaServer GS80/160/320 User's Guide}}, EK-GS320-UG.C01, pp. 1-1 to 1-3)]
+  * QBBs are joined by the global port and distribution board; in a two-box system a hierarchical switch takes the place of that interconnect. I/O riser modules cable the QBB backplane to the PCI boxes, and "a QBB supports up to two PCI boxes", one per I/O port on the local riser. [(>{{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_users_guide.pdf?linkonly|AlphaServer GS80/160/320 User's Guide}}, pp. 1-9, 3-17)]
+  * A memory module has eight DIMM slots in two arrays, and the interleave follows how the arrays are filled: 4-way is the default for one module with one array populated, 8-way for two modules with one array each, 16-way for four modules with one array each, and 32-way for four modules with both arrays populated. "The larger the interleaving factor, the better the system performance", and mixing memory sizes "limits interleaving capability and potential bandwidth". [(>{{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_users_guide.pdf?linkonly|AlphaServer GS80/160/320 User's Guide}}, pp. 3-14, 3-16 to 3-17)]
+  * Besides the hard partitions, the firmware offers soft partitions, set up by SRM environment variables (''lp_count'' and friends) and started with ''lpinit''. Only OpenVMS supports them: CPU and memory can be shared between soft partitions, but "I/O is bound to a particular partition", and each partition needs at least one CPU module, one memory module, an I/O riser, and a PCI box with a standard I/O module carrying resident SRM firmware. [(>{{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_users_guide.pdf?linkonly|AlphaServer GS80/160/320 User's Guide}}, pp. 7-22 to 7-24)]
   * Systems can be split into hard partitions, each with its own System Control Manager and its own instance of the operating system [(>{{wiki:software:firmware:alphaserver_gs320_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.3 Firmware Release Notes}}, April 2007, pp. 2-3, 2-8)]
   * The SRM console occupies the low memory that other Alphas leave to the kernel, so Linux 2.4 moved the kernel start address to make room for it (see [[software:firmware:srm#system_support|SRM]]) [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-June.mbox#L18841|"Re: Linux-2.4.0-test2"]], Ivan Kokshaysky, axp-list, 25 Jun 2000)]
 
@@ -21,11 +25,18 @@ The following sources disagree with each other or with this page. They are liste
 
   * **Wildfire model names**
     * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10: "AlphaServer GS 40/80/160/320"
-    * No HP document found mentions a GS40.
+    * No HP document found mentions a GS40. Compaq's own user's guide covers only the GS80, GS160, and GS320. [(>{{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_users_guide.pdf?linkonly|AlphaServer GS80/160/320 User's Guide}}, p. 1-1)]
 
 ==== Documentation ====
 
 ^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_users_guide.pdf?linkonly|AlphaServer GS80/160/320 User's Guide}} | EK-GS320-UG.C01 | September 2000 |
+| {{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_firmware_reference_manual.pdf?linkonly|AlphaServer GS80/160/320 Firmware Reference Manual}} | EK-GS320-RM.C01 | September 2000 |
+| {{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_getting_started_with_partitions.pdf?linkonly|AlphaServer GS80/160/320 Getting Started with Partitions}} | EK-GSPAR-RM.A01 | September 2000 |
+| {{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs160_320_installation_guide.pdf?linkonly|AlphaServer GS160/320 Installation Guide}} | EK-GS320-IN.C01 | September 2000 |
+| {{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_installation_guide.pdf?linkonly|AlphaServer GS80 Installation Guide}} | EK-GSR80-IN.A01 | October 2000 |
+| {{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_site_preparation.pdf?linkonly|AlphaServer GS80/160/320 Site Preparation}} | EK-GS320-SP.C01 | September 2000 |
+| {{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_system_management_console_installation_and_users_guide.pdf?linkonly|AlphaServer GS80/160/320 System Management Console Installation and User's Guide}} | EK-GSCON-IN.D01 | February 2001 |
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_station_users_guide.pdf?linkonly|AlphaServer Management Station User's Guide, Version 4.0}} | | July 2004 |
 | {{wiki:software:firmware:alphaserver_gs320_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.3 Firmware Release Notes}} | | April 2007 |
 | {{wiki:software:firmware:alphaserver_gs320_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
