@@ -49,9 +49,13 @@ A few newsgroups exist for Alpha users, namely
   * [[https://groups.google.com/group/comp.sys.dec/topics|comp.sys.dec]] for discussion about DEC Computers
   * [[https://groups.google.com/group/linux.debian.ports.alpha|linux.debian.ports.alpha]], a gateway to the debian-alpha mailing list, for discussion of running Debian on Alpha
 
+Digital ran two moderated groups of its own, **biz.digital.announce** for press releases and fact sheets and **biz.digital.articles** for the //Customer Update// product announcements. Both carried the company's own descriptions of Alpha hardware as it shipped, and both are useful for dating and specifying machines that the surviving manuals do not cover. Neither ran for as long as the archives suggest: the last real //Customer Update// article is from December 1995 and the last press release from April 1997, and everything the archives hold after that is spam.
+
 Announcements of Alpha ports, kits and distributions were posted to **comp.os.linux.announce**, which is where Digital's early Linux/Alpha work was made public.
 
-Google Groups stopped carrying new Usenet posts in February 2024, so these links serve historic content only. Complete mbox archives of all five groups, built from the Internet Archive's ''usenet-comp'' collection, are kept alongside the mailing lists in [[https://github.com/alphalinux-org/mailing-list-archives|alphalinux-org/mailing-list-archives]].
+comp.os.linux.alpha was created in 1997 on David Mosberger-Tang's proposal. His Request For Discussion, posted on 26 April 1997, argued that Linux/Alpha discussion was scattered across Red Hat's mailing list and groups such as comp.sys.dec, and measured the interest by the list's traffic: in the 22 days from 1 to 22 April 1997, axp-list carried over 950 messages from more than 200 different people. A newsgroup would give "a focused and vendor-neutral place for discussing issues related to Linux on Alpha". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1997-April.mbox#L4252|"RFD: comp.os.linux.alpha"]], David Mosberger, comp.os.linux.announce, 26 Apr 1997)] Voting closed on 30 June 1997 and the group passed 687 to 9, with the newsgroups line "Linux on Digital Alpha machines." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1997-July.mbox#L1|"RESULT: comp.os.linux.alpha passes 687:9"]], David Bostwick, comp.os.linux.announce, 2 Jul 1997)]
+
+Google Groups stopped carrying new Usenet posts in February 2024, so these links serve historic content only. Complete mbox archives of all seven groups, built from the Internet Archive's ''usenet-comp'' and ''usenet-biz'' collections, are kept alongside the mailing lists in [[https://github.com/alphalinux-org/mailing-list-archives|alphalinux-org/mailing-list-archives]].
 
 ^ Newsgroup ^ Coverage ^ Messages ^
 | comp.os.linux.alpha | August 1997 to May 2013 | 29,127 |
@@ -59,6 +63,8 @@ Google Groups stopped carrying new Usenet posts in February 2024, so these links
 | comp.sys.vms | January 1990 to September 2004 | 876 |
 | comp.unix.tru64 | April 2000 to March 2013 | 14,500 |
 | comp.os.linux.announce | April 1993 to May 2013 | 13,052 |
+| biz.digital.announce | May 1994 to May 2005 | 750 |
+| biz.digital.articles | April 1994 to April 2004 | 771 |
 
 While not pertaining to Linux or Alpha, hardware information may be found in the [[https://groups.google.com/group/comp.sys.vms/topics|comp.sys.vms]] and [[https://groups.google.com/group/comp.unix.tru64/topics|comp.unix.tru64]] newsgroups.
 
@@ -79,7 +85,7 @@ Until [[https://www.debian.org/releases/lenny/|Debian Lenny]], [[https://www.deb
 Many Linux distributions once supported Alpha, but do not any longer or have been discontinued. The following lists distributions that supported Alpha in the past and the last Alpha-supporting release. Dates and versions are taken from the mailing list archives described above.
 
 ^ Distribution ^ Last Alpha release ^ Notes ^
-| BLADE | 0.3 | "Basic Linux/Alpha Distribution Eyesore", Digital's own Linux/Alpha distribution, largely the work of Jim Paradis. Version 0.1, released on 1 July 1995, was the first Linux/Alpha that could be installed without a second machine, and was meant as a stopgap until the established distributions were ported. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-July.mbox#L10349|"Linux/Alpha installable kit now available!"]], Jim Paradis, comp.os.linux.announce, 1 Jul 1995)] Superseded during 1996 by Red Hat's Alpha release. |
+| BLADE | 0.3 | "Basic Linux/Alpha Distribution Eyesore", Digital's own Linux/Alpha distribution, largely the work of Jim Paradis. Version 0.1, released on 1 July 1995, was the first Linux/Alpha that could be installed without a second machine, and was meant as a stopgap until the established distributions were ported. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-July.mbox#L10349|"Linux/Alpha installable kit now available!"]], Jim Paradis, comp.os.linux.announce, 1 Jul 1995)] Version 0.2, on 9 August 1995, added TCP/IP networking and the first supported release of [[software:boot_loaders:milo|MILO]]. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-August.mbox#L4599|"BLADE 0.2 now available! (Linux for Alpha)"]], Jim Paradis, comp.os.linux.announce, 9 Aug 1995)] Superseded during 1996 by Red Hat's Alpha release. |
 | Craftworks Linux/AXP | 2.2 | Commercial distribution sold on CD, widely used on Alpha during 1996 and 1997. |
 | Red Hat Linux | 7.2 | |
 | SuSE Linux | 7.1 | 7.1 was the last shipping Alpha product. Former members of the SuSE Alpha team released an unofficial **SuSE Linux 8.1 Alpha Edition** in their own time, announced on 13 May 2003. |
