@@ -47,5 +47,18 @@ X crashes on the 4/xxx models resemble those on "AVANTI-class machines (ie EV4/A
 | {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}} | EK-DTLSV-SV.B01 | July 1995 |
 | {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_technical_summary.pdf?linkonly|AlphaServer 1000 Technical Summary}} | EC-N3820-10 | |
 | {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_release_notes.pdf?linkonly|AlphaServer 1000 Read This First}} | EK-DTLSV-CL.C01 | June 1995 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide_rev_b.pdf?linkonly|AlphaServer 1000 Owner's Guide}} | EK-DTLSV-OG.B01 | June 1995 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_rackmount_owners_guide.pdf?linkonly|AlphaServer 1000 Rackmount Owner's Guide}} | EK-RMALP-OG.A01 | February 1995 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_alphastation_600_rackmount_installation_information.pdf?linkonly|DIGITAL AlphaServer 1000 and DIGITAL AlphaStation 600 Rackmount Installation Information}} | EK-RMALP-IN.F01 | June 1998 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_upgrade_information.pdf?linkonly|Digital AlphaServer 1000 Series Upgrade Information}} | EK-ALPSV-UP.B01 | April 1995 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_cpu_upgrade_information.pdf?linkonly|AlphaServer 1000 CPU Upgrade Information}} | EK-ASM42-UP.B01 | October 1995 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_1000a_model_5xxx_owners_guide_supplement.pdf?linkonly|AlphaServer 1000/1000A Model 5/xxx Owner's Guide Supplement}} | EK-AL530-OG.B01 | October 1996 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_1000a_cpu_upgrade_guide.pdf?linkonly|AlphaServer 1000/1000A CPU Upgrade Guide}} | EK-AL530-UP.A01 | September 1996 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_to_1000a_model_5xxx_upgrade_information.pdf?linkonly|AlphaServer 1000 to AlphaServer 1000A Model 5/xxx Upgrade Information}} | EK-AS42X-UP.A01 | September 1996 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_illustrated_parts_breakdown.pdf?linkonly|AlphaServer 1000 Series Illustrated Parts Breakdown}} | EK-DTLSV-IP.B01 | |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_basic_installation.pdf?linkonly|AlphaServer 1000 Basic Installation}} | EK-DTLSV-IC.A01 | |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_1000a_read_this_first.pdf?linkonly|AlphaServer 1000/1000A Systems READ THIS FIRST: System-Specific Release Notes}} | EK-ALPSV-CL.B01 | July 1996 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_to_1000a_upgrade_option_customer_notice.pdf?linkonly|AlphaServer 1000 to AlphaServer 1000A Upgrade Option Customer Notice}} | EK-ALPHA-RN.A01 | February 1996 |
+| {{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_to_1000a_model_5xxx_upgrade_option_customer_notice.pdf?linkonly|AlphaServer 1000 to AlphaServer 1000A Model 5/xxx Upgrade Option Customer Notice}} | EK-ALPH5-RN.A01 | February 1996 |
 
 {{tag>hardware system 21064 21164 digital}}
