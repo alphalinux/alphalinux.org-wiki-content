@@ -40,5 +40,18 @@ Except where noted, the following comes from the ES47 and ES80 QuickSpecs. [(>{{
 | {{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Server Management SRM Console Reference, Version 1.0}} | | December 2002 |
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_release_notes_v5.2.0.pdf?linkonly|HP AlphaServer Management Release Notes V5.2.0}} | | August 2006 |
 | {{wiki:hardware:systems:alphaserver_es47:us6973517_partition_formation_patent.pdf?linkonly|US Patent 6,973,517, Partition Formation Using Microprocessors in a Multiprocessor Computer System}} | | December 2005 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_user_information.pdf?linkonly|hp AlphaServer ES47/ES80/GS1280 User Information, Version 3.0}} | | June 2004 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_installation_information.pdf?linkonly|hp AlphaServer ES47/ES80/GS1280 Installation Information, Revision 4.0}} | | May 2004 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_getting_started_with_partitions.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Getting Started With Partitions, Version 4.0}} | | January 2005 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_station_users_guide.pdf?linkonly|AlphaServer Management Station User's Guide, Version 4.0}} | | July 2004 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_trade_ups.pdf?linkonly|HP AlphaServer ES47 Trade-ups}} | EK-ES478-TU.C01 | June 2004 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_memory_option_installation_card.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Memory Option Installation Card}} | EK-EGMEM-UP.B01 | |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_module_installation_card.pdf?linkonly|AlphaServer ES47/ES80/GS1280 I/O Module Installation Card}} | EK-EGRIS-UP.A01 | |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_expander_cabinet_installation_card.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Expander Cabinet Installation Card}} | EK-EGEXC-UP.A01 | |
+| {{wiki:hardware:systems:alphaserver_gs1280:alphaserver_gs1280_cpu_module_installation_card.pdf?linkonly|AlphaServer GS1280 CPU Module Installation Card}} | EK-EGCPU-UP.E01 | |
+| {{wiki:hardware:systems:alphaserver_es47:linksys_nat_box_configuration_guide.pdf?linkonly|Configuration Guide for the Linksys NAT box}} | EK-GSNAT-IN.A01 | July 2006 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_data_sheet.pdf?linkonly|HP AlphaServer ES47 system data sheet}} | | July 2004 |
+| {{wiki:hardware:systems:alphaserver_gs1280:alphaserver_gs1280_data_sheet.pdf?linkonly|HP AlphaServer GS1280 system data sheet}} | | July 2004 |
+| {{wiki:hardware:systems:alphaserver_gs1280:alphaserver_gs1280_quickspecs.pdf?linkonly|HP AlphaServer GS1280 Systems QuickSpecs, Version 22}} | DA-11921 | May 2006 |
 
 {{tag>hardware system 21364 hp}}
