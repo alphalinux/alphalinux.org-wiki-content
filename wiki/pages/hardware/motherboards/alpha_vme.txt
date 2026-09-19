@@ -8,6 +8,19 @@ Digital announced the availability of the 4/224 and 4/288 on 24 April 1996, aime
 
 Digital also sold a VME variant of a complete system under the same name. The **Alpha VME 2100** is an [[hardware:systems:sable|AlphaServer 2100]] with the VME64 bus in place of EISA, in 19-inch rackmount packaging, with "CPU, memory, and standard I/O features and functionality that are identical to standard AlphaServer 2100 systems" and three PCI plus five VME64 slots. It was announced in October 1994 as the AlphaServer 2100 4/190 VME, available only at 190 MHz, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-October.mbox#L252|"Digital AlphaServer 2100 4/190 VME"]], Customer Update, biz.digital.articles, 5 Oct 1994)] and renamed to Alpha VME 2100 in June 1995, when a 275 MHz model joined it, "to more clearly reflect the VME embedded system". It ran Digital UNIX and OpenVMS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-June.mbox#L12012|"Digital Alpha VME 2100"]], Customer Update, biz.digital.articles, 16 Jun 1995)]
 
+==== AXPvme Specifications ====
+
+All of the following comes from the technical description. [(>{{wiki:hardware:systems:alpha_vme:axpvme_technical_description.pdf?linkonly|AXPvme Single-Board Computer Technical Description}}, EK-EBV1X-TD.B01, July 1995, pp. 1-1 to 1-4)]
+
+  * 6U VMEbus module built on the LCA (21066A), "a dual-issue Alpha implementation with full floating-point support, internal 8 Kbyte Instruction and Data caches, full memory, and I/O bus controllers, as well as a PLL clock generator"; the supported operating systems are OSF/1 and VxWorks
+  * 8, 16, 32, 64, or 128 MB of DRAM on a 64-bit memory bus, with a fixed external write-back backup cache whose size depends on the module: 256 KB on the AXPvme 64, 64LC, and 160, and 512 KB on the 100, 166, and 230
+  * PCI is the onboard I/O bus, driven by the LCA's integral I/O controller, which also acts as a PCI target and a PCI to main memory bridge for DMA
+  * Full master and slave VME interface to IEC 821 and IEEE 1014-1987, able to act as VME system controller in slot 1; A16, A24, and A32 address spaces with D08, D16, D32, and D64 transfers, and D64 giving "data rates of up to >24 Mbytes/s"
+  * An outbound scatter/gather map reaches 2048 pages of 256 KB of VME space and carries the address modifier and byte swapping settings; an inbound map covers the board's own memory, write-protects chosen pages, and can interrupt on page access. Byte swapping "is provided to ease data interchange between the little-endian Alpha AXP and other architectures without software overhead"
+  * Interprocessor communication registers in A16 space for message passing and signaling
+  * The VME interface is built on the Cypress VIC64 with Digital's DC7407; the manual notes that "the address map in the VIC64 databook places the VIC registers in byte 3 of a particular longword address; in AXPvme, the VIC registers accessed over the PCI are seen at byte zero in each longword"
+  * PCI Ethernet (DECchip 21040), NCR 53C810 SCSI, an Intel 82378ZB bridge, 85C30 serial lines, 8254 timers, flash ROM, and NVRAM
+
 ==== Alpha VME 4 Specifications ====
 
 All of the following comes from the user guide. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, pp. 1-1 to 1-5)]
@@ -75,5 +88,10 @@ For the earlier series, EBV12-AD is a 160 MHz AXPvme processor board taking a me
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}} | EK-DAVME-TD.B01 | September 1996 |
+| {{wiki:hardware:systems:alpha_vme:axpvme_technical_description.pdf?linkonly|AXPvme Single-Board Computer Technical Description}} | EK-EBV1X-TD.B01 | July 1995 |
+| {{wiki:hardware:systems:alpha_vme:axpvme_installation_user_guide.pdf?linkonly|AXPvme Single-Board Computer Installation/User Guide}} | EK-EBV1X-IN.B01 | September 1995 |
+| {{wiki:hardware:systems:alpha_vme:axpvme_release_notes.pdf?linkonly|AXPvme Single-Board Computer Release Notes}} | EK-EBV1X-RN.B01 | December 1994 |
+| {{wiki:hardware:systems:alpha_vme:alpha_vme_2100_drawer_rackmount_front_bezel_installation.pdf?linkonly|Digital Alpha VME 2100 Drawer Rackmount Front Bezel Installation Information}} | EK-DALDR-IS.B01 | 1995 |
+| {{wiki:hardware:systems:alpha_vme:alpha_vme_2100_vertical_rackmount_front_bezel_installation.pdf?linkonly|Digital Alpha VME 2100 Vertical Rackmount Front Bezel Installation Information}} | EK-DALVR-IS.B01 | 1995 |
 
 {{tag>hardware motherboard 21064 21066 digital}}
