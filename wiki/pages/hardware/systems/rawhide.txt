@@ -34,6 +34,10 @@ Except where noted, the following comes from the technical summary. [(>{{wiki:ha
 
 Compaq also sold an AlphaServer 4100 Custom Solution System: a low profile commercial-off-the-shelf platform 8.75 inches high, holding one to four 533 MHz processors and two embedded drives, rugged enough for "land, sea, or air" use, with up to seven systems (28 processors) in one 19-inch RETMA cabinet. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_custom_solution_system.pdf?linkonly|AlphaServer 4100 Custom Solution System}}, Compaq, 1999)]
 
+The earlier, 1997 version of the same machine used 466 MHz 21164A processors with 4 MB of synchronous cache and a fan on each CPU module, in a slide-mounted chassis for a 19-inch EIA cabinet with English or metric RETMA rail patterns. Its PCI subsystem is narrower than the standard drawer's: two 64-bit PCI buses giving 440 MB/s in total, one with three PCI slots and the other with two dedicated PCI slots and one shared PCI/EISA slot. It takes up to four memory pairs, 128 MB (2 x 64 MB) or 1 GB (2 x 512 MB) half-height modules, for 512 MB to 4 GB, and holds two internal 3.5-inch half-height SCSI disks, a floppy drive, and a 12X CD-ROM, with external storage on StorageWorks shelves. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_custom_solution_installation_owners_service_guide.pdf?linkonly|DIGITAL Custom AlphaServer 4100 System Solutions Installation/Owner's/Service Guide}}, May 1997, pp. 1-1 to 1-7)] A separate guide covers installing the system in a Rittal cabinet. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_custom_rittal_cabinet_installation_guide.pdf?linkonly|DIGITAL Custom AlphaServer 4100 System in a Rittal Cabinet Installation Guide}}, January 1998)]
+
+As on the standard systems, holding in the Halt button leaves the machine in the SRM console after a reset or power-up whatever the operating system, so an autoboot configuration will not boot. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_custom_solution_installation_owners_service_guide.pdf?linkonly|DIGITAL Custom AlphaServer 4100 System Solutions Installation/Owner's/Service Guide}}, p. 1-4)]
+
 ==== Booting Linux ====
 
 "There's no MILO for AS1200 or AS4000/AS4100; you must use SRM console. If building a kernel, use GENERIC or RAWHIDE." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L4599|"Re: Debian on Alphastation1200"]], Jay Estabrook, debian-alpha, 1 Nov 2000)] The AlphaServer 4100 SRM "does not support any EISA options as boot devices." [(>{{wiki:software:firmware:alphaserver_4000_4100_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 4100/4000 Firmware Release Notes, V6.0}}, September 2001, p. 3-4)]
@@ -75,5 +79,8 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_data_sheet.pdf?linkonly|AlphaServer 4000 systems data sheet}} | | |
 | {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_data_sheet.pdf?linkonly|Compaq AlphaServer 4100 data sheet}} | | |
 | {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_brochure.pdf?linkonly|DIGITAL AlphaServer 1200 system brochure}} | | |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_illustrated_parts_breakdown.pdf?linkonly|AlphaServer 4000/4100 Series Illustrated Parts Breakdown}} | EK-4100S-IP.B01 | |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_custom_solution_installation_owners_service_guide.pdf?linkonly|DIGITAL Custom AlphaServer 4100 System Solutions Installation/Owner's/Service Guide}} | EK-410LP-IN.A01 | May 1997 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_custom_rittal_cabinet_installation_guide.pdf?linkonly|DIGITAL Custom AlphaServer 4100 System in a Rittal Cabinet Installation Guide}} | EK-410RC-IN.A01 | January 1998 |
 
 {{tag>hardware system 21164 digital}}
