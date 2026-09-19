@@ -29,6 +29,14 @@ The DS10 is a single processor 21264 server in a 3U rack-ready or desktop enclos
   * Dual embedded 10/100BaseT ports, 2D and 3D graphics support including multi-head, audio, remote console management
   * Sold for OpenVMS, with Tru64 UNIX, Linux, and Windows NT support planned for mid-1999
 
+=== Console and PCI slots ===
+
+The console reference presents AlphaBIOS as "the graphics interface for Windows NT and Linux", alongside SRM for Tru64 UNIX and OpenVMS. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, EK-DS10V-CR.A01, title page)]
+
+The PCI slots are numbered differently by the console and by the chassis: logical slots 14 to 17 are physical slots 0 to 3, counting from the bottom of the machine, and the bottom slot is the 32-bit one while the other three are 64-bit. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, pp. 1-4 to 1-5, 2-11)] A power-up display shows the onboard devices: two DE500-BA Ethernet controllers on bus 0 slots 9 and 11, the Acer Labs M1543C IDE as ''dqa'' and ''dqb'' on slot 13, and graphics on slot 14. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, p. 1-4)]
+
+The release notes add several hardware notes: all IDE drives run at 16 MHz, and IDE drives do not support ID renaming, so clusters of DS10, ES40, or XP900 systems can hit naming conflicts. With SRM V5.4-2 the ELSA Gloria Synergy graphics adapter only works in the bottom two PCI slots, logical slots 14 and 15. The KZPCM-DA combination SCSI and Ethernet adapter has no connection for the disk activity LED, so the front panel LED stays dark when it is used. Digital recommended setting ''ew*0_mode'' to autonegotiate for 100 Mbit operation. Switching to the remote management console uses Ctrl/[ Ctrl/[ R M C, of which only the "MC" is echoed. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_release_notes.pdf?linkonly|AlphaStation XP900 Release Notes}}, EK-DS10V-RN.A01, August 1999)]
+
 ==== Linux ====
 
   * "DS10 boots and runs LINUX just fine with IDE HD and CDROM." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L19640|"Re: DS10 EIDE Disk"]], Jay Estabrook, axp-list, 15 Jul 1999)] See also [[hardware:systems#tsunami_systems|Tsunami Systems]].
@@ -56,6 +64,9 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_product_profile.pdf?linkonly|Compaq AlphaStation XP900 Alpha 21264 Processor Product Profile}} | 0176-0699-A | June 1999 |
 | {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_product_brief.pdf?linkonly|Compaq AlphaStation XP900 Workstation Product Brief}} | 0175-0699-A | June 1999 |
 | {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_ds10l_console_reference.pdf?linkonly|AlphaServer DS10/DS10L and AlphaStation DS10 Console Reference}} | EK-DS10S-CR.D01 | September 2000 |
+| {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}} | EK-DS10V-CR.A01 | 1999 |
+| {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_release_notes.pdf?linkonly|AlphaStation XP900 Release Notes}} | EK-DS10V-RN.A01 | August 1999 |
+| {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_user_reference_card.pdf?linkonly|AlphaStation XP900 User Reference Card}} | EK-DS10V-UR.B01 | |
 | {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_quickspecs.pdf?linkonly|Compaq AlphaServer DS10 and AlphaStation DS10 QuickSpecs, Version 29}} | DA-10908 | April 2004 |
 | {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_466_mhz_quickspecs.pdf?linkonly|Compaq AlphaServer DS10 (466 MHz) and AlphaStation DS10 (466 MHz) QuickSpecs, Version 28}} | DA-10398 | October 2001 |
 | {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_technical_summary.pdf?linkonly|Compaq AlphaServer DS10 Systems Technical Summary}} | | |
