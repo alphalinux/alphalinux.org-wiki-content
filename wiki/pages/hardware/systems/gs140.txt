@@ -14,6 +14,12 @@ Except where noted, the following comes from the product profile. [(>{{wiki:hard
   * Hot swap disks, RAID, N+1 redundant power supplies, ECC memory, heat, fan, and power supply sensors
   * Tru64 UNIX and OpenVMS only; Windows NT was promised but never shipped
 
+==== GS60E Restrictions ====
+
+Compaq's release notes for the GS60E give the KN7CG 6/525 CPU module (E2063) as needing Tru64 UNIX V4.0E, OpenVMS V7.1-2, and SRM console V5.5-12, with Windows NT "not supported". The Ethernet connector on the KFE72 standard I/O module is not supported even though "the console display indicates this device in response to a show device and show network commands"; the KZPAA PCI SCSI adapter "has been qualified only for use with the CD-ROM device"; BA350 shelves are not supported in either cabinet; and "No EISA options are supported on GS60E systems." [(>{{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60e_release_notes.pdf?linkonly|AlphaServer GS60E Release Notes}}, EK-GS60E-RN.A01, August 1999, p. 1)]
+
+Two halt conditions get special handling, the double-error halt (halt code 06) and a machine check taken in PAL mode (halt code 07). After either one "continued system operation is not possible", and because the hardware error state cannot be collected the usual way, there may be no error log entry or memory dump at all. Instead the console and PALcode write a halt frame into a nonvolatile area of each CPU module's EEPROM, read back with ''show eeprom halt'' on every CPU module and cleared with ''clear eeprom halt''. Console V5.5-12 keeps two frames per CPU, after which the area must be reinitialized before further events are saved. The frames are timestamped from the CPU's watch chip, whose year register counts from 1900 under OpenVMS and from 1952 under Tru64 UNIX; only the primary CPU keeps system time, so "the timestamp contained within the halt frame for a secondary CPU should NOT be used to determine the time of occurrence." [(>{{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60e_release_notes.pdf?linkonly|AlphaServer GS60E Release Notes}}, p. 2)]
+
 ==== Linux ====
 
 Linux does not run on them. An 8400 upgraded to a GS140 loaded a kernel from aboot, but "It's HALT:ing right after it's trying to start the kernel." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L12103|"Re: AlphaServer GS140 (8400)"]], Pasi Pirhonen, debian-alpha, 24 Sep 2003)] Alpha Core 3 on a GS60 "drew a bunch of gibberish on the screen and locked up". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-February.mbox#L341|"GS60 available for porting"]], Adrian Looker, axp-list, 18 Feb 2008)]
@@ -28,5 +34,10 @@ Linux does not run on them. An 8400 upgraded to a GS140 loaded a kernel from abo
 | {{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs140_getting_started_with_logical_partitions.pdf?linkonly|AlphaServer GS140 Getting Started with Logical Partitions}} | EK-TUNLP-SF | May 1999 |
 | {{wiki:hardware:systems:alphaserver_8400:alphaserver_gs60_8200_installation_guide.pdf?linkonly|AlphaServer GS60 and 8200 Installation Guide}} | EK-T8230-IN.B01 | October 1998 |
 | {{wiki:hardware:systems:alphaserver_8400:alphaserver_gs60_140_8200_8400_release_notes.pdf?linkonly|AlphaServer GS60/140 and 8200/8400 Release Notes}} | EK-T8284-RN.G01 | November 1998 |
+| {{wiki:hardware:systems:alphaserver_8400:alphaserver_gs60_140_8200_8400_operations_manual.pdf?linkonly|AlphaServer GS60/140 and 8200/8400 Operations Manual}} | EK-T8030-OP.C01 | November 1998 |
+| {{wiki:hardware:systems:alphaserver_8400:alphaserver_gs60_140_8200_8400_site_preparation_guide.pdf?linkonly|AlphaServer GS60/140 and 8200/8400 Site Preparation Guide}} | EK-T8030-SP.B01 | 1998 |
+| {{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60e_installation_guide.pdf?linkonly|AlphaServer GS60E Installation Guide}} | EK-GS60E-IN.A01 | August 1999 |
+| {{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60e_operations_manual.pdf?linkonly|AlphaServer GS60E Operations Manual}} | EK-GS60E-OP.A01 | August 1999 |
+| {{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60e_release_notes.pdf?linkonly|AlphaServer GS60E Release Notes}} | EK-GS60E-RN.A01 | August 1999 |
 
 {{tag>hardware system 21264 compaq}}
