@@ -27,4 +27,26 @@ Specifications and reference manuals for the Alpha architecture and its software
 ^ Document ^ Part number ^ Date ^
 | {{wiki:documentation:references:fx32_product_brief.pdf?linkonly|DIGITAL FX!32 Translation-Emulation Software for Alpha and Windows NT 4.0 Product Brief}} | EC-R4TAA-TE | February 1997 |
 
+==== Digital Technical Journal ====
+
+Digital posted //Digital Technical Journal// papers in full to the biz.digital.articles newsgroup. These are the Alpha related ones.
+
+^ Paper ^ Authors ^ Issue ^
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-June.mbox#L7939|The Evolution of the Alpha AXP PC]] | David G. Conroy, Thomas E. Kopec, and Joseph R. Falcone | Vol. 6, No. 1, Winter 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-June.mbox#L8845|Digital's DECchip 21066: The First Cost-focused Alpha AXP Chip]] | Dina L. McKinney et al. | Vol. 6, No. 1, Winter 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L1992|A Shared Memory MPP from Cray Research]] | R. Kent Koeninger, Mark Furtney, and Martin Walker | Vol. 6, No. 2 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L3126|The E2COTS System and Alpha AXP Technology: The New Computer Standard for Military Use]] | Robert Couranz | Vol. 6, No. 2 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L5135|Development of Digital's PCI Chip Sets and Evaluation Kit for the DECchip 21064 Microprocessor]] | Samyojita A. Nadkarni et al. | Vol. 6, No. 2 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L637|Design of the AlphaServer Multiprocessor Server Systems]] | Fidelma M. Hayes | Vol. 6, No. 3, Spring 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L1649|The AlphaServer 2100 I/O Subsystem]] | Andrew P. Russo | Vol. 6, No. 3, Spring 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L2349|DEC OSF/1 Symmetric Multiprocessing]] | Jeffrey M. Denham, Paula Long, and James A. Woodward | Vol. 6, No. 3, Spring 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L3712|DXML: A High-performance Scientific Subroutine Library]] | Chandrika Kamath, Roy Ho, and Dwight P. Manley | Vol. 6, No. 3, Spring 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L7024|The AlphaServer 8000 Series: High-end Server Platform Development]] | David M. Fenwick et al. | Special 10th Anniversary Issue |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L9056|The Second-generation Processor Module for AlphaServer 2100 Systems]] | Nitin D. Godiwala and Barry A. Maskas | Special 10th Anniversary Issue |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L10071|Digital's High-performance CMOS ASIC]] | Jean H. Basmaji et al. | Special 10th Anniversary Issue |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L10964|Design and Verification of the AlphaStation 600 5-series Workstation]] | John H. Zurawski, John E. Murray, and Paul J. Lemmon | Special 10th Anniversary Issue |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L11905|Circuit Implementation of a 300-MHz 64-bit Second-generation CMOS Alpha CPU]] | William J. Bowhill et al. | Special 10th Anniversary Issue |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L13096|Internal Organization of the Alpha 21164]] | John H. Edmondson et al. | Special 10th Anniversary Issue |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L14454|Functional Verification of the Alpha 21164 CPU Chip]] | Michael Kantrowitz and Lisa M. Noack | Special 10th Anniversary Issue |
+
 {{tag>documentation}}
