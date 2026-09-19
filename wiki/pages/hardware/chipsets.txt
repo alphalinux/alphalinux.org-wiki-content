@@ -13,6 +13,8 @@ The [[wp>Alpha_21064#Alpha_21066A|21066 and 21066A]] integrate their memory and 
 
 ==== 21071 and 21072 ====
 
+The 21071 and 21072 are "two configurations of a core logic chip set for the DECchip 21064 family", providing a 32-bit PCI interface, cache and memory control, and the data paths between them, and needing little external logic: the chip sets comprise data slices, a PCI bridge, and a secondary cache and memory controller. Digital shipped them with the [[hardware:motherboards:eb64plus|EB64+]] evaluation kit, "an example PC mother board" built from the 21064, the 21072, and off-the-shelf PC parts, which also served as the debug platform for the chips. The stated purpose of both was "to proliferate the Alpha AXP architecture in the industry" by letting designers build uniprocessor Alpha systems "with minimal design and engineering effort". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L5135|"Development of Digital's PCI Chip Sets and Evaluation Kit for the DECchip 21064 Microprocessor"]], Samyojita A. Nadkarni et al., Digital Technical Journal, biz.digital.articles, 17 Sep 1994)]
+
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:chipsets:21071:21071_21072_data_sheet.pdf?linkonly|DECchip 21071 and DECchip 21072 Core Logic Chipsets Data Sheet}} | EC-QAEMB-TE | January 1996 |
 | {{wiki:hardware:chipsets:21071:21071-aa_21072-aa_data_sheet_1993.pdf?linkonly|DECchip 21071-AA and 21072-AA Chipsets Data Sheet}} | EC-N0648-72 | November 1993 |
