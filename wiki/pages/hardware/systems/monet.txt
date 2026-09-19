@@ -37,5 +37,8 @@ The following sources disagree with each other or with this page. They are liste
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:systems:alphastation_xp1000:alphastation_xp1000_quickspecs.pdf?linkonly|Compaq AlphaStation XP1000 QuickSpecs, Version 22}} | DA-10030 | December 2001 |
+| {{wiki:hardware:systems:alphastation_xp1000:professional_workstation_xp1000_installation_and_setup_guide.pdf?linkonly|Compaq Professional Workstation XP1000 Installation and Setup Guide}} | EK-CPWXP-SI.A01 | January 1999 |
+| {{wiki:hardware:systems:alphastation_xp1000:professional_workstation_xp1000_dual_boot_installation_guide.pdf?linkonly|Compaq Professional Workstation XP1000 Dual Boot Installation Guide}} | EK-ALUNX-OS.D01 | January 1999 |
+| {{wiki:hardware:systems:alphastation_xp1000:professional_workstation_xp1000_data_sheet.pdf?linkonly|Compaq Professional Workstation XP1000 Series data sheet}} | | |
 
 {{tag>hardware system 21264 compaq}}
