@@ -86,6 +86,7 @@ Samsung part numbers: [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:cpu:21164:21164_hardware_reference_manual.pdf?linkonly|Alpha 21164 Microprocessor Hardware Reference Manual}} | EC-QAEQD-TE | July 1996 |
 | {{wiki:hardware:cpu:21164:21164_366-600_hardware_reference_manual.pdf?linkonly|Alpha 21164 Microprocessor Hardware Reference Manual}} | EC-QP99C-TE | December 1998 |
+| {{wiki:hardware:cpu:21164:21164_366-600_hardware_reference_manual_preliminary_1997.pdf?linkonly|21164 Alpha Microprocessor Hardware Reference Manual, Preliminary}} | EC-QP99B-TE | February 1997 |
 | {{wiki:hardware:cpu:21164:21164_hardware_reference_manual_preliminary_1994.pdf?linkonly|Alpha 21164 Microprocessor Hardware Reference Manual, Preliminary}} | EC-QAEQA-TE | September 1994 |
 | {{wiki:hardware:cpu:21164:21164_data_sheet.pdf?linkonly|Alpha 21164 Microprocessor Data Sheet}} | EC-QAEPD-TE | July 1996 |
 | {{wiki:hardware:cpu:21164:21164_366-600_data_sheet.pdf?linkonly|Alpha 21164 Microprocessor Data Sheet}} | EC-QP98C-TE | August 1998 |
@@ -94,6 +95,7 @@ Samsung part numbers: [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt
 | {{wiki:hardware:cpu:21164:ev5_functional_specification_rev_1.5.pdf?linkonly|DECchip 21164-AA (EV5 CPU) Functional Specification, Revision 1.9}} | | December 1992 |
 | {{wiki:hardware:cpu:21164:ev5_functional_specification_rev_1.9.pdf?linkonly|DECchip 21164-AA (EV5 CPU) Functional Specification, Revision 1.9}} | | December 1992 |
 | {{wiki:hardware:cpu:21164:ev5_internal_specification_rev_0.0.pdf?linkonly|EV5 CPU Chip Internal Specification, Revision 0.0}} | | February 1992 |
+| {{wiki:hardware:cpu:21164:21164_microarchitecture_overview.pdf?linkonly|An Overview of the Alpha AXP 21164 Microarchitecture (John Edmondson and Paul Rubinfeld)}} | | |
 
 === 21164PC ===
 
@@ -117,6 +119,8 @@ Samsung part numbers: [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt
 | {{wiki:hardware:cpu:21264:ev6_specification_rev_2.0.pdf?linkonly|EV6 Specification, Revision 2.0}} | | April 1996 |
 | {{wiki:hardware:cpu:21264:21264a_specifications_rev_1.1.pdf?linkonly|21264A Specifications, Revision 1.1}} | DS-0014B-TE | May 1999 |
 | {{wiki:hardware:cpu:21264:21264_microprocessor_architecture.pdf?linkonly|The Alpha 21264 Microprocessor Architecture}} | | |
+| {{wiki:hardware:cpu:21264:21264_ieee_micro_article.pdf?linkonly|The Alpha 21264 Microprocessor (R. E. Kessler), IEEE Micro}} | | March 1999 |
+| {{wiki:hardware:cpu:21264:21264_compcon_97_paper.pdf?linkonly|The Alpha 21264: A 500 MHz Out-of-Order Execution Microprocessor (Daniel Leibholz and Rahul Razdan), Compcon '97}} | | February 1997 |
 | {{wiki:hardware:cpu:21264:21264_keller_presentation.pdf?linkonly|21264 presentation (Jim Keller, Digital Semiconductor)}} | | |
 | {{wiki:hardware:cpu:21264_21364_compiler_writers_guide.pdf?linkonly|Compiler Writer's Guide for the 21264/21364}} | EC-0100A-TE | January 2002 |
 
