@@ -18,7 +18,9 @@ The AlphaStation 255/233 and 255/300 followed on 8 March 1996, starting at $7,39
 
 ==== Specifications ====
 
-The following describes the AlphaServer 300, which is the member of the family with published documentation here. [(>{{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide}}, pp. 1-1, A-2)]
+=== AlphaServer 300 ===
+
+[(>{{wiki:hardware:systems:alphaserver_300:alphaserver_300_users_guide.pdf?linkonly|AlphaServer 300 User's Guide}}, pp. 1-1, A-2)]
 
   * DECchip [[wp>Alpha_21064#Alpha_21064A|21064A]] at 266 MHz
   * DECchip 21072-AA (APECS) core logic
@@ -29,6 +31,51 @@ The following describes the AlphaServer 300, which is the member of the family w
   * PCI-based embedded SCSI-2 controller supporting seven peripherals, and a PCI-based Ethernet adapter
   * Floppy disk controller supporting a floppy drive and one CD drive
   * Keyboard and mouse ports, two serial ports, one enhanced bidirectional parallel port
+
+=== AlphaStation 250 ===
+
+[(>{{wiki:hardware:systems:alphastation_250:alphastation_250_user_information.pdf?linkonly|Digital AlphaStation 250 Series User Information}}, pp. 2-1, C-2)]
+
+  * DECchip [[wp>Alpha_21064#Alpha_21064A|21064A]], with a jumper pair (J7 and J32) setting the CPU clock rate
+  * DECchip 21072-AA core logic
+  * 2 MB write-back secondary cache
+  * 128-bit data bus to main memory and a 128-bit bus to the secondary cache, longword parity protected
+  * Memory expandable to 256 MB, 33 MHz PCI
+  * One PCI-only slot, one PCI/ISA slot, and one half-size ISA-only slot, on a riser card
+  * PCI-based embedded SCSI-2 controller for up to seven devices, a PCI Ethernet adapter, and a sound card
+  * Floppy disk controller supporting a floppy drive and one further drive, keyboard and mouse ports, two serial ports, one enhanced bidirectional parallel port
+  * A jumper (J27) controls the automatic SCSI terminator, which turns off when an external SCSI cable is attached; with sensing disabled an external terminator is always required [(>{{wiki:hardware:systems:alphastation_250:alphastation_250_user_information.pdf?linkonly|Digital AlphaStation 250 Series User Information}}, p. C-8)]
+  * IRQ 11 is the SCSI controller, IRQ 10 the built-in PCI Ethernet, and IRQ 9 and 15 the two riser PCI slots [(>{{wiki:hardware:systems:alphastation_250:alphastation_250_user_information.pdf?linkonly|Digital AlphaStation 250 Series User Information}}, p. D-2)]
+
+=== AlphaStation 255 ===
+
+[(>{{wiki:hardware:systems:alphastation_255:alphastation_255_user_information.pdf?linkonly|Digital AlphaStation 255 Family User Information}}, pp. 2-9, B-2)]
+
+  * Socketed DECchip [[wp>Alpha_21064#Alpha_21064A|21064A]] with DECchip 21071-AA core logic
+  * 1 MB write-back secondary cache
+  * Two PCI, one PCI/ISA combination, and one ISA-only slot on a riser card, PCI at 33.33 MHz
+  * Two banks of four SIMMs, expandable to 1 GB "when 128-MB SIMMs are available"
+  * Twisted-pair Ethernet on the motherboard, with an optional media adapter unit for ThinWire, and onboard audio jacks
+  * A switchpack replaces the AlphaStation 250's SROM and boot jumpers: switches 1 and 2 select the SROM mini-console, booting the console image from floppy, or clearing the RTC and NVRAM [(>{{wiki:hardware:systems:alphastation_255:alphastation_255_user_information.pdf?linkonly|Digital AlphaStation 255 Family User Information}}, p. B-11)]
+
+=== AlphaStation 400 ===
+
+[(>{{wiki:hardware:systems:alphastation_400:alphastation_400_user_information.pdf?linkonly|Digital AlphaStation 400 Series User Information}}, pp. 2-1, C-1)]
+
+  * CPU on a daughtercard: the PB50C-BA module carries a 233 MHz DECchip 21064A (EV4S) with 16 KB instruction and 16 KB data caches, DECchip 21071-AA core logic, 512 KB of direct-mapped writeback secondary cache, 1 MB of flashROM holding the ARC and SRM consoles, PALcode, and diagnostics, a 64 KB diagnostic ROM, 8 KB of NVRAM, and an 8-bit diagnostic LED display [(>{{wiki:hardware:systems:alphastation_400:alphastation_400_cpu_module_information.pdf?linkonly|Digital AlphaStation 400 Series CPU Module Information}}, p. 1-1)]
+  * Six SIMM sockets on the motherboard, expandable to 192 MB
+  * 32-bit PCI at 33 MHz: two PCI slots, three ISA slots, and one combination PCI/ISA slot
+  * SCSI-2 controller with internal and external buses for up to seven devices
+  * Floppy disk controller supporting two floppy drives or one floppy and one tape drive, keyboard and mouse ports, two serial ports, one enhanced bidirectional parallel port
+  * Three 5.25-inch half-height bays, one hidden 3.5-inch half-height bay, and one 3.5-inch diskette drive, on a 300 W power supply
+
+==== Trade-In Upgrades ====
+
+Digital sold the family partly as an upgrade path off its older workstations, shipping a new system unit and a manual describing how to move the drives and options across and return the old machine. The AlphaStation 250 4/266 kit covered the DECstation 2100, 3100, and 5000, the VAXstation 4000, and the DEC 3000 Models 300, 300L, 300X, and 300LX. [(>{{wiki:hardware:systems:alphastation_250:alphastation_250_upgrade_information.pdf?linkonly|AlphaStation 250 Model 4/266 Upgrade Information}}, May 1995, p. 1-1)] The AlphaStation 400 kit covered the DECpc AXP 150 ([[hardware:systems:jensen|Jensen]]) and the DEC 3000 Models 300, 400, 500, and 600, and carried over monitors and BA350 and BA353 expansion boxes as well. [(>{{wiki:hardware:systems:alphastation_400:alphastation_400_upgrade_information.pdf?linkonly|Digital AlphaStation 400 Series Upgrade Information}}, pp. 1-1 to 1-2)]
+
+==== Firmware ====
+
+A February 1996 letter to AlphaStation 255 owners warned that clearing the real-time clock and NVRAM with the configuration switches leaves firmware V1.3 with ''console = serial'', so that power-up messages go to COM1 and the graphics head shows only a blinking cursor, and with ''bus_probe_algorithm = old'', which Digital UNIX V3.2c and later require to be set to ''new''. Both defaults were to change in the following firmware release. [(>{{wiki:hardware:systems:alphastation_255:alphastation_255_customer_letter.pdf?linkonly|AlphaStation 255 customer letter}}, EK-VLLXA-FL.A01, 8 February 1996)]
 
 ==== Booting Linux ====
 
@@ -58,5 +105,19 @@ The following describes the AlphaServer 300, which is the member of the family w
 | {{wiki:hardware:systems:alphastation_200:alphastation_200_4-100_systems_and_options_catalog.pdf?linkonly|AlphaStation 200 4/100 V2.1, Digital Systems and Options Catalog}} | | 1996 |
 | {{wiki:hardware:systems:alphastation_200:alphastation_200_4-233_systems_and_options_catalog.pdf?linkonly|AlphaStation 200 4/233 V2.1, Digital Systems and Options Catalog}} | | 1996 |
 | {{wiki:hardware:systems:alphastation_200:alphastation_200_golden_eggs_poster.pdf?linkonly|AlphaStation 200 4/100 166 233, Golden Eggs Visual Configuration}} | GEAW200A | February 1996 |
+| {{wiki:hardware:systems:alphastation_200:alphastation_200_mach64_installation_guide.pdf?linkonly|AlphaStation 200 4/100 mach64 Graphics Accelerator Installation Guide}} | EK-PCDGA-DI.A01 | February 1995 |
+| {{wiki:hardware:systems:alphastation_250:alphastation_250_user_information.pdf?linkonly|Digital AlphaStation 250 Series User Information}} | EK-PCCTA-UI.A01 | January 1995 |
+| {{wiki:hardware:systems:alphastation_250:alphastation_250_installation_information.pdf?linkonly|Digital AlphaStation 250 Series Installation Information}} | EK-PCCTA-II.B01 | |
+| {{wiki:hardware:systems:alphastation_250:alphastation_250_upgrade_information.pdf?linkonly|AlphaStation 250 Model 4/266 Upgrade Information}} | EK-AL250-UG.A01 | May 1995 |
+| {{wiki:hardware:systems:alphastation_255:alphastation_255_user_information.pdf?linkonly|Digital AlphaStation 255 Family User Information}} | EK-VLLXA-UI.B01 | March 1996 |
+| {{wiki:hardware:systems:alphastation_255:alphastation_255_cpu_upgrade_information.pdf?linkonly|AlphaStation 255 4/300 CPU Upgrade Information}} | EK-VLLXA-CP.B01 | August 1996 |
+| {{wiki:hardware:systems:alphastation_255:alphastation_255_media_adapter_unit_installation.pdf?linkonly|AlphaStation 255 Family Media Adapter Unit Installation Information}} | EK-VLLXA-MI.B01 | August 1996 |
+| {{wiki:hardware:systems:alphastation_255:alphastation_255_illustrated_parts_breakdown.pdf?linkonly|AlphaStation 255 Series Illustrated Parts Breakdown}} | EK-VLLXA-IP.A01 | |
+| {{wiki:hardware:systems:alphastation_255:alphastation_255_customer_letter.pdf?linkonly|AlphaStation 255 customer letter on cleared NVRAM defaults}} | EK-VLLXA-FL.A01 | February 1996 |
+| {{wiki:hardware:systems:alphastation_400:alphastation_400_user_information.pdf?linkonly|Digital AlphaStation 400 Series User Information}} | EK-PCDSA-UI.B01 | November 1994 |
+| {{wiki:hardware:systems:alphastation_400:alphastation_400_cpu_module_information.pdf?linkonly|Digital AlphaStation 400 Series CPU Module Information}} | EK-PCDSA-CI.A01 | August 1994 |
+| {{wiki:hardware:systems:alphastation_400:alphastation_400_upgrade_information.pdf?linkonly|Digital AlphaStation 400 Series Upgrade Information}} | EK-AVAXP-UP.A01 | October 1994 |
+| {{wiki:hardware:systems:alphastation_400:alphastation_400_illustrated_parts_breakdown.pdf?linkonly|Digital AlphaStation 400 Series Illustrated Parts Breakdown}} | EK-PCDSA-IP.A01 | |
+| {{wiki:hardware:systems:alphastation_500:alphastation_500_255_replacement_bezel_installation.pdf?linkonly|Replacement Bezel Installation Instructions for DIGITAL AlphaStation 500/255 Series System Enclosures}} | EK-ALSRE-IN.B01 | |
 
 {{tag>hardware system 21064 digital}}
