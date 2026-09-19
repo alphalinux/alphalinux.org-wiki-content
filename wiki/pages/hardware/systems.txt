@@ -66,4 +66,14 @@ These notes apply to the [[hardware:systems:monet|XP1000]], [[hardware:systems:w
   * "The latest consoles for the DS10/DS20/ES40/XP1000 all now have a separate device for IDE, rather than SCSI emulation as previous boxes." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-June.mbox#L8097|"Re: booting from IDE drive on DS10's"]], Jay Estabrook, axp-list, 7 Jun 1999)]
   * Early kernels only supported VGA on PCI bus 0, while "SRM and Tru64 know how to talk VGA to bus 1." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L30857|"Re: XP1000-667MHz no boot"]], Jay Estabrook, axp-list, 23 Jul 2001)] Current kernels have ''CONFIG_VGA_HOSE'' for "several platforms which always have multiple hoses". [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10)]
 
+==== Documentation ====
+
+These documents cover the AlphaServer line as a whole; documents for a single system are on that system's page.
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_systems_brochure.pdf?linkonly|DIGITAL AlphaServer Systems brochure}} | | |
+| {{wiki:hardware:systems:internet_alphaserver_family_data_sheet.pdf?linkonly|Internet AlphaServer Family data sheet}} | | |
+| {{wiki:hardware:systems:rackmount_alphaserver_systems_for_the_internet_data_sheet.pdf?linkonly|Rackmount AlphaServer systems for the Internet data sheet}} | | |
+| {{wiki:hardware:systems:alphaserver_and_vax_performance_guide.pdf?linkonly|AlphaServer and VAX performance guide}} | | June 1999 |
+
 {{tag>hardware}}
