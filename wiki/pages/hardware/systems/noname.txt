@@ -30,4 +30,10 @@ MILO was originally written for the Noname, "to run LINUX on them without requir
 
 The ''de2104x'' driver "was known to fail on those machines (AS250/AS500/Multia) that have a builtin 21040 (old/original) TULIP"; use ''de4x5''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-February.mbox#L8047|"Re: testing wanted: debian-installer, now with 2.6.15"]], Jay Estabrook, debian-alpha, 10 Feb 2006)]
 
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:multia:multia_service_information.pdf?linkonly|Multia MultiClient Desktop Service Information}} | EK-MULTS-IN.C01 | October 1995 |
+| {{wiki:hardware:systems:multia:multia_service_information_addendum.pdf?linkonly|Multia Enterprise Client Service Information Addendum}} | EK-MULTS-CN.A01 | July 1996 |
+
 {{tag>hardware system 21066 digital}}
