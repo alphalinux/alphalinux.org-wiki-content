@@ -37,5 +37,8 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_tru64_openvms_catalog.pdf?linkonly|AlphaServer ES40 Tru64 UNIX and OpenVMS Systems and Options Catalog, V1.8}} | | June 1999 |
 | {{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40, ES40cv, ES40lp, TS40, and TS20 V7.3 Firmware Release Notes}} | | April 2007 |
 | {{wiki:software:firmware:alphaserver_es40_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer ES40, ES40cv, ES40lp, and TS40 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
+| {{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_owners_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 Owner's Guide}} | EK-ES240-UG.B01 | February 2000 |
+| {{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_technical_summary.pdf?linkonly|Compaq AlphaServer ES40 Systems Technical Summary}} | | |
+| {{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_performance_analysis.pdf?linkonly|Performance Analysis of the Alpha 21264-based Compaq ES40 System (Zarka Cvetanovic and R. E. Kessler)}} | | |
 
 {{tag>hardware system 21264 compaq}}
