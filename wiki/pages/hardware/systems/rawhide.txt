@@ -63,5 +63,10 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_custom_solution_system.pdf?linkonly|AlphaServer 4100 Custom Solution System}} | 0031-0499-A | April 1999 |
 | {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_catalog.pdf?linkonly|AlphaServer 1200 Pedestal/Rackmount Systems and Options Catalog, V3.8}} | | June 1999 |
 | {{wiki:software:firmware:alphaserver_4000_4100_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 4100/4000 Firmware Release Notes, V6.0}} | | September 2001 |
+| {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_users_guide.pdf?linkonly|AlphaServer 1200 User's Guide}} | EK-AS120-UG.A01 | October 1997 |
+| {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_service_manual.pdf?linkonly|AlphaServer 1200 and DIGITAL Ultimate Workstation 533 Service Manual}} | EK-AS120-SV.A01 | January 1998 |
+| {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_illustrated_parts_breakdown.pdf?linkonly|DIGITAL AlphaServer 1200 Illustrated Parts Breakdown}} | EK-AS120-IP.B01 | |
+| {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_technical_summary.pdf?linkonly|AlphaServer 1200 System Technical Summary}} | | 1997 |
+| {{wiki:software:firmware:alphaserver_1200_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 1200 Firmware Release Notes, SRM Console V6.0-4}} | | September 2001 |
 
 {{tag>hardware system 21164 digital}}
