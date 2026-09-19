@@ -55,5 +55,19 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_catalog.pdf?linkonly|AlphaStation XP900 Systems and Options Catalog, V1.33}} | | September 1999 |
 | {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_product_profile.pdf?linkonly|Compaq AlphaStation XP900 Alpha 21264 Processor Product Profile}} | 0176-0699-A | June 1999 |
 | {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_product_brief.pdf?linkonly|Compaq AlphaStation XP900 Workstation Product Brief}} | 0175-0699-A | June 1999 |
+| {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_ds10l_console_reference.pdf?linkonly|AlphaServer DS10/DS10L and AlphaStation DS10 Console Reference}} | EK-DS10S-CR.D01 | September 2000 |
+| {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_quickspecs.pdf?linkonly|Compaq AlphaServer DS10 and AlphaStation DS10 QuickSpecs, Version 29}} | DA-10908 | April 2004 |
+| {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_466_mhz_quickspecs.pdf?linkonly|Compaq AlphaServer DS10 (466 MHz) and AlphaStation DS10 (466 MHz) QuickSpecs, Version 28}} | DA-10398 | October 2001 |
+| {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_technical_summary.pdf?linkonly|Compaq AlphaServer DS10 Systems Technical Summary}} | | |
+| {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_user_reference_card.pdf?linkonly|AlphaServer DS10 and AlphaStation DS10 User Reference Card}} | EK-DS10S-UR.C01 | 2001 |
+| {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_memory_option_installation_card.pdf?linkonly|Memory Option Installation Card (DS10, DS10L, XP900)}} | EK-DS10M-IN.C01 | 2000 |
+| {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_rackmount_guide.pdf?linkonly|AlphaServer DS10 Rackmount Guide}} | EK-DS10S-RM.A01 | |
+| {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_quick_setup.pdf?linkonly|AlphaServer DS10 Quick Setup}} | EK-DS10S-CP | |
+| {{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds_series_brochure.pdf?linkonly|Compaq AlphaServer DS Series}} | | 2001 |
+| {{wiki:hardware:systems:alphaserver_ds10l:alphaserver_ds10l_quickspecs.pdf?linkonly|Compaq AlphaServer DS10L QuickSpecs, Version 36}} | DA-10551 | October 2003 |
+| {{wiki:hardware:systems:alphaserver_ds10l:alphaserver_ds10l_illustrated_parts_breakdown.pdf?linkonly|AlphaServer DS10L Illustrated Parts Breakdown}} | EK-DS10L-IP.A01 | July 2000 |
+| {{wiki:hardware:systems:alphaserver_ds10l:alphaserver_ds10l_quick_setup.pdf?linkonly|AlphaServer DS10L Quick Setup}} | EK-DS10L-CP | |
+| {{wiki:hardware:systems:alphaserver_ds10l:alphaserver_ds10l_golden_eggs_poster.pdf?linkonly|AlphaServer DS10L 67/600 Systems, Golden Eggs Visual Configuration}} | BN25G-07 | 2000 |
+| {{wiki:hardware:other:ali_m1543c_datasheet.pdf?linkonly|Acer Laboratories M1543C Desktop Southbridge Preliminary Datasheet, Version 1.10}} | | |
 
 {{tag>hardware system 21264 compaq}}
