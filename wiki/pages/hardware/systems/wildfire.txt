@@ -26,6 +26,7 @@ The following sources disagree with each other or with this page. They are liste
 ==== Documentation ====
 
 ^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_station_users_guide.pdf?linkonly|AlphaServer Management Station User's Guide, Version 4.0}} | | July 2004 |
 | {{wiki:software:firmware:alphaserver_gs320_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.3 Firmware Release Notes}} | | April 2007 |
 | {{wiki:software:firmware:alphaserver_gs320_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
 
