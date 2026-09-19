@@ -25,5 +25,7 @@ The AlphaServer 2100A is the successor to the [[hardware:systems:sable|AlphaServ
 | {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_technical_summary.pdf?linkonly|AlphaServer 2000, AlphaServer 2100, and AlphaServer 2100A Technical Summary}} | | 1996 |
 | {{wiki:hardware:systems:alphaserver_2100:alphaserver_2x00_2100a_cpu_upgrade.pdf?linkonly|AlphaServer 2x00/2100A CPU Upgrade}} | EK-KN470-IN.B01 | December 1995 |
 | {{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}} | EK-AXPFW-RM.C01 | December 1995 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100a_low_profile_rackmount_data_sheet.pdf?linkonly|AlphaServer 2100A Low Profile Rackmount System data sheet}} | | |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100a_rm_and_cab_data_sheet.pdf?linkonly|AlphaServer 2100A RM and CAB systems data sheet}} | | |
 
 {{tag>hardware system 21064 21164 digital}}
