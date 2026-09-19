@@ -9,7 +9,7 @@
 | Alpha Architecture Reference Manual, Second Edition ({{wiki:documentation:references:alpha_architecture_reference_manual_2nd_edition.pdf?linkonly|PDF}}) | [[https://search.worldcat.org/title/32625680|978-1555581459]] |
 | Alpha Architecture Reference Manual, Third Edition | [[https://search.worldcat.org/title/39190622|978-1555582029]] |
 | Alpha Architecture Reference Manual, Fourth Edition ({{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|PDF}}) | |
-| Alpha RISC Architecture for Programmers ([[https://www2.lawrence.edu/fast/EVANSJ/ARAFPREF.HTML|additional and revised references]]) | [[https://search.worldcat.org/title/40449540|978-0130814388]] |
+| [[https://www2.lawrence.edu/fast/EVANSJ/ARAFP.HTML|Alpha RISC Architecture for Programmers]] ([[https://www2.lawrence.edu/fast/EVANSJ/ARAFPE1P.HTML|Errata]], [[https://www2.lawrence.edu/fast/EVANSJ/ARAFPREF.HTML|References]]) | [[https://search.worldcat.org/title/40449540|978-0130814388]] |
 | Alpha Implementations and Architecture: Complete Reference and Guide ([[https://dl.acm.org/doi/pdf/10.1145/232790.564994|review]]) | [[https://search.worldcat.org/title/32821055|978-1555581305]] |
 
 {{tag>documentation}}
