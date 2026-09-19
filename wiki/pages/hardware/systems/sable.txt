@@ -28,6 +28,7 @@ Except where noted, the following comes from the technical summary. [(>{{wiki:ha
   * Eight 8.33 MHz EISA slots on the AlphaServer 2100 and seven on the AlphaServer 2000, all bus master capable
   * PCI Ethernet controller with AUI or twisted-pair, onboard on the AlphaServer 2100 and an adapter on the AlphaServer 2000
   * PCI single-ended 8-bit Fast SCSI-2 controller; wide SCSI is supported through option controllers [(>{{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_wide_scsi_technical_bulletin.pdf?linkonly|Application of Wide SCSI on AlphaServer 2000/2100/2100A}}, Version 1.5, December 1995)]
+  * CPU types cannot be mixed: "A KN450 CPU module and a KN460 CPU module cannot be used in the same system." Before and after adding a module, Digital's procedure is to check the modules with the SRM ''show fru'' and ''show error'' commands, which read each module's EEROM event log; a CPU with any logged test-directed error other than test number 00 "should be replaced". [(>{{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_kn450_kn460_cpu_module_installation.pdf?linkonly|AlphaServer 2000/2100 Series KN450/KN460 CPU Module Installation and Configuration}}, EK-EV450-IN.B01, October 1994, pp. 1-2)]
   * 1 MB of flash ROM, 8 KB of NVRAM, TOY clock, two serial ports, bidirectional parallel port, floppy controller, PS/2 keyboard and mouse, PC-style speaker
   * On the AlphaServer 2100 this I/O is on a separate standard I/O module; on the AlphaServer 2000 it is on the I/O backplane
   * BA35E StorageWorks shelves holding up to eight 3.5-inch SCSI drives each, configurable as a single or dual bus
@@ -60,6 +61,16 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_release_notes.pdf?linkonly|AlphaServer 2000/2100 Read This First}} | EK-KN450-CL.G01 | January 1996 |
 | {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_wide_scsi_technical_bulletin.pdf?linkonly|Technical Bulletin: Application of Wide SCSI on AlphaServer 2000/2100/2100A, Version 1.5}} | | December 1995 |
 | {{wiki:hardware:systems:alphaserver_2100:alphaserver_2x00_2100a_cpu_upgrade.pdf?linkonly|AlphaServer 2x00/2100A CPU Upgrade}} | EK-KN470-IN.B01 | December 1995 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2x00_2100a_cpu_upgrade_rev_c.pdf?linkonly|AlphaServer 2x00/2100A Series CPU Upgrade}} | EK-KN470-IN.C01 | August 1996 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_service_guide.pdf?linkonly|AlphaServer 2000/2100/2100RM/2100 CAB Series Service Guide}} | EK-KN450-SV.B01 | October 1994 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_kn450_kn460_cpu_module_installation.pdf?linkonly|AlphaServer 2000/2100 Series KN450/KN460 CPU Module Installation and Configuration}} | EK-EV450-IN.B01 | October 1994 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_h7895_aa_power_supply_installation.pdf?linkonly|AlphaServer 2000 Series H7895-AA Power Supply Installation and Configuration}} | EK-H7895-IN.A01 | October 1994 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100_cab_installation_owners_guide.pdf?linkonly|AlphaServer 2100 CAB Installation/Owner's Guide}} | EK-ALCAB-OG.B01 | April 1995 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_basic_installation.pdf?linkonly|AlphaServer 2000 Basic Installation}} | EK-400MP-IN.A01 | 1994 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_read_this_first.pdf?linkonly|AlphaServer 2000 READ THIS FIRST}} | EK-400MP-CL.B01 | November 1994 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100_read_this_first.pdf?linkonly|AlphaServer 2100: READ THIS FIRST}} | EK-KN450-CL.D01 | October 1994 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2100_2100a_illustrated_parts_breakdown.pdf?linkonly|AlphaServer 2100/2100A Series Illustrated Parts Breakdown}} | EK-SY450-IP.D01 | |
 | {{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}} | EK-AXPFW-RM.C01 | December 1995 |
+| {{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100 Firmware Reference Guide}} | EK-AXPFW-RM.B01 | February 1995 |
 
 {{tag>hardware system 21064 21164 digital}}
