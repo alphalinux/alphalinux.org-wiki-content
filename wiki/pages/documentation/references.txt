@@ -19,6 +19,7 @@ Specifications and reference manuals for the Alpha architecture and its software
 ^ Document ^ Part number ^ Date ^
 | {{wiki:documentation:references:alpha_calling_standard_rev_2.0_1990.pdf?linkonly|Alpha Calling Standard, Revision 2.0}} | | April 1990 |
 | {{wiki:documentation:references:digital_unix_calling_standard.pdf?linkonly|Digital UNIX Calling Standard for Alpha Systems}} | AA-PY8AC-TE | March 1996 |
+| {{wiki:documentation:references:vsi_openvms_calling_standard.pdf?linkonly|VSI OpenVMS Calling Standard}} | | 2026 |
 | {{wiki:documentation:references:tru64_unix_object_file_and_symbol_table_format_specification.pdf?linkonly|Tru64 UNIX Object File and Symbol Table Format Specification}} | | August 2000 |
 
 ==== Software ====
