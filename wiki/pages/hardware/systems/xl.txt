@@ -27,4 +27,10 @@ The following sources disagree with each other or with this page. They are liste
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L44543|"Re: DEC Celebris"]], Jay Estabrook, axp-list, 25 Nov 1996: "that runs only AlphaBIOS"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L46358|"Re: DEC Celebris"]], Jay Estabrook, axp-list, 25 Nov 1996: "*only* ARC console"
 
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alpha_xl:alpha_xl_systems_and_options_catalog.pdf?linkonly|Alpha XL Personal Workstation for Windows NT V96-1.3, Digital Systems and Options Catalog}} | | September 1996 |
+| {{wiki:hardware:systems:alpha_xl:alpha_xl_golden_eggs_poster.pdf?linkonly|Alpha XL 4/266 WorkStations, Golden Eggs Visual Configuration}} | GEAWOXLB | April 1996 |
+
 {{tag>hardware system 21064 digital}}
