@@ -33,4 +33,9 @@ The following sources disagree with each other or with this page. They are liste
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L22318|"Re: Can someone check the specs of this machine?"]], Jay Estabrook, axp-list, 11 Dec 1999: "BRISBANE @ 667"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-February.mbox#L35143|"RE: latest recommended kernel version?...."]], John Jemiolo, axp-list, 25 Feb 2000: "XP1000 (monet 500+600mhz) and xp1000 (brisbane 677mhz)"
 
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:systems:alphastation_xp1000:alphastation_xp1000_quickspecs.pdf?linkonly|Compaq AlphaStation XP1000 QuickSpecs, Version 22}} | DA-10030 | December 2001 |
+
 {{tag>hardware system 21264 compaq}}
