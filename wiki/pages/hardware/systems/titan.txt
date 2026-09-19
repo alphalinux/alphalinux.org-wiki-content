@@ -89,5 +89,11 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:software:firmware:alphaserver_ds25_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation DS25 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
 | {{wiki:software:firmware:alphaserver_es45_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation ES45 V7.3 Firmware Release Notes}} | | April 2007 |
 | {{wiki:software:firmware:alphaserver_ts202c_v6.8b_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8B Firmware Release Notes and Update Procedures}} | | September 2005 |
+| {{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15_owners_guide.pdf?linkonly|AlphaServer DS15 and AlphaStation DS15 Owner's Guide}} | EK-DS150-OG.A01 | September 2003 |
+| {{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15_service_guide.pdf?linkonly|AlphaServer DS15 and AlphaStation DS15 Service Guide}} | EK-DS150-SG.A01 | October 2003 |
+| {{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15_technical_summary.pdf?linkonly|HP AlphaServer DS15 System Technical Summary, Revision 2}} | | April 2004 |
+| {{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15_quickspecs.pdf?linkonly|HP AlphaServer DS15 and HP AlphaStation DS15 QuickSpecs, Version 18}} | DA-11748 | June 2005 |
+| {{wiki:hardware:systems:alphaserver_ds25:alphaserver_ds25_owners_guide.pdf?linkonly|AlphaServer DS25 Owner's Guide}} | EK-DS250-UG.D01 | April 2003 |
+| {{wiki:hardware:systems:alphaserver_ds25:alphaserver_ds25_field_upgrade_to_model_b.pdf?linkonly|AlphaServer DS25 Field Upgrade to DS25 Model B}} | EK-H7911-UP.A01 | March 2003 |
 
 {{tag>hardware system 21264 compaq hp}}
