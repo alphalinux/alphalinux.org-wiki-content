@@ -68,5 +68,10 @@ The following sources disagree with each other or with this page. They are liste
 | {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_illustrated_parts_breakdown.pdf?linkonly|DIGITAL AlphaServer 1200 Illustrated Parts Breakdown}} | EK-AS120-IP.B01 | |
 | {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_technical_summary.pdf?linkonly|AlphaServer 1200 System Technical Summary}} | | 1997 |
 | {{wiki:software:firmware:alphaserver_1200_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 1200 Firmware Release Notes, SRM Console V6.0-4}} | | September 2001 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_technical_guide.pdf?linkonly|DIGITAL AlphaServer 4000 and 4100 Systems Technical Guide}} | EC-G9261-10 | July 1998 |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_brochure.pdf?linkonly|DIGITAL AlphaServer 4000 and 4100 systems brochure}} | | |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_data_sheet.pdf?linkonly|AlphaServer 4000 systems data sheet}} | | |
+| {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_data_sheet.pdf?linkonly|Compaq AlphaServer 4100 data sheet}} | | |
+| {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_brochure.pdf?linkonly|DIGITAL AlphaServer 1200 system brochure}} | | |
 
 {{tag>hardware system 21164 digital}}
