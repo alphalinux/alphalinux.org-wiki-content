@@ -63,13 +63,32 @@
 ===== 1998 =====
 
 ^ Source ^ Date ^ Title ^
+| CNET | 1998-01-26 | [[https://www.cnet.com/tech/tech-industry/compaq-to-buy-digital-for-9-6-billion/|Compaq to buy Digital for $9.6 billion]] |
+| SF Gate | 1998-01-26 | [[https://www.sfgate.com/news/article/compaq-buys-out-digital-in-huge-deal-3106026.php|Compaq buys out Digital in huge deal]] |
+| Wired | 1998-01-26 | [[https://www.wired.com/1998/01/compaq-to-acquire-digital/|Compaq to Acquire Digital]] |
+| ZDNet | 1998-01-26 | [[https://www.zdnet.com/article/compaqs-digital-buyout-is-its-biggest-yet/|Compaq's Digital buyout is IT's biggest yet]] |
+| Irish Times | 1998-01-27 | [[https://www.irishtimes.com/business/compaq-to-pay-6-76bn-for-digital-in-the-biggest-computer-deal-to-date-1.128884|Compaq to pay £6.76bn for Digital in the biggest computer deal to date]] |
+| LA Times | 1998-01-27 | [[https://www.latimes.com/archives/la-xpm-1998-jan-27-mn-12577-story.html|Compaq to Join Forces With Digital]] |
+| NY Times | 1998-01-27 | [[https://www.nytimes.com/1998/01/27/business/compaq-is-buying-digital-aiming-challenge-at-ibm.html|Compaq Is Buying Digital, Aiming Challenge at I.B.M.]] |
+| NY Times | 1998-01-27 | [[https://archive.nytimes.com/www.nytimes.com/library/cyber/week/012798digital-side.html|Compaq to Buy Digital Equipment for $9.6 Billion]] |
+| Variety | 1998-01-27 | [[https://variety.com/1998/digital/news/compaq-digital-unveil-merger-1117467102/|Compaq, Digital unveil merger]] |
+| Wall Street Journal | 1998-01-27 | [[https://www.wsj.com/articles/SB885817641399131000|Compaq to Acquire Digital, Once an Unthinkable Deal]] |
 | Computergram International | 1998-01-29 | [[http://findarticles.com/p/articles/mi_m0CGN/is_n3337/ai_20186887|Dec Set To Lose Mitsubishi As Alpha Source (dead link)]] |
+| BYTE | 1998-02 | [[https://www.halfhill.com/byte/1998-2_cover_thickens.html|The Slot Thickens]] |
 | CNET | 1998-02-02 | [[https://www.cnet.com/tech/tech-industry/digitals-alpha-to-remain-fastest-chip/|Digital's Alpha to remain fastest chip?]] |
+| ZDNet | 1998-02-02 | [[https://www.zdnet.com/article/compaq-digital-theyve-got-that-merging-feeling/|Compaq, Digital: They've got that merging feeling]] |
+| Time | 1998-02-09 | [[https://time.com/archive/6732229/compaqs-quest-for-power/|Compaq's Quest for Power]] |
 | CNET | 1998-03-09 | [[https://web.archive.org/web/20031229104839/http://news.com.com:80/2100-1001_3-208845.html|FTC expands Compaq-Digital query]] |
 | CNET | 1998-04-06 | [[https://www.cnet.com/tech/tech-industry/samsung-eyes-1000-mhz-chips/|Samsung eyes 1,000-MHz chips]] |
+| ZDNet | 1998-04-08 | [[https://www.zdnet.com/article/us-report-cool-technology-fuels-alpha/|US Report: Cool technology fuels Alpha]] |
 | CNET | 1998-04-23 | [[https://web.archive.org/web/20040310234814/http://news.com.com:80/2100-1023_3-210495.html|FTC approves Digital-Intel deal]] |
+| NY Times | 1998-05-07 | [[https://www.nytimes.com/1998/05/07/business/compaq-said-to-plan-cuts-in-digital-jobs.html|Compaq Said To Plan Cuts In Digital Jobs]] |
+| SF Gate | 1998-05-07 | [[https://www.sfgate.com/business/article/digital-may-fire-15-000-major-restructuring-if-3007328.php|Digital May Fire 15,000]] |
+| BBC News | 1998-06-12 | [[http://news.bbc.co.uk/2/hi/business/111676.stm|Compaq sacks 6% to absorb Digital]] |
+| CNET | 1998-06-12 | [[https://www.cnet.com/tech/tech-industry/digital-takes-compaq-into-enterprise/|Digital takes Compaq into enterprise]] |
 | CNET | 1998-06-16 | [[https://www.cnet.com/tech/tech-industry/samsung-announces-alpha-subsidiary/|Samsung announces Alpha subsidiary]] |
 | CNET | 1998-07-23 | [[https://web.archive.org/web/20040517182508/http://news.com.com:80/2100-1001_3-213655.html|Alpha chip may reach 1 GHz in '99]] |
+| Business Standard | 1998-08-13 | [[https://www.business-standard.com/article/specials/digital-becomes-compaq-structure-rejig-likely-198081301029_1.html|Digital Becomes Compaq, Structure Rejig Likely]] |
 | The Register | 1998-08-20 | [[https://www.theregister.com/on-prem/1998/08/20/compaq-kicks-intels-merced-butt-while-its-down/992318|Compaq kicks Intel's Merced butt while it's down]] |
 | CNET | 1998-10-12 | [[https://web.archive.org/web/20040405080910/http://news.com.com:80/2100-1001_3-216592.html|Compaq headed for high end]] |
 | CNET | 1998-10-16 | [[https://web.archive.org/web/20031223174206/http://news.com.com:80/2100-1001_3-216810.html|Rambus shines in Intel-Micron deal]] |
@@ -79,11 +98,13 @@
 | CNET | 1998-11-15 | [[https://www.cnet.com/tech/mobile/compaq-backs-alpha-future/|Compaq backs Alpha future]] |
 | CNET | 1998-11-30 | [[https://web.archive.org/web/20030824184947/http://news.com.com:80/2100-1001_3-218499.html|Samsung starts up 600-MHz Alpha]] |
 | The Register | 1998-11-30 | [[https://www.theregister.com/on-prem/1998/11/30/samsung-ramps-up-third-gen-alpha-production/976191|Samsung ramps up third-gen. Alpha production]] |
+| Windows NT Magazine | 1998-12 | [[https://www.halfhill.com/byte/1998-12_alpha.html|The Alpha 21264: NT's Greatest RISC]] |
 
 ===== 1999 =====
 
 ^ Source ^ Date ^ Title ^
 | The Register | 1999-01-08 | [[https://www.theregister.com/on-prem/1999/01/08/compaq-boots-64-bit-nt-on-alphaserver/987852|Compaq boots 64-bit NT on AlphaServer]] |
+| The Register | 1999-01-08 | [[https://www.theregister.com/on-prem/1999/01/08/cunning-amd-compaq-plan-takes-shape/1069345|Cunning AMD-Compaq plan takes shape]] |
 | The Register | 1999-01-11 | [[https://www.theregister.com/on-prem/1999/01/11/compaq-amd-alpha-plans-take-linux-shape/1321235|Compaq-AMD Alpha plans take Linux shape]] |
 | The Register | 1999-01-16 | [[https://www.theregister.com/on-prem/1999/01/16/samsung-linux-plans-emerge-as-alpha-takes-shape/1557197|Samsung-Linux plans emerge as Alpha takes shape]] |
 | The Register | 1999-01-17 | [[https://www.theregister.com/on-prem/1999/01/17/compaq-puts-tentative-toe-into-alpha-water-ouch-its-intel/497645|Compaq puts tentative toe into Alpha water - ouch it's Intel]] |
@@ -93,6 +114,8 @@
 | The Register | 1999-01-31 | [[https://www.theregister.com/on-prem/1999/01/31/alpha-pricing-could-cut-intels-throat/873928|Alpha pricing could cut Intel's throat]] |
 | CNET | 1999-02-01 | [[https://web.archive.org/web/20040308061553/http://news.com.com:80/2100-1001_3-220954.html|Compaq debuts new Alpha workstations]] |
 | The Register | 1999-02-01 | [[https://www.theregister.com/on-prem/1999/02/01/merced-vs-alpha-deal-takes-further-compaq-twist/1373483|Merced vs Alpha deal takes further Compaq twist]] |
+| CRN | 1999-02-01 | [[https://web.archive.org/web/20010429232826/http://www.techweb.com/se/directlink.cgi?CRN19990201S0015|Compaq, IBM in talks over copper Alpha chip]] |
+| EBN | 1999-02-02 | [[https://web.archive.org/web/20020301212539/http://www.ebns.com/story/OEG19990202S0069|Alpha camp moves to "Slot B" connector to push further into workstations]] |
 | The Register | 1999-02-03 | [[https://www.theregister.com/on-prem/1999/02/03/compaq-contemplating-128-bit-alpha/1556772|Compaq contemplating 128-bit Alpha]] |
 | The Register | 1999-02-04 | [[https://www.theregister.com/on-prem/1999/02/04/pfeiffer-stopped-128-bit-alpha-workstations-in-its-tracks/750909|Pfeiffer stopped 128-bit Alpha workstations in its tracks]] |
 | Computer Business Review | 1999-02-10 | [[https://www.techmonitor.ai/technology/alpha_will_exit_the_year_in_pole_position_again|Alpha will exit the year in pole position (again)]] |
@@ -150,6 +173,7 @@
 | CNET | 1999-09-22 | [[https://web.archive.org/web/20040428124116/http://news.com.com:80/2100-1001_3-249446.html|Compaq reverses plans for Unix on Intel chips]] |
 | The Register | 1999-10-10 | [[https://www.theregister.com/on-prem/1999/10/10/amd-cools-on-slot-b-but-alpha-alliance-still-strong/650626|AMD cools on Slot-B, but Alpha alliance still strong]] |
 | The Register | 1999-10-17 | [[https://www.theregister.com/on-prem/1999/10/17/alpha-the-chip-that-time-forgot/1386814|Alpha: the chip that time forgot?]] |
+| The Australian | 1999-10-19 | [[https://web.archive.org/web/20030305171519/http://homepages.tig.com.au/~jwill/Supercharged%20Silicon.htm|Supercharged Silicon]] |
 | The Register | 1999-11-10 | [[https://www.theregister.com/on-prem/1999/11/10/500-alpha-nt-jobs-to-go-at-compaq/970770|500 Alpha NT jobs to go at Compaq]] |
 | The Register | 1999-11-18 | [[https://www.theregister.com/on-prem/1999/11/18/big-q-launches-big-alpha-super-computer/700823|Big Q launches big Alpha super computer]] |
 | The Register | 1999-11-22 | [[https://www.theregister.com/on-prem/1999/11/22/alpha-processor-to-sashay-with-chassis/1040281|Alpha processor to sashay with chassis]] |
@@ -170,6 +194,7 @@
 
 ^ Source ^ Date ^ Title ^
 | The Register | 2000-03-01 | [[https://www.theregister.com/on-prem/2000/03/01/big-q-compaq-terribly-coy-about-alpha-wildfire/787166|Big Q (Compaq) terribly coy about Alpha Wildfire]] |
+| The Register | 2000-03-03 | [[https://www.theregister.com/on-prem/2000/03/03/amd-to-be-fourth-fabber-for-alpha/1391453|AMD to be fourth fabber for Alpha…]] |
 | The Register | 2000-03-26 | [[https://www.theregister.com/on-prem/2000/03/26/an-omega-for-alpha/1423629|An Omega for Alpha?]] |
 | The Register | 2000-03-29 | [[https://www.theregister.com/on-prem/2000/03/29/low-cost-alpha-boxes-on-way/996600|Low cost Alpha boxes on way]] |
 | EE Times | 2000-04-04 | [[https://www.eetimes.com/samsung-preps-1-6-ghz-alpha-as-intel-amd-competitor-2/|Samsung preps 1.6-GHz Alpha as Intel, AMD competitor]] |
@@ -178,6 +203,7 @@
 | The Register | 2000-05-15 | [[https://www.theregister.com/on-prem/2000/05/15/wildfire-takes-aim-at-intel-sun-ibm-hps-server-pants/524327|Wildfire takes aim at Intel, Sun, IBM, HP's server pants]] |
 | CNET | 2000-05-23 | [[https://web.archive.org/web/20060114121531/http://news.com.com:80/2100-1001_3-240918.html|Alpha Processor expands from chips to Linux-based systems]] |
 | The Register | 2000-05-26 | [[https://www.theregister.com/on-prem/2000/05/26/samsung-to-co-develop-linux-alpha-supercomputer/1536752|Samsung to co-develop Linux Alpha supercomputer]] |
+| Real World Technologies | 2000-06-20 | [[https://www.realworldtech.com/battle64/2/|The Looming Battle in 64 Bit Land]] |
 | The Register | 2000-06-23 | [[https://www.theregister.com/off-prem/2000/06/23/compaq-to-create-013-micron-intel-killer/494788|Compaq to create 0.13 micron Intel killer]] |
 | The Register | 2000-08-20 | [[https://www.theregister.com/off-prem/2000/08/25/64-bit-compaq-alpha-tops-1040mhz/1550046|64-bit Compaq Alpha tops 1040MHz]] |
 | The Register | 2000-08-27 | [[https://www.theregister.com/off-prem/2000/08/27/alpha-strikes-back-against-intel/1158583|Alpha strikes back against Intel]] |
@@ -198,16 +224,18 @@
 | Design News | 2001-02-26 | [[https://www.designnews.com/motion-control/working-outside-the-box|Working outside the box]] |
 | The Register | 2001-03-02 | [[https://www.theregister.com/on-prem/2001/03/02/compaq-alphaserver-wins-tpc-bragging-rights/1024018|Compaq AlphaServer wins TPC Bragging Rights]] |
 | Design News | 2001-05-21 | [[https://www.designnews.com/industry/foreign-markets-challenge-u-s-engineers|Foreign markets challenge U.S. engineers]] |
-| The Inquirer | 2001-06-22 | [[http://www.theinquirer.net/en/inquirer/news/2001/06/22/alpha-up-for-grabs|Alpha up for grabs (dead link)]] |
+| The Inquirer | 2001-06-22 | [[https://web.archive.org/web/20020209211818/http://213.219.40.69/22060114.htm|Alpha up for grabs]] |
+| The Inquirer | 2001-06-22 | [[https://web.archive.org/web/20030112010953/http://www.theinquirer.net/?article=121|Alpha processor: a little marvel]] |
 | The Register | 2001-06-25 | [[https://www.theregister.com/on-prem/2001/06/25/farewell-then-alpha-hello-compaq-the-box-shifter/1111748|Farewell then, Alpha - Hello, Compaq the Box Shifter]] |
 | The Register | 2001-06-25 | [[https://www.theregister.com/off-prem/2001/06/25/intel-takes-alpha-from-compaqs-hands/588898|Intel takes Alpha from Compaq's hands]] |
+| The Inquirer | 2001-06-25 | [[https://web.archive.org/web/20011222043540/http://www.theinquirer.net/2506alpha.htm|Compaq confirms Intel Alpha spin-off]] |
 | EE Times | 2001-06-26 | [[https://www.eetimes.com/alphas-demise-thwarts-samsungs-processor-dreams-analysts-say/|Alpha's demise thwarts Samsung's processor dreams, analysts say]] |
 | LA Times | 2001-06-26 | [[https://www.latimes.com/archives/la-xpm-2001-jun-26-fi-14745-story.html|Compaq to Phase Out Chips Line]] |
 | EE Times | 2001-06-26 | [[https://www.eetimes.com/api-networks-sees-life-after-apparent-death-of-alpha-processor/|API NetWorks sees life after apparent death of Alpha processor]] |
 | NY Times | 2001-06-26 | [[https://www.nytimes.com/2001/06/26/business/technology-compaq-plans-to-phase-out-a-widely-used-computer-chip.html|Compaq Plans to Phase Out a Widely Used Computer Chip]] |
 | The Register | 2001-07-23 | [[https://www.theregister.com/on-prem/2001/07/23/tru64-tweaks-come-with-intro-of-1ghz-alpha/1562356|Tru64 tweaks come with intro of 1GHz Alpha]] |
 | Linux Journal | 2001-08 | [[https://www.linuxjournal.com/article/4756|Kernel Tuning Gives 40% Gains]] |
-| The Inquirer | 2001-08-06 | [[http://www.theinquirer.net/en/inquirer/news/2001/08/06/itanic-will-use-alpha-ev8-smt-features|Itanic will use Alpha EV8, SMT features (dead link)]] |
+| The Inquirer | 2001-08-06 | [[https://web.archive.org/web/20010808092922/http://www.theinquirer.net/06080116.htm|Itanic will use Alpha EV8, SMT features]] |
 | The Register | 2001-10-06 | [[https://www.theregister.com/on-prem/2001/10/16/compaq-on-speed-with-1ghz-64-bit-alpha-boxen/420686|Compaq on speed with 1GHz 64-bit Alpha boxen]] |
 
 ===== 2002 =====
@@ -215,6 +243,11 @@
 ^ Source ^ Date ^ Title ^
 | The Register | 2002-02-23 | [[https://www.theregister.com/on-prem/2002/02/22/compaq-pumps-up-alphaserver-4-way-benchmarks/512526|Compaq pumps up AlphaServer 4-way benchmarks]] |
 | CNET | 2002-02-28 | [[https://www.cnet.com/tech/tech-industry/promoter-of-storied-alpha-to-shut-doors/|Promoter of storied Alpha to shut doors]] |
+| The Inquirer | 2002-04-21 | [[https://web.archive.org/web/20030109064320/http://www.theinquirer.net/?article=3313|The good Compaq news – Marvel....]] |
+| The Inquirer | 2002-04-22 | [[https://web.archive.org/web/20020620235014/http://www.theinquirer.net/23040211.htm|64P EV7 Marvels on way]] |
+| CBS News | 2002-04-30 | [[https://www.cbsnews.com/news/compaq-acquisition-approved/|Compaq Acquisition Approved]] |
+| MarketWatch | 2002-05-03 | [[https://www.marketwatch.com/story/h-p-completes-acquisition-of-compaq|H-P completes acquisition of Compaq]] |
+| The Inquirer | 2002-05-06 | [[https://web.archive.org/web/20020813204344/http://www.theinquirer.net/?article=3466|1224MHz Alpha to arrive August]] |
 | The Register | 2002-05-08 | [[https://www.theregister.com/on-prem/2002/05/08/alphacide-yesterday-yamhill-tomorrow-hp-merger-architect-talks/1152426|Alphacide yesterday, Yamhill tomorrow: HP merger architect talks]] |
 | The Register | 2002-08-06 | [[https://www.theregister.com/on-prem/2002/08/06/hp-refreshes-midrange-pa-alpha-servers/274868|HP refreshes midrange PA, Alpha servers]] |
 | The Inquirer | 2002-08-07 | [[http://www.theinquirer.net/en/inquirer/news/2002/08/07/samsung-revisits-alpha-processor|Samsung revisits Alpha processor (dead link)]] |
@@ -223,6 +256,9 @@
 ===== 2003 =====
 
 ^ Source ^ Date ^ Title ^
+| The Inquirer | 2003-01-05 | [[https://web.archive.org/web/20030107075800/http://www.theinquirer.net/?article=7034|HP suppressing Alpha Marvel benchmarks in favour of Intel Itanic]] |
+| The Inquirer | 2003-01-06 | [[https://web.archive.org/web/20030109065042/http://www.theinquirer.net/?article=7045|Alpha Marvel thrashes HP Superdome]] |
+| The Inquirer | 2003-01-12 | [[https://web.archive.org/web/20051029124416/http://www.theinquirer.net/?article=7161|HP's Alpha Marvel arrives on Tuesday]] |
 | The Register | 2003-01-21 | [[https://www.theregister.com/on-prem/2003/01/21/ev7-alphaservers-unleashed-as-chip-line-heads-into-sunset/1414298|EV7 AlphaServers unleashed as chip line heads into sunset]] |
 | CNET | 2003-04-08 | [[https://web.archive.org/web/20040406163520/http://news.com.com:80/2008-1082_3-995885.html|AMD's Opteron aspirations]] |
 | CNET | 2003-07-02 | [[https://web.archive.org/web/20041026014454/http://news.com.com:80/2100-1006_3-1023146.html|Intel gets more key Alpha alums]] |
