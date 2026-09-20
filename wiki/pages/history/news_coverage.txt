@@ -3,6 +3,9 @@
 ^ Source ^ Date ^ Title ^
 | NY Times | 1993-03-16 | [[https://www.nytimes.com/1993/03/16/business/company-news-digital-finds-partner-in-mitsubishi.html|Digital finds partner in Mitsubishi]] |
 | NY Times | 1993-05-19 | [[https://www.nytimes.com/1993/05/19/business/business-technology-fastest-pc-is-poised-to-enter-a-market-in-flux.html|Fastest PC Is Poised to Enter a Market in Flux]] |
+| NY Times | 1993-07-09 | [[https://www.nytimes.com/1993/07/09/business/digital-s-return-starts-with-hope.html|Digital's Return Starts With Hope]] |
+| NY Times | 1993-09-11 | [[https://www.nytimes.com/1993/09/11/business/company-news-new-high-powered-alpha-chip-is-introduced.html|New High-Powered Alpha Chip Is Introduced]] |
+| NY Times | 1993-09-28 | [[https://www.nytimes.com/1993/09/28/business/company-news-new-cray-computer.html|New Cray Computer]] |
 | Electronic News | 1993-10-18 | [[http://findarticles.com/p/articles/mi_m0EKF/is_n1985_v39/ai_14635855|DEC readies 225/275MHz Alphas (dead link)]] |
 | NY Times | 1993-10-21 | [[https://www.nytimes.com/1993/10/21/business/company-news-tv-venture-for-digital.html|TV Venture For Digital]] |
 | NY Times | 1993-11-09 | [[https://www.nytimes.com/1993/11/09/business/company-news-a-new-line-of-personal-computers-from-digital.html|A new line of Personal Computers from Digital]] |
@@ -10,10 +13,14 @@
 ===== 1994 =====
 
 ^ Source ^ Date ^ Title ^
+| NY Times | 1994-01-20 | [[https://www.nytimes.com/1994/01/20/business/company-reports-digital-loss-in-2d-quarter-stuns-market.html|Digital Loss In 2d Quarter Stuns Market]] |
 | Electronic News | 1994-04-04 | [[http://findarticles.com/p/articles/mi_m0EKF/is_n2008_v40/ai_15308636|100MHz PowerPC seen by 4Q; Mitsubishi to ramp Alpha in '95 (dead link)]] |
 | NY Times | 1994-04-16 | [[https://www.nytimes.com/1994/04/16/business/company-reports-a-deepening-of-losses-at-digital-equipment.html|Deepening of Losses at Digital Equipment]] |
 | NY Times | 1994-06-07 | [[https://www.nytimes.com/1994/06/07/business/company-news-digital-equipment-cuts-price-of-alpha-axp-chip.html|Digital Equipment cuts price of Alpha AXP Chip]] |
+| NY Times | 1994-07-20 | [[https://www.nytimes.com/1994/07/20/business/business-technology-digital-shows-doctrine-the-door.html|Digital Shows Doctrine the Door]] |
 | NY Times | 1994-07-27 | [[https://www.nytimes.com/1994/07/27/business/company-reports-digital-s-loss-is-linked-to-a-revamping-charge.html|Digital's Loss Is Linked To a Revamping Charge]] |
+| NY Times | 1994-08-23 | [[https://www.nytimes.com/1994/08/23/business/company-news-sequoia-systems-courts-digital-product-line.html|Sequoia Systems Courts Digital Product Line]] |
+| NY Times | 1994-08-25 | [[https://www.nytimes.com/1994/08/25/business/digital-sells-olivetti-stake.html|Digital Sells Olivetti Stake]] |
 | NY Times | 1994-09-08 | [[https://www.nytimes.com/1994/09/08/business/company-news-digital-introduces-high-performance-chip.html|Digital Introduces High-Performance Chip]] |
 | NY Times | 1994-10-17 | [[https://www.nytimes.com/1994/10/17/business/despite-rivals-chip-speed-intel-still-leads-pc-market.html|Despite Rivals' Chip Speed, Intel Still Leads PC Market]] |
 | Electronic News | 1994-11-21 | [[https://web.archive.org/web/20080925122750/http://findarticles.com/p/articles/mi_m0EKF/is_n2041_v40/ai_16036269|Alpha partners roll 233MHz 21066A]] |
@@ -23,31 +30,48 @@
 ^ Source ^ Date ^ Title ^
 | Business Wire | 1995-05-10 | [[http://findarticles.com/p/articles/mi_m0EIN/is_1995_May_10/ai_16940638|Superpowered Alpha Workstation from BTG Inc. aimed at power PC users (dead link)]] |
 | BYTE.com | 1995-06 | [[https://web.archive.org/web/19980115043909/http://byte.com:80/art/9506/sec13/art1.htm|Designing Alpha-Based Systems]] |
+| NY Times | 1995-07-14 | [[https://www.nytimes.com/1995/07/14/business/more-powerful-work-station-from-digital.html|More Powerful Work Station From Digital]] |
+| NY Times | 1995-08-03 | [[https://www.nytimes.com/1995/08/03/business/microsoft-and-digital-in-a-deal-that-expands-partnership.html|Microsoft and Digital in a Deal That Expands Partnership]] |
 
 ===== 1996 =====
 
 ^ Source ^ Date ^ Title ^
+| NY Times | 1996-03-09 | [[https://www.nytimes.com/1996/03/09/business/company-news-two-new-families-of-work-stations-are-displayed.html|Two New Families of Work Stations Are Displayed]] |
 | NY Times | 1996-06-19 | [[https://www.nytimes.com/1996/06/19/business/samsung-licensed-to-market-digital-s-alpha-microprocessors.html|Samsung Licensed to Market Digital's Alpha Microprocessors]] |
+| NY Times | 1996-07-03 | [[https://www.nytimes.com/1996/07/03/business/market-place-for-digital-a-tunnel-at-the-end-of-the-light.html|For Digital, a Tunnel at the End of the Light]] |
+| NY Times | 1996-07-31 | [[https://www.nytimes.com/1996/07/31/business/company-reports-digital-posts-433-million-deficit-in-quarter.html|Digital Posts $433 Million Deficit in Quarter]] |
 | CNET | 1996-09-04 | [[https://web.archive.org/web/20040518074600/http://news.com.com:80/2100-1001_3-224714.html|DEC: more power, less money]] |
 | CNET | 1996-09-12 | [[https://web.archive.org/web/20040509085246/http://news.com.com:80/2100-1001_3-227880.html|Alpha eyes lower-end PC market]] |
 | CNET | 1996-09-23 | [[https://web.archive.org/web/20040509020041/http://news.com.com:80/2100-1001_3-230924.html|DEC, HP do double duty]] |
 | CNET | 1996-10-23 | [[https://web.archive.org/web/20031223180924/http://news.com.com:80/2100-1001_3-240380.html|Digital debuts fastest Alpha processor]] |
+| NY Times | 1996-10-23 | [[https://www.nytimes.com/1996/10/23/business/digital-posts-a-big-loss-and-stock-hits-two-year-low.html|Digital Posts a Big Loss, and Stock Hits Two-Year Low]] |
 | CNET | 1996-12-02 | [[https://web.archive.org/web/20040511140310/http://news.com.com:80/2100-1001_3-251125.html|500-MHz Carrera is Porsche of chips]] |
 
 ===== 1997 =====
 
 ^ Source ^ Date ^ Title ^
+| NY Times | 1997-01-10 | [[https://www.nytimes.com/1997/01/10/business/digital-cuts-prices-for-high-end-computers.html|Digital Cuts Prices for High-End Computers]] |
+| NY Times | 1997-01-17 | [[https://www.nytimes.com/1997/01/17/business/digital-says-it-was-again-profitable-in-2d-quarter.html|Digital Says It Was Again Profitable in 2d Quarter]] |
 | CNET | 1997-03-05 | [[https://web.archive.org/web/20040508080122/http://news.com.com:80/2100-1001_3-279476.html|Digital has 600-MHz workstation]] |
 | CNET | 1997-03-14 | [[https://web.archive.org/web/20030624142451/http://news.com.com:80/2100-1001-277983.html|MS stands by Alpha chip]] |
 | CNET | 1997-03-17 | [[https://web.archive.org/web/20040508210750/http://news.com.com:80/2100-1001_3-278032.html|New Alpha chip hits 533 MHz]] |
 | CNET | 1997-03-31 | [[https://web.archive.org/web/20031224195718/http://news.com.com:80/2100-1001_3-278406.html|600-MHz Alpha chip shipped]] |
 | CNET | 1997-04-02 | [[https://web.archive.org/web/20040508080843/http://news.com.com:80/2100-1001_3-278512.html|Digital announces reorg]] |
+| NY Times | 1997-04-03 | [[https://www.nytimes.com/1997/04/03/business/digital-equipment-reshuffles-again-to-try-to-lift-fortunes.html|Digital Equipment Reshuffles, Again, to Try to Lift Fortunes]] |
 | CNET | 1997-04-14 | [[https://web.archive.org/web/20040512220241/http://news.com.com:80/2100-1001_3-278836.html|Digital makes servers available]] |
+| NY Times | 1997-04-18 | [[https://www.nytimes.com/1997/04/18/business/profit-at-digital-equipment-fell-59-in-third-quarter.html|Profit at Digital Equipment Fell 59% in Third Quarter]] |
 | BYTE.com | 1997-05 | [[https://web.archive.org/web/20001020223255/http://byte.com:80/art/9705/sec5/art3.htm|Alpha Arrives at the Desktop]] |
 | Linux Journal | 1997-05 | [[https://www.linuxjournal.com/article/2105|An Interview with DEC]] |
 | NY Times | 1997-05-14 | [[https://www.nytimes.com/1997/05/14/business/suit-by-digital-says-intel-stole-pentium-design.html|Suit by Digital Says Intel Stole Pentium Design]] |
+| NY Times | 1997-05-19 | [[https://www.nytimes.com/1997/05/19/business/digital-s-suit-against-intel-planning-for-the-next-war.html|Digital's Suit Against Intel: Planning for the Next War]] |
+| NY Times | 1997-05-25 | [[https://www.nytimes.com/1997/05/25/business/for-digital-s-chief-a-last-grab-for-glory.html|For Digital's Chief, a Last Grab for Glory]] |
 | The Journal Record | 1997-05-29 | [[https://journalrecord.com/1997/05/29/intel-sues-digital-equipment-for-breach-of-contract/|Intel sues Digital Equipment for breach of contract]] |
+| NY Times | 1997-05-29 | [[https://www.nytimes.com/1997/05/29/business/chip-empire-strikes-back-intel-countersues-digital.html|Chip Empire Strikes Back: Intel Countersues Digital]] |
+| NY Times | 1997-07-25 | [[https://www.nytimes.com/1997/07/25/business/digital-equipment-s-operating-earnings-rise-in-quarter.html|Digital Equipment's Operating Earnings Rise in Quarter]] |
+| NY Times | 1997-08-13 | [[https://www.nytimes.com/1997/08/13/business/intel-files-a-counterclaim-against-digital-equipment.html|Intel Files a Counterclaim Against Digital Equipment]] |
 | CNET | 1997-10-06 | [[https://web.archive.org/web/20040517043310/http://news.com.com:80/2100-1001_3-203935.html|Intel late to 64-bit computing]] |
+| NY Times | 1997-10-07 | [[https://www.nytimes.com/1997/10/07/business/possible-deal-by-2-chip-makers-is-hinted.html|Possible Deal by 2 Chip Makers Is Hinted]] |
+| NY Times | 1997-10-10 | [[https://www.nytimes.com/1997/10/10/business/company-news-digital-says-it-remains-committed-to-alpha-chip.html|Digital Says It Remains Committed to Alpha Chip]] |
 | CNET | 1997-10-14 | [[https://web.archive.org/web/20031227074522/http://news.com.com:80/2100-1001_3-204174.html|AMD hints at partnership with Digital]] |
 | CNET | 1997-10-21 | [[https://web.archive.org/web/20040518063647/http://news.com.com:80/2100-1001_3-204478.html|Intel, Digital settlement could mean 64-bit convergence]] |
 | CNET | 1997-10-27 | [[https://web.archive.org/web/20031226095417/http://news.com.com:80/2100-1001_3-204660.html|Digital has new Alpha, Intel servers]] |
@@ -77,11 +101,13 @@
 | BYTE | 1998-02 | [[https://www.halfhill.com/byte/1998-2_cover_thickens.html|The Slot Thickens]] |
 | CNET | 1998-02-02 | [[https://www.cnet.com/tech/tech-industry/digitals-alpha-to-remain-fastest-chip/|Digital's Alpha to remain fastest chip?]] |
 | ZDNet | 1998-02-02 | [[https://www.zdnet.com/article/compaq-digital-theyve-got-that-merging-feeling/|Compaq, Digital: They've got that merging feeling]] |
+| NY Times | 1998-02-04 | [[https://www.nytimes.com/1998/02/04/business/ibm-and-digital-describe-entrants-in-chip-speed-race.html|I.B.M. and Digital Describe Entrants in Chip-Speed Race]] |
 | Time | 1998-02-09 | [[https://time.com/archive/6732229/compaqs-quest-for-power/|Compaq's Quest for Power]] |
 | CNET | 1998-03-09 | [[https://web.archive.org/web/20031229104839/http://news.com.com:80/2100-1001_3-208845.html|FTC expands Compaq-Digital query]] |
 | CNET | 1998-04-06 | [[https://www.cnet.com/tech/tech-industry/samsung-eyes-1000-mhz-chips/|Samsung eyes 1,000-MHz chips]] |
 | ZDNet | 1998-04-08 | [[https://www.zdnet.com/article/us-report-cool-technology-fuels-alpha/|US Report: Cool technology fuels Alpha]] |
 | CNET | 1998-04-23 | [[https://web.archive.org/web/20040310234814/http://news.com.com:80/2100-1023_3-210495.html|FTC approves Digital-Intel deal]] |
+| NY Times | 1998-04-24 | [[https://www.nytimes.com/1998/04/24/business/ftc-gives-qualified-approval-to-digital-s-sale-of-a-unit-to-intel.html|F.T.C. Gives Qualified Approval to Digital's Sale of a Unit to Intel]] |
 | NY Times | 1998-05-07 | [[https://www.nytimes.com/1998/05/07/business/compaq-said-to-plan-cuts-in-digital-jobs.html|Compaq Said To Plan Cuts In Digital Jobs]] |
 | SF Gate | 1998-05-07 | [[https://www.sfgate.com/business/article/digital-may-fire-15-000-major-restructuring-if-3007328.php|Digital May Fire 15,000]] |
 | BBC News | 1998-06-12 | [[http://news.bbc.co.uk/2/hi/business/111676.stm|Compaq sacks 6% to absorb Digital]] |
@@ -250,7 +276,8 @@
 | The Inquirer | 2002-05-06 | [[https://web.archive.org/web/20020813204344/http://www.theinquirer.net/?article=3466|1224MHz Alpha to arrive August]] |
 | The Register | 2002-05-08 | [[https://www.theregister.com/on-prem/2002/05/08/alphacide-yesterday-yamhill-tomorrow-hp-merger-architect-talks/1152426|Alphacide yesterday, Yamhill tomorrow: HP merger architect talks]] |
 | The Register | 2002-08-06 | [[https://www.theregister.com/on-prem/2002/08/06/hp-refreshes-midrange-pa-alpha-servers/274868|HP refreshes midrange PA, Alpha servers]] |
-| The Inquirer | 2002-08-07 | [[http://www.theinquirer.net/en/inquirer/news/2002/08/07/samsung-revisits-alpha-processor|Samsung revisits Alpha processor (dead link)]] |
+| The Inquirer | 2002-08-07 | [[https://web.archive.org/web/20041019044313/http://www.theinquirer.net/?article=4831|Alpha upgrade details Burtoned]] |
+| The Inquirer | 2002-08-07 | [[https://web.archive.org/web/20020809065039/http://www.theinquirer.net/?article=4842|Samsung revisits Alpha processor]] |
 | The Inquirer | 2002-08-09 | [[http://www.theinquirer.net/en/inquirer/news/2002/08/09/microway-says-no-more-samsung-alphas|Microway says "no more Samsung Alphas" (dead link)]] |
 
 ===== 2003 =====
@@ -267,6 +294,7 @@
 ===== 2005 =====
 
 ^ Source ^ Date ^ Title ^
+| The Inquirer | 2005-06-27 | [[https://web.archive.org/web/20050713083949/http://www.theinquirer.net/?article=24212|Could HP bring the Alpha processor back to life?]] |
 | The Inquirer | 2005-06-30 | [[http://www.theinquirer.net/inquirer/news/498/1032498/will-the-alpha-chip-stage-a-comeback|Will the Alpha Chip Stage a Comeback? (dead link)]] |
 
 ===== 2008 =====
