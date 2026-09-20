@@ -1,10 +1,8 @@
 ===== Unaligned Access =====
 
-Unaligned memory access is the single most common reason a piece of software fails when first built for Alpha. It is also the porting problem most often dismissed with "that only breaks on weird architectures."
+Unaligned memory access is the most common reason software fails when first built for Alpha. Every Alpha load and store except ''LDQ_U'' and ''STQ_U'' traps when the address is not a multiple of the operand size, and no implementation corrects the access in hardware.
 
-That dismissal is wrong, and this page exists to say so precisely.
-
-''%%*(uint32_t *)(buf + 1)%%'' is **undefined behavior in C**. Not "undefined on Alpha", not "slow on Alpha", not "a portability wart". It is undefined behavior on every target, including x86, and this page demonstrates an x86-64 program that dies from it. Alpha is not a special case. Alpha is an //honest// case: it tells you immediately what other machines let you get away with until the day they do not.
+The construct responsible is almost always a pointer cast such as ''%%*(uint32_t *)(buf + 1)%%''. It is undefined behavior in C on every target, including x86, where the hardware ordinarily tolerates it; the sections below include an x86-64 program that fails because of it. Alpha differs from such targets only in reporting the error immediately.
 
 See also [[documentation:porting:byte_word_access|Byte and Word Access]] and [[documentation:porting:memory_model|Memory Model]].
 
@@ -21,7 +19,7 @@ An access is //aligned// when the address is a multiple of the operand size.
 | ''LDT'' / ''STT'' | T_floating, 64-bit | address % 8 == 0 |
 | ''LDQ_U'' / ''STQ_U'' | quadword | none; address bits <2:0> are ignored |
 
-''LDBU'', ''LDWU'', ''STB'' and ''STW'' are the Byte/Word Extension (BWX, ''amask'' bit 0), introduced with the 21164A (EV56). There is **no ''LDB'' and no ''LDW'' instruction** on any Alpha. Earlier parts have no byte or word memory instructions at all; see [[documentation:porting:byte_word_access|Byte and Word Access]].
+''LDBU'', ''LDWU'', ''STB'' and ''STW'' are the Byte/Word Extension (BWX, ''amask'' bit 0), introduced with the 21164A (EV56). No Alpha has an ''LDB'' or ''LDW'' instruction. Earlier parts have no byte or word memory instructions at all; see [[documentation:porting:byte_word_access|Byte and Word Access]].
 
 Every load and store except ''LDQ_U''/''STQ_U'' faults on an unaligned address. From the Architecture Reference Manual, on ''LDS'':
 
@@ -33,7 +31,7 @@ The same sentence appears for ''LDT'', ''STS'' and ''STT''.
 
 No Alpha implementation fixes unaligned accesses up in hardware. The unaligned data reference is an architecturally defined trap on every part from the 21064 to the 21364.
 
-In particular, **BWX does not help**. It adds byte and word instructions; it does not make misaligned longword or quadword access work. David Mosberger-Tang, 1996: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L10934|"Re: UNALIGNED TRAPS!!!!!!!?"]], David Mosberger-Tang, axp-list, 11 Sep 1996)]
+BWX does not change this. It adds byte and word instructions; it does not make misaligned longword or quadword access work. David Mosberger-Tang, 1996: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L10934|"Re: UNALIGNED TRAPS!!!!!!!?"]], David Mosberger-Tang, axp-list, 11 Sep 1996)]
 
 <blockquote>
 even the newer Alpha chips don't do unaligned accesses in hw.
@@ -59,19 +57,19 @@ and **Annex J.2**, in the list of undefined behaviors:
 Conversion between two pointer types produces a result that is incorrectly aligned (6.3.2.3).
 </blockquote>
 
-Three consequences that are worth stating separately, because each one is routinely missed:
+Three consequences follow:
 
-  - **The undefined behavior happens at the cast.** ''%%(uint32_t *)(buf + 1)%%'' is already undefined even if you never load through it. This is why ''-Wcast-align=strict'' diagnoses the cast and never looks at the offset.
-  - **There is no "unless the hardware copes" clause.** x86 guarantees that the //hardware// will not trap on an ordinary integer load. It guarantees nothing whatsoever about what the //compiler// may assume or emit.
-  - **This is a different rule from strict aliasing.** Strict aliasing is §6.5 paragraph 7, about effective types. ''%%*(uint32_t *)(buf + 1)%%'' on a ''char'' array violates **both** rules, and ''-fno-strict-aliasing'' only disables exploitation of the aliasing one. It does nothing at all about §6.3.2.3p7. "We build with ''-fno-strict-aliasing'', so we are fine" is not an argument.
+  - The undefined behavior occurs at the cast. ''%%(uint32_t *)(buf + 1)%%'' is undefined even if the pointer is never dereferenced, which is why ''-Wcast-align=strict'' diagnoses the cast and never examines the offset.
+  - There is no exception for hardware that tolerates the access. x86 guarantees that the //hardware// will not trap on an ordinary integer load. It guarantees nothing about what the //compiler// may assume or emit.
+  - The rule is distinct from strict aliasing, which is §6.5 paragraph 7, about effective types. ''%%*(uint32_t *)(buf + 1)%%'' on a ''char'' array violates both rules, and ''-fno-strict-aliasing'' disables exploitation of the aliasing rule only. It has no effect on §6.3.2.3p7.
 
-''memcpy'' satisfies both rules at once. It accesses through character-type lvalues, which §6.5p7 explicitly permits, and it performs no misaligned pointer conversion, so §6.3.2.3p7 never engages. That is exactly why it is the recommended spelling, and why every compiler optimizes it away.
+''memcpy'' satisfies both rules at once. It accesses through character-type lvalues, which §6.5p7 explicitly permits, and it performs no misaligned pointer conversion, so §6.3.2.3p7 never engages. It is therefore the recommended construct, and compilers reduce it to the same instructions as a direct load.
 
-==== It Bites on x86 Too ====
+==== Effects on x86 ====
 
-=== A misaligned pointer, plain C, and a dead x86-64 process ===
+=== A misaligned pointer in plain C ===
 
-No intrinsics, no inline assembly, no ''-ffast-math''. Just a type the ABI says is 16-byte aligned, and a pointer that is not.
+The following program uses no intrinsics, no inline assembly and no ''-ffast-math''. It uses a type that the ABI requires to be 16-byte aligned, and a pointer that is not.
 
 <code c>
 /* v.c */
@@ -109,11 +107,11 @@ Program received signal SIGSEGV, Segmentation fault.
 => 0x555555555184 <vcopy+4>:	movdqa xmm0,XMMWORD PTR [rsi]
 </code>
 
-Exit status 139 is ''SIGSEGV''. The ''#GP'' fault from ''MOVDQA'' on a misaligned operand is delivered as ''SIGSEGV'', which is why ''si_addr'' is 0 rather than the offending address. This is not a contrived failure: it is the ordinary consequence of writing through a pointer whose alignment you lied about, on the most forgiving architecture in common use.
+Exit status 139 is ''SIGSEGV''. The ''#GP'' fault from ''MOVDQA'' on a misaligned operand is delivered as ''SIGSEGV'', which is why ''si_addr'' is 0 rather than the offending address. The failure is the ordinary consequence of writing through a pointer that is not aligned as its type requires, on an architecture usually regarded as tolerant of misalignment.
 
-=== x86 has alignment checking; it is simply switched off ===
+=== Alignment checking on x86 ===
 
-Set ''EFLAGS.AC'' and x86 behaves exactly like Alpha:
+With ''EFLAGS.AC'' set, x86 behaves as Alpha does:
 
 <code c>
 #define _GNU_SOURCE
@@ -149,9 +147,9 @@ Signal 7 is ''SIGBUS''; ''si_code'' 1 is ''BUS_ADRALN''. That is the identical s
 		error_code, BUS_ADRALN, NULL);
 </code>
 
-The capability has been in the architecture since the 486. The only reason x86 software survives misaligned access is that nobody turns it on.
+The capability has been in the architecture since the 486. x86 software tolerates misaligned access because the bit is normally left clear.
 
-=== Split locks: unaligned atomics are punished on current Intel hardware ===
+=== Split locks ===
 
 An atomic read-modify-write whose operand crosses a cache line cannot be satisfied by locking a cache line, so the processor locks the bus. ''Documentation/arch/x86/buslock.rst'':
 
@@ -165,7 +163,7 @@ memory or any locked access to non-WB memory. This is typically thousands of
 cycles slower than an atomic operation within a cache line.
 </code>
 
-Linux treats this as an attack surface, not a performance curiosity. From ''Documentation/admin-guide/sysctl/kernel.rst'':
+Linux treats split locks as a denial-of-service risk rather than only a performance problem. From ''Documentation/admin-guide/sysctl/kernel.rst'':
 
 <code>
 On x86, each "split lock" imposes a system-wide performance penalty. On larger
@@ -177,9 +175,9 @@ penalties: forcing them to wait and only allowing one core to execute split
 locks at a time.
 </code>
 
-The ''split_lock_detect='' boot parameter selects the policy. The default on capable hardware is ''warn''; ''fatal'' sends ''SIGBUS'' to the offending process. So on a modern Intel machine, an unaligned atomic is thousands of cycles slower, is rate-limited by a global semaphore and a 10 ms sleep, and can be configured to kill you. On Alpha it simply would not have compiled to an atomic in the first place.
+The ''split_lock_detect='' boot parameter selects the policy. The default on capable hardware is ''warn''; ''fatal'' sends ''SIGBUS'' to the offending process. On a modern Intel machine an unaligned atomic is therefore thousands of cycles slower, is rate-limited by a global semaphore and a 10 ms sleep, and can be configured to terminate the process. On Alpha the same operation would not have compiled to an atomic instruction at all.
 
-=== Linus Torvalds, 1996, on exactly this ===
+=== A kernel regression in 1996 ===
 
 A networking regression in 2.1.9, reported on the Alpha list: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L29714|"Re: 2.1.9"]], Linus Torvalds, axp-list, 15 Nov 1996)]
 
@@ -189,25 +187,25 @@ The problem is some breakage in the skb_clone() routines that wasn't noticed on 
 2.1.10 will fix this one,
 </blockquote>
 
-The bug was in generic networking code. It was present on x86. x86 hardware hid it. Alpha did not.
+The bug was in generic networking code and was present on x86, where the hardware concealed it.
 
-David Huggins-Daines made the general form of the argument on the same list in 2000: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L12059|"Re: Fixing 'unaligned trap' errors"]], David Huggins-Daines, axp-list, 21 May 2000)]
+David Huggins-Daines described the general case on the same list in 2000: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L12059|"Re: Fixing 'unaligned trap' errors"]], David Huggins-Daines, axp-list, 21 May 2000)]
 
 <blockquote>
 Yup, there has been just such a bug in Emacs on all GNU/Linux platforms (see http://bugs.debian.org/63993) for a long time now (since at least ncurses-4.2), but it only showed up on Alpha due to the unaligned trap messages.
 </blockquote>
 
-=== Real bugs, in code that thought it was safe ===
+=== Examples in the Linux kernel ===
 
-The kernel's own unaligned-access helpers were undefined behavior for years, and the fix was ''memcpy'':
+The kernel's own unaligned-access helpers were undefined behavior for years, and were fixed by switching to ''memcpy'':
 
   * ''a339671db64b'' "vdso: Switch get/put_unaligned() from packed struct to memcpy()": "Type punning is necessary for get/put_unaligned() but the use of a packed struct violates strict aliasing rules, requiring -fno-strict-aliasing to be passed to the C compiler. Switch to using memcpy() so that -fno-strict-aliasing isn't necessary."
   * ''4d920ed68439'' "libbpf: Fix undefined behavior in {get,put}_unaligned_be32()": the hand-rolled packed-struct helpers "violate aliasing rules and may be miscompiled unless -fno-strict-aliasing is used. Replace them with the standard memcpy() solution. Note that compilers know how to optimize this properly."
-  * ''55a18d2f3ff7'' "perf build: enable -fno-strict-aliasing": a concrete **x86** miscompilation of ''sha1.c'' caused by exactly this.
+  * ''55a18d2f3ff7'' "perf build: enable -fno-strict-aliasing": an x86 miscompilation of ''sha1.c'' caused by the same construct.
   * ''ddc4dedb9ba3'' "crypto: drbg - Fix misaligned writes in CTR_DRBG and HASH_DRBG", Cc: stable.
   * ''6ed5e20466c7'' "bootconfig: Fix unaligned access when building footer", found by a Debian sparc64 build machine.
 
-The point of the list is not that these are Alpha bugs. None of them are. They are C bugs that a strict-alignment machine finds first.
+None of these are Alpha-specific defects. They are C defects that a strict-alignment target exposes first.
 
 ==== What Alpha Does at Runtime ====
 
@@ -237,10 +235,10 @@ By default the kernel emulates the access, logs a message, and lets the process 
 | ''%lx'' | the memory-format opcode, in **hex**: ''28''=LDL, ''29''=LDQ, ''2c''=STL, ''2d''=STQ |
 | ''%ld'' | the instruction's Ra register number, in **decimal**. This is the destination of a load or the source of a store. It is not a cause code. |
 
-Two traps for the unwary:
+Two properties of the message limit its use:
 
-  * The ''%p'' address is **hashed** on any modern kernel, unless you boot with ''no_hash_pointers''. The instruction address is real; the data address is not.
-  * The message is **rate limited** to 5 per 5 seconds. A hot loop will silently lose almost all of them, so never use ''dmesg'' output to count anything.
+  * The ''%p'' address is hashed on any modern kernel unless it is booted with ''no_hash_pointers''. The instruction address is real; the data address is not.
+  * The message is rate limited to 5 per 5 seconds. A hot loop loses almost all of them, so ''dmesg'' output cannot be used to count occurrences.
 
 === Counting them properly ===
 
@@ -252,7 +250,7 @@ kernel unaligned acc	: 0 (pc=0,va=0)
 user unaligned acc	: 1174 (pc=120001234,va=11ffff8e5)
 </code>
 
-Sampling this before and after a run is the cheapest possible answer to "does this program do any unaligned access at all".
+Sampling these counters before and after a run shows whether a program performed any unaligned access.
 
 === Making it fatal ===
 
@@ -268,9 +266,9 @@ prctl(PR_SET_UNALIGN, PR_UNALIGN_SIGBUS, 0, 0, 0);
 prctl(PR_SET_UNALIGN, PR_UNALIGN_NOPRINT, 0, 0, 0);
 </code>
 
-Note that ''PR_SET_UNALIGN'' **replaces** the mask rather than OR-ing into it. Alpha also accepts a third bit, bare value ''4'', mapping to ''TS_UAC_NOFIX'' ("do not fix up at all"), which has no ''PR_UNALIGN_*'' name. The kernel's own comment on it reads ''/* Not sure why you'd want to use this, but... */''.
+''PR_SET_UNALIGN'' replaces the mask rather than OR-ing into it. Alpha also accepts a third bit, bare value ''4'', mapping to ''TS_UAC_NOFIX'' ("do not fix up at all"), which has no ''PR_UNALIGN_*'' name. The kernel's own comment on it reads ''/* Not sure why you'd want to use this, but... */''.
 
-The Alpha-specific interface inherited from Digital UNIX is ''osf_setsysinfo()''. glibc does not wrap it, so call it directly:
+The Alpha-specific interface inherited from Digital UNIX is ''osf_setsysinfo()''. glibc does not wrap it, so it must be invoked directly:
 
 <code c>
 #include <asm/sysinfo.h>
@@ -281,7 +279,7 @@ unsigned int buf[2] = { SSIN_UACPROC, UAC_SIGBUS };
 syscall(__NR_osf_setsysinfo, SSI_NVPAIRS, buf);
 </code>
 
-Beware that the two interfaces use **different bit values**: ''UAC_NOFIX'' is 2 while ''PR_UNALIGN_SIGBUS'' is 2.
+The two interfaces assign different meanings to the same bit values: the value 2 is ''UAC_NOFIX'' to ''osf_setsysinfo()'' and ''PR_UNALIGN_SIGBUS'' to ''prctl()''.
 
 This interface was deliberately cloned from Digital UNIX. Richard Henderson, who implemented it, in 1997: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-October.mbox#L4654|"Re: Unaligned Traps - have they been turned off !!!!"]], Richard Henderson, axp-list, 6 Oct 1997)]
 
@@ -295,7 +293,7 @@ and in 1998, recommending precisely the technique above: [(>"Re: tracking down u
 The following will tell both Digital Unix and Linux (post 2.1.20 or so) to deliver a SIGBUS rather than fix up the access. This makes the problem significantly easier to debug.
 </blockquote>
 
-Note that only the per-process case was ever implemented. Henderson again, in 1999, listing the Digital UNIX constants: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L27175|"Re: Unaligned traps et al"]], Richard Henderson, axp-list, 18 Aug 1999)]
+Only the per-process case was ever implemented. Henderson again, in 1999, listing the Digital UNIX constants: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L27175|"Re: Unaligned traps et al"]], Richard Henderson, axp-list, 18 Aug 1999)]
 
 <blockquote>
 #define SSIN_UACSYS     4       /* set system printing on/off */
@@ -305,19 +303,19 @@ Note that only the per-process case was ever implemented. Henderson again, in 19
 I only implemented the SSIN_UACPROC case. If you'd like to implement the rest, be my guest.  ;-)
 </blockquote>
 
-Putting one of these at the top of ''main()'' in a test harness is the most effective single thing you can do. Every unaligned access then becomes a core dump with a usable backtrace instead of a line in ''dmesg'' that nobody reads.
+Setting one of these at the top of ''main()'' in a test harness turns every unaligned access into a core dump with a usable backtrace instead of a line in ''dmesg''.
 
-=== There is no sysctl for this ===
+=== Absence of a sysctl ===
 
-A recipe along the lines of ''echo 2 > /proc/sys/kernel/unaligned-trap'' circulates widely. **It does not work on Alpha, and the value 2 does not exist anywhere.**
+A recipe along the lines of ''echo 2 > /proc/sys/kernel/unaligned-trap'' circulates widely. It does not work on Alpha, and the value 2 is not defined on any architecture.
 
 That sysctl is real, but it belongs to other architectures. It originated on parisc (commit ''bf14e3b979a0'', "sysctl: Enable PARISC unaligned-trap to be used cross-arch", 2013) and was generalized so other architectures could opt in; arc, loongarch and riscv have since done so. Its companion ''ignore-unaligned-usertrap'' originated on ia64 (commit ''b6fca72536fb''). Both are registered in generic code in ''kernel/sysctl.c'', gated on ''CONFIG_SYSCTL_ARCH_UNALIGN_ALLOW'' and ''CONFIG_SYSCTL_ARCH_UNALIGN_NO_WARN''.
 
-**Alpha selects neither**, and registers no sysctls of its own. It also takes only the values 0 and 1, never 2. Alpha's controls are the two per-process interfaces above and nothing else.
+Alpha selects neither, and registers no sysctls of its own. The sysctl also takes only the values 0 and 1, never 2. Alpha's only controls are the two per-process interfaces described above.
 
-=== The same knobs on other operating systems ===
+=== The same controls on other operating systems ===
 
-The Linux behavior is not a Linux invention. Every Alpha operating system fixes user unaligned accesses up by default, prints a warning, and lets the program continue, and every one of them provides a way to switch each of those three behaviors off. On NetBSD and FreeBSD the three behaviors are three sysctls, with these defaults: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-May.mbox#L2901|"Re: unaligned access"]], Chris G. Demetriou, port-alpha, 19 May 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L7696|"Re: egcs ready for alpha?"]], Andrew Gallatin, freebsd-alpha, 18 Apr 1999)]
+This behavior is not specific to Linux. Every Alpha operating system fixes user unaligned accesses up by default, prints a warning, and lets the program continue, and every one of them provides a way to switch each of those three behaviors off. On NetBSD and FreeBSD the three behaviors are three sysctls, with these defaults: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-May.mbox#L2901|"Re: unaligned access"]], Chris G. Demetriou, port-alpha, 19 May 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L7696|"Re: egcs ready for alpha?"]], Andrew Gallatin, freebsd-alpha, 18 Apr 1999)]
 
 <code>
 machdep.unaligned_print: 1
@@ -344,21 +342,21 @@ NetBSD's warning carries more than Linux's does, including the return address an
 pid 20482 (a.out): unaligned access: va=0x1fffff284 pc=0x120000ae0 ra=0x120000750 op=ldq
 </code>
 
-Two NetBSD details are worth knowing. Unaligned accesses made by VAX floating-point instructions are //not// fixed up unless a kernel option is compiled in, which has no Linux equivalent, and, exactly as on Linux, an unaligned access in the kernel panics rather than being repaired. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-May.mbox#L2901|"Re: unaligned access"]], Chris G. Demetriou, port-alpha, 19 May 1998)]
+Two details are specific to NetBSD. Unaligned accesses made by VAX floating-point instructions are //not// fixed up unless a kernel option is compiled in, which has no Linux equivalent, and, exactly as on Linux, an unaligned access in the kernel panics rather than being repaired. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-May.mbox#L2901|"Re: unaligned access"]], Chris G. Demetriou, port-alpha, 19 May 1998)]
 
-Why fix up at all, if the access is a bug? Because the architecture says a general-purpose operating system should. Demetriou, who would have preferred the opposite default: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1997-October.mbox#L4697|"Re: unaligned access from traceroute"]], Chris G. Demetriou, port-alpha, 31 Oct 1997)]
+Fixup is performed because the Architecture Reference Manual states that programs may expect general-purpose operating systems to provide it. Demetriou, who would have preferred the opposite default: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1997-October.mbox#L4697|"Re: unaligned access from traceroute"]], Chris G. Demetriou, port-alpha, 31 Oct 1997)]
 
 <blockquote>
 I _really_ would have preferred to make "kill on unaligned access" the default, but the Alpha Architecture Reference Manual indicates that programs can expect general-purpose OSes to do unaligned fixups. In my opinion, in a properly-ported program, they're a bug.
 </blockquote>
 
-On Digital UNIX and Tru64 UNIX the same fixup happens in the kernel, and the messages are switched off with ''uac''(1). Tony Verhulst of Digital's kernel group, answering the question this generates every time: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-tru64-mbox/googlegroups-2000-October.mbox#L6637|"Re: Unaligned access error"]], Tony Verhulst, comp.unix.tru64, 13 Oct 2000)]
+On Digital UNIX and Tru64 UNIX the same fixup happens in the kernel, and the messages are switched off with ''uac''(1). Tony Verhulst of Digital's kernel group, answering a recurring question on comp.unix.tru64: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-tru64-mbox/googlegroups-2000-October.mbox#L6637|"Re: Unaligned access error"]], Tony Verhulst, comp.unix.tru64, 13 Oct 2000)]
 
 <blockquote>
 The kernel traps this error and fixes it but you lose performance - however, the program will work correctly. You can disable the messages, see the man page for uac(1).
 </blockquote>
 
-The practical consequence is the same everywhere: the message means your program contains a bug that the kernel is paying for on every execution of that instruction. Silencing the message does not make the cost go away.
+The consequence is the same on every one of these systems: the message indicates a defect in the program, whose cost the kernel pays on each execution of the instruction. Silencing the message does not remove that cost.
 
 ==== What an Unaligned Access Costs ====
 
@@ -370,23 +368,21 @@ Recently, I happened to try printing a webpage from firefox; the ghostscript int
 Was that not enough to care? :-)
 </blockquote>
 
-A better than tenfold speedup of a real workload, from fixing unaligned accesses in one library. Estabrook had made the same point in 2000, to someone asking how to turn the log messages off: [(>"Re: Turning off 'unaligned trap' logging", Jay Estabrook, axp-list, 8 Nov 2000)]
+Fixing the unaligned accesses in a single library gave a better than tenfold speedup of a real workload. Estabrook had made the same point in 2000, to someone asking how to turn the log messages off: [(>"Re: Turning off 'unaligned trap' logging", Jay Estabrook, axp-list, 8 Nov 2000)]
 
 <blockquote>
 Sure, you can make the *messages* go away, but your program's performance is going to continue to be terrible, as the traps into the kernel to handle the unaligned access will still be happening.
 </blockquote>
 
-Beyond the measurement, the structure of the cost is worth understanding.
+The cost has the following structure. A fixed-up unaligned access pays for, at minimum: the PALcode unaligned trap; entry to ''do_entUnaUser()''; decode of the faulting instruction; two ''LDQ_U'' plus extract and merge for a load, or two ''LDQ_U'', mask, insert and two ''STQ_U'' for a store; a write back into the saved register file; and the return to user mode. On top of that come the instruction-cache and branch-predictor damage of the round trip, and a rate-limited ''printk'' if logging is still enabled.
 
-A fixed-up unaligned access pays for, at minimum: the PALcode unaligned trap; entry to ''do_entUnaUser()''; decode of the faulting instruction; two ''LDQ_U'' plus extract and merge for a load, or two ''LDQ_U'', mask, insert and two ''STQ_U'' for a store; a write back into the saved register file; and the return to user mode. On top of that come the instruction-cache and branch-predictor damage of the round trip, and a rate-limited ''printk'' if logging is still enabled.
+The sequence is orders of magnitude more expensive than the single instruction it replaces, being a trap into the operating system rather than a pipeline stall.
 
-It is orders of magnitude more expensive than the single instruction it replaces. The useful framing is not a ratio but a category: this is a trap into the operating system, not a pipeline hiccup.
-
-If you need a real number for your hardware, measure it with an ''rpcc''-timed loop comparing aligned against ''+1''-offset accesses, with ''UAC_NOPRINT'' set so the logging is outside the measurement.
+A figure for particular hardware can be obtained with an ''rpcc''-timed loop comparing aligned against ''+1''-offset accesses, with ''UAC_NOPRINT'' set so that logging falls outside the measurement.
 
 ==== What the Compiler Emits Instead ====
 
-Alpha is a ''STRICT_ALIGNMENT'' target. When GCC **cannot prove** a pointer is aligned, which is the default for a ''char *'' or a ''memcpy'' source, it emits the extract sequence rather than a faulting load. The Architecture Handbook gives the canonical form:
+Alpha is a ''STRICT_ALIGNMENT'' target. When GCC cannot prove that a pointer is aligned, which is the default for a ''char *'' or a ''memcpy'' source, it emits the extract sequence rather than a faulting load. The Architecture Handbook gives the canonical form:
 
 <code asm>
     LDQ_U  R1, X(R11)      ; Ignores va<2:0>, R1 = CBAx xxxx
@@ -410,21 +406,21 @@ In practice, for ''%%uint32_t v; memcpy(&v, p, sizeof v); return v;%%'', ''alpha
 
 Six instructions instead of one. The aligned version, ''%%return *(const uint32_t *)p;%%'', is a single ''ldl''. An unaligned 32-bit //store// is worse still: two ''LDQ_U'', ''MSKLL''/''MSKLH'', ''INSLL''/''INSLH'', two ''BIS'' and two ''STQ_U''.
 
-And note the ordering of badness: six instructions is the **cheap** case, the one where the compiler knew the pointer might be misaligned. The expensive case is where the compiler emitted a plain ''LDL'' because you told it the pointer was a ''uint32_t *'', and the hardware trapped.
+Six instructions is the cheaper case, in which the compiler treated the pointer as possibly misaligned. The expensive case is a plain ''LDL'', emitted because the pointer was declared ''uint32_t *'', which the hardware then traps.
 
-Ivan Kokshaysky gave the same advice on the Alpha list in 2001, and it has only become more true since: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L36126|"Re: Unaligned accesses"]], Ivan Kokshaysky, axp-list, 26 Jul 2001)]
+Ivan Kokshaysky gave the same advice on the Alpha list in 2001: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L36126|"Re: Unaligned accesses"]], Ivan Kokshaysky, axp-list, 26 Jul 2001)]
 
 <blockquote>
 Using memcpy() with constant size is fine as well, and is portable. Modern GCC (>= 2.95) generates quite a good inline code for this.
 </blockquote>
 
-This is also the answer to "but ''memcpy'' is a function call". It is not. In an optimized build ''memcpy'' of a scalar is not a call on any target: on x86-64 it is a single ''movl''; on Alpha it is the sequence above. ''%%memcpy(&v, p, sizeof v)%%'' is simply the portable spelling of "load this, however this machine has to do it", and unlike the cast it is well-defined C.
+In an optimized build ''memcpy'' of a scalar is not a function call on any target: on x86-64 it is a single ''movl'', and on Alpha it is the sequence above. ''%%memcpy(&v, p, sizeof v)%%'' is the portable spelling of a load performed however the machine requires, and unlike the cast it is well-defined C.
 
 ==== Finding Unaligned Accesses ====
 
-=== 1. UBSan, on your x86 development machine ===
+=== UBSan on a non-Alpha host ===
 
-This is the highest-value item on the page. You do not need Alpha hardware to find Alpha alignment bugs.
+UBSan detects most alignment defects without Alpha hardware.
 
 <code sh>
 gcc -g -fsanitize=undefined -fno-sanitize-recover=alignment myfile.c -o mybinary
@@ -438,11 +434,11 @@ u.c:4:55: runtime error: store to misaligned address 0x561495a5f121 for type 'ui
               ^
 </code>
 
-''-fsanitize=alignment'' is already part of ''-fsanitize=undefined''. Add ''-fno-sanitize-recover=alignment'' so the first hit aborts; by default UBSan prints and continues, which is the wrong behavior for a test suite.
+''-fsanitize=alignment'' is already part of ''-fsanitize=undefined''. ''-fno-sanitize-recover=alignment'' makes the first occurrence abort; by default UBSan prints a diagnostic and continues, which is unsuitable for a test suite.
 
-=== 2. -Wcast-align=strict, and why plain -Wcast-align is useless to you ===
+=== -Wcast-align and -Wcast-align=strict ===
 
-''-Wcast-align'' warns only on targets that actually require alignment. **On x86 it is silently a no-op.** If your build host is x86, plain ''-Wcast-align'' finds nothing, ever. From ''gcc/doc/invoke.texi'':
+''-Wcast-align'' warns only on targets that require alignment, and is a silent no-op on x86, so on an x86 build host it reports nothing. From ''gcc/doc/invoke.texi'':
 
 <code>
 @item -Wcast-align
@@ -474,7 +470,7 @@ x.c:3:27: warning: cast increases required alignment of target type [-Wcast-alig
 
 (The longer "cast from 'char *' to 'uint32_t *'" wording is the C++ front end. ''g++'' and ''clang'' each phrase it differently.)
 
-=== 3. GDB, on the faulting instruction ===
+=== GDB ===
 
 <code sh>
 gdb ./mybinary
@@ -500,9 +496,9 @@ give_sigbus:
 
 ''$_siginfo'' is only populated when GDB intercepts a live signal, so this works under ''handle SIGBUS stop'', not on a core file. There is no ''$addr'' convenience variable in GDB.
 
-=== 4. Kernel log plus addr2line ===
+=== Kernel log and addr2line ===
 
-Last resort, given the hashing and rate limiting described above. The faulting PC is the field ending in a colon:
+This method is limited by the hashing and rate limiting described above. The faulting PC is the field ending in a colon:
 
 <code sh>
 dmesg -t | sed -n 's/.*unaligned trap at \([0-9a-f]*\):.*/0x\1/p' |
@@ -511,7 +507,7 @@ sort -u | while read -r pc; do
 done
 </code>
 
-''addr2line'' wants a link-time address, so for a PIE or a shared library you must subtract the mapping base first. The binary needs ''-g''.
+''addr2line'' expects a link-time address, so for a PIE or a shared library the mapping base must be subtracted first. The binary must be built with ''-g''.
 
 ==== Common Causes ====
 
@@ -525,7 +521,7 @@ struct __attribute__((packed)) header {
 };
 </code>
 
-Reading ''h->length'' through a ''struct header *'' is fine, because ''__packed'' tells the compiler the field is unaligned and it emits the extract sequence. The bug is taking the //address// of a packed field and passing it on as an ordinary pointer, which launders away the alignment information. GCC's ''-Waddress-of-packed-member'' catches this.
+Reading ''h->length'' through a ''struct header *'' is fine, because ''__packed'' tells the compiler the field is unaligned and it emits the extract sequence. The defect is taking the //address// of a packed field and passing it on as an ordinary pointer, which discards the alignment information. GCC's ''-Waddress-of-packed-member'' diagnoses this.
 
 === Pointer arithmetic on byte buffers ===
 
@@ -540,7 +536,7 @@ memcpy(&val, buf + 3, sizeof val);
 
 === Network and file format parsing ===
 
-The classic. Wire formats pack fields without padding, and a receive buffer offset by a header length is aligned only by luck. David Huggins-Daines, on the Alpha list in 2000: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L10130|"Re: Fixing 'unaligned trap' errors"]], David Huggins-Daines, axp-list, 19 May 2000)]
+Wire formats pack fields without padding, and a receive buffer offset by a header length is aligned only by chance. David Huggins-Daines, on the Alpha list in 2000: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L10130|"Re: Fixing 'unaligned trap' errors"]], David Huggins-Daines, axp-list, 19 May 2000)]
 
 <blockquote>
 Lots of legacy binary data formats have unaligned fields, because at the time, saving a few bytes on the 16-bit machines of the time was a higher priority than planning for 32 and 64-bit RISC machines of the future.
@@ -550,15 +546,15 @@ For example ... IP headers, DOS partition tables, DWARF2 exception frame info.
 In general whenever you cast from a pointer to a smaller type to a pointer of a larger type you have a potential alignment problem. (and of course, if the smaller type is not char*, you will also have problems with strict aliasing).
 </blockquote>
 
-Note that he draws the same distinction this page does: the alignment problem and the aliasing problem are two separate defects in the same line of code.
+He draws the same distinction made above: the alignment problem and the aliasing problem are two separate defects in the same line of code.
 
-This is also why network drivers on Alpha copy packets. Ivan Kokshaysky, 2001: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L6642|"Re: Kernel unaligned accesses"]], Ivan Kokshaysky, axp-list, 11 Dec 2001)]
+Alignment is also the reason network drivers on Alpha copy packets. Ivan Kokshaysky, 2001: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L6642|"Re: Kernel unaligned accesses"]], Ivan Kokshaysky, axp-list, 11 Dec 2001)]
 
 <blockquote>
 Yes - it's a common problem on alpha and several other platforms with network cards capable to DMA only on a 32-bit boundary (via-rhine is one of those). Without copying the packet to another buffer IP header will be misaligned, and you'll have tons of unaligned traps in the TCP/IP layer.
 </blockquote>
 
-The fix was to default ''rx_copybreak'' to the full MTU on ''__alpha__'', ''__sparc__'', ''__mips__'' and ''__arm__''. Four architectures, not one.
+The fix was to default ''rx_copybreak'' to the full MTU on ''__alpha__'', ''__sparc__'', ''__mips__'' and ''__arm__'', four architectures rather than Alpha alone.
 
 <code c>
 /* WRONG on Alpha, undefined everywhere */
@@ -577,19 +573,19 @@ uint16_t len = ntohs(ip.total_length);
 union { char bytes[8]; uint64_t qword; } u;
 </code>
 
-This is safe, and is the one type-punning idiom C explicitly blesses. The union carries the alignment of its strictest member. Problems only arise when the union is embedded in a packed structure or placed at a computed offset.
+This is safe, and is the one type-punning idiom C explicitly permits. The union carries the alignment of its strictest member. Problems arise only when the union is embedded in a packed structure or placed at a computed offset.
 
 ==== In Kernel Code ====
 
-Use ''get_unaligned()'' and ''put_unaligned()'':
+Kernel code uses ''get_unaligned()'' and ''put_unaligned()'':
 
 <code c>
 #include <linux/unaligned.h>
 </code>
 
-Note the header path. ''asm/unaligned.h'' and ''asm-generic/unaligned.h'' no longer exist; they were consolidated into ''linux/unaligned.h''. Citing the old path marks an article as stale.
+''asm/unaligned.h'' and ''asm-generic/unaligned.h'' no longer exist; they were consolidated into ''linux/unaligned.h''.
 
-These are no longer the packed-struct trick they once were. The current implementation is ''memcpy'' based, and its comment makes this page's argument better than this page does:
+The helpers were once implemented with a packed structure. The current implementation is based on ''memcpy'', and its comment gives the reason:
 
 <code c>
 /**
@@ -601,22 +597,24 @@ These are no longer the packed-struct trick they once were. The current implemen
  */
 </code>
 
-''make C=1'' runs Sparse, which has **no** unaligned-access check. It enforces the ''__user''/''__iomem''/''__bitwise'' annotations, which catches an adjacent class of bug, but do not expect it to find alignment problems.
+''make C=1'' runs Sparse, which has no unaligned-access check. It enforces the ''__user'', ''__iomem'' and ''__bitwise'' annotations, an adjacent class of defect, but finds no alignment problems.
 
-==== Recommended Workflow ====
+==== Detection Workflow ====
 
-  - Build with ''-g -fsanitize=undefined -fno-sanitize-recover=alignment -Wcast-align=strict''. Note ''=strict'': the plain form does nothing on x86.
-  - Run the test suite **on x86**. UBSan finds the overwhelming majority of alignment bugs with no Alpha hardware involved.
+The steps below combine the tools described above.
+
+  - Build with ''-g -fsanitize=undefined -fno-sanitize-recover=alignment -Wcast-align=strict''. The ''=strict'' form is required, since the plain form does nothing on x86.
+  - Run the test suite on x86. UBSan finds the majority of alignment defects without Alpha hardware.
   - On Alpha, call ''prctl(PR_SET_UNALIGN, PR_UNALIGN_SIGBUS, 0, 0, 0)'' at the top of ''main()'' and run under ''gdb'' with ''handle SIGBUS stop print''.
-  - Check ''grep unaligned /proc/cpuinfo'' before and after a run as a cheap regression gate.
-  - Fix by using ''memcpy'', or ''get_unaligned()'' in kernel code. Do not "fix" it by casting through ''void *'' to silence the warning; that hides the undefined behavior without removing it.
+  - Compare ''grep unaligned /proc/cpuinfo'' before and after a run as a regression check.
+  - Repair the access with ''memcpy'', or with ''get_unaligned()'' in kernel code. Casting through ''void *'' silences the warning without removing the undefined behavior.
 
 ==== Summary of Build Flags ====
 
 ^ Flag ^ Purpose ^
 | ''-fsanitize=undefined'' | includes the alignment check; works on any architecture |
 | ''-fno-sanitize-recover=alignment'' | abort on the first misaligned access instead of printing and continuing |
-| ''-Wcast-align=strict'' | diagnose alignment-increasing casts regardless of target; **use this one on x86** |
+| ''-Wcast-align=strict'' | diagnose alignment-increasing casts regardless of target; the form to use on x86 hosts |
 | ''-Wcast-align'' | same, but only on strict-alignment targets; a no-op on x86 |
 | ''-Waddress-of-packed-member'' | catch pointers taken to packed fields |
 | ''-g'' | required for ''addr2line'' and useful backtraces |
@@ -626,7 +624,7 @@ These are no longer the packed-struct trick they once were. The current implemen
   * {{wiki:documentation:references:alpha_architecture_reference_manual_1st_edition.pdf?linkonly|Alpha Architecture Reference Manual, First Edition}}, §1.6.5 (aligned and unaligned data), §4.6.2 (the extract, insert and mask instructions, with the canonical unaligned load sequence), §4.8 (the load and store instructions).
   * {{wiki:documentation:references:alpha_architecture_handbook_v4.pdf?linkonly|Alpha Architecture Handbook, Version 4}}, §4.6.2, which reproduces the same sequence in cleaner typesetting.
   * ISO/IEC 9899:2011 §6.3.2.3p7, §6.5p7, Annex J.2. The free [[https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf|N1570 draft]] is textually identical in these clauses.
-  * [[https://www.kernel.org/doc/html/latest/core-api/unaligned-memory-access.html|''Documentation/core-api/unaligned-memory-access.rst'']], Linux kernel. Note that it argues entirely in machine terms and never mentions undefined behavior; for that, see the ''__get_unaligned_t'' comment in ''include/vdso/unaligned.h''.
+  * [[https://www.kernel.org/doc/html/latest/core-api/unaligned-memory-access.html|''Documentation/core-api/unaligned-memory-access.rst'']], Linux kernel. It argues entirely in machine terms and does not mention undefined behavior; for that, see the ''__get_unaligned_t'' comment in ''include/vdso/unaligned.h''.
   * [[https://www.kernel.org/doc/html/latest/arch/x86/buslock.html|''Documentation/arch/x86/buslock.rst'']] and the ''split_lock_detect='' entry in ''Documentation/admin-guide/kernel-parameters.txt''.
   * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/traps.c|''arch/alpha/kernel/traps.c'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/osf_sys.c|''osf_sys.c'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/sysinfo.h|''uapi/asm/sysinfo.h'']], [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/thread_info.h|''asm/thread_info.h'']].
   * Raymond Chen, [[https://devblogs.microsoft.com/oldnewthing/20170815-00/?p=96816|"The Alpha AXP, part 7: Memory access, loading unaligned data"]] and [[https://devblogs.microsoft.com/oldnewthing/20170816-00/?p=96825|"part 8: Memory access, storing bytes and words and unaligned data"]].
