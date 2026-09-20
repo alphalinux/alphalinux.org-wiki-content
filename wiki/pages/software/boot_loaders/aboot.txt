@@ -14,7 +14,7 @@ aboot is based on the kernel's own SRM boot loader in ''arch/alpha/boot'', exten
   * **Debian (2001 to 2020):** Helge Kreutzmann wrote the man pages and maintained the Debian package until 2008. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2008-May.mbox#L3819|"Re: aboot update for etch"]], Helge Kreutzmann, debian-alpha, 17 May 2008)] In 2007, Linux 2.6.23 added a ''PT_NOTE'' program header that aboot could not handle, and Richard Henderson posted a fix. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2007-August.mbox#L96|"aboot fixes for 2.6.23"]], Richard Henderson, axp-list, 14 Aug 2007)] Steve Langasek adopted the package in 2008. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2008-June.mbox#L315|"Re: aboot update for etch"]], Steve Langasek, debian-alpha, 5 Jun 2008)] In 2020, John Paul Adrian Glaubitz took over the package, planning to base it on Matt Turner's GitHub fork. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-February.mbox#L120|"Bug#950591: O: aboot"]], John Paul Adrian Glaubitz, debian-alpha, 3 Feb 2020)]
   * **aboot 2.0 (2026):** the [[https://github.com/alphalinux-org/aboot|alphalinux-org/aboot]] repository added cross-compilation, ext4 support by Magnus Lindholm, and XFS support by Jan-Jaap van der Heijden and Magnus Lindholm, and was tagged as version 2.0 in September 2026. [(>[[https://github.com/alphalinux-org/aboot/commit/707f7af|"ext4: add initial ext4 support with 64-bit group descriptors and multi-extent reads"]], alphalinux-org/aboot)] [(>[[https://github.com/alphalinux-org/aboot/commit/6658725|"Add support for XFS to aboot"]], alphalinux-org/aboot)] [(>[[https://github.com/alphalinux-org/aboot/commit/357dccb|"Bump version to 2.0"]], alphalinux-org/aboot)]
 
-==== How It Works ====
+==== How it works ====
 
 The SRM console "knows nothing about filesystems or disk-partitions". The first sector of the disk holds the size of the secondary boot loader in 512-byte blocks at offset 480, its starting sector at offset 488, a flag word at offset 496, and a checksum of the first 63 quadwords at offset 504. SRM loads the loader at virtual address 0x20000000 and jumps to it. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004, "Loading The Secondary Bootstrap Loader")] ''swriteboot'' writes aboot starting at sector 2. [(>[[https://github.com/alphalinux-org/aboot/blob/master/sdisklabel/swriteboot.c|sdisklabel/swriteboot.c]], aboot 2.0)]
 
@@ -114,7 +114,7 @@ Paths are relative to the root of the partition. If ''/boot'' is a separate part
 
 aboot.conf has no default entry. The default is chosen with the SRM variable ''boot_osflags''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L15878|"Re: SRM vs. AlphaBIOS"]], Michal Jaegermann, axp-list, 8 Sep 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-July.mbox#L8817|"Re: installing kernel-image"]], Ionut Georgescu, debian-alpha, 15 Jul 2003)]
 
-=== Interactive Mode ===
+=== Interactive mode ===
 
 The interactive prompt accepts these commands: [(>[[https://github.com/alphalinux-org/aboot/blob/master/disk.c|disk.c]], aboot 2.0)]
 
@@ -140,7 +140,7 @@ An initial ramdisk is given with ''initrd=''//path// in the flags, or with the '
 
 initrd support was added in 0.7; TurboLinux had shipped a different patch for it earlier. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L2892|"aboot 0.7 released"]], David Huggins-Daines, axp-list, 2 May 2000)] Red Hat 7 depended on it for installation from CD. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L14535|"Re: Upgrading my XL266 from 6.2 to 7.0 MILO"]], Matt Wilson, axp-list, 11 Jan 2001)]
 
-=== Network Booting ===
+=== Network booting ===
 
 SRM fetches a network boot image itself with BOOTP and TFTP, e.g. ''boot ewa0 -protocol bootp''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-April.mbox#L45126|"Re: Remote boot Multia..."]], Maciej W. Rozycki, axp-list, 27 Apr 1998)] aboot can build such an image, containing aboot, a compressed kernel, an initrd, and default arguments, with ''netabootwrap'': [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/man/netabootwrap.sgml|netabootwrap(1)]], aboot 2.0)]
 
@@ -150,7 +150,7 @@ netabootwrap -t netboot.img -k vmlinux.gz -i initrd.gz -a "root=/dev/hda2"
 
 Soohoon Lee wrote ''netabootwrap'' in 2000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-December.mbox#L32373|"net aboot + initrd"]], Soohoon Lee, axp-list, 27 Dec 2000)] By 2007, Debian built all its netboot installer images with it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2007-August.mbox#L3772|"Re: [BUG] 2.6.23-rc3 won't boot on alpha (fwd)"]], Steve Langasek, debian-alpha, 21 Aug 2007)] Unlike the kernel's own ''bootpfile'' target, the image can be compressed and include an initrd. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L7159|"Re: kernel build targets"]], Jay Estabrook, axp-list, 12 Dec 2001)]
 
-==== File Systems ====
+==== File systems ====
 
 ^ File system ^ Since ^ Notes ^
 | ext2 | 0.1 | Symbolic links since 0.6. [(>[[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]], aboot 0.9, 25 Oct 2001)] |
@@ -179,7 +179,7 @@ aboot 2.0 refuses ext4 file systems with features it cannot read safely, includi
 | 1.0_pre20040408 | April 2004 | Extra kernel arguments after an ''aboot.conf'' entry. [(>[[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/ChangeLog|ChangeLog]], aboot)] |
 | 2.0 | September 2026 | ext4, XFS, cross-compilation. [(>[[https://github.com/alphalinux-org/aboot/commit/357dccb|"Bump version to 2.0"]], alphalinux-org/aboot)] |
 
-==== Known Issues ====
+==== Known issues ====
 
   * **Kernel position on large partitions:** older versions failed to load kernels far into large ext2 partitions, so a small ''/boot'' partition was recommended. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L2820|"RE: Hard Drive size on Jensen"]], Will Woods, axp-list, 3 Apr 2001)] In 1996 the ext2 code had a hardcoded 1 GiB limit, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L1293|"Re: Are these known bugs?"]], David Mosberger-Tang, axp-list, 2 Apr 1996)] and later a limit of 256 block groups, about 2 GiB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L77425|"Re: Can't boot LX164: trying netboot"]], Ruediger Oertel, axp-list, 25 Mar 1999)]
   * **ext2 features:** before 0.6, aboot could not read file systems with 4 KiB blocks, sparse superblocks, or file types in directory entries. ''mke2fs -O none'' creates a file system that older versions can read. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L52432|"Re: Red Hat Rawhide/Alpha"]], Bill Nottingham, axp-list, 29 Nov 1999)] aboot 0.9b does not support ext3 directory indexes (htree). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-March.mbox#L7212|"Re: Couple quick questions 164Lx milo/aboot/ext3 AlphaBIOS versus SRM"]], Falk Hueffner, debian-alpha, 19 Mar 2003)]
@@ -191,9 +191,9 @@ aboot 2.0 refuses ext4 file systems with features it cannot read safely, includi
   * **Network booting and UFS:** these are "not well exercised and may be broken". [(>[[https://github.com/alphalinux-org/aboot/blob/master/README.md|README.md]], aboot 2.0)] Reading ''aboot.conf'' from UFS can hang if the entry is not found. [(>[[https://github.com/alphalinux-org/aboot/blob/master/README.md|README.md]], aboot 2.0)]
   * **SRM without support for the boot controller:** aboot can only boot from devices that SRM can read. Alternatives are a network boot, or aboot and the kernel on a disk on a supported controller. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-October.mbox#L4288|"Re: howto boot alpha via SRM without supported SCSI controller"]], Måns Rullgård, debian-alpha, 15 Oct 2004)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Space to reserve before the first partition**
     * [[https://github.com/alphalinux-org/aboot/blob/master/doc/man/swriteboot.8|swriteboot(8)]]: "It is therefore suggested to reserve the first 512 sectors of a harddisk for boot purposes."

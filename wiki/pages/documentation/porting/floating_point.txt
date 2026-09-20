@@ -30,7 +30,7 @@ Both are 1 + 11 + 52, which suggests that they are the same layout with a differ
 
 For example, ''0x3FF0000000000000'' is 1.0 as T_floating. As G_floating the exponent field is 1023, a true exponent of 1023 - 1024 = -1, giving 0.5 x 2^-1 = 0.25. The same factor of four holds between F and S.
 
-==== Register Formats ====
+==== Register formats ====
 
 Values do not sit in registers the way they sit in memory.
 
@@ -50,7 +50,7 @@ Alpha has no equivalent of x87's 80-bit intermediate precision. ''float'' arithm
 
 There are 32 floating-point registers, ''F0'' through ''F31''. ''F31'' reads as a true zero and writes to it are discarded.
 
-==== Rounding Modes ====
+==== Rounding modes ====
 
 Alpha encodes the rounding mode in two bits of the instruction's function field.
 
@@ -72,7 +72,7 @@ The 21064 (EV4) does not implement it. Its hardware reference manual says the Fb
 
 So on an EV4, a program using ''fesetround(FE_UPWARD)'' relies on the kernel emulating the resulting illegal instruction.
 
-==== Trap Modes and Software Completion ====
+==== Trap modes and software completion ====
 
 === The four IEEE trap modes ===
 
@@ -128,9 +128,9 @@ On EV6 and later the cost disappears, because the hardware reports arithmetic tr
       alpha_tp = ALPHA_TP_PROG; }
 </code>
 
-Precise trap support is reported by ''AMASK'' bit 9. ''AMASK'' //clears// bits for features that are present, so ''amask(1UL << 9) == 0'' means precise traps are implemented. Section 4.7.7.3 of the Architecture Handbook states the polarity backwards; the normative definition is in section 4.11.1, which is also what Linux follows.
+Precise trap support is reported by ''AMASK'' bit 9. ''AMASK'' clears bits for features that are present, so ''amask(1UL << 9) == 0'' means precise traps are implemented. Section 4.7.7.3 of the Architecture Handbook states the polarity backwards; the normative definition is in section 4.11.1, which is also what Linux follows.
 
-==== FPCR and SWCR: Two Different Registers ====
+==== FPCR and SWCR: two different registers ====
 
 FPCR is the hardware control register and SWCR is the software control word the kernel maintains per thread. The two are frequently confused.
 
@@ -189,7 +189,7 @@ Because a trap can surface in the shadow of a completed instruction, the FPCR's 
 	wrfpcr(fpcr);
 </code>
 
-==== The Kernel Side ====
+==== The kernel side ====
 
 === Arithmetic traps ===
 
@@ -245,7 +245,7 @@ Rather than fix the old udiv128 function, which was trying to do 128/128 bit div
 
 An instruction the hardware does not implement (a directed-rounding operation on EV4, for instance) arrives as ''opDEC'' in ''do_entIF()''. Linux does not emulate it; it delivers ''SIGILL'' with ''ILL_ILLOPC''.
 
-==== The glibc Side ====
+==== The glibc side ====
 
 The Alpha-specific interface is:
 
@@ -269,7 +269,7 @@ Linux follows DEC in calling those functions ieee_get_fp_control() and ieee_set_
 And to answer the question that came up elsewhere: those bits are on by default on Linux/Alpha because they are on by default on DU.
 </blockquote>
 
-==== Compiler Flags ====
+==== Compiler flags ====
 
 ^ Flag ^ Effect ^
 | ''-mieee'' | IEEE-conformant except that the inexact flag is not maintained. Sets ''-mtrap-precision=i'' and emits ''/SU''. Defines ''_IEEE_FP''. Digital's compilers call this ''-ieee_with_no_inexact''. |
@@ -389,7 +389,7 @@ Alpha hardware does not produce denormal results. Without a trap qualifier, unde
 
 As noted above, no conversion instruction exists between the VAX and IEEE families in either direction.
 
-==== Practical Consequences ====
+==== Practical consequences ====
 
   - A program that depends on NaNs, infinities, denormals or the IEEE exception flags must be compiled entirely with ''-mieee''. Objects compiled without it do not conform, and the resulting program behaves inconsistently between translation units.
   - ''-mieee-with-inexact'' is required only where the inexact flag is read, and is the more expensive mode.

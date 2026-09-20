@@ -43,9 +43,9 @@ The DS20E is a separate design from the DS20, sold as a pedestal or a rackmount 
 
 "the ES40 CPU daughtercards will NOT fit into a DS20." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-October.mbox#L12881|"Re: DP264 Processor Modules"]], Jay Estabrook, axp-list, 21 Oct 2002)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **DS20E maximum CPU speed**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-February.mbox#L31456|"RE: UP2000"]], KirkE@paccessglobal.com, axp-list, 28 Feb 2001: "neither the DS20E nor DP264 support CPUs faster than the 667MHz EV67"

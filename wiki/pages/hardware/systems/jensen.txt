@@ -18,7 +18,7 @@ A //Digital Technical Journal// paper traces where the machine came from. In 199
   * SCSI bus letters follow EISA slot order: the system "assigns the bus letter A to the SCSI adapter in the lowest EISA slot number", and the console's ''SET SCSI_{A | B}'' command sets each adapter's host ID. [(>{{wiki:hardware:systems:dec_2000:dec_2000_model_500_customer_technical_information.pdf?linkonly|DEC 2000 Model 500 AXP Customer Technical Information}}, p. 11-6)]
   * Under Windows NT 3.51 a Digital engineer ran a 3 MB Matrox MGA, Digital part number PB2GA-EA, on a DECpc AXP 150 at 1024x768 in 24-bit color, which was the closest Digital had to a true-color card for the machine. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1996-February.mbox#L1630|"RE: High resolution, true color graphics card on AXP150"]], Gordon McNab, alphant, 7 Feb 1996)]
 
-==== Switching Consoles ====
+==== Switching consoles ====
 
 Which console the machine runs is held in the ''OS_TYPE'' environment variable, whose values are ''VMS'', ''OSF'', and ''NT'', and which "you can modify ... from both firmware components". A second variable, ''AUTO_ACTION'', sets the power-up action (''RESTART'', ''HALT'', or ''BOOT'') and applies only to OpenVMS and OSF/1. [(>{{wiki:hardware:systems:dec_2000:decpc_axp_150_dec_2000_model_300_customer_technical_information.pdf?linkonly|DECpc AXP 150 and DEC 2000 Model 300 AXP Customer Technical Information}}, p. 1-2)]
 
@@ -38,9 +38,9 @@ Red Hat 7.2 "has been tested on JENSEN and will boot and install directly from C
   * Early glibc did not implement ''inb'' and ''outb'' for the Jensen or the EB164, which broke the graphics libraries. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L8456|"Re: EB164 libraries and hardware access"]], Jay Estabrook, axp-list, 26 Mar 1996)]
   * For X, "the only card supported on Jensen under XFree86 is an S3-based ISA card. The S3 driver had *extensive* hacking done to it to support Jensen". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-February.mbox#L13405|"Re: EISA video card for AlphaLinux Jensen XP 150"]], Jay Estabrook, axp-list, 9 Feb 2001)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Jensen firmware needed for Linux**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L16885|"VGA problems in a Jensen, was: Re: headless boot"]], Martin Ostermann, axp-list, 11 Dec 1996: "make sure you got v1.7 disks to switch back, because aboot doesn't work with later versions."

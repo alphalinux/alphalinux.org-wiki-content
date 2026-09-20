@@ -1,12 +1,12 @@
 ===== UP1500 Compatibility =====
 
-Detailed on this page are add-on cards tested with the [[UP1500]], with SRM 5.6-19.
+The tables below list add-on cards tested with the [[UP1500]], with SRM 5.6-19.
 
 ==== Notes on adding content ====
 
-  * We only care about SRM compatibility, i.e., not if the Linux/BSD driver works
-  * We only care about cards that fit, i.e., don't list AGP cards without the 3.3V notch
-  * To get the card's ID, execute ''lspci -nn''
+  * Only SRM compatibility is recorded, not whether the Linux or BSD driver works
+  * Only cards that physically fit are listed; AGP cards without the 3.3V notch are omitted
+  * A card's ID is obtained with ''lspci -nn''
   * Compatibility of hard drive controller cards (SCSI, RAID, IDE) is determined by the ability of SRM to boot from them
 
 How to get the card's ID in SRM:
@@ -16,7 +16,7 @@ How to get the card's ID in SRM:
   * Alphanumerics 1 to 4 are the device ID and 5 to 8 are the vendor ID of the card
   * e.g., ''0525102B/217D102B'' translates to ''102B:0525'' as the card's full ID
 
-==== AGP Video Cards ====
+==== AGP video cards ====
 
 Standard [[wp>Accelerated_Graphics_Port|AGP]] video cards are available with three different connector variants: 3.3V only, 1.5V only, and dual-voltage. The UP1500's AGP slot has the 3.3V notch, and thus requires that the AGP card accept 3.3V signalling.
 
@@ -61,7 +61,7 @@ Also, some video card BIOSes are incompatible with the SRM/BIOS emulation used b
 | ATI Rage 128 | Rage 128 | 32 | | 3.3V | martisch |
 | Leadtek WinFast A350XT | GeForce FX5900 XT | 128 | | 3.3V, 1.5V | martisch |
 
-==== SCSI Cards ====
+==== SCSI cards ====
 
 ^ Vendor & Name ^ Chipset ^ PCI ID ^ Tester ^
 ^ Fully working ^^^^

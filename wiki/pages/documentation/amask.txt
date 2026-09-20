@@ -4,7 +4,7 @@ The Architecture Mask instruction is used to determine the presence of [[instruc
 
 ==== Semantics ====
 
-''AMASK'' **clears** the bits of its operand that correspond to extensions the processor //implements//, and copies through unchanged the bits for reserved and absent extensions. From the Architecture Reference Manual:
+''AMASK'' clears the bits of its operand that correspond to extensions the processor //implements//, and copies through unchanged the bits for reserved and absent extensions. From the Architecture Reference Manual:
 
 <blockquote>
 Rbv represents a mask of the requested architectural extensions. Bits are cleared that correspond to architectural extensions that are present. Reserved bits and bits that correspond to absent extensions are copied unchanged. In either case, the result is placed in Rc. If the result is zero, all requested features are present.
@@ -12,9 +12,9 @@ Rbv represents a mask of the requested architectural extensions. Bits are cleare
 Software may specify an Rbv of all 1's to determine the complete set of architectural extensions implemented by a processor.
 </blockquote>
 
-The polarity is the opposite of what most people expect: a bit that remains **set** means the extension is **absent**.
+The polarity is inverted relative to the usual convention: a bit that remains set means the extension is absent.
 
-==== Bit Assignments ====
+==== Bit assignments ====
 
 ^ Bit ^ Extension ^
 | 0 | byte/word extension (BWX): ''LDBU'', ''LDWU'', ''SEXTB'', ''SEXTW'', ''STB'', ''STW'' |
@@ -24,7 +24,7 @@ The polarity is the opposite of what most people expect: a bit that remains **se
 | 9 | precise arithmetic trap reporting in hardware |
 | 12 | prefetch with modify intent |
 
-==== Per-Processor Behavior ====
+==== Per-processor behavior ====
 
 On the earliest implementations ''AMASK'' is a no-op that copies its operand straight through, so every extension correctly reports as absent:
 
@@ -63,7 +63,7 @@ int main(void)
 }
 </code>
 
-==== In the Kernel ====
+==== In the kernel ====
 
 Linux wraps the instruction in ''arch/alpha/include/asm/special_insns.h'':
 
@@ -82,7 +82,7 @@ enum amask_enum {
    __amask; })
 </code>
 
-Kernel code tests it with the architectural polarity, for example ''if (!amask(AMASK_PRECISE_TRAP))''. The sense is inverted once, on the way out to userspace, so that the bits in ''AT_HWCAP'' are set for features that //are// present:
+Kernel code tests it with the architectural polarity, for example ''if (!amask(AMASK_PRECISE_TRAP))''. The sense is inverted once, on the way out to userspace, so that the bits in ''AT_HWCAP'' are set for features that are present:
 
 <code c>
 #define ELF_HWCAP  (~amask(-1))
@@ -91,6 +91,6 @@ Kernel code tests it with the architectural polarity, for example ''if (!amask(A
 ==== References ====
 
   * {{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}, section 4.11.1 and Appendix D, Table D-3. This is the only edition that documents ''AMASK''; the 1992 and 1995 editions predate it.
-  * [[documentation:porting:byte_word_access|Byte and Word Access]] for what BWX actually adds.
+  * [[documentation:porting:byte_word_access|Byte and Word Access]] for what BWX adds.
 
 {{tag>documentation}}

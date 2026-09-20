@@ -30,9 +30,9 @@ Linux never supported them. In 1997, "It doesn't currently run on the 8000 serie
 
 Matthew Jacob, of NASA Ames: "I started getting somewhere with a Linux port a while back but dropped it. Instead we ported NetBSD to it". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L27651|"Re: AS 8400 (was: Re: Prices for AlphaLinux systems with 4-8GB RAM"]], Matthew Jacob, axp-list, 10 Mar 1999)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **AlphaServer 8400 maximum CPUs**
     * {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_operations_manual.pdf?linkonly|AlphaServer 8200/8400 Operations Manual}}, March 1998, p. 1-7: "up to seven processor modules for a total of 14 CPUs"

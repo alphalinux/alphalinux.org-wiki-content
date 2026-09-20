@@ -20,7 +20,7 @@ Within two weeks of launch, Adam C. Powell IV at NIST started a dedicated high-p
 
 Downtime was a recurring theme from the start: the site was out within a day of launch, and down again on 20 November 1998. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L38178|"alphalinux.org news"]], Rich Payne, axp-list, 13 Nov 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L59212|"alphalinux.org"]], Rich Payne, axp-list, 20 Nov 1998)]
 
-==== Growing the Team ====
+==== Growing the team ====
 
 Barrett Lyon became the primary news editor and day-to-day voice of the site through 1999 and into 2000. Peter Petrakis, already a prolific **axp-list** participant since at least 1998, was posting under an **alphalinux.org** address by 12 February 1999. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-February.mbox#L21256|"Re: Multia woes"]], Peter Petrakis, axp-list, 12 Feb 1999)] He built **%%ftp.alphalinux.org%%**, a public FTP archive for RPMs and other Alpha software, which by the end of that month carried the latest GNOME release and //"a nearly complete mirror of all the Alpha stuff from ftp.digital.com"//. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-February.mbox#L46823|"ftp.alphalinux.org has more cool stuff :)"]], Peter Petrakis, axp-list, 28 Feb 1999)] The archive took community uploads through an **incoming/** directory, with the rule that packages be built with ''-mcpu=ev4'' so every Alpha could use them, optimized builds being welcome alongside an EV4-compatible version. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-May.mbox#L35703|"quick announcments"]], Peter Petrakis, axp-list, 16 May 1999)] It filled a long-standing gap, since Red Hat's own update servers were frequently unreliable.
 
@@ -48,7 +48,7 @@ In September 2000 the site added a hardware compatibility database, //"an effort
 
 Distribution was not always the site's to decide. In January 2000 Compaq asked for the Netscape Communicator RPM to be pulled from **ftp.alphalinux.org**, since its license with Netscape required Compaq to track downloads; the argument made to Rich was that download numbers were what would earn Alpha further investment from Netscape and Compaq. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-January.mbox#L38062|"RE: Comments on Netscape/Alpha on ftp.alphalinux.org? (fwd)"]], Rich Payne, axp-list, 27 Jan 2000)]
 
-==== Industry Backdrop ====
+==== Industry backdrop ====
 
 The site operated during Alpha's most commercially turbulent years. Compaq ended Windows NT on Alpha in August 1999, concentrating its software support on Tru64 Unix and Linux — a shift that made alphalinux.org more strategically important even as it signaled long-term uncertainty for the platform. The site tracked this closely, covering Compaq's compiler releases for Linux (Fortran beta July 1999, C beta September 1999, C++ public beta March 2000), hardware announcements from Alpha Processor Inc., and the Samsung manufacturing relationship that briefly promised 1.4–1.6 GHz chips by 2000.
 
@@ -58,7 +58,7 @@ By 2002 the site was mostly unreachable, and Rich explained why on the lists. Th
 
 The domain came back by the end of that year: asked on New Year's Day 2003 which site was current, Rich answered //"we finally managed to get the domain name back"//, the site by then running on a machine at crl.dec.com. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L1377|"Re: What's the current website? -- alphalinux.org, alphadriven.org"]], Rich Payne, axp-list, 1 Jan 2003)] The content, however, stopped being updated.
 
-==== Revival: the Wiki Era (2008–2012) ====
+==== Revival: the wiki era (2008–2012) ====
 
 By 2008 alphalinux.org had gone years without updates. In April 2008, Matt Turner emailed Peter Petrakis proposing that he take over maintenance. Peter agreed and suggested starting with a wiki section to see if it could attract contributors.
 
@@ -93,6 +93,6 @@ In 2015, Peter Petrakis and Rich Payne — who still held the domain — transfe
 
 ==== Transfer to Matt Turner (2026) ====
 
-In 2026, Gareth Randall transferred alphalinux.org to Matt Turner. Matt created the [[https://github.com/alphalinux-org|alphalinux-org]] organization on GitHub to host repositories for Alpha packages (aboot, milo), mailing list archives, and the content of this wiki — publicly archived so the work of the community is not lost again.
+In 2026, Gareth Randall transferred alphalinux.org to Matt Turner. Matt created the [[https://github.com/alphalinux-org|alphalinux-org]] organization on GitHub to host repositories for Alpha packages (aboot, milo), mailing list archives, and the content of this wiki, publicly archived.
 
 {{tag>history}}

@@ -37,7 +37,7 @@ A feature added to the UP2000+ was the ability to automatically detect the frequ
   * SRM is updated with ''lfu'' from a floppy. One user found that ''lfu'' hung reading the floppy unless it was run after ''set auto_action halt'' and a power cycle. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2008-November.mbox#L589|"Re: UP2000 plus SRM update"]], Juhana Helovuo, debian-alpha, 6 Nov 2008)]
   * If the system shows only a blue screen with a cursor, the console is probably set to the serial port. Connect a terminal to the serial port and run ''set console graphics''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L25384|"Re: Trouble w/SRM on UP2000 Dual Alpha"]], Rich Payne, axp-list, 20 Jul 2001)]
 
-==== Firmware Recovery ====
+==== Firmware recovery ====
 
 On the UP2000+, jumper block J29 pins 15-16 invoke the fail-safe boot recovery, and pins 1-2 recover the firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-May.mbox#L53|"Trouble booting UP2000+"]], Matt Turner, axp-list, 15 May 2009)] If that does not work, the firmware can be recovered through the SROM serial debug port (a DEC MMJ connector): load the EBSDK debug monitor over the serial line, use it to load SRM, then reflash SRM from a floppy. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-May.mbox#L254|"Trouble booting UP2000+"]], Matt Turner, axp-list, 17 May 2009)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-May.mbox#L482|"Trouble booting UP2000+"]], Peter Petrakis, axp-list, 18 May 2009)] The debug monitor image is ''dp264dbm.cmp'', and transfers only work at 9600 baud. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2010-March.mbox#L157|"AW: Continuing UP2000+ problems"]], Ian Las, axp-list, 27 Mar 2010)]
 
@@ -52,19 +52,19 @@ On the UP2000+, jumper block J29 pins 15-16 invoke the fail-safe boot recovery, 
 
 At least four DIMMs must be installed; two DIMMs per bank will not start. Four 256 MiB DIMMs and eight 128 MiB DIMMs perform the same. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L20944|"Re: should I use 8 DIMMs for UP2000 M/B when I put two 667Mhz"]], Rich Payne, axp-list, 9 Nov 2000)]
 
-==== Power Supply and Cooling ====
+==== Power supply and cooling ====
 
   * The power supply should be at least 450 W, with at least 35 A on 3.3 V, 30 A on 5 V, and 15 A on 12 V. It must provide the 20-pin ATX connector, a supplementary 6-pin connector, and a 4-pin drive connector for the motherboard. Supplementary fans connected to the motherboard use a nonstandard pinout. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-October.mbox#L16969|"UP2000 cse and power"]], Maurice Hilarius, debian-alpha, 26 Oct 2002)] A 500 W supply is advisable with two CPUs. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-September.mbox#L17010|"Re: Power Supply for UP 2000."]], Maurice Hilarius, axp-list, 21 Sep 2001)]
   * Each Slot B module needs at least 45 cfm of airflow. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L11336|"RE: API Networks article on The Register"]], Maurice Hilarius, axp-list, 6 Nov 2000)] API specified the systems for a maximum ambient temperature of 35 C. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L15814|"RE: UP2000 Temperature"]], Tom Morris, axp-list, 23 May 2000)] One user reported that a stopped Slot B fan turned off the power good LED and prevented the system from starting. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-May.mbox#L7983|"possible to check UP2000 fan status or CPU temperature?"]], Robert M. Riches Jr., axp-list, 8 May 2002)]
   * The board is extended ATX, and the Slot B fans extend beyond the edge of the board. Each Slot B module weighs about 2 lb (0.9 kg) and is held by four standoffs whose positions are not part of any ATX specification. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-October.mbox#L16483|"Re: up2000 too big for most cases?"]], T. Weyergraf, debian-alpha, 25 Oct 2002)] A drill template for the standoffs is available. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-October.mbox#L17066|"RE: up2000 too big for most cases?"]], Peter Petrakis, debian-alpha, 26 Oct 2002)] The case must be stiff enough to hold the modules without flexing; thin aluminum cases are not recommended. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-October.mbox#L17329|"Re: up2000 too big for most cases?"]], Maurice Hilarius, debian-alpha, 27 Oct 2002)]
 
-==== Onboard Devices ====
+==== Onboard devices ====
 
   * The Cypress (Contaq) CY82C693 south bridge has two IDE controllers, but only one is wired to a connector, limiting the board to two IDE devices. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-September.mbox#L4768|"Re: IDE Drives on UP2000 ?"]], Rich Payne, debian-alpha, 22 Sep 2000)]
   * SRM does not assign an interrupt to the onboard USB controller, so it generally cannot be used; a PCI USB card works instead. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-February.mbox#L724|"RE: USB on UP2000+ ??"]], Rich Payne, axp-list, 3 Feb 2003)]
   * The UP2000 can report CPU temperatures from its LM75 sensors; the UP2000+ can also report fan speeds. API's ''hwmon'' package reads them. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-May.mbox#L8231|"RE: possible to check UP2000 fan status or CPU temperature?"]], Rich Payne, axp-list, 9 May 2002)]
 
-==== Operating Systems ====
+==== Operating systems ====
 
   * Linux uses the DP264 kernel type for the UP2000 and UP2000+, like other Tsunami systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-February.mbox#L31906|"RE: UP2000"]], Rich Payne, axp-list, 28 Feb 2001)]
   * The BIOS emulator in the UP2000 and UP2000+ SRM cannot initialize newer ATI cards, such as the PCI Radeon 7500 and 9000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-February.mbox#L13630|"Re: Radeon 9000 on UP2000+ ?"]], Jay Estabrook, axp-list, 17 Feb 2003)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-April.mbox#L4378|"Another test iso image from AC1.0"]], Jay Estabrook, axp-list, 18 Apr 2005)]
@@ -74,13 +74,13 @@ At least four DIMMs must be installed; two DIMMs per bank will not start. Four 2
 
 According to Maurice Hilarius of Hard Data, API took over the barely started development of the UP2000 from Samsung. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-August.mbox#L6772|"RE: Samsung EV69"]], Maurice Hilarius, axp-list, 8 Aug 2002)] The UP2000+ and the 833 MHz Slot B modules were announced in late 2000, but deliveries to resellers were delayed until June 2001 while API supplied a direct customer. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L12658|"RE: Bye-bye our API...Drove my Alpha to the..."]], Maurice Hilarius, axp-list, 15 Jan 2002)] When API shut down, Microway bought its remaining inventory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-August.mbox#L8635|"Re: no more alpha letter on inquirer"]], Maurice Hilarius, axp-list, 9 Aug 2002)]
 
-==== Related Systems ====
+==== Related systems ====
 
 The API NetWorks CS20 is a 1U dual processor system similar to the UP2000+. It uses the Tsunami chipset, but has CPUs soldered to the board instead of Slot B modules, an ALi south bridge instead of the Cypress, LSI Ultra160 SCSI instead of Adaptec, and dual onboard Ethernet. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L13502|"Re: 1U DUAL 833MHz Alpha"]], Rich Payne, axp-list, 7 Nov 2000)] Cray used the CS20 as the building block of its SuperCluster systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L31275|"RE: Cray chooses Alpha Linux ..."]], Tom Morris, axp-list, 30 Jan 2001)] API designed the CS20 and sold the design to Compaq, which produced it as the AlphaServer DS20L. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-July.mbox#L18051|"Re: API / CS20"]], Rich Payne, axp-list, 30 Jul 2002)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Cache on 750 MHz CPUs**
     * {{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}}: "4MB or 8 MB cache per 750 MHz processor"

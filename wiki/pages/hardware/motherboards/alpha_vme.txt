@@ -8,7 +8,7 @@ Digital announced the availability of the 4/224 and 4/288 on 24 April 1996, aime
 
 Digital also sold a VME variant of a complete system under the same name. The **Alpha VME 2100** is an [[hardware:systems:sable|AlphaServer 2100]] with the VME64 bus in place of EISA, in 19-inch rackmount packaging, with "CPU, memory, and standard I/O features and functionality that are identical to standard AlphaServer 2100 systems" and three PCI plus five VME64 slots. It was announced in October 1994 as the AlphaServer 2100 4/190 VME, available only at 190 MHz, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-October.mbox#L252|"Digital AlphaServer 2100 4/190 VME"]], Customer Update, biz.digital.articles, 5 Oct 1994)] and renamed to Alpha VME 2100 in June 1995, when a 275 MHz model joined it, "to more clearly reflect the VME embedded system". It ran Digital UNIX and OpenVMS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-June.mbox#L12012|"Digital Alpha VME 2100"]], Customer Update, biz.digital.articles, 16 Jun 1995)]
 
-==== AXPvme Specifications ====
+==== AXPvme specifications ====
 
 All of the following comes from the technical description. [(>{{wiki:hardware:systems:alpha_vme:axpvme_technical_description.pdf?linkonly|AXPvme Single-Board Computer Technical Description}}, EK-EBV1X-TD.B01, July 1995, pp. 1-1 to 1-4)]
 
@@ -21,7 +21,7 @@ All of the following comes from the technical description. [(>{{wiki:hardware:sy
   * The VME interface is built on the Cypress VIC64 with Digital's DC7407; the manual notes that "the address map in the VIC64 databook places the VIC registers in byte 3 of a particular longword address; in AXPvme, the VIC registers accessed over the PCI are seen at byte zero in each longword"
   * PCI Ethernet (DECchip 21040), NCR 53C810 SCSI, an Intel 82378ZB bridge, 85C30 serial lines, 8254 timers, flash ROM, and NVRAM
 
-==== Alpha VME 4 Specifications ====
+==== Alpha VME 4 specifications ====
 
 All of the following comes from the user guide. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, pp. 1-1 to 1-5)]
 
@@ -47,7 +47,7 @@ The boards run the SRM console. Beyond the usual environment variables, it has '
 
 Unlike the evaluation boards, the VME boards had their firmware published: Digital's Alpha firmware CD-ROM and ''gatekeeper.dec.com'' carry ''axpvme'' and ''alphavme'' directories alongside the complete systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1997-February.mbox#L2455|"Re: Support for AXP Motherboard"]], Carl S. Shapiro, port-alpha, 21 Feb 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1997-April.mbox#L2076|"Re: Where should I start?"]], Carl S. Shapiro, port-alpha, 28 Apr 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7397|"Re: How to flash MILO? ( Not a faq )"]], Peter Rival, axp-list, 6 Oct 1999)]
 
-==== Operating Systems ====
+==== Operating systems ====
 
 The Alpha VME 4 is supported by VxWorks for Alpha and by Digital UNIX. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 1-1)] The AXPvme and Alpha VME boards are listed among the systems supported by Tru64 UNIX V4.0F (see [[software:operating_systems|Operating Systems]]).
 
@@ -61,12 +61,12 @@ Under Digital UNIX there are three ways to reach a device on the bus, described 
 
 The boards have more interrupt hardware than the operating systems use. Todd Whitesel noted that "the AXPvme boards have lots of distinct interrupt mask bits, and the PALcode uses them to simulate real numbered interrupt levels", and Ross Harvey replied that the OSF/1 PALcode throws away the CPU's support for 15 software interrupt requests, so NetBSD sees a single device interrupt level. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-September.mbox#L3104|"Re: alphastation serial @ 115200"]], Todd Whitesel, port-alpha, 15 Sep 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-September.mbox#L3203|"Re: alphastation serial @ 115200"]], Ross Harvey, port-alpha, 15 Sep 1999)]
 
-==== Known Issues ====
+==== Known issues ====
 
   * **Breakout module compatibility:** the Alpha VME 4 must be used with its own primary breakout module, part 54-24663-01. Powering the board with no primary breakout module installed, or with the breakout module from an AXPvme 160, 166, or 230 (part 54-22605-01), may damage the backplane, the board, or both. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 2-1)]
   * **Interrupts from user boards:** a VMEbus interrupt that crashes the machine rather than reaching the handler is worth tracing to the backplane before the driver. Ian Cunningham's AXPvme took an "invalid memory or i/o controller error" on every interrupt from his board, which turned out to be the backplane interrupt grant jumpers. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1995-October.mbox#L1|"HELP! AXPvme Interrupts"]], Ian Cunningham, comp.sys.dec, 30 Oct 1995)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1995-November.mbox#L15967|"Re: HELP! AXPvme Interrupts"]], Ian Cunningham, comp.sys.dec, 13 Nov 1995)]
 
-==== Part Numbers ====
+==== Part numbers ====
 
 Field replaceable units for the Alpha VME 4: [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 2-35)]
 

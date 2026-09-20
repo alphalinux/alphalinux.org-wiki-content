@@ -45,13 +45,13 @@ Known firmware issues:
   * Onboard sound required a patch from API for Linux 2.2.16 (enable Trident sound support). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L3592|"Re: UP1100 & Matrox"]], Rich Payne, debian-alpha, 26 Oct 2000)]
   * See the [[UP1000]] page for the ''/etc/alpha_systype'' workaround and the Linux 2.4 ALi IDE corruption bug, which also affect the UP1100.
 
-==== Power Supply ====
+==== Power supply ====
 
 The UP1100 can run from a good quality 300 W power supply, but 350 W to 400 W is recommended. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-September.mbox#L17709|"Re: Power Supply for UP 2000."]], Maurice Hilarius, axp-list, 22 Sep 2001)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **South bridge**
     * {{wiki:hardware:motherboards:up1100:up1100_spec_sheet.pdf?linkonly|UP1100 Spec Sheet}} and {{wiki:hardware:motherboards:up1100:up1100_specsheet.pdf?linkonly|UP1100 Spec Sheet (May 2000)}}: "M1543C"

@@ -64,9 +64,9 @@ The 33 MHz slots are 5 V and the 66 MHz slots are 3.3 V. Seven of the ten slots 
 
 A Debian build daemon, "an ES45 with three 1.25GHz CPUs and 4 Gbyte memory", drew about 600 W. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2012-April.mbox#L4811|"Re: Alpha ES45 buildd"]], Michael Cree, debian-alpha, 30 Apr 2012)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Titan systems in the kernel configuration**
     * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10: the ''ALPHA_TITAN'' help text says "AlphaServer ES45/DS25 SMP based on EV68 and Titan chipset."

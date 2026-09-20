@@ -60,7 +60,7 @@ The technical reference manual describes the machine "from the perspective of th
   * The AlphaStation 600 is best booted from SRM: "I don't recommend running an ALCOR from ARC console, booting MILO ... It would be much better to run it from SRM console, booting a kernel directly (via "aboot" of course, or BOOTP). This is how Linus runs his". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-October.mbox#L10317|"Re: Kernel 2.1.125 testing"]], Jay Estabrook, axp-list, 15 Oct 1998)]
   * "There is no *official* SRM console for the XLT; it was designed/sold strictly for WindowsNT." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-October.mbox#L20901|"Re: Milo booting other OSes?"]], Jay Estabrook, axp-list, 29 Oct 1997)] "It's best to keep using MILO with XLT, as well as XL." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-October.mbox#L3405|"AC-0.9 Testing Results (was: Re: Alpha Core ISO Images)"]], Jay Estabrook, axp-list, 18 Oct 2004)]
 
-==== CIA Erratum ====
+==== CIA erratum ====
 
 "the CIA-1 core logic in AS500/333 as well as EB164 and XLT ... is flawed", which the 2.4.13 PCI changes exposed. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L8071|"Re: [LONG] CIA breakage in 2.4.13 (was Re: AS500 and 2.4 SCSI blues)"]], Jay Estabrook, axp-list, 9 Jun 2002)] The kernel still avoids the affected DMA windows on CIA revision 1. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_cia.c?h=v6.10|arch/alpha/kernel/core_cia.c]], Linux 6.10)]
 
@@ -68,9 +68,9 @@ The technical reference manual describes the machine "from the perspective of th
 
 The AlphaStation 500 and AlphaServer 800 have a built-in QLogic 1020, which failed with the Red Hat 7.1 ''qlogicisp'' driver but worked with the newer QLogic driver. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L1901|"Re: QLogic ISP problem"]], Jay Estabrook, axp-list, 8 Jan 2002)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **AlphaStation 500 memory modules**
     * {{wiki:hardware:systems:alphastation_500:alphastation_500_user_information.pdf?linkonly|AlphaStation 500 Series User Information}}, p. 3-8: "The AlphaStation 500 Series memory sub-system has two banks of memory, which include (4 x 72) 8 byte Dual In-Line Memory Modules (DIMMs)."

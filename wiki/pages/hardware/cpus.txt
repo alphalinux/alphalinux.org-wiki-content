@@ -1,6 +1,6 @@
 ===== CPUs =====
 
-Wikipedia has many articles on Alpha CPUs that we will not duplicate:
+Wikipedia has articles on the Alpha architecture and on the individual processors:
 
   - [[wp>DEC Alpha|DEC Alpha]]
   - [[wp>Alpha 21064|21064]]
@@ -11,7 +11,7 @@ Wikipedia has many articles on Alpha CPUs that we will not duplicate:
 
 See also [[hardware:chipsets|Chipsets]].
 
-==== Announcements and Prices ====
+==== Announcements and prices ====
 
 Digital Semiconductor sold Alpha chips on the merchant market, and its own announcements record the speed ladder and the list prices. In June 1994 it cut prices across the family and replaced the 225 MHz 21064A with a 233 MHz version, whose clock suited the 33 MHz 21071 and 21072 core logic introduced that January. Prices per chip in quantities of 5,000, effective 3 July 1994, were $186 for the 21068-66, $347 for the 21066-166, $404 for the 21064-166, $544 for the 21064-200, $788 for the 21064A-233, and $1,083 for the 21064A-275. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1994-June.mbox#L980|"Press/New Reduced Prices For Alpha AXP Microprocessors"]], Digital Press and Analysts News, biz.digital.announce, 7 Jun 1994)]
 
@@ -48,9 +48,9 @@ Samsung part numbers: [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt
 
 ==== DP264, DS20, DS20e ====
 
-  * KN31**0** is 500 MHz
-  * KN31**1** is 667 MHz
-  * KN31**2** is 833 MHz
+  * ''KN310'' is 500 MHz
+  * ''KN311'' is 667 MHz
+  * ''KN312'' is 833 MHz
   * -//x//B is for Tru64 UNIX
   * -//x//C is for OpenVMS
   * -//x//D is for Linux

@@ -71,7 +71,7 @@ The AlphaStation 255/233 and 255/300 followed on 8 March 1996, starting at $7,39
   * Floppy disk controller supporting two floppy drives or one floppy and one tape drive, keyboard and mouse ports, two serial ports, one enhanced bidirectional parallel port
   * Three 5.25-inch half-height bays, one hidden 3.5-inch half-height bay, and one 3.5-inch diskette drive, on a 300 W power supply
 
-==== Trade-In Upgrades ====
+==== Trade-in upgrades ====
 
 Digital sold the family partly as an upgrade path off its older workstations, shipping a new system unit and a manual describing how to move the drives and options across and return the old machine. The AlphaStation 250 4/266 kit covered the DECstation 2100, 3100, and 5000, the VAXstation 4000, and the DEC 3000 Models 300, 300L, 300X, and 300LX. [(>{{wiki:hardware:systems:alphastation_250:alphastation_250_upgrade_information.pdf?linkonly|AlphaStation 250 Model 4/266 Upgrade Information}}, May 1995, p. 1-1)] The AlphaStation 400 kit covered the DECpc AXP 150 ([[hardware:systems:jensen|Jensen]]) and the DEC 3000 Models 300, 400, 500, and 600, and carried over monitors and BA350 and BA353 expansion boxes as well. [(>{{wiki:hardware:systems:alphastation_400:alphastation_400_upgrade_information.pdf?linkonly|Digital AlphaStation 400 Series Upgrade Information}}, pp. 1-1 to 1-2)]
 

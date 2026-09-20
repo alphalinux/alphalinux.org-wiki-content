@@ -47,9 +47,9 @@ The release notes add several hardware notes: all IDE drives run at 16 MHz, and 
 
 Jay Estabrook on the DS10L: "I'd NEVER want a 10L in an office, let alone two..." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-November.mbox#L3445|"Re: Seeking opinion on DS10 veersus DS10L"]], Jay Estabrook, axp-list, 19 Nov 2003)] "the DS10L is limited in its heat-handling capabilities." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-July.mbox#L11968|"Re: DS10L overcloking"]], Jay Estabrook, debian-alpha, 27 Jul 2005)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **XP900 maximum memory**
     * {{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_catalog.pdf?linkonly|AlphaStation XP900}}, Systems and Options Catalog, September 1999, p. 2: "up to 1 GB maximum"

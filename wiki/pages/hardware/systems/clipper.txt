@@ -13,7 +13,7 @@ Except where noted, the following comes from the systems and options catalog. [(
   * 1.44 MB floppy drive, CD-ROM, two EIA-232 serial ports, one bidirectional enhanced parallel port, a dedicated serial port for the remote management console (RMC), keyboard and mouse ports
   * Up to two internal disk drive cages, each with a one-port Ultra2 SCSI adapter and four 3.5-inch disks; StorageWorks shelves are also supported
 
-==== Console Heap Resizing ====
+==== Console heap resizing ====
 
 The SRM console sizes its own heap for the installed options, and a machine with enough cards in it goes through a visible crash and reboot cycle the first time. The drivers fail to allocate heap space, the console prints "CPU0: insufficient dynamic memory for a request of 4592 bytes / Console heap space will be automatically increased in size by 64KB", takes an exception, and restarts with the larger heap; this "can occur several times until the console has allocated enough memory", after which no further action is needed. ''show heap_expand'' confirms the new size, and ''set heap_expand none'' puts it back to the default, which is worth doing after a configuration change. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_release_notes.pdf?linkonly|AlphaServer ES40 Release Notes}}, EK-ES240-RN.B01, June 1999, pp. 3-4)]
 
@@ -31,9 +31,9 @@ Two slot restrictions come with the release notes: a KZPAC RAID controller under
   * "Only one VGA graphic controller card, that is VGA-Enabled, is supported in PCI0 bus slots", and removing the mouse at the SRM console "will prevent any response from the keyboard (until the mouse is plugged back in)." [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 20)]
   * SRM V5.6 added "an X86 bios emulator" to support the KZPCC-CE RAID controller (see [[hardware:other|Other Hardware]]). [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 38)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **ES40 maximum memory**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-September.mbox#L23936|"Re: In sdearch of an 8GB machine (fwd)"]], Peter Rival, axp-list, 11 Sep 2000: "an ES40 maxes out with 32GB. I believe when they first came out it was 16GB"

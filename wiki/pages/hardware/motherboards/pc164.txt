@@ -35,7 +35,7 @@ wiki:hardware:motherboards:pc164:pc164-1.jpg Digital AlphaPC 164
   * Standard page mode DRAM SIMMs are required; according to Digital Semiconductor, EDO "won't be any better & may not work" [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L183|"Answers to other PC164 questions"]], Jim Spink, axp-list, 11 Jul 1996)].
   * One reseller reported selling PC164 systems with 1 GiB of memory, which only worked with modules from one vendor [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L13598|"Re: 1 GB RAM in PC164"]], Wolfgang Dreyer, axp-list, 13 Jun 1997)]. This is beyond the documented 512 MiB maximum.
 
-==== Power Supply ====
+==== Power supply ====
 
   * The board does not drive the ATX ''PS_ON'' signal, so a standard ATX power supply will not turn on unless ''PS_ON'' (pin 14) is connected to ground, e.g. with a latching switch [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-May.mbox#L47794|"Re: PC164 Motherboards"]], Robert Bowles, axp-list, 20 May 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L33698|"RE: alphapc 164 motherboard question"]], Bernard Chew, axp-list, 26 Jul 1999)]. The board is essentially an AT design with an ATX power connector and no soft power switch. Some boards have a rework wire at the power connector that ties ''PS_ON'' (the unlabeled pin 14) to the neighboring ground pin, so the board powers on whenever the power supply has AC power (see ''pc164-engineering-fix.jpg'' in the gallery).
   * A 500 MHz 21164A draws about 11.5 A from the 3.3V rail, and the board itself about 5 A more, which exceeds the 3.3V capacity of many ordinary ATX power supplies [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L16468|"PC164 power-supplies"]], T. S. Horsnell, axp-list, 15 Jun 1997)].
@@ -57,21 +57,21 @@ wiki:hardware:motherboards:pc164:pc164-1.jpg Digital AlphaPC 164
   * Red Hat Linux 7.2 was tested on the PC164 booting from both SRM and ARC (via MILO) [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L12427|"Re: RedHat 7.2 Linux for Alpha"]], Jay Estabrook, axp-list, 11 Jun 2002)].
   * Updated MILO images for the PC164, based on MILO 2.2-18 and supporting ext2 filesystems with block sizes larger than 1 KiB, were released in 2002 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-May.mbox#L492|"XLT-PC164-Ruffian MILOs available for test"]], Jay Estabrook, axp-list, 1 May 2002)].
 
-==== Known Issues ====
+==== Known issues ====
 
   * **Interrupt masking:** the PC164 was already shipping when the interrupt masking hardware was found to be broken. It was never fixed in hardware, and Linux relies on a software workaround. The SRM console reports the board as the EB164 variation instead of PC164, so Linux 2.4 kernels before 2.4.11 did not apply the workaround when booted from SRM and hung under heavy network or disk load [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-October.mbox#L5046|"Re: Hangs with 100baseTX, RedHat 7.1, kernel 2.4.x and AlphaPC 164"]], Jay Estabrook, axp-list, 4 Oct 2001)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L33173|"Re: RedHat vs. PC164/srm -- summary"]], Jay Estabrook, axp-list, 27 Mar 2002)].
   * **Returning to SRM:** Linux 2.4 reassigns PCI resources and does not restore them at shutdown, so the SRM console may report machine checks after halting Linux [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-October.mbox#L12092|"Re: PC164 SRM problem"]], Jay Estabrook, axp-list, 15 Oct 2001)].
   * **Time-of-year clock:** the SMC FDC37C935 clears the update-in-progress bit before the update is complete, causing early versions of ''clock'' to read bogus dates. The fix is to wait for the update-ended interrupt flag instead [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L27609|"Clock Problems on PC164 Explained"]], Jay Estabrook, axp-list, 14 Nov 1996)].
   * **Memory size with early MILO:** early MILO versions caused instability unless ''MEMORY_SIZE'' was set slightly below the installed memory. Jay Estabrook recommended newer MILO images to fix this [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-July.mbox#L9726|"Re: PC164 MEMORY_SIZE"]], Jay Estabrook, axp-list, 8 Jul 1997)].
 
-==== Clones and OEM Systems ====
+==== Clones and OEM systems ====
 
   * The Aspen "Durango" is Aspen's name for the PC164 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L28087|"Durango"]], Bernd Robl, axp-list, 19 Oct 1996)].
   * Vobis, a German computer retailer, sold PC164-based systems [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L46113|"Installing RH4.1 on PC164 from Vobis"]], Stephan Kanthak, axp-list, 25 Apr 1997)].
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Last SRM version**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-October.mbox#L5523|"KZPEA bios?"]], Jay Estabrook, axp-list, 27 Oct 2004: "The latest SRM console on a PC164 is V5.5"

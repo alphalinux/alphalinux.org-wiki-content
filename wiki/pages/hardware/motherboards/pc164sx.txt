@@ -45,7 +45,7 @@ Non-ECC modules tested and qualified by Digital (not a complete list of working 
 
 Single-sided Hyundai HY57V28820HCT-H 128 MiB DIMMs were reported not to work. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-August.mbox#L1885|"164SX memory"]], Iso-H, axp-list, 6 August 2001)]
 
-==== CPU Speed ====
+==== CPU speed ====
 
 The 164SX documentation lists only two CPU speed settings, 400 and 533 MHz; the other settings are reserved, and one user who tried them only got 400 MHz. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L4541|"164SX overclocking"]], Kurt Ludwig, axp-list, 5 October 1999)] No 600 MHz 164SX was ever made. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L873|"searching for a wide alpha cpu heatsink"]], Jay Estabrook, axp-list, 5 November 2008)]
 
@@ -57,12 +57,12 @@ To switch from AlphaBIOS to SRM, copy ''sx164srm.rom'' to a FAT-formatted floppy
 
 Around 1998, SRM for the Digital Semiconductor boards was licensed separately. It was obtained through the Evaluation Board Software Design Kit (part number QR-21B02-03, US$75) [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L55113|"SRM on the SX164"]], Kevin Wood, axp-list, 21 January 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L3642|"SRM license issues"]], Jay Estabrook, axp-list, 6 January 1998)], and the images on Digital's FTP site could only upgrade an existing SRM installation. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L40627|"Need SRM on my 164SX MotherBoard."]], Rich Payne, axp-list, 22 September 1999)]
 
-=== SRM V5.8 Hardware Support ===
+=== SRM V5.8 hardware support ===
 
   * SRM V5.8 on the 164LX and 164SX is the only pre-EV6 SRM that supports Adaptec SCSI controllers. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-December.mbox#L4657|"General questions about alphaserver 1200 (533AU2)"]], Jay Estabrook, debian-alpha, 9 December 2002)] Support is limited to the 2940UW and 39160; other models (2940U, 2940U2W, 29160, 3950) are not supported by SRM, although they work under Linux. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-June.mbox#L1688|"Help needed for install on 164SX"]], Jay Estabrook, axp-list, 9 June 2005)]
   * The console's BIOS emulator can initialize ATI Rage 128 and Radeon cards, which older Alpha consoles cannot. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-February.mbox#L20624|"ATI Radeon on PC164??"]], Jay Estabrook, axp-list, 27 February 2002)] PCI Radeon cards were recommended for the 164SX. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-September.mbox#L3927|"Well supported PCI graphics card for 164SX"]], Jay Estabrook, axp-list, 6 September 2002)]
 
-==== Firmware Recovery ====
+==== Firmware recovery ====
 
 On the 164SX, DIP switch 7 starts the fail-safe booter, which can update the console from a floppy. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-April.mbox#L1|"Upgrading PC164SX firmware"]], Craig Small, debian-alpha, 11 April 2001)]
 
@@ -79,29 +79,29 @@ Switching from SRM back to AlphaBIOS on the 164LX and 164SX can fail. Running th
   * Floppy: the floppy drive did not work with kernels 2.0.34 and 2.0.35 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L10153|"Floppy on sx164 etc."]], Barrett G. Lyon, axp-list, 4 August 1998)]; a patch was published. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L15563|"sx164 floppy solution (fwd)"]], Eric Lee Green, axp-list, 6 August 1998)]
   * In 2016, Debian's generic 4.x kernels returned to the SRM prompt with "BOOT FAILURE" on the 164SX [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2016-February.mbox#L997|"can't boot kernel 4.x on SX164"]], Michael Cree, debian-alpha, 20 February 2016)], while a kernel built for the SX164 system type booted. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2016-February.mbox#L2246|"can't boot kernel 4.x on SX164"]], Alex Winbow, debian-alpha, 25 February 2016)]
 
-==== Power Supply ====
+==== Power supply ====
 
 A 300 W supply is sufficient for a typical 164SX or 164LX workstation. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L3987|"PC164LX board in an ATX case?"]], Rich Payne, axp-list, 4 July 2001)]
 
-==== CPU Fan ====
+==== CPU fan ====
 
 The PC164SX requires a CPU fan with a rotation sensor. Most standard PC fans are not capable of driving the motherboard sensor input directly, so an adapter must be used.
 
 The CPU fan connector also uses a different pin order from PC fans. On the Alpha connector, pin 1 is +12 V, pin 2 is the tachometer signal, and pin 3 is ground; PC fans use ground, +12 V, and tachometer. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L4454|"Installing new cpu fan on Alpha 164LX Motherboard"]], Donald White, axp-list, 3 April 2002)] The pins in a PC fan's connector must be rearranged before use; a miswired fan can damage the fan, motherboard, or power supply, and the board does not start without a correctly connected fan. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L3582|"Installing new cpu fan on Alpha 164LX Motherboard"]], Maurice Hilarius, axp-list, 3 April 2002)] Even when rewired, a PC fan on a 164SX ran but the CPU would not start, because the board did not accept its tachometer signal (FAN_CONN_L on pin 2). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L1167|"Need 164SX CPU Fan"]], Donald White, axp-list, 6 January 2002)]
 
-==== Beep Codes ====
+==== Beep codes ====
 
   * 5 beeps, repeated: no usable memory is present (reported on a 164LX with non-ECC DIMMs). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-October.mbox#L872|"164SX Memory"]], Justin Graham, debian-alpha, 10 October 2001)]
   * 6 beeps: checksum error when the image was read back from memory. Reported on a 164SX with newly installed non-ECC DIMMs [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-February.mbox#L28484|"164sx beep-codes?"]], Danilo Godec, axp-list, 17 February 1999)], and on a 164LX it was fixed by cleaning the board and reseating the memory and expansion cards. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-December.mbox#L33|"six beeps from a 164LX machine"]], Kazuyoshi Furutaka, axp-list, 2 December 2008)]
 
-==== Clones and OEM Systems ====
+==== Clones and OEM systems ====
 
   * DCG Computers [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L15655|"vendors selling 164SX systems"]], Scott Alexander, axp-list, 15 January 1998)]
   * Enorex [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L17218|"Anyone with an Enorex PC164sx have problems with milo?"]], Racter, axp-list, 13 March 1998)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **ECC memory requirement**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-April.mbox#L33061|"Re: PC164SX system building questions"]], Eric Dittman, axp-list, 21 Apr 1999: "I tried a pair of non-ECC PC-100 memory on mine and they didn't work.  I installed a pair of ECC PC-100 memory and they worked."

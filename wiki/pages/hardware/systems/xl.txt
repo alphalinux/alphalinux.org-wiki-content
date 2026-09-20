@@ -21,9 +21,9 @@ Digital announced the Alpha XL on 3 October 1995, not on its own but as the Alph
 
 In 1996 the cards recommended for X on the XL were "Any Number 9 card (ISA or PCI)", "MACH 64 PCI cards", and "Digital Zlxp (21030) aka TGA cards", [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L11197|"RE: Which graphics accelerator should one use for Linux-Alpha XL266?"]], David Rusling, axp-list, 23 Apr 1996)] as well as "Almost any PCI bus S3-based card, ie Diamond Stealth 64, #9 GXE64, ELSA, etc." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L11271|"Re: Which graphics accelerator should one use for Linux-Alpha XL266?"]], Jay Estabrook, axp-list, 23 Apr 1996)] See also [[hardware:other#pc_graphics_cards|Other Hardware]].
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Alpha XL 233 and 266 firmware**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L44543|"Re: DEC Celebris"]], Jay Estabrook, axp-list, 25 Nov 1996: "that runs only AlphaBIOS"

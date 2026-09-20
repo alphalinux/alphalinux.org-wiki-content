@@ -6,7 +6,7 @@ The sections below cover the guarantees the architecture makes, the behavior of 
 
 See also [[documentation:porting:unaligned_access|Unaligned Access]] and [[documentation:porting:byte_word_access|Byte and Word Access]].
 
-==== Permitted Reorderings ====
+==== Permitted reorderings ====
 
 ^ Reordering ^ Alpha ^ x86 (TSO) ^ ARMv7 ^ SPARC TSO ^
 | Store to store | Yes | No | Yes | No |
@@ -25,7 +25,7 @@ isn't, and this behaviour can be observed on certain real CPUs (such as the DEC
 Alpha).
 </code>
 
-==== Why Dependent Loads Reorder ====
+==== Why dependent loads reorder ====
 
 The cause is the cache rather than speculative execution: [(membar)]
 
@@ -59,7 +59,7 @@ The kernel source comment states the same: [(>[[https://git.kernel.org/pub/scm/l
  */
 </code>
 
-==== Barrier Instructions ====
+==== Barrier instructions ====
 
 Alpha has exactly two memory barrier instructions, plus a PALcode call for the instruction stream.
 
@@ -88,7 +88,7 @@ and about what happens without ''WMB'': [(arm2)]
 In the absence of a WMB instruction, stores to memory or non-memory-like regions can be aggregated and/or buffered and completed in any order.
 </blockquote>
 
-==== The Dependent Load Problem in Practice ====
+==== The dependent load problem in practice ====
 
 <code c>
 /* Thread A, the writer */
@@ -332,7 +332,7 @@ extern inline void writel(u32 b, volatile void __iomem *addr)
 }
 </code>
 
-''writel()'' has a leading barrier and no trailing one. The asymmetry is deliberate: a barrier does not make a write to a device register //complete//: [(arm2)]
+''writel()'' has a leading barrier and no trailing one. The asymmetry is deliberate: a barrier does not make a write to a device register complete: [(arm2)]
 
 <blockquote>
 If an Alpha AXP processor writes a location that is a control register within an I/O device, then executes a memory barrier, then writes a location in memory (in a memory-like or non-memory-like region), the I/O device may be able to detect (via read access) the result of the memory write before receiving and responding to the write of its own control register.
@@ -357,7 +357,7 @@ A read to physical address x will always return the value written by the immedia
 
 The exposure is ordering between //different// registers, and ordering as the device sees it across a bus bridge.
 
-==== Address Space Numbers and TB Invalidation ====
+==== Address space numbers and TB invalidation ====
 
 Alpha optionally implements address space numbers, which tag translation buffer entries so that entries belonging to a different address space do not match. A context switch can then install a different ASN instead of flushing the TB.
 
@@ -406,7 +406,7 @@ Basically, the NetBSD/alpha pmap is written to the architecture manual, not to a
 
 The resulting rule is to issue ''CALL_PAL IMB'' whenever the mapping for the instruction stream changes, and to use a software PTE bit to skip those that provably cannot matter. Doug Rabson agreed, and proposed giving the FreeBSD pmap the same software ''PG_EXEC'' bit. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L341|"Re: I-stream memory barrier"]], Doug Rabson, freebsd-alpha, 27 Apr 1999)] The symptom of omitting a required IMB is not a clean failure: Tejblum investigated the question after single-threaded builds failed "mysteriously". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L4837|"Re: I-stream memory barrier"]], Dmitrij Tejblum, freebsd-alpha, 26 Apr 1999)]
 
-==== What GCC Emits ====
+==== What GCC emits ====
 
 The output below is from ''alpha-unknown-linux-gnu-gcc 16.2.0'' at ''-O2''. The GP-relative address computation has been elided for readability.
 

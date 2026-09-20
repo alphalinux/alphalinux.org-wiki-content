@@ -14,7 +14,7 @@ Except where noted, the following comes from the product profile. [(>{{wiki:hard
   * Hot swap disks, RAID, N+1 redundant power supplies, ECC memory, heat, fan, and power supply sensors
   * Tru64 UNIX and OpenVMS only; Windows NT was promised but never shipped
 
-==== GS60E Restrictions ====
+==== GS60E restrictions ====
 
 Compaq's release notes for the GS60E give the KN7CG 6/525 CPU module (E2063) as needing Tru64 UNIX V4.0E, OpenVMS V7.1-2, and SRM console V5.5-12, with Windows NT "not supported". The Ethernet connector on the KFE72 standard I/O module is not supported even though "the console display indicates this device in response to a show device and show network commands"; the KZPAA PCI SCSI adapter "has been qualified only for use with the CD-ROM device"; BA350 shelves are not supported in either cabinet; and "No EISA options are supported on GS60E systems." [(>{{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60e_release_notes.pdf?linkonly|AlphaServer GS60E Release Notes}}, EK-GS60E-RN.A01, August 1999, p. 1)]
 

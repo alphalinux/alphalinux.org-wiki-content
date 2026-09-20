@@ -43,9 +43,9 @@ The Sable is "bootable from SRM console only, and there is no MILO for it (and p
   * For Red Hat 7.2 on a Sable with more than 1 GB of memory, "you should add the "mem=1G" argument". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L12345|"Re: RedHat 7.2 Linux for Alpha"]], Jay Estabrook, axp-list, 11 Jun 2002)]
   * Richard Henderson: "The only SMP machine left (that we support) using an HAE is the T2 (Sable)... if you've got one, I'd suggest you not use X." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L52247|"axp update for 2.3.15"]], Richard Henderson, axp-list, 30 Aug 1999)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **AlphaServer 2000 maximum CPUs**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-September.mbox#L2324|"Powerup Problem on AS2000"]], Jay Estabrook, axp-list, 26 Sep 2005: "only 2 CPU boards possible"

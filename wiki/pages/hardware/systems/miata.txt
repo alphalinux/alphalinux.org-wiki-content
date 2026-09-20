@@ -20,7 +20,7 @@ The following describes the later "Enhanced" 500 and 600 MHz models. [(>{{wiki:h
 
 The first user manual, from October 1996, describes the same chassis with a smaller specification: five option slots, made up of one 32-bit half-size PCI slot, one 64-bit full-size PCI slot, two PCI/ISA combination slots (one 32-bit half-size, one 64-bit full-size), and one 32-bit full-size PCI/ISA slot; six drive bays; a 300 W supply; 10Base2 Ethernet with 10BaseT optional; and eight diagnostic LEDs. The main logic board carries the 21164 in a ZIF socket with a CPU voltage regulator, cache connectors, six DIMM sockets numbered 0 at the bottom to 5 at the top, an SROM diagnostic serial port "(manufacturing use)", and a CPU clock frequency selection switch bank. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_alpha_user_information.pdf?linkonly|Personal Workstation (Alpha) User Information}}, EK-ALMIA-UI.A01, October 1996, pp. 2-1, 2-9)]
 
-==== Upgrading from the Intel Models ====
+==== Upgrading from the Intel models ====
 
 Digital sold the Personal Workstation in Intel (i-series) and Alpha (a-series) forms in the same enclosure, and sold conversion kits between them. The 433a kit "describes the upgrade of your DIGITAL Personal Workstation Model 180i, 200i, or 200i(2) to a DIGITAL Personal Workstation Model 433a", and the 600a kit covers the "Model 266i or higher". Each kit is a main logic board, two SDRAM DIMMs, software diskettes, a wrist strap, and a speed button for the front bezel; the procedure is to swap the board, install cache memory, move the power connector on the riser card, change the speed button, and reinstall Windows NT. The 600a kit adds a new fan mount and fan pipe. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_433a_upgrade_guide.pdf?linkonly|DIGITAL Personal Workstation 433a Upgrade Guide}}, EK-ALMIA-KU.A01, April 1997, pp. 1-1 to 1-2)] [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_600a_upgrade_guide.pdf?linkonly|DIGITAL Personal Workstation 600a Upgrade Guide}}, EK-ALMIA-KU.C01, pp. 1-1 to 1-2)] The cache was a customer-installable option too: the 433 a-series cache kit is a single 2 MB module. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_433a_cache_memory_installation_guide.pdf?linkonly|Personal Workstation 433 a-Series System Cache Memory Installation Guide}}, EK-ALMIA-CU.A01, March 1997, p. 1)]
 
@@ -30,7 +30,7 @@ Digital sold the Personal Workstation in Intel (i-series) and Alpha (a-series) f
 
 "There are two versions of MIATA motherboards: they differ in the PCI "slot" where the onboard PCI-to-PCI bridge lives". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L2291|"Re: PWS 433a"]], Jay Estabrook, axp-list, 3 Jan 1998)]
 
-==== DMA Bug ====
+==== DMA bug ====
 
 The 21174 "has a bug that corrupts DMA transfers that crosses a page boundary ... on the primary PCI bus, but that is where the IDE controller is located." Use an add-on IDE controller "in one of the free 32-bit PCI-slots. Don't use a 64-bit slot." "The MiataGL doesn't have the DMA bug, it was fixed with a factory installed hardware patch." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L9612|"Re: IDE disk problems with RH7.2 on DPW500a"]], Magnus Lindstrom, axp-list, 22 Jan 2003)] "Early MIATA had the most problems, LX and SX many fewer, and final MIATA (aka MIATA-GL) none to speak of". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-April.mbox#L2335|"Second IDE port not working on PC164"]], Jay Estabrook, axp-list, 8 Apr 2004)] See also [[hardware:other#personal_workstation_64-bit_slots|Personal Workstation 64-bit Slots]].
 
@@ -45,9 +45,9 @@ On a first generation PWS 433a, the ''cmd64x'' driver ignores ''ide=nodma'', so 
 
 With Kryotech, Compaq sold "a 767Mhz EV56 chilled with the Kryotech "refrigerator" slapped onto one side of the normal Miata GL case". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-June.mbox#L2778|"RE: Chilled Miata ... anyone?"]], Jeff Donsbach, axp-list, 6 Jun 2001)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Personal Workstation maximum memory**
     * {{wiki:hardware:systems:personal_workstation:personal_workstation_a_au_series_catalog.pdf?linkonly|Compaq DPW Enhanced a-Series & au-Series}}, September 2000, p. 1: "Three DIMM banks (six slots) (1.5 GB maximum)"

@@ -25,9 +25,9 @@ Put the graphics card in one of the top three slots: "Make ABSOLUTELY SURE the E
   * "Tulip does have problems with the built-in chips on XP1000 and DS10". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L12052|"Re: DS-10 Networking problems"]], W Bauske, axp-list, 18 Aug 2000)]
   * Debian's generic kernel stopped booting on the XP1000 after 3.16, but the SMP kernel boots: "The SMP kernel also boots on my XP1000." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2017-April.mbox#L678|"Re: Debian kernel boot failure on Alpha [was Re: systemd FTBFS]"]], Michael Cree, debian-alpha, 10 Apr 2017)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2018-December.mbox#L1051|"Re: Use SMP kernel for Alpha (udeb) builds"]], Michael Cree, debian-alpha, 8 Dec 2018)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **XP1000 speeds**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L22318|"Re: Can someone check the specs of this machine?"]], Jay Estabrook, axp-list, 11 Dec 1999: "BRISBANE @ 667"

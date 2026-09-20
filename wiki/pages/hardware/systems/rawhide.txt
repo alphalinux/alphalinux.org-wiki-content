@@ -30,7 +30,7 @@ Except where noted, the following comes from the technical summary. [(>{{wiki:ha
   * Onboard fast narrow single-ended SCSI-2 for removable media, floppy controller, two serial ports, one parallel port, keyboard and mouse controller [(>{{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_catalog.pdf?linkonly|AlphaServer 1200 Systems and Options Catalog}}, V3.8, June 1999, p. 2.1)]
   * Up to ten internal storage devices in the pedestal, seven of them hot swap StorageWorks disks [(>{{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_catalog.pdf?linkonly|AlphaServer 1200 Systems and Options Catalog}}, V3.8, June 1999, p. 2.1)]
 
-==== Custom Solution System ====
+==== Custom solution system ====
 
 Compaq also sold an AlphaServer 4100 Custom Solution System: a low profile commercial-off-the-shelf platform 8.75 inches high, holding one to four 533 MHz processors and two embedded drives, rugged enough for "land, sea, or air" use, with up to seven systems (28 processors) in one 19-inch RETMA cabinet. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_custom_solution_system.pdf?linkonly|AlphaServer 4100 Custom Solution System}}, Compaq, 1999)]
 
@@ -50,9 +50,9 @@ As on the standard systems, holding in the Halt button leaves the machine in the
   * "RAWHIDE (AS4000/4100) and TINCUP (AS1200) machines never even had pinouts for the IDE controllers". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-July.mbox#L1749|"Hardware compat with Fc8"]], Jay Estabrook, axp-list, 25 Jul 2008)]
   * "SRM on AS1200 does NOT recognize the 1010", and "the builtin shelf in the AS1200 will only support to ULTRA SCSI speed". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-July.mbox#L6817|"Re: Hardware question: AS1200, SRM, LSI 53c1010"]], Jay Estabrook, debian-alpha, 11 Jul 2003)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Rawhide maximum memory under Linux**
     * {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_catalog.pdf?linkonly|AlphaServer 4100 Systems and Options Catalog}}, p. 9: "Tru64 UNIX and OpenVMS systems support a maximum of 8 GB of memory"

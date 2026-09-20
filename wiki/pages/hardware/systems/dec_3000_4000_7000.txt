@@ -42,9 +42,9 @@ Linux never supported these systems.
   * "Support for TC devices should work for DEC 3000 out of the box as drivers are platform-independent. Glue code is for the core chipset is missing". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-July.mbox#L6100|"Re: Flogging a dead computer - DEC 3000/300"]], Maciej W. Rozycki, axp-list, 21 Jul 2000)] Attempts at a port in 1999 and plans in 2009 did not result in support. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L22983|"tbia() on DEC 3000 question"]], Craig P Prescott, axp-list, 16 Aug 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-September.mbox#L528|"[RFC] Dropping Alpha sparse mapping support from X"]], Maciej W. Rozycki, axp-list, 4 Sep 2009)]
   * "NetBSD has been ported to the TurboChannel machines." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L45909|"Re: Install Linux AXP"]], Jim Paradis, axp-list, 25 Nov 1996)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **DEC 3000 Model 900 CPU**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-August.mbox#L2333|"Rackmount DEC 3000 Model 900 AXP Servers and Workstations"]], Customer Update, biz.digital.articles, 1 Aug 1994, gives the CPU as "DECchip 21064" at 275 MHz.

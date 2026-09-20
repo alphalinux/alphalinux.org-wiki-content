@@ -6,7 +6,7 @@ The construct responsible is almost always a pointer cast such as ''%%*(uint32_t
 
 See also [[documentation:porting:byte_word_access|Byte and Word Access]] and [[documentation:porting:memory_model|Memory Model]].
 
-==== What Counts as Aligned ====
+==== What counts as aligned ====
 
 An access is //aligned// when the address is a multiple of the operand size.
 
@@ -43,7 +43,7 @@ Jay Estabrook put it the same way in 2008: [(>[[https://github.com/alphalinux-or
 the later CPUs have the same restriction, they just support more data types, like shorts and bytes, and their lesser requirements.
 </blockquote>
 
-==== It Is Undefined Behavior in C ====
+==== It is undefined behavior in C ====
 
 The relevant rule is about the //cast//, not the dereference. **C11/C17 §6.3.2.3 paragraph 7**:
 
@@ -207,7 +207,7 @@ The kernel's own unaligned-access helpers were undefined behavior for years, and
 
 None of these are Alpha-specific defects. They are C defects that a strict-alignment target exposes first.
 
-==== What Alpha Does at Runtime ====
+==== What Alpha does at runtime ====
 
 An unaligned load or store traps to PALcode, which reflects the trap to the kernel. User-space accesses are handled by ''do_entUnaUser()'' in ''arch/alpha/kernel/traps.c''; kernel-mode accesses go to ''do_entUna()'' in the same file, which fixes up only accesses covered by an exception-table entry and otherwise panics.
 
@@ -342,7 +342,7 @@ NetBSD's warning carries more than Linux's does, including the return address an
 pid 20482 (a.out): unaligned access: va=0x1fffff284 pc=0x120000ae0 ra=0x120000750 op=ldq
 </code>
 
-Two details are specific to NetBSD. Unaligned accesses made by VAX floating-point instructions are //not// fixed up unless a kernel option is compiled in, which has no Linux equivalent, and, exactly as on Linux, an unaligned access in the kernel panics rather than being repaired. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-May.mbox#L2901|"Re: unaligned access"]], Chris G. Demetriou, port-alpha, 19 May 1998)]
+Two details are specific to NetBSD. Unaligned accesses made by VAX floating-point instructions are not fixed up unless a kernel option is compiled in, which has no Linux equivalent, and, exactly as on Linux, an unaligned access in the kernel panics rather than being repaired. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-May.mbox#L2901|"Re: unaligned access"]], Chris G. Demetriou, port-alpha, 19 May 1998)]
 
 Fixup is performed because the Architecture Reference Manual states that programs may expect general-purpose operating systems to provide it. Demetriou, who would have preferred the opposite default: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1997-October.mbox#L4697|"Re: unaligned access from traceroute"]], Chris G. Demetriou, port-alpha, 31 Oct 1997)]
 
@@ -358,7 +358,7 @@ The kernel traps this error and fixes it but you lose performance - however, the
 
 The consequence is the same on every one of these systems: the message indicates a defect in the program, whose cost the kernel pays on each execution of the instruction. Silencing the message does not remove that cost.
 
-==== What an Unaligned Access Costs ====
+==== What an unaligned access costs ====
 
 Per-instruction cycle counts for Alpha unaligned-trap fixup are difficult to source, and the figures circulating on the web do not survive checking. What can be cited is an end-to-end measurement by Jay Estabrook, posted to the Alpha list in May 2008: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-May.mbox#L2761|"Getting rid of Unaligned Accesses (UA)"]], Jay Estabrook, axp-list, 23 May 2008)]
 
@@ -380,7 +380,7 @@ The sequence is orders of magnitude more expensive than the single instruction i
 
 A figure for particular hardware can be obtained with an ''rpcc''-timed loop comparing aligned against ''+1''-offset accesses, with ''UAC_NOPRINT'' set so that logging falls outside the measurement.
 
-==== What the Compiler Emits Instead ====
+==== What the compiler emits instead ====
 
 Alpha is a ''STRICT_ALIGNMENT'' target. When GCC cannot prove that a pointer is aligned, which is the default for a ''char *'' or a ''memcpy'' source, it emits the extract sequence rather than a faulting load. The Architecture Handbook gives the canonical form:
 
@@ -416,7 +416,7 @@ Using memcpy() with constant size is fine as well, and is portable. Modern GCC (
 
 In an optimized build ''memcpy'' of a scalar is not a function call on any target: on x86-64 it is a single ''movl'', and on Alpha it is the sequence above. ''%%memcpy(&v, p, sizeof v)%%'' is the portable spelling of a load performed however the machine requires, and unlike the cast it is well-defined C.
 
-==== Finding Unaligned Accesses ====
+==== Finding unaligned accesses ====
 
 === UBSan on a non-Alpha host ===
 
@@ -509,7 +509,7 @@ done
 
 ''addr2line'' expects a link-time address, so for a PIE or a shared library the mapping base must be subtracted first. The binary must be built with ''-g''.
 
-==== Common Causes ====
+==== Common causes ====
 
 === Packed structures ===
 
@@ -575,7 +575,7 @@ union { char bytes[8]; uint64_t qword; } u;
 
 This is safe, and is the one type-punning idiom C explicitly permits. The union carries the alignment of its strictest member. Problems arise only when the union is embedded in a packed structure or placed at a computed offset.
 
-==== In Kernel Code ====
+==== In kernel code ====
 
 Kernel code uses ''get_unaligned()'' and ''put_unaligned()'':
 
@@ -599,7 +599,7 @@ The helpers were once implemented with a packed structure. The current implement
 
 ''make C=1'' runs Sparse, which has no unaligned-access check. It enforces the ''__user'', ''__iomem'' and ''__bitwise'' annotations, an adjacent class of defect, but finds no alignment problems.
 
-==== Detection Workflow ====
+==== Detection workflow ====
 
 The steps below combine the tools described above.
 
@@ -609,7 +609,7 @@ The steps below combine the tools described above.
   - Compare ''grep unaligned /proc/cpuinfo'' before and after a run as a regression check.
   - Repair the access with ''memcpy'', or with ''get_unaligned()'' in kernel code. Casting through ''void *'' silences the warning without removing the undefined behavior.
 
-==== Summary of Build Flags ====
+==== Summary of build flags ====
 
 ^ Flag ^ Purpose ^
 | ''-fsanitize=undefined'' | includes the alignment check; works on any architecture |

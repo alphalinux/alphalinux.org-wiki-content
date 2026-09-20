@@ -16,7 +16,7 @@ Linux supports the EB66 with the ''CONFIG_ALPHA_EB66'' kernel option. [(>[[https
 
 Many mailing list posts use "EB66" to refer to the [[hardware:motherboards:eb66plus|EB66+]], so reports of a given "EB66" do not necessarily apply to this board.
 
-==== Known Issues ====
+==== Known issues ====
 
   * Kernels before 1.3.71 defined the ''HZ'' timer constant incorrectly for the EB66 and EB66+. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L1126|"axp-diff-1.3.71"]], David Mosberger-Tang, axp-list, 4 Mar 1996)]
   * In March 1996, the prebuilt Noname and Cabriolet kernels did not boot on an original EB66; only the EB64+ boot kernel from the BLADE 0.3 distribution did, and it did not detect the NCR SCSI controller. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L5022|"Kernel for EB66"]], Damir Kovacic, axp-list, 15 Mar 1996)]

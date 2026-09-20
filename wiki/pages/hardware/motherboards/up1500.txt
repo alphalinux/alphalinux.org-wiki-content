@@ -19,7 +19,7 @@ wiki:hardware:motherboards:up1500:up1500-1.jpg Samsung UP1500
 ==== Limitations ====
 
   * The AGP slot accepts only 3.3V signalling cards, effectively limiting the selection of video cards to those supporting AGP 2x [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L4291|"Re: Graphics card for UP1500, AGP Compatibility and Signalling Voltages"]], Alex Deucher, axp-list, 27 Nov 2008)]
-  * Not all AGP cards that fit the slot actually work, see [[UP1500 Compatibility]].
+  * Not all AGP cards that fit the slot work, see [[UP1500 Compatibility]].
   * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB (137GB)
   * IO space needed for PCI counts against the amount of memory usable by the AMD-761 [(>[[https://lore.kernel.org/all/20020913184310.B7498@jurassic.park.msu.ru/|"[patch 2.5.34] alpha: nautilus update"]], Ivan Kokshaysky, linux-kernel, 13 Sep 2002)]
   * According to Ivan Kokshaysky, the UP1000, UP1100, and UP1500's AGP is limited to PCI transfers: 

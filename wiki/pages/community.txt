@@ -1,12 +1,12 @@
 ===== Community =====
 
-==== Mailing Lists ====
+==== Mailing lists ====
 
 The Alpha/Linux kernel mailing list is **linux-alpha@vger.kernel.org**, hosted at [[https://subspace.kernel.org/vger.kernel.org.html|vger.kernel.org]] and managed by mlmmj. To subscribe, send an email to **linux-alpha+subscribe@vger.kernel.org**; the subject and body are ignored. Use **linux-alpha+subscribe-digest@vger.kernel.org** to receive a daily digest instead, and **linux-alpha+unsubscribe@vger.kernel.org** to unsubscribe. The list may also be read over NNTP at **nntp://nntp.lore.kernel.org**. Archives are located on [[https://lore.kernel.org/linux-alpha/|lore.kernel.org]], covering April 2002 onward, and [[https://marc.info/?l=linux-alpha|marc.info]], covering May 1998 onward.
 
 Both [[https://archives.gentoo.org/gentoo-alpha/|Gentoo]] and [[https://lists.debian.org/debian-alpha/|Debian]] have distribution-related Alpha mailing lists.
 
-=== Historic Lists ===
+=== Historic lists ===
 
 The first Alpha Linux list of all was Digital's own. Jim Paradis announced **linux-axp@amt.tay1.dec.com** in November 1994, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)] and moved it to majordomo as **alpha-linux** in January 1995, replacing "the old, unreliable, hand-maintained list". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-January.mbox#L2126|"ANNOUNCEMENT: Linux/Alpha Developers' Kit!"]], Jim Paradis, comp.os.linux.announce, 23 Jan 1995)] No archive of it is known to survive.
 
@@ -26,7 +26,7 @@ Mirrors of all of these, reconstructed from Pipermail and MHonArc pages, Gmane, 
 
 axp-kernel-list, for "Alpha kernel issues", was running by 3 August 1998, when it appeared in Red Hat's periodic list of its mailing lists. [(>[[https://mail.gnome.org/archives/gtk-list/1998-August/msg00060.html|"Mailing List Lists"]], listmaster@redhat.com, gtk-list, 3 Aug 1998)] No archive of it from before April 2002 is known to survive. Headers in the surviving messages show it was by then a private Mailman list, and Red Hat's copy is gone.
 
-=== Other Operating Systems ===
+=== Other operating systems ===
 
 While not pertaining to Linux, Alpha hardware and porting information may be found in the [[https://lists.freebsd.org/pipermail/freebsd-alpha/|FreeBSD Alpha]], [[https://mail-index.netbsd.org/port-alpha/|NetBSD Alpha]], and [[http://marc.info/?l=openbsd-alpha|OpenBSD Alpha]] mailing lists. These three lists are mirrored in the same [[https://github.com/alphalinux-org/mailing-list-archives|archive repository]], assembled from marc.info, mail-index.netbsd.org, Gmane and the FreeBSD Pipermail archive. They are the best surviving record of the parts of Alpha that Linux shares with the BSDs: PALcode and console behavior, chipset errata, unaligned access and floating-point trap handling.
 

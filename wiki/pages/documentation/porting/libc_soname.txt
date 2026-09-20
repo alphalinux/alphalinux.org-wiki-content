@@ -4,9 +4,9 @@ Every other Linux architecture that uses glibc 2.x has ''libc.so.6''. Alpha has 
 
 The reason is an ABI break in January 1997, when several fundamental types changed size on Alpha. Alpha had already shipped binaries against ''libc.so.6''; those binaries could not be allowed to load the new library, so the soname was changed. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-January.mbox#L26971|"Re: glibc upgrade advice?"]], Richard Henderson, axp-list, 23 Jan 1997)]
 
-==== The Change ====
+==== The change ====
 
-The soname bump was made by **Richard Henderson** on **18 January 1997** and imported into the glibc repository two days later.
+The soname bump was made by Richard Henderson on 18 January 1997 and imported into the glibc repository two days later.
 
 ^ Field ^ Value ^
 | Commit | ''0c5ecdc449ce581b56090758d5bb5673763ea909'' |
@@ -45,9 +45,9 @@ The actual change to ''shlib-versions'' is a one-line regex edit:
 +alpha-.*-linux.*	libc=6.1
 </code>
 
-Note what is //not// changed: i386 and m68k keep ''libc=6'' in the very same hunk, even though their ''clone.S'' was rewritten in the same commit. Only Alpha's soname moved.
+The same hunk leaves i386 and m68k at ''libc=6'', even though their ''clone.S'' was rewritten in the same commit. Only Alpha's soname moved.
 
-==== Why: Basic Types Changed Size ====
+==== Why: basic types changed size ====
 
 The ChangeLog sentence about ''sigset_t'' is terse and has been widely over-read. Richard Henderson gave the fuller reason on the Alpha list five days later, answering a user whose binaries had stopped working: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-January.mbox#L26971|"Re: glibc upgrade advice?"]], Richard Henderson, axp-list, 23 Jan 1997)]
 
@@ -67,7 +67,7 @@ Several fundamental types were changed to accomodate expected needs in the near 
 I'm actually surprised to hear that it works.
 </blockquote>
 
-So the cause was **a set of basic-type size changes**, of which the ''clone()'' rework is the most visible symptom, not the root. Philip Blundell summarized the practical position in the same thread: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-January.mbox#L26756|"Re: glibc upgrade advice?"]], Philip Blundell, axp-list, 23 Jan 1997)]
+The cause was therefore a set of basic-type size changes, of which the ''clone()'' rework is the most visible symptom, not the root. Philip Blundell summarized the practical position in the same thread: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-January.mbox#L26756|"Re: glibc upgrade advice?"]], Philip Blundell, axp-list, 23 Jan 1997)]
 
 <blockquote>
 lib.so.6.1 is not just a minor release of libc.so.6.  The soname is different because incompatible changes have happened.  Your binaries will not work if you try to use libc.so.6.1 as libc.so.6, or vice versa.
@@ -97,8 +97,8 @@ The same commit also put the public ''clone'' declaration behind ''%%#ifdef __US
 
 It is often claimed that Linux's ''sigset_t'' grew past a register on Alpha. It did not, and the numbers usually quoted are wrong.
 
-  * The **kernel's** ''sigset_t'' on Alpha is a single 64-bit word. ''arch/alpha/include/asm/signal.h'' defines ''_NSIG'' as 64, ''_NSIG_BPW'' as 64 and therefore ''_NSIG_WORDS'' as 1. It fits in one register. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/signal.h|arch/alpha/include/asm/signal.h]] and [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/signal.h|uapi/asm/signal.h]], Linux)]
-  * ''_NSIG'' is 64 on every Linux architecture except MIPS, where it is 128. "''_NSIG'' is 128 on Linux" is simply false.
+  * The kernel's ''sigset_t'' on Alpha is a single 64-bit word. ''arch/alpha/include/asm/signal.h'' defines ''_NSIG'' as 64, ''_NSIG_BPW'' as 64 and therefore ''_NSIG_WORDS'' as 1. It fits in one register. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/signal.h|arch/alpha/include/asm/signal.h]] and [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/signal.h|uapi/asm/signal.h]], Linux)]
+  * ''_NSIG'' is 64 on every Linux architecture except MIPS, where it is 128. "''_NSIG'' is 128 on Linux" is false.
   * **glibc's** userspace ''sigset_t'' was never register-sized. It was already 1024 bits before this commit. What the commit changed was the word type, from ''unsigned int'' to ''unsigned long'':
 
 <code diff>
@@ -115,15 +115,15 @@ The same commit rewrote Alpha's ''sigprocmask.c'', with the ChangeLog note "The 
 
 Read in that light, Henderson's sentence is a rationale for //not adding// an initial-signal-mask parameter to ''clone()'', rather than a description of code being removed. The pre-change Alpha ''clone.S'' copies ''nargs'' generic quadwords to the child stack; it has no signal-mask handling at all.
 
-==== Which Release ====
+==== Which release ====
 
-The change was on the trunk from 20 January 1997 and the version was bumped to 2.0.1 eight days later, in commit ''831372e7c1'' ("update from main archive 970127"), so it shipped in **glibc 2.0.1**. [(>[[https://sourceware.org/git/?p=glibc.git;a=commit;h=831372e7c1|"update from main archive 970127"]], glibc, 28 Jan 1997)]
+The change was on the trunk from 20 January 1997 and the version was bumped to 2.0.1 eight days later, in commit ''831372e7c1'' ("update from main archive 970127"), so it shipped in glibc 2.0.1. [(>[[https://sourceware.org/git/?p=glibc.git;a=commit;h=831372e7c1|"update from main archive 970127"]], glibc, 28 Jan 1997)]
 
 It is often stated that it first shipped in 2.0.2. That is an artifact of the git mirror: there is no ''glibc-2.0.1'' tag (nor ''glibc-2.0.3''), so ''git describe --contains'' finds ''glibc-2.0.2'' as the earliest release tag. CVS-era tag dates are not reliable as release dates either; the commit that ''glibc-2.0.4'' points at is dated earlier than the one ''glibc-2.0.2'' points at.
 
 Independent corroboration that 6.1 was in users' hands well before March 1997: the axp-list thread quoted above is dated 23 January 1997, and the user was already running a snapshot that produced ''libc.so.6.1''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-January.mbox#L26633|"glibc upgrade advice?"]], Steven N. Hirsch, axp-list, 23 Jan 1997)]
 
-==== What Was Not the Cause ====
+==== What was not the cause ====
 
 Two claims that circulate about this and do not survive checking.
 
@@ -142,7 +142,7 @@ Alpha's ioctl command numbers do follow OSF/1 conventions rather than the generi
 #define TCGETS	_IOR ('t', 19, char[44])
 </code>
 
-It //includes// the kernel's ''<asm/ioctls.h>'', deferring to the kernel's encoding rather than reimplementing it. It also does not predate the bump: it was added on 23 January 1997, three days after. (The soname commit did remove ''sysdeps/unix/sysv/linux/alpha/ioctl-types.h'', as part of the same ABI churn.)
+It includes the kernel's ''<asm/ioctls.h>'', deferring to the kernel's encoding rather than reimplementing it. It also does not predate the bump: it was added on 23 January 1997, three days after. (The soname commit did remove ''sysdeps/unix/sysv/linux/alpha/ioctl-types.h'', as part of the same ABI churn.)
 
 === IA-64 used 6.1 for a different reason ===
 

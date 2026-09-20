@@ -12,7 +12,7 @@ See also [[hardware:motherboards:motherboards|Motherboards]], whose pages descri
 
 See also the documentation sections of the [[software:firmware:srm|SRM]] and [[software:firmware:arc|ARC]] pages.
 
-=== Firmware Release Notes ===
+=== Firmware release notes ===
 
 These release notes are from the Alpha Systems Firmware Update V7.3 CD (April 2007) and describe the Loadable Firmware Update utility, update procedures, and changes in each release.
 
@@ -45,7 +45,7 @@ These release notes are from the Alpha Systems Firmware Update V7.3 CD (April 20
 | {{wiki:hardware:other:kzpsa_a12_release_notes.pdf?linkonly|Release Notes KZPSA SCSI Storage Adapter Module}} | EK-KZPSA-RN.M01 | July 1999 |
 | {{wiki:software:firmware:wwidmgr_v1.3_users_manual.pdf?linkonly|WWIDMGR Users' Manual: Alpha Systems' Console World Wide ID Manager for Fibre Channel Devices, V1.3}} | | May 2004 |
 
-=== System Guides ===
+=== System guides ===
 
 These guides include chapters on the SRM, ARC, or AlphaBIOS firmware of their systems.
 

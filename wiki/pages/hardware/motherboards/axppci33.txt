@@ -48,7 +48,7 @@ Linux supports the board with the ''CONFIG_ALPHA_NONAME'' kernel option, shared 
 
 MILO is loaded from ARC with ''linload.exe'' and a ''noname.arc'' image on a FAT floppy or partition, or it can be blown into flash with ''fmu.gz'', run from MILO itself. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L2729|"RE: Unidentified subject!"]], David Rusling, axp-list, 9 Mar 1996)] The flash images for the Noname and the Multia use a different header from other systems, and ''fmu'' is what builds that header. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L31641|"Flash, SRM, FMU, and UDB (was Re: FMU.GZ crashing)"]], Eric Smith, axp-list, 17 Nov 1996)] Boards with the SRM console boot Linux with aboot instead.
 
-==== Known Issues ====
+==== Known issues ====
 
   * **PCI interrupt routing:** the kernel's routing table for the Noname assigns IRQ 13 to one of the PCI slots, and IRQ 13 is never delivered, so a card in that slot takes no interrupts and drivers appear to find the device but never receive anything from it. Thorsten Kranzkowski's workaround was to change ''route_tab'' in ''arch/alpha/kernel/sys_sio.c'' from ''0x0b0a0f0d'' to ''0x0b0e0e0e'', which moves three of the PCI interrupts onto IRQ 14 and is therefore only usable when IDE is not in use; he suggested ''0x0b0a0f0f'' as a safer alternative. Moving the card to another slot also avoids it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-hardware-mbox/2001-January.mbox#L710|"Re: [Axp-hardware] PCI Slot Problem"]], Thorsten Kranzkowski, axp-hardware, 25 Jan 2001)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-February.mbox#L18529|"Re: No network on Noname box"]], Thorsten Kranzkowski, axp-list, 26 Feb 2002)]
   * **64 MiB SIMMs:** a board whose serial ROM predates version 0.4 sizes 64 MiB SIMMs incorrectly. Bryan Clingman's pair of 16Mx36 SIMMs came up as 32 MiB rather than 128 MiB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2000-July.mbox#L5468|"[Hardware] Noname (AXPpci33) and 64MB simms"]], Bryan Clingman, comp.os.linux.alpha, 22 Jul 2000)] [(>{{wiki:hardware:motherboards:axppci33:axppci33_oem_design_guide.pdf?linkonly|Digital AXPpci 33 Alpha PC Motherboard OEM Design Guide}})]
@@ -66,7 +66,7 @@ Because the clock multiplier is only a jumper setting on J7, and the jumper has 
 
 Maurice Hilarius, who sold these boards, summarized it as one step being generally workable, 166 to 200 or 233 to 266, more than that often not, and none of his 233 MHz parts running happily at 300 MHz. He stressed airflow over both the CPU and the voltage regulator. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-April.mbox#L44748|"Re: AXPpci33 overclocking ?"]], Maurice Hilarius, axp-list, 28 Apr 1999)] Earlier, though, he had said that 166 MHz boards could not be overclocked at all, which the reports above contradict. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-March.mbox#L24004|"Re: AXPpci33 mboards"]], Maurice W. Hilarius, axp-list, 21 Mar 1997)]
 
-==== Part Numbers ====
+==== Part numbers ====
 
 Bare boards carry no processor, cache, or memory; preconfigured boards add a processor but still no cache or memory. [(>{{wiki:hardware:motherboards:axppci33:axppci33_oem_design_guide.pdf?linkonly|Digital AXPpci 33 Alpha PC Motherboard OEM Design Guide}})]
 
@@ -84,9 +84,9 @@ Bare boards carry no processor, cache, or memory; preconfigured boards add a pro
 
 By March 1997, Digital was clearing surplus boards with a 166 MHz CPU through resellers for $129, or $99 in quantities of ten. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-March.mbox#L23614|"AXPpci33 mboards"]], Dave Gavin, axp-list, 21 Mar 1997)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Slot count**
     * {{wiki:hardware:motherboards:axppci33:axppci33_oem_design_guide.pdf?linkonly|Digital AXPpci 33 Alpha PC Motherboard OEM Design Guide}}: "Total of seven option slots", three PCI and five ISA, one long PCI slot sharing a bulkhead with one long ISA slot.

@@ -1,6 +1,6 @@
 ===== Emulators =====
 
-This page covers emulators of Alpha systems, which run Alpha operating systems on other hardware, and emulators that run on Alpha, which let Alpha systems run software built for x86.
+Two kinds of emulator are relevant to Alpha: emulators of Alpha systems, which run Alpha operating systems on other hardware, and emulators that run on Alpha, allowing Alpha systems to run software built for x86.
 
 ^ Emulator ^ Emulated system ^ Host ^ License ^ Linux guest ^
 | [[#qemu|QEMU]] | DP264/Clipper (AlphaServer ES40 class), Linux user mode | Many | GPL | Yes, with ''-kernel'' |
@@ -66,7 +66,7 @@ EmuVM's commercial AlphaVM emulates Tsunami/Typhoon systems, and AlphaVM-Pro 2.0
 
 ==== ISP ====
 
-ISP was Digital's own Alpha AXP CPU software simulator, and the oldest Alpha emulator described on this page. Jim Paradis, describing the toolchain he used to bootstrap the first Linux/AXP port in 1994: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)]
+ISP was Digital's own Alpha AXP CPU software simulator, and the earliest of these emulators. Jim Paradis, describing the toolchain he used to bootstrap the first Linux/AXP port in 1994: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)]
 
 <blockquote>
 ISP is an Alpha AXP CPU software simulator that runs on Ultrix, DEC OSF/1, Linux, OpenVMS, and Windows NT AXP. Only the DEC OSF/1 and Linux versions support remote debugging via gdb.
@@ -74,7 +74,7 @@ ISP is an Alpha AXP CPU software simulator that runs on Ultrix, DEC OSF/1, Linux
 
 Paradis patched ''gdb'' to allow source-level debugging of the Linux kernel running under ISP, and planned to ship the simulator's sources in the Linux/AXP developer's kit alongside the kernel and cross-tools. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)] See [[software:operating_systems#the_first_port|Operating Systems]].
 
-==== Incomplete Emulators ====
+==== Incomplete emulators ====
 
   * **SimH:** Bob Supnik's SimH includes the start of an Alpha simulator, written between 2003 and 2006 and dedicated "to the great people of the Alpha chip, systems, and software development projects; and to the memory of Peter Conklin, of the Alpha Program Office." Its system definitions file says "This is a STUB!" [(>[[https://github.com/open-simh/simh/blob/master/alpha/alpha_sys_defs.h|alpha/alpha_sys_defs.h]], Open SIMH)] The code models an EV5 CPU, its PALcode, TLB, and console, and the machine is a Personal Workstation 500au. [(>[[https://github.com/open-simh/simh/tree/master/alpha|alpha/]], Open SIMH)] Work by David T. Hittner centered "around implementing the emulated hardware required to be able to boot" to the SRM prompt, because "SRM support is required to be able to boot OpenVMS or Tru64", while "ARC support may come later, but would require VGA emulation. ARC support is required for Windows NT." [(>[[https://www.avanthar.com/healyzh/decemulation/Alpha.html|"The DEC Alpha Emulation Webpage"]], updated 20 Feb 2021)] No operating system has ever booted on it; the only later Alpha changes are opcode mnemonic corrections in June 2021 and CMake build files in 2023. [(>[[https://github.com/open-simh/simh/commits/master/alpha|alpha/ commit history]], Open SIMH)] SimH split in 2022 into Open SIMH and the original repository; both still carry the same Alpha stub.
   * **GXemul:** Anders Gavare's GXemul enabled Alpha emulation "even though no guest OSes for Alpha can run yet". NetBSD/alpha printed "its first boot messages" on an emulated AlphaBook 1 on 3 June 2006. Alpha support was removed on 3 July 2009 and revived on 2 September 2011, but never booted an operating system. [(>''HISTORY'', GXemul)]
@@ -106,7 +106,7 @@ FX!32 was not available for Linux, but its x86 interpreter was the core of EM86.
 
 ===== Conflicting Information =====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **CPU emulated by QEMU**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2023-May.mbox#L629|"Re: Bug#1036158: gcc-13: Please raise baseline for alpha to EV56"]], John Paul Adrian Glaubitz, debian-alpha, 17 May 2023: "EV56 is currently the baseline for QEMU when emulating Alpha."

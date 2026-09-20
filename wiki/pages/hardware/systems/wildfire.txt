@@ -19,9 +19,9 @@ The Wildfire systems are large 21264 SMP servers built from "quads", also called
   * Peter Rival in 2003: "RH 7.2 will install cleanly (as will RH 7.0 and SuSE 7.2 (I think))", and it was "as stable as any other Alpha system I had available to me (ES40, ES45, Miata)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L9448|"Re: linux on gs80?"]], Peter Rival, axp-list, 21 Jan 2003)]
   * In 2006, on a 32-CPU GS320, CentOS 4.3's SMP kernel "invariably stops after Freeing unused kernel memory", while kernel.org 2.6.17.8 was "close to working though - except for a lost irq4". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2006-August.mbox#L1|"CentOS on wildfire"]], Robin Humble, axp-list, 13 Aug 2006)] A typo "that undoubtedly prevents WILDFIRE support from working" was fixed in Linux 2.6.22. [(>[[https://git.kernel.org/torvalds/c/d7083174a2ca|"ALPHA: misc fixes"]], Linux 2.6.22)] No later success has been reported.
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Wildfire model names**
     * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10: "AlphaServer GS 40/80/160/320"

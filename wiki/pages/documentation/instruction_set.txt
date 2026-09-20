@@ -2,7 +2,7 @@
 
 ==== Primer ====
 
-Raymond Chen's blog series about the Alpha is an excellent (albeit Windows-focused) discussion of the instruction set.
+Raymond Chen's blog series about the Alpha is a detailed, Windows-focused discussion of the instruction set.
 
   * [[https://devblogs.microsoft.com/oldnewthing/20170807-00/?p=96766|The Alpha AXP, part 1: Initial plunge]]
   * [[https://devblogs.microsoft.com/oldnewthing/20170808-00/?p=96775|The Alpha AXP, part 2: Integer calculations]]
@@ -24,7 +24,7 @@ Raymond Chen's blog series about the Alpha is an excellent (albeit Windows-focus
 
 There were valuable comments on the blog posts, but they appear to have been lost when the blogging platform changed.
 
-==== Hello World! ====
+==== Example program ====
 
 <code asm>
 # hello.S
@@ -59,7 +59,7 @@ main:	ldgp	$gp,0($27)		# load global pointer
 
 === Integer ===
 
-There are 32 integer registers. The **$31** register holds the constant value **0**. Writes to it are ignored.
+There are 32 integer registers. The ''$31'' register holds the constant value 0. Writes to it are ignored.
 
 By convention 12 registers are for temporary values, 6 are saved across function calls, and 6 are for passing arguments to functions.
 
@@ -79,7 +79,7 @@ By convention 12 registers are for temporary values, 6 are saved across function
 
 === Floating-Point ===
 
-There are 32 floating-point registers. The **$f31** register holds the constant value **0.0**. Writes to it are ignored.
+There are 32 floating-point registers. The ''$f31'' register holds the constant value 0.0. Writes to it are ignored.
 
 By convention, 15 registers are for temporary values, 8 are saved across function calls, and 6 are for passing arguments to functions.
 
@@ -92,9 +92,9 @@ By convention, 15 registers are for temporary values, 8 are saved across functio
 | **$f22**–**$f30** | No | Temporary Registers |
 | **$f31** | | Zero Sink |
 
-==== ISA Extensions ====
+==== ISA extensions ====
 
-=== Presence Detection ===
+=== Presence detection ===
 
 To determine the presence of instruction set extensions at runtime, use the [[amask]] instruction.
 
@@ -110,7 +110,7 @@ The [[wp>DEC_Alpha#Byte-Word_Extensions_(BWX)|Byte/Word eXtensions (BWX)]] were 
 | **stb** | Store byte |
 | **stw** | Store word |
 
-=== Motion Video Instructions (MVI) ===
+=== Motion video instructions (MVI) ===
 
 [[wp>DEC_Alpha#Motion_Video_Instructions_(MVI)|Motion Video Instructions (MVI)]] were introduced in the PCA56 and are available in all subsequent implementations.
 
@@ -130,7 +130,7 @@ The [[wp>DEC_Alpha#Byte-Word_Extensions_(BWX)|Byte/Word eXtensions (BWX)]] were 
 | **unpkbl** | Unpack Bytes to Longwords |
 | **unpkbw** | Unpack Bytes to Words |
 
-=== Floating-point Instruction eXtensions (FIX) ===
+=== Floating-point instruction eXtensions (FIX) ===
 
 The [[wp>DEC_Alpha#Floating-point_Extensions_(FIX)|Floating-point Instruction eXtensions (FIX)]] were introduced in the EV6 and are available in all subsequent implementations.
 
@@ -145,7 +145,7 @@ The [[wp>DEC_Alpha#Floating-point_Extensions_(FIX)|Floating-point Instruction eX
 | **sqrtf** | Calculate square root of F_floating Formatted Value | VAX |
 | **sqrtg** | Calculate square root of G_floating Formatted Value | VAX |
 
-=== Count Instruction eXtensions (CIX) ===
+=== Count instruction eXtensions (CIX) ===
 
 The [[wp>DEC_Alpha#Count_Extensions_(CIX)|Count Instruction eXtensions (CIX)]] were introduced in the EV67 and are available in all subsequent implementations.
 

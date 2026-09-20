@@ -14,7 +14,7 @@ Specifications and reference manuals for the Alpha architecture and its software
 | {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6}} | | 1994 |
 | {{wiki:documentation:references:alpha_system_reference_manual_v7.pdf?linkonly|Alpha System Reference Manual, Version 7}} | | 1997 |
 
-==== Calling Standards and Object Files ====
+==== Calling standards and object files ====
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:documentation:references:alpha_calling_standard_rev_2.0_1990.pdf?linkonly|Alpha Calling Standard, Revision 2.0}} | | April 1990 |

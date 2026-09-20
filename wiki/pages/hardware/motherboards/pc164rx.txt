@@ -31,9 +31,9 @@ No SRM console was released for the board [(>[[https://github.com/alphalinux-org
 
 Linux supports the board as the RX164 platform (''CONFIG_ALPHA_RX164'', with Polaris support in ''core_polaris.c''), and it boots through a MILO that Jay Estabrook built for it [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L3183|"Re: RX (was RE: Kernel 2.4.17)"]], Rich Payne, axp-list, 8 Jan 2002)]. One user reported getting Red Hat 6.2 and a 2.2.19 kernel running with this MILO, but only after removing a 12 GB IDE disk and changing the video card [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L10623|"RE: RX (was RE: Kernel 2.4.17)"]], Marco Benton, axp-list, 14 Jan 2002)].
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **CPU speeds**
     * {{wiki:hardware:motherboards:pc164rx:pc164rx_product_brief.pdf?linkonly|AlphaPC 164RX Motherboard Product Brief}}: "operating at speeds of 525 or 600 MHz"

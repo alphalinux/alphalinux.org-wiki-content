@@ -62,9 +62,9 @@ Digital sold an upgrade from the [[hardware:systems:alcor|AlphaStation 600]], wh
   * Graphics cards can sit behind the onboard PCI-to-PCI bridge on this family, which early consoles and kernels did not handle: "On most boxes this isn't a problem - there are no slots behind a bridge to put a VGA into, but on UX, MIATA, and NORITAKE family, there are." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L26968|"Re: PC164UX doesnt work - anyone got details"]], Jay Estabrook, axp-list, 11 Aug 1998)]
   * With 2.6.11 kernels, the AlphaServer 800 and 1000A could hang with a DE500-BA (21143) Ethernet card "if the network cable is connected. Simply disconnect the cable" during boot. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-September.mbox#L1248|"AS1000A"]], Jay Estabrook, axp-list, 20 Sep 2005)]
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **AlphaServer 800 CPU speeds and maximum memory**
     * {{wiki:hardware:systems:alphaserver_800:alphaserver_800_technical_summary.pdf?linkonly|AlphaServer 800 Technical Summary}}, 1997, pp. 1, 3: two CPU cards, 333 and 400 MHz, and "incremental memory expansion from 32 MB to 1 GB"

@@ -1,6 +1,6 @@
 ===== Companies =====
 
-This page describes the companies that designed, built, sold, and supported Alpha hardware and software, with an emphasis on Linux. See also [[history:news_coverage|News Coverage]] for contemporary news articles.
+Alpha hardware and software were designed, built, sold, and supported by a range of companies, described below with an emphasis on Linux. See also [[history:news_coverage|News Coverage]] for contemporary news articles.
 
 ==== Digital, Compaq, and HP ====
 
@@ -32,7 +32,7 @@ In August 1999, Compaq stopped its work on 32-bit Windows NT for Alpha (see [[#m
 
 HP merged with Compaq in 2002. Alpha documentation from then on notes that "Compaq Computer Corporation is a wholly-owned subsidiary of the Hewlett-Packard Company." [(>{{wiki:software:firmware:alphaserver_gs140_v6.4_firmware_release_notes.pdf?linkonly|AlphaServer GS60/GS60E/GS140 V6.4 Firmware Release Notes}}, December 2002, p. 2)] HP released the EV7-based AlphaServer ES47, ES80, and GS1280, [(>{{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, December 2002, p. 2)] and the last Alpha firmware update, V7.3, in April 2007. [(>{{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}}, April 2007, p. 2)] It also sold the Red Hat Linux 7.2 CD for Alpha (see [[#red_hat|Red Hat]]).
 
-==== Processor Manufacturers ====
+==== Processor manufacturers ====
 
 === Mitsubishi Electric ===
 
@@ -72,7 +72,7 @@ When Compaq cancelled Windows NT on Alpha in August 1999, API was the vendor wit
 
 API NetWorks closed around the end of 2001. Microway bought its product assets and took over its warranties. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-May.mbox#L9331|"Re: Burning Alpha!"]], Maurice Hilarius, axp-list, 10 May 2002)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-August.mbox#L8635|"Re: no more alpha letter on inquirer"]], Maurice Hilarius, axp-list, 9 Aug 2002)]
 
-==== Board and System Makers ====
+==== Board and system makers ====
 
   * **DeskStation Technology** was "historically a MIPS house" that built Alpha systems with its own system logic and its own Windows NT firmware and HAL. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-February.mbox#L5967|"re: Linux on a Deskstation Raptor 3 - System?"]], Neal Crook, axp-list, 20 Feb 1996)] It designed the Ruffian, later sold as the [[hardware:motherboards:pc164ux|AlphaPC 164UX]], and hired Dean Hall in 1997 to port Linux to it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-July.mbox#L2762|"Re: Deskstation Ruffian compatibility"]], Dean Hall, axp-list, 3 Jul 1997)] The rights to the Ruffian and its ARCSBIOS firmware went to Samsung or API, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-hardware-mbox/2000-July.mbox#L32|"[Axp-hardware] Re: What happened to Deskstation?"]], Jay Estabrook, axp-hardware, 20 Jul 2000)] and DeskStation had gone out of business by 2000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-September.mbox#L3310|"Re: Dekstation Raptor Reflex"]], Ron Farrer, debian-alpha, 13 Sep 2000)] DeskStation announced its own web site at ''www.dti.com'' on the AlphaNT mail list in November 1995, describing itself as designing and manufacturing "modular high performance RISC workstations for the Windows NT market" and saying that "for the past six months, the fastest of these has been the 21164 at 300 MHZ". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1995-November.mbox#L1408|"DeskStation Technology's web site"]], Blaise Fanning, alphant, 8 Nov 1995)] Where most Alpha vendors built systems around Digital Semiconductor's EB164 reference board, "DeskStation's big plus is that Raptors are completely their own designs, down to the chipset and HAL for Windows NT", with system logic in reprogrammable EPLDs rather than the ASICs LSI Logic made for Digital, which let DeskStation ship each new Alpha processor months ahead of everyone else, at the cost of a slower memory bus than the Alcor designs. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1996-June.mbox#L2856|"DeskStation Raptor Reflex 400 MHz"]], Nebojsa Novakovic, alphant, 9 Jun 1996)] Its Alpha line ran from the Raptor 3, sold with a 275 MHz 21064A or a 266 or 300 MHz 21164, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1995-November.mbox#L138|"Re: Performance Tests"]], Gunnar Klauberg, alphant, 1 Nov 1995)] through the 400 MHz Raptor Reflex, to the dual 500 MHz EV56 Renegade, which the company was "scrambling so hard" to have ready for Siggraph in August 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1996-July.mbox#L5737|"RE: Autodesk's Commitment to AlphaNT..."]], Charles J. McCallion, alphant, 14 Jul 1996)]
   * **Aspen Systems**, of Wheat Ridge, Colorado, built boards and systems based on Digital Semiconductor designs, such as the Alpine, Timberline, and Durango (see [[hardware:motherboards:eb64plus|EB64+]] and [[hardware:motherboards:pc164|PC164]]). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L10308|"Alphas"]], Randy Perry, axp-list, 5 Nov 1996)] It announced its own dual-processor EV56 board, the Twin-Peaks, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L12328|"Re: Unidentified subject!"]], Randy Perry, axp-list, 6 Nov 1996)] and later resold the API NetWorks CS20. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L13340|"Re: 1U DUAL 833MHz Alpha"]], Tom Heibel, axp-list, 7 Nov 2000)] Its Baby-AT EV5 board, the Summit, was described in 1996 as the one board from an Alpha system vendor that was not simply Digital's full-size EB164: "even it has only one major difference to EB164 - smaller board format, otherwise it is almost identical in basic features." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1996-June.mbox#L2856|"DeskStation Raptor Reflex 400 MHz"]], Nebojsa Novakovic, alphant, 9 Jun 1996)]
@@ -99,7 +99,7 @@ Most Linux users bought Alpha hardware from resellers rather than from Digital. 
   * **Atipa Linux Solutions**, of Kansas City, which bought DCG Computers in April 2000 and kept selling and supporting Alpha systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L4918|"news item"]], Maurice Hilarius, axp-list, 5 Apr 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-December.mbox#L2318|"Re: SX164 RAM - (current) state with 512MB dimms"]], Kevin Wood, axp-list, 4 Dec 2000)]
   * **Island Computers US Corp**, of Savannah, Georgia, which advertised complete Alpha systems for around $900 in 2001. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L8236|"Re: API/Compaq platform approach vs. Sun"]], Island Computers US Corp, axp-list, 6 Apr 2001)]
 
-==== Linux Distributions ====
+==== Linux distributions ====
 
 === Red Hat ===
 
@@ -128,7 +128,7 @@ TurboLinux demonstrated an Alpha port in 1999 and 2000, [(>[[https://github.com/
   * **Linuxcare** employed David Huggins-Daines, maintainer of aboot and Debian's Alpha boot floppies, who announced aboot releases from a Linuxcare address, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-January.mbox#L6265|"Re: Freeze Strategy"]], David Huggins-Daines, debian-alpha, 22 Jan 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-June.mbox#L20531|"[ANNOUNCE] aboot 0.7a"]], David Huggins-Daines, axp-list, 27 Jun 2000)] and Martin K. Petersen, its Principal Linux Consultant, who did the Alpha work on SGI's XFS installer. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-August.mbox#L423|"Alpha XFS installer update disk"]], Martin K. Petersen, axp-list, 2 Aug 2001)]
   * **SGI** published an unsupported XFS installer for Red Hat 7.1 on Alpha in July 2001. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L38559|"SGI XFS Red Hat 7.1 Installer for Alpha"]], Martin K. Petersen, axp-list, 30 Jul 2001)]
 
-==== Software Vendors ====
+==== Software vendors ====
 
 === Microsoft ===
 
@@ -136,7 +136,7 @@ Windows NT ran on Alpha systems with the [[software:firmware:arc|ARC or AlphaBIO
 
 Microsoft's commitment had been doubted a year earlier, when the renewal form for MSDN Universal subscriptions said that "Development tools are Windows-based versions for the Intel platform only. Macintosh, RISC, and all other versions must be acquired separately", and MSDN customer service confirmed the wording. Microsoft's Tod Nielsen answered a subscriber directly that it was "a mistake in the renewal form that's getting fixed - Alpha tools are included in MSDN Universal." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1998-October.mbox#L777|"Fw: MSDN drops Alpha development tools"]], Paul Brophy, alphant, 27 Oct 1998)] The Alpha release of Visual C++ 6.0 followed the x86 one by months, arriving in the fourth quarter of 1998, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1998-October.mbox#L291|"RE: MSVC++ 6.0 Alpha"]], Aaron Sakovich, alphant, 27 Oct 1998)] and the MSDN download manager, which subscribers needed to download anything at all, was never ported: "The Download Manager is an x86 application. Currently there are no plans for an alpha version. The only way to download to an alpha is to download from an x86 machine and then copy the file to the alpha machine through a network." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1998-November.mbox#L2451|"No Alpha MSDN Download manager"]], Rich Peters, alphant, 16 Nov 1998)] Aaron Sakovich ran an "Open Letter to Microsoft" for signature on www.alphant.com from November 1998. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1998-November.mbox#L116|"Alpha NT art gallery"]], Aaron Sakovich, alphant, 2 Nov 1998)]
 
-=== Application and Tool Vendors ===
+=== Application and tool vendors ===
 
   * **Applix** ported Applixware to Linux/Alpha, and shipped it in December 1998. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L30954|"Re: Applix? Port? (was re: BUG...)"]], Eric Ding, axp-list, 12 Aug 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L38148|"Re: Applixware for Linux/Alpha"]], Applixware-for-Linux Sales, axp-list, 16 Dec 1998)]
   * **NAG** sold its Fortran 90 compiler for Alpha/Linux. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L24907|"Re: Compaq and Linux"]], David Singleton, axp-list, 10 Mar 1999)]
@@ -162,9 +162,9 @@ Microsoft's commitment had been doubted a year earlier, when the renewal form fo
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_upgrade.pdf?linkonly|HP AlphaServer ES47 Upgrade}} | EK-ES470-UP.C01 | June 2004 |
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_drawer_upgrade.pdf?linkonly|HP AlphaServer ES47/ES80/GS1280 I/O Drawer Upgrade}} | EK-EGIOD-UP.B01 | September 2003 |
 
-==== Conflicting Information ====
+==== Conflicting information ====
 
-The following sources disagree with each other or with this page. They are listed here for further investigation.
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Who owned Alpha Processor, Inc.**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L12658|"RE: Bye-bye our API...Drove my Alpha to the..."]], Maurice Hilarius, axp-list, 15 Jan 2002, quotes Mike Foley: "Remember, API was a Samsung company, not the other way around."

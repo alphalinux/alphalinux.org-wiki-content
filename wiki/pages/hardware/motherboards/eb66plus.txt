@@ -26,7 +26,7 @@ The EB66+ is supported by the ''CONFIG_ALPHA_EB66P'' kernel option, and the orig
 
 The EB66+ uses the interrupt handling design of the [[hardware:motherboards:PC64|AlphaPC64]] (Cabriolet); Richard Henderson described it as appearing otherwise identical to the PC64. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-February.mbox#L6964|"Re: Weird Lockups II"]], Richard Henderson, debian-alpha, 20 Feb 2000)]
 
-==== Known Issues ====
+==== Known issues ====
 
   * Kernels before 1.3.71 defined the ''HZ'' timer constant incorrectly for the EB66 and EB66+. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L1126|"axp-diff-1.3.71"]], David Mosberger-Tang, axp-list, 4 Mar 1996)]
 
