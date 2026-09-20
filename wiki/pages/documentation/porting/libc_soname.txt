@@ -179,6 +179,6 @@ In order to catch problems that this incompatibility would cause, the sonames of
 
 Thirty years on, the ''.1'' is still there. Nothing about current Alpha glibc requires it; it is a fossil of a 1997 snapshot ABI, kept because changing it back would break every Alpha binary ever built.
 
-See [[:community#mailing_lists|Mailing Lists]] for archive locations.
+See [[history:community#mailing_lists|Mailing Lists]] for archive locations.
 
 {{tag>documentation porting}}

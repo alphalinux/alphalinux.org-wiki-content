@@ -630,6 +630,6 @@ The steps below combine the tools described above.
   * Raymond Chen, [[https://devblogs.microsoft.com/oldnewthing/20170815-00/?p=96816|"The Alpha AXP, part 7: Memory access, loading unaligned data"]] and [[https://devblogs.microsoft.com/oldnewthing/20170816-00/?p=96825|"part 8: Memory access, storing bytes and words and unaligned data"]].
   * Richard Henderson, "Re: Unaligned traps on kernel startup", axp-list, 31 August 1998, on the compiler merging two byte loads in ''msdos_partition()'' and the ''__attribute__((packed))'' fix.
 
-See [[:community#mailing_lists|Mailing Lists]] for archive locations.
+See [[history:community#mailing_lists|Mailing Lists]] for archive locations.
 
 {{tag>documentation porting}}

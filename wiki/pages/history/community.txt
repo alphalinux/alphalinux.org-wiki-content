@@ -1,0 +1,88 @@
+===== Community History =====
+
+The Alpha Linux community's mailing lists, newsgroups, and distributions, most of them long gone. See [[:community|Community]] for the lists, channels, and distributions still in use, and [[history:alphalinux.org|History of alphalinux.org]] for the site that hosted several of the lists below.
+
+==== Mailing lists ====
+
+The first Alpha Linux list of all was Digital's own. Jim Paradis announced **linux-axp@amt.tay1.dec.com** in November 1994, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)] and moved it to majordomo as **alpha-linux** in January 1995, replacing "the old, unreliable, hand-maintained list". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-January.mbox#L2126|"ANNOUNCEMENT: Linux/Alpha Developers' Kit!"]], Jim Paradis, comp.os.linux.announce, 23 Jan 1995)] No archive of it is known to survive.
+
+Several once popular Alpha Linux mailing lists are no longer hosted anywhere. The largest was **axp-list**, run by Red Hat from 22 November 1995 until its last message in February 2022, alongside the kernel-focused **axp-kernel-list**. Separate lists ran on alphalinux.org: **axp-hardware**, **axp-software**, **milo-list** (MILO development), and **high_perf** (High Performance Alpha Linux). Mandrake ran **cooker-axp** for the Alpha port of its Cooker development branch.
+
+Mirrors of all of these, reconstructed from Pipermail and MHonArc pages, Gmane, and Wayback Machine captures, are preserved at [[https://github.com/alphalinux-org/mailing-list-archives|alphalinux-org/mailing-list-archives]] on GitHub. The same repository holds a complete mbox archive of the Debian **debian-alpha** list, which lists.debian.org serves only as per-message HTML.
+
+^ List ^ Host ^ Coverage ^ Messages ^
+| axp-list | Red Hat | November 1995 to February 2022 | 61,178 |
+| axp-kernel-list | Red Hat | April 2002 to September 2003 | 137 |
+| axp-hardware | alphalinux.org | December 1999 to September 2001 | 249 |
+| axp-software | alphalinux.org | December 1999 to September 2001 | 116 |
+| high_perf | alphalinux.org | November 1998 to November 2001 | 152 |
+| milo-list | alphalinux.org | April 1999 to November 2001 | 89 |
+| cooker-axp | Mandrake | July 2000 to November 2001 | 110 |
+| debian-alpha | Debian | November 1995 to present | 19,902 |
+
+axp-kernel-list, for "Alpha kernel issues", was running by 3 August 1998, when it appeared in Red Hat's periodic list of its mailing lists. [(>[[https://mail.gnome.org/archives/gtk-list/1998-August/msg00060.html|"Mailing List Lists"]], listmaster@redhat.com, gtk-list, 3 Aug 1998)] No archive of it from before April 2002 is known to survive. Headers in the surviving messages show it was by then a private Mailman list, and Red Hat's copy is gone.
+
+=== Other operating systems ===
+
+While not pertaining to Linux, Alpha hardware and porting information may be found in the [[https://lists.freebsd.org/pipermail/freebsd-alpha/|FreeBSD Alpha]], [[https://mail-index.netbsd.org/port-alpha/|NetBSD Alpha]], and [[http://marc.info/?l=openbsd-alpha|OpenBSD Alpha]] mailing lists. These three lists are mirrored in the same [[https://github.com/alphalinux-org/mailing-list-archives|archive repository]], assembled from marc.info, mail-index.netbsd.org, Gmane and the FreeBSD Pipermail archive. They are the best surviving record of the parts of Alpha that Linux shares with the BSDs: PALcode and console behavior, chipset errata, unaligned access and floating-point trap handling.
+
+^ List ^ Project ^ Coverage ^
+| freebsd-alpha | FreeBSD | January 1998 to December 2010 |
+| port-alpha | NetBSD | January 1996 to present |
+| alpha (openbsd-alpha) | OpenBSD | September 2001 to present |
+
+FreeBSD retired its Alpha port after the 6.x series and closed the list at the end of 2010. The NetBSD and OpenBSD lists are still active.
+
+**alphant**, the Windows NT on Alpha mail list, was not a Linux list, but it covered the same hardware, and Digital's own engineers answered questions on it much as they did on axp-list. Aaron Sakovich started it in September 1995 on majordomo at Net Results, an Internet provider in Huntsville, Alabama, alongside the Alpha NT file archive and FAQ he ran there: "This mail list is devoted to discussions on Digital's Alpha systems running Microsoft's Windows NT operating system." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1995-September.mbox#L29|"Welcome message & list information"]], Aaron Sakovich, alphant, 18 Sep 1995)] Net Results moved it and its other lists off its mail hub and onto a dedicated list machine, "a DECStation 5000, running Ultrix, with 128Mb of memory", in February 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1996-February.mbox#L7306|"ADMINISTRIVIA - possible disruption in mail list"]], Aaron Sakovich, alphant, 22 Feb 1996)] By late 1998 the list was running on a LISTSERV at Allen-Bradley as **alphant@kludge.mke.ra.rockwell.com**, and on 28 October 1998 Peter Lizon moved it to his own domain: "The new address is alphant@alphant.com". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1998-October.mbox#L3074|"Moving over?"]], Dan Schwartz, alphant, 29 Oct 1998)] It later moved again, to a Sunbelt Software Lyris server. Every host is gone, and only what the Wayback Machine captured survives.
+
+^ List ^ Host ^ Coverage ^ Messages ^
+| alphant | Net Results, Allen-Bradley, Lizon Corporation | September 1995 to July 1996, October 1998 to April 2000 | 2,225 |
+
+The surviving archive has two pieces, separated by the move to Allen-Bradley: 1,949 messages from September 1995 to July 1996, from a Hypermail archive mirrored at TU Delft, and 276 from October 1998 to April 2000, from the MHonArc archive on www.alphant.com. Nothing of the Rockwell era, and nothing after April 2000, is known to survive.
+
+==== Newsgroups ====
+
+A few newsgroups carried Alpha discussion:
+
+  * [[https://groups.google.com/group/comp.os.linux.alpha/topics|comp.os.linux.alpha]] for discussion of running Linux on Alpha
+  * [[https://groups.google.com/group/comp.sys.dec/topics|comp.sys.dec]] for discussion about DEC Computers
+  * [[https://groups.google.com/group/linux.debian.ports.alpha|linux.debian.ports.alpha]], a gateway to the debian-alpha mailing list, for discussion of running Debian on Alpha
+
+Digital ran two moderated groups of its own, **biz.digital.announce** for press releases and fact sheets and **biz.digital.articles** for the //Customer Update// product announcements. Both carried the company's own descriptions of Alpha hardware as it shipped, and both are useful for dating and specifying machines that the surviving manuals do not cover. Neither ran for as long as the archives suggest: the last real //Customer Update// article is from December 1995 and the last press release from April 1997, and everything the archives hold after that is spam.
+
+Announcements of Alpha ports, kits and distributions were posted to **comp.os.linux.announce**, which is where Digital's early Linux/Alpha work was made public.
+
+comp.os.linux.alpha was created in 1997 on David Mosberger-Tang's proposal. His Request For Discussion, posted on 26 April 1997, argued that Linux/Alpha discussion was scattered across Red Hat's mailing list and groups such as comp.sys.dec, and measured the interest by the list's traffic: in the 22 days from 1 to 22 April 1997, axp-list carried over 950 messages from more than 200 different people. A newsgroup would give "a focused and vendor-neutral place for discussing issues related to Linux on Alpha". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1997-April.mbox#L4252|"RFD: comp.os.linux.alpha"]], David Mosberger, comp.os.linux.announce, 26 Apr 1997)] Voting closed on 30 June 1997 and the group passed 687 to 9, with the newsgroups line "Linux on Digital Alpha machines." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1997-July.mbox#L1|"RESULT: comp.os.linux.alpha passes 687:9"]], David Bostwick, comp.os.linux.announce, 2 Jul 1997)] The vote itself was run by a neutral votetaker, David Bostwick of the Usenet Volunteer Votetakers, who posted the first call for votes on 9 June 1997 and the last on 19 June, both cross-posted to comp.os.linux.misc and comp.sys.dec as well as the newgroup groups. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1997-June.mbox#L169|"CFV: comp.os.linux.alpha"]], David Bostwick, comp.os.linux.announce, 9 Jun 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1997-June.mbox#L2373|"2nd CFV: comp.os.linux.alpha"]], David Bostwick, comp.os.linux.announce, 19 Jun 1997)]
+
+Local Linux user groups were demonstrating Alpha hardware before the newsgroup existed. The Washington DC group met on 17 January 1996 to watch Bob Segrest, a Digital support engineer "for exotic applications (such as Linux)", show "how to put together a smoking-fast 275 MHz Alpha system from stock PC components" and discuss the Alpha Linux distributions then available. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1996-January.mbox#L19183|"LOCAL: (Wash. DC Linux user group) Jan 17 meeting: Alpha Linux Demo"]], Przemek Klosowski, comp.os.linux.announce, January 1996)] The Toronto group met on 29 April 1997 for "Linux on the DEC Alpha", presented by Drew Sullivan of Systems Software Consulting, whose announcement noted that "current Linux kernel development by Linus Torvalds is done entirely on the DEC Alpha platform". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1997-April.mbox#L3015|"LOCAL: Linux on the DEC Alpha (Toronto)"]], Laszlo Herczeg, comp.os.linux.announce, 25 Apr 1997)]
+
+Google Groups stopped carrying new Usenet posts in February 2024, so these links serve historic content only. Complete mbox archives of all seven groups, built from the Internet Archive's ''usenet-comp'' and ''usenet-biz'' collections, are kept alongside the mailing lists in [[https://github.com/alphalinux-org/mailing-list-archives|alphalinux-org/mailing-list-archives]].
+
+^ Newsgroup ^ Coverage ^ Messages ^
+| comp.os.linux.alpha | August 1997 to May 2013 | 29,127 |
+| comp.sys.dec | April 1990 to May 2013 | 108,195 |
+| comp.sys.vms | January 1990 to September 2004 | 876 |
+| comp.unix.tru64 | April 2000 to March 2013 | 14,500 |
+| comp.os.linux.announce | April 1993 to May 2013 | 13,052 |
+| biz.digital.announce | May 1994 to May 2005 | 750 |
+| biz.digital.articles | April 1994 to April 2004 | 771 |
+
+While not pertaining to Linux or Alpha, hardware information may be found in the [[https://groups.google.com/group/comp.sys.vms/topics|comp.sys.vms]] and [[https://groups.google.com/group/comp.unix.tru64/topics|comp.unix.tru64]] newsgroups.
+
+==== Distributions ====
+
+Many Linux distributions once supported Alpha, but do not any longer or have been discontinued. The following lists distributions that supported Alpha in the past and the last Alpha-supporting release. Dates and versions are taken from the mailing list archives described above.
+
+^ Distribution ^ Last Alpha release ^ Notes ^
+| BLADE | 0.3 | "Basic Linux/Alpha Distribution Eyesore", Digital's own Linux/Alpha distribution, largely the work of Jim Paradis. Version 0.1, released on 1 July 1995, was the first Linux/Alpha that could be installed without a second machine, and was meant as a stopgap until the established distributions were ported. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-July.mbox#L10349|"Linux/Alpha installable kit now available!"]], Jim Paradis, comp.os.linux.announce, 1 Jul 1995)] Version 0.2, on 9 August 1995, added TCP/IP networking and the first supported release of [[software:boot_loaders:milo|MILO]]. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-August.mbox#L4599|"BLADE 0.2 now available! (Linux for Alpha)"]], Jim Paradis, comp.os.linux.announce, 9 Aug 1995)] Superseded during 1996 by Red Hat's Alpha release. |
+| Craftworks Linux/AXP | 2.2 | Commercial distribution sold on CD, widely used on Alpha during 1996 and 1997. |
+| Red Hat Linux | 7.2 | |
+| SuSE Linux | 7.1 | 7.1 was the last shipping Alpha product. Former members of the SuSE Alpha team released an unofficial **SuSE Linux 8.1 Alpha Edition** in their own time, announced on 13 May 2003. |
+| Mandrake Linux | 7.1 | Developed in the open on the cooker-axp list. A 7.2 release for Alpha was asked about in November 2000 but never appeared. |
+| TurboLinux | 6.0 | Alpha edition shipped in July 2000. |
+| AlphaCore | 3 | Unofficial port of Fedora Core to Alpha. Version 1.0, named "Svetlana" and based on Fedora Core 3, was released on 8 May 2005 by Balint Cristian and Sergey Tikhonov. |
+| CentOS | 4 | The Alpha tree was declared end of life by its maintainer, Pasi Pirhonen, in August 2006. Packages continued to be rebuilt informally through RHEL 4 Update 4. The later CentOS 4 point releases on vault.centos.org carry an unchanged copy of this tree. |
+
+A Slackware port to Alpha was attempted more than once, most seriously in 2001, but was never completed and had been abandoned by 2004.
+
+{{tag>history}}

@@ -409,7 +409,7 @@ As noted above, no conversion instruction exists between the VAX and IEEE famili
 
 === Further mailing list reading ===
 
-All on ''axp-list''. See [[:community#mailing_lists|Mailing Lists]] for archive locations.
+All on ''axp-list''. See [[history:community#mailing_lists|Mailing Lists]] for archive locations.
 
   * Richard Henderson, "Re: Ieee on linux/alpha", 9 December 1997, on ''ieee_set_fp_control()''.
   * Jim Paradis, "SIGFPE", 9 April 1997, and Jerry Feldman, "Re: Ieee on linux/alpha", 10 December 1997, on trap shadows and the ''/S'' qualifier.
