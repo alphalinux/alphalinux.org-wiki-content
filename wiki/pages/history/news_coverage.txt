@@ -309,6 +309,7 @@
 ^ Source ^ Date ^ Title ^
 | The Inquirer | 2004-07-04 | [[https://web.archive.org/web/20050323145932/http://www.theinquirer.net/?article=17000|How HP committed EV79 Alphacide]] |
 | The Inquirer | 2004-07-24 | [[https://web.archive.org/web/20041013025108/http://www.theinquirer.net/?article=17406|Alpha EV7z finally arrives]] |
+| The Register | 2004-08-16 | [[https://www.theregister.com/on-prem/2004/08/16/hp-unveils-unix-roadmaps/817032|HP unveils Unix roadmaps]] |
 | The Inquirer | 2004-08-19 | [[https://web.archive.org/web/20050416112608/http://www.theinquirer.net/?article=17954|Last Alpha chip to arrive on Monday]] |
 
 ===== 2005 =====
