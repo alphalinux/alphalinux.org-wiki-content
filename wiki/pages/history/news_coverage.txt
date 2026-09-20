@@ -250,6 +250,7 @@
 | Design News | 2001-02-26 | [[https://www.designnews.com/motion-control/working-outside-the-box|Working outside the box]] |
 | The Register | 2001-03-02 | [[https://www.theregister.com/on-prem/2001/03/02/compaq-alphaserver-wins-tpc-bragging-rights/1024018|Compaq AlphaServer wins TPC Bragging Rights]] |
 | Design News | 2001-05-21 | [[https://www.designnews.com/industry/foreign-markets-challenge-u-s-engineers|Foreign markets challenge U.S. engineers]] |
+| The Inquirer | 2001-06-22 | [[https://web.archive.org/web/20050906204925/http://www.theinquirer.net/?article=109|Compaq Alpha team for sale?]] |
 | The Inquirer | 2001-06-22 | [[https://web.archive.org/web/20020209211818/http://213.219.40.69/22060114.htm|Alpha up for grabs]] |
 | The Inquirer | 2001-06-22 | [[https://web.archive.org/web/20030112010953/http://www.theinquirer.net/?article=121|Alpha processor: a little marvel]] |
 | The Register | 2001-06-25 | [[https://www.theregister.com/on-prem/2001/06/25/farewell-then-alpha-hello-compaq-the-box-shifter/1111748|Farewell then, Alpha - Hello, Compaq the Box Shifter]] |
@@ -259,16 +260,20 @@
 | LA Times | 2001-06-26 | [[https://www.latimes.com/archives/la-xpm-2001-jun-26-fi-14745-story.html|Compaq to Phase Out Chips Line]] |
 | EE Times | 2001-06-26 | [[https://www.eetimes.com/api-networks-sees-life-after-apparent-death-of-alpha-processor/|API NetWorks sees life after apparent death of Alpha processor]] |
 | NY Times | 2001-06-26 | [[https://www.nytimes.com/2001/06/26/business/technology-compaq-plans-to-phase-out-a-widely-used-computer-chip.html|Compaq Plans to Phase Out a Widely Used Computer Chip]] |
+| The Inquirer | 2001-06-30 | [[https://web.archive.org/web/20050419070816/http://www.theinquirer.net/?article=197|Intel and Alpha convergence revealed]] |
 | The Register | 2001-07-23 | [[https://www.theregister.com/on-prem/2001/07/23/tru64-tweaks-come-with-intro-of-1ghz-alpha/1562356|Tru64 tweaks come with intro of 1GHz Alpha]] |
 | Linux Journal | 2001-08 | [[https://www.linuxjournal.com/article/4756|Kernel Tuning Gives 40% Gains]] |
 | The Inquirer | 2001-08-06 | [[https://web.archive.org/web/20010808092922/http://www.theinquirer.net/06080116.htm|Itanic will use Alpha EV8, SMT features]] |
 | The Register | 2001-10-06 | [[https://www.theregister.com/on-prem/2001/10/16/compaq-on-speed-with-1ghz-64-bit-alpha-boxen/420686|Compaq on speed with 1GHz 64-bit Alpha boxen]] |
+| The Inquirer | 2001-11-25 | [[https://web.archive.org/web/20050427202913/http://www.theinquirer.net/?article=1692|Compaq's Alpha Marvel a Ramboosta]] |
 
 ===== 2002 =====
 
 ^ Source ^ Date ^ Title ^
+| The Inquirer | 2002-01-03 | [[https://web.archive.org/web/20050321193822/http://www.theinquirer.net/?article=2081|Compaq's Curly gets nice Alpha makeover]] |
 | The Register | 2002-02-23 | [[https://www.theregister.com/on-prem/2002/02/22/compaq-pumps-up-alphaserver-4-way-benchmarks/512526|Compaq pumps up AlphaServer 4-way benchmarks]] |
 | CNET | 2002-02-28 | [[https://www.cnet.com/tech/tech-industry/promoter-of-storied-alpha-to-shut-doors/|Promoter of storied Alpha to shut doors]] |
+| The Inquirer | 2002-03-04 | [[https://web.archive.org/web/20050321193349/http://www.theinquirer.net/?article=2719|Alpha-Itanium CPUs collide]] |
 | The Inquirer | 2002-04-21 | [[https://web.archive.org/web/20030109064320/http://www.theinquirer.net/?article=3313|The good Compaq news – Marvel....]] |
 | The Inquirer | 2002-04-22 | [[https://web.archive.org/web/20020620235014/http://www.theinquirer.net/23040211.htm|64P EV7 Marvels on way]] |
 | CBS News | 2002-04-30 | [[https://www.cbsnews.com/news/compaq-acquisition-approved/|Compaq Acquisition Approved]] |
@@ -278,7 +283,8 @@
 | The Register | 2002-08-06 | [[https://www.theregister.com/on-prem/2002/08/06/hp-refreshes-midrange-pa-alpha-servers/274868|HP refreshes midrange PA, Alpha servers]] |
 | The Inquirer | 2002-08-07 | [[https://web.archive.org/web/20041019044313/http://www.theinquirer.net/?article=4831|Alpha upgrade details Burtoned]] |
 | The Inquirer | 2002-08-07 | [[https://web.archive.org/web/20020809065039/http://www.theinquirer.net/?article=4842|Samsung revisits Alpha processor]] |
-| The Inquirer | 2002-08-09 | [[http://www.theinquirer.net/en/inquirer/news/2002/08/09/microway-says-no-more-samsung-alphas|Microway says "no more Samsung Alphas" (dead link)]] |
+| The Inquirer | 2002-08-09 | [[https://www.theinquirer.net/inquirer/news/1036700/microway-says-no-more-samsung-alphas|Microway says "no more Samsung Alphas" (dead link)]] |
+| The Inquirer | 2002-09-04 | [[https://web.archive.org/web/20050324012815/http://www.theinquirer.net/?article=5256|HP aligns PA-RISC, Alpha days of death]] |
 
 ===== 2003 =====
 
@@ -286,10 +292,24 @@
 | The Inquirer | 2003-01-05 | [[https://web.archive.org/web/20030107075800/http://www.theinquirer.net/?article=7034|HP suppressing Alpha Marvel benchmarks in favour of Intel Itanic]] |
 | The Inquirer | 2003-01-06 | [[https://web.archive.org/web/20030109065042/http://www.theinquirer.net/?article=7045|Alpha Marvel thrashes HP Superdome]] |
 | The Inquirer | 2003-01-12 | [[https://web.archive.org/web/20051029124416/http://www.theinquirer.net/?article=7161|HP's Alpha Marvel arrives on Tuesday]] |
+| The Inquirer | 2003-01-18 | [[https://web.archive.org/web/20050301120556/http://www.theinquirer.net/?article=7278|HP's Marvel AlphaServers ready to roll]] |
+| The Inquirer | 2003-01-20 | [[https://web.archive.org/web/20050324013007/http://www.theinquirer.net/?article=7297|HP's new Alpha Marvels revealed]] |
+| Rambus | 2003-01-20 | [[https://web.archive.org/web/20050324041540/http://www.rambus.com/news/pressrelease.cfm?id=80|Rambus RDRAM Memory Interface Ships In Award-Winning HP AlphaServer Systems]] |
 | The Register | 2003-01-21 | [[https://www.theregister.com/on-prem/2003/01/21/ev7-alphaservers-unleashed-as-chip-line-heads-into-sunset/1414298|EV7 AlphaServers unleashed as chip line heads into sunset]] |
 | CNET | 2003-04-08 | [[https://web.archive.org/web/20040406163520/http://news.com.com:80/2008-1082_3-995885.html|AMD's Opteron aspirations]] |
 | CNET | 2003-07-02 | [[https://web.archive.org/web/20041026014454/http://news.com.com:80/2100-1006_3-1023146.html|Intel gets more key Alpha alums]] |
+| The Inquirer | 2003-10-10 | [[https://web.archive.org/web/20041225074408/http://www.theinquirer.net/?article=12035|Alpha chip – is the EV79 a dead duck?]] |
 | The Register | 2003-10-20 | [[https://www.theregister.com/on-prem/2003/10/20/hp-unveils-the-last-big-alpha-box/751714|HP unveils the last, big Alpha box]] |
+| The Inquirer | 2003-10-20 | [[https://web.archive.org/web/20041227183341/http://www.theinquirer.net/?article=12220|HPQ fails to deliver Alpha EV79, HP/UX delayed]] |
+| The Inquirer | 2003-10-26 | [[https://web.archive.org/web/20050227014628/http://www.theinquirer.net/?article=12333|HP confirms Alpha EV79 dead, and Superdome 128 Itanic delayed]] |
+| The Inquirer | 2003-10-27 | [[https://web.archive.org/web/20050324012851/http://www.theinquirer.net/?article=12351|HP blames IBM Micro for Alpha EV79 death]] |
+
+===== 2004 =====
+
+^ Source ^ Date ^ Title ^
+| The Inquirer | 2004-07-04 | [[https://web.archive.org/web/20050323145932/http://www.theinquirer.net/?article=17000|How HP committed EV79 Alphacide]] |
+| The Inquirer | 2004-07-24 | [[https://web.archive.org/web/20041013025108/http://www.theinquirer.net/?article=17406|Alpha EV7z finally arrives]] |
+| The Inquirer | 2004-08-19 | [[https://web.archive.org/web/20050416112608/http://www.theinquirer.net/?article=17954|Last Alpha chip to arrive on Monday]] |
 
 ===== 2005 =====
 
