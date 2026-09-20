@@ -37,6 +37,13 @@ While not pertaining to Linux, Alpha hardware and porting information may be fou
 
 FreeBSD retired its Alpha port after the 6.x series and closed the list at the end of 2010. The NetBSD and OpenBSD lists are still active.
 
+**alphant**, the Windows NT on Alpha mail list, was not a Linux list, but it covered the same hardware, and Digital's own engineers answered questions on it much as they did on axp-list. Aaron Sakovich started it in September 1995 on majordomo at Net Results, an Internet provider in Huntsville, Alabama, alongside the Alpha NT file archive and FAQ he ran there: "This mail list is devoted to discussions on Digital's Alpha systems running Microsoft's Windows NT operating system." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1995-September.mbox#L29|"Welcome message & list information"]], Aaron Sakovich, alphant, 18 Sep 1995)] Net Results moved it and its other lists off its mail hub and onto a dedicated list machine, "a DECStation 5000, running Ultrix, with 128Mb of memory", in February 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1996-February.mbox#L7306|"ADMINISTRIVIA - possible disruption in mail list"]], Aaron Sakovich, alphant, 22 Feb 1996)] By late 1998 the list was running on a LISTSERV at Allen-Bradley as **alphant@kludge.mke.ra.rockwell.com**, and on 28 October 1998 Peter Lizon moved it to his own domain: "The new address is alphant@alphant.com". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/alphant-mbox/1998-October.mbox#L3074|"Moving over?"]], Dan Schwartz, alphant, 29 Oct 1998)] It later moved again, to a Sunbelt Software Lyris server. Every host is gone, and only what the Wayback Machine captured survives.
+
+^ List ^ Host ^ Coverage ^ Messages ^
+| alphant | Net Results, Allen-Bradley, Lizon Corporation | September 1995 to July 1996, October 1998 to April 2000 | 2,225 |
+
+The surviving archive has two pieces, separated by the move to Allen-Bradley: 1,949 messages from September 1995 to July 1996, from a Hypermail archive mirrored at TU Delft, and 276 from October 1998 to April 2000, from the MHonArc archive on www.alphant.com. Nothing of the Rockwell era, and nothing after April 2000, is known to survive.
+
 ==== IRC ====
 
 A general Alpha discussion channel exists at **#alpha** on [[https://libera.chat/|Libera]]. Also, a Gentoo oriented channel exists at **#gentoo-alpha**, also on Libera.
