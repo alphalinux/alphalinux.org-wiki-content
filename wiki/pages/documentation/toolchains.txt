@@ -1,0 +1,275 @@
+===== Toolchains =====
+
+Two C compilers mattered on Alpha/Linux. **GCC** built the kernel, the C library and every distribution, and is the only one still usable today. **Compaq C** (''ccc'') was the commercial compiler Digital wrote for its own operating systems, ported to Linux in 1999 and given away for non-commercial use. It was faster on floating-point code, it could not build a distribution, and it is gone.
+
+This page covers both, plus the Alpha-specific parts of the GNU toolchain that surprise people: processor selection, the ''-m'' options that have no counterpart on other architectures, and the GOT limit that produced the most common link failure of the early years.
+
+==== GCC ====
+
+=== History ===
+
+The port began on a cross compiler. Jim Paradis' September 1994 progress report describes ''gcc'' 2.5.8 configured for ''alpha-linux'' on a DEC 3000 running DEC OSF/1, with a patched ''gdb'' driving the kernel under a simulator. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-September.mbox#L14204|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 12 Sep 1994)] See [[software:operating_systems]] for that era.
+
+By 1996 and 1997 the native compiler was ''gcc'' 2.7.2.x as shipped by Red Hat 4.x. This was the ECOFF to ELF transition: a stock Digital UNIX ''gcc'' 2.7.2.1 could still build a 2.0.x kernel, but not a 2.1.x one, because the newer kernels were ELF and Digital UNIX was ECOFF. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-February.mbox#L16373|"Re: cross-compile gcc"]], Jim Nance, axp-list, 13 Feb 1997)]
+
+The egcs fork was adopted early on Alpha, because the Alpha back end was moving fast and egcs was where the work happened. The transition was not painless. In January 1999 Christopher Chimelis traced a Debian-wide breakage to egcs inserting ''%%__register_frame_info%%'' references into binary startup code that were absent from glibc on other Alpha installations, which made Debian-built binaries unusable on Red Hat systems and could leave a half-upgraded Debian system with unusable packages: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-January.mbox#L2657|"PLEASE READ: egcs issues"]], Christopher C Chimelis, debian-alpha, 28 Jan 1999)]
+
+<blockquote>
+Our current version of egcs has a problem with the __register_frame_info stuff, just like the i386 did. [...] In a tiny nutshell, egcs is inserting certain symbols (in fact a whole table) into the startup routine of binaries that are not present in glibc's on some other Alpha installations (namely RedHat), making the binaries unusable on those systems.
+</blockquote>
+
+After the egcs and GCC lines merged, ''gcc'' 2.95 was a marked improvement on Alpha, and by 2003 the gap to the commercial compiler had closed for integer code. See [[#how_much_faster_was_ccc|How much faster was ccc]].
+
+Richard Henderson maintained the Alpha back end and the Alpha half of binutils through the period when all of this was being fixed, and most of the authoritative answers quoted on this wiki are his.
+
+=== Selecting a processor ===
+
+GCC's default target is the architecture baseline, so distribution binaries run on a 21064. Anything newer has to be asked for. Nikita Schmidt's 1997 summary is still the clearest statement of what the ''-mcpu'' values buy you: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1997-December.mbox#L2007|"Re: :( (about alphaev*)"]], Nikita Schmidt, debian-alpha, 6 Dec 1997)]
+
+<blockquote>
+Ev5 is 21164/21164A, its main difference from ev4 (21066[A], 21064[A] - alpha-*) from the code generation point of view is quadruple instruction issue as opposed to dual issue, which makes instruction scheduling [...] slightly different. [...] Code compiled for ev5 should work on ev4.
+
+Ev56 is basically same as ev5, except that it features new instructions, word and byte load/stores. Thus the code compiled for ev56 won't work on ev4/ev5.
+</blockquote>
+
+That is the whole of it: ''-mcpu=ev5'' and below is a scheduling choice and stays compatible, while ''-mcpu=ev56'' and above changes the instructions emitted and does not.
+
+^ ''-mcpu'' ^ Processors ^ Adds ^
+| ''ev4'', ''ev45'' | 21064, 21064A, 21066, 21068 | baseline |
+| ''ev5'' | 21164 | scheduling only |
+| ''ev56'' | 21164A | BWX |
+| ''pca56'' | 21164PC | BWX, MVI |
+| ''ev6'' | 21264 | BWX, CIX, MVI, FIX |
+| ''ev67'', ''ev68'' | 21264A and later | as EV6 |
+
+''-mtune='' takes the same values and changes only instruction scheduling, never the instruction set. The numeric names (''21064'', ''21164a'', ''21264'' and so on) are accepted as synonyms and appear throughout the archives.
+
+Two traps:
+
+  * **The extension may exist and still be off.** The ARC and SRM consoles on some machines leave BWX disabled, so code built with ''-mcpu=ev56'' dies with an illegal instruction on a CPU that implements it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L18328|"RE: Re: ev56 optimization -> illegal instruction"]], Jay Estabrook, axp-list, 14 Mar 1998)] Later MILO versions enable it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L42672|"Re: egcs and PC164 (ev56 ?)"]], Richard Henderson, axp-list, 18 Dec 1998)]
+  * **Binaries built for ev56 do run on older CPUs, slowly.** The kernel emulates the missing byte and word instructions. Falk Hueffner's diagnosis of a binary-only Acrobat Reader that would not run is the standard case. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-May.mbox#L1242|"Re: acrobat reader"]], Falk Hueffner, debian-alpha, 4 May 2003)] See [[documentation:porting:byte_word_access|Byte and Word Access]].
+
+Use [[documentation:amask|amask]] to find out what the running processor actually implements.
+
+=== Alpha-specific options ===
+
+^ Option ^ What it does ^
+| ''-mbwx'' / ''-mno-bwx'' | byte/word extension, independently of ''-mcpu'' |
+| ''-mcix'' / ''-mno-cix'' | count extension (''CTLZ'', ''CTPOP'', ''CTTZ'') |
+| ''-mmax'' / ''-mno-max'' | multimedia extension (MVI) |
+| ''-mfix'' / ''-mno-fix'' | square-root and FP convert extension |
+| ''-mieee'', ''-mieee-with-inexact'', ''-mieee-conformant'' | software completion, see [[documentation:porting:floating_point|Floating Point]] |
+| ''-mtrap-precision='', ''-mfp-rounding-mode='' | trap precision and rounding mode written into each instruction |
+| ''-mfp-regs'' / ''-mno-fp-regs'' | whether the FP register file may be used at all. The kernel is built ''-mno-fp-regs'' |
+| ''-msmall-data'' / ''-mlarge-data'' | put small objects in ''.sdata'' addressed off the GP, or not |
+| ''-msmall-text'' / ''-mlarge-text'' | assume the text segment fits in 4 MB so calls can be ''BSR'' |
+| ''-mexplicit-relocs'' | emit explicit relocations rather than leaving the assembler to macro-expand memory references |
+| ''-msafe-bwa'', ''-msafe-partial'' | thread and signal safe byte, word and partial accesses |
+| ''-mmemory-latency='' | scheduling assumption for the memory system |
+
+''-mieee'' is the one that comes up most often, and it is not the default. The reasoning, and what it costs, is on the [[documentation:porting:floating_point|Floating Point]] page.
+
+=== "relocation truncated to fit" ===
+
+The single most common Alpha link failure of the 1996 to 2000 period looks like this: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L43360|"ld reports 'relocation truncated to fit'"]], Topi Kanerva, axp-list, 24 Nov 1996)]
+
+<code>
+/usr/lib/gcc-lib/alpha-linux/2.7.2/crtend.o(.text+0x14): relocation truncated to fit: LITERAL __CTOR_END__
+worn.o: In function `setworn':
+worn.c(.text+0x60): relocation truncated to fit: LITERAL worn
+</code>
+
+Alpha addresses global data through a GP register plus a 16-bit signed displacement, so one GOT holds 64 KB of entries and no more. Henderson's diagnosis: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L22101|"Re: GCC linker error... Help?"]], Richard Henderson, axp-list, 11 Nov 1996)]
+
+<blockquote>
+There are two possible problems:
+
+ 1) less likely, you are mixing ELF and ECOFF object files or libraries.
+
+ 2) you've run into a limit in the current ELF linker in the size of the .got section (which is related to the number of global variables and functions in the program).
+</blockquote>
+
+His workaround at the time was to convert static libraries to shared ones, since each shared object gets its own GOT. The real fix arrived a month later, as a linker that could emit multiple GOT subsections: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L10307|"linker beta"]], Richard Henderson, axp-list, 6 Dec 1996)]
+
+<blockquote>
+There is now a beta version of a linker capable of multiple got subsections, which allows for much larger applications. [...] The problem is that, in fixing a long-known bug in the linker, I found one in the assembler. Meaning that all static object files have to be recompiled.
+</blockquote>
+
+Modern binutils does this automatically, but the failure mode survived longest in the kernel, which is statically linked and gets no diagnostic: a 2000 report of ''copy_from_user()'' killing a Red Hat 6.1 kernel turned out to be exactly this. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L7673|"Re: copy_from_user() kills RH 6.1 kernel"]], Richard Henderson, axp-list, 11 Apr 2000)]
+
+<blockquote>
+Almost certainly your .got section has overflowed. It would be nice if there was something to signal the error at build time, but...
+</blockquote>
+
+=== glibc ===
+
+Alpha's C library is ''libc.so.6.1'', not ''libc.so.6'', and glibc builds itself with ''-mieee''. Both have Alpha-specific reasons, covered in [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] and [[documentation:porting:floating_point|Floating Point]].
+
+Open toolchain bugs are tracked from [[tasks:bugs|Bugs]].
+
+==== Compaq C ====
+
+=== What it was ===
+
+''ccc'' is the compiler Digital shipped as **DEC C** on OSF/1, Digital UNIX, Tru64 and OpenVMS, built on the GEM optimizing back end, retargeted to produce ELF objects and link against glibc. The Fortran compiler shares that back end, which is why the two were announced together and why both were good at the same things. Nothing about it was open: it was a proprietary compiler given away, with source to nobody.
+
+=== Timeline ===
+
+^ Date ^ Event ^
+| 8 September 1999 | Public beta of Compaq C for Linux Alpha, RPM only, alongside Fortran [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-September.mbox#L261|"Compaq announces public Beta test for Linux Alpha C compiler"]], Compaq C/C++ Team, debian-alpha, 8 Sep 1999)] |
+| 17 December 1999 | Compaq C V6.2 and Compaq Fortran V1.0 released [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L32196|"Compaq C V6.2 for Linux Alpha is available"]], Compaq C/C++ Team, axp-list, 17 Dec 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-December.mbox#L13399|"Compaq Fortran for Linux Alpha Systems now available"]], Steve Lionel, comp.os.linux.alpha, 17 Dec 1999)] |
+| 2000 | Compaq C++ (''cxx'') 6.3 in use on Debian woody [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2000-April.mbox#L25218|"Re: Compaq's c++ succesfully runs under Debian woody"]], Compaq C/C++ Team, comp.os.linux.alpha, 3 Apr 2000)] |
+| March 2001 | Debian ITP for CPML and CXML installer packages, because the RPMs are not redistributable [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-March.mbox#L5495|"ITP: CPML and CXML alpha installer packages"]], Adam C Powell IV, debian-alpha, 27 Mar 2001)] |
+| January 2002 | Compaq C++ V6.5 beta for Linux [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2002-January.mbox#L10304|"Compaq C++ V6.5 for Linux Beta"]], Kenneth Block, comp.os.linux.alpha, 6 Jan 2002)] |
+| 2005 | Still in use, still moving between HP download URLs [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-April.mbox#L8850|"Re: HPaq cxx trouble"]], Adam C Powell IV, debian-alpha, 22 Apr 2005)] |
+
+The announcement of the beta stated the goal plainly: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-September.mbox#L261|"Compaq announces public Beta test for Linux Alpha C compiler"]], Compaq C/C++ Team, debian-alpha, 8 Sep 1999)]
+
+<blockquote>
+Briefly, the compiler provides the same state-of-the-art optimization technology for the Alpha processor as offered by the very latest Compaq compilers on Compaq's proprietary Alpha platforms, and offers some amount of gcc compatibility in both language features and command line processing.
+
+The software is only available in rpm format, and has primarily been tested under the Red Hat 5.2 distribution.
+</blockquote>
+
+The V6.2 release note gives Compaq's own performance claim, and the support model: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L32196|"Compaq C V6.2 for Linux Alpha is available"]], Compaq C/C++ Team, axp-list, 17 Dec 1999)]
+
+<blockquote>
+In some floating-point intensive C applications, for example, improvements of a factor of two or more have been seen, while more modest improvements on the order of 15% to 30% are more often seen for integer codes.
+</blockquote>
+
+<blockquote>
+   *	Free peer-to-peer Web-based support available from University of New Hampshire (UNH)
+   *	Per-incident call packs from Compaq Customer Support Center
+   *	Subscription service which provides automatic availability of new Compaq C releases
+</blockquote>
+
+C was free to download. Fortran was free for non-commercial use under a "Technology Enthusiast" license, with a commercial license at US$399. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-December.mbox#L13399|"Compaq Fortran for Linux Alpha Systems now available"]], Steve Lionel, comp.os.linux.alpha, 17 Dec 1999)]
+
+Version strings seen in the archives run ''ccc-6.2.9.506'', ''ccc-6.4.9.005'', ''ccc-6.5.6.002'' and ''ccc-6.5.9.001-6'' for C, and ''cxx-6.3.9.7'', ''cxx-6.5.9.20'' through ''cxx-6.5.9.31'' for C++.
+
+=== The pieces ===
+
+^ Component ^ Notes ^
+| ''ccc'' | Compaq C. The driver is also installed as ''cc'', and its diagnostics are prefixed ''cc:'' |
+| ''cxx'' | Compaq C++, a later and more troublesome port than C |
+| ''fort'' | Compaq Fortran, full Fortran 95, without OpenMP or HPF |
+| ''ladebug'' | the Tru64 debugger, shipped with the compilers |
+| **CPML** | Compaq Portable Math Library, a drop-in replacement for ''libm'' |
+| **CXML** | Compaq Extended Math Library, BLAS, LAPACK, signal processing and sparse solvers |
+
+CPML matters more than it looks: the standard advice for floating-point performance was to build with ''cc -fast'' and link against CPML in place of the system ''libm''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-October.mbox#L8457|"Re: Is FFT inherently slow on Alpha CPUs?"]], David A. Long, comp.os.linux.alpha, 15 Oct 1999)]
+
+=== Using it ===
+
+The options are Digital's, not GNU's, though the driver accepts a useful subset of GCC spellings. ''-fast'' is the one everybody reached for. David A. Long of Compaq's Alpha group spelled out part of what it sets: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-October.mbox#L8457|"Re: Is FFT inherently slow on Alpha CPUs?"]], David A. Long, comp.os.linux.alpha, 15 Oct 1999)]
+
+<code>
+	-O3
+	-assume nomath_errno
+	-D_INTRINSICS
+	-D_INLINE_INTRINSICS
+	-D_FASTMATH
+	-fp_reorder
+	-intrinsics
+</code>
+
+^ Option ^ Meaning ^
+| ''-arch ev6'', ''-arch host'', ''-arch generic'' | instruction set to target. ''host'' means the machine compiling |
+| ''-tune ev6'', ''-tune host'' | scheduling target, without changing the instruction set |
+| ''-fast'' | the aggressive bundle above. Not IEEE-safe |
+| ''-O''//n// | optimization level. Compaq Fortran defaults to ''-O4'' [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-July.mbox#L21048|"Re: Compaq Fortran for Linux Alpha Systems now available for Beta Test!"]], Steven Hobbs, comp.os.linux.alpha, 2 Jul 1999)] |
+| ''-ieee'', ''-ieee_with_no_inexact'' | the equivalent of GCC's ''-mieee'' |
+| ''-std1'', ''-newc'' | strict ISO C and the newer language dialect |
+| ''-non_shared'' | static link |
+| ''-ifo'' | inter-file optimization across the whole compilation |
+| ''-inline speed'', ''-unroll''//n//, ''-speculate all'' | further optimization controls |
+| ''-migrate'' | ease migration of code written for older Digital compilers |
+| ''-xtaso'', ''-xtaso_short'' | 32-bit pointer support |
+
+A representative real-world invocation, from someone building POV-Ray on a PCA56 in 2005: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2005-July.mbox#L385|"Re: Compaq C vs GCC-4.0.1"]], "DiskMan" (Will L G), comp.os.linux.alpha, 23 Jul 2005)]
+
+<code sh>
+CC="ccache ccc" CXX="ccache cxx" \
+ CFLAGS="-O5 -inline speed -fast -mtune=pca56 -w -pipe" \
+ CXXFLAGS="-O5 -inline speed -mtune=pca56 -w -pipe -std ansi \
+ -ansi_alias -float -fp_reorder -assume trusted_short_alignment \
+ -ansi_args -intrinsics -D_INTRINSICS -D_FASTMATH -D_INLINE_INTRINSICS \
+ -nousing_std -D__USE_STD_IOSTREAM"
+</code>
+
+Note ''-fast'' in combination with floating-point code that needs IEEE semantics. Måns Rullgård's report of POV-Ray rendering chess pieces as colored blobs under a fully optimized ''ccc'' build is the predictable outcome, and ''-mieee'' or Compaq's ''-ieee'' is the fix. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2005-July.mbox#L529|"Re: Compaq C vs GCC-4.0.1"]], Måns Rullgård, comp.os.linux.alpha, 24 Jul 2005)]
+
+Two predefined macros identify the compilers, which is how portable code selected between them: ''%%__DECC_VER%%'' for C and ''%%__DECCXX_VER%%'' for C++. Neither compiler uses an external preprocessor, so ''%%__VERSION__%%'' and other GCC-isms are not what you think they are, and there is no standalone ''cpp'' in the kit: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2000-April.mbox#L25218|"Re: Compaq's c++ succesfully runs under Debian woody"]], Compaq C/C++ Team, comp.os.linux.alpha, 3 Apr 2000)]
+
+<blockquote>
+Neither of the compilers normally invoke gnu cpp to perform preprocessing, nor do they provide a separate standalone preprocessor program. Instead they perform preprocessing as an integrated part of compiler, and if you ask for explicit preprocessor output, the -E or -P flag gets passed into the [compiler].
+</blockquote>
+
+Code that tests ''%%__GNUC__%%'' will take the wrong branch under ''ccc''. The usual casualty is ''alloca()'', which ''alloca.h'' redefines only for GCC. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L13460|"Re: error logs RE: compiling X with ccc"]], W Bauske, axp-list, 11 Mar 2002)]
+
+=== Installing it ===
+
+''ccc'' was never self-contained. It shipped as RPMs targeting Red Hat, and it located its headers and libraries through a generated ''comp.config'' file that points at **GCC's** include and library directories, so the installed compiler is coupled to whichever ''gcc'' version happens to be on the machine. Falk Hueffner's working configuration for Debian potato shows exactly that coupling: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-November.mbox#L1962|"Re: compaq c"]], Falk Hueffner, debian-alpha, 16 Nov 1999)]
+
+<code>
+-SysIncDir /usr/lib/compaq/ccc-6.2/alpha-linux/include -SysIncDir /usr/local/include
+-SysIncDir /usr/alpha-redhat-linux/include -SysIncDir /usr/lib/gcc-lib/alpha-linux/2.95.2/include
+-L/usr/lib/compaq/ccc-6.2/alpha-linux/lib -L/usr/local/lib
+-L/usr/alpha-redhat-linux/lib -L/usr/lib/gcc-lib/alpha-linux/2.95.2
+</code>
+
+Get it wrong and the failures are immediate and confusing, headers finding neither ''stddef.h'' nor ''float.h'': [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-November.mbox#L1843|"compaq c"]], Luke Shulenburger, debian-alpha, 14 Nov 1999)]
+
+<code>
+cc: Severe: /usr/lib/compaq/ccc-6.2/alpha-linux/include//stddef.h, line 23:
+Cannot find file <stddef.h> specified in #include directive. (noinclfilef)
+</code>
+
+On Debian the sequence was ''alien'' on the RPM, then patch the extracted tree before building the ''.deb''; Sanzo Miyazawa published such a patch to make ''ccc-6.2.0-9'' work with potato's ''gcc'' 2.95.2. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-October.mbox#L6116|"ccc_6.2.0-9 works with gcc 2.95.2"]], Sanzo Miyazawa, debian-alpha, 28 Oct 1999)] glibc mattered too: the first beta would not run on potato at all until a newer glibc 2.1.2 package existed. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-September.mbox#L81|"Re: Compaq C"]], Christopher C Chimelis, debian-alpha, 8 Sep 1999)]
+
+Debian's eventual answer was installer packages in ''contrib'': debconf prompts for the RPM, ''rpm2cpio'' extracts it, the package fixes up paths. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-March.mbox#L5495|"ITP: CPML and CXML alpha installer packages"]], Adam C Powell IV, debian-alpha, 27 Mar 2001)] The compilers themselves could not be shipped. Attempts to get redistribution rights out of HP after the merger went nowhere: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-April.mbox#L8850|"Re: HPaq cxx trouble"]], Adam C Powell IV, debian-alpha, 22 Apr 2005)]
+
+<blockquote>
+I've also tried working through a few channels at HPaq to get permission to distribute the libs and (encrypted) compilers, but everyone I've worked with has run into administrative brick walls. :-(
+</blockquote>
+
+=== How much faster was ccc ===
+
+This was argued for six years, and the answer changed over that time.
+
+In May 2000 an Ace's Hardware article comparing ''ccc'' against ''egcs'' on a DS10 circulated widely and was read as proof that GCC was crippling Alpha. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L5835|"aticle about DS10 / ccc vs gcc"]], Jaap Hogenberg, axp-list, 10 May 2000)] Brad Lucier's reply is the useful correction, and names the methodological problem that ran through most such comparisons: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L8239|"Re: aticle about DS10 / ccc vs gcc"]], Brad Lucier, axp-list, 16 May 2000)]
+
+<blockquote>
+1.  They use egcs-1.1.2 on alpha. gcc-2.95.* is much better, and has been out for months.
+</blockquote>
+
+For Fortran, W Bauske put the ''g77'' to ''fort'' gap at 0 to 20% on code written with the compiler in mind, and larger on naive code. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L8357|"Re: aticle about DS10 / ccc vs gcc"]], W Bauske, axp-list, 16 May 2000)]
+
+By 2003, Måns Rullgård's summary was that for integer work the difference had gone, provided you told GCC what processor you had: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2003-March.mbox#L3402|"Re: GCC vs. ccc"]], Måns Rullgård, comp.os.linux.alpha, 25 Mar 2003)]
+
+<blockquote>
+For integer computations I don't see much difference between ccc and gcc 3.2 with architecture specific optimizations. The default compiler in most distributions will generate code that will run on any Alpha cpu. The ev5 and up have byte and word memory accesses that improve speed quite a bit.
+</blockquote>
+
+That last sentence is the important one. A large part of every ''ccc'' versus ''gcc'' benchmark was really ''-arch ev6'' versus a distribution's generic baseline build. Where ''ccc'' kept a genuine edge was floating point, which is what Compaq's own "factor of two" claim was about.
+
+The practical objection to using it anyway was packaging, not performance. Shared library support was the recurring complaint: builds that worked static failed to produce the ''.so'' files the rest of a distribution expected. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2005-February.mbox#L1|"Re: CCC vs GCC Optimizations - my current results"]], Måns Rullgård, comp.os.linux.alpha, 27 Feb 2005)]
+
+=== ccc and the kernel ===
+
+Every so often someone tried to build the kernel with ''ccc''. The best-known claim, a Miata running 2.3.22 in October 1999, was retracted by its author four days later: he had set ''HOSTCC'', which selects the compiler for build-time host tools, not the one that compiles the kernel. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-October.mbox#L5021|"Kernel compiled with Compaq C Compiler booted"]], Bas Vermeulen, comp.os.linux.alpha, 27 Oct 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-October.mbox#L938|"Re: Kernel compiled with Compaq C Compiler booted"]], Bas Vermeulen, comp.os.linux.alpha, 31 Oct 1999)]
+
+<blockquote>
+It means that I screwed up... I set HOSTCC to ccc, and that works just fine, except that the kernel doesn't get compiled with that... *grmbl*
+</blockquote>
+
+The kernel is written in GNU C, and ''ccc'' is not a GNU C compiler. It never became a realistic option.
+
+==== See also ====
+
+  * [[documentation:porting|Porting]], in particular [[documentation:porting:floating_point|Floating Point]] for ''-mieee'' and [[documentation:porting:byte_word_access|Byte and Word Access]] for BWX
+  * [[documentation:amask|Architecture Mask (amask)]] for detecting extensions at runtime
+  * [[documentation:instruction_set|Instruction Set]]
+  * [[tasks:bugs|Bugs]] for open gcc, glibc and binutils bugs against Alpha
+
+{{tag>documentation toolchain}}
