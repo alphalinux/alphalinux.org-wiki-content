@@ -98,4 +98,4 @@ The Adaptec I2O RAID controller was shipped with some Alpha systems (again, the 
 | Samsung | M312L2828DTO-CB0Q0 | PC2100 | CL2.5 | 1 GiB | klausman |
 | Kingston | KVR400D8R3A/1G | PC3200 | CL3 | 1 GiB | klausman |
 
-{{tag>hardware motherboard}}
+{{tag>hardware motherboard 21264 samsung}}

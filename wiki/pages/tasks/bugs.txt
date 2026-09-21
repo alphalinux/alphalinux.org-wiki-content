@@ -1,4 +1,6 @@
-=== Alpha-specific bug searches in core project trackers ===
+===== Bugs =====
+
+==== Alpha-specific bug searches in core project trackers ====
 
   * [[https://bugzilla.kernel.org/buglist.cgi?bug_status=__open__&component=Alpha&list_id=1053627&product=Platform%20Specific%2FHardware|Linux]]
   * [[https://gcc.gnu.org/bugzilla/buglist.cgi?bug_status=__open__&cf_gcchost=alpha.%2Alinux&cf_gcchost_type=regexp&product=gcc|gcc]]
