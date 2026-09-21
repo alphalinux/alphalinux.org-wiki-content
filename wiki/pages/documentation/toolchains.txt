@@ -39,8 +39,8 @@ That is the whole of it: ''-mcpu=ev5'' and below is a scheduling choice and stay
 | ''ev5'' | 21164 | scheduling only |
 | ''ev56'' | 21164A | BWX |
 | ''pca56'' | 21164PC | BWX, MVI |
-| ''ev6'' | 21264 | BWX, CIX, MVI, FIX |
-| ''ev67'', ''ev68'' | 21264A and later | as EV6 |
+| ''ev6'' | 21264 | BWX, MVI, FIX |
+| ''ev67'', ''ev68'' | 21264A and later | BWX, MVI, FIX, CIX |
 
 ''-mtune='' takes the same values and changes only instruction scheduling, never the instruction set. The numeric names (''21064'', ''21164a'', ''21264'' and so on) are accepted as synonyms and appear throughout the archives.
 
