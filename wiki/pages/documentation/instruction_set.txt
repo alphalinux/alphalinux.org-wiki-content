@@ -103,8 +103,8 @@ To determine the presence of instruction set extensions at runtime, use the [[am
 The [[wp>DEC_Alpha#Byte-Word_Extensions_(BWX)|Byte/Word eXtensions (BWX)]] were introduced in the EV56 and are available in all subsequent implementations.
 
 ^ Mnemonic ^ Description ^
-| **ldbu** | Load byte unaligned |
-| **ldwu** | Load word unaligned |
+| **ldbu** | Load byte, zero-extended |
+| **ldwu** | Load word, zero-extended |
 | **sextb** | Sign-extend byte |
 | **sextw** | Sign-extend word |
 | **stb** | Store byte |
