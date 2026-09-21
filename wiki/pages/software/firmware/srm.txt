@@ -159,7 +159,7 @@ The last firmware CD, V7.3, was released in April 2007. [(>{{wiki:software:firmw
 The ''SMMTABLE.TXT'' file on the V7.3 firmware CD (March 2007) lists the last SRM version for each system. [(>''SMMTABLE.TXT'', Alpha Systems Firmware Update CD V7.3, 14 Mar 2007)]
 
 ^ System ^ Last SRM version ^
-| DECpc 150, DEC 2000 (Jensen) | 2.2 |
+| DECpc AXP 150, DEC 2000 (Jensen) | 2.2 |
 | DEC 3000 | 7.0 |
 | DEC 4000 | 4.0 |
 | DEC 7000, DEC 10000 | 5.0 |
