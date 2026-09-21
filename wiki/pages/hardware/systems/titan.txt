@@ -8,8 +8,8 @@
 
 [(>{{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15a_quickspecs.pdf?linkonly|HP AlphaServer DS15A and HP AlphaStation DS15A QuickSpecs}}, May 2007, p. 2)]
 
-  * One 1 GHz [[wp>Alpha_21264|21264]] with 2 MB of onboard ECC cache, in a 3U enclosure
-  * 512 MB, 1 GB, or 2 GB of SDRAM, up to 4 GB
+  * One 1 GHz [[wp>Alpha_21264|21264]] with 2 MiB of onboard ECC cache, in a 3U enclosure
+  * 512 MiB, 1 GiB, or 2 GiB of SDRAM, up to 4 GiB
   * Four 64-bit PCI expansion slots on a riser card, two of them capable of 66 MHz, with no support for 5 V cards [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-October.mbox#L8940|"Re: Blimey New Alpha Workstation"]], Jay Estabrook, axp-list, 27 Oct 2003)]
   * Onboard Ultra160 SCSI controller and dual 10/100BaseT Ethernet
   * Internal or front access storage cage, up to 218.4 GB or 745.6 GB
@@ -19,8 +19,8 @@
 
 [(>{{wiki:hardware:systems:alphaserver_ds25:alphaserver_ds25_quickspecs.pdf?linkonly|HP AlphaServer/AlphaStation DS25 QuickSpecs}}, May 2007, pp. 1-2)]
 
-  * One or two 1 GHz [[wp>Alpha_21264|21264C]] CPUs with 8 MB of dual data rate L2 cache each
-  * ECC protected memory bus and cache, 512 MB to 16 GB using 512 MB, 1 GB, 2 GB, and 4 GB options
+  * One or two 1 GHz [[wp>Alpha_21264|21264C]] CPUs with 8 MiB of dual data rate L2 cache each
+  * ECC protected memory bus and cache, 512 MiB to 16 GiB using 512 MiB, 1 GiB, 2 GiB, and 4 GiB options
   * Six 64-bit PCI slots on three PCI buses: slots 1 to 4 at 66 MHz and slots 5 and 6 at 33 MHz
   * Integrated dual Ultra3 SCSI adapter and dual Ethernet (10/100 and 10/100/1000)
   * Six hot swap disk bays, up to 872 GB, IDE DVD-ROM/CD-R combo drive
@@ -30,9 +30,9 @@
 
 Except where noted, the following comes from the ES45 Technical Summary. [(>{{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_technical_summary.pdf?linkonly|AlphaServer ES45 Systems Technical Summary}}, August 2002, pp. 1-16)]
 
-  * One to four [[wp>Alpha_21264|21264C]] (EV68, 0.18 micron) CPUs at 1 GHz with 8 MB of L2 cache at 250 MHz DDR, or at 1.25 GHz with 16 MB at 313 MHz DDR, each with 64 KB instruction and 64 KB data caches on chip
+  * One to four [[wp>Alpha_21264|21264C]] (EV68, 0.18 micron) CPUs at 1 GHz with 8 MiB of L2 cache at 250 MHz DDR, or at 1.25 GHz with 16 MiB at 313 MHz DDR, each with 64 KiB instruction and 64 KB data caches on chip
   * A switch-based interconnect in place of the ES40's bus, built from one C-chip, two P-chips, and eight D-chips. In the ES40 the whole chipset was on the system board; in the ES45 the C-chip and D-chips are on the system board and the P-chips moved to the PCI backplane
-  * Two 256-bit memory buses at 125 MHz, 4 GB/s each and 8 GB/s in total, 120 ns latency, ECC protected. Four memory motherboards take memory options of four identical 200-pin SDRAM DIMMs, sold as 512 MB, 1 GB, 2 GB, and 4 GB options. One option gives no interleaving, two give two-way, and four give four-way. ES40 and ES45 DIMMs are not interchangeable
+  * Two 256-bit memory buses at 125 MHz, 4 GB/s each and 8 GB/s in total, 120 ns latency, ECC protected. Four memory motherboards take memory options of four identical 200-pin SDRAM DIMMs, sold as 512 MiB, 1 GiB, 2 GiB, and 4 GiB options. One option gives no interleaving, two give two-way, and four give four-way. ES40 and ES45 DIMMs are not interchangeable
   * Each P-chip drives two 64-bit PCI buses, or one PCI and one 4X AGP bus on Model 1. An Acer Labs 1543C bridges PCI 0 to ISA for the serial, parallel, keyboard, mouse, floppy, and DVD-ROM logic
   * Two serial ports, a dedicated 6-pin MMJ RMC modem port, a 25-pin parallel port, PS/2 keyboard and mouse, and two SCSI breakouts
   * Up to twelve 1-inch Ultra3 SCSI disks in two six-disk cages, each cage needing its own SCSI adapter, plus a DVD-ROM, a 1.44 MB floppy drive, and two half-height 5.25-inch removable media bays

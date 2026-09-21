@@ -2,7 +2,7 @@
 
 Digital's AXPvme and Alpha VME boards are 6U VMEbus single-board computers sold for embedded and realtime work rather than as general purpose machines. The first series, AXPvme, was built around the 21066A: Digital's announcement of that chip described it as "the heart of Digital's AXPvme series of VMEbus single-board computers (SBCs), used by embedded-application OEMs and system designers in control systems for many military and industrial realtime applications", and noted that the 21066A also ran VxWorks for Alpha, "a realtime operating system adapted from Wind River Systems' VxWorks". That press release, of 14 November 1994, introduced the 21066A as a 0.50-micron version of the 21066 running at 233 MHz, carrying "the industry's first on-chip implementation of the PCI (Peripheral Component Interconnect) bus", and priced at $360 in volume. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1994-November.mbox#L5561|"Press/Alpha 21066A Chip With PCI Puts More Speed Into Embedded Apps"]], Digital Press and Analysts News, biz.digital.announce, 14 Nov 1994)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-November.mbox#L12947|"Re: Specs and Prices on 21066 system"]], Steve Lionel, comp.sys.dec, 15 Nov 1994, quoting a Digital press release)] Members of that series include the AXPvme 160, 166, and 230. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 2-1)]
 
-Later boards moved to faster processors and dropped the AXPvme name. The Digital Alpha VME 4/224 and 4/288 use the 21064A, [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 1-1)] and an Alpha VME 5/480 identifies itself to Digital UNIX as a 21164A at 480 MHz with the 21172 chipset, 2 MB of external cache, and the VMEbus system controller on PCI. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-August.mbox#L3894|"Linux to an Alpha 5/480 VME card?"]], bgeer, comp.os.linux.alpha, 24 Aug 1999)]
+Later boards moved to faster processors and dropped the AXPvme name. The Digital Alpha VME 4/224 and 4/288 use the 21064A, [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 1-1)] and an Alpha VME 5/480 identifies itself to Digital UNIX as a 21164A at 480 MHz with the 21172 chipset, 2 MiB of external cache, and the VMEbus system controller on PCI. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-August.mbox#L3894|"Linux to an Alpha 5/480 VME card?"]], bgeer, comp.os.linux.alpha, 24 Aug 1999)]
 
 Digital announced the availability of the 4/224 and 4/288 on 24 April 1996, aimed at "industrial automation, military defense and communications", and claimed double the CPU performance of the AXPvme 230 it sat above, with four times the memory bandwidth of the 21066 based boards and up to 2 MB of cache. The 4/288 was estimated at over 200 SPECint92 and over 250 SPECfp92. The CPU design used "the same core logic found in Digital's AlphaServer 1000 system", PCI carried the on-board SCSI, Ethernet, and VME interfaces, and an optional PMC I/O companion card took two single width or one double width PCI mezzanine card, all in a 6U by 160 mm VME module. Digital offered Digital UNIX and VxWorks for Alpha for them; the VxWorks microkernel needed no disk, but supported SCSI disks with MS-DOS, RT-11, and raw file systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1996-April.mbox#L3335|"Press/Digital Announces New Family of Alpha-Based VME Single Board Computers"]], Digital Press and Analysts News, biz.digital.announce, 25 Apr 1996)]
 
@@ -13,10 +13,10 @@ Digital also sold a VME variant of a complete system under the same name. The **
 All of the following comes from the technical description. [(>{{wiki:hardware:systems:alpha_vme:axpvme_technical_description.pdf?linkonly|AXPvme Single-Board Computer Technical Description}}, EK-EBV1X-TD.B01, July 1995, pp. 1-1 to 1-4)]
 
   * 6U VMEbus module built on the LCA (21066A), "a dual-issue Alpha implementation with full floating-point support, internal 8 Kbyte Instruction and Data caches, full memory, and I/O bus controllers, as well as a PLL clock generator"; the supported operating systems are OSF/1 and VxWorks
-  * 8, 16, 32, 64, or 128 MB of DRAM on a 64-bit memory bus, with a fixed external write-back backup cache whose size depends on the module: 256 KB on the AXPvme 64, 64LC, and 160, and 512 KB on the 100, 166, and 230
+  * 8, 16, 32, 64, or 128 MiB of DRAM on a 64-bit memory bus, with a fixed external write-back backup cache whose size depends on the module: 256 KiB on the AXPvme 64, 64LC, and 160, and 512 KiB on the 100, 166, and 230
   * PCI is the onboard I/O bus, driven by the LCA's integral I/O controller, which also acts as a PCI target and a PCI to main memory bridge for DMA
   * Full master and slave VME interface to IEC 821 and IEEE 1014-1987, able to act as VME system controller in slot 1; A16, A24, and A32 address spaces with D08, D16, D32, and D64 transfers, and D64 giving "data rates of up to >24 Mbytes/s"
-  * An outbound scatter/gather map reaches 2048 pages of 256 KB of VME space and carries the address modifier and byte swapping settings; an inbound map covers the board's own memory, write-protects chosen pages, and can interrupt on page access. Byte swapping "is provided to ease data interchange between the little-endian Alpha AXP and other architectures without software overhead"
+  * An outbound scatter/gather map reaches 2048 pages of 256 KiB of VME space and carries the address modifier and byte swapping settings; an inbound map covers the board's own memory, write-protects chosen pages, and can interrupt on page access. Byte swapping "is provided to ease data interchange between the little-endian Alpha AXP and other architectures without software overhead"
   * Interprocessor communication registers in A16 space for message passing and signaling
   * The VME interface is built on the Cypress VIC64 with Digital's DC7407; the manual notes that "the address map in the VIC64 databook places the VIC registers in byte 3 of a particular longword address; in AXPvme, the VIC registers accessed over the PCI are seen at byte zero in each longword"
   * PCI Ethernet (DECchip 21040), NCR 53C810 SCSI, an Intel 82378ZB bridge, 85C30 serial lines, 8254 timers, flash ROM, and NVRAM
@@ -25,10 +25,10 @@ All of the following comes from the technical description. [(>{{wiki:hardware:sy
 
 All of the following comes from the user guide. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, pp. 1-1 to 1-5)]
 
-  * [[wp>Alpha_21064#Alpha_21064A|21064A]] at 224 MHz with 512 KB of cache, or at 288 MHz with 2 MB of cache, on cache modules; 16 KB instruction and 16 KB data caches on chip
+  * [[wp>Alpha_21064#Alpha_21064A|21064A]] at 224 MHz with 512 KiB of cache, or at 288 MHz with 2 MiB of cache, on cache modules; 16 KiB instruction and 16 KiB data caches on chip
   * DECchip 21071-DA PCI host bridge, with PCI as the on-board bus
-  * 8, 16, 32, 64, or 128 MB of ECC main memory on DIMMs, on a 128-bit data bus, accessible from the CPU, from PCI, and from the VMEbus
-  * 4 MB flash EPROM and 32 KB NVRAM
+  * 8, 16, 32, 64, or 128 MiB of ECC main memory on DIMMs, on a 128-bit data bus, accessible from the CPU, from PCI, and from the VMEbus
+  * 4 MiB flash EPROM and 32 KiB NVRAM
   * VME64 interface built on the Cypress VIC64 chip, capable of DMA transfers
   * DECchip 21040 PCI Ethernet controller, 10BASE-T
   * NCR 53C810 PCI SCSI-2 processor, single-ended 8-bit, up to 10 MB/s, brought out through the VMEbus P2 connector
@@ -36,7 +36,7 @@ All of the following comes from the user guide. [(>{{wiki:hardware:systems:alpha
   * Dallas DS1386 real-time clock with battery backup, plus three 16-bit timers and a watchdog timer with programmable reset
   * One double-width or two single-width PCI mezzanine cards (PMC, IEEE P1386.1)
   * Two board set occupying two adjacent 6U VME slots, or three with the PMC I/O companion card
-  * 62 W for the 4/224 and 70 W for the 4/288 with 128 MB of memory; at least 200 lfm of airflow at 40 degrees C ambient is required over the processor heatsink
+  * 62 W for the 4/224 and 70 W for the 4/288 with 128 MiB of memory; at least 200 lfm of airflow at 40 degrees C ambient is required over the processor heatsink
   * At 288 MHz: 238.51 SPECfp92, 188.84 SPECint92, 5.44 SPECfp95, and 4.69 SPECint95
 
 The front panel carries a Reset/Halt switch, a status display that shows the running power-on self-test and is then under software control, an amber LED that flashes on VMEbus slave access and lights continuously on watchdog timeout, and a green power LED. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, pp. 3-1 to 3-2)]
@@ -71,18 +71,18 @@ The boards have more interrupt hardware than the operating systems use. Todd Whi
 Field replaceable units for the Alpha VME 4: [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 2-35)]
 
 ^ Order number ^ Part number ^ Description ^
-| EBV14-*A | 70-32976-04 | 224 MHz single-board computer, two board set, 512 KB cache |
-| EBV14-*E | 70-32976-02 | 288 MHz single-board computer, two board set, 2 MB cache |
+| EBV14-*A | 70-32976-04 | 224 MHz single-board computer, two board set, 512 KiB cache |
+| EBV14-*E | 70-32976-02 | 288 MHz single-board computer, two board set, 2 MiB cache |
 | | 54-24663-01 | VME primary breakout module |
 | | 54-24729-01 | VME secondary breakout module |
 | EBV1P-AA | 54-24665-01 | PMC I/O companion card |
-| EBMXM-DB | 54-24659-AB | 16 MB (2x8) DIMM set |
-| EBMXM-EB | 54-24659-AA | 32 MB (2x16) DIMM set |
-| EBMXM-FB | 54-24645-AA | 64 MB (2x32) DIMM set |
+| EBMXM-DB | 54-24659-AB | 16 MiB (2x8) DIMM set |
+| EBMXM-EB | 54-24659-AA | 32 MiB (2x16) DIMM set |
+| EBMXM-FB | 54-24645-AA | 64 MiB (2x32) DIMM set |
 
 An asterisk stands for any of A, Z, R, or X.
 
-For the earlier series, EBV12-AD is a 160 MHz AXPvme processor board taking a memory daughter board, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1999-July.mbox#L26302|"DEC VME system for sale"]], Ben Cook, comp.sys.dec, 12 Jul 1999)] and EBVXM-AA is an 8 MB AXPvme memory card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-September.mbox#L4562|"FS: AXPvme 8 MB Memory"]], Leslie Connally, comp.sys.dec, 28 Sep 1996)]
+For the earlier series, EBV12-AD is a 160 MHz AXPvme processor board taking a memory daughter board, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1999-July.mbox#L26302|"DEC VME system for sale"]], Ben Cook, comp.sys.dec, 12 Jul 1999)] and EBVXM-AA is an 8 MiB AXPvme memory card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-September.mbox#L4562|"FS: AXPvme 8 MB Memory"]], Leslie Connally, comp.sys.dec, 28 Sep 1996)]
 
 ==== Documentation ====
 

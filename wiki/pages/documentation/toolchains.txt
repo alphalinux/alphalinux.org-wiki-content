@@ -62,7 +62,7 @@ The [[documentation:amask|amask]] instruction reports what the running processor
 | ''-mtrap-precision='', ''-mfp-rounding-mode='' | trap precision and rounding mode written into each instruction |
 | ''-mfp-regs'' / ''-mno-fp-regs'' | whether the FP register file may be used at all. The kernel is built ''-mno-fp-regs'' |
 | ''-msmall-data'' / ''-mlarge-data'' | put small objects in ''.sdata'' addressed off the GP, or not |
-| ''-msmall-text'' / ''-mlarge-text'' | assume the text segment fits in 4 MB so calls can be ''BSR'' |
+| ''-msmall-text'' / ''-mlarge-text'' | assume the text segment fits in 4 MiB so calls can be ''BSR'' |
 | ''-mexplicit-relocs'' | emit explicit relocations rather than leaving the assembler to macro-expand memory references |
 | ''-msafe-bwa'', ''-msafe-partial'' | thread and signal safe byte, word and partial accesses |
 | ''-mmemory-latency='' | scheduling assumption for the memory system |
@@ -79,7 +79,7 @@ worn.o: In function `setworn':
 worn.c(.text+0x60): relocation truncated to fit: LITERAL worn
 </code>
 
-Alpha addresses global data through a GP register plus a 16-bit signed displacement, so one GOT holds 64 KB of entries and no more. Henderson's diagnosis: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L22101|"Re: GCC linker error... Help?"]], Richard Henderson, axp-list, 11 Nov 1996)]
+Alpha addresses global data through a GP register plus a 16-bit signed displacement, so one GOT holds 64 KiB of entries and no more. Henderson's diagnosis: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L22101|"Re: GCC linker error... Help?"]], Richard Henderson, axp-list, 11 Nov 1996)]
 
 <blockquote>
 There are two possible problems:

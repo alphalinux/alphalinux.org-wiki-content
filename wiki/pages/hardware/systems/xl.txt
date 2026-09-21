@@ -9,12 +9,12 @@ Digital announced the Alpha XL on 3 October 1995, not on its own but as the Alph
   * [[wp>Alpha_21064|21064]] or [[wp>Alpha_21064#Alpha_21064A|21064A]] at 233 or 266 MHz, with APECS core logic and an Intel SIO PCI-to-ISA bridge, which the kernel handles together with the Avanti and Noname machines [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_sio.c?h=v6.10|arch/alpha/kernel/sys_sio.c]], Linux 6.10)]
   * PCI and ISA, with an Intel 82379AB PCI-to-ISA bridge; the closely related [[hardware:systems:avanti|Avanti]] machines use an 82378IB or 82378ZB instead, which is how the two are told apart [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L6843|"Alpha XL Support"]], Jay Estabrook, axp-list, 22 Mar 1996)]
   * ARC console only; MILO is used to boot Linux [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-October.mbox#L20901|"Re: Milo booting other OSes?"]], Jay Estabrook, axp-list, 29 Oct 1997)]
-  * Machines have been reported with 192 MB of memory [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-hardware-mbox/2000-May.mbox#L1|"Alpha XL266"]], AzRaeL, axp-hardware, 4 May 2000)]
+  * Machines have been reported with 192 MiB of memory [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-hardware-mbox/2000-May.mbox#L1|"Alpha XL266"]], AzRaeL, axp-hardware, 4 May 2000)]
 
 ==== Kernels ====
 
   * "XL kernels and MILO will run on XL-233/266 as well as AVANTI", but not the reverse. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L48090|"Re: XL or Avanti?"]], Jay Estabrook, axp-list, 26 Nov 1996)] With an Avanti kernel, "the floppy drive (on the XL) cannot DMA to all of CPU memory". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-December.mbox#L30289|"Re: Can't load RAMDISK on XL-266"]], Jay Estabrook, axp-list, 23 Dec 1997)]
-  * Early XL kernels were limited to 64 MB, and then 96 MB, of physical memory, because of ISA bus DMA access to main memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L7674|"Re: Alpha XL Support"]], Jay Estabrook, axp-list, 25 Mar 1996)]
+  * Early XL kernels were limited to 64 MiB, and then 96 MiB, of physical memory, because of ISA bus DMA access to main memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L7674|"Re: Alpha XL Support"]], Jay Estabrook, axp-list, 25 Mar 1996)]
   * With a Matrox Millennium, "you MUST be running an XL kernel, *NOT* an AVANTI one". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-June.mbox#L34116|"Re: XL266: MILO/SCSI problem, X I/O problem"]], Jay Estabrook, axp-list, 17 Jun 1998)]
 
 ==== Graphics ====

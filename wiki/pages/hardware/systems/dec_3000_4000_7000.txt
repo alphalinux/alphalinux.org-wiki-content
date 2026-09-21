@@ -23,9 +23,9 @@ The DEC 4000 Model 600 series is built around the KN430 CPU module, which "house
 The CPU is the KN7AA module. [(>{{wiki:hardware:systems:dec_7000:dec_7000_10000_kn7aa_cpu_technical_manual.pdf?linkonly|DEC 7000/10000 AXP KN7AA CPU Technical Manual}}, pp. 1-1, 1-2, 2-1)]
 
   * [[wp>Alpha_21064|DECchip 21064]] at a peak clock rate of 200 MHz, in single or multiprocessor configurations
-  * 4 MB physically addressed, direct-mapped, write-back backup cache (B-cache), a superset of the CPU's 8 KB instruction and 8 KB data primary caches
+  * 4 MiB physically addressed, direct-mapped, write-back backup cache (B-cache), a superset of the CPU's 8 KiB instruction and 8 KiB data primary caches
   * LSB system bus, connecting CPUs, memory, and the I/O port (IOP) module; all backplane slots except slot 8, which is reserved for the IOP, take CPU or memory modules, and the first CPU should be in slot 0
-  * Memory is accessed in 64-byte blocks; the top 256 MB of the address space is I/O space, divided into LSB CSR space, local Gbus space, and broadcast space
+  * Memory is accessed in 64-byte blocks; the top 256 MiB of the address space is I/O space, divided into LSB CSR space, local Gbus space, and broadcast space
   * Onboard ROMs provide power-up self-test diagnostics and boot support
   * Runs OpenVMS AXP and DEC OSF/1 AXP
 

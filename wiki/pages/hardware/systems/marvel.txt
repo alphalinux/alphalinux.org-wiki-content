@@ -7,8 +7,8 @@ The Marvel systems are the last Alpha machines, built from 21364 (EV7) processor
 Except where noted, the following comes from the ES47 and ES80 QuickSpecs. [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, pp. 4-5)]
 
   * "Up to 8 Alpha 21364 EV7 processors at 1150 MHz and 1000 MHz with advanced on-chip memory controllers and switch logic capable of providing 12.3 GB/s of memory bandwidth per processor"
-  * 1.75 MB of seven-way set associative ECC protected L2 cache on each chip
-  * Up to 8 GB of RDRAM per CPU, with optional RAID memory
+  * 1.75 MiB of seven-way set associative ECC protected L2 cache on each chip
+  * Up to 8 GiB of RDRAM per CPU, with optional RAID memory
   * A glueless multiprocessor architecture assembled from system building block drawers, dual CPU building block modules, and I/O expansion drawers; the ES47 Tower holds one drawer, and the ES80 models 2, 3, 6, and 8 hold one to four
   * Each two-processor building block drawer has "5 PCI-X/PCI slots and one AGP slot"
   * Maximums: ES47 Tower two CPUs, 16 GB, five PCI slots; ES47 four CPUs, 32 GB, 32 PCI slots; ES80 Model 8 eight CPUs and 64 GB

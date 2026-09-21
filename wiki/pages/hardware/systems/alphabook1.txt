@@ -10,11 +10,11 @@ Few were built. Terry Shannon reported total sales in the double digits in 1996 
 
 All of the following comes from the announcement unless noted otherwise. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-January.mbox#L23398|"Re: Alpha Notebooks, Notebooks with hardware MPEG"]], Britt Lysaa, comp.sys.dec, 5 Jan 1996, quoting a Business Wire release of 5 Dec 1995)]
 
-  * DECchip [[wp>Alpha_21064#Alpha_21066A|21066A]] (LCA45) with a variable speed of up to 233 MHz, and 512 KB of write-back level 2 cache
+  * DECchip [[wp>Alpha_21064#Alpha_21066A|21066A]] (LCA45) with a variable speed of up to 233 MHz, and 512 KiB of write-back level 2 cache
   * PCI bus and memory controller integrated into the CPU, feeding the graphics, PCMCIA, and SCSI interfaces
   * Industry-standard SIMMs, user upgradable, 32 MB to 128 MB
   * Removable 2.5-inch SCSI-2 hard disk, 520 MB, 810 MB, or 1.2 GB
-  * Western Digital WD90C24A2 graphics controller with 1 MB of video RAM [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L12148|"Tadpole Alpha1 notebook"]], Nigel Metheringham, axp-list, 11 Oct 1996)]
+  * Western Digital WD90C24A2 graphics controller with 1 MiB of video RAM [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L12148|"Tadpole Alpha1 notebook"]], Nigel Metheringham, axp-list, 11 Oct 1996)]
   * 10.4-inch true-color TFT panel, 800x600 with 256 colors from a palette of 262,144; up to 1024x768 on an external display
   * Two PCMCIA slots taking two Type I/II cards or one Type III card, driven by a Cirrus 6729 PCI-to-PCMCIA controller [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_sio.c?h=v6.9|arch/alpha/kernel/sys_sio.c]], Linux 6.9)]
   * 3Com Ethernet PC Card included; optional 28.8K fax/modem PC Card; two docking station options
@@ -44,7 +44,7 @@ X was always awkward. The WD90C24A2 is not handled by XFree86 4.x, and the XFree
 
   * **PCMCIA versus SCSI:** Davis Johnson could build a kernel that saw the SCSI controller and disk, or one that saw the PCMCIA bridge, but never both; with the PCMCIA bridge probed, the disk disappeared and the machine could not find its root filesystem. Since the only networking is a PCMCIA card, this makes a networked, disk-booted machine hard to achieve. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-September.mbox#L976|"[RFC] Dropping Alpha sparse mapping support from X"]], Davis Johnson, axp-list, 20 Sep 2009)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2015-April.mbox#L946|"still someone here ?"]], Davis Johnson, axp-list, 7 Apr 2015)] He described the cause as "that weird PCMCIA bridge mucking up DMA on the Alphabook", and no fix was ever found on the list. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2015-April.mbox#L885|"still someone here ?"]], Davis Johnson, axp-list, 7 Apr 2015)]
   * **Disk size:** the drive is a 2.5-inch SCSI unit, and these are scarce; the largest reported in an AlphaBook or a Multia is 1.2 GB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/2002-February.mbox#L2356|"Re: RAM and drive for Multia?"]], Julian Coleman, port-alpha, 14 Feb 2002)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2015-April.mbox#L946|"still someone here ?"]], Davis Johnson, axp-list, 7 Apr 2015)]
-  * **Memory ceiling:** 128 MB is the maximum, which limits what can usefully be built on the machine itself. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2015-April.mbox#L946|"still someone here ?"]], Davis Johnson, axp-list, 7 Apr 2015)]
+  * **Memory ceiling:** 128 MiB is the maximum, which limits what can usefully be built on the machine itself. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2015-April.mbox#L946|"still someone here ?"]], Davis Johnson, axp-list, 7 Apr 2015)]
   * **Installation media:** there is no CD-ROM drive, so installation is done over the network from a PCMCIA card or from an external disk. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2000-November.mbox#L2418|"Tadpole AlphaBook 1 with linux.."]], KaV, comp.os.linux.alpha, 20 Nov 2000)]
 
 ==== Other operating systems ====

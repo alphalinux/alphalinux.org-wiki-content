@@ -6,10 +6,10 @@
 
 Except where noted, the following comes from the Windows NT catalog. [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_windows_nt_catalog.pdf?linkonly|AlphaServer DS20 Windows NT}}, Systems and Options Catalog, June 1999, pp. 2.45-2.47)]
 
-  * One or two 500 MHz [[wp>Alpha_21264|21264]] CPUs with 4 MB of level 2 cache, on daughtercards
+  * One or two 500 MHz [[wp>Alpha_21264|21264]] CPUs with 4 MiB of level 2 cache, on daughtercards
   * 21272 (Tsunami) core logic with two PCI buses
   * "Five 64-bit PCI slots and one 64-bit PCI/ISA combination slot", and "16 DIMM memory slots"
-  * Memory in kits of four industry-standard ECC DIMMs, up to four kits for 4 GB; kits of 128 MB, 256 MB, 512 MB, and 1 GB
+  * Memory in kits of four industry-standard ECC DIMMs, up to four kits for 4 GiB; kits of 128 MiB, 256 MB, 512 MB, and 1 GB
   * Onboard diskette controller, two serial ports, one parallel port, keyboard and mouse controller; SCSI and Ethernet are PCI options
   * Ten internal storage slots: floppy, CD-ROM, one further 5.25-inch removable media bay, and seven hot swap StorageWorks disks, up to 128 GB with 18.2 GB disks
   * Hot swap disks, redundant power supplies, ECC memory, heat, fan, and power supply sensors

@@ -8,9 +8,9 @@ The DS10 is a single processor 21264 server in a 3U rack-ready or desktop enclos
 
 [(>{{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_brochure.pdf?linkonly|Compaq AlphaServer DS10}}, Compaq, June 1999, p. 6)]
 
-  * One 466 MHz [[wp>Alpha_21264|21264]] with 2 MB of L2 cache
+  * One 466 MHz [[wp>Alpha_21264|21264]] with 2 MiB of L2 cache
   * 21272 (Tsunami) core logic with 128-bit wide memory datapaths and a crossbar switch, 1.3 GB/s peak memory bandwidth
-  * Up to 2 GB of ECC 100 MHz SDRAM DIMMs, with ECC on memory and processor cache
+  * Up to 2 GiB of ECC 100 MHz SDRAM DIMMs, with ECC on memory and processor cache
   * Four PCI slots: three 64-bit and one 32-bit
   * IDE storage, or SCSI with an optional PCI adapter; the IDE controller is "part of ALI 1543C chip used in DS10 for multi-IO" [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L52462|"Re: DS10's"]], Ivan Kokshaysky, axp-list, 31 Aug 1999)]
   * Dual embedded 10/100 Ethernet
@@ -23,7 +23,7 @@ The DS10 is a single processor 21264 server in a 3U rack-ready or desktop enclos
 [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_product_profile.pdf?linkonly|Compaq AlphaStation XP900 Alpha 21264 Processor}}, Product Profile, Compaq, June 1999)]
 
   * One 466 MHz [[wp>Alpha_21264|21264]] with 2 MB of L2 cache, 128-bit wide paths, 1.2 GB/s peak bandwidth
-  * Up to 2 GB of ECC 100 MHz SDRAM DIMMs
+  * Up to 2 GiB of ECC 100 MHz SDRAM DIMMs
   * Up to two available PCI expansion slots
   * Up to 20 GB of internal IDE storage, or 27 GB of SCSI with an optional adapter; CD-ROM plus room for three disks, or two disks and a tape drive
   * Dual embedded 10/100BaseT ports, 2D and 3D graphics support including multi-head, audio, remote console management

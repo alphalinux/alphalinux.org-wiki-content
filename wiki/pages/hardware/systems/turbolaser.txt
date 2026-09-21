@@ -17,9 +17,9 @@ Except where noted, the following comes from the technical summary. [(>{{wiki:ha
   * TLSB system bus with a 40-bit command and address path and a separate 256-bit data path with 32 ECC bits, run synchronously at a submultiple of the CPU clock: 75 MHz with 300 MHz CPUs for 1.6 GB/s, and 87.4 MHz with 350 and 440 MHz CPUs for 1.87 GB/s
   * AlphaServer 8400: nine bus slots, up to six processor modules (12 CPUs), up to seven memory modules (28 GB), up to three I/O modules (12 I/O buses), 1260 MB/s of I/O bandwidth
   * AlphaServer 8200: five bus slots, up to three processor modules (6 CPUs), up to three memory modules (12 GB), up to three I/O modules, 945 MB/s of I/O bandwidth
-  * Processor modules carry one or two [[wp>Alpha_21164|21164]] CPUs at 300, 350, or 440 MHz, each with its own data and address path and a 4 MB third-level cache on the module; the 440 MHz module was sold only as a dual
+  * Processor modules carry one or two [[wp>Alpha_21164|21164]] CPUs at 300, 350, or 440 MHz, each with its own data and address path and a 4 MiB third-level cache on the module; the 440 MHz module was sold only as a dual
   * The minimum configuration is one processor module, one memory module, and one I/O adapter
-  * Memory modules of 128, 256, and 512 MB and 1, 2, and 4 GB, built from SIMMs; modules of 2 GB and smaller interleave two ways onboard, the 4 GB module four ways, and two to eight ways between modules
+  * Memory modules of 128, 256, and 512 MiB and 1, 2, and 4 GiB, built from SIMMs; modules of 2 GiB and smaller interleave two ways onboard, the 4 GB module four ways, and two to eight ways between modules
   * I/O connects through "hoses" to 12-slot PCI or, on the 8400 only, 12-slot XMI channels. "In an 8200, only PCI buses are supported, regardless of operating system." [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_operations_manual.pdf?linkonly|AlphaServer 8200/8400 Operations Manual}}, pp. 1-2, 1-7)]
   * The KFTHA I/O port module drives external I/O buses; the KFTIA adds direct SCSI, two Ethernet ports, optional FDDI, and an optional 4 MB Prestoserve
   * Multiple power regulators, optional battery backup, and an optional integrated uninterruptible power supply

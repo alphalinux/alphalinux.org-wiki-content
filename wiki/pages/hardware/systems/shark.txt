@@ -6,14 +6,14 @@ The CS20 is a 1U dual processor 21264 server designed by Alpha Processor, Inc., 
 
 API's specification for the CS20, as posted in 2000: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L7232|"CS-20 Dual 21264 1U server"]], Bill Broadley, axp-list, 3 Nov 2000, quoting API's web site)]
 
-  * Two 667 or 833 MHz [[wp>Alpha_21264|21264]] CPUs with 4 MB of DDR L2 cache each
+  * Two 667 or 833 MHz [[wp>Alpha_21264|21264]] CPUs with 4 MiB of DDR L2 cache each
   * 2.65 GB/s peak main memory bandwidth
   * Two 64-bit 33 MHz PCI slots
   * Onboard Ultra3 SCSI (Symbios 53c1000)
   * Linux in the boot flash ROM
   * 1U rackmount
 
-A CS20 with two 833 MHz CPUs and 4 MB of DDR cache cost about $14,999 in 2000, without memory or disks. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L9828|"Re: API Networks article on The Register"]], Maurice Hilarius, axp-list, 6 Nov 2000)]
+A CS20 with two 833 MHz CPUs and 4 MiB of DDR cache cost about $14,999 in 2000, without memory or disks. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L9828|"Re: API Networks article on The Register"]], Maurice Hilarius, axp-list, 6 Nov 2000)]
 
 "The CS20 has independent PCI busses with the bulk of our features hanging off bus zero", so demanding cards "will perform better on the second bus." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L10816|"Re: matroxfb on SMP alpha"]], Peter Petrakis, debian-alpha, 24 Jan 2003)]
 

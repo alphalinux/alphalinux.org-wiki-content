@@ -13,13 +13,13 @@ The AlphaServer 1000A is a revision of the [[hardware:systems:mikasa|AlphaServer
 [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, pp. 2-3)]
 
   * One CPU on an upgradable daughtercard: 266 MHz [[wp>Alpha_21064#Alpha_21064A|21064A]] (Model 4/266), or 333 or 400 MHz [[wp>Alpha_21164#Alpha_21164A|21164A]] (Models 5/333 and 5/400)
-  * 2 MB of direct-mapped, ECC protected level 2 cache and 8 KB of serial ROM on each CPU card
+  * 2 MiB of direct-mapped, ECC protected level 2 cache and 8 KiB of serial ROM on each CPU card
   * 128-bit ECC protected memory bus
   * Model 4/266: 20 SIMM sockets in banks of five (four data plus ECC); Models 5/333 and 5/400: 16 SIMM sockets in banks of four including ECC
   * 4, 8, 16, 32, and 64 MB SIMMs, 32 MB to 1 GB total
   * Seven 33 MHz PCI slots, of which slots 11, 12, and 13 are on the primary bus and slots 1 to 4 behind the 21050 PCI-to-PCI bridge; some options are restricted to the primary bus [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_service_guide.pdf?linkonly|AlphaServer 1000A Service Guide}}, p. 5-34)]
   * Two 8.33 MHz EISA/ISA slots, both bus master capable
-  * Onboard fast wide SCSI-2 controller, PCI-to-EISA bridge, 1 MB of flash ROM, 8 KB of NVRAM, TOY clock, two serial ports, bidirectional parallel port, floppy controller, keyboard and mouse interface, PC-style speaker
+  * Onboard fast wide SCSI-2 controller, PCI-to-EISA bridge, 1 MiB of flash ROM, 8 KB of NVRAM, TOY clock, two serial ports, bidirectional parallel port, floppy controller, keyboard and mouse interface, PC-style speaker
   * Onboard SVGA controller on the Model 4/266 only
   * Dual SCSI backplane, up to 30.1 GB of internal storage in the pedestal, optional RAID controllers and redundant power supplies [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 1)]
 
@@ -27,11 +27,11 @@ The AlphaServer 1000A is a revision of the [[hardware:systems:mikasa|AlphaServer
 
 Except where noted, the following comes from the technical summary. [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_technical_summary.pdf?linkonly|AlphaServer 800 Technical Summary}}, pp. 1-3)]
 
-  * One [[wp>Alpha_21164|21164]] at 333 or 400 MHz on a CPU and cache daughtercard, with 2 MB of third-level cache and 8 KB of serial ROM; 500 MHz models were also sold [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_brochure.pdf?linkonly|DIGITAL AlphaServer 800 system}}, 1997)]
+  * One [[wp>Alpha_21164|21164]] at 333 or 400 MHz on a CPU and cache daughtercard, with 2 MiB of third-level cache and 8 KiB of serial ROM; 500 MHz models were also sold [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_brochure.pdf?linkonly|DIGITAL AlphaServer 800 system}}, 1997)]
   * 256-bit wide ECC protected memory subsystem and a 64-bit PCI bus
-  * Memory banks on the motherboard, expandable from 32 MB to 1 GB
+  * Memory banks on the motherboard, expandable from 32 MiB to 1 GiB
   * "Three 32-bit PCI slots, one shared 64-bit PCI/EISA slot, and two dedicated EISA slots" [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 1-5)]; the PCI bus runs at 33 MHz and the EISA bus at 8.33 MHz, and the EISA bus also carries the Xbus with the real-time clock, NVRAM, and operator control panel interface
-  * Onboard SVGA controller with 1 MB of video RAM, an S3 Trio64 [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}}, p. 6-18)]
+  * Onboard SVGA controller with 1 MiB of video RAM, an S3 Trio64 [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}}, p. 6-18)]
   * Onboard fast wide single-ended SCSI controller, a QLogic part [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}}, p. 6-18)], with an UltraSCSI-ready storage backplane
   * Remote management console (RMC) for monitoring the system remotely, plus internal temperature, fan, and status sensors with variable speed fans
   * Bidirectional parallel port, two serial ports, keyboard and mouse interface
@@ -43,7 +43,7 @@ Except where noted, the following comes from the technical summary. [(>{{wiki:ha
 [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600a_user_information.pdf?linkonly|AlphaStation 600A User Information}}, January 1997, pp. 3-8 to 3-9)]
 
   * CPU on a module: the 600A 5/500 reports a 500 MHz [[wp>Alpha_21164#Alpha_21164A|21164A]] [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600a_user_information.pdf?linkonly|AlphaStation 600A User Information}}, p. 6-3)]
-  * 16 SIMM sockets in four banks of four; memory options of 16, 32, 64, 128, and 256 MB, for 16 MB to 1 GB, with one bank required and all modules in a bank of the same capacity
+  * 16 SIMM sockets in four banks of four; memory options of 16, 32, 64, 128, and 256 MiB, for 16 MiB to 1 GiB, with one bank required and all modules in a bank of the same capacity
   * Primary and secondary PCI slots plus EISA slots, an onboard SCSI controller, and an onboard graphics controller that the EISA Configuration Utility can disable
   * Both SRM and AlphaBIOS, with an ''os_type'' environment variable selecting which the NVRAM boots, and a ''pci_parity'' variable whose default depends on the SCSI controller revision [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600a_user_information.pdf?linkonly|AlphaStation 600A User Information}}, p. 5-53)]
 
@@ -68,7 +68,7 @@ The following sources conflict with each other or with the account given above. 
 
   * **AlphaServer 800 CPU speeds and maximum memory**
     * {{wiki:hardware:systems:alphaserver_800:alphaserver_800_technical_summary.pdf?linkonly|AlphaServer 800 Technical Summary}}, 1997, pp. 1, 3: two CPU cards, 333 and 400 MHz, and "incremental memory expansion from 32 MB to 1 GB"
-    * {{wiki:hardware:systems:alphaserver_800:alphaserver_800_brochure.pdf?linkonly|DIGITAL AlphaServer 800 system}}, 1997: 21164 at 333, 400, and 500 MHz, each with 2 GB of memory
+    * {{wiki:hardware:systems:alphaserver_800:alphaserver_800_brochure.pdf?linkonly|DIGITAL AlphaServer 800 system}}, 1997: 21164 at 333, 400, and 500 MHz, each with 2 GiB of memory
     * {{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, November 1997, pp. 1-3, 1-4: a 21164 at 300 to 500 MHz and memory "from 32 Mbytes to 2 Gbytes"
 
 ==== Documentation ====

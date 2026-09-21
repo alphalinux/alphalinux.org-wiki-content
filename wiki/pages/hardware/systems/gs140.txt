@@ -6,8 +6,8 @@ The AlphaServer GS60, GS60E, and GS140 are [[hardware:systems:turbolaser|AlphaSe
 
 Except where noted, the following comes from the product profile. [(>{{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60_gs140_product_profile.pdf?linkonly|AlphaServer GS60 and GS140 Series with Alpha 21264 Processor}}, Product Profile, Compaq, June 1999)]
 
-  * Two to six [[wp>Alpha_21264|21264]] CPUs in the GS60 and two to 14 in the GS140, each with 4 MB of ECC protected onboard cache; the GS60 was sold as the 6/525 model [(>{{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60_8200_tru64_openvms_systems_catalog.pdf?linkonly|Compaq AlphaServer GS60 and AlphaServer 8200 Tru64 UNIX and OpenVMS Systems}}, Systems and Options Catalog, April 1999, p. 2.1)]
-  * Up to 12 GB of memory in the GS60 and 28 GB in the GS140
+  * Two to six [[wp>Alpha_21264|21264]] CPUs in the GS60 and two to 14 in the GS140, each with 4 MiB of ECC protected onboard cache; the GS60 was sold as the 6/525 model [(>{{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60_8200_tru64_openvms_systems_catalog.pdf?linkonly|Compaq AlphaServer GS60 and AlphaServer 8200 Tru64 UNIX and OpenVMS Systems}}, Systems and Options Catalog, April 1999, p. 2.1)]
+  * Up to 12 GiB of memory in the GS60 and 28 GiB in the GS140
   * Up to 132 PCI slots in the GS60 and 144 in the GS140, on an I/O architecture with multiple high-speed channels for PCI, EISA, or XMI
   * Integral UltraSCSI (40 MB/s) adapter for internal and external storage
   * 40 or 48 internal storage slots, up to 720 GB of internal storage in the GS60 and 864 GB in the GS140
