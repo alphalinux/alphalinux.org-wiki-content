@@ -47,6 +47,14 @@ MILO was originally written for the Noname, "to run LINUX on them without requir
 
 The ''de2104x'' driver "was known to fail on those machines (AS250/AS500/Multia) that have a builtin 21040 (old/original) TULIP"; use ''de4x5''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-February.mbox#L8047|"Re: testing wanted: debian-installer, now with 2.6.15"]], Jay Estabrook, debian-alpha, 10 Feb 2006)]
 
+==== Conflicting information ====
+
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
+
+  * **Whether the Multia's memory is parity or ECC**
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L9098|"Re: UDB RAM question"]], Jay Estabrook, axp-list, 23 Jul 1996: parity SIMMs are required and parity cannot be disabled.
+    * {{wiki:hardware:systems:multia:multia_service_information.pdf?linkonly|Multia MultiClient Desktop Service Information}}, pp. 1-2: every model ships with "24 MB of ECC memory expandable to 128 MB".
+
 ==== Documentation ====
 
 ^ Document ^ Part number ^ Date ^
