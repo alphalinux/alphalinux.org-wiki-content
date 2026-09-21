@@ -8,7 +8,7 @@
 
 [(>{{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15a_quickspecs.pdf?linkonly|HP AlphaServer DS15A and HP AlphaStation DS15A QuickSpecs}}, May 2007, p. 2)]
 
-  * One 1 GHz [[wp>Alpha_21264|21264]] with 2 MiB of onboard ECC cache, in a 3U enclosure
+  * One 1 GHz [[wp>Alpha_21264|21264C]] with 2 MiB of onboard ECC cache, in a 3U enclosure
   * 512 MiB, 1 GiB, or 2 GiB of SDRAM, up to 4 GiB
   * Four 64-bit PCI expansion slots on a riser card, two of them capable of 66 MHz, with no support for 5 V cards [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-October.mbox#L8940|"Re: Blimey New Alpha Workstation"]], Jay Estabrook, axp-list, 27 Oct 2003)]
   * Onboard Ultra160 SCSI controller and dual 10/100BaseT Ethernet
