@@ -41,6 +41,7 @@ PRINT:	.ascii		"Hello, World!\n"
 	.ent	main
 
 main:	ldgp	$gp,0($27)		# load global pointer
+	lda	$sp,-16($sp)		# allocate a stack frame
 	stq	$26,0($sp)		# save return address to stack
 
 	lda	$16,PRINT		# load format string
@@ -51,6 +52,7 @@ main:	ldgp	$gp,0($27)		# load global pointer
 
 	mov	$31,$0			# return val = 0
 	ldq	$26,0($sp)		# load return address from stack
+	lda	$sp,16($sp)		# release the stack frame
 	ret	$31,($26),1		# return, (1 signifies return from a procedure)
 	.end	main
 </code>
