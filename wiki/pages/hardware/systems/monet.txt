@@ -11,6 +11,8 @@ The XP1000 is a single processor 21264 workstation with Tsunami core logic, "MON
   * Cypress IDE controller, as on the Miata GL and DS20 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-January.mbox#L289|"My lucky day"]], Jay Estabrook, axp-list, 9 Jan 2008)]
   * Onboard Tulip Ethernet and onboard sound [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L22318|"Re: Can someone check the specs of this machine?"]], Jay Estabrook, axp-list, 11 Dec 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L12052|"Re: DS-10 Networking problems"]], W Bauske, axp-list, 18 Aug 2000)]
 
+By July 2001 the XP1000 was being phased out, with no 833 MHz model planned; the faster parts were to go to the DS20E and new DS10 variants instead. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-July.mbox#L29660|"SUMMARY: Faster XP1000s"]], Joe Fletcher, tru64-unix-managers, 11 Jul 2001)]
+
 ==== Firmware ====
 
 "there's no MILO for the XP1000." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L52620|"Re: Install RH 6.0 on XP1000?"]], Rich Payne, axp-list, 29 Sep 1999)] "XP1000 SRM stopped with v5.9, while the others went on into the v7.x's." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2008-October.mbox#L382|"Re: SCSI controllers and SRM"]], Jay Estabrook, debian-alpha, 1 Oct 2008)]

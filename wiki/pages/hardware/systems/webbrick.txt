@@ -37,6 +37,8 @@ The PCI slots are numbered differently by the console and by the chassis: logica
 
 The release notes add several hardware notes: all IDE drives run at 16 MHz, and IDE drives do not support ID renaming, so clusters of DS10, ES40, or XP900 systems can hit naming conflicts. With SRM V5.4-2 the ELSA Gloria Synergy graphics adapter only works in the bottom two PCI slots, logical slots 14 and 15. The KZPCM-DA combination SCSI and Ethernet adapter has no connection for the disk activity LED, so the front panel LED stays dark when it is used. Digital recommended setting ''ew*0_mode'' to autonegotiate for 100 Mbit operation. Switching to the remote management console uses Ctrl/[ Ctrl/[ R M C, of which only the "MC" is echoed. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_release_notes.pdf?linkonly|AlphaStation XP900 Release Notes}}, EK-DS10V-RN.A01, August 1999)]
 
+The DS10L's IDE controller, in the ALi M1543C A1 southbridge, is Ultra-33 with 28-bit LBA. With a 250 GB disk, SRM V7.3-1 listed the drive correctly but Tru64 UNIX could use only the first 128 GiB, and list members concluded the limit was in the chip rather than the firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2008-May.mbox#L814|"SUMMARY: alpha DS10L and large IDE disk"]], Stoyan Angelov, tru64-unix-managers, 18 May 2008)]
+
 ==== Linux ====
 
   * "DS10 boots and runs LINUX just fine with IDE HD and CDROM." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L19640|"Re: DS10 EIDE Disk"]], Jay Estabrook, axp-list, 15 Jul 1999)] See also [[hardware:systems#tsunami_systems|Tsunami Systems]].

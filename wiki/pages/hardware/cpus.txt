@@ -11,6 +11,26 @@ Wikipedia has articles on the Alpha architecture and on the individual processor
 
 See also [[hardware:chipsets|Chipsets]].
 
+==== Names and type codes ====
+
+The consoles report processors by part number rather than by EV name, for example "Alpha 21264A-8 666 MHz" on a DS20E; as Tom Blinn put it, "if you know that a 21264A is an EV67 then you can get information out of the string". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-January.mbox#L16570|"SUMMARY: cpu EV revision?"]], Kim Roy, tru64-unix-managers, 13 Jan 2000)] Tru64 UNIX's ''cpuconf.h'' gives the processor type codes and the correspondence between the two naming schemes: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-March.mbox#L6483|"Displaying system model ID string"]], Alan Davis, tru64-unix-managers, 16 Mar 2000)]
+
+^ Code ^ Name ^ Part ^
+| 2 | EV4 | 21064 |
+| 5 | EV5 | 21164 |
+| 6 | EV45 | 21064A |
+| 7 | EV56 | 21164A |
+| 8 | EV6 | 21264 |
+| 9, 10 | PCA56, PCA57 | 21164PC |
+| 11 | EV67 | 21264A |
+| 12 | EV68CB | 21264C |
+| 13 | EV68AL | 21264B |
+| 14 | EV68CX | 21264D |
+
+==== Performance notes ====
+
+The early systems' direct-mapped backup caches made performance depend on luck. Dick Sites explained run-to-run variations of about 20 percent in benchmarks as the result of virtual to physical page mapping: "Some runs then by fluke get page mappings that thrash in the direct-mapped cache. This effect is most pronounced in benchmarks (Murphy rules :-))." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1993-May.mbox#L2600|"Re: AXP 3000/300 oddity #1 -- CPU timings"]], Dick Sites, comp.unix.osf.osf1, 11 May 1993)] Alpha also has no integer divide instruction: a program that spent "more than half of it's cycles in *integer* division" ran slowly on Alpha because division is "a library routine on Alpha and a hardware instruction on MIPS". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1994-January.mbox#L2040|"Re: Optimization on ALPHA OSF1 ??"]], Burkhard Neidecker-Lutz, comp.unix.osf.misc, 27 Jan 1994)]
+
 ==== Announcements and prices ====
 
 Digital Semiconductor sold Alpha chips on the merchant market, and its own announcements record the speed ladder and the list prices. In June 1994 it cut prices across the family and replaced the 225 MHz 21064A with a 233 MHz version, whose clock suited the 33 MHz 21071 and 21072 core logic introduced that January. Prices per chip in quantities of 5,000, effective 3 July 1994, were $186 for the 21068-66, $347 for the 21066-166, $404 for the 21064-166, $544 for the 21064-200, $788 for the 21064A-233, and $1,083 for the 21064A-275. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1994-June.mbox#L980|"Press/New Reduced Prices For Alpha AXP Microprocessors"]], Digital Press and Analysts News, biz.digital.announce, 7 Jun 1994)]
@@ -58,12 +78,13 @@ Samsung part numbers: [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt
 ^ Part Number ^ Type ^ Frequency ^ Cache ^ Pass ^ Notes ^
 | 54-24758-01 | EV6 | 500 MHz | 4 MiB | | |
 | 54-24758-02 | EV6 | 500 MHz | 4 MiB | | |
-| 54-24758-03 | EV6 | 500 MHz | 4 MiB | | |
-| 54-24758-05 | EV6 | 500 MHz | 4 MiB | 2.3 | |
+| 54-24758-03 | EV6 | 500 MHz | 4 MiB | | revision E06 or later for dual CPU |
+| 54-24758-05 | EV6 | 500 MHz | 4 MiB | 2.3 | revision E06 or later for dual CPU |
 | 54-24758-06 | EV6 | 500 MHz | | | |
 | 54-24758-07 | EV6 | 500 MHz | | | |
 | 54-24758-08 | EV6 | 500 MHz | | | |
-| 54-24758-35 | EV6 | 500 MHz | 4 MiB | | IBM cache |
+| 54-24758-33 | EV6 | 500 MHz | | | revision F06 or later for dual CPU |
+| 54-24758-35 | EV6 | 500 MHz | 4 MiB | | IBM cache; revision F06 or later for dual CPU |
 | 54-30060-01 | EV67 | 667 MHz | 8 MiB | 2.2 | IBM/Sony cache |
 | 54-30060-02 | EV67 | 667 MHz | 8 MiB | 2.2.3 | IBM/Sony cache |
 | 54-30060-03 | EV67 | 667 MHz | 8 MiB | 2.6 | IBM/Sony cache |
@@ -71,6 +92,8 @@ Samsung part numbers: [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt
 | 54-30068-01 | EV67 | 667 MHz | | | |
 | 54-30482-01 | EV68 | 833 MHz | 8 MiB | | IBM/Sony cache |
 | 54-30482-02 | EV68 | 833 MHz | 8 MiB | | |
+
+On earlier revisions of the 500 MHz modules the second CPU of a dual system could disappear after a power cycle; the revision notes are from Compaq's Information Blitz TD 2690. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/1999-August.mbox#L11563|"Summary - DS20 missing processor.."]], Burch Seymour, tru64-unix-managers, 17 Aug 1999)] See [[hardware:systems:goldrush#known_issues|Goldrush]].
 
 ==== Documentation ====
 

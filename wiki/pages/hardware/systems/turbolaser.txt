@@ -24,6 +24,8 @@ Except where noted, the following comes from the technical summary. [(>{{wiki:ha
   * The KFTHA I/O port module drives external I/O buses; the KFTIA adds direct SCSI, two Ethernet ports, optional FDDI, and an optional 4 MB Prestoserve
   * Multiple power regulators, optional battery backup, and an optional integrated uninterruptible power supply
 
+The 8200 uses the upper half of the 8400's slot numbering, so its CPU and memory modules sit in slots 8 and higher and its CPUs are numbered from 8, not 0. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-April.mbox#L18821|"Summary: Why on AS 8200 the CPU number begin from 8 instead of 0"]], Iwan R Tamimi, tru64-unix-managers, 17 Apr 2001)] Tru64 UNIX V5.1B-3 was reported to run on an 8200 with firmware V6.6-15, though unsupported. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2005-July.mbox#L8581|"SUMMARY: True64 on DEC Alpha 8200"]], Christian Wessely, tru64-unix-managers, 30 Jul 2005)]
+
 ==== Linux ====
 
 Linux never supported them. In 1997, "It doesn't currently run on the 8000 series, AFAIK. I believe NetBSD *does*, however, but only single CPU." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L11094|"Re: AlphaServer 8400"]], Jay Estabrook, axp-list, 10 Jun 1997)] In 2003, "Correct; no Linux support for 8200/8400-class machines. Trade it in for a Wildfire or Marvel... ;-}" [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L17415|"Re: AlphaServer GS140 (8400)"]], Jay Estabrook, debian-alpha, 23 Sep 2003)]

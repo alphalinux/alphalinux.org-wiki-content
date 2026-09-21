@@ -38,6 +38,7 @@ wiki:hardware:motherboards:eb164:eb164-1.jpg Digital EB164
 ==== Clones and OEM systems ====
 
   * Carrera and Microway built systems based on the EB164. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-August.mbox#L348|"Re: Linux on Alpha 21164 and Alpine Durango board"]], Jay Estabrook, axp-list, 1 Aug 1996)]
+  * One vendor sold an EB164 as an "AlphaStation 500/333". Its console reported "EB164 Console V4.4-1", and Digital's AlphaStation 500 firmware would not work on it: "You may have purchased an AlphaStation 500/333 but you have received an EB164 ... You need the eb164/pc164 firmware." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1996-October.mbox#L1765|"Re: Problem updating firmware on AlphaStation 500"]], Andrew Gallatin, comp.unix.osf.misc, 21 Oct 1996)]
   * The Aspen Timberline is Aspen's own design, essentially an EB164 with a PCI-to-PCI bridge providing seven PCI slots. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8946|"Re: linux on EB164+"]], Jim Paradis, axp-list, 12 May 1996)]
 
 ==== Documentation ====
