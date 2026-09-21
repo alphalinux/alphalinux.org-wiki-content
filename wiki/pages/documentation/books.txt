@@ -2,9 +2,9 @@
 
 ^ Title ^ ISBN / Order Number ^
 | Alpha Architecture Handbook, Version 1 ({{wiki:documentation:references:alpha_architecture_handbook_v1.pdf?linkonly|PDF}}) | EC-H1689-10 |
-| Alpha Architecture Handbook, Version 2 | EC–QD2KA–TE |
-| Alpha Architecture Handbook, Version 3 | EC–QD2KB–TE |
-| Alpha Architecture Handbook, Version 4 ({{wiki:documentation:references:alpha_architecture_handbook_v4.pdf?linkonly|PDF}}) | EC–QD2KC–TE |
+| Alpha Architecture Handbook, Version 2 | EC-QD2KA-TE |
+| Alpha Architecture Handbook, Version 3 | EC-QD2KB-TE |
+| Alpha Architecture Handbook, Version 4 ({{wiki:documentation:references:alpha_architecture_handbook_v4.pdf?linkonly|PDF}}) | EC-QD2KC-TE |
 | Alpha Architecture Reference Manual, First Edition ({{wiki:documentation:references:alpha_architecture_reference_manual_1st_edition.pdf?linkonly|PDF}}) | [[https://search.worldcat.org/title/26593349|978-1555580988]] |
 | Alpha Architecture Reference Manual, Second Edition ({{wiki:documentation:references:alpha_architecture_reference_manual_2nd_edition.pdf?linkonly|PDF}}) | [[https://search.worldcat.org/title/32625680|978-1555581459]] |
 | Alpha Architecture Reference Manual, Third Edition | [[https://search.worldcat.org/title/39190622|978-1555582029]] |
