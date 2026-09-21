@@ -28,7 +28,7 @@ Daniel Frasnelli contributed unofficial kernel 2.2.2 patches that let Alpha user
 
 On the site's first anniversary, Dan Frasnelli posted a request for comment on **axp-list** that doubles as a summary of the first year: //"Over one year has passed since the dream of an Alpha Linux Organization became a reality. In that time, our membership has grown and we have received donations of web space, money, and hardware from diverse sources."// The group by then ran an administrative list at **admin@alphalinux.org**. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L2999|"AlphaLinux Org RFC"]], Daniel J. Frasnelli, axp-list, 4 Oct 1999)]
 
-Ron Farrer had been active on **axp-list** as an Alpha-only hardware vendor throughout 1998–99; by April 2000 he was writing bylined articles for the site, starting with a guide to installing Netscape using Compaq's Tru64 libraries. In May 2000 he and Rich Payne launched **AlphaNews.net**, //"created by members of the Alpha Linux Organization"// as a general Alpha news site. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L17418|"ANNOUNCE: AlphaNews.net up and running!"]], Ron Farrer, axp-list, 25 May 2000)] Philip Ezolt came aboard in March 2000 to centralize games and demos on Alpha, announced alongside a new job-openings section on the site. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L21468|"ALO news (RE: Linux/Alpha work)"]], Dan Frasnelli, axp-list, 12 Mar 2000)]
+Ron Farrer had been active on **axp-list** as an Alpha-only hardware vendor throughout 1998 and 1999; by April 2000 he was writing bylined articles for the site, starting with a guide to installing Netscape using Compaq's Tru64 libraries. In May 2000 he and Rich Payne launched **AlphaNews.net**, //"created by members of the Alpha Linux Organization"// as a general Alpha news site. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L17418|"ANNOUNCE: AlphaNews.net up and running!"]], Ron Farrer, axp-list, 25 May 2000)] Philip Ezolt came aboard in March 2000 to centralize games and demos on Alpha, announced alongside a new job-openings section on the site. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L21468|"ALO news (RE: Linux/Alpha work)"]], Dan Frasnelli, axp-list, 12 Mar 2000)]
 
 ==== Infrastructure ====
 
@@ -38,9 +38,9 @@ The mailing list archives were online at **%%http://www.alphalinux.org/archives%
 
 In addition to the main site and FTP archive, alphalinux.org hosted several mailing lists:
 
-  * **high_perf** — high-performance Alpha Linux, November 1998 – November 2001
-  * **milo-list** — MILO bootloader development, April 1999 – November 2001
-  * **axp-hardware** and **axp-software** — distribution-neutral hardware and software discussion, launched 4 December 1999
+  * **high_perf**, high-performance Alpha Linux, November 1998 to November 2001
+  * **milo-list**, MILO bootloader development, April 1999 to November 2001
+  * **axp-hardware** and **axp-software**, distribution-neutral hardware and software discussion, launched 4 December 1999
 
 The last two came out of a suggestion by Ron Farrer that //"we should start a new list, alphalinux.org?, for general Alpha and Linux discussions"//, since **axp-list** was a Red Hat list; [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L7509|"lists (was: Re: dell Dselling alphas?)"]], Ron Farrer, axp-list, 4 Dec 1999)] Rich answered the same day with //"OK, it's done ... I've set up two"//, initially run under majordomo. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L7715|"Re: lists (was: Re: dell Dselling alphas?)"]], Rich Payne, axp-list, 4 Dec 1999)] By May 2000 the lists had moved to Mailman at **lists.alphalinux.org**, running on talisman.mv.com. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/high_perf-mbox/2000-May.mbox#L1|"Welcome to the High-perf mailing list"]], high-perf-request, high_perf, 21 May 2000)]
 
@@ -50,7 +50,7 @@ Distribution was not always the site's to decide. In January 2000 Compaq asked f
 
 ==== Industry backdrop ====
 
-The site operated during Alpha's most commercially turbulent years. Compaq ended Windows NT on Alpha in August 1999, concentrating its software support on Tru64 Unix and Linux — a shift that made alphalinux.org more strategically important even as it signaled long-term uncertainty for the platform. The site tracked this closely, covering Compaq's compiler releases for Linux (Fortran beta July 1999, C beta September 1999, C++ public beta March 2000), hardware announcements from Alpha Processor Inc., and the Samsung manufacturing relationship that briefly promised 1.4–1.6 GHz chips by 2000.
+The site operated during Alpha's most commercially turbulent years. Compaq ended Windows NT on Alpha in August 1999, concentrating its software support on Tru64 Unix and Linux. That shift made alphalinux.org more strategically important even as it signaled long-term uncertainty for the platform. The site tracked this closely, covering Compaq's compiler releases for Linux (Fortran beta July 1999, C beta September 1999, C++ public beta March 2000), hardware announcements from Alpha Processor Inc., and the Samsung manufacturing relationship that briefly promised 1.4 to 1.6 GHz chips by 2000.
 
 ==== Decline ====
 
@@ -58,7 +58,7 @@ By 2002 the site was mostly unreachable, and Rich explained why on the lists. Th
 
 The domain came back by the end of that year: asked on New Year's Day 2003 which site was current, Rich answered //"we finally managed to get the domain name back"//, the site by then running on a machine at crl.dec.com. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L1377|"Re: What's the current website? -- alphalinux.org, alphadriven.org"]], Rich Payne, axp-list, 1 Jan 2003)] The content, however, stopped being updated.
 
-==== Revival: the wiki era (2008–2012) ====
+==== Revival: the wiki era (2008 to 2012) ====
 
 By 2008 alphalinux.org had gone years without updates. In April 2008, Matt Turner emailed Peter Petrakis proposing that he take over maintenance. Peter agreed and suggested starting with a wiki section to see if it could attract contributors.
 
@@ -77,7 +77,7 @@ Matt also kept a news section on the wiki, tracking developments in the Linux ke
   * **October 2009**: Debian demoted Alpha as a release architecture.
   * **September 2010**: Linus pulled patches removing the Big Kernel Lock from arch/alpha and fixing a 14-year-old signal handling bug present since Linux 1.3.95.
   * **December 2011**: Uros Bizjak fixed the long-standing gcc bug 27468, which caused gcc to emit extra sign-extending instructions.
-  * **May 2012**: Måns Rullgard's patches implementing Tru64 syscalls — enabling Tru64 binaries including the C compiler to run on Linux — were pulled by Linus.
+  * **May 2012**: Måns Rullgard's patches implementing Tru64 syscalls, which let Tru64 binaries including the C compiler run on Linux, were pulled by Linus.
 
 The wiki attracted a small but dedicated community, collectively running dozens of Alpha systems ranging from EV45-based AlphaStations to quad-EV68 and dual-EV7 AlphaServers.
 
@@ -89,7 +89,7 @@ mysqldump: Got error: 1146: Table 'ALwiki.mw_account_credentials' doesn't exist 
 
 ==== Transfer to Gareth Randall (2015) ====
 
-In 2015, Peter Petrakis and Rich Payne — who still held the domain — transferred alphalinux.org to Gareth Randall, who had expressed interest in carrying the site forward. Gareth maintained the site and a modestly populated wiki until mid-2026, when he transferred ownership to Matt Turner.
+In 2015, Peter Petrakis and Rich Payne, who still held the domain, transferred alphalinux.org to Gareth Randall, who had expressed interest in carrying the site forward. Gareth maintained the site and a modestly populated wiki until mid-2026, when he transferred ownership to Matt Turner.
 
 ==== Transfer to Matt Turner (2026) ====
 
