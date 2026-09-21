@@ -20,7 +20,7 @@ Gentoo has a [[https://forums.gentoo.org/viewforum.php?f=32|Gentoo on Alternativ
 
 ==== Distributions ====
 
-[[https://www.gentoo.org/|Gentoo Linux]] has a maintained [[https://wiki.gentoo.org/wiki/Project:Alpha|Alpha port]].
+[[https://www.gentoo.org/|Gentoo Linux]] has a maintained [[https://wiki.gentoo.org/wiki/Project:Alpha|Alpha port]]. All of its keywords have been unstable (''~alpha'') since January 2020; see [[history:community#gentoo|Community History]].
 
 Until [[https://www.debian.org/releases/lenny/|Debian Lenny]], [[https://www.debian.org/|Debian]] maintained an Alpha port. Support for Alpha is now maintained as part of [[https://www.debian.org/ports/alpha/|Debian Ports]].
 
