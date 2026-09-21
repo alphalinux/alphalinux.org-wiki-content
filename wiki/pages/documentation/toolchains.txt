@@ -230,7 +230,7 @@ On Debian the sequence was ''alien'' on the RPM, then patch the extracted tree b
 Debian's eventual answer was installer packages in ''contrib'': debconf prompts for the RPM, ''rpm2cpio'' extracts it, the package fixes up paths. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-March.mbox#L5495|"ITP: CPML and CXML alpha installer packages"]], Adam C Powell IV, debian-alpha, 27 Mar 2001)] The compilers themselves could not be shipped. Attempts to get redistribution rights out of HP after the merger went nowhere: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-April.mbox#L8850|"Re: HPaq cxx trouble"]], Adam C Powell IV, debian-alpha, 22 Apr 2005)]
 
 <blockquote>
-I've also tried working through a few channels at HPaq to get permission to distribute the libs and (encrypted) compilers, but everyone I've worked with has run into administrative brick walls. :-(
+I've also tried working through a few channels at HPaq to get permission to distribute the libs and (encrypted) compilers, but everyone I've worked with has run into administrative brick walls. %%:-(%%
 </blockquote>
 
 === How much faster was ccc ===

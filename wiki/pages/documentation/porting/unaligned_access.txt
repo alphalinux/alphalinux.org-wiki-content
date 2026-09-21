@@ -300,7 +300,7 @@ Only the per-process case was ever implemented. Henderson again, in 1999, listin
 #define SSIN_UACPARNT   5       /* set parent proc on/off */
 #define SSIN_UACPROC    6       /* set current proc on/off */
 
-I only implemented the SSIN_UACPROC case. If you'd like to implement the rest, be my guest.  ;-)
+I only implemented the SSIN_UACPROC case. If you'd like to implement the rest, be my guest.  %%;-)%%
 </blockquote>
 
 Setting one of these at the top of ''main()'' in a test harness turns every unaligned access into a core dump with a usable backtrace instead of a line in ''dmesg''.
@@ -365,7 +365,7 @@ Per-instruction cycle counts for Alpha unaligned-trap fixup are difficult to sou
 <blockquote>
 Recently, I happened to try printing a webpage from firefox; the ghostscript interpreter was used to render it for the print job. It seemed to take a really long time [...] I looked at /proc/cpuinfo before and after the render; it indicated that over 200 MILLION UAs had occurred during that single operation. When I fixed it, the render time dropped from more than 30 seconds to only a second or two.
 
-Was that not enough to care? :-)
+Was that not enough to care? %%:-)%%
 </blockquote>
 
 Fixing the unaligned accesses in a single library gave a better than tenfold speedup of a real workload. Estabrook had made the same point in 2000, to someone asking how to turn the log messages off: [(>"Re: Turning off 'unaligned trap' logging", Jay Estabrook, axp-list, 8 Nov 2000)]

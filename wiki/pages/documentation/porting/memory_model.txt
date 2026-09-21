@@ -395,7 +395,7 @@ Linux does this with a cross-processor shootdown. For the instruction stream the
 How often an operating system must issue ''CALL_PAL IMB'' is determined by the architecture rather than by any one processor, and kernels that answered the question by reasoning about a particular implementation encountered failures. In 1999 FreeBSD issued an IMB only when it ran out of ASNs, on the assumption that I-cache blocks are tagged with the ASN the way translation buffer entries are, while NetBSD issued one from a great many more places. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L4906|"I-stream memory barrier"]], Dmitrij Tejblum, freebsd-alpha, 25 Apr 1999)] Jason Thorpe, who wrote much of the NetBSD/alpha pmap, explained why NetBSD does not make that assumption: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L4776|"Re: I-stream memory barrier"]], Jason Thorpe, freebsd-alpha, 26 Apr 1999)]
 
 <blockquote>
-`On many implementations', not on all. Even though I know the I-cache layout on the 21164, I didn't allow my pmap module to make any assumptions based on that knowledge (I even ignored how IMB is implemented in the 21164 PALcode :-).
+`On many implementations', not on all. Even though I know the I-cache layout on the 21164, I didn't allow my pmap module to make any assumptions based on that knowledge (I even ignored how IMB is implemented in the 21164 PALcode %%:-)%%.
 
 The architecture manual states that an IMB should be done whenever the mapping for the I-stream changes. This is in the IMB PALcode op description. I optimize out unnecessary IMBs on unmap by tracking VM_PROT_EXECUTE in a software PTE bit.
 </blockquote>
