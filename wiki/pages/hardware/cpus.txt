@@ -102,7 +102,7 @@ Samsung part numbers: [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt
 | {{wiki:hardware:cpu:21164:21164_366-600_data_sheet.pdf?linkonly|Alpha 21164 Microprocessor Data Sheet}} | EC-QP98C-TE | August 1998 |
 | {{wiki:hardware:cpu:21164:21164_product_brief_1995.pdf?linkonly|Digital Semiconductor Alpha 21164 Microprocessor Product Brief}} | EC-QAENB-TE | March 1995 |
 | {{wiki:hardware:cpu:21164:21164_product_brief.pdf?linkonly|21164 Alpha Microprocessor Product Brief}} | EC-QP97D-TE | March 1997 |
-| {{wiki:hardware:cpu:21164:ev5_functional_specification_rev_1.5.pdf?linkonly|DECchip 21164-AA (EV5 CPU) Functional Specification, Revision 1.9}} | | December 1992 |
+| {{wiki:hardware:cpu:21164:ev5_functional_specification_rev_1.9_partial.pdf?linkonly|DECchip 21164-AA (EV5 CPU) Functional Specification, Revision 1.9}} (partial scan, chapters 1 to 11) | | December 1992 |
 | {{wiki:hardware:cpu:21164:ev5_functional_specification_rev_1.9.pdf?linkonly|DECchip 21164-AA (EV5 CPU) Functional Specification, Revision 1.9}} | | December 1992 |
 | {{wiki:hardware:cpu:21164:ev5_internal_specification_rev_0.0.pdf?linkonly|EV5 CPU Chip Internal Specification, Revision 0.0}} | | February 1992 |
 | {{wiki:hardware:cpu:21164:21164_microarchitecture_overview.pdf?linkonly|An Overview of the Alpha AXP 21164 Microarchitecture (John Edmondson and Paul Rubinfeld)}} | | |
