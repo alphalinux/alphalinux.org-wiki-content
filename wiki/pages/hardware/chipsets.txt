@@ -1,7 +1,7 @@
 ===== Chipsets =====
 
 ^ Chipset ^ CPUs ^ Motherboards ^
-| [[#21071 and 21072|21071/21072]] | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | [[hardware:motherboards:eb64plus|EB64+]], [[hardware:motherboards:PC64]] |
+| [[#21071_and_21072|21071/21072]] | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | [[hardware:motherboards:eb64plus|EB64+]], [[hardware:motherboards:PC64]] |
 | [[#21171|21171 (CIA)]] | [[wp>Alpha_21164|21164]] | [[hardware:motherboards:EB164]] |
 | [[#21172|21172 (CIA)]] | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | [[hardware:motherboards:PC164]] |
 | [[#21174|21174 (Pyxis)]] | [[wp>Alpha_21164#Alpha_21164A|21164A]], [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|21164PC]] | [[hardware:motherboards:PC164LX]], [[hardware:motherboards:PC164SX]], [[hardware:motherboards:pc164ux|PC164UX/BX]] |
