@@ -1,5 +1,0 @@
-====== mattst88 ======
-
-Matt Turner ([[https://github.com/mattst88|GitHub]]) maintains this wiki.
-
-Linux kernel Alpha architecture maintainer. Longtime Gentoo Linux developer. Mesa and graphics driver contributor, first at Intel on the i965 driver, later at Google.
