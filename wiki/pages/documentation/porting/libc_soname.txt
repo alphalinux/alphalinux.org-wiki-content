@@ -177,7 +177,7 @@ The libc shipped with RH 4.x was not an official release of glibc, and is not bi
 In order to catch problems that this incompatibility would cause, the sonames of the libraries were changed from e.g. 6.0 to 6.1.
 </blockquote>
 
-Thirty years on, the ''.1'' is still there. Nothing about current Alpha glibc requires it; it is a fossil of a 1997 snapshot ABI, kept because changing it back would break every Alpha binary ever built.
+Nearly thirty years on, the ''.1'' is still there. Nothing about current Alpha glibc requires it; it is a fossil of a 1997 snapshot ABI, kept because changing it back would break every Alpha binary ever built.
 
 See [[history:community#mailing_lists|Mailing Lists]] for archive locations.
 
