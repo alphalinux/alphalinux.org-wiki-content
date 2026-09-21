@@ -18,6 +18,8 @@ Alpha supports two families. Four formats have hardware arithmetic.
 | T_floating | IEEE | 64-bit | 1 + 11 + 52 | excess-1023 | yes |
 | X_floating | IEEE | 128-bit | 1 + 15 + 112 | excess-16383 | no |
 
+X_floating is entirely emulated in software. Digital chose it for REAL*16 in its Fortran compilers in 1993, in preference to the VAX H_floating layout, because customers wanted IEEE conformance: "The ALPHA AXP hardware does not support an extended precision floating point datatype." A 128-bit value is kept "in even-odd pairs of fixed point registers", with the sign and exponent in the odd register. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1993-August.mbox#L2905|"REAL*16 support planned for DEC Fortran on AXP systems"]], Steve Lionel, comp.unix.osf.osf1, 11 Aug 1993)]
+
 H_floating is a VAX format with no support of any kind on Alpha. The Architecture Reference Manual lists it under "Data Types with No Hardware Support" and, unlike D_floating, promises no emulation either.
 
 D_floating is partly supported: it is loaded and stored with the //G_floating// instructions (the bit reordering is identical), and ''CVTDG''/''CVTGD'' convert to and from G. There is no D arithmetic. The Architecture Reference Manual describes the result as "'format compatibility' in which binary files of D_floating numbers may be processed, but without the last 3 bits of fraction precision".
@@ -308,6 +310,8 @@ It's not recommended when you care about performance but it's extremely useful f
 </blockquote>
 
 ''-mieee'' therefore changes both the results produced and the precision with which traps are reported.
+
+The DEC OSF/1 compilers behaved the same way. Without IEEE flags, 5.0/0.0 killed the program with "Floating exception", and ''-ieee_with_no_inexact'' made it print ''INF'': "If you want IEEE semantics, you have to tell the compiler with the -ieee_xxx flags." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-September.mbox#L25407|"Re: IEEE Floating Point problem"]], Burkhard Neidecker-Lutz, comp.unix.osf.osf1, 2 Sep 1994)] Ignoring ''SIGFPE'' is no substitute: without software completion, 1/0 then evaluates to 0 rather than infinity. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-September.mbox#L24735|"IEEE Floating Point problem"]], David Williss, comp.unix.osf.osf1, 1 Sep 1994)]
 
 === What -mieee costs ===
 

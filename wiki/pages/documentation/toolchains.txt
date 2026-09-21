@@ -8,7 +8,9 @@ The Alpha-specific parts of the GNU toolchain differ from those of other archite
 
 === History ===
 
-The port began on a cross compiler. Jim Paradis' September 1994 progress report describes ''gcc'' 2.5.8 configured for ''alpha-linux'' on a DEC 3000 running DEC OSF/1, with a patched ''gdb'' driving the kernel under a simulator. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-September.mbox#L14204|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 12 Sep 1994)] See [[software:operating_systems]] for that era.
+GCC reached Alpha before Linux did. In February 1993 a Digital UNIX engineer reported that "One of the groups within DEC along with NYU has ported gcc for Alpha/OSF", [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1993-February.mbox#L97|"Re: gcc on alpha/osf1"]], Vipul Patel, comp.unix.osf.osf1, 1 Feb 1993)] and by April 1993 patched GCC 2.3.3 kits were being distributed from ''crl.dec.com:/pub/DEC/Alpha/gcc-2.3.3+-alpha''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1993-April.mbox#L4291|"Re: gcc 2.3.3 and alpha-osf odd assembly problem"]], Paul Tatarsky, comp.unix.osf.osf1, 20 Apr 1993)]
+
+The Linux port began on a cross compiler. Jim Paradis' September 1994 progress report describes ''gcc'' 2.5.8 configured for ''alpha-linux'' on a DEC 3000 running DEC OSF/1, with a patched ''gdb'' driving the kernel under a simulator. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-September.mbox#L14204|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 12 Sep 1994)] See [[software:operating_systems]] for that era.
 
 By 1996 and 1997 the native compiler was ''gcc'' 2.7.2.x as shipped by Red Hat 4.x. This was the ECOFF to ELF transition: a stock Digital UNIX ''gcc'' 2.7.2.1 could still build a 2.0.x kernel, but not a 2.1.x one, because the newer kernels were ELF and Digital UNIX was ECOFF. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-February.mbox#L16373|"Re: cross-compile gcc"]], Jim Nance, axp-list, 13 Feb 1997)]
 
@@ -40,7 +42,9 @@ That is the whole of it: ''-mcpu=ev5'' and below is a scheduling choice and stay
 | ''ev56'' | 21164A | BWX |
 | ''pca56'' | 21164PC | BWX, MVI |
 | ''ev6'' | 21264 | BWX, MVI, FIX |
-| ''ev67'', ''ev68'' | 21264A and later | BWX, MVI, FIX, CIX |
+| ''ev67'' | 21264A and later | BWX, MVI, FIX, CIX |
+
+There is no ''ev68'' value; GCC rejected ''-mcpu=ev68'' in 2005, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2005-September.mbox#L1033|"[gentoo-alpha] ev6, ev67 or ev68?"]], Davide Cittaro, gentoo-alpha, 19 Sep 2005)] and ''ev67'' is the right choice for the EV68 processors, since "ev68 doesn't support any new instructions afaik and scheduling is similar as well". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2005-September.mbox#L1092|"Re: [gentoo-alpha] ev6, ev67 or ev68?"]], Bryan Østergaard, gentoo-alpha, 19 Sep 2005)]
 
 ''-mtune='' takes the same values and changes only instruction scheduling, never the instruction set. The numeric names (''21064'', ''21164a'', ''21264'' and so on) are accepted as synonyms and appear throughout the archives.
 
@@ -101,9 +105,13 @@ Modern binutils does this automatically, but the failure mode survived longest i
 Almost certainly your .got section has overflowed. It would be nice if there was something to signal the error at build time, but...
 </blockquote>
 
+Large kernel modules, such as the radeon driver, can fail to load for a related reason: relocation type 4, ''R_ALPHA_LITERAL'', "can easily overflow if things get large". Before Linux 3.9 the kernel was built with ''-msmall-data'', which made modules "especially prone" to it; building the driver into the kernel avoids it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2014-December.mbox#L84|"[gentoo-alpha] Re: radeon questions"]], Måns Rullgård, gentoo-alpha, 9 Dec 2014)]
+
 === glibc ===
 
 Alpha's C library is ''libc.so.6.1'', not ''libc.so.6'', and glibc builds itself with ''-mieee''. Both have Alpha-specific reasons, covered in [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] and [[documentation:porting:floating_point|Floating Point]].
+
+From glibc 2.34, statically linked programs on Alpha, ''ldconfig'' among them, crashed while dynamically linked ones worked. The static linker resolved the hidden weak reference to ''%%__ehdr_start%%'' to 0 on Alpha, leaving the program header pointers invalid; Adhemerval Zanella's fix restored the older setup for static binaries in January 2023. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2023-January.mbox#L240|"Re: Update on the glibc segfault issue on Alpha"]], Adhemerval Zanella Netto, gentoo-alpha, 3 Jan 2023)] Most of the remaining glibc test failures passed when built for an EV67 baseline, and Michael Cree proposed raising Debian's baseline accordingly, since "One of our last EV56 users has recently bowed out due to hardware failure". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2022-November.mbox#L109|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, gentoo-alpha, 20 Nov 2022)]
 
 Open toolchain bugs are tracked from [[tasks:bugs|Bugs]].
 
@@ -112,6 +120,16 @@ Open toolchain bugs are tracked from [[tasks:bugs|Bugs]].
 === What it was ===
 
 ''ccc'' is the compiler Digital shipped as **DEC C** on OSF/1, Digital UNIX, Tru64 and OpenVMS, built on the GEM optimizing back end, retargeted to produce ELF objects and link against glibc. The Fortran compiler shares that back end, which is why the two were announced together and why both were good at the same things. Nothing about it was open: it was a proprietary compiler given away, with source to nobody.
+
+=== DEC C on DEC OSF/1 ===
+
+DEC C was not always the default. David Metsky of Digital's UNIX group: "From the begining until Digital UNIX V3.2(abcde), the default compiler has been the MIPS derived ucode compiler (ACC). In V1.3 we started putting the DEC C GEM based compiler on the system under the -migrate switch. In V4.0, both compilers will continue to ship but the DEC C compiler will be the default and the ACC compiler will be available under the -oldc switch." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1996-February.mbox#L207|"Re: Roll-yer-own Alpha OSF box"]], David Metsky, comp.unix.osf.osf1, 28 Feb 1996)] So ''cc -migrate'', on OSF/1, meant "use DEC C", which Steve Lionel called "the high-performance ANSI-C compiler which is what we use for performance benchmarks". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-September.mbox#L24322|"RE: Any compiler in the OSF/1"]], Steve Lionel, comp.unix.osf.osf1, 1 Sep 1994)] On V2.0 and V2.1 it came in the development enhancements subset ''CMPDEVENH200'', from V3.0 in ''OSFDECC300'', and the compiler image that ''cc -migrate'' ran was ''gemc_cc''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1994-September.mbox#L2758|"Re: Problem with cc (OSF1 V2.1)"]], Joe Mario, comp.unix.osf.misc, 13 Sep 1994)]
+
+The difference was large. Digital's July 1993 figures for a 150 MHz DEC 3000 Model 500 had one ''flops.c'' test rising from 25.6 MFLOPS with the default ''cc -O3'' to 68.7 MFLOPS with ''cc -migrate -O4'', and double-precision rolled CLINPACK from 14.2 to 20.6 MFLOPS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1993-July.mbox#L5311|"More Alpha performance numbers"]], Gail L. Grant, comp.unix.osf.osf1, 1 Jul 1993)] The KAP optimizing preprocessor, which HP bundled with its compilers, had to be licensed separately on Alpha. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1993-June.mbox#L6578|"Re: Summary: Alpha Performance"]], Dileep Bhandarkar, comp.unix.osf.osf1, 22 Jun 1993)]
+
+DEC C on Digital UNIX V4.0A emitted byte and word instructions with the undocumented ''-arch ev56''; ''-tune ev56'' changed only scheduling. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/1997-January.mbox#L22965|"SUMMARY: EV56 Instructions"]], John Lucak, alpha-osf-managers, 8 Jan 1997)] On 2 March 2000 the compiler team released Compaq C T6.3 for Tru64 UNIX as a free Advanced Development Kit. It had been used for Compaq's SPEC CPU95 and CPU2000 submissions, and added C99 features (restricted pointers, variable length arrays, designated initializers, mixed declarations and statements), better compatibility with Microsoft Visual C and gcc, and OpenMP. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-March.mbox#L19947|"Compaq C T6.3 ADK Compiler for Tru64 UNIX available now"]], Tom Blinn, tru64-unix-managers, 2 Mar 2000)]
+
+Fortran followed the same path. DEC Fortran V3.4 for DEC OSF/1, shipped in April 1994, added full IEEE floating-point exception support through ''-fpe'' levels 0 to 4, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-April.mbox#L8864|"DEC Fortran V3.4 for DEC OSF/1 AXP now shipping"]], Steve Lionel, comp.unix.osf.osf1, 19 Apr 1994)] and DEC Fortran 90, Digital's first Fortran 90 compiler, was announced on 13 April 1994 and shipped from the end of June. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-April.mbox#L13589|"Digital announces DEC Fortran 90 for DEC OSF/1 AXP Systems"]], Steve Lionel, comp.unix.osf.osf1, 13 Apr 1994)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-June.mbox#L6579|"DEC Fortran 90 for DEC OSF/1 AXP submitted to manufacturing"]], Steve Lionel, comp.unix.osf.osf1, 10 Jun 1994)]
 
 === Timeline ===
 
@@ -183,8 +201,9 @@ The options are Digital's, not GNU's, though the driver accepts a useful subset 
 | ''-non_shared'' | static link |
 | ''-ifo'' | inter-file optimization across the whole compilation |
 | ''-inline speed'', ''-unroll''//n//, ''-speculate all'' | further optimization controls |
-| ''-migrate'' | ease migration of code written for older Digital compilers |
+| ''-migrate'' | on DEC OSF/1 and Digital UNIX up to V3.2, select DEC C instead of the older default compiler; kept for compatibility afterward (see [[#dec_c_on_dec_osf_1|above]]) |
 | ''-xtaso'', ''-xtaso_short'' | 32-bit pointer support |
+| ''-taso'' | link the program so that all its addresses fit in 32 bits [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1994-October.mbox#L3189|"Re: help, malloc 32 vs malloc 64"]], Alan Herrlich, comp.unix.osf.misc, 21 Oct 1994)]; the DEC OSF/1 FAQ called it "a last resort" [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1995-August.mbox#L8638|"DEC OSF/1 AXP Frequently Asked Questions"]], Steve Lionel, comp.unix.osf.osf1, 21 Aug 1995)] |
 
 A representative real-world invocation, from someone building POV-Ray on a PCA56 in 2005: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2005-July.mbox#L385|"Re: Compaq C vs GCC-4.0.1"]], "DiskMan" (Will L G), comp.os.linux.alpha, 23 Jul 2005)]
 
@@ -232,6 +251,8 @@ Debian's eventual answer was installer packages in ''contrib'': debconf prompts 
 <blockquote>
 I've also tried working through a few channels at HPaq to get permission to distribute the libs and (encrypted) compilers, but everyone I've worked with has run into administrative brick walls. %%:-(%%
 </blockquote>
+
+Gentoo packaged the same RPMs as ebuilds, with a ''ccc'' eclass committed in May 2003 to help packages build with the compiler. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2003-May.mbox#L1411|"new eclass: ccc"]], Tavis Ormandy, gentoo-alpha, 26 May 2003)] Aron Griffis fixed the generated ''comp.config'' in ''ccc-6.5.9.001-r1'' so that Python built with it, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2004-February.mbox#L1070|"Re: [gentoo-alpha] glibc-2.3.2-decc-compaq.patch"]], Aron Griffis, gentoo-alpha, 6 Feb 2004)] and Compaq Fortran was packaged the same way as ''dev-lang/cfal''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2004-June.mbox#L556|"Re: [gentoo-alpha] Compaq Fortran Compiler"]], Joao Patricio, gentoo-alpha, 8 Jun 2004)] Tavis Ormandy advised against building shared libraries with ''ccc'', but recommended it for programs such as Apache, Python, Bash, and Perl, adding that "cxx is a little more brittle than ccc, some code will make it dump core". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2003-December.mbox#L168|"Re: [gentoo-alpha] The use of compaq compilers ccc and cxx."]], Tavis Ormandy, gentoo-alpha, 10 Dec 2003)]
 
 === How much faster was ccc ===
 

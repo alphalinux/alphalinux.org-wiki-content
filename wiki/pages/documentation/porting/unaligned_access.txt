@@ -414,6 +414,8 @@ Ivan Kokshaysky gave the same advice on the Alpha list in 2001: [(>[[https://git
 Using memcpy() with constant size is fine as well, and is portable. Modern GCC (>= 2.95) generates quite a good inline code for this.
 </blockquote>
 
+Digital's own compilers offered a non-portable alternative: an ''%%__unaligned%%'' type qualifier, as in ''%%__unaligned int *p%%'', which makes the compiler emit the extract sequence for accesses through that pointer instead of trapping. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1993-September.mbox#L3115|"Re: Alignment on alpha?"]], Burkhard Neidecker-Lutz, comp.unix.osf.osf1, 16 Sep 1993)] DEC C also removed padding from individual structures with ''#pragma member_alignment save'', ''#pragma nomember_alignment'', and ''#pragma member_alignment restore'', and generated safe access sequences for their members. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-December.mbox#L17163|"Re: Funny alignment with structures ?"]], Tim Bartley, comp.unix.osf.osf1, 7 Dec 1994)]
+
 In an optimized build ''memcpy'' of a scalar is not a function call on any target: on x86-64 it is a single ''movl'', and on Alpha it is the sequence above. ''%%memcpy(&v, p, sizeof v)%%'' is the portable spelling of a load performed however the machine requires, and unlike the cast it is well-defined C.
 
 ==== Finding unaligned accesses ====

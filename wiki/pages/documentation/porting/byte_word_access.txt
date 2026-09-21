@@ -119,7 +119,9 @@ The Architecture Reference Manual states which form to prefer:
 LDBU and STB are the recommended way to perform byte load and store operations on Alpha implementations that support them; use them rather than the extract, insert, and mask byte instructions described in this section.
 </blockquote>
 
-On implementations without BWX, these six instructions are supported by software emulation, so encountering one is not fatal, but execution is slow.
+On implementations without BWX, these six instructions are supported by software emulation, so encountering one is not fatal, but execution is slow. The emulation lives in the operating system, not in PALcode. Tom Blinn explained Digital's reasoning for Tru64 UNIX: "On all Alpha systems, when you get an "invalid instruction" trap, control vectors from the PAL into the system's kernel, and the emulation is all done in software." Doing it in PALcode would have meant reissuing both the OpenVMS and UNIX PALcode for every older system and relying on users to update their console firmware, "so ALL of the support for the new instructions on older platforms resides in system software, NOT in firmware." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-November.mbox#L13714|"UPDATE Oracle 8.1.7 on pre EV5.6 = arrghhh"]], Sim Alam, tru64-unix-managers, 14 Nov 2001)] The occasion was Oracle 8.1.7, rebuilt to use the byte and word instructions and very slow on pre-EV56 machines as a result.
+
+The lack of byte stores also shaped Digital's hardware. No dumb (byte-per-pixel) color frame buffers were offered for the early Alpha systems, and the DECstation PMAG-AA monochrome card, which exposes each pixel as a byte, was left unsupported: "Alpha's don't even have byte access, hence the do abysmal with dumb color frame buffers (hence none is offered on them)." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-May.mbox#L1711|"Re: Support for the PMAG-AA graphics adapter under OSF/1 1.X & 2.0"]], Burkhard Neidecker-Lutz, comp.unix.osf.osf1, 31 May 1994)]
 
 === Which processors have BWX ===
 
