@@ -1,11 +1,11 @@
 ~~NOTOC~~
 
-| 2026-09-21 | [[user:mattst88|Matt Turner's]] patches [[https://gcc.gnu.org/pipermail/gcc-patches/2026-September/732070.html|implementing Alpha's FP classification optabs]] let GCC build ''fpclassify'' and related builtins from the classification optabs instead of per-target code [[[https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66462|PR66462]]]. |
+| 2026-09-21 | [[user:mattst88|Matt Turner's]] patches [[https://gcc.gnu.org/pipermail/gcc-patches/2026-September/732070.html|implementing Alpha's FP classification optabs]] let GCC build ''fpclassify'' and related builtins from the classification optabs instead of per-target code ([[https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66462|PR66462]]). |
 | 2026-09-17 | The wiki was rebuilt on DokuWiki, replacing the MediaWiki installation that ran alphalinux.org until 2012. |
 | 2026-09-13 | [[user:mattst88|Matt Turner]] proposed a [[https://github.com/tukaani-project/xz/pull/246|DEC Alpha BCJ filter for liblzma]], letting xz better compress Alpha binaries. |
 | 2026-09-12 | [[user:mattst88|Matt Turner's]] patches adding [[https://github.com/PCRE2Project/pcre2/pull/921|Alpha JIT support]] were merged into PCRE2, so its just-in-time regex compiler now generates native Alpha code. |
 | 2026-09-10 | [[user:mattst88|Matt Turner]] proposed [[https://github.com/boostorg/boost/pull/1161|Alpha architecture detection]] for Boost. |
-| 2026-09-06 | [[user:mattst88|Matt Turner]] fixed [[https://sourceware.org/pipermail/libc-alpha/2026-September/180237.html|a divide-by-zero handler]] in glibc, using a comdat group so it is emitted once per link instead of pulling in a copy per translation unit [[[https://sourceware.org/bugzilla/show_bug.cgi?id=20543|BZ #20543]]]. |
+| 2026-09-06 | [[user:mattst88|Matt Turner]] fixed [[https://sourceware.org/pipermail/libc-alpha/2026-September/180237.html|a divide-by-zero handler]] in glibc, using a comdat group so it is emitted once per link instead of pulling in a copy per translation unit ([[https://sourceware.org/bugzilla/show_bug.cgi?id=20543|BZ #20543]]). |
 | 2026-09-05 | [[user:mattst88|Matt Turner]] released [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]], adding XFS and ext4 support so Alpha can boot from either filesystem. |
 | 2026-08-31 | [[user:mattst88|Matt Turner]] added [[https://sourceware.org/pipermail/binutils/2026-September/151152.html|IFUNC symbol support]] to binutils' Alpha backend, letting the linker resolve indirect functions in both PIC and non-PIC links. |
 | 2026-08-29 | [[user:mattst88|Matt Turner]] added [[https://gcc.gnu.org/pipermail/gcc-patches/2026-August/729301.html|-fstack-protector support]] to GCC's Alpha backend. |
