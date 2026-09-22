@@ -10,7 +10,6 @@ Complete Alpha systems were sold by Digital, Compaq, HP, and others. Each has it
 | [[hardware:systems:dec_3000_4000_7000|DEC 4000]] | Cobra, Fang | [[wp>Alpha_21064|21064]] | Futurebus+ | None | No |
 | [[hardware:systems:dec_3000_4000_7000|DEC 7000, DEC 10000]] | Ruby (Laser, Blazer) | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | LSB | None | No |
 | [[hardware:systems:noname|Multia]] | UDB | [[wp>Alpha_21064#Alpha_21066|21066]], [[wp>Alpha_21064#Alpha_21066A|21066A]] | LCA | Noname | To 6.9 |
-| [[hardware:motherboards:axppci33|AXPpci 33]] | Noname | [[wp>Alpha_21064#Alpha_21066|21066]], [[wp>Alpha_21064#Alpha_21066A|21066A]], [[wp>Alpha_21064#Alpha_21068|21068]], [[wp>Alpha_21064#Alpha_21068A|21068A]] | LCA | Noname | To 6.9 |
 | [[hardware:systems:alphabook1|AlphaBook 1]] | Burns | [[wp>Alpha_21064#Alpha_21066|21066]] | LCA | AlphaBook1 | To 6.9 |
 | [[hardware:systems:avanti|AlphaStation 200, 205, 250, 255, 400, AlphaServer 300, 400]] | Mustang, LX3, M3, LX3+, Avanti, Melmac | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | APECS | Avanti | To 6.9 |
 | [[hardware:systems:xl|Alpha XL 233, 266]] | XL | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | APECS | XL | To 6.9 |
