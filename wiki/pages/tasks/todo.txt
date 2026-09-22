@@ -1,39 +1,26 @@
 ===== To Do =====
 
-==== Linux ====
-
 ^ Status ^ Task ^
+^ Linux ||
 | Done | SECCOMP/SECCOMP_FILTER support |
 | Done | GENERIC_ENTRY support |
 | In progress | Generic kernel compression support |
 | In progress | ''ProfileMe'' profiling support |
 | In progress | EV67 profiling support |
 | In progress | Hugepage support |
-
-==== gcc ====
-
-^ Status ^ Task ^
+^ gcc ||
 | In progress | Switch to LRA for BWX ([[https://gcc.gnu.org/pipermail/gcc-patches/2026-July/724654.html|patch]]) |
 | In progress | Switch to LRA for non-BWX |
 | In progress | Fix test suite failures |
 | Done | stack protector support |
 | Done | ifunc support |
-
-==== glibc ====
-
-^ Status ^ Task ^
+^ glibc ||
 | In progress | Fix test suite failures |
 | In progress | ifunc/multiarch support |
 | In progress | ''mem*'' and ''str*'' function optimizations |
-
-==== binutils ====
-
-^ Status ^ Task ^
+^ binutils ||
 | Done | ifunc support |
-
-==== aboot ====
-
-^ Status ^ Task ^
+^ aboot ||
 | Done | XFS support |
 | Done | ext4 support |
 | Done | release v2.0 |
