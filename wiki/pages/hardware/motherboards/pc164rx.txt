@@ -17,19 +17,17 @@ The AlphaPC 164RX is an ATX form factor motherboard from Digital's OEM line, bas
   * Windows NT AlphaBIOS firmware
   * Standard ATX power supply
 
-Only the 525 MHz version appears in Digital's November 1998 announcement and in Jay Estabrook's list of EB164-family platforms. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L8619|"Re: New Alphas (ev57 164+264) and boards"]], Aaron Spink, axp-list, 4 Nov 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002)]
+==== Firmware and Linux ====
+
+No SRM console was released for the board [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L9150|"Re: switching from ARC back to SRM"]], Jay Estabrook, axp-list, 16 Aug 2000)], so Tru64 UNIX and SRM-only Linux installers cannot be used.
+
+Linux supports the board as the RX164 platform (''CONFIG_ALPHA_RX164'', with Polaris support in ''core_polaris.c''), and it boots through a MILO that Jay Estabrook built for it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L3183|"Re: RX (was RE: Kernel 2.4.17)"]], Rich Payne, axp-list, 8 Jan 2002)]
 
 ==== History ====
 
 Digital announced the AlphaPC 164RX together with the AlphaPC 264DP in November 1998. Both were in beta at the time and were expected to enter production in January 1999, with the 525 MHz 164RX priced at $799 per unit in quantities of 1000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L8619|"Re: New Alphas (ev57 164+264) and boards"]], Aaron Spink, axp-list, 4 Nov 1998)]
 
 The board would have been the first to use the PCA57, which Jay Estabrook described as a respin of the PCA56 (21164PC) that performed nearly as well as the EV56, and the Polaris core logic, which supports only 32-bit PCI. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002)] Production was reportedly delayed by a bug in the chipset [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-April.mbox#L8968|"Re: 164RX"]], Maurice Hilarius, axp-list, 4 Apr 1999)], and the board was never sold as a product. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L9150|"Re: switching from ARC back to SRM"]], Jay Estabrook, axp-list, 16 Aug 2000)] A small number of boards were built (at least 12, according to Rich Payne) and some reached users. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L4500|"RE: Questions on Alpha/Linux."]], Rich Payne, axp-list, 1 Mar 2000)]
-
-==== Firmware and Linux ====
-
-No SRM console was released for the board [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L9150|"Re: switching from ARC back to SRM"]], Jay Estabrook, axp-list, 16 Aug 2000)], so Tru64 UNIX and SRM-only Linux installers cannot be used.
-
-Linux supports the board as the RX164 platform (''CONFIG_ALPHA_RX164'', with Polaris support in ''core_polaris.c''), and it boots through a MILO that Jay Estabrook built for it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L3183|"Re: RX (was RE: Kernel 2.4.17)"]], Rich Payne, axp-list, 8 Jan 2002)] One user reported getting Red Hat 6.2 and a 2.2.19 kernel running with this MILO, but only after removing a 12 GB IDE disk and changing the video card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L10623|"RE: RX (was RE: Kernel 2.4.17)"]], Marco Benton, axp-list, 14 Jan 2002)]
 
 ==== Conflicting information ====
 

@@ -1,6 +1,6 @@
 ===== AlphaStation XP1000 (Monet) =====
 
-The XP1000 is a single processor 21264 workstation with Tsunami core logic, "MONET at 500MHz, aka BRISBANE @ 667". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L22318|"Re: Can someone check the specs of this machine?"]], Jay Estabrook, axp-list, 11 Dec 1999)] It was designed by the same Workstation group as the [[hardware:systems:miata|Personal Workstation]] and resembles it closely, "both externally and internally, with the builtin Ethernet and sound, same style cabinet". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L22318|"Re: Can someone check the specs of this machine?"]], Jay Estabrook, axp-list, 11 Dec 1999)] A Personal Workstation cannot be upgraded to an XP1000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L22318|"Re: Can someone check the specs of this machine?"]], Jay Estabrook, axp-list, 11 Dec 1999)]
+The XP1000 is a single processor 21264 workstation with Tsunami core logic, "MONET at 500MHz, aka BRISBANE @ 667". It was designed by the same Workstation group as the [[hardware:systems:miata|Personal Workstation]] and resembles it closely, "both externally and internally, with the builtin Ethernet and sound, same style cabinet", but a Personal Workstation cannot be upgraded to an XP1000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L22318|"Re: Can someone check the specs of this machine?"]], Jay Estabrook, axp-list, 11 Dec 1999)]
 
 ==== Specifications ====
 
@@ -11,7 +11,7 @@ The XP1000 is a single processor 21264 workstation with Tsunami core logic, "MON
   * Cypress IDE controller, as on the Miata GL and DS20 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-January.mbox#L289|"My lucky day"]], Jay Estabrook, axp-list, 9 Jan 2008)]
   * Onboard Tulip Ethernet and onboard sound [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L22318|"Re: Can someone check the specs of this machine?"]], Jay Estabrook, axp-list, 11 Dec 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L12052|"Re: DS-10 Networking problems"]], W Bauske, axp-list, 18 Aug 2000)]
 
-By July 2001 the XP1000 was being phased out, with no 833 MHz model planned; the faster parts were to go to the DS20E and new DS10 variants instead. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-July.mbox#L29660|"SUMMARY: Faster XP1000s"]], Joe Fletcher, tru64-unix-managers, 11 Jul 2001)]
+By July 2001 the XP1000 was being phased out, with no 833 MHz model planned. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-July.mbox#L29660|"SUMMARY: Faster XP1000s"]], Joe Fletcher, tru64-unix-managers, 11 Jul 2001)]
 
 ==== Firmware ====
 
@@ -23,8 +23,6 @@ Put the graphics card in one of the top three slots: "Make ABSOLUTELY SURE the E
 
 ==== Linux ====
 
-  * The XP1000, DS20, and Miata GL share a Cypress IDE quirk, fixed in Jay Estabrook's 2008 kernels: "The problem on CYPRESS IDE machines (XP1000, DS20, MIATA) is fixed." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-January.mbox#L289|"My lucky day"]], Jay Estabrook, axp-list, 9 Jan 2008)]
-  * "Tulip does have problems with the built-in chips on XP1000 and DS10". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L12052|"Re: DS-10 Networking problems"]], W Bauske, axp-list, 18 Aug 2000)]
   * Debian's generic kernel stopped booting on the XP1000 after 3.16, but the SMP kernel boots: "The SMP kernel also boots on my XP1000." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2017-April.mbox#L678|"Re: Debian kernel boot failure on Alpha [was Re: systemd FTBFS]"]], Michael Cree, debian-alpha, 10 Apr 2017)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2018-December.mbox#L1051|"Re: Use SMP kernel for Alpha (udeb) builds"]], Michael Cree, debian-alpha, 8 Dec 2018)]
 
 ==== Conflicting information ====

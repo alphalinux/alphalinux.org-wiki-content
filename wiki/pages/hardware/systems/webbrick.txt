@@ -20,34 +20,20 @@ The DS10 is a single processor 21264 server in a 3U rack-ready or desktop enclos
 
 === AlphaStation XP900 ===
 
-[(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_product_profile.pdf?linkonly|Compaq AlphaStation XP900 Alpha 21264 Processor}}, Product Profile, Compaq, June 1999)]
+The XP900 has the same 466 MHz 21264 with 2 MiB of L2 cache and the same memory limit, but leaves up to two PCI slots available and adds 2D and 3D graphics support including multi-head, and audio. It was sold for OpenVMS, with Tru64 UNIX, Linux, and Windows NT support planned for mid-1999. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_product_profile.pdf?linkonly|Compaq AlphaStation XP900 Alpha 21264 Processor}}, Product Profile, Compaq, June 1999)]
 
-  * One 466 MHz [[wp>Alpha_21264|21264]] with 2 MB of L2 cache, 128-bit wide paths, 1.2 GB/s peak bandwidth
-  * Up to 2 GiB of ECC 100 MHz SDRAM DIMMs
-  * Up to two available PCI expansion slots
-  * Up to 20 GB of internal IDE storage, or 27 GB of SCSI with an optional adapter; CD-ROM plus room for three disks, or two disks and a tape drive
-  * Dual embedded 10/100BaseT ports, 2D and 3D graphics support including multi-head, audio, remote console management
-  * Sold for OpenVMS, with Tru64 UNIX, Linux, and Windows NT support planned for mid-1999
+==== Console and known issues ====
 
-=== Console and PCI slots ===
-
-The console reference presents AlphaBIOS as "the graphics interface for Windows NT and Linux", alongside SRM for Tru64 UNIX and OpenVMS. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, EK-DS10V-CR.A01, title page)]
-
-The PCI slots are numbered differently by the console and by the chassis: logical slots 14 to 17 are physical slots 0 to 3, counting from the bottom of the machine, and the bottom slot is the 32-bit one while the other three are 64-bit. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, pp. 1-4 to 1-5, 2-11)] A power-up display shows the onboard devices: two DE500-BA Ethernet controllers on bus 0 slots 9 and 11, the Acer Labs M1543C IDE as ''dqa'' and ''dqb'' on slot 13, and graphics on slot 14. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, p. 1-4)]
-
-The release notes add several hardware notes: all IDE drives run at 16 MHz, and IDE drives do not support ID renaming, so clusters of DS10, ES40, or XP900 systems can hit naming conflicts. With SRM V5.4-2 the ELSA Gloria Synergy graphics adapter only works in the bottom two PCI slots, logical slots 14 and 15. The KZPCM-DA combination SCSI and Ethernet adapter has no connection for the disk activity LED, so the front panel LED stays dark when it is used. Digital recommended setting ''ew*0_mode'' to autonegotiate for 100 Mbit operation. Switching to the remote management console uses Ctrl/[ Ctrl/[ R M C, of which only the "MC" is echoed. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_release_notes.pdf?linkonly|AlphaStation XP900 Release Notes}}, EK-DS10V-RN.A01, August 1999)]
-
-The DS10L's IDE controller, in the ALi M1543C A1 southbridge, is Ultra-33 with 28-bit LBA. With a 250 GB disk, SRM V7.3-1 listed the drive correctly but Tru64 UNIX could use only the first 128 GiB, and list members concluded the limit was in the chip rather than the firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2008-May.mbox#L814|"SUMMARY: alpha DS10L and large IDE disk"]], Stoyan Angelov, tru64-unix-managers, 18 May 2008)]
+  * The console reference presents AlphaBIOS as "the graphics interface for Windows NT and Linux", alongside SRM for Tru64 UNIX and OpenVMS. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, EK-DS10V-CR.A01, title page)]
+  * The console numbers the PCI slots differently from the chassis: logical slots 14 to 17 are physical slots 0 to 3, counting from the bottom, and the bottom slot is the 32-bit one. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, pp. 1-4 to 1-5, 2-11)] Onboard, the two DE500-BA Ethernet controllers are on bus 0 slots 9 and 11 and the Acer Labs M1543C IDE (''dqa'' and ''dqb'') on slot 13. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, p. 1-4)]
+  * All IDE drives run at 16 MHz. With SRM V5.4-2 the ELSA Gloria Synergy graphics adapter only works in the bottom two PCI slots, logical slots 14 and 15. The remote management console is reached with Ctrl/[ Ctrl/[ R M C, of which only the "MC" is echoed. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_release_notes.pdf?linkonly|AlphaStation XP900 Release Notes}}, EK-DS10V-RN.A01, August 1999)]
+  * The DS10L's IDE controller, in the ALi M1543C A1 southbridge, is Ultra-33 with 28-bit LBA. With a 250 GB disk, SRM V7.3-1 listed the drive correctly but Tru64 UNIX could use only the first 128 GiB, and list members concluded the limit was in the chip rather than the firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2008-May.mbox#L814|"SUMMARY: alpha DS10L and large IDE disk"]], Stoyan Angelov, tru64-unix-managers, 18 May 2008)]
+  * The DS10L is not an office machine: "I'd NEVER want a 10L in an office, let alone two..." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-November.mbox#L3445|"Re: Seeking opinion on DS10 veersus DS10L"]], Jay Estabrook, axp-list, 19 Nov 2003)] "the DS10L is limited in its heat-handling capabilities." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-July.mbox#L11968|"Re: DS10L overcloking"]], Jay Estabrook, debian-alpha, 27 Jul 2005)]
 
 ==== Linux ====
 
-  * "DS10 boots and runs LINUX just fine with IDE HD and CDROM." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L19640|"Re: DS10 EIDE Disk"]], Jay Estabrook, axp-list, 15 Jul 1999)] See also [[hardware:systems#tsunami_systems|Tsunami Systems]].
-  * "Tulip does have problems with the built-in chips on XP1000 and DS10". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L12052|"Re: DS-10 Networking problems"]], W Bauske, axp-list, 18 Aug 2000)]
+  * The DS10 runs Linux with its onboard IDE disk and CD-ROM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L19640|"Re: DS10 EIDE Disk"]], Jay Estabrook, axp-list, 15 Jul 1999)] See also [[hardware:systems#tsunami_systems|Tsunami Systems]].
   * The DS10 was one of the machines LinuxBIOS was ported to, at Los Alamos. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/milo-list-mbox/2001-April.mbox#L385|"[Milo-list] [Fwd: linuxbios on Compaq DS10 at LANL]"]], Jeff Garzik, milo-list, 30 Apr 2001)]
-
-==== Cooling ====
-
-Jay Estabrook on the DS10L: "I'd NEVER want a 10L in an office, let alone two..." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-November.mbox#L3445|"Re: Seeking opinion on DS10 veersus DS10L"]], Jay Estabrook, axp-list, 19 Nov 2003)] "the DS10L is limited in its heat-handling capabilities." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-July.mbox#L11968|"Re: DS10L overcloking"]], Jay Estabrook, debian-alpha, 27 Jul 2005)]
 
 ==== Conflicting information ====
 

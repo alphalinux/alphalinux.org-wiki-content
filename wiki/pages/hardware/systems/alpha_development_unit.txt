@@ -1,13 +1,6 @@
 ===== Alpha Development Unit =====
 
-
-Before any Alpha system shipped, Digital's operating system work was done on Alpha Development Units, prototype machines that were never sold. Farrell Woods of Digital's UNIX group described them in 1994: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)]
-
-<blockquote>
-The machines were called ADU's, or Alpha Development Units. They were washing-machine sized boxes with DECstation 5000's sitting atop as a host/IO processor and front-end. The ADU was in a way a Turbochannel option on the DECstation; that's how they talked.
-
-Ultrix ran on the ADU's initially, then OSF. Development of OSF for Alpha proceeded on the ADU for quite a while as the first examples of what would be known as the DEC 3000 model 500 started trickling in (this was known internally as the Flamingo.) Support for the ADU was dropped before the first release of DEC OSF/1 for Alpha shipped, but some intrepid souls within the company managed to keep them going for themselves through the first two releases of the OS.
-</blockquote>
+Before any Alpha system shipped, Digital's operating system work was done on Alpha Development Units (ADUs), prototype machines that were never sold. ULTRIX ran on the ADUs first, then OSF/1, whose development continued on them until the first DEC 3000 Model 500 (Flamingo) systems arrived. Support for the ADU was dropped before the first release of DEC OSF/1 for Alpha, though "some intrepid souls within the company managed to keep them going for themselves through the first two releases of the OS." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)]
 
 ==== Specifications ====
 
@@ -17,6 +10,8 @@ No detailed specification of the ADU has been found. From Farrell Woods's descri
   * A DECstation 5000 sitting on top as host and I/O processor and front end
   * The two communicated over TURBOchannel, the ADU appearing "in a way a Turbochannel option on the DECstation"
 
-ULTRIX on Alpha was an advanced development effort only. It ran on the ADU and was never carried to the production machines, and was never a product. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)] OpenVMS went further back still: according to Fred Kleinsorge of the VMS group, it first booted on "Manniquin, a EVAX emulator running on VAX", before it ran on the ADU. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2001-July.mbox#L7344|"Re: Compaq kills Alpha"]], Fred Kleinsorge, comp.sys.dec, 30 Jul 2001)]
+==== History ====
+
+ULTRIX on Alpha was an advanced development effort only. It ran on the ADU, was never carried to the production machines, and was never a product. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)] OpenVMS first booted on "Manniquin, a EVAX emulator running on VAX", before it ran on the ADU. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2001-July.mbox#L7344|"Re: Compaq kills Alpha"]], Fred Kleinsorge, comp.sys.dec, 30 Jul 2001)]
 
 {{tag>hardware system digital}}

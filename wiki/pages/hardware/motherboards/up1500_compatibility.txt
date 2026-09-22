@@ -20,13 +20,13 @@ How to get the card's ID in SRM:
 
 Standard [[wp>Accelerated_Graphics_Port|AGP]] video cards are available with three different connector variants: 3.3V only, 1.5V only, and dual-voltage. The UP1500's AGP slot has the 3.3V notch, and thus requires that the AGP card accept 3.3V signalling.
 
-Also, some video card BIOSes are incompatible with the SRM/BIOS emulation used by the UP1500.
+Some video card BIOSes are also incompatible with the BIOS emulator in the UP1500's SRM.
 
 ^ Vendor & Name ^ Chipset ^ Memory (MiB) ^ PCI ID ^ Voltages ^ Tester ^
 ^ Fully working ^^^^^^
 | ATI Rage Pro AGP 2x | Rage Pro | 16 | 1002:4742 | 3.3V | klausman |
 | Tyan Tachyon Radeon 9700 Pro | R300 | 128 | 1002:4E44 | 3.3V, 1.5V | mattst88 |
-| Club3D Radeon 9800 Pro | RV350 | 128 | 1002:4E48 | 3.3V, 1.5V | mattst88 |
+| Club3D Radeon 9800 Pro | R350 | 128 | 1002:4E48 | 3.3V, 1.5V | mattst88 |
 | ATI Rage 128 Pro | Rage 128 Pro | 16 | 1002:5046 | 3.3V, 1.5V | martisch |
 | ATI Radeon 7000 | RV100 | 32 | 1002:5144 | 3.3V, 1.5V | martisch |
 | ATI FireGL 8800 | RV100 | 128 | 1002:5148 | 3.3V, 1.5V | martisch |
@@ -50,7 +50,7 @@ Also, some video card BIOSes are incompatible with the SRM/BIOS emulation used b
 | PV-T34K-NAHG | GeForce FX5200 | 128 | 10DE:0322 | 3.3V, 1.5V | martisch |
 | MS-8806 Ver1.1 | TNT2 Ultra | 32 | 10DE:? | 3.3V, 1.5V | martisch |
 ^ Not working ^^^^^^
-| ATI Rage XL AGP 2x | Rage XL | 16 | 1002:5046 | 3.3V | klausman |
+| ATI Rage XL AGP 2x | Rage XL | 8 | 1002:474D | 3.3V | klausman |
 | Creative CT6710 | Riva TNT2 | 32 | | 3.3V | martisch |
 | ATI Xpert 2000 | Rage 128 | 32 | | 3.3V | martisch |
 | ATI Rage 2C AGP | Rage 2C | | | 3.3V | martisch |
@@ -85,9 +85,7 @@ Also, some video card BIOSes are incompatible with the SRM/BIOS emulation used b
 | Mylex | AcceleRAID 252/160/170 (aka DAC960) | 1069:0050 | klausman |
 | QLogic | ISP1080 | 1077:1080 | martisch |
 
-The Mylex AcceleRAID was also sold with new Alpha systems by Compaq (the ES40, for example), but while that is the same hardware, the firmware is different. Attempts at flashing the Compaq firmware onto an "Intel" DAC960 were unfruitful as the flashing utility refuses to write the Alpha firmware to them.
-
-The Adaptec I2O RAID controller was shipped with some Alpha systems (again, the ES40 and similar), but the UP1500 SRM is apparently not compatible with it.
+Compaq sold the Mylex AcceleRAID with Alpha systems such as the ES40, but with different firmware; the flashing utility refuses to write the Compaq firmware to a PC version of the card. The Adaptec I2O RAID controller also shipped with some Alpha systems, but the UP1500 SRM does not appear to support it.
 
 ==== Memory ====
 

@@ -23,7 +23,7 @@ Before updating the DS20L firmware, "If you have the environment variable "sysva
 
 ==== Linux ====
 
-On a DS20L, "2.4.27-2-smp works nicely but requires the eepro100 driver instead of the e100 driver", "2.6.8 does not work with either", and "2.6.10-1-smp works with both". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-May.mbox#L13222|"fyi - DS20L; NICs,  2.6.8 not so happy; 2.6.10 better"]], Dan Cernese, debian-alpha, 27 May 2005)] See also [[hardware:systems#tsunami_systems|Tsunami Systems]].
+Current kernels support the Shark as a variant of the DP264 platform. See also [[hardware:systems#tsunami_systems|Tsunami Systems]].
 
 ==== Documentation ====
 

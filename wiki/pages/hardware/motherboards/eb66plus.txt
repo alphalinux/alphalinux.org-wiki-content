@@ -18,17 +18,13 @@ The Alpha 21066A Microprocessor Evaluation Board (EB66+) is a baby AT form facto
 
 ==== Firmware ====
 
-DEC distributed SRM consoles for the EB66 and EB66+, along with its other evaluation boards, as part of its evaluation board software development kit. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L3642|"Re: SRM license issues"]], Jay Estabrook, axp-list, 6 Jan 1998)] MILO gained support for NVRAM environment variables on EB66+ based systems in January 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-January.mbox#L4990|"New Milo images with new features"]], David Rusling, axp-list, 29 Jan 1996)]
+DEC distributed SRM consoles for the EB66 and EB66+, along with its other evaluation boards, as part of its evaluation board software development kit. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L3642|"Re: SRM license issues"]], Jay Estabrook, axp-list, 6 Jan 1998)]
 
 ==== Linux ====
 
 The EB66+ is supported by the ''CONFIG_ALPHA_EB66P'' kernel option, and the original EB66 by ''CONFIG_ALPHA_EB66''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1997-July.mbox#L208|"Help requested compiling kernel: which arch is mine?"]], Terrence Brannon, debian-alpha, 6 Jul 1997)] The MILO images are named ''eb66p'' and ''eb66'' respectively. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-September.mbox#L5923|"Alpha Core ISO Images"]], Jay Estabrook, axp-list, 29 Sep 2004)]
 
 The EB66+ uses the interrupt handling design of the [[hardware:motherboards:PC64|AlphaPC64]] (Cabriolet); Richard Henderson described it as appearing otherwise identical to the PC64. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-February.mbox#L6964|"Re: Weird Lockups II"]], Richard Henderson, debian-alpha, 20 Feb 2000)]
-
-==== Known issues ====
-
-  * Kernels before 1.3.71 defined the ''HZ'' timer constant incorrectly for the EB66 and EB66+. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L1126|"axp-diff-1.3.71"]], David Mosberger-Tang, axp-list, 4 Mar 1996)]
 
 ==== Documentation ====
 
