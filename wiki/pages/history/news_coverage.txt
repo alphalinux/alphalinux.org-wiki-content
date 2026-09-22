@@ -157,6 +157,7 @@
 | The Register | 1999-01-11 | [[https://www.theregister.com/on-prem/1999/01/11/compaq-amd-alpha-plans-take-linux-shape/1321235|Compaq-AMD Alpha plans take Linux shape]] |
 | The Register | 1999-01-16 | [[https://www.theregister.com/on-prem/1999/01/16/samsung-linux-plans-emerge-as-alpha-takes-shape/1557197|Samsung-Linux plans emerge as Alpha takes shape]] |
 | The Register | 1999-01-17 | [[https://www.theregister.com/on-prem/1999/01/17/compaq-puts-tentative-toe-into-alpha-water-ouch-its-intel/497645|Compaq puts tentative toe into Alpha water - ouch it's Intel]] |
+| ZDNet | 1999-01-18 | [[https://www.zdnet.com/article/linux-bandwagon-gains-compaq/|Linux bandwagon gains Compaq]] |
 | CNET | 1999-01-27 | [[https://web.archive.org/web/20040225035448/http://news.com.com:80/2100-1001_3-220743.html|Computing heavyweights warm to Linux]] |
 | The Register | 1999-01-28 | [[https://www.theregister.com/on-prem/1999/01/28/intels-merced-undercut-by-compaqs-alpha/1043446|Intel's Merced undercut by Compaq's Alpha]] |
 | The Register | 1999-01-29 | [[https://www.theregister.com/on-prem/1999/01/29/dell-using-alpha-chip-in-servers/390821|Dell using Alpha chip in servers]] |
