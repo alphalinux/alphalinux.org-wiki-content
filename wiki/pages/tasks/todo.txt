@@ -8,6 +8,7 @@
 | In progress | ''ProfileMe'' profiling support |
 | In progress | EV67 profiling support |
 | In progress | Hugepage support |
+| Not started | vDSO support |
 ^ gcc ||
 | In progress | Switch to LRA for BWX ([[https://gcc.gnu.org/pipermail/gcc-patches/2026-July/724654.html|patch]]) |
 | In progress | Switch to LRA for non-BWX |
