@@ -15,4 +15,4 @@ The SRM console can also boot a Linux kernel directly over the network with BOOT
 | {{wiki:software:boot_loaders:milo_howto.pdf?linkonly|Alpha Miniloader Howto, v0.85}} | | April 1997 |
 | [[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1 by Rich Payne and David Huggins-Daines | | February 2004 |
 
-{{tag>software}}
+{{tag>software boot_loader}}

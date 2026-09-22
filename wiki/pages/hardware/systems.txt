@@ -84,4 +84,4 @@ These documents cover the AlphaServer line as a whole; documents for a single sy
 | {{wiki:hardware:systems:alphaserver_and_vax_performance_guide.pdf?linkonly|AlphaServer and VAX performance guide}} | | June 1999 |
 | {{wiki:hardware:systems:alphaserver_alphastation_kvm_extension_cable_kit_installation.pdf?linkonly|AlphaServer and AlphaStation Keyboard/Mouse/Video Extension Cable Kit Installation Information}} | EK-450KM-IN.E01 | June 1996 |
 
-{{tag>hardware}}
+{{tag>hardware system}}

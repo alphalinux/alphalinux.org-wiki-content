@@ -40,4 +40,4 @@ These documents apply to Digital's Alpha evaluation boards and motherboards in g
 | {{wiki:hardware:motherboards:common:palcode_system_design_guide.pdf?linkonly|PALcode for Alpha Microprocessors System Design Guide}} | EC-QFGLC-TE | May 1996 |
 | {{wiki:hardware:motherboards:common:spice_models_application_note.pdf?linkonly|SPICE Models for Alpha Microprocessors: An Application Note}} | EC-QA4XG-TE | March 1997 |
 
-{{tag>hardware}}
+{{tag>hardware motherboard}}

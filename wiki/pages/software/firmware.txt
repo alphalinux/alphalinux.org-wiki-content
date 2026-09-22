@@ -72,4 +72,4 @@ These guides include chapters on the SRM, ARC, or AlphaBIOS firmware of their sy
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_release_notes_v5.2.0.pdf?linkonly|HP AlphaServer Management Release Notes V5.2.0}} | | August 2006 |
 | {{wiki:hardware:systems:personal_workstation:personal_workstation_au_series_installation_and_setup_guide.pdf?linkonly|DIGITAL Personal Workstation a/au-Series Installation and Setup Guide}} | EK-ALMIG-SI.A01 | April 1998 |
 
-{{tag>software}}
+{{tag>software firmware}}
