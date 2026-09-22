@@ -1,6 +1,6 @@
 ===== Systems =====
 
-Complete Alpha systems were sold by Digital, Compaq, HP, and others. Each has its own page, listed in the table below; the prototype [[hardware:systems:alpha_development_unit|Alpha Development Unit]], which was never sold, has one too. Evaluation boards and OEM motherboards have their own pages under [[hardware:motherboards:motherboards|Motherboards]], and which operating systems each system runs is on the [[software:operating_systems#support_by_system|Operating Systems]] page.
+Complete Alpha systems were sold by Digital, Compaq, HP, and others. Each has its own page, listed in the table below; the prototype [[hardware:systems:alpha_development_unit|Alpha Development Unit]], which was never sold, has one too. Evaluation boards and OEM motherboards have their own pages under [[hardware:motherboards|Motherboards]], and which operating systems each system runs is on the [[software:operating_systems#support_by_system|Operating Systems]] page.
 
 ==== Overview ====
 

@@ -6,7 +6,7 @@ Alpha systems use one of two kinds of firmware, depending on the operating syste
 | [[software:firmware:srm|SRM console]] | Command line | OpenVMS, Digital UNIX (Tru64 UNIX), Linux, NetBSD, OpenBSD | [[software:boot_loaders:aboot|aboot]] |
 | [[software:firmware:arc|ARC, AlphaBIOS, and ARCSBIOS]] | Menus | Windows NT, Linux | [[software:boot_loaders:milo|MILO]] (APB on the UP1000) |
 
-See also [[hardware:motherboards:motherboards|Motherboards]], whose pages describe the firmware available for each board.
+See also [[hardware:motherboards|Motherboards]], whose pages describe the firmware available for each board.
 
 ==== Documentation ====
 
