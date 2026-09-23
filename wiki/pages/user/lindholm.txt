@@ -1,5 +1,5 @@
 ===== lindholm =====
 
-Linux kernel Alpha architecture maintainer.
+Magnus Lindholm is a maintainer of the Alpha architecture in the Linux kernel.
 
 {{tag>user}}

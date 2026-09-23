@@ -1,5 +1,5 @@
 ===== gareth =====
 
-Former alphalinux.org steward.
+Gareth Randall owned and maintained alphalinux.org from 2015 to 2026.
 
 {{tag>user}}

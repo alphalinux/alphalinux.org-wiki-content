@@ -1,5 +1,5 @@
 ===== creemj =====
 
-Debian/Alpha maintainer.
+Michael Cree is a maintainer of Debian's Alpha port.
 
 {{tag>user}}
