@@ -53,6 +53,7 @@ The tables summarize which operating systems each system supported. "Unofficial"
 | AlphaServer ES40 | | Yes | Yes | Supported |
 | AlphaServer GS60, GS140 | | Yes | Yes | Never |
 | AlphaServer DS20L | | | Yes | Supported |
+| API NetWorks CS20 | | | | Supported |
 | AlphaServer DS15, DS25, ES45 | No | Yes | Yes | Supported |
 | AlphaServer GS80, GS160, GS320 | No | Yes | Yes | Untested |
 | AlphaServer ES47, ES80, GS1280 | No | Yes | Yes | Supported |
@@ -75,7 +76,6 @@ Linux support is according to the platforms in ''arch/alpha'' in Linux 6.10 and 
 | [[hardware:motherboards:pc264dp|AlphaPC 264DP]] | Yes | | Yes | Supported |
 | [[hardware:motherboards:up1000|UP1000]], [[hardware:motherboards:up1100|UP1100]], [[hardware:motherboards:up1500|UP1500]] | | | No | Supported |
 | [[hardware:motherboards:up2000|UP2000, UP2000+]] | | | Unofficial | Supported |
-| API NetWorks CS20 | | | | Supported |
 
 ==== Systems without support for every operating system ====
 
