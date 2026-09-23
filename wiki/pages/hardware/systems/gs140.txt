@@ -31,6 +31,10 @@ Except where noted, the following comes from the product profile. [(>{{wiki:hard
 
 No Linux kernel has supported these systems; a kernel loaded by aboot halts as soon as it starts. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L12103|"Re: AlphaServer GS140 (8400)"]], Pasi Pirhonen, debian-alpha, 24 Sep 2003)]
 
+==== Known issues ====
+
+  * **Power:** the GS60 was sold with a universal single-phase power supply, [(>{{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60_8200_tru64_openvms_systems_catalog.pdf?linkonly|Compaq AlphaServer GS60 and AlphaServer 8200 Tru64 UNIX and OpenVMS Systems}}, Systems and Options Catalog, April 1999, p. 2.123)] but the GS60E system cabinet's three power supplies need three-phase AC, 120/208 V wye in North America, and the cabinet draws up to 2,450 W. [(>{{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60e_operations_manual.pdf?linkonly|AlphaServer GS60E Operations Manual}}, EK-GS60E-OP.A01, pp. 2-3, 2-15)]
+
 ==== Documentation ====
 
 ^ Document ^ Part number ^ Date ^
