@@ -8,7 +8,7 @@ aboot is free software under the GNU GPL. [(>[[https://github.com/alphalinux-org
 
 === Disklabels ===
 
-A disk booted from SRM must use a BSD disklabel, because a PC (DOS) partition table occupies the same place in the first sector as the SRM boot block. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L4626|"Re: Newbie question about booting."]], Larry Sendlosky, axp-list, 5 Apr 2000)] ''fdisk'' from util-linux has been unable to create BSD disklabels since about version 2.23; ''parted'' creates one with ''mktable bsd''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2024-April.mbox#L85|"Re: [gentoo-alpha] fdisk on mini-installer iso"]], Matt Turner, gentoo-alpha, 8 Apr 2024)] ARC and AlphaBIOS cannot read BSD disklabels, so a disk cannot be booted from both SRM and AlphaBIOS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-February.mbox#L38849|"RE: srm / ide"]], Larry Sendlosky, axp-list, 29 Feb 2000)]
+A disk booted from SRM must use a BSD disklabel, not an MBR or GPT partition table, because a PC partition table occupies the same place in the first sector as the SRM boot block. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L4626|"Re: Newbie question about booting."]], Larry Sendlosky, axp-list, 5 Apr 2000)] Other disks in the system can use any partition table. A BSD disklabel stores each partition's offset and size as a 32-bit count of sectors, so with 512-byte sectors it cannot describe more than 2 TiB of a disk. [(>[[https://github.com/alphalinux-org/aboot/blob/master/include/disklabel.h|include/disklabel.h]], aboot 2.0)] ''fdisk'' from util-linux has been unable to create BSD disklabels since about version 2.23; ''parted'' creates one with ''mktable bsd''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2024-April.mbox#L85|"Re: [gentoo-alpha] fdisk on mini-installer iso"]], Matt Turner, gentoo-alpha, 8 Apr 2024)] ARC and AlphaBIOS cannot read BSD disklabels, so a disk cannot be booted from both SRM and AlphaBIOS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-February.mbox#L38849|"RE: srm / ide"]], Larry Sendlosky, axp-list, 29 Feb 2000)]
 
 aboot only tries the file system drivers that match the partition type in the disklabel. ext2, ext3, ext4, and XFS use type 8, and UFS type 7. ISO 9660 is only found on devices without a disklabel, such as CDs. [(>[[https://github.com/alphalinux-org/aboot/blob/master/disk.c|disk.c]], aboot 2.0)] Recycled disks with an old PC partition table can confuse installers; overwriting the first sectors with zeros avoids this. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L11200|"Re: swriteboot ?"]], Michal Jaegermann, axp-list, 23 Jan 2003)]
 
@@ -22,7 +22,7 @@ swriteboot -c2 /dev/sda /boot/bootlx
 </code>
 
   * The target is the whole disk (e.g. ''/dev/sda''), not a partition. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-October.mbox#L268|"Re: aboot install fails"]], Steve Langasek, debian-alpha, 1 Oct 2004)]
-  * The space before the first partition must be free. If a partition overlaps aboot, ''swriteboot'' stops with "bootcode overlaps with partition #//n//. If you really want this, use -f//n//". [(>[[https://github.com/alphalinux-org/aboot/blob/master/sdisklabel/swriteboot.c|sdisklabel/swriteboot.c]], aboot 2.0)] ''-f3'' is usually needed for the whole-disk ''c'' partition. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)] Some users create a small first partition to reserve the space, and write aboot over it with ''-f1''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-September.mbox#L22583|"Re: aboot problems with AlphaStation 200"]], Maciej W. Rozycki, axp-list, 15 Sep 1998)] Debian's installer does this. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-May.mbox#L1908|"Re: swriteboot vs debian installer wrt Tru64 disklabel"]], Steve Langasek, debian-alpha, 4 May 2005)]
+  * The space before the first partition must be free; starting the first partition at 1 MiB leaves enough room for aboot. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)] If a partition overlaps aboot, ''swriteboot'' stops with "bootcode overlaps with partition #//n//. If you really want this, use -f//n//". [(>[[https://github.com/alphalinux-org/aboot/blob/master/sdisklabel/swriteboot.c|sdisklabel/swriteboot.c]], aboot 2.0)] ''-f3'' is usually needed for the whole-disk ''c'' partition, if the disklabel has one. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)] Alternatively, a small first partition can reserve the space, with aboot written over it using ''-f1'', [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-September.mbox#L22583|"Re: aboot problems with AlphaStation 200"]], Maciej W. Rozycki, axp-list, 15 Sep 1998)] as Debian's installer does. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-May.mbox#L1908|"Re: swriteboot vs debian installer wrt Tru64 disklabel"]], Steve Langasek, debian-alpha, 4 May 2005)]
   * ''-c'' sets the partition that holds ''/etc/aboot.conf''. Without it, ''swriteboot'' keeps the setting of an aboot already on the disk. [(>[[https://github.com/alphalinux-org/aboot/blob/master/sdisklabel/swriteboot.c|sdisklabel/swriteboot.c]], aboot 2.0)]
   * A kernel given as the third argument is written directly after aboot, and can be booted as partition ''0''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L31540|"Re: Boot via SRM on poweron"]], Michael Schwingen, axp-list, 21 Oct 1996)] Since 0.7a, such a kernel must be an uncompressed ELF image. [(>[[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]], aboot 0.9, 25 Oct 2001)]
   * On a disk shared with Tru64 UNIX, installing aboot makes the first and third partitions unusable, since they must start at offset 0. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)]
@@ -30,18 +30,6 @@ swriteboot -c2 /dev/sda /boot/bootlx
 === abootconf ===
 
 ''abootconf'' //disk// [//partition//] shows or sets the partition that aboot searches for ''/etc/aboot.conf''. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/man/abootconf.sgml|abootconf(8)]], aboot 2.0)] The device is the drive, e.g. ''/dev/sda'', and the setting is stored in the aboot image on the disk. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-July.mbox#L9993|"Re: AW: installing kernel-image"]], Tyson Whitehead, debian-alpha, 15 Jul 2003)] Since 0.7, ''swriteboot -c'' does the same. [(>[[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]], aboot 0.9, 25 Oct 2001)]
-
-=== Floppies ===
-
-''e2writeboot'' writes aboot as a contiguous file, ''/linuxboot'', on an ext2 file system and points the boot block at it. It is normally used for floppies, and may fail on a fragmented file system: [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/man/e2writeboot.8|e2writeboot(8)]], aboot 2.0)] [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)]
-
-<code>
-fdformat /dev/fd0
-mke2fs /dev/fd0
-e2writeboot /dev/fd0 bootlx
-</code>
-
-''srmbootfat'', written by Nikita Schmidt, makes a file on a FAT floppy bootable in the same way. [(>[[https://github.com/alphalinux-org/aboot/blob/master/srmbootfat/srmbootfat.sgml|srmbootfat(1)]], aboot 2.0)] Older SRM versions, notably the Jensen's, cannot boot from a floppy. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)]
 
 === CDs ===
 
@@ -54,17 +42,18 @@ mkisofs -r -J -o rescue.iso iso-root/
 isomarkboot rescue.iso /bootlx
 </code>
 
-  * Booting a CD from SRM required a CD-ROM drive that could be set to 512-byte blocks. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L23168|"Re: Bootable CD ?"]], Martin Ostermann, axp-list, 9 Nov 1998)]
-  * The optional third argument stores the location of a root file system image in the ISO volume descriptor, for Debian's modified ramdisk driver. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-March.mbox#L1724|"news about CD booting"]], Loic Prylli, debian-alpha, 4 Mar 1999)]
+=== Floppies ===
+
+''e2writeboot'' writes aboot as a contiguous file on an ext2 floppy and points the boot block at it, [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/man/e2writeboot.8|e2writeboot(8)]], aboot 2.0)] and ''srmbootfat'' does the same for a file on a FAT floppy. [(>[[https://github.com/alphalinux-org/aboot/blob/master/srmbootfat/srmbootfat.sgml|srmbootfat(1)]], aboot 2.0)]
 
 ==== Booting ====
 
 aboot takes its arguments from the SRM ''boot'' command: [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)] [(>[[https://github.com/alphalinux-org/aboot/blob/master/disk.c|disk.c]], aboot 2.0)]
 
 <code>
->>> boot dka0 -file 2/vmlinux.gz -flags "root=/dev/sda2"
+>>> boot dka0 -file 1/vmlinuz -flags "root=/dev/sda3 console=ttyS0"
 >>> boot dka0 -flags 0
->>> boot dka0 -flags "2:1 single"
+>>> boot dka0 -flags "1:1 single"
 >>> boot dka0 -flags i
 </code>
 
@@ -79,13 +68,13 @@ aboot takes its arguments from the SRM ''boot'' command: [(>[[https://github.com
 aboot searches the configured partition for ''/etc/aboot.conf'', ''/aboot.conf'', ''/etc/aboot.cfg'', and ''/aboot.cfg'', in that order. [(>[[https://github.com/alphalinux-org/aboot/blob/master/disk.c|disk.c]], aboot 2.0)] Each line is a single-character label, a colon, a partition and path, and kernel arguments. A ''#'' starts a comment, and a line starting with ''-'' ends the file. [(>[[https://github.com/alphalinux-org/aboot/blob/master/disk.c|disk.c]], aboot 2.0)] [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/man/aboot.conf.sgml|aboot.conf(5)]], aboot 2.0)]
 
 <code>
-0:2/vmlinux.gz root=/dev/sda3
-1:2/vmlinux.gz root=/dev/sda3 single
-2:2/vmlinux.old.gz root=/dev/sda3
-3:2/vmlinux.gz initrd=/initrd.img root=/dev/sda3
+0:1/vmlinuz root=/dev/sda3 console=ttyS0
+1:1/vmlinuz root=/dev/sda3 console=ttyS0 single
+2:1/vmlinuz.old root=/dev/sda3 console=ttyS0
+3:1/vmlinuz initrd=/initrd.img root=/dev/sda3 console=ttyS0
 </code>
 
-Paths are relative to the root of the partition. If ''/boot'' is a separate partition, the file is ''/boot/etc/aboot.conf'', and kernels are given as e.g. ''2/vmlinux.gz''. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/man/aboot.conf.sgml|aboot.conf(5)]], aboot 2.0)]
+Paths are relative to the root of the partition. In this example ''/boot'' is a separate first partition, so the file is ''/boot/etc/aboot.conf'' and a kernel installed as ''/boot/vmlinuz'' is given as ''1/vmlinuz''. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/man/aboot.conf.sgml|aboot.conf(5)]], aboot 2.0)]
 
 aboot.conf has no default entry. The default is chosen with the SRM variable ''boot_osflags''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L15878|"Re: SRM vs. AlphaBIOS"]], Michal Jaegermann, axp-list, 8 Sep 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-July.mbox#L8817|"Re: installing kernel-image"]], Ionut Georgescu, debian-alpha, 15 Jul 2003)]
 
@@ -103,25 +92,38 @@ The interactive prompt accepts these commands: [(>[[https://github.com/alphalinu
 | ''i'' //file// | Use a file as the initial ramdisk |
 | ''0''-''9'' | Boot an ''aboot.conf'' entry |
 
-For example, ''b 3/vmlinux.gz root=/dev/sda3 single''. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)]
+For example, ''b 1/vmlinuz root=/dev/sda3 single''. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)]
 
 === initrd ===
 
 An initial ramdisk is given with ''initrd=''//path// in the flags, or with the ''i'' command. It is loaded from the same partition as the kernel, as high in memory as possible. [(>[[https://github.com/alphalinux-org/aboot/blob/master/disk.c|disk.c]], aboot 2.0)] The option must be inside the ''-flags'' string, e.g.: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-December.mbox#L16134|"Re: boot failures"]], Jay Estabrook, axp-list, 12 Dec 2002)]
 
 <code>
->>> boot dkc0 -fi 2/boot/vmlinuz-2.4.9-32.5 -fl "initrd=/boot/initrd-2.4.9-32.5.img root=/dev/sda2"
+>>> boot dka0 -file 1/vmlinuz -flags "initrd=/initrd.img root=/dev/sda3 console=ttyS0"
 </code>
 
 === Network booting ===
 
-SRM fetches a network boot image itself with BOOTP and TFTP, e.g. ''boot ewa0 -protocol bootp''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-April.mbox#L45126|"Re: Remote boot Multia..."]], Maciej W. Rozycki, axp-list, 27 Apr 1998)] aboot can build such an image, containing aboot, a compressed kernel, an initrd, and default arguments, with ''netabootwrap'': [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/man/netabootwrap.sgml|netabootwrap(1)]], aboot 2.0)]
+SRM fetches a network boot image itself with BOOTP and TFTP, e.g. ''boot ewa0 -protocol bootp''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-April.mbox#L45126|"Re: Remote boot Multia..."]], Maciej W. Rozycki, axp-list, 27 Apr 1998)] Setting ''ewa0_protocols'' to ''bootp'' makes BOOTP the default instead of MOP. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-February.mbox#L12364|"Re: Debugging Multia boot problems: take one"]], Jay Estabrook, debian-alpha, 17 Feb 2006)] The image is not an ordinary kernel. aboot builds one, containing aboot, a compressed kernel, an initrd, and default arguments, with ''netabootwrap'': [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/man/netabootwrap.sgml|netabootwrap(1)]], aboot 2.0)]
 
 <code>
-netabootwrap -t netboot.img -k vmlinux.gz -i initrd.gz -a "root=/dev/hda2"
+netabootwrap -t netboot.img -k vmlinux.gz -i initrd.gz -a "root=/dev/sda3 console=ttyS0"
 </code>
 
-Unlike the kernel's own ''bootpfile'' target, the image can be compressed and include an initrd. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L7159|"Re: kernel build targets"]], Jay Estabrook, axp-list, 12 Dec 2001)]
+Debian built all its netboot installer images this way. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2007-August.mbox#L3772|"Re: [BUG] 2.6.23-rc3 won't boot on alpha (fwd)"]], Steve Langasek, debian-alpha, 21 Aug 2007)] The kernel can also build a BOOTP image without aboot, with ''make bootpfile'' or, compressed, ''make bootpzfile'', which produce ''arch/alpha/boot/bootpfile'' and ''bootpzfile''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)] Setting the make variable ''INITRD'' to a file appends it as an initrd. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/boot/Makefile?h=v7.3-rc1|arch/alpha/boot/Makefile]], Linux 7.3)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2007-August.mbox#L1139|"Re: [BUG] 2.6.23-rc3 won't boot on alpha (fwd)"]], Jay Estabrook, debian-alpha, 16 Aug 2007)]
+
+The server side needs a DHCP or BOOTP server that gives the system an address, the TFTP server's address, and the image's file name, and a TFTP server that serves the image. With ISC dhcpd, for example: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-February.mbox#L12228|"Re: Debugging Multia boot problems: take one"]], Steve Langasek, debian-alpha, 17 Feb 2006)]
+
+<code>
+host alpha {
+   hardware ethernet 08:00:2B:E7:94:9B;
+   fixed-address alpha.example.org;
+   filename "netboot.img";
+   next-server 192.168.1.1;
+}
+</code>
+
+The system then boots with ''boot ewa0 -flags ""'', taking the file name from the DHCP server. Not every TFTP server works equally well with the SRM firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-February.mbox#L12228|"Re: Debugging Multia boot problems: take one"]], Steve Langasek, debian-alpha, 17 Feb 2006)]
 
 ==== File systems ====
 
@@ -140,9 +142,8 @@ aboot 2.0 refuses ext4 file systems with features it cannot read safely, includi
 ==== Known issues ====
 
   * **"unknown compression method":** aboot first tries to load a kernel uncompressed, then compressed, and prints this if both fail, whatever the actual cause. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-December.mbox#L2652|"New Red Hat 7.2 Alpha install on DEC PWS 600au"]], Jim McCarthy, axp-list, 11 Dec 2004)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-November.mbox#L1928|"Re: Jensen DECPC150 install!"]], Sebastian Moeller, debian-alpha, 15 Nov 1999)]
-  * **Creating the disklabel:** ''fdisk'' from util-linux has been unable to create BSD disklabels since about version 2.23, and Gentoo's install images still had the problem in 2024. ''parted'' works: ''mktable bsd''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2024-April.mbox#L85|"Re: [gentoo-alpha] fdisk on mini-installer iso"]], Matt Turner, gentoo-alpha, 8 Apr 2024)]
-  * **Serial console:** with the SRM ''console'' variable set to ''serial'', aboot prints nothing on the screen. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L29944|"Re: aboot gives no output on SX164"]], Falk Hueffner, axp-list, 23 Jul 2001)]
-  * **Network booting and UFS:** these are "not well exercised and may be broken". [(>[[https://github.com/alphalinux-org/aboot/blob/master/README.md|README.md]], aboot 2.0)] Reading ''aboot.conf'' from UFS can hang if the entry is not found. [(>[[https://github.com/alphalinux-org/aboot/blob/master/README.md|README.md]], aboot 2.0)]
+  * **Serial console:** aboot writes through the SRM console, so with the SRM ''console'' variable set to ''serial'' its messages and prompt appear on the serial port and nothing appears on the screen. [(>[[https://github.com/alphalinux-org/aboot/blob/master/cons.c|cons.c]], aboot 2.0)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L29944|"Re: aboot gives no output on SX164"]], Falk Hueffner, axp-list, 23 Jul 2001)] Linux needs ''console=ttyS0'' in its arguments to use the same port; see [[documentation:srm#serial_console|Using the SRM Console: Serial console]].
+  * **UFS and network booting:** the aboot 2.0 README describes both as "not well exercised and may be broken". Reading ''aboot.conf'' from UFS can hang if the entry is not found. [(>[[https://github.com/alphalinux-org/aboot/blob/master/README.md|README.md]], aboot 2.0)]
   * **SRM without support for the boot controller:** aboot can only boot from devices that SRM can read. Alternatives are a network boot, or aboot and the kernel on a disk on a supported controller. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-October.mbox#L4288|"Re: howto boot alpha via SRM without supported SCSI controller"]], Måns Rullgård, debian-alpha, 15 Oct 2004)]
 
 ==== How it works ====
@@ -158,7 +159,6 @@ aboot then:
   - and jumps to the kernel.
 
 aboot does no low-level hardware setup of its own and relies entirely on the SRM console's services. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L18895|"Re: Boot failure on AS2100"]], Richard Henderson, axp-list, 7 Nov 1999)] Errors such as ''c000000000000000'' when opening the boot device therefore come from SRM, not aboot. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-March.mbox#L35715|"RE: installing rh 7.0"]], Will Woods, axp-list, 27 Mar 2001)] Because SRM hides the differences between systems, a single aboot binary works on every SRM system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L2538|"Re: The aboot - Jensen saga"]], David Mosberger-Tang, axp-list, 6 May 1996)]
-
 
 ==== History ====
 
@@ -186,7 +186,6 @@ The following sources conflict with each other or with the account given above. 
   * **Space to reserve before the first partition**
     * [[https://github.com/alphalinux-org/aboot/blob/master/doc/man/swriteboot.8|swriteboot(8)]]: "It is therefore suggested to reserve the first 512 sectors of a harddisk for boot purposes."
     * [[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1: "We suggest that the disk be partitioned such that the first partition starts at an offset of 2048 sectors."
-    * The same document, later: "Partition 'a' should start about 1M into the disk: don't start it at sector 1, try starting at sector 10 (for example)."
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L30392|"Re: Boot via SRM on poweron"]], Jay Estabrook, axp-list, 20 Oct 1996: "aboot fits fine in front of partition 1 if you offset the start of partition 1, say 512-1024 sectors"
   * **Default partition for ''aboot.conf''**
     * [[https://github.com/alphalinux-org/aboot/blob/master/include/config.h|include/config.h]], aboot 2.0, sets ''CONFIG_FILE_PARTITION'' to 1.
@@ -196,9 +195,6 @@ The following sources conflict with each other or with the account given above. 
     * [[https://github.com/alphalinux-org/aboot/blob/master/doc/man/aboot.conf.sgml|aboot.conf(5)]], aboot 2.0: booting "with the flag "i") and then issuing "h" at the aboot-prompt."
     * [[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]], aboot 0.9, on version 0.3: "The contents of /etc/aboot.conf can be displayed with a commandline argument consisting of a single 'h'."
     * [[https://github.com/alphalinux-org/aboot/blob/master/disk.c|disk.c]], aboot 2.0: ''h'' displays the help, and ''l'' lists the entries.
-  * **Whether there can be a partition 0**
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L30392|"Re: Boot via SRM on poweron"]], Jay Estabrook, axp-list, 20 Oct 1996: "note that you can't have a "0 partition"; both minlabel and fdisk start numbering partitions with "1"."
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L31540|"Re: Boot via SRM on poweron"]], Michael Schwingen, axp-list, 21 Oct 1996: "aboot uses the '0' to mean a kernel that is written directly behind the aboot code"
   * **Whether ''swriteboot'' accepts more than one ''-f''**
     * [[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/ChangeLog|ChangeLog]], aboot, 17 Aug 1996: "Make force_overlap a bitset so we can force more than one overlapping partition."
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-May.mbox#L1908|"Re: swriteboot vs debian installer wrt Tru64 disklabel"]], Steve Langasek, debian-alpha, 4 May 2005: "it only lets you ignore overlaps with a *single* partition."
@@ -208,33 +204,15 @@ The following sources conflict with each other or with the account given above. 
   * **Disks without a disklabel**
     * [[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1: "If a disk has no partition table, aboot pretends the disk contains one ext2 partition starting at the first diskblock."
     * [[https://github.com/alphalinux-org/aboot/blob/master/disk.c|disk.c]], aboot 2.0, tries every file system driver on a disk without a disklabel.
-  * **ECOFF kernels**
-    * [[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, describes aboot as supporting "booting of executable object files (both ELF and ECOFF)".
-    * [[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]], aboot 0.9: "(as of 0.7a) "raw" booting no longer is - you must use an uncompressed ELF kernel." aboot 2.0 only loads ELF kernels.
-  * **Input to ''e2writeboot''**
-    * [[https://github.com/alphalinux-org/aboot/blob/master/doc/man/e2writeboot.8|e2writeboot(8)]]: "The boot loader file must be an ECOFF object file."
-    * [[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]], aboot 0.9: "IMPORTANT: e2writeboot now expects a _raw_ file, not an ECOFF object file."
   * **Whether the kernel position limit was fixed**
     * [[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]], aboot 0.9: "Failure to boot when kernel was past the 2GB boundary on ext2 fs fixed"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-July.mbox#L1865|"aboot size limitation in Woody"]], Bob Lindell, debian-alpha, 12 Jul 2004: "I could get aboot to fail to read either the /etc/aboot.conf file or the kernel images if they were too far into the 20GB partition."
-  * **Size of the ext2 limit**
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L1293|"Re: Are these known bugs?"]], David Mosberger-Tang, axp-list, 2 Apr 1996: "the ext2 code used by aboot currently has a hardcoded limit of 1GB"
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L77425|"Re: Can't boot LX164: trying netboot"]], Ruediger Oertel, axp-list, 25 Mar 1999: "Current setting is 256 (for about 2GB)."
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L3796|"RE: Hard Drive size on Jensen"]], John Jemiolo, axp-list, 3 Apr 2001: "A boot seems to get lost, if the kernel is in a very large partition (8G I think)."
-  * **Whether aboot follows symbolic links**
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-January.mbox#L10950|"Re: unzip: unknown compression method"]], Adrian Zaugg, debian-alpha, 29 Jan 2005: "I think you may not point to symbolic links within aboot.conf"
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-January.mbox#L11042|"Re: unzip: unknown compression method"]], Steve Langasek, debian-alpha, 29 Jan 2005: "aboot has no problem with symlinks."
   * **Whether aboot reads ReiserFS**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-October.mbox#L3683|"reiserfs on all my SRM-alpha drives: how I did it"]], James D. Freels, debian-alpha, 27 Oct 2001: "aboot does not understand reiserfs"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-November.mbox#L800|"Re: need help with milo and repartitioning"]], James D. Freels, debian-alpha, 2 Nov 2001: "Therefore, the aboot has read the kernel from a reiserfs."
   * **Whether network booting works**
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8471|"announcement: aboot-0.4 (plus updated SRM documentation)"]], David Mosberger-Tang, axp-list, 11 May 1996, announces network booting.
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L4085|"Re: SRM bootp trouble"]], David Huggins-Daines, axp-list, 8 May 2000: "I have never actually used net_aboot successfully."
     * [[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1: "Netboot using the aboot sources is currently broken"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2007-August.mbox#L3772|"Re: [BUG] 2.6.23-rc3 won't boot on alpha (fwd)"]], Steve Langasek, debian-alpha, 21 Aug 2007, describes ''netabootwrap'' images as what Debian used for all its netboot installer images.
-  * **Whether ''isomarkboot'' only runs on Alpha**
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-April.mbox#L16863|"Re: Alpha CD: isomarkboot"]], Falk Hueffner, debian-alpha, 17 Apr 2002: "It is part of the aboot package, which unfortunately is only available for the Alpha architecture."
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L20555|"Re: Updated aboot et al. manpages"]], Michal Jaegermann, axp-list, 17 Jun 2002: "A while ago I needed 'isomarkboot' on x86 Linux machine so I just recompiled sources"
 
 ==== Documentation ====
 
