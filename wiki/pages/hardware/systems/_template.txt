@@ -9,13 +9,22 @@
 ^ Memory | Type, slots, and maximum, e.g. sets of four DIMMs, up to 32 GiB |
 ^ Buses | e.g. 64-bit PCI, ISA, EISA |
 ^ Firmware | SRM (last V//x.y//), and ARC or AlphaBIOS if present, from [[software:firmware:srm#final_versions|Final versions]] |
-^ Kernel option | ''CONFIG_ALPHA_...'', from [[documentation:kernel#configuring_for_a_system|Kernel]] |
-^ Linux | Supported / 21164A only; others to Linux 6.9 / Linux 6.9 and earlier / Never |
+^ Kernel option | ''CONFIG_ALPHA_...'', from [[documentation:kernel#configuring_for_a_system|Kernel]], or None |
+^ Linux | Supported / Linux 6.9 and earlier / Untested / Never |
 </WRAP>
 
-One or two sentences: what the system is, who sold it, and when. Cite a source for each fact.
+One or two sentences: what the system is, who sold it, and when. Cite a source for each fact. Keep Linux support out of the introduction; it goes in the Linux section.
 
-Delete any infobox row whose value has no source.
+Delete any infobox row whose value has no source, except Kernel option, which is "None" for systems that no kernel ever supported. The Linux row takes one of these values, the same as in the [[hardware:systems|Systems]] table:
+
+  * **Supported:** current kernels support the system.
+  * **Linux 6.9 and earlier:** Linux 6.10 removed support for the system's processors.
+  * **Untested:** current kernels contain support for the system, but no one has reported booting a current kernel on it, or there is a specific reason for doubt, such as a system that only MILO can boot.
+  * **Never:** no Linux kernel has supported the system.
+
+A system sold with both older processors and the EV56 (21164A) or later qualifies the value, for example "Supported (21164A models); others Linux 6.9 and earlier".
+
+The sections below are in a fixed order. Omit a section that would be empty, and put material that does not fit a section, such as console quirks, slots, or graphics, under Specifications or Known issues rather than in a new section.
 
 ==== Specifications ====
 
@@ -23,7 +32,15 @@ Delete any infobox row whose value has no source.
 
 ==== Linux ====
 
+Open with one sentence giving the current-kernel status, the kernel option (and that a generic kernel also works), and the boot path, for example: "Current kernels support the AlphaServer DS10, with ''CONFIG_ALPHA_DP264'' or a generic kernel, booted from the SRM console with [[software:boot_loaders:aboot|aboot]]." For a system with pre-EV56 processors: "Linux 6.9 was the last version to support the <name>; Linux 6.10 removed support for processors older than the EV56 (21164A)."
+
+Then give the onboard devices and their current Linux drivers, the firmware version to use, and the current Debian and Gentoo status, as far as sources allow.
+
 ==== Known issues ====
+
+Practical problems for owners: power supplies, noise, weight, voltage, batteries, and hardware faults.
+
+==== History ====
 
 ==== Conflicting information ====
 
