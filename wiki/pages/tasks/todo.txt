@@ -1,6 +1,6 @@
 ===== To Do =====
 
-Work planned or under way on Alpha support in the projects below. The owner is the person doing the work, where someone is; tasks without an owner are open for anyone to take up, and a message to the project's list is the way to start. Gaps that have no task yet are described under [[status#what_is_missing|Current Status]].
+Work planned or under way on Alpha support in the projects below. The owner is the person doing the work, where someone is; tasks without an owner are open for anyone to take up, and a message to the project's list is the way to start. Gaps that have no task yet are described under [[:status#what_is_missing|Current Status]].
 
 ^ Status ^ Task ^ Owner ^ Link ^
 ^ Linux ^^^^

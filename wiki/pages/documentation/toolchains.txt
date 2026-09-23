@@ -89,7 +89,7 @@ Alpha's ''long double'' is the 128-bit IEEE quadruple format, implemented in sof
 
 ==== Not available on Alpha ====
 
-The following are missing on Alpha; details and sources are on the [[status#what_is_missing|Current Status]] page.
+The following are missing on Alpha; details and sources are on the [[:status#what_is_missing|Current Status]] page.
 
   * **LLVM and Clang.** LLVM has had no Alpha back end since 2011, so Clang cannot be used, and the kernel cannot be built with ''LLVM=1''.
   * **Rust**, except through the GCC-based projects rustc_codegen_gcc and gccrs, both still in development. Zig and other LLVM-based compilers are likewise unavailable.

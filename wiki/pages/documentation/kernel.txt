@@ -54,7 +54,7 @@ make ARCH=alpha CROSS_COMPILE=alpha-linux-gnu- INSTALL_MOD_PATH=$PWD/staging mod
 
 The kernel reaches the target system by copying ''arch/alpha/boot/vmlinux.gz'' and the modules over the network, or, for repeated testing, by booting it from the network with an image made by aboot's ''netabootwrap'', which avoids touching the target's disk; see [[software:boot_loaders:aboot#network_booting|Network booting]]. Under QEMU, the uncompressed ''vmlinux'' is passed to QEMU directly; see [[documentation:qemu#kernel_development|QEMU: Kernel development]].
 
-The kernel builds only with GCC and GNU binutils. LLVM has had no Alpha back end since 2011, so ''LLVM=1'' does not work, and the Rust support in the kernel is not available on Alpha. See [[status#what_is_missing|Current Status]].
+The kernel builds only with GCC and GNU binutils. LLVM has had no Alpha back end since 2011, so ''LLVM=1'' does not work, and the Rust support in the kernel is not available on Alpha. See [[:status#what_is_missing|Current Status]].
 
 The kernel is compiled with ''-mno-fp-regs'' and ''-ffixed-8'', and passes ''-Wa,-mev6'' to the assembler so that it never silently emulates an instruction the target lacks. A generic kernel is built with ''-mcpu=ev56 -mtune=ev6''. A kernel configured for one system uses that system's processor: ''-mcpu=ev56'' for the 21164A systems, ''-mcpu=pca56'' for the AlphaPC 164SX and 164RX, and ''-mcpu=ev6'' or ''-mcpu=ev67'' for the 21264 systems. [(>[(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)])]
 
