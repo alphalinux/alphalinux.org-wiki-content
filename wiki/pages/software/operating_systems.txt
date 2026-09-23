@@ -1,14 +1,25 @@
 ===== Operating Systems =====
 
-Digital supported three operating systems on Alpha: OpenVMS, DEC OSF/1 (renamed Digital UNIX and then Tru64 UNIX), and Microsoft Windows NT. Linux, FreeBSD, NetBSD, and OpenBSD were ported later; the first Linux port was done by a group inside Digital. Which of these a system can run depends mostly on its [[software:firmware|firmware]]:
+Digital supported three operating systems on Alpha: OpenVMS, DEC OSF/1 (renamed Digital UNIX and then Tru64 UNIX), and Microsoft Windows NT. Linux, FreeBSD, NetBSD, and OpenBSD were ported later; the first Linux port was done by a group inside Digital (see [[#the_first_port|The first port]]).
+
+^ Operating system ^ Current status ^
+| Linux | Maintained in the mainline kernel; since Linux 6.10 an EV56 (21164A) or later processor is required (see [[#linux|Linux]]) [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] |
+| NetBSD | Maintained; supported in NetBSD 11.0 (July 2026) [(>[[https://www.netbsd.org/releases/formal-11/NetBSD-11.0.html|NetBSD 11.0 release notes]], The NetBSD Project, 30 Jul 2026)] |
+| OpenBSD | Maintained; supported in OpenBSD 7.9 (May 2026) [(>[[https://www.openbsd.org/79.html|OpenBSD 7.9]], The OpenBSD Project, 19 May 2026)] |
+| FreeBSD | Removed in FreeBSD 7.0; 6.x was the last series [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2006-May.mbox#L972|"HEADSUP: Alpha support is being retired in 7.0"]], John Baldwin, freebsd-alpha, 11 May 2006)] |
+| OpenVMS | VSI releases V8.4-2L1 and V8.4-2L2, with standard support through 2035 [(>[[https://products.vmssoftware.com/alpha|"Future Proof Your Alpha System"]], VMS Software Inc.)] |
+| Tru64 UNIX | HP's engineering support ended at the end of 2012, followed by Mature Product Support without further releases [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-tru64-mbox/googlegroups-2011-April.mbox#L1264|"Re: Tru64 licenses"]], Martin, comp.unix.tru64, 23 Apr 2011)] |
+| Windows NT | Windows NT 4.0 was the last release; Alpha development ended in 1999 (see [[#windows_nt|Windows NT]]) |
+
+Which of these a system can run depends mostly on its [[software:firmware|firmware]]:
 
 ^ Operating system ^ Firmware ^
-| OpenVMS, Digital UNIX / Tru64 UNIX | [[software:firmware:srm|SRM console]] |
+| OpenVMS, Tru64 UNIX | [[software:firmware:srm|SRM console]] |
 | Windows NT | [[software:firmware:arc|ARC or AlphaBIOS]] |
 | Linux | SRM (with [[software:boot_loaders:aboot|aboot]]), or ARC, AlphaBIOS, or ARCSBIOS (with [[software:boot_loaders:milo|MILO]]) |
 | FreeBSD, NetBSD, OpenBSD | SRM |
 
-All motherboard systems that run Digital UNIX or OpenVMS require the SRM console. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 1-2)] Systems designed only for Windows NT, such as the Alpha XL, have no SRM console, and so cannot run OpenVMS or Tru64 UNIX. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L25578|"Re: Does DEC have a clue?"]], Jay Estabrook, axp-list, 20 Jan 1998)] The SRM console for evaluation boards and OEM motherboards was licensed separately (see [[software:firmware:srm#licensing|SRM licensing]]).
+OpenVMS and Tru64 UNIX boot only from the SRM console. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 1-2)] Systems designed only for Windows NT, such as the Alpha XL, have no SRM console, and so cannot run OpenVMS or Tru64 UNIX. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L25578|"Re: Does DEC have a clue?"]], Jay Estabrook, axp-list, 20 Jan 1998)] The SRM console for evaluation boards and OEM motherboards was licensed separately (see [[software:firmware:srm#licensing|SRM licensing]]).
 
 ==== Support by system ====
 
@@ -17,64 +28,64 @@ The tables summarize which operating systems each system supported. "Unofficial"
 === Digital, Compaq, and HP systems ===
 
 ^ System ^ Windows NT ^ OpenVMS ^ Tru64 UNIX ^ Linux ^
-| DEC 2000 AXP, DECpc AXP 150 (Jensen) | Yes | Yes (V1.5-1H1 and later) | Yes (to V5.1) | To 6.9 |
-| DEC 3000 | | Yes | Yes (to V5.0A; V5.1 unofficial) | No |
-| DEC 4000, DEC 7000 | | Yes | Yes (to V5.1) | No |
-| Multia (UDB) | Yes | Unofficial | Unofficial | To 6.9 |
-| Alpha XL | Yes | No | No | To 6.9 (MILO only) |
-| Alpha XLT | Yes | No | No | Yes (MILO only; 21164A only: XL 366, XL 433) |
-| Digital Server 3300, 5300, 7300 | Yes | No | No | Yes (21164A only) |
-| AlphaStation 200, 250, 255, 400, AlphaServer 300, 400 | Yes | Yes | Yes | To 6.9 |
-| AlphaStation 500 | Yes | Yes | Yes | Yes (21164A only: 500/400, 500/500) |
-| AlphaStation 600 | Yes | Yes | Yes | To 6.9 |
-| AlphaStation 600A | Yes | Yes | Yes | Yes |
-| AlphaServer 800 | Yes | Yes | Yes | Yes |
-| AlphaServer 1000 | Yes | Yes | Yes | Yes (21164A only: 5/333, 5/400) |
-| AlphaServer 1000A | Yes | Yes | Yes | Yes (21164A only: 5/333, 5/400) |
-| AlphaServer 2000, 2100 | Yes | Yes | Yes | Yes (21164A only: 5/375) |
-| AlphaServer 2100A | Yes | Yes | Yes | To 6.9 |
-| AlphaServer 1200 | Yes | Yes | Yes | Yes |
-| AlphaServer 4000, 4100 | Yes | Yes | Yes | Yes (21164A only) |
-| AlphaServer 8200, 8400 | Yes | Yes | Yes | No |
-| Personal Workstation a series | Yes | | | Yes |
-| Personal Workstation au series, XP1000 | Yes | Yes | Yes | Yes |
-| AlphaServer DS10, DS20, DS20E, AlphaStation XP900 | Yes | Yes | Yes | Yes |
-| AlphaServer ES40 | | Yes | Yes | Yes |
-| AlphaServer GS60, GS140 | | Yes | Yes | No |
-| AlphaServer DS20L | | | Yes | Yes |
-| AlphaServer DS15, DS25, ES45 | No | Yes | Yes | Yes |
-| AlphaServer GS80, GS160, GS320 | No | Yes | Yes | Yes |
-| AlphaServer ES47, ES80, GS1280 | No | Yes | Yes | Yes |
+| DEC 2000 AXP, DECpc AXP 150 (Jensen) | Yes | Yes (V1.5-1H1 and later) | Yes (to V5.1) | Linux 6.9 and earlier |
+| DEC 3000 | | Yes | Yes (to V5.0A; V5.1 unofficial) | Never |
+| DEC 4000, DEC 7000 | | Yes | Yes (to V5.1) | Never |
+| Multia (UDB) | Yes | Unofficial | Unofficial | Linux 6.9 and earlier |
+| Alpha XL | Yes | No | No | Linux 6.9 and earlier (MILO only) |
+| Alpha XLT | Yes | No | No | Untested (MILO only; 21164A only: XL 366, XL 433) |
+| Digital Server 3300, 5300, 7300 | Yes | No | No | Supported (21164A only) |
+| AlphaStation 200, 250, 255, 400, AlphaServer 300, 400 | Yes | Yes | Yes | Linux 6.9 and earlier |
+| AlphaStation 500 | Yes | Yes | Yes | Supported (21164A only: 500/400, 500/500) |
+| AlphaStation 600 | Yes | Yes | Yes | Linux 6.9 and earlier |
+| AlphaStation 600A | Yes | Yes | Yes | Supported |
+| AlphaServer 800 | Yes | Yes | Yes | Supported |
+| AlphaServer 1000 | Yes | Yes | Yes | Supported (21164A only: 5/333, 5/400) |
+| AlphaServer 1000A | Yes | Yes | Yes | Supported (21164A only: 5/333, 5/400) |
+| AlphaServer 2000, 2100 | Yes | Yes | Yes | Supported (21164A only: 5/375) |
+| AlphaServer 2100A | Yes | Yes | Yes | Linux 6.9 and earlier |
+| AlphaServer 1200 | Yes | Yes | Yes | Supported |
+| AlphaServer 4000, 4100 | Yes | Yes | Yes | Supported (21164A only) |
+| AlphaServer 8200, 8400 | Yes | Yes | Yes | Never |
+| Personal Workstation a series | Yes | | | Supported |
+| Personal Workstation au series, XP1000 | Yes | Yes | Yes | Supported |
+| AlphaServer DS10, DS20, DS20E, AlphaStation XP900 | Yes | Yes | Yes | Supported |
+| AlphaServer ES40 | | Yes | Yes | Supported |
+| AlphaServer GS60, GS140 | | Yes | Yes | Never |
+| AlphaServer DS20L | | | Yes | Supported |
+| AlphaServer DS15, DS25, ES45 | No | Yes | Yes | Supported |
+| AlphaServer GS80, GS160, GS320 | No | Yes | Yes | Untested |
+| AlphaServer ES47, ES80, GS1280 | No | Yes | Yes | Supported |
 
-Linux support is according to the platforms in ''arch/alpha'' in Linux 6.10 and earlier. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v6.10|arch/alpha/kernel/setup.c]], Linux 6.10)] "To 6.9" means that Linux 6.9 was the last version to support the system. "21164A only" means that Linux 6.10 and later require a 21164A (EV56) or later processor, so versions of the system with an older processor were last supported by Linux 6.9. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] Where the table names models, those are the models documented with a 21164A; the sources are on the pages for the [[hardware:systems:alcor|AlphaStation 500]], [[hardware:systems:noritake|AlphaServer 1000A, 800, and AlphaStation 600A]], [[hardware:systems:sable|AlphaServer 2000 and 2100]], and [[hardware:systems:rawhide|AlphaServer 1200, 4000, and 4100]].
+Linux support is according to the platforms in ''arch/alpha'' in Linux 6.10 and earlier. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v6.10|arch/alpha/kernel/setup.c]], Linux 6.10)] "Linux 6.9 and earlier" means that Linux 6.9 was the last version to support the system. "Untested" means that current kernels include support, but no one has reported booting a current kernel on the system, or it can only be booted with MILO. "21164A only" means that Linux 6.10 and later require an EV56 (21164A) or later processor, so versions of the system with an older processor were last supported by Linux 6.9. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] Where the table names models, those are the models documented with a 21164A; the sources are on the pages for each system. [(>[[hardware:systems:alcor|AlphaStation 500]]; [[hardware:systems:noritake|AlphaServer 1000A, 800, and AlphaStation 600A]]; [[hardware:systems:sable|AlphaServer 2000 and 2100]]; [[hardware:systems:rawhide|AlphaServer 1200, 4000, and 4100]])]
 
 === Evaluation boards and OEM motherboards ===
 
 ^ Board ^ Windows NT ^ OpenVMS ^ Tru64 UNIX ^ Linux ^
-| [[hardware:motherboards:eb64plus|EB64+]] | Yes | | Yes | To 6.9 |
-| [[hardware:motherboards:eb66|EB66]] | Yes | | | To 6.9 |
-| [[hardware:motherboards:eb66plus|EB66+]] | Yes | | Yes | To 6.9 |
-| AXPpci 33 (Noname) | Yes | | Yes | To 6.9 |
-| [[hardware:motherboards:pc64|AlphaPC 64]] | Yes | | Yes | To 6.9 |
-| [[hardware:motherboards:eb164|EB164]] | Yes | No | Yes | To 6.9 |
-| [[hardware:motherboards:pc164|AlphaPC 164]] | Yes | | Yes | Yes |
-| [[hardware:motherboards:pc164lx|AlphaPC 164LX]], [[hardware:motherboards:pc164sx|AlphaPC 164SX]] | Yes | | Yes | Yes |
-| [[hardware:motherboards:pc164rx|AlphaPC 164RX]] | Yes | No | No | Yes |
-| [[hardware:motherboards:pc164ux|AlphaPC 164UX, 164BX]] (Ruffian) | Yes | No | No | Yes (MILO only) |
-| [[hardware:motherboards:pc264dp|AlphaPC 264DP]] | Yes | | Yes | Yes |
-| [[hardware:motherboards:up1000|UP1000]], [[hardware:motherboards:up1100|UP1100]], [[hardware:motherboards:up1500|UP1500]] | | | No | Yes |
-| [[hardware:motherboards:up2000|UP2000, UP2000+]] | | | Unofficial | Yes |
-| API NetWorks CS20 | | | | Yes |
+| [[hardware:motherboards:eb64plus|EB64+]] | Yes | | Yes | Linux 6.9 and earlier |
+| [[hardware:motherboards:eb66|EB66]] | Yes | | | Linux 6.9 and earlier |
+| [[hardware:motherboards:eb66plus|EB66+]] | Yes | | Yes | Linux 6.9 and earlier |
+| AXPpci 33 (Noname) | Yes | | Yes | Linux 6.9 and earlier |
+| [[hardware:motherboards:pc64|AlphaPC 64]] | Yes | | Yes | Linux 6.9 and earlier |
+| [[hardware:motherboards:eb164|EB164]] | Yes | No | Yes | Linux 6.9 and earlier |
+| [[hardware:motherboards:pc164|AlphaPC 164]] | Yes | | Yes | Supported |
+| [[hardware:motherboards:pc164lx|AlphaPC 164LX]], [[hardware:motherboards:pc164sx|AlphaPC 164SX]] | Yes | | Yes | Supported |
+| [[hardware:motherboards:pc164rx|AlphaPC 164RX]] | Yes | No | No | Untested (MILO only) |
+| [[hardware:motherboards:pc164ux|AlphaPC 164UX, 164BX]] (Ruffian) | Yes | No | No | Untested (MILO only) |
+| [[hardware:motherboards:pc264dp|AlphaPC 264DP]] | Yes | | Yes | Supported |
+| [[hardware:motherboards:up1000|UP1000]], [[hardware:motherboards:up1100|UP1100]], [[hardware:motherboards:up1500|UP1500]] | | | No | Supported |
+| [[hardware:motherboards:up2000|UP2000, UP2000+]] | | | Unofficial | Supported |
+| API NetWorks CS20 | | | | Supported |
 
 ==== Systems without support for every operating system ====
 
 === No OpenVMS or Tru64 UNIX ===
 
   * **Alpha XL and XLT:** these have no SRM console, which OpenVMS and Tru64 UNIX require. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L25578|"Re: Does DEC have a clue?"]], Jay Estabrook, axp-list, 20 Jan 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-November.mbox#L791|"OpenVMS for Alpha"]], Jeff Donsbach, axp-list, 15 Nov 2004)]
-  * **Digital Server 3300, 5300, and 7300:** these Windows NT servers can be switched to the SRM console, but still do not boot Tru64 UNIX or OpenVMS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L13782|"RE: Compaq to offer Tru64 for $99"]], John Jemiolo, axp-list, 5 Nov 1999)] The restriction appears to come from the system ID in the serial ROM, and Linux is not affected: Red Hat Linux 6.0 ran on the 3300. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/1999-November.mbox#L12890|"SUMMARY: AS 3300 support for Tru64UNIX/Linux?"]], Stephen Dowdy, tru64-unix-managers, 10 Nov 1999)]
+  * **Digital Server 3300, 5300, and 7300:** these Windows NT servers can be switched to the SRM console, but still do not boot Tru64 UNIX or OpenVMS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L13782|"RE: Compaq to offer Tru64 for $99"]], John Jemiolo, axp-list, 5 Nov 1999)] Linux is not affected. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/1999-November.mbox#L12890|"SUMMARY: AS 3300 support for Tru64UNIX/Linux?"]], Stephen Dowdy, tru64-unix-managers, 10 Nov 1999)]
   * **AlphaPC 164RX:** no SRM console was released for it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L9150|"Re: switching from ARC back to SRM"]], Jay Estabrook, axp-list, 16 Aug 2000)] It was only sold for Windows NT. [(>{{wiki:hardware:motherboards:pc164rx:pc164rx_product_brief.pdf?linkonly|AlphaPC 164RX Product Brief}}, p. 2)]
-  * **AlphaPC 164UX and 164BX (Ruffian):** the only firmware is DeskStation's ARCSBIOS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L29483|"Re: AlphaBios vs SRM"]], Rich Payne, axp-list, 15 Sep 1999)]
-  * **Multia:** Digital UNIX was not sold for the Multia, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L47743|"Re: UDB OS questions, looking for OSF/1 media"]], Maurice W. Hilarius, axp-list, 27 Apr 1997)] and neither Tru64 UNIX nor OpenVMS was officially supported on it, although both have been run on it: Tru64 UNIX under a hobbyist license, and OpenVMS with special firmware and without support for the serial ports. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-January.mbox#L36|"Re: Multia/166MHz"]], Dan O'Reilly, axp-list, 1 Jan 2000)] Digital UNIX V3.2G and V4.0D have been installed on a Multia with updated SRM firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1996-May.mbox#L1837|"Re: ?DEC MULTIA (VX42B-F2) and OSF UNIX"]], Huw Davies, comp.unix.osf.misc, 28 May 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1998-November.mbox#L808|"Re: Digital Unix 4.0D on a Multia ?"]], Matthew P Cheek, comp.unix.osf.misc, 22 Nov 1998)]
+  * **AlphaPC 164UX and 164BX (Ruffian):** the only firmware is Deskstation's ARCSBIOS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L29483|"Re: AlphaBios vs SRM"]], Rich Payne, axp-list, 15 Sep 1999)]
+  * **Multia:** neither Tru64 UNIX nor OpenVMS was officially supported on the Multia, although both have been run on it unofficially. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-January.mbox#L36|"Re: Multia/166MHz"]], Dan O'Reilly, axp-list, 1 Jan 2000)]
   * **UP1000:** Tru64 UNIX does not support the UP1000's Irongate chipset, and the board is not a licensed platform. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-February.mbox#L18082|"RE: UP1000 & SRM"]], Mike Foley, axp-list, 16 Feb 2000)] API's manuals for the UP1000, UP1100, and UP1500 only mention Linux. [(>{{wiki:hardware:motherboards:up1000:up1000_technical_reference_manual.pdf?linkonly|UP1000 Technical Reference Manual}})] [(>{{wiki:hardware:motherboards:up1100:up1100_technical_reference_manual.pdf?linkonly|UP1100 Technical Reference Manual}})] [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User's Manual}}, p. 4-2)]
   * **UP2000:** the UP2000 is not an officially supported platform for Tru64 UNIX, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L43541|"RE: UP2000 and Tru64?"]], Mike Foley, axp-list, 23 Dec 1999)] although Tru64 UNIX 4.0F has been run on it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L16386|"Re: Consigned to Oblivion, Alpha and Firmware"]], Maurice Hilarius, axp-list, 11 Oct 1999)] It does not run OpenVMS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-June.mbox#L21700|"Re: OT: True64 on UP2000?"]], clc31@cornell.edu, axp-list, 28 Jun 2000)]
   * **CS20 and DS20L:** API NetWorks sold the CS20 for Linux; its onboard SCSI controller was not supported by Tru64 UNIX. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-May.mbox#L27576|"RE: DS20L"]], Peter Petrakis, axp-list, 30 May 2002)] Compaq's version, the DS20L, lists only Tru64 UNIX V5.1A in its firmware release notes. [(>{{wiki:software:firmware:alphaserver_ds20l_v6.6_firmware_release_notes.pdf?linkonly|AlphaServer DS20L V6.6 Console Firmware Release Notes}}, p. 5)]
@@ -93,7 +104,7 @@ Linux support is according to the platforms in ''arch/alpha'' in Linux 6.10 and 
 === No Linux ===
 
   * **DEC 3000, DEC 4000, and DEC 7000:** the kernel has no support for these systems, before or after Linux 6.10. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v6.10|arch/alpha/kernel/setup.c]], Linux 6.10)]
-  * **AlphaServer 8200, 8400, GS60, and GS140 (TurboLaser):** the kernel has no support for these systems, before or after Linux 6.10. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v6.10|arch/alpha/kernel/setup.c]], Linux 6.10)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L17415|"Re: AlphaServer GS140 (8400)"]], Jay Estabrook, debian-alpha, 23 Sep 2003)] An attempt to boot Alpha Core 3 on a GS60 locked up. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-February.mbox#L341|"GS60 available for porting"]], Adrian Looker, axp-list, 18 Feb 2008)]
+  * **AlphaServer 8200, 8400, GS60, and GS140 (TurboLaser):** the kernel has no support for these systems, before or after Linux 6.10. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v6.10|arch/alpha/kernel/setup.c]], Linux 6.10)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L17415|"Re: AlphaServer GS140 (8400)"]], Jay Estabrook, debian-alpha, 23 Sep 2003)]
   * **Systems and processors removed in Linux 6.10:** the Jensen, all systems and processors of the EV4, EV45, and EV5 generations, and the EB164; see [[#linux|Linux]].
 
 ==== Linux ====
@@ -109,21 +120,7 @@ Linux 6.10 removed support for processors without the BWX extension (the EV4, EV
 
 Systems sold with EV5 processors that also accept EV56 processors, such as the AlphaStation 500 and 600, are still supported, but need an EV56 processor. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)]
 
-HP officially supported Red Hat Linux 7.2 for Alpha on the AlphaServer DS10, DS20, ES40, and ES45. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L12427|"Re: RedHat 7.2 Linux for Alpha"]], Jay Estabrook, axp-list, 11 Jun 2002)] The DS25 and ES45 firmware release notes list Red Hat Linux 7.2 among the supported operating systems. [(>{{wiki:software:firmware:alphaserver_ds25_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation DS25 V7.2 Firmware Release Notes}})] [(>{{wiki:software:firmware:alphaserver_es45_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation ES45 V7.3 Firmware Release Notes}}, p. 6)] Installing it on the ES47, ES80, and AlphaServer 2100A required an HP installation wrapper CD. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-July.mbox#L2911|"Installation HPWrapper ISO for ES47, ES80, 2100A and DAC960 systems for RH-7.2."]], George France, axp-list, 11 Jul 2003)]
-
-The DS15, DS25, and ES45 (Titan), the GS80, GS160, and GS320 (Wildfire), and the ES47, ES80, and GS1280 (Marvel) need kernels built without ''CONFIG_ALPHA_LEGACY_START_ADDRESS''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-February.mbox#L7443|"Re: testing wanted: debian-installer, now with 2.6.15"]], Jay Estabrook, debian-alpha, 9 Feb 2006)] Debian 3.1's prepackaged kernels did not support the Titan systems for this reason. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-November.mbox#L1252|"Sanity checking needed of Alpha subarch codenames in d-i manual"]], Steve Langasek, debian-alpha, 7 Nov 2004)] Linux support for the Marvel systems returned after a long hiatus in Alpha Core 3 in 2007. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2007-March.mbox#L1087|"Torrents galore...but has anyone actually tried it?"]], Jay Estabrook, axp-list, 7 Mar 2007)]
-
-=== The first port ===
-
-Linux on Alpha began at Digital, before any of the Alpha/Linux mailing lists existed, with a 32-bit kernel on the [[hardware:systems:jensen|Jensen]], followed by the Avanti. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2006-July.mbox#L572|"first Linux port"]], Jay Estabrook, axp-list, 13 Jul 2006)] Jim Paradis of Digital's Alpha Migration Tools Group published a "Linux/AXP Progress Report", dated 9 September 1994, to ''comp.os.linux.announce''. It describes a port of the Linux 1.0 kernel that was deliberately 32-bit: except where the kernel interfaced with the hardware, no kernel data type was wider than 32 bits, so that parts of Linux unaffected by the port, such as the file system code, would work without modification. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-September.mbox#L14204|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 12 Sep 1994)]
-
-The port was aimed at PC-class Alpha platforms with ISA, EISA, VLB, and PCI devices, and was cross-developed on a DEC 3000 Model 500 running DEC OSF/1, with ''gcc'' 2.5.8 configured for ''alpha-linux'' and a ''gdb'' patched to debug the kernel running under the [[software:emulators#isp|ISP]] simulator. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-September.mbox#L14204|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 12 Sep 1994)] At that point the kernel booted from a 1.44 MB ext2 floppy image into a RAM disk, had no disk drivers, and ran a hand-written "hello, world" in place of ''/etc/init'', because there was no ''libc'' yet. Its drivers used console callbacks, the Alpha equivalent of BIOS calls on an Intel system, which were slow because they run synchronously with interrupts disabled. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-September.mbox#L14204|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 12 Sep 1994)]
-
-A month later the port reached a shell prompt, with a very slow, primitive hard disk driver, and still ran essentially from the RAM disk. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-October.mbox#L18982|"Re: LINUX AXP?"]], Jim Paradis, comp.sys.dec, 12 Oct 1994)] By the November 1994 report, the port had been renamed from Linux/AXP to Linux/Alpha, in keeping with Digital's policy, and ran from the hard disk. The first shell was ''rc'', the Plan 9 shell, with ''init'' a stub that ran it, and about twenty coreutils were ported alongside. The console firmware in use recognized only SCSI devices and did not understand disk partitioning, so the kernel had to be written to a SCSI disk from another system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)] The same report announced the project's mailing list, ''linux-axp@amt.tay1.dec.com'', [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)] which moved to majordomo as ''alpha-linux'' two months later. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-January.mbox#L2126|"ANNOUNCEMENT: Linux/Alpha Developers' Kit!"]], Jim Paradis, comp.os.linux.announce, 23 Jan 1995)]
-
-The Linux/Alpha Software Developers' Kit followed on 23 January 1995, from ''gatekeeper.dec.com'', as the first public release of Linux components for Alpha. The kit was not self-hosting: it was cross-compiled from a Linux, DEC OSF/1, ULTRIX or SunOS host, and had only console-callback drivers, which for the Jensen were keyboard, text-mode VGA, and Adaptec 1742 SCSI. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-January.mbox#L2126|"ANNOUNCEMENT: Linux/Alpha Developers' Kit!"]], Jim Paradis, comp.os.linux.announce, 23 Jan 1995)]
-
-BLADE 0.1 (Basic Linux/Alpha Distribution Eyesore), released on 1 July 1995, was the first Alpha/Linux distribution that could be installed without a second machine. It was a set of floppy images needing only an SRM console, built on a 1.2.8 kernel with Linus Torvalds' Alpha patches, supported the AXPpci 33 (Noname), and was 64-bit, the port having moved to 64 bits in the meantime. It was intended to serve until the major distributions had been ported. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-July.mbox#L10349|"Linux/Alpha installable kit now available!"]], Jim Paradis, comp.os.linux.announce, 1 Jul 1995)]
+The Titan (AlphaServer DS15, DS25, and ES45), Wildfire (GS80, GS160, and GS320), and Marvel (ES47, ES80, and GS1280) systems need kernels built without ''CONFIG_ALPHA_LEGACY_START_ADDRESS'', which ''make defconfig'' enables; see [[documentation:kernel#kernel_start_address|Kernel]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig.debug?h=v7.3-rc1|arch/alpha/Kconfig.debug]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/configs/defconfig?h=v7.3-rc1|arch/alpha/configs/defconfig]], Linux 7.3)]
 
 ==== BSD ====
 
@@ -131,25 +128,25 @@ All three BSDs boot only from the [[software:firmware:srm|SRM console]], because
 
 === NetBSD ===
 
-NetBSD/alpha was started by Chris Demetriou and is the oldest of the three. Snapshots of the 1.2 development line were circulating by June 1996, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1996-June.mbox#L1468|"Another NetBSD/Alpha 1.2_ALPHA snapshot (960615) available!"]], Chris G Demetriou, port-alpha, 16 Jun 1996)] and users were running the 1.2 release by October 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1996-October.mbox#L134|"alpha 1.2 release"]], Michael Graff, port-alpha, 7 Oct 1996)] That release was statically linked ECOFF; ELF and shared libraries were still being finished at the end of 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1996-October.mbox#L149|"Re: alpha 1.2 release"]], Chris G Demetriou, port-alpha, 8 Oct 1996)]
+NetBSD/alpha was started by Chris Demetriou and is the oldest of the three BSD ports; users were running NetBSD 1.2 on Alpha by October 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1996-October.mbox#L134|"alpha 1.2 release"]], Michael Graff, port-alpha, 7 Oct 1996)]
 
-The port is still maintained, and its ''port-alpha@netbsd.org'' mailing list remains active. Alpha is a supported port in NetBSD's current releases, 11.0, released on 30 July 2026, and 10.2; NetBSD 11.0 added support for Secure PLT binaries on Alpha. [(>[[https://www.netbsd.org/releases/formal-11/NetBSD-11.0.html|NetBSD 11.0 release notes]], The NetBSD Project, 30 Jul 2026)] Install images are published for each release, such as ''NetBSD-11.0-alpha.iso''. [(>[[https://cdn.netbsd.org/pub/NetBSD/NetBSD-11.0/images/|NetBSD-11.0/images]], cdn.netbsd.org)] NetBSD also runs under QEMU; see [[software:emulators#other_operating_systems|Emulators]].
+The port is still maintained, and its ''port-alpha@netbsd.org'' mailing list remains active. Alpha is a supported port in NetBSD's current releases, 11.0, released on 30 July 2026, and 10.2; NetBSD 11.0 added support for Secure PLT binaries on Alpha. [(>[[https://www.netbsd.org/releases/formal-11/NetBSD-11.0.html|NetBSD 11.0 release notes]], The NetBSD Project, 30 Jul 2026)] Install images are published for each release, such as ''NetBSD-11.0-alpha.iso''. [(>[[https://cdn.netbsd.org/pub/NetBSD/NetBSD-11.0/images/|NetBSD-11.0/images]], cdn.netbsd.org)] NetBSD also runs under QEMU; see [[software:emulators#other_operating_systems|Emulators]]. The supported systems are listed on the [[https://wiki.netbsd.org/ports/alpha/|NetBSD/alpha]] port page.
 
 === FreeBSD ===
 
-FreeBSD/alpha was Doug Rabson's work and was the first non-x86 port added to FreeBSD. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2006-May.mbox#L972|"HEADSUP: Alpha support is being retired in 7.0"]], John Baldwin, freebsd-alpha, 11 May 2006)] The port drove FreeBSD's early work on 64-bit cleanliness and support for multiple architectures, as the Release Engineering Team noted when it demoted the port to Tier 2 in June 2004. Tier 2 meant no guaranteed release images, prebuilt packages, or security advisories from FreeBSD 5.3 onward, though 4.x releases and errata kept their support. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2004-June.mbox#L2662|"Demotion of alpha to Tier 2"]], Scott Long, freebsd-alpha, 14 Jun 2004)] In May 2006 John Baldwin announced that Alpha support would be retired in FreeBSD 7.0, with 6.x releases still planned. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2006-May.mbox#L972|"HEADSUP: Alpha support is being retired in 7.0"]], John Baldwin, freebsd-alpha, 11 May 2006)] FreeBSD 6.x was therefore the last series to support Alpha.
+FreeBSD/alpha was Doug Rabson's work and was the first non-x86 port added to FreeBSD. FreeBSD 6.x was the last series to support Alpha, which was removed in FreeBSD 7.0. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2006-May.mbox#L972|"HEADSUP: Alpha support is being retired in 7.0"]], John Baldwin, freebsd-alpha, 11 May 2006)]
 
 === OpenBSD ===
 
-OpenBSD 2.2, announced on 14 December 1997, included an Alpha binary release. It supported the DEC 3000, the AlphaStation 200, 250, 255, 400, and 500, the AXPpci 33, and the Multia, from SRM only, with limited binary compatibility with OSF/1. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1997-December.mbox#L2919|"OpenBSD 2.2 released for the alpha"]], Theo de Raadt, comp.unix.osf.misc, 14 Dec 1997)]
+OpenBSD first shipped an Alpha release with OpenBSD 2.2 in December 1997. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1997-December.mbox#L2919|"OpenBSD 2.2 released for the alpha"]], Theo de Raadt, comp.unix.osf.misc, 14 Dec 1997)]
 
-OpenBSD/alpha is still supported, including SMP, and is part of the current release, OpenBSD 7.9 of 19 May 2026, whose changes include reworked TLB shootdown on Alpha. [(>[[https://www.openbsd.org/79.html|OpenBSD 7.9]], The OpenBSD Project, 19 May 2026)] The installation media are ''install79.iso'' and ''cd79.iso'', and the procedure is described in the release's ''INSTALL.alpha''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/openbsd-alpha-mbox/2026-February.mbox#L1|"Re: SMP on AlphaServer DS20E"]], Miod Vallat, openbsd-alpha, 14 Feb 2026)]
+OpenBSD/alpha is still supported, including SMP, and is part of the current release, OpenBSD 7.9 of 19 May 2026, whose changes include reworked TLB shootdown on Alpha. [(>[[https://www.openbsd.org/79.html|OpenBSD 7.9]], The OpenBSD Project, 19 May 2026)] The installation media are ''install79.iso'' and ''cd79.iso'', and the procedure is described in the release's ''INSTALL.alpha''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/openbsd-alpha-mbox/2026-February.mbox#L1|"Re: SMP on AlphaServer DS20E"]], Miod Vallat, openbsd-alpha, 14 Feb 2026)] The supported systems are listed on the [[https://www.openbsd.org/alpha.html|OpenBSD/alpha]] page.
 
 ==== Windows NT ====
 
 Windows NT ran on Alpha from version 3.1. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2006-December.mbox#L1768|"Alpha Wiki"]], Marco Benton, axp-list, 18 Dec 2006)] The DECpc AXP 150 was bundled with Windows NT, and the otherwise identical DEC 2000 AXP with OpenVMS or DEC OSF/1. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L4787|"Jensen-HOWTO: First pass"]], Jim Paradis, axp-list, 15 Mar 1996)] Digital's workstations were sold in Windows NT and UNIX/OpenVMS versions, e.g. the Personal Workstation "a" series with Windows NT 4.0 and "au" series with Tru64 UNIX or OpenVMS. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_a_au_series_catalog.pdf?linkonly|Compaq DPW Enhanced a-Series & au-Series}}, Systems and Options Catalog, September 2000)] Digital Semiconductor's evaluation boards and OEM motherboards shipped with Windows NT firmware, and supported Windows NT 3.51 and 4.0. [(>{{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}}, p. 28)]
 
-Compaq ended Windows NT development for Alpha in August 1999, when it laid off its porting team. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L31035|"Re: Done: Experience with large IDE drive and Promise Ultra/66 card"]], Jeff Bolle, axp-list, 22 Aug 1999)] According to Phillip Ezolt of Compaq, Compaq stopped supporting 32-bit Windows NT, and within a week Microsoft dropped the 64-bit version. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L54447|"Re: Off topic: NT on Alpha (was: Alpha Users in the Toronto area.)"]], Phillip Ezolt, axp-list, 30 Sep 1999)] Windows NT 4.0 was the last released version. Prerelease builds of Windows 2000 for Alpha were distributed, up to at least Release Candidate 1 (build 2072). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-January.mbox#L2396|"w2k alpha"]], Steven Moix, axp-list, 9 Jan 2009)] The last Windows NT firmware was AlphaBIOS V5.71, for the AlphaServer DS10, AlphaStation XP900, and AlphaServer DS20 and DS20E. [(>{{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}}, p. 10)]
+Compaq ended Windows NT development for Alpha in August 1999, when it laid off its porting team. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-August.mbox#L31035|"Re: Done: Experience with large IDE drive and Promise Ultra/66 card"]], Jeff Bolle, axp-list, 22 Aug 1999)] After Compaq stopped supporting 32-bit Windows NT, Microsoft dropped the 64-bit version within a week. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L54447|"Re: Off topic: NT on Alpha (was: Alpha Users in the Toronto area.)"]], Phillip Ezolt, axp-list, 30 Sep 1999)] Windows NT 4.0 was the last released version. Prerelease builds of Windows 2000 for Alpha were distributed, up to at least Release Candidate 1 (build 2072). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-January.mbox#L2396|"w2k alpha"]], Steven Moix, axp-list, 9 Jan 2009)] The last Windows NT firmware was AlphaBIOS V5.71, for the AlphaServer DS10, AlphaStation XP900, and AlphaServer DS20 and DS20E. [(>{{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}}, p. 10)]
 
 ==== OpenVMS ====
 
@@ -170,6 +167,28 @@ In July 2014 HP named VMS Software Inc. (VSI) the exclusive developer of future 
 ==== Tru64 UNIX ====
 
 Digital's UNIX for Alpha was called DEC OSF/1 until 1995, when it was renamed Digital UNIX, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1995-March.mbox#L2459|"Press/Digital To Rename DEC OSF/1 Operating Systems 'Digital UNIX'"]], Digital Press and Analysts News, biz.digital.announce, 15 Mar 1995)] and Compaq renamed it Tru64 UNIX in 1999. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/1999-February.mbox#L27502|"News/announcement: Compaq Tru64 UNIX and new Web site.."]], Tom Blinn, alpha-osf-managers, 1 Feb 1999)] Its releases, hardware requirements, licensing, and end of support are described in [[software:operating_systems:tru64|Tru64 UNIX]].
+
+==== Dual booting ====
+
+Linux can share a machine with OpenVMS or Tru64 UNIX, since all of them boot from the SRM console. One arrangement is to install each system on its own disk, make Linux the default with ''bootdef_dev'', ''boot_file'', and ''boot_osflags'', and boot the other system by naming its disk, for example ''boot -file vmunix -flags a dka0'' for Tru64 UNIX. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L2675|"Re: Dual boot a DS20.."]], 이준문, axp-list, 3 May 2000)] Adding a disk can change the names that Linux gives to the disks already present, so that the kernel no longer finds its root file system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L26637|"RE: Dual boot a DS20.."]], Frank Tiels, axp-list, 27 Apr 2000)]
+
+A disk labeled by Tru64 UNIX can also hold aboot. Its whole-disk ''c'' partition does no harm, but an installer may refuse to write the boot block because no space lies outside the partitions, and ''swriteboot -f'' then writes it by hand. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-March.mbox#L8415|"Re: Bootstrap Failure after Installation of Red Hat Linux 7.0"]], Michal Jaegermann, axp-list, 9 Mar 2001)]
+
+OpenVMS, Tru64 UNIX, and ARC each keep the time-of-year clock relative to a different epoch; see [[software:firmware:srm#known_issues|SRM Console: Known issues]].
+
+==== History ====
+
+=== The first port ===
+
+Linux on Alpha began at Digital, before any of the Alpha/Linux mailing lists existed, with a 32-bit kernel on the [[hardware:systems:jensen|Jensen]], followed by the Avanti. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2006-July.mbox#L572|"first Linux port"]], Jay Estabrook, axp-list, 13 Jul 2006)] The Jensen booted Linux from SRM, since no evaluation board PALcode was ever available for it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-December.mbox#L2127|"Re: booting from MILO and SRM: how is it possible?"]], Jay Estabrook, axp-list, 1 Dec 1997)] Jim Paradis of Digital's Alpha Migration Tools Group described the work in a "Linux/AXP Progress Report", dated 9 September 1994: a port of the Linux 1.0 kernel that kept every kernel data type to 32 bits except where the kernel met the hardware, so that code such as the file systems would work unmodified. It was cross-developed on a DEC 3000 running DEC OSF/1, with the kernel debugged under the [[software:emulators#isp|ISP]] simulator, and its drivers used the console callbacks. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-September.mbox#L14204|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 12 Sep 1994)]
+
+By November 1994 the port, renamed Linux/Alpha in keeping with Digital's policy, ran from the hard disk. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)] The Linux/Alpha Software Developers' Kit, the first public release of Linux components for Alpha, followed on 23 January 1995. It was cross-compiled from another host and had only console-callback drivers. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-January.mbox#L2126|"ANNOUNCEMENT: Linux/Alpha Developers' Kit!"]], Jim Paradis, comp.os.linux.announce, 23 Jan 1995)]
+
+BLADE 0.1 (Basic Linux/Alpha Distribution Eyesore), released on 1 July 1995, was the first Alpha/Linux distribution that could be installed without a second machine. It was a set of floppy images for the AXPpci 33 (Noname), built on a 1.2.8 kernel, and was 64-bit, the port having moved to 64 bits in the meantime. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1995-July.mbox#L10349|"Linux/Alpha installable kit now available!"]], Jim Paradis, comp.os.linux.announce, 1 Jul 1995)]
+
+=== Vendor support ===
+
+HP officially supported Red Hat Linux 7.2 for Alpha on the AlphaServer DS10, DS20, ES40, and ES45. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L12427|"Re: RedHat 7.2 Linux for Alpha"]], Jay Estabrook, axp-list, 11 Jun 2002)] The DS25 and ES45 firmware release notes list Red Hat Linux 7.2 among the supported operating systems. [(>{{wiki:software:firmware:alphaserver_ds25_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation DS25 V7.2 Firmware Release Notes}})] [(>{{wiki:software:firmware:alphaserver_es45_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer and AlphaStation ES45 V7.3 Firmware Release Notes}}, p. 6)]
 
 ==== Conflicting information ====
 
@@ -208,10 +227,6 @@ The following sources conflict with each other or with the account given above. 
     * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_wildfire.c?h=v6.10|arch/alpha/kernel/sys_wildfire.c]], Linux 6.10, supports the Wildfire systems.
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L39933|"Re: 2.3.99-3 axp combo patch"]], Richard Henderson, axp-list, 29 Mar 2000: "It's not supported in current sources, but I know it's being worked on."
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L13968|"Re: AlphaServer GS140 (8400)"]], George France, debian-alpha, 24 Sep 2003: "Although this hardware it is not officially supported by HP on the RH-7.2 distribution, it should just work."
-  * **Latest Windows 2000 build for Alpha**
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-January.mbox#L2396|"w2k alpha"]], Steven Moix, axp-list, 9 Jan 2009: "it's the most recent build as far as I know, build 2072"
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-January.mbox#L703|"w2k alpha"]], Alexander Huemer, axp-list, 7 Jan 2009, lists "professional build 2128".
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-June.mbox#L32828|"RE: Alpha win 2K/NT"]], Paul Bunn, axp-list, 26 Jun 2001: "Compaq dropped NT support for Alpha circa RC2 for Win2k."
 
 ==== Documentation ====
 
