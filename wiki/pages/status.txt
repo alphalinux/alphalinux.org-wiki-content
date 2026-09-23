@@ -1,0 +1,52 @@
+===== Current Status =====
+
+Alpha is still a supported architecture in the core of the GNU/Linux system. The Linux kernel, GCC, binutils, and glibc all carry Alpha support in their main development trees, and all four are still actively maintained for it. Three distributions produce current Alpha releases. What Alpha lacks is support in the newer parts of the toolchain, above all LLVM, and with it everything that depends on LLVM.
+
+This page summarizes the state of the port as of September 2026. Recent changes are listed in the [[:start#news|News]] on the front page, and work in progress on the [[tasks:todo|To Do]] list.
+
+==== Processor baseline ====
+
+Since Linux 6.10, released in July 2024, the kernel requires an EV56 (21164A) or later processor, because it needs the byte/word extension (BWX) to make byte and word stores atomic. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] [(>[[https://lwn.net/Articles/973687/|"The first half of the 6.10 merge window"]], LWN.net, 16 May 2024)] Linux 6.9 is the last kernel for the EV4, EV45, and EV5 processors and for the systems that can only use them, among them the Jensen, the Multia, the AlphaStation 200 to 400, and the EB164. The full list is under [[software:operating_systems#linux|Operating Systems]], and the reasoning under [[documentation:porting:byte_word_access|Byte and Word Access]]. Systems sold with EV5 processors that also accept EV56 processors, such as the AlphaStation 500 and 600, still run current kernels once the processor is upgraded.
+
+Debian's GCC has also produced EV56 code by default since May 2023, and T2's Alpha images are built for EV56. See [[documentation:toolchains#selecting_a_processor|Selecting a processor]].
+
+==== Core projects ====
+
+^ Project ^ Status ^ Maintainers ^
+| [[documentation:kernel|Linux]] | Mainline, ''arch/alpha''. Status "Odd Fixes" | Richard Henderson, [[user:mattst88|Matt Turner]], [[user:lindholm|Magnus Lindholm]] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/MAINTAINERS?h=v7.3-rc1|MAINTAINERS]], Linux 7.3)] |
+| [[documentation:toolchains#gcc|GCC]] | Mainline, ''gcc/config/alpha'' | Richard Henderson [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=MAINTAINERS|MAINTAINERS]], GCC)] |
+| binutils | Mainline, including ''gas'', ''ld'', and ''gdb'' | |
+| glibc | Mainline, ''sysdeps/alpha'' and ''sysdeps/unix/sysv/linux/alpha'' | |
+| QEMU | Mainline, system and user-mode emulation | Richard Henderson [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/MAINTAINERS|MAINTAINERS]], QEMU 11.1.0)] |
+| [[software:boot_loaders:aboot|aboot]] | Version 2.0, September 2026 | [[user:mattst88|Matt Turner]] |
+
+Kernel work since 2025 has added SECCOMP and seccomp filter support (Linux 7.1) and moved Alpha to the kernel's generic entry code (Linux 7.3). Toolchain work in 2026 has added stack protector and IFUNC support to GCC and binutils, and is moving GCC's Alpha back end to the LRA register allocator, which Alpha needs to stay in GCC once the old reload pass is removed. [(>[[https://github.com/alphalinux-org/issues/issues/3|"GCC alpha backend needs to be switched to LRA"]], alphalinux-org/issues #3)] See the [[:start#news|News]] and the [[tasks:todo|To Do]] list.
+
+==== Distributions ====
+
+^ Distribution ^ Status ^ Install media ^
+| [[https://wiki.gentoo.org/wiki/Project:Alpha|Gentoo]] | Supported. The Alpha profiles are stable again since August 2024, but every package keyword is unstable (''~alpha'') | Minimal install CD and weekly stage3 tarballs, from [[https://distfiles.gentoo.org/releases/alpha/autobuilds/|distfiles.gentoo.org]] |
+| [[https://www.debian.org/ports/alpha/|Debian Ports]] | Unofficial port, built for unstable (''sid'') | Netinst CD snapshots, from [[https://cdimage.debian.org/cdimage/ports/snapshots/|cdimage.debian.org]] |
+| [[https://t2sde.org/|T2 SDE]] | Supported, built for EV56 | ISO images, from [[https://dl.t2sde.org/binary/|dl.t2sde.org]] |
+
+Debian's last official Alpha release was 5.0 (Lenny) in 2009; the port has continued in Debian Ports since then, and is maintained there by [[user:creemj|Michael Cree]] and others. The distributions that supported Alpha in the past are listed under [[:distributions|Distributions]], with more detail for each current one.
+
+==== Other operating systems ====
+
+  * **NetBSD** supports Alpha in its current releases, 11.0 and 10.2. [(>[[https://www.netbsd.org/releases/formal-11/NetBSD-11.0.html|NetBSD 11.0 release notes]], The NetBSD Project, 30 Jul 2026)]
+  * **OpenBSD** supports Alpha in its current release, 7.9. [(>[[https://www.openbsd.org/79.html|"OpenBSD 7.9"]], The OpenBSD Project, 19 May 2026)]
+  * **OpenVMS** on Alpha is sold and supported by VMS Software Inc. (VSI), whose Alpha releases are V8.4-2L1 and V8.4-2L2, the latter built for EV6 and later processors. VSI offers standard support for them through 2035. [(>[[https://vmssoftware.com/products/versions/|Versions]], VMS Software Inc.)] [(>[[https://products.vmssoftware.com/alpha|"Future Proof Your Alpha System"]], VMS Software Inc.)]
+
+See [[software:operating_systems|Operating Systems]] for the history of each.
+
+==== What is missing ====
+
+  * **LLVM, and so Clang.** LLVM's Alpha back end was removed in October 2011, "due to lack of maintenance", and LLVM 3.1 was the first release without it. [(>[[https://github.com/llvm/llvm-project/commit/c8338b1b14fa6235d125de36c12f5b3f5c3fbc85|"Remove the Alpha backend."]], llvm-project, 27 Oct 2011)] [(>[[https://releases.llvm.org/3.1/docs/ReleaseNotes.html|LLVM 3.1 Release Notes]])] There is no Clang for Alpha, and the kernel cannot be built with ''LLVM=1''. Parts of the LLVM project that do not generate code can still support Alpha; the sanitizer runtimes gained Alpha support in 2026.
+  * **Rust.** The Rust compiler generates code through LLVM and has no Alpha target. [(>[[https://doc.rust-lang.org/nightly/rustc/platform-support.html|Platform Support]], The rustc book)] Two projects could provide one through GCC instead: [[https://github.com/rust-lang/rustc_codegen_gcc|rustc_codegen_gcc]], a GCC back end for ''rustc'', where Alpha support is being worked on, [(>[[https://github.com/rust-lang/rustc_codegen_gcc/issues/742|"DEC Alpha support"]], rustc_codegen_gcc issue #742)] and gccrs, the Rust front end in GCC, which is still under development. Software that requires Rust, such as the Python ''cryptography'' package, is therefore unavailable on Alpha or held at an older version. The kernel's Rust support is likewise unavailable.
+  * **musl.** The musl C library has no Alpha port, [(>[[https://git.musl-libc.org/cgit/musl/tree/arch|arch/]], musl)] so Alpine Linux and other musl-based distributions cannot be built for Alpha. glibc is the only C library for Alpha/Linux.
+  * **Go, and other languages with their own code generators.** The Go toolchain and many JIT compilers, such as the JavaScript engines in web browsers, have no Alpha code generator. ''gccgo'' builds Go code on Alpha. A JIT for PCRE2, through sljit, was added in 2026.
+  * **A vDSO.** Alpha has no vDSO, so time functions are real system calls. See [[documentation:porting:abi|Linux ABI Differences]].
+
+The [[tasks:todo|To Do]] list tracks these and other gaps.
+
+{{tag>status}}

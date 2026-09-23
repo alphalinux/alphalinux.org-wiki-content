@@ -4,6 +4,8 @@
 
 Alpha/Linux is a port of [[wp>Linux|Linux]] to the [[wp>DEC_Alpha|Alpha architecture]].
 
+Alpha is still supported in mainline Linux, GCC, binutils, and glibc. Since Linux 6.10 the kernel requires an EV56 (21164A) or later processor. The kernel port is maintained by Richard Henderson, [[user:mattst88|Matt Turner]], and [[user:lindholm|Magnus Lindholm]], and Gentoo, Debian Ports, and T2 SDE produce current releases. Alpha has no LLVM back end, and so no Clang or Rust except through GCC-based efforts such as gccrs and rustc_codegen_gcc, and there is no musl port. See [[status|Current Status]].
+
 <WRAP col3 navcols>
 ==== Software ====
 [[Software:Operating Systems]] • [[Software:Boot Loaders]] • [[Software:Firmware]] • [[Software:Emulators]]
