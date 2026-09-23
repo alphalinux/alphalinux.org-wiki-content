@@ -24,7 +24,7 @@ Except where noted, the following comes from the product profile. [(>{{wiki:hard
   * Integral UltraSCSI (40 MB/s) adapter for internal and external storage
   * 40 or 48 internal storage slots, up to 720 GB of internal storage in the GS60 and 864 GB in the GS140
   * Hot swap disks, RAID, N+1 redundant power supplies, ECC memory, heat, fan, and power supply sensors
-  * Tru64 UNIX and OpenVMS only; Windows NT was promised but never shipped
+  * Tru64 UNIX and OpenVMS only; Windows NT was promised but never shipped, although the firmware includes AlphaBIOS [(>{{wiki:software:firmware:alphaserver_gs140_v6.4_firmware_release_notes.pdf?linkonly|AlphaServer GS60/GS60E/GS140 Systems V6.4 Firmware Update Procedures and Release Notes}}, p. 2-3)]
   * CPU upgrades use dual-CPU modules; one dual 500 MHz EV6 module replaces two 625 MHz EV56 modules, without a change of backplane [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-April.mbox#L10203|"Summary EV67 processors in a AS840"]], Gwen Pettigrew, tru64-unix-managers, 17 Apr 2000)]
 
 ==== Linux ====

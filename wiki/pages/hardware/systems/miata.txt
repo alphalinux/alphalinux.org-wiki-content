@@ -1,7 +1,7 @@
-===== Personal Workstation a and au series (Miata) =====
+===== Personal Workstation a-series and au-series (Miata) =====
 
 <WRAP box right 340px>
-^ Personal Workstation a and au series ^^
+^ Personal Workstation a-series and au-series ^^
 ^ Codename | Miata, Miata GL |
 ^ CPU | [[wp>Alpha_21164#Alpha_21164A|21164A]] (EV56) |
 ^ Core logic | [[hardware:chipsets#21174|21174]] (Pyxis) |
@@ -28,9 +28,9 @@ The following describes the later "Enhanced" 500 and 600 MHz models. [(>{{wiki:h
   * Short tower with six storage bays: two 3.5-inch disk bays, a floppy bay, a dedicated 5.25-inch CD-ROM bay, and two further removable media bays
   * 300 W power supply
 
-The first user manual, from October 1996, describes the same chassis with 10Base2 Ethernet (10BaseT optional), eight diagnostic LEDs, and five option slots: one 32-bit half-size PCI slot, one 64-bit full-size PCI slot, two PCI/ISA combination slots (one 32-bit half-size, one 64-bit full-size), and one 32-bit full-size PCI/ISA slot. The 21164 sits in a ZIF socket beside six DIMM sockets and a CPU clock frequency selection switch bank. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_alpha_user_information.pdf?linkonly|Personal Workstation (Alpha) User Information}}, EK-ALMIA-UI.A01, October 1996, pp. 2-1, 2-9)] The cache is a customer-installable option; the 433 a-series cache kit is a single 2 MiB module. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_433a_cache_memory_installation_guide.pdf?linkonly|Personal Workstation 433 a-Series System Cache Memory Installation Guide}}, EK-ALMIA-CU.A01, March 1997, p. 1)]
+The first user manual, from October 1996, describes the same chassis with 10Base2 Ethernet (10BaseT optional), a different mix of five option slots, and the CPU in a ZIF socket. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_alpha_user_information.pdf?linkonly|Personal Workstation (Alpha) User Information}}, EK-ALMIA-UI.A01, October 1996, pp. 2-1, 2-9)] The cache is a customer-installable option; the 433 a-series cache kit is a single 2 MiB module. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_433a_cache_memory_installation_guide.pdf?linkonly|Personal Workstation 433 a-Series System Cache Memory Installation Guide}}, EK-ALMIA-CU.A01, March 1997, p. 1)]
 
-The a-series and au-series differ mainly in firmware and SCSI adapter: the a-series has an Adaptec controller and the au-series a QLogic ISP1040A, the KZPBA-CA. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1999-February.mbox#L917|"Re: PWS 433a -> 433au"]], James W. Caldwell, comp.unix.osf.misc, 24 Feb 1999)]
+The a-series and au-series differ mainly in firmware and SCSI adapter. The original Classic (MX5) boards have no onboard SCSI; on them the a-series has an Adaptec card and the au-series a QLogic ISP1040A card, the KZPBA-CA. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1999-February.mbox#L917|"Re: PWS 433a -> 433au"]], James W. Caldwell, comp.unix.osf.misc, 24 Feb 1999)]
 
 === Generations ===
 
@@ -50,8 +50,8 @@ Current kernels support the Personal Workstation, with ''CONFIG_ALPHA_MIATA'' or
 
 ==== Known issues ====
 
-  * **DMA bug:** on early MX5 boards the 21174 corrupts DMA transfers that cross a page boundary on the primary PCI bus, where the onboard IDE controller sits. The workaround is an add-on IDE controller in a free 32-bit PCI slot rather than a 64-bit slot. Miata GL boards carry a factory hardware fix. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L9612|"Re: IDE disk problems with RH7.2 on DPW500a"]], Magnus Lindstrom, axp-list, 22 Jan 2003)] Among Pyxis systems, early Miata boards had the most problems, the 164LX and 164SX fewer, and the Miata GL almost none. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-April.mbox#L2335|"Second IDE port not working on PC164"]], Jay Estabrook, axp-list, 8 Apr 2004)] See also [[hardware:other#personal_workstation_64-bit_slots|Personal Workstation 64-bit Slots]].
-  * **Battery:** the console settings are kept by a CR2032 coin cell. When it dies, the machine falls back to AlphaBIOS with the clock set to 1995, and the console settings must be entered again. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2017-January.mbox#L4217|"undone by a dead CR2032 button cell"]], Bob Tracy, debian-alpha, 23 Jan 2017)]
+  * **DMA bug:** on early MX5 boards the 21174 corrupts DMA transfers that cross a page boundary on the primary PCI bus, where the onboard IDE controller sits. The workaround is an add-on IDE controller in a free 32-bit PCI slot rather than a 64-bit slot. Miata GL boards carry a factory hardware fix. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L9612|"Re: IDE disk problems with RH7.2 on DPW500a"]], Magnus Lindstrom, axp-list, 22 Jan 2003)] See also [[hardware:other#personal_workstation_64-bit_slots|Personal Workstation 64-bit Slots]].
+  * **Battery:** the console settings are kept by a CR2032 coin cell. When it dies, the machine falls back to AlphaBIOS with the clock set to 1995, and the console settings must be entered again; see [[software:firmware:arc#switching_to_srm|Switching to SRM]]. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2017-January.mbox#L4217|"undone by a dead CR2032 button cell"]], Bob Tracy, debian-alpha, 23 Jan 2017)]
   * **Power supply:** the 300 W supply is a standard ATX unit, and easy to replace. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2006-April.mbox#L969|"Re: Compaq XP1000 powering off"]], thursday@allidaho.com, comp.os.linux.alpha, 18 Apr 2006)] The system is quiet enough for use on a desk. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2008-August.mbox#L1436|"Re: lenny+1 and the future of the alpha port?"]], Bob Tracy, debian-alpha, 22 Aug 2008)]
 
 ==== History ====

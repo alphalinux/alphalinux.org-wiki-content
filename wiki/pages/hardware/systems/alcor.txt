@@ -1,4 +1,4 @@
-===== AlphaStation 500 and 600 and Alpha XLT =====
+===== AlphaStation 500, 600, and Alpha XL 300, 366, 433 =====
 
 <WRAP box right 340px>
 ^ AlphaStation 500, 600, Alpha XL 300, 366, 433 ^^
@@ -24,7 +24,7 @@ The AlphaStation 600 (Alcor), AlphaStation 500 (Maverick and Bret), and Alpha XL
 ==== Specifications ====
 
   * The AlphaStation 500 has a built-in QLogic ISP1020 SCSI controller and no IDE; its onboard sound is attached to an EISA bus [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L1901|"Re: QLogic ISP problem"]], Jay Estabrook, axp-list, 8 Jan 2002)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2006-March.mbox#L1770|"[Fwd: Re: Qlogic 1280 driver blues]"]], Jay Estabrook, axp-list, 24 Mar 2006)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2006-February.mbox#L51|"as500/500 soundcard?"]], Jeff Donsbach, axp-list, 8 Feb 2006)]
-  * The XLT and the AlphaStation 500 (Bret and Maverick) have a built-in 21040 Tulip Ethernet controller in PCI slot 6, which the AlphaStation 600 does not [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_alcor.c?h=v6.10|arch/alpha/kernel/sys_alcor.c]], Linux 6.10)]
+  * The XLT and the AlphaStation 500 (Bret and Maverick) have a built-in 21040 Tulip Ethernet controller in PCI slot 6; the AlphaStation 600 has its 21040 on the separate I/O subsystem module instead (see below), not in slot 6 [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_alcor.c?h=v6.10|arch/alpha/kernel/sys_alcor.c]], Linux 6.10)]
 
 === AlphaStation 500 ===
 
@@ -39,10 +39,8 @@ The AlphaStation 600 (Alcor), AlphaStation 500 (Maverick and Bret), and Alpha XL
 
 [(>{{wiki:hardware:systems:alphastation_600:alphastation_600_technical_reference_information.pdf?linkonly|AlphaStation 600 Series Technical Reference Information}}, July 1995, pp. 1-1 to 1-5)]
 
-  * EV5 CPU with a 128 KiB serial boot ROM; the whole system is synchronous to the EV5 clock, so the PCI clock, cache timing, and memory timing are integer multiples of the CPU frequency
-  * Five ASICs of two designs: one CIA, which drives the memory array and bridges to PCI, and four DSW data slice ASICs giving a 256-bit memory datapath; a sixth, small GRU ASIC handles PCI interrupts, memory and cache presence detect, and the bus to the flash ROMs
   * Direct-mapped, write-back, ECC protected board-level cache split across three SIMMs, all of which must be present; designs ran from 2 MiB to 16 MiB, with 4 MiB "typical"
-  * Two memory motherboards, which must both be present and symmetrically populated, each holding up to 16 standard 36-bit SIMMs, for 32 MiB to 1 GiB. The chipset supports 8 GiB of physical memory but "the workstation implementation is limited to 4 GB"
+  * Two memory motherboards, which must both be present and symmetrically populated, each holding up to 16 standard 36-bit SIMMs, for 32 MiB to 1 GiB
   * Eight option slots: three 64-bit PCI, one 32-bit PCI, one shared PCI/EISA, and three (E)ISA, of which the graphics, the I/O subsystem module, and the audio card take three, leaving five
   * 33 MHz PCI only, and although the system generates and accepts 64-bit data it "does not generate 64-bit PCI addresses"
   * Intel 82374EB and 82375EB PCI-EISA bridge, Intel 8242 keyboard and mouse controller, Dallas 1287 time-of-year clock, Dallas 1225 8 KiB battery-backed SRAM, and an 87312 combo chip for the serial and parallel ports and the floppy
@@ -61,11 +59,11 @@ The AlphaStation 600 (Alcor), AlphaStation 500 (Maverick and Bret), and Alpha XL
 
 Current kernels support the AlphaStation 500/400 and 500/500, with ''CONFIG_ALPHA_ALCOR'' or a generic kernel, booted from the SRM console with [[software:boot_loaders:aboot|aboot]]. Linux 6.9 was the last version to support the EV5 models; Linux 6.10 removed support for processors older than the EV56 (21164A). [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] The Alpha XL 366 and 433 have EV56 processors but no SRM console, and MILO did not load kernels from Linux 2.6.23 onward until a 2026 fix; no one has reported booting a current kernel on them (see [[software:boot_loaders:milo|MILO]]). [(>[[https://github.com/alphalinux-org/milo/commit/dd79b34|"fix(boot): skip non-PT_LOAD segments when loading kernel image"]], alphalinux-org/milo)]
 
-  * The kernel has separate Alcor and XLT machine vectors, and tells them apart by looking for the 21040 Tulip in PCI slot 6, which is built into the XLT and the AlphaStation 500 but not the AlphaStation 600. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_alcor.c?h=v6.10|arch/alpha/kernel/sys_alcor.c]], Linux 6.10)] An Alcor kernel on an XLT receives continuous spurious interrupts, which appears as a hang. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L79961|"Re: Alpha XL300 (aka XLT) problems"]], Jay Estabrook, axp-list, 28 Jan 1999)]
+  * The kernel recognizes the XLT and AlphaStation 500 boards at boot by the built-in Tulip in PCI slot 6, sets up their interrupts accordingly, and reports "Detected AS500 or XLT motherboard". [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_alcor.c?h=v7.3-rc1|arch/alpha/kernel/sys_alcor.c]], Linux 7.3)]
 
 ==== Known issues ====
 
-  * The revision 1 CIA core logic in the AlphaStation 500/333, the EB164 and the XLT is flawed. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L8071|"Re: [LONG] CIA breakage in 2.4.13 (was Re: AS500 and 2.4 SCSI blues)"]], Jay Estabrook, axp-list, 9 Jun 2002)] The kernel still avoids the affected DMA windows on CIA revision 1. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_cia.c?h=v6.10|arch/alpha/kernel/core_cia.c]], Linux 6.10)]
+  * Revision 1 of the CIA core logic, used in the AlphaStation 500/333, the XLT, and the EB164, is flawed in how it handles some of its PCI DMA windows. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-June.mbox#L8071|"Re: [LONG] CIA breakage in 2.4.13 (was Re: AS500 and 2.4 SCSI blues)"]], Jay Estabrook, axp-list, 9 Jun 2002)] The kernel avoids the affected DMA windows on CIA revision 1, and as a result does not use 64-bit (DAC) PCI addressing there. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_cia.c?h=v6.10|arch/alpha/kernel/core_cia.c]], Linux 6.10)]
 
 ==== History ====
 

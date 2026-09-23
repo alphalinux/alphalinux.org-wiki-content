@@ -13,13 +13,13 @@
 ^ Linux | Supported |
 </WRAP>
 
-The ES40 is a four processor 21264 server, sold in tower, pedestal, and rackmount enclosures. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_tru64_openvms_catalog.pdf?linkonly|AlphaServer ES40 Tru64 UNIX and OpenVMS}}, Systems and Options Catalog, June 1999, p. 2.1)] Its firmware also covers the ES40cv, ES40lp, TS40, and TS20. [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 1)]
+The ES40 is a four-processor 21264 server, sold in tower, pedestal, and rackmount enclosures. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_tru64_openvms_catalog.pdf?linkonly|AlphaServer ES40 Tru64 UNIX and OpenVMS}}, Systems and Options Catalog, June 1999, p. 2.1)] Its firmware also covers the ES40cv, ES40lp, TS40, and TS20. [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 1)]
 
 ==== Specifications ====
 
 Except where noted, the following comes from the systems and options catalog. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_tru64_openvms_catalog.pdf?linkonly|AlphaServer ES40 Tru64 UNIX and OpenVMS}}, Systems and Options Catalog, June 1999, p. 2.1)]
 
-  * Up to four [[wp>Alpha_21264|21264]] CPUs: 500 MHz 21264 (EV6) with 4 MiB of secondary cache each, [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_service_guide.pdf?linkonly|AlphaServer ES40 Service Guide}}, p. 8-3)] or, later, 667 MHz [[wp>Alpha_21264#Alpha_21264A|21264A]] (EV67) or 833 MHz [[wp>Alpha_21264#Alpha_21264B|21264B]] (EV68) CPUs with 8 MiB of secondary cache each [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_owners_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 Owner's Guide}}, p. 2-16)] [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_technical_summary.pdf?linkonly|Compaq AlphaServer ES40 Systems Technical Summary}}, pp. 1, 14)]; the Technical Summary lists the 833 MHz CPU as a 21264A, but a four-CPU 833 MHz ES40 identifies its CPUs as 21264B [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/gmane-2004-June.mbox#L3596|"Re: ES40, ES45, etc. support?"]], Michael L. Hitch, port-alpha, 30 Jun 2004)]
+  * Up to four [[wp>Alpha_21264|21264]] CPUs: 500 MHz 21264 (EV6) with 4 MiB of secondary cache each, [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_service_guide.pdf?linkonly|AlphaServer ES40 Service Guide}}, p. 8-3)] or, later, 667 MHz [[wp>Alpha_21264#Alpha_21264A|21264A]] (EV67) or 833 MHz [[wp>Alpha_21264#Alpha_21264B|21264B]] (EV68) CPUs with 8 MiB of secondary cache each [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_owners_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 Owner's Guide}}, p. 2-16)] [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_technical_summary.pdf?linkonly|Compaq AlphaServer ES40 Systems Technical Summary}}, pp. 1, 14)] (see Conflicting information)
   * 21272 (Tsunami) core logic [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10)]
   * Model 1 has six 64-bit PCI slots and room for four memory options; Model 2 has ten 64-bit PCI slots and room for eight
   * Memory options are sets of four DIMMs; each memory array must use one DIMM type, because the stacked and monolithic MS610-DA and MS610-EA options share part numbers but are not interchangeable [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 29)]
@@ -29,7 +29,7 @@ Except where noted, the following comes from the systems and options catalog. [(
 
 ==== Firmware ====
 
-  * On the ES40, the SRM console's ''os_type'' variable takes ''unix'', ''vms'', or ''linux'', and setting it to ''linux'' starts the SRM firmware at power-up or reset. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, EK-ES240-UI.B01, p. 2-78)]
+  * On the ES40, the SRM console's ''os_type'' variable takes ''unix'', ''vms'', or ''linux'', and all three start the SRM console at power-up or reset; [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, EK-ES240-UI.B01, p. 2-78)] AlphaBIOS is started from SRM with the ''alphabios'' command. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, p. 2-3)]
   * The SRM console sizes its own heap for the installed options, so a heavily populated machine goes through one or more visible crash and reboot cycles the first time, printing "Console heap space will be automatically increased in size by 64KB" before restarting with the larger heap. No action is needed. ''show heap_expand'' shows the size, and ''set heap_expand none'' restores the default, which should be done after a configuration change. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_release_notes.pdf?linkonly|AlphaServer ES40 Release Notes}}, EK-ES240-RN.B01, June 1999, pp. 3-4)]
   * SRM V5.6 added "an X86 bios emulator" to support the KZPCC-CE RAID controller (see [[hardware:other|Other Hardware]]). [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 38)]
   * A failed update to SRM V5.8 can leave a TIG error on the operator control panel. Removing MMB1 and moving jumper J21 to position 2-3 forces the TIG NVRAM to be reloaded from the serial ROM, which avoids replacing the system board. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-September.mbox#L15269|"SUMMARY: firmware 5.8 on ES40 ==> motherboard damage"]], Emanuele Lombardi, tru64-unix-managers, 14 Sep 2000)]
@@ -41,13 +41,17 @@ Current kernels support the ES40, with ''CONFIG_ALPHA_DP264'' or a generic kerne
 
 ==== Known issues ====
 
-  * Only one VGA-enabled graphics card is supported in the PCI 0 slots, and unplugging the mouse at the SRM console stops the keyboard from responding until the mouse is reconnected. [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 20)]
+  * Only one VGA-enabled graphics card is supported in the PCI 0 slots. [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 20)]
+  * Unplugging the mouse at the SRM console stops the keyboard from responding until the mouse is reconnected. [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 20)]
   * ES40 memory is sensitive to how DIMMs are seated, and a bad connection is easy to make. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-July.mbox#L11473|"Re: 630/670 machine checks on SMP's"]], Phillip Ezolt, axp-list, 28 Jul 2000)]
 
 ==== Conflicting information ====
 
 The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
+  * **833 MHz CPU**
+    * {{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_technical_summary.pdf?linkonly|Compaq AlphaServer ES40 Systems Technical Summary}}, pp. 1, 14, lists the 833 MHz CPU as a 21264A.
+    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/gmane-2004-June.mbox#L3596|"Re: ES40, ES45, etc. support?"]], Michael L. Hitch, port-alpha, 30 Jun 2004: a four-CPU 833 MHz ES40 identifies its CPUs as 21264B.
   * **ES40 maximum memory**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-September.mbox#L23936|"Re: In sdearch of an 8GB machine (fwd)"]], Peter Rival, axp-list, 11 Sep 2000: "an ES40 maxes out with 32GB. I believe when they first came out it was 16GB"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L53899|"Memory max on Compaq AlphaServer running Linux"]], Lew Randerson, axp-list, 27 Nov 2000: "2GB is the max on Compaq's Linux-Ready AlphaServer ES40"

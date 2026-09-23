@@ -31,7 +31,7 @@ Except where noted, the following comes from the ES47 and ES80 QuickSpecs. [(>{{
   * An ES47 Model 2 becomes a Model 4 by adding a second two-processor drawer. PCI hot plug is not supported, and powering off an I/O expansion drawer crashes the operating system even when every card in it is redundant [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2005-June.mbox#L6247|"SUMMARY: ES47 hardware"]], Rob Leadbeater, tru64-unix-managers, 24 Jun 2005)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2006-March.mbox#L3148|"KVM switch for ES47 - II"]], Jens Kieffer-Olsen, tru64-unix-managers, 15 Mar 2006)]
   * A system can be split into hardware partitions as small as two processors, each with its own dedicated CPU, memory, and I/O and its own console [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, p. 6)]
 
-==== Server management ====
+=== Server management ===
 
 Each system building block drawer has a backplane manager (MBM), a microcontroller that monitors and controls environmental conditions in the drawer, stores the system configuration and partition information, and loads the console; each I/O drawer has a PCI backplane manager (PBM). [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_user_information.pdf?linkonly|hp AlphaServer ES47/ES80/GS1280 User Information}}, pp. 23, 95-96)] In the two-processor drawer, the backplane manager logic is on the I/O expander module. [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_user_information.pdf?linkonly|hp AlphaServer ES47/ES80/GS1280 User Information}}, p. 9)]
 
@@ -54,23 +54,22 @@ MBM>
 
   * The console is not a serial port: it is reached through the backplane manager's ''connect'' command (see [[#server_management|Server management]]), or through the USB port in a master I/O drawer, a network connection, or a local terminal [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, p. 6)]
   * Linux therefore cannot use ''ttyS0'' as its console, and must be booted with ''console=srm'' [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-July.mbox#L2911|"Installation HPWrapper ISO for ES47, ES80, 2100A and DAC960 systems for RH-7.2."]], George France, axp-list, 11 Jul 2003)]
-  * The ES47 needs SRM V6.4-8 or later; [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2006-March.mbox#L3148|"KVM switch for ES47 - II"]], Jens Kieffer-Olsen, tru64-unix-managers, 15 Mar 2006)] the final version is V7.3-1 (see [[software:firmware:srm#final_versions|Final versions]])
+  * HP gave SRM V6.4-8 as the minimum console version for the ES47; [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2006-March.mbox#L3148|"KVM switch for ES47 - II"]], Jens Kieffer-Olsen, tru64-unix-managers, 15 Mar 2006)] the final version is V7.3-1 (see [[software:firmware:srm#final_versions|Final versions]])
 
 ==== Linux ====
 
 Current kernels support the Marvel systems, with ''CONFIG_ALPHA_MARVEL'' or a generic kernel, booted from the SRM console with [[software:boot_loaders:aboot|aboot]] and ''console=srm''. A generic kernel must be built without ''CONFIG_ALPHA_LEGACY_START_ADDRESS'', which the default configuration enables and which leaves out Marvel support; see [[documentation:kernel#kernel_start_address|Kernel]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/Makefile?h=v7.3-rc1|arch/alpha/kernel/Makefile]], Linux 7.3)] Linux uses at most 32 CPUs, so it cannot use every processor of the largest GS1280. [(>[[https://git.kernel.org/torvalds/c/d7083174a2ca|"ALPHA: misc fixes"]], Linux 2.6.22)]
 
-  * HP's QuickSpecs list Tru64 UNIX and OpenVMS as the supported operating systems, and point at alphalinux.org for Linux. [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, p. 6)]
-  * The 32-CPU limit comes from Linux's 42-bit KSEG; 64 CPUs would need a 48-bit KSEG, which Linux has never supported. [(>[[https://git.kernel.org/torvalds/c/d7083174a2ca|"ALPHA: misc fixes"]], Linux 2.6.22)]
-  * The Marvel has no real PC clock. RTC accesses are emulated through PALcode calls, which for unknown reasons work only on CPU 0, so the kernel performs them there. [(>[[https://git.kernel.org/torvalds/c/5f7dc5d75076|"alpha: fix RTC on marvel"]], Linux 2.6.29)]
   * The kernel has no NUMA support for the Marvel: Alpha NUMA support was removed in Linux 5.14. [(>[[https://git.kernel.org/torvalds/c/fdb7d9b7acd0|"alpha: remove DISCONTIGMEM and NUMA"]], Linux 5.14)]
-  * Linux 7.3 fixes interrupt setup bugs on the Marvel that date from Linux 2.6.38. [(>[[https://git.kernel.org/torvalds/c/3a3ac1f6c6a6|"alpha: marvel: Fix irq_set_status_flags to use correct IRQ number"]], Linux 7.3)] [(>[[https://git.kernel.org/torvalds/c/24d68db713d6|"alpha: marvel: Fix lock ordering in init_io7_irqs()"]], Linux 7.3)]
+  * Two bugs in the Marvel interrupt setup, present since Linux 2.6.38, are fixed in Linux 7.3, which is at the release candidate stage as of September 2026, and are marked for backporting to stable kernels: the IO7 interrupts were not marked as level-triggered, and a locking error produced a lockdep warning at boot. [(>[[https://git.kernel.org/torvalds/c/3a3ac1f6c6a6|"alpha: marvel: Fix irq_set_status_flags to use correct IRQ number"]], Linux 7.3)] [(>[[https://git.kernel.org/torvalds/c/24d68db713d6|"alpha: marvel: Fix lock ordering in init_io7_irqs()"]], Linux 7.3)]
 
 ==== History ====
 
 When Compaq announced its move to Itanium in June 2001, it said that the EV7 would require new systems and that the existing ES, DS, and GS systems had never been intended to run it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-June.mbox#L34268|"Compaq/Intel agreement... postings on this list"]], Vincent D'Antonio, tru64-unix-managers, 27 Jun 2001)]
 
 ==== Conflicting information ====
+
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
 
   * **Default escape sequence**
     * {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_cli_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Server Management CLI Reference}}, p. 2-2: the ''esc_sequence'' variable defaults to "^[^[MBM", as the ''connect'' and ''telnet'' examples also show.
