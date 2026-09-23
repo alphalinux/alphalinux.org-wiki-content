@@ -1,19 +1,10 @@
 ===== Bugs =====
 
-==== Alpha-specific bug searches in core project trackers ====
-
-  * [[https://bugzilla.kernel.org/buglist.cgi?bug_status=__open__&component=Alpha&list_id=1053627&product=Platform%20Specific%2FHardware|Linux]]
-  * [[https://gcc.gnu.org/bugzilla/buglist.cgi?bug_status=__open__&cf_gcchost=alpha.%2Alinux&cf_gcchost_type=regexp&product=gcc|gcc]]
-  * [[https://www.sourceware.org/bugzilla/buglist.cgi?bug_status=__open__&cf_gcchost=alpha&cf_gcchost_type=regexp&product=glibc&query_format=advanced|glibc]]
-  * [[https://www.sourceware.org/bugzilla/buglist.cgi?bug_status=__open__&cf_gcchost=alpha&cf_gcchost_type=regexp&product=binutils|binutils]]
-  * [[https://bugs.gentoo.org/buglist.cgi?bug_status=__open__&email1=alpha%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=exact&list_id=4510828|Gentoo]]
-  * [[https://bugs.debian.org/cgi-bin/pkgreport.cgi?users=debian-alpha@lists.debian.org;tag=alpha|Debian]], bugs user-tagged ''alpha'' by the Debian Ports porters
-  * [[https://gitlab.com/qemu-project/qemu/-/issues/?label_name%5B%5D=target%3A%20alpha|QEMU]], issues labeled ''target: alpha''
-  * [[https://github.com/alphalinux-org/issues/issues|alphalinux-org/issues]], known problems affecting Linux on Alpha across projects
+How to report a bug that affects Linux on Alpha, and where to find the Alpha-specific bugs already open in each project's tracker. Problems that span several projects are tracked in [[https://github.com/alphalinux-org/issues/issues|alphalinux-org/issues]].
 
 ==== How to report a bug ====
 
-The right place for a report depends on where the bug is. When in doubt, a message to the list for the project, or to linux-alpha@vger.kernel.org, is a good start: someone there can usually say where it belongs.
+The right place for a report depends on where the bug is. If the component is unclear, send the report to linux-alpha@vger.kernel.org, or to the list for the project.
 
 ^ Bug in ^ Report to ^
 | The kernel | linux-alpha@vger.kernel.org, with the Alpha maintainers on Cc. See [[documentation:kernel#reporting_bugs|Kernel: Reporting bugs]] |
@@ -25,5 +16,16 @@ The right place for a report depends on where the bug is. When in doubt, a messa
 | Other software | The software's own tracker. If the bug is Alpha-specific, include the output of ''uname -a'' and the CPU from ''/proc/cpuinfo'' |
 
 A useful report says which system and processor the bug happens on, since behavior can differ between an EV56 and an EV67 system, and whether it also happens under [[documentation:qemu|QEMU]]. For a crash, the kernel log, and for a failed build, the full build log. Some common symptoms have well-known causes; see the [[:faq|FAQ]] for "unaligned trap" messages, "Illegal instruction", and "relocation truncated to fit".
+
+==== Alpha-specific bug searches in core project trackers ====
+
+  * [[https://bugzilla.kernel.org/buglist.cgi?bug_status=__open__&component=Alpha&list_id=1053627&product=Platform%20Specific%2FHardware|Linux]]
+  * [[https://gcc.gnu.org/bugzilla/buglist.cgi?bug_status=__open__&cf_gcchost=alpha.%2Alinux&cf_gcchost_type=regexp&product=gcc|gcc]]
+  * [[https://www.sourceware.org/bugzilla/buglist.cgi?bug_status=__open__&cf_gcchost=alpha&cf_gcchost_type=regexp&product=glibc&query_format=advanced|glibc]]
+  * [[https://www.sourceware.org/bugzilla/buglist.cgi?bug_status=__open__&cf_gcchost=alpha&cf_gcchost_type=regexp&product=binutils|binutils]]
+  * [[https://bugs.gentoo.org/buglist.cgi?bug_status=__open__&email1=alpha%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=exact&list_id=4510828|Gentoo]]
+  * [[https://bugs.debian.org/cgi-bin/pkgreport.cgi?users=debian-alpha@lists.debian.org;tag=alpha|Debian]], bugs user-tagged ''alpha'' by the Debian Ports porters
+  * [[https://gitlab.com/qemu-project/qemu/-/issues/?label_name%5B%5D=target%3A%20alpha|QEMU]], issues labeled ''target: alpha''
+  * [[https://github.com/alphalinux-org/issues/issues|alphalinux-org/issues]], known problems affecting Linux on Alpha across projects
 
 {{tag>tasks}}

@@ -1,14 +1,22 @@
 ===== Community =====
 
+The mailing lists, IRC channels, and forums where Alpha/Linux users and developers meet today. Each distribution's own lists and channels are also described under [[:distributions|Distributions]], and the lists and newsgroups of the past under [[history:community|Community History]].
+
 ==== Mailing lists ====
 
-The Alpha/Linux kernel mailing list is **linux-alpha@vger.kernel.org**, hosted at [[https://subspace.kernel.org/vger.kernel.org.html|vger.kernel.org]]. To subscribe, send an email to **linux-alpha+subscribe@vger.kernel.org**; the subject and body are ignored. Use **linux-alpha+subscribe-digest@vger.kernel.org** to receive a daily digest instead, and **linux-alpha+unsubscribe@vger.kernel.org** to unsubscribe. The list may also be read over NNTP at **nntp://nntp.lore.kernel.org**. Archives are located on [[https://lore.kernel.org/linux-alpha/|lore.kernel.org]], covering April 2002 onward, and [[https://marc.info/?l=linux-alpha|marc.info]], covering May 1998 onward.
+The Alpha/Linux kernel mailing list is **linux-alpha@vger.kernel.org**, hosted at [[https://subspace.kernel.org/vger.kernel.org.html|vger.kernel.org]]. It is also the place for general questions about Linux on Alpha.
+
+  * **Subscribe:** send an email to **linux-alpha+subscribe@vger.kernel.org**; the subject and body are ignored.
+  * **Daily digest:** subscribe with **linux-alpha+subscribe-digest@vger.kernel.org** instead.
+  * **Unsubscribe:** send an email to **linux-alpha+unsubscribe@vger.kernel.org**.
+  * **NNTP:** the list can be read at **nntp://nntp.lore.kernel.org**.
+  * **Archives:** [[https://lore.kernel.org/linux-alpha/|lore.kernel.org]], from April 2002, and [[https://marc.info/?l=linux-alpha|marc.info]], from May 1998.
 
 Both [[https://archives.gentoo.org/gentoo-alpha/|Gentoo]] and [[https://lists.debian.org/debian-alpha/|Debian]] have distribution-related Alpha mailing lists.
 
 The [[https://mail-index.netbsd.org/port-alpha/|NetBSD Alpha]] and [[http://marc.info/?l=openbsd-alpha|OpenBSD Alpha]] mailing lists, both still active, also carry Alpha hardware and porting information.
 
-The lists that carried most of the port's history, among them Red Hat's **axp-list** and the lists hosted on alphalinux.org, are gone, as are the Alpha newsgroups. Their archives, and the distributions that once supported Alpha, are described in [[history:community|Community History]].
+The lists that carried most of the port's history, among them Red Hat's **axp-list** and the lists hosted on alphalinux.org, are gone, as are the Alpha newsgroups. Their archives are described in [[history:community|Community History]].
 
 ==== IRC ====
 
@@ -18,8 +26,8 @@ General Alpha discussion takes place in **#alpha** on [[https://libera.chat/|Lib
 
 Gentoo has a [[https://forums.gentoo.org/viewforum.php?f=32|Gentoo on Alternative Architectures forum]].
 
-==== Distributions ====
+==== Issue tracker ====
 
-Gentoo, Debian Ports, and T2 SDE produce current Alpha releases. They, and the distributions that supported Alpha in the past, are described on the [[:distributions|Distributions]] page.
+Known problems that affect Linux on Alpha across projects are tracked in [[https://github.com/alphalinux-org/issues/issues|alphalinux-org/issues]] on GitHub. How to report a bug is described under [[tasks:bugs|Bugs]].
 
 {{tag>community}}
