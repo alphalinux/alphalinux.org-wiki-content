@@ -52,6 +52,8 @@ Both are handled in ''arch/alpha/kernel/setup.c'', [(>[[https://git.kernel.org/p
 
 The later Compaq servers have a remote management console (RMC), a separate microcontroller powered whenever the system has AC power, which shares COM1. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 1-9)] From the RMC prompt, the system can be powered on and off, halted, and reset remotely, and its status and environmental sensors read. It is reached by typing its escape sequence on the COM1 port, by default Ctrl-[ Ctrl-[ ''rmc'' (Esc Esc ''rmc'' on most keyboards), and left again with ''quit''. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, pp. 2-43, 4-18)] The system's own user guide describes the details, which differ from system to system.
 
+The ES47, ES80, and GS1280 have a backplane manager (MBM) instead, with its own ''MBM>'' command line. Its ''connect'' command reaches the SRM console, and Esc Esc ''MBM'' returns to the ''MBM>'' prompt; see [[hardware:systems:marvel#server_management|Marvel: Server management]].
+
 ==== Everyday commands ====
 
 The commands below cover most of what is needed to run Linux. Commands may be abbreviated, and numbers are hexadecimal. The full list is on the [[software:firmware:srm#console_commands|SRM Console]] page and in each system's documentation. Not every console has every command; ''show fru'' in particular is found only on the larger systems.
