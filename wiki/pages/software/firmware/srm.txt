@@ -78,7 +78,20 @@ The boot commands, the variables for booting unattended, and troubleshooting are
   * **Recovery:** most Digital Semiconductor motherboards (all but the AlphaPC 64) have a fail-safe booter for recovering from corrupted firmware. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 2-3)] On the AlphaPC 164LX it is enabled with jumper CF7; it only loads firmware from floppy, which must then be flashed. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-February.mbox#L29667|"Re: trying to make the SRM AlphaBIOS switch"]], Rich Payne, axp-list, 22 Feb 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-June.mbox#L4399|"Re: Problems with old 164LX board"]], Rich Payne, axp-list, 10 Jun 2001)] Some AlphaServers have a fail-safe loader instead, e.g. jumper J22 on the ES40. [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, p. 12)]
   * Firmware should be updated after a cold power-up rather than after an operating system shutdown. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-November.mbox#L13826|"Re: Alpha Firmware wonnt update from floppy, help!"]], Rich Payne, axp-list, 26 Nov 2001)]
 
-Archived firmware images are listed in [[software:firmware#obtaining_and_updating_firmware|Firmware: Obtaining and updating firmware]].
+Archived firmware images are listed in [[software:firmware#obtaining_and_updating_firmware|Firmware: Obtaining and updating firmware]]. The [[https://github.com/alphalinux/firmware|alphalinux/firmware]] repository holds these SRM images:
+
+^ Board ^ Directory ^ SRM image ^
+| [[hardware:motherboards:pc164lx|AlphaPC 164LX]] | [[https://github.com/alphalinux/firmware/tree/master/api/LX|api/LX]] | ''lx164srm.rom'', with ''fwupdate.exe'' |
+| [[hardware:motherboards:pc264dp|AlphaPC 264DP]] | [[https://github.com/alphalinux/firmware/tree/master/api/DP|api/DP]] | ''pc264srm.rom''; ''archive/5.8'' holds a set of files for LFU from floppy, described in ''floppy_readme.txt'' |
+| [[hardware:motherboards:up1000|UP1000]] | [[https://github.com/alphalinux/firmware/tree/master/api/UP1000|api/UP1000]] | ''up1000_srm_5.6_beta'', replacing AlphaBIOS (see [[software:firmware:arc#by_system|ARC Firmware: Switching to SRM]]) |
+| [[hardware:motherboards:up1100|UP1100]] | [[https://github.com/alphalinux/firmware/tree/master/api/UP1100|api/UP1100]] | ''up1100_srm_A5.6-13'', installed with ''lfu'' from floppy as described in its ''readme.1st'' |
+| [[hardware:motherboards:up1500|UP1500]] | [[https://github.com/alphalinux/firmware/tree/master/api/UP1500|api/UP1500]] | ''srmupdt.5.6-19.img'', a floppy image for ''lfu'', described in ''README.srm'' |
+| [[hardware:motherboards:up2000|UP2000]] and UP2000+ | [[https://github.com/alphalinux/firmware/tree/master/api/UP2000|api/UP2000]], [[https://github.com/alphalinux/firmware/tree/master/api/UP2000plus|api/UP2000plus]] | ''up2000_srm_5.8-81'', older versions in ''archive'' |
+| CS20 | [[https://github.com/alphalinux/firmware/tree/master/api/CS20|api/CS20]] | ''CS20_srm-5.8-81'', and a CD image in ''CD-ROM'' |
+
+Sources: [(>[[https://github.com/alphalinux/firmware|alphalinux/firmware]], GitHub)]
+
+The update procedure from the SRM prompt is described in [[documentation:srm#firmware_versions|Using the SRM Console: Firmware versions]].
 
 ==== Final versions ====
 

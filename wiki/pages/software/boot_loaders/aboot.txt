@@ -6,6 +6,25 @@ aboot is free software under the GNU GPL. [(>[[https://github.com/alphalinux-org
 
 ==== Installing ====
 
+=== Packages ===
+
+Debian packages aboot as ''aboot'', which holds the tools such as ''swriteboot'', and ''aboot-base'', which installs the boot loader itself as ''/boot/bootlx''; the version in unstable is 1.0~pre20200212. [(>[[https://tracker.debian.org/pkg/aboot|aboot]], tracker.debian.org)] [(>[[https://packages.debian.org/sid/all/aboot-base/filelist|aboot-base file list]], packages.debian.org)] Gentoo packages aboot 2.0 as ''sys-boot/aboot'', which also installs ''/boot/bootlx''. [(>[[https://gitweb.gentoo.org/repo/gentoo.git/tree/sys-boot/aboot/aboot-2.0.ebuild|sys-boot/aboot/aboot-2.0.ebuild]], gentoo.git)]
+
+=== Building ===
+
+''make'' builds ''bootlx'' and the tools, and ''make install'' copies ''bootlx'' to ''/boot'' and ''swriteboot'', ''abootconf'', ''e2writeboot'', and ''isomarkboot'' to ''/sbin''; the ''root'' make variable sets a different prefix. [(>[[https://github.com/alphalinux-org/aboot/blob/master/Makefile|Makefile]], aboot 2.0)] ''make netabootwrap'' builds ''netabootwrap'', which is not part of the default target. [(>[[https://github.com/alphalinux-org/aboot/blob/master/Makefile|Makefile]], aboot 2.0)]
+
+The Makefile cross-compiles by default: ''bootlx'' is built with the compiler named by ''CROSS_COMPILE'', by default ''alpha-unknown-linux-gnu-'', while the tools are built with ''HOSTCC'' for the machine doing the build. [(>[[https://github.com/alphalinux-org/aboot/commit/1932dc6|"build: support cross-compilation via CROSS_COMPILE"]], alphalinux-org/aboot)] [(>[[https://github.com/alphalinux-org/aboot/blob/master/Makefile|Makefile]], aboot 2.0)] On an Alpha, ''CROSS_COMPILE'' is set to nothing; elsewhere it names the installed cross compiler (see [[documentation:toolchains#cross_compilers|Toolchains: Cross compilers]]):
+
+<code>
+git clone https://github.com/alphalinux-org/aboot.git
+cd aboot
+make CROSS_COMPILE=                    # native build on an Alpha
+make CROSS_COMPILE=alpha-linux-gnu-    # cross build with Debian's cross compiler
+</code>
+
+''include/config.h'' sets the default partition for ''/etc/aboot.conf'', which can also be changed later with ''abootconf''. [(>[[https://github.com/alphalinux-org/aboot/blob/master/README.md|README.md]], aboot 2.0)]
+
 === Disklabels ===
 
 A disk booted from SRM must use a BSD disklabel, not an MBR or GPT partition table, because a PC partition table occupies the same place in the first sector as the SRM boot block. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L4626|"Re: Newbie question about booting."]], Larry Sendlosky, axp-list, 5 Apr 2000)] Other disks in the system can use any partition table. A BSD disklabel stores each partition's offset and size as a 32-bit count of sectors, so with 512-byte sectors it cannot describe more than 2 TiB of a disk. [(>[[https://github.com/alphalinux-org/aboot/blob/master/include/disklabel.h|include/disklabel.h]], aboot 2.0)]
@@ -104,6 +123,10 @@ An initial ramdisk is given with ''initrd=''//path// in the flags, or with the '
 >>> boot dka0 -file 1/vmlinuz -flags "initrd=/initrd.img root=/dev/sda3 console=ttyS0"
 </code>
 
+=== Kernel images ===
+
+aboot loads a kernel that is a 64-bit little-endian Alpha ELF executable, such as the kernel's ''vmlinux'', either uncompressed or compressed with gzip. [(>[[https://github.com/alphalinux-org/aboot/blob/master/aboot.c|aboot.c]], aboot 2.0)] [(>[[https://github.com/alphalinux-org/aboot/blob/master/zip/misc.c|zip/misc.c]], aboot 2.0)] ''make boot'' in the kernel tree builds the gzip-compressed ''arch/alpha/boot/vmlinux.gz''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)] aboot first tries a file as uncompressed ELF and then as gzip, except that a file whose name ends in ''.gz'' is only tried as gzip. [(>[[https://github.com/alphalinux-org/aboot/blob/master/disk.c|disk.c]], aboot 2.0)] Other compression formats, such as bzip2 or xz, are not supported, and fail with "unknown compression method". [(>[[https://github.com/alphalinux-org/aboot/blob/master/zip/misc.c|zip/misc.c]], aboot 2.0)] A kernel written directly after aboot must be uncompressed (see [[#swriteboot|swriteboot]]).
+
 === Network booting ===
 
 SRM fetches a network boot image itself with BOOTP and TFTP, e.g. ''boot ewa0 -protocols bootp''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-April.mbox#L45126|"Re: Remote boot Multia..."]], Maciej W. Rozycki, axp-list, 27 Apr 1998)] Setting ''ewa0_protocols'' to ''bootp'' makes BOOTP the default instead of MOP. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-February.mbox#L12364|"Re: Debugging Multia boot problems: take one"]], Jay Estabrook, debian-alpha, 17 Feb 2006)] The image is not an ordinary kernel. aboot builds one, containing aboot, a compressed kernel, an initrd, and default arguments, with ''netabootwrap'': [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/man/netabootwrap.sgml|netabootwrap(1)]], aboot 2.0)]
@@ -125,6 +148,16 @@ host alpha {
 }
 </code>
 
+dnsmasq can provide both servers. It answers BOOTP requests only from hosts given a fixed address with ''dhcp-host'' (unless ''bootp-dynamic'' is set), and needs a ''dhcp-range'' to enable its DHCP server; with ''enable-tftp'', ''dhcp-boot'' needs only the file name, which is served from ''tftp-root'': [(>[[https://thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html|dnsmasq(8)]], dnsmasq 2.90)]
+
+<code>
+dhcp-range=192.168.1.100,192.168.1.200
+dhcp-host=08:00:2b:e7:94:9b,192.168.1.50,alpha
+dhcp-boot=netboot.img
+enable-tftp
+tftp-root=/srv/tftp
+</code>
+
 The system then boots with ''boot ewa0 -flags ""'', taking the file name from the DHCP server. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-February.mbox#L12228|"Re: Debugging Multia boot problems: take one"]], Steve Langasek, debian-alpha, 17 Feb 2006)]
 
 ==== File systems ====
@@ -139,7 +172,16 @@ The system then boots with ''boot ewa0 -flags ""'', taking the file name from th
 
 aboot does not read Btrfs, FAT, ReiserFS, or Tru64 AdvFS. [(>[[https://github.com/alphalinux-org/aboot/blob/master/disk.c|disk.c]], aboot 2.0)]
 
-aboot 2.0 refuses ext4 file systems with features it cannot read safely, including ''meta_bg'', ''bigalloc'', ''quota'', and more than 2^32 blocks. It only reads extents stored directly in the inode, not deeper extent trees, so a kernel file split into more than four extents cannot be loaded. [(>[[https://github.com/alphalinux-org/aboot/blob/master/fs/ext2.c|fs/ext2.c]], aboot 2.0)] [(>[[https://github.com/alphalinux-org/aboot/commit/707f7af|"ext4: add initial ext4 support with 64-bit group descriptors and multi-extent reads"]], alphalinux-org/aboot)]
+aboot 2.0 refuses ext4 file systems with features it cannot read safely, including ''meta_bg'', ''bigalloc'', ''quota'', and more than 2^32 blocks. It only reads extents stored directly in the inode, not deeper extent trees, so a kernel file split into more than four extents cannot be loaded. [(>[[https://github.com/alphalinux-org/aboot/blob/master/fs/ext2.c|fs/ext2.c]], aboot 2.0)] [(>[[https://github.com/alphalinux-org/aboot/commit/707f7af|"ext4: add initial ext4 support with 64-bit group descriptors and multi-extent reads"]], alphalinux-org/aboot)] aboot then prints "Extent tree depth //n// not supported" or "//n// extents exceeds the 4 that fit inline". [(>[[https://github.com/alphalinux-org/aboot/blob/master/fs/ext2.c|fs/ext2.c]], aboot 2.0)] The number of extents in a file can be checked beforehand with ''filefrag'' from e2fsprogs, e.g. ''filefrag /boot/vmlinuz''; ''-v'' gives more detail. [(>[[https://manpages.debian.org/filefrag.8|filefrag(8)]], manpages.debian.org)] ext2 and ext3 file systems, which map blocks through indirect blocks instead of extents, do not have this limit. [(>[[https://github.com/alphalinux-org/aboot/blob/master/fs/ext2.c|fs/ext2.c]], aboot 2.0)]
+
+==== Recovering an unbootable disk ====
+
+If aboot starts but the kernel fails, ''boot'' with ''-flags i'' gives aboot's prompt, from which another ''aboot.conf'' entry, or a kernel with different arguments, can be booted (see [[#interactive_mode|Interactive mode]]). If SRM instead reports that block 0 of the disk "is not a valid boot block", [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L3925|"Re: RH6.2 cd install"]], G.L. Grobe, axp-list, 4 Dec 2001)] the disk has no boot block pointing to aboot (see [[#how_it_works|How it works]]), and aboot has to be written again:
+
+  - Boot the installation CD (see [[documentation:installation#booting_the_installer|Installation: Booting the installer]]) and get to a shell, e.g. the rescue mode of the installer. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L38559|"SGI XFS Red Hat 7.1 Installer for Alpha"]], Martin K. Petersen, axp-list, 30 Jul 2001)]
+  - Mount the file system that holds ''bootlx'', or mount the installed system and ''chroot'' into it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-May.mbox#L17595|"Re: Alpha installation"]], sammyg, debian-alpha, 24 May 2004)] ''swriteboot'' does not have to run inside the installed system: it only copies ''bootlx'', which is the same file on every installation, to the start of the disk. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2007-March.mbox#L381|"Re: Installing aboot ?"]], Steve Langasek, debian-alpha, 2 Mar 2007)]
+  - Run ''swriteboot'' on the whole disk, with ''-c'' naming the partition that holds ''aboot.conf'' (see [[#swriteboot|swriteboot]]). With the layout from [[documentation:installation#partitioning|Installation: Partitioning]], where ''/boot'' is partition 1, this is ''mount /dev/sda1 /mnt'' followed by ''swriteboot -c1 /dev/sda /mnt/bootlx''.
+  - Check ''aboot.conf'' on that partition, and correct the kernel paths and ''root='' arguments if needed. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-May.mbox#L17595|"Re: Alpha installation"]], sammyg, debian-alpha, 24 May 2004)] If aboot is present but looks for ''aboot.conf'' on the wrong partition, ''abootconf'' changes the setting without rewriting aboot. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2007-March.mbox#L381|"Re: Installing aboot ?"]], Steve Langasek, debian-alpha, 2 Mar 2007)] [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/man/abootconf.sgml|abootconf(8)]], aboot 2.0)]
 
 ==== Known issues ====
 

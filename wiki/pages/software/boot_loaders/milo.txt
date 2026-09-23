@@ -26,6 +26,7 @@ The MILO image for each system is: [(>[[https://github.com/alphalinux-org/mailin
 | [[hardware:motherboards:eb64plus|EB64+]] | EB64+ | ''eb64p'' |
 | [[hardware:motherboards:eb66plus|EB66+]] | EB66+ | ''eb66p'' |
 | [[hardware:motherboards:eb66|EB66]] | EB66 | ''eb66'' |
+| [[hardware:motherboards:pc164ux|AlphaPC 164UX]], 164BX | Ruffian | ''ruffian'' [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L47939|"Re: 2.1.x on UX -- How?"]], Jay Estabrook, axp-list, 17 Nov 1998)] [(>[[https://github.com/alphalinux-org/milo/blob/main/config.in|config.in]], alphalinux-org/milo)] |
 
 The Noname, EB64+, EB66 and EB66+, Cabriolet, Alcor, AlphaStation 500, PC164, LX164, SX164, and Miata can boot Linux either with MILO or from SRM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-September.mbox#L5923|"Alpha Core ISO Images"]], Jay Estabrook, axp-list, 29 Sep 2004)] Digital listed no MILO image for the Jensen, the AlphaServer 1000, 1000A, 1200, 2000, 2100, 4000, and 4100, or the AlphaBook 1, all of which have SRM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)]
 
@@ -49,6 +50,17 @@ A disk that boots Linux through MILO is set up as follows:
 ==== Building ====
 
 The [[https://github.com/alphalinux-org/milo|alphalinux-org/milo]] repository contains releases 2.2-9 to 2.2-18 as imported commits, followed by work from 2026. That work vendors the Linux 2.2.26 sources, so that no external kernel tree is needed, and fixes building with a current cross-compiler. [(>[[https://github.com/alphalinux-org/milo/commit/e5a4a2a|"vendor Linux 2.2.26 sources and fix MIATA cross-compilation"]], alphalinux-org/milo)] ''make config'' selects the platform, and ''make'' then builds MILO with the cross-compiler named by ''CROSS_COMPILE'', by default ''alpha-unknown-linux-gnu-''. [(>[[https://github.com/alphalinux-org/milo/blob/main/Makefile|Makefile]], alphalinux-org/milo)]
+
+''make config'' first asks for the path to the kernel sources, which is no longer used, then for the system type, and then for options such as serial console echo, its port and speed, and the file systems to include (ext2 by default; FAT, ReiserFS, and ISO 9660 are off). [(>[[https://github.com/alphalinux-org/milo/blob/main/config.in|config.in]], alphalinux-org/milo)] [(>[[https://github.com/alphalinux-org/milo/blob/main/Makefile|Makefile]], alphalinux-org/milo)] ''make oldconfig'' reuses an existing ''.config''. A build for the Ruffian, for example: [(>[[https://github.com/alphalinux-org/milo/blob/main/Makefile|Makefile]], alphalinux-org/milo)]
+
+<code>
+git clone https://github.com/alphalinux-org/milo.git
+cd milo
+make config                            # choose "Ruffian" as the Alpha system type
+make CROSS_COMPILE=alpha-linux-gnu-    # or CROSS_COMPILE= on an Alpha
+</code>
+
+Every platform produces ''milo'', the image loaded by ''linload.exe'' or ''ldmilo.exe''. Most also produce ''milo.dd'' for an SRM boot floppy, and some also produce ''milo.rom'' or the flash utility ''fmu.gz'', or both; the Ruffian build produces only ''milo'' and ''mboot''. [(>[[https://github.com/alphalinux-org/milo/blob/main/Makefile|Makefile]], alphalinux-org/milo)]
 
 The released MILO 2.2 was instead built against a separately configured generic Linux 2.2 kernel, at least 2.2.18, without modules or sysctl support. [(>[[https://github.com/alphalinux-org/milo/blob/main/Documentation/README.milo|README.milo]], MILO 2.2)] By 2007, that source could not be built with a current toolchain. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2007-November.mbox#L4736|"Re: miata linux kernel"]], Steve Langasek, debian-alpha, 19 Nov 2007)]
 
