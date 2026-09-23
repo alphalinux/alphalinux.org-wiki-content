@@ -8,7 +8,7 @@ This page is a reference for the console's commands, variables, versions, and sp
 
 ==== Console commands ====
 
-Commands may be abbreviated if not ambiguous, and numbers are hexadecimal unless otherwise specified. ''help'' lists all commands. Multiprocessor systems show the prompt ''P00>>>'' instead of ''%%>>>%%''. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 3-2 to 3-4)] [(>{{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}})]
+Commands may be abbreviated if not ambiguous, and numbers are hexadecimal unless otherwise specified. ''help'' lists all commands. Multiprocessor systems show the prompt ''%%P00>>>%%'' instead of ''%%>>>%%''. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 3-2 to 3-4)] [(>{{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}})]
 
 ^ Command ^ Purpose ^
 | ''boot'' | Boot from a device, e.g. ''boot [-file <filename>] [-flags <flags>] [-protocols <protocol>] [-halt] [<device>]'' |
