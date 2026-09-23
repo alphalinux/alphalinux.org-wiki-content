@@ -7,7 +7,7 @@
 ^ Processors | 2 to 6 (GS60), 2 to 14 (GS140) |
 ^ Memory | Up to 12 GiB (GS60), 28 GiB (GS140) |
 ^ Buses | TLSB system bus; PCI, EISA, XMI |
-^ Firmware | SRM (last V6.6) |
+^ Firmware | SRM (last V6.6), AlphaBIOS |
 ^ Linux | Never |
 </WRAP>
 

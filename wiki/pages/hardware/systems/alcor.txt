@@ -7,7 +7,7 @@
 ^ Core logic | [[hardware:chipsets#21171|21171]] (CIA) |
 ^ Memory | AlphaStation 500: up to 1 GiB, banks of four DIMMs; AlphaStation 600: 32 MiB to 1 GiB, SIMMs |
 ^ Buses | PCI, EISA |
-^ Firmware | SRM (last V7.2-2), ARC; the XLT has no SRM |
+^ Firmware | SRM (last V7.2-2), ARC; the XLT has AlphaBIOS and no SRM |
 ^ Kernel option | ''CONFIG_ALPHA_ALCOR'' |
 ^ Linux | 21164A only; others to Linux 6.9 |
 </WRAP>

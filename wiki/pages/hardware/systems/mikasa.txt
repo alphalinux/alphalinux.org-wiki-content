@@ -8,7 +8,7 @@
 ^ Core logic | [[hardware:chipsets#21071_and_21072|21071/21072]] (APECS) on 4/xxx, [[hardware:chipsets#21171|21171]] (CIA) on 5/xxx |
 ^ Memory | 16 MB to 1 GB, SIMMs in banks of five (4/266) |
 ^ Buses | 33 MHz PCI, EISA |
-^ Firmware | SRM (last V5.4-101 on 4/xxx, V5.4-104 on 5/xxx), ARC |
+^ Firmware | SRM (last V5.4-101 on 4/xxx, V5.4-104 on 5/xxx), ARC; AlphaBIOS on 5/xxx |
 ^ Kernel option | ''CONFIG_ALPHA_MIKASA'' |
 ^ Linux | 21164A only; others to Linux 6.9 |
 </WRAP>

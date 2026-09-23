@@ -8,7 +8,7 @@
 ^ Core logic | [[hardware:chipsets#21272|21272]] (Tsunami) |
 ^ Memory | Sets of four DIMMs, up to 32 DIMM slots (Model 2) |
 ^ Buses | 64-bit PCI (6 or 10 slots) |
-^ Firmware | SRM (last V7.3-1) |
+^ Firmware | SRM (last V7.3-1), AlphaBIOS |
 ^ Kernel option | ''CONFIG_ALPHA_DP264'' |
 ^ Linux | Supported |
 </WRAP>

@@ -7,7 +7,7 @@
 ^ Core logic | [[hardware:chipsets#21071_and_21072|21071/21072]] (APECS) |
 ^ Memory | SIMMs; up to 192 MiB (AlphaStation 400), 256 MiB (250), 512 MiB (AlphaServer 300), 1 GB (255) |
 ^ Buses | 33 MHz PCI, ISA |
-^ Firmware | SRM (last V7.0-9; V7.2-1 on the AlphaStation 400), ARC |
+^ Firmware | SRM (last V7.0-9; V7.2-1 on the AlphaStation 400), ARC; AlphaBIOS on the AlphaStation 255 |
 ^ Kernel option | ''CONFIG_ALPHA_AVANTI_CH'' |
 ^ Linux | Linux 6.9 and earlier |
 </WRAP>

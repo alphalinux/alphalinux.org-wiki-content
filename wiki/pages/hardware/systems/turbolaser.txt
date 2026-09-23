@@ -7,7 +7,7 @@
 ^ Processors | Up to 6 (8200), up to 12 (8400) |
 ^ Memory | Up to 12 GB (8200), 28 GB (8400) |
 ^ Buses | TLSB system bus; PCI, XMI (8400 only) |
-^ Firmware | SRM (last V6.4) |
+^ Firmware | SRM (last V6.4), AlphaBIOS |
 ^ Linux | Never |
 </WRAP>
 

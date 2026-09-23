@@ -8,7 +8,7 @@
 ^ Core logic | MCPCIA |
 ^ Memory | Pairs of modules, up to 8 GiB (4100), 4 GiB (4000) |
 ^ Buses | 64-bit PCI, EISA (4000, 4100) |
-^ Firmware | SRM (last V6.0-4 on the 1200, V6.1-1 on the 4000 and 4100) |
+^ Firmware | SRM (last V6.0-4 on the 1200, V6.1-1 on the 4000 and 4100), AlphaBIOS |
 ^ Kernel option | ''CONFIG_ALPHA_RAWHIDE'' |
 ^ Linux | 21164A only; others to Linux 6.9 |
 </WRAP>
