@@ -1,5 +1,18 @@
 ===== AlphaServer GS80, GS160, and GS320 (Wildfire) =====
 
+<WRAP box right 340px>
+^ AlphaServer GS80, GS160, GS320 ^^
+^ Codename | Wildfire |
+^ CPU | [[wp>Alpha_21264#Alpha_21264A|21264A]], [[wp>Alpha_21264#Alpha_21264C|21264C]] |
+^ Processors | Up to 8 (GS80), 16 (GS160), 32 (GS320) |
+^ Core logic | Wildfire |
+^ Memory | Eight DIMM slots per memory module |
+^ Buses | PCI, up to eight buses per quad |
+^ Firmware | SRM (last V7.3-1) |
+^ Kernel option | ''CONFIG_ALPHA_WILDFIRE'' |
+^ Linux | Supported |
+</WRAP>
+
 The Wildfire systems are large 21264 SMP servers built from "quads", also called quad building blocks, with up to eight quads in the largest configuration. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L18535|"Re: Linux Driver"]], Jay Estabrook, axp-list, 8 Nov 2000)] Reported configurations match the model numbers: 16 CPUs in a GS160 and 32 in a GS320. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2006-August.mbox#L1|"CentOS on wildfire"]], Robin Humble, axp-list, 13 Aug 2006)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-September.mbox#L24136|"RE: ANNOUNCE Hardware Compatibility Database"]], Huw Davies, axp-list, 12 Sep 2000)]
 
 Wildfire was expected at the end of March 2000 as the replacement for the [[hardware:systems:turbolaser|AlphaServer 8200 and 8400]], at first limited to four quads. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-March.mbox#L14876|"HPC or Wildfire?"]], Phil Cooper, tru64-unix-managers, 8 Mar 2000)]

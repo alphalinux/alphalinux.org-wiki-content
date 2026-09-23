@@ -1,5 +1,18 @@
 ===== PC164 =====
 
+<WRAP box right 340px>
+^ AlphaPC 164 ^^
+^ CPU | [[wp>Alpha_21164#Alpha_21164A|21164A]] (EV56), 366 to 500 MHz |
+^ Core logic | [[hardware:chipsets#21172|21172]] (CIA) |
+^ Memory | 8 SIMM slots, FPM DRAM, up to 512 MiB |
+^ Buses | 64-bit PCI, 32-bit PCI, ISA |
+^ Form factor | ATX |
+^ Onboard I/O | CMD646 IDE, floppy, 2 serial, parallel, keyboard, mouse |
+^ Firmware | ARC, SRM, MILO |
+^ Kernel option | ''CONFIG_ALPHA_PC164'' |
+^ Linux | Supported |
+</WRAP>
+
 The AlphaPC 164 is an ATX form factor motherboard produced by Digital Semiconductor. It is a member of the EB164 family (along with the [[hardware:motherboards:eb164|EB164]], [[hardware:motherboards:pc164lx|PC164LX]], and [[hardware:motherboards:pc164sx|PC164SX]]), and was the first Digital Semiconductor board to use the 21164A (EV56) CPU. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L3768|"Re: Difference between PC164 and EB164"]], David A Rusling, axp-list, 3 Sep 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002)] Before release it was sometimes called the "EB164+". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8235|"Re: linux on EB164+"]], Jay Estabrook, axp-list, 10 May 1996)]
 
 <gallery right aligned nocrop>

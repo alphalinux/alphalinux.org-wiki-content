@@ -1,5 +1,17 @@
 ===== Personal Workstation a and au series (Miata) =====
 
+<WRAP box right 340px>
+^ Personal Workstation a and au series ^^
+^ Codename | Miata, Miata GL |
+^ CPU | [[wp>Alpha_21164#Alpha_21164A|21164A]] (EV56) |
+^ Core logic | [[hardware:chipsets#21174|21174]] (Pyxis) |
+^ Memory | Up to 1.5 GiB, three DIMM banks (six slots) |
+^ Buses | 64-bit and 32-bit PCI, ISA |
+^ Firmware | SRM (last V7.2-1), AlphaBIOS |
+^ Kernel option | ''CONFIG_ALPHA_MIATA'' |
+^ Linux | Supported |
+</WRAP>
+
 The Personal Workstation (PWS) series was code-named Miata. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L4503|"Re: Personal Workstation 433a"]], Jim Paradis, axp-list, 3 Jun 1997)] The a-series models run Windows NT and the au-series Tru64 UNIX and OpenVMS; the models are named for their clock speed, such as the 433a, 500a, 500au, and 600au. [(>{{wiki:hardware:systems:personal_workstation:personal_workstation_a_au_series_catalog.pdf?linkonly|Compaq DPW Enhanced a-Series & au-Series}}, Systems and Options Catalog, September 2000, p. 1)] All Miata systems use the EV56 (21164A); none were built with the EV5. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-April.mbox#L1885|"Re: 2.1.92 and PWS 433a (21164 CPU, not 21164A!)"]], Jay Estabrook, axp-list, 2 Apr 1998)] The flash holds both SRM and AlphaBIOS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-June.mbox#L4706|"Re: PWS AlphaBIOS to SRM"]], Jay Estabrook, debian-alpha, 9 Jun 2005)]
 
 ==== Specifications ====

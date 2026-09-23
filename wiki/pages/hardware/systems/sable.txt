@@ -1,5 +1,18 @@
 ===== AlphaServer 2000 and 2100 (Sable) =====
 
+<WRAP box right 340px>
+^ AlphaServer 2000, 2100 ^^
+^ Codename | Sable, Demi-Sable (2000), Gamma (EV5 CPUs) |
+^ CPU | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]], [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] |
+^ Processors | Up to 4 (2100), up to 2 (2000) |
+^ Core logic | T2 |
+^ Memory | Up to 2 GiB (2100), 1 GiB (2000) |
+^ Buses | 32-bit PCI, EISA |
+^ Firmware | SRM (last V5.3) |
+^ Kernel option | ''CONFIG_ALPHA_SABLE'' |
+^ Linux | 21164A only; others to Linux 6.9 |
+</WRAP>
+
 The AlphaServer 2100 is a symmetric multiprocessing PCI/EISA server supporting up to four CPUs, and the AlphaServer 2000 (Demi-Sable) is a two CPU version of it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-September.mbox#L2324|"Powerup Problem on AS2000"]], Jay Estabrook, axp-list, 26 Sep 2005)] Both use the T2 core logic, and were sold as 4/275, 5/250, and 5/300 models, the last running at 291 MHz with a 4 MiB secondary cache. [(>{{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_technical_summary.pdf?linkonly|AlphaServer 2000, AlphaServer 2100, and AlphaServer 2100A Technical Summary}}, p. 3)] Earlier 4/200 and 4/233 models were also sold. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-February.mbox#L15109|"Re: 2.4.20 kernel panics on boot w/ AS2100"]], Soren Harward, debian-alpha, 27 Feb 2003)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-April.mbox#L22932|"Re: I take a deep breath, and I suck down my pride..."]], Jay Estabrook, debian-alpha, 30 Apr 2002)] Systems equipped with EV5 CPUs are called Gamma. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L678|"Re: Help with aboot / kernel startup"]], Jay Estabrook, axp-list, 1 May 2000)] The successors are the [[hardware:systems:lynx|AlphaServer 2100A and 2000A]].
 
 Digital introduced the machine in April 1994 as the **Digital 2100 Server A500MP** and renamed it the AlphaServer 2100 4/200 in November 1994. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-November.mbox#L485|"AlphaServer 2100 4/200 and 4/275"]], Customer Update, biz.digital.articles, 3 Nov 1994)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-November.mbox#L308|"AlphaServer 2000 4/200"]], Customer Update, biz.digital.articles, 3 Nov 1994)]

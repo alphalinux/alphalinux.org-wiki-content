@@ -1,0 +1,36 @@
+===== @!PAGE@ =====
+
+<WRAP box right 340px>
+^ Marketing name(s) ^^
+^ Codename | Internal name(s), from the kernel's system tables or Digital's documents |
+^ CPU | [[wp>Alpha_21264|21264]] (EV6), with part number and EV name for each processor offered |
+^ Processors | Number of CPUs, e.g. 1 to 4 |
+^ Core logic | [[hardware:chipsets|chipset]] part number and name, e.g. 21272 (Tsunami) |
+^ Memory | Type, slots, and maximum, e.g. sets of four DIMMs, up to 32 GiB |
+^ Buses | e.g. 64-bit PCI, ISA, EISA |
+^ Firmware | SRM (last V//x.y//), and ARC or AlphaBIOS if present, from [[software:firmware:srm#final_versions|Final versions]] |
+^ Kernel option | ''CONFIG_ALPHA_...'', from [[documentation:kernel#configuring_for_a_system|Kernel]] |
+^ Linux | Supported / 21164A only; others to Linux 6.9 / Linux 6.9 and earlier / Never |
+</WRAP>
+
+One or two sentences: what the system is, who sold it, and when. Cite a source for each fact.
+
+Delete any infobox row whose value has no source.
+
+==== Specifications ====
+
+==== Firmware ====
+
+==== Linux ====
+
+==== Known issues ====
+
+==== Conflicting information ====
+
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+
+{{tag>hardware system}}

@@ -1,5 +1,18 @@
 ===== PC264DP =====
 
+<WRAP box right 340px>
+^ AlphaPC 264DP ^^
+^ CPU | 1 or 2 [[wp>Alpha_21264|21264]] (EV6), 500 MHz |
+^ Core logic | [[hardware:chipsets#21272|21272]] (Tsunami) |
+^ Memory | 16 DIMM slots, ECC SDRAM, up to 4 GiB |
+^ Buses | 64-bit PCI, ISA |
+^ Form factor | 42.11 cm x 33.02 cm |
+^ Onboard I/O | AIC-7895 SCSI, IDE, floppy, 2 serial, parallel, keyboard, mouse |
+^ Firmware | SRM, AlphaBIOS |
+^ Kernel option | ''CONFIG_ALPHA_DP264'' |
+^ Linux | Supported |
+</WRAP>
+
 The AlphaPC 264DP is a dual-processor motherboard based on the Alpha 21264 microprocessor and the 21272 core logic chipset. The CPUs and their L2 cache are on daughtercards that plug into the mainboard. Its Linux platform name is DP264, and the AlphaServer DS20 is based on the same design.
 
 <gallery right aligned nocrop>

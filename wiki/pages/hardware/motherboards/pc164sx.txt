@@ -1,5 +1,18 @@
 ===== PC164SX =====
 
+<WRAP box right 340px>
+^ AlphaPC 164SX ^^
+^ CPU | [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|21164PC]] (PCA56), 400 or 533 MHz |
+^ Core logic | [[hardware:chipsets#21174|21174]] (Pyxis) |
+^ Memory | 4 DIMM slots, SDRAM (ECC optional), up to 1 GiB |
+^ Buses | 64-bit PCI, 32-bit PCI, ISA |
+^ Form factor | ATX |
+^ Onboard I/O | Cypress IDE, floppy, 2 serial, parallel, keyboard, mouse |
+^ Firmware | SRM (last V5.8), AlphaBIOS, MILO |
+^ Kernel option | ''CONFIG_ALPHA_SX164'' |
+^ Linux | Supported |
+</WRAP>
+
 The AlphaPC 164SX is an ATX form factor motherboard released in 1997.
 
 <gallery right aligned nocrop>
@@ -21,6 +34,7 @@ wiki:hardware:motherboards:pc164sx:pc164sx-1.jpg Digital AlphaPC 164SX
   * PS/2 keyboard and mouse
   * 2x RS-232
   * 1x Parallel port
+  * ATX board, 30.48 cm x 24.38 cm (12.0 in x 9.6 in) [(>{{wiki:hardware:motherboards:pc164sx:pc164sx_technical_reference_manual.pdf?linkonly|AlphaPC 164SX Motherboard Technical Reference Manual}}, p. 3-2)]
 
 ==== Memory ====
 

@@ -1,5 +1,16 @@
 ===== Alpha XL 233 and 266 =====
 
+<WRAP box right 340px>
+^ Alpha XL 233, 266 ^^
+^ Codename | XL |
+^ CPU | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] |
+^ Core logic | [[hardware:chipsets#21071_and_21072|21071/21072]] (APECS) |
+^ Buses | PCI, ISA |
+^ Firmware | ARC |
+^ Kernel option | ''CONFIG_ALPHA_XL'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The Alpha XL 233 and 266 are Windows NT workstations with EV4 or EV45 CPUs. They have only the ARC console; an AlphaBIOS was developed for them but never shipped. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L46358|"Re: DEC Celebris"]], Jay Estabrook, axp-list, 25 Nov 1996)] The EV5 Alpha XL 300, 366, and 433 are a different design (see [[hardware:systems:alcor|XLT]]). The XL kernel platform (''CONFIG_ALPHA_XL'') was removed in Linux 6.10, so 6.9 was the last kernel to support these machines. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=430ad3f0ddd7|"alpha: remove LCA and APECS based machines"]], Linux 6.10)]
 
 Digital announced the Alpha XL on 3 October 1995 as the Alpha half of a Windows NT personal workstation line alongside the Pentium-based Celebris XL. Both use the same minitower and a processor-independent CPU daughtercard, so that the rest of the machine is common to the Pentium and Alpha models. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-October.mbox#L4845|"Celebris XL & Alpha XL -- Digital Personal Workstation for Windows NT"]], Customer Update, biz.digital.articles, 3 Oct 1995)]

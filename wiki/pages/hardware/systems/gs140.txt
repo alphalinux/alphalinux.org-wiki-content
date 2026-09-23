@@ -1,5 +1,16 @@
 ===== AlphaServer GS60, GS60E, and GS140 =====
 
+<WRAP box right 340px>
+^ AlphaServer GS60, GS60E, GS140 ^^
+^ Codename | TurboLaser |
+^ CPU | [[wp>Alpha_21264|21264]], [[wp>Alpha_21264#Alpha_21264A|21264A]] |
+^ Processors | 2 to 6 (GS60), 2 to 14 (GS140) |
+^ Memory | Up to 12 GiB (GS60), 28 GiB (GS140) |
+^ Buses | TLSB system bus; PCI, EISA, XMI |
+^ Firmware | SRM (last V6.6) |
+^ Linux | Never |
+</WRAP>
+
 The AlphaServer GS60, GS60E, and GS140 are [[hardware:systems:turbolaser|AlphaServer 8200 and 8400]] systems with 21264 CPUs: two to six in the GS60 and two to 14 in the GS140. [(>{{wiki:hardware:systems:alphaserver_gs60:alphaserver_gs60_gs140_product_profile.pdf?linkonly|AlphaServer GS60 and GS140 Series with Alpha 21264 Processor}}, Product Profile, Compaq, June 1999)] An AlphaServer 8200 could be upgraded to a GS60 and an 8400 to a GS140. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_dec_7000_upgrades_catalog.pdf?linkonly|Compaq AlphaServer 8200/8400 and VAX/DEC 7000 Upgrades}}, Systems and Options Catalog, June 1999, p. 2.211)] The three share one firmware kit, built for the E2063-DA and E2067-DA CPU modules, which cannot be used on AlphaServer 8200 and 8400 systems. [(>{{wiki:software:firmware:alphaserver_gs140_v6.6_firmware_release_notes.pdf?linkonly|AlphaServer GS60/GS60E/GS140 V6.6 Firmware Update Procedures}}, p. 1-1)]
 
 ==== Specifications ====

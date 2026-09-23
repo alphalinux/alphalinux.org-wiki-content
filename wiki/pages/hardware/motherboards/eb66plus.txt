@@ -1,5 +1,18 @@
 ===== EB66+ =====
 
+<WRAP box right 340px>
+^ EB66+ ^^
+^ CPU | [[wp>Alpha_21064#Alpha_21066A|21066A]] (LCA45), up to 233 MHz |
+^ Core logic | Integrated in CPU |
+^ Memory | 6 SIMM slots, ECC DRAM, up to 384 MiB |
+^ Buses | 32-bit PCI, ISA |
+^ Form factor | Baby AT |
+^ Onboard I/O | IDE, floppy, 2 serial, parallel, keyboard, mouse |
+^ Firmware | SRM, MILO |
+^ Kernel option | ''CONFIG_ALPHA_EB66P'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The Alpha 21066A Microprocessor Evaluation Board (EB66+) is a baby AT form factor evaluation and development board for systems based on the Alpha 21066A microprocessor.
 
 ==== Specifications ====
@@ -15,6 +28,7 @@ The Alpha 21066A Microprocessor Evaluation Board (EB66+) is a baby AT form facto
   * Intel 8242 keyboard and mouse controller
   * Dallas Semiconductor DS1287 time-of-year clock
   * Serial ROM and flash ROM containing a debug monitor
+  * Baby AT board, 33.02 cm x 22.1 cm (13.0 in x 8.7 in) [(>{{wiki:hardware:motherboards:eb66plus:eb66plus_user_guide.pdf?linkonly|Alpha 21066A Microprocessor Evaluation Board (EB66+) User's Guide}}, pp. 1-4, 3-28)]
 
 ==== Firmware ====
 

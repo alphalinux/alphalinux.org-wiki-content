@@ -1,5 +1,18 @@
 ===== AlphaServer 2100A and 2000A (Lynx) =====
 
+<WRAP box right 340px>
+^ AlphaServer 2100A, 2000A ^^
+^ Codename | Lynx, Demi-Lynx (2000A) |
+^ CPU | [[wp>Alpha_21064#Alpha_21064A|21064A]], [[wp>Alpha_21164|21164]] |
+^ Processors | Up to 4 (2100A), up to 2 (2000A) |
+^ Core logic | T2 |
+^ Memory | Up to 2 GiB (1 GiB with four CPUs) |
+^ Buses | 33 MHz PCI, EISA |
+^ Firmware | SRM (last V5.3) |
+^ Kernel option | ''CONFIG_ALPHA_LYNX'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The AlphaServer 2100A is the successor to the [[hardware:systems:sable|AlphaServer 2100]], with the standard I/O functions moved onto the system backplane and most of the EISA slots traded for PCI slots. [(>{{wiki:hardware:systems:alphaserver_2100:alphaserver_2000_2100_2100a_technical_summary.pdf?linkonly|AlphaServer 2000, AlphaServer 2100, and AlphaServer 2100A Technical Summary}}, pp. 5-6)] The AlphaServer 2000A (Demi-Lynx) is the smaller version, related to the 2100A as the [[hardware:systems:sable|AlphaServer 2000]] is to the 2100, holding two CPUs and two memory boards instead of up to four CPUs. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-September.mbox#L2367|"Powerup Problem on AS2000"]], Jay Estabrook, axp-list, 26 Sep 2005)] Digital announced the 2100A LP, a low profile midrange model, with a 5/375 processor option on 7 November 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1996-November.mbox#L502|"Press/Digital Reduces Prices, Adds Power to Midrange AlphaServer Systems"]], Digital Press and Analysts News, biz.digital.announce, 8 Nov 1996)]
 
 ==== Specifications ====

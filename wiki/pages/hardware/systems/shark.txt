@@ -1,5 +1,17 @@
 ===== AlphaServer DS20L and API NetWorks CS20 (Shark) =====
 
+<WRAP box right 340px>
+^ AlphaServer DS20L, API NetWorks CS20 ^^
+^ Codename | Shark |
+^ CPU | [[wp>Alpha_21264#Alpha_21264A|21264A]], [[wp>Alpha_21264#Alpha_21264B|21264B]] |
+^ Processors | 2 |
+^ Core logic | [[hardware:chipsets#21272|21272]] (Tsunami) |
+^ Buses | 64-bit 33 MHz PCI (two slots) |
+^ Firmware | SRM (last V6.6-10 on the DS20L) |
+^ Kernel option | ''CONFIG_ALPHA_SHARK'' |
+^ Linux | Supported |
+</WRAP>
+
 The CS20 is a 1U dual processor 21264 server designed by Alpha Processor, Inc., later API NetWorks, and the DS20L is Compaq's version of it. Apart from the front cover, the two differ only in their SRM firmware and the SCSI controller on the PCI riser card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-July.mbox#L17774|"Re: API / CS20"]], Kurt A. Ludwig, axp-list, 29 Jul 2002)] The kernel support was added by Christopher C. Chimelis in 2001, as a variant of the DP264 platform. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_dp264.c?h=v6.10|arch/alpha/kernel/sys_dp264.c]], Linux 6.10)]
 
 ==== Specifications ====

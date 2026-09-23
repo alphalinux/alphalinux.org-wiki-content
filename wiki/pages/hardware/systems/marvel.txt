@@ -1,5 +1,18 @@
 ===== AlphaServer ES47, ES80, and GS1280 (Marvel) =====
 
+<WRAP box right 340px>
+^ AlphaServer ES47, ES80, GS1280 ^^
+^ Codename | Marvel |
+^ CPU | [[wp>Alpha_21364|21364]] (EV7) |
+^ Processors | Up to 8 (ES47, ES80), up to 64 (GS1280) |
+^ Core logic | None (on-chip memory controllers); IO7 for I/O |
+^ Memory | Up to 8 GiB of RDRAM per CPU |
+^ Buses | PCI-X, PCI, AGP |
+^ Firmware | SRM (last V7.3-1) |
+^ Kernel option | ''CONFIG_ALPHA_MARVEL'' |
+^ Linux | Supported |
+</WRAP>
+
 The Marvel systems are the last Alpha machines, built from 21364 (EV7) processors whose on-chip memory controllers and router links connect directly to each other, without core logic between them. When Compaq announced its move to Itanium in June 2001, it said that the EV7 would require new systems and that the existing ES, DS, and GS systems had never been intended to run it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-June.mbox#L34268|"Compaq/Intel agreement... postings on this list"]], Vincent D'Antonio, tru64-unix-managers, 27 Jun 2001)] The GS1280 was sold in models with up to 64 CPUs. [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_drawer_upgrade.pdf?linkonly|HP AlphaServer ES47/ES80/GS1280 I/O Drawer Upgrade}}, p. 1-3)]
 
 ==== Specifications ====

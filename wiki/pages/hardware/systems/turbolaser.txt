@@ -1,5 +1,16 @@
 ===== AlphaServer 8200 and 8400 (TurboLaser) =====
 
+<WRAP box right 340px>
+^ AlphaServer 8200, 8400 ^^
+^ Codename | TurboLaser |
+^ CPU | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] |
+^ Processors | Up to 6 (8200), up to 12 (8400) |
+^ Memory | Up to 12 GB (8200), 28 GB (8400) |
+^ Buses | TLSB system bus; PCI, XMI (8400 only) |
+^ Firmware | SRM (last V6.4) |
+^ Linux | Never |
+</WRAP>
+
 The AlphaServer 8200 and 8400 are the largest Alpha systems Digital built around the 21164, and they use the same system bus, processor modules, memory modules, and I/O port modules. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, p. 1)] The 8200 is a 19-inch rackmount cabinet with single-phase power for office and laboratory use, while the 8400 uses the DEC 7000 cabinet with three-phase power for computer rooms. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, p. 4)] A DEC 7000 could be upgraded to an 8400 in its cabinet by swapping the card cage and centerplane; even the SIMMs from its MS7AA-FA memory modules carried over. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, p. 4)] The EV6 [[hardware:systems:gs140|AlphaServer GS60 and GS140]] are the same machines with 21264 CPUs. Digital announced the 8200 and 8400 in April 1995 as the first systems built on the 300 MHz 21164. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-April.mbox#L1626|"AlphaServer 8400 5/300 Enterprise Server"]], Customer Update, biz.digital.articles, 17 Apr 1995)]
 
 ==== Specifications ====

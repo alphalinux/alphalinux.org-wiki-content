@@ -1,5 +1,18 @@
 ===== AlphaServer DS15, DS25, ES45, and TS202c (Titan) =====
 
+<WRAP box right 340px>
+^ AlphaServer DS15, DS25, ES45, TS202c ^^
+^ Codename | HyperBrick (DS15), Granite (DS25), Privateer (ES45), Falcon (TS202c) |
+^ CPU | [[wp>Alpha_21264|21264C]] (EV68) |
+^ Processors | 1 (DS15), 1 or 2 (DS25), 1 to 4 (ES45) |
+^ Core logic | Titan |
+^ Memory | Up to 4 GiB (DS15), 16 GiB (DS25), 32 GB (ES45) |
+^ Buses | 64-bit PCI, AGP |
+^ Firmware | SRM (last V7.3-2) |
+^ Kernel option | ''CONFIG_ALPHA_TITAN'' |
+^ Linux | Supported |
+</WRAP>
+
 The DS15 (HyperBrick), DS25 (Granite), and ES45 (Privateer) use the Titan core logic, the successor to Tsunami. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-November.mbox#L1365|"Re: Sanity checking needed of Alpha subarch codenames in d-i manual"]], Jay Estabrook, debian-alpha, 8 Nov 2004)] The DS15 has an EV68 CPU and replaced the [[hardware:systems:webbrick|DS10]], largely because the Tsunami chipset had reached end of life. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-October.mbox#L8451|"Re: Blimey New Alpha Workstation"]], Jay Estabrook, axp-list, 27 Oct 2003)] The TS202c (Falcon) firmware lists only Tru64 UNIX. [(>{{wiki:software:firmware:alphaserver_ts202c_v6.8b_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8B Firmware Release Notes and Update Procedures}}, September 2005, p. 6)] Each model was sold both as an AlphaServer and, with graphics, as an AlphaStation.
 
 ==== Specifications ====

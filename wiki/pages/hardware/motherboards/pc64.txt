@@ -1,5 +1,19 @@
 ===== PC64 =====
 
+<WRAP box right 340px>
+^ AlphaPC64 ^^
+^ Codename | Cabriolet |
+^ CPU | [[wp>Alpha_21064#Alpha_21064A|21064A]] (EV45), 200 to 275 MHz |
+^ Core logic | [[hardware:chipsets#21071_and_21072|21072]] (APECS) |
+^ Memory | 8 SIMM slots, parity FPM DRAM, up to 512 MiB |
+^ Buses | 32-bit PCI, ISA |
+^ Form factor | Baby AT |
+^ Onboard I/O | IDE, floppy, 2 serial, parallel, keyboard, mouse |
+^ Firmware | ARC (last 4.49-7), SRM (last V4.8), MILO |
+^ Kernel option | ''CONFIG_ALPHA_CABRIOLET'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The AlphaPC64 (code name Cabriolet) is a motherboard released by Digital in 1995. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-February.mbox#L6964|"Re: Weird Lockups II"]], Richard Henderson, debian-alpha, 20 Feb 2000)] It was also sold as the Alpha PCI64-275 (part number EBP30-AN). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L4140|"Re: distributors, etc."]], Stephen J. Gaudet, axp-list, 4 Mar 1998)]
 
 The AlphaPC64 was derived from the [[hardware:motherboards:eb64plus|EB64+]], and Linux treats it as a variant of that board, so the names Cabriolet, AlphaPC64, PCI64, and EB64+ are often used interchangeably. They are different boards, however: the AlphaPC64 is a slightly modified baby AT board whose mounting holes are offset from the standard positions. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L37647|"Re: Memory on my new Alpha PCI64-275"]], John Anstreicher, axp-list, 16 Dec 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L888|"Re: power supply w/3.3v connectors"]], John Anstreicher, axp-list, 30 Nov 1998)]
@@ -16,7 +30,7 @@ The AlphaPC64 was derived from the [[hardware:motherboards:eb64plus|EB64+]], and
   * Intel 8242 PS/2 keyboard and mouse controller
   * Dallas Semiconductor DS1287 time-of-year clock
   * 1 MiB flash ROM containing Windows NT ARC firmware and debug monitor
-  * Board dimensions: 33.0 cm x 22.1 cm
+  * Baby AT board, 33.0 cm x 22.1 cm [(>{{wiki:hardware:motherboards:pc64:pc64_motherboard_user_manual.pdf?linkonly|AlphaPC64 Motherboard User's Manual}}, p. 1-9)]
 
 ==== Memory ====
 

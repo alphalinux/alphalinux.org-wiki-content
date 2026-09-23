@@ -1,5 +1,18 @@
 ===== UP1500 =====
 
+<WRAP box right 340px>
+^ UP1500 ^^
+^ CPU | [[wp>Alpha_21264#Alpha_21264B|21264B]] (EV68), 800 MHz |
+^ Core logic | [[hardware:chipsets#AMD-761|AMD-761]] |
+^ Memory | 4 DIMM slots, ECC registered DDR SDRAM, up to 4 GiB |
+^ Buses | 32-bit PCI, AGP |
+^ Form factor | ATX |
+^ Onboard I/O | 2 IDE, floppy, 2 serial, parallel, keyboard, mouse, 2 USB, 21143 Ethernet, sound |
+^ Firmware | SRM (last 5.6-19) |
+^ Kernel option | ''CONFIG_ALPHA_NAUTILUS'' |
+^ Linux | Supported |
+</WRAP>
+
 The UP1500 is a motherboard built by Samsung and released in 2001.
 
 <gallery right aligned nocrop>
@@ -15,6 +28,9 @@ wiki:hardware:motherboards:up1500:up1500-1.jpg Samsung UP1500
   * 3x 33 MHz 32-bit PCI slots
   * DECchip 21143 Ethernet
   * ALi M5451 Sound
+  * 2x Ultra DMA 33/66/100 IDE connectors, 2x USB ports, 2x serial ports, an ECP/EPP parallel port, and a floppy controller, all driven by the M1535D+, plus PS/2 keyboard and mouse ports [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, p. 1-2)]
+  * ATX form factor, 12 in x 9.6 in (30.48 cm x 24.38 cm) [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, p. 1-1)]
+  * Front panel connectors for the power button, reset button, power LED, hard disk activity LED, network receive LED, speaker, and keyboard lock [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, p. 2-3)]
 
 ==== Limitations ====
 
@@ -35,6 +51,10 @@ The last SRM release for the UP1500 is 5.6-19. [(>[[https://github.com/alphalinu
 ==== Linux ====
 
 The onboard Ethernet and sound work under Linux, as does an AGP Radeon 7500. A 400 W power supply is recommended. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L4594|"Re: UP1500?"]], Falk Hueffner, axp-list, 8 Jan 2003)]
+
+==== Power supply ====
+
+The manual specifies a 300 W ATX power supply connected through a standard 20-pin ATX connector, and recommends the EMACS AP2-5300F (28 A at +3.3 V, 30 A at +5 V) or a comparable supply. [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, pp. 3-1 to 3-2)]
 
 ==== Cooling ====
 

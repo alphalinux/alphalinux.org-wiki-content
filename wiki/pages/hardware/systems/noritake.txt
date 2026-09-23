@@ -1,5 +1,18 @@
 ===== AlphaServer 1000A, AlphaServer 800, and AlphaStation 600A (Noritake) =====
 
+<WRAP box right 340px>
+^ AlphaServer 1000A, 800, AlphaStation 600A, Digital Server 3300 ^^
+^ Codename | Noritake, Noritake-Primo (1000A), Corelle (800), Alcor-Primo (600A) |
+^ CPU | [[wp>Alpha_21064#Alpha_21064A|21064A]], [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] |
+^ Processors | 1 |
+^ Core logic | [[hardware:chipsets#21071_and_21072|21071/21072]] (APECS), CIA |
+^ Memory | Up to 1 GiB, SIMMs (1000A, 600A) |
+^ Buses | 33 MHz PCI, EISA |
+^ Firmware | SRM (last V5.7-83 on the 1000A 4/xxx, V5.7-80 on the 1000A 5/xxx, V5.8-16 on the 800, V5.6-114 on the 600A), AlphaBIOS |
+^ Kernel option | ''CONFIG_ALPHA_NORITAKE'' |
+^ Linux | 21164A only; others to Linux 6.9 |
+</WRAP>
+
 The Noritake family comprises the AlphaServer 1000A (Noritake), built with either EV4 (4/xxx) or EV5 (5/xxx, Noritake-Primo) CPUs; the AlphaServer 800 (Corelle), sold only as 5/xxx models; and the AlphaStation 600A (Alcor-Primo), also 5/xxx only. All have an EISA bus. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L14347|"Re: Alpha Server 1000A - Noritake Image (Kernel)"]], Jay Estabrook, axp-list, 8 Jan 1999)] The Digital Server 3300 and 3305 are AlphaServer 800 models (see [[hardware:systems#naming|Naming]]). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L1874|"Re: 3305 and RH6 boot problems"]], Rich Payne, axp-list, 2 Dec 1999)]
 
 Current kernels support only Noritake-Primo systems with 21164A (EV56) CPUs: Linux 6.10 removed the EV4 machine vector (''noritake_mv'') and support for the original 21164 (EV5), so 6.9 was the last kernel for the 1000A 4/266 and the 1000A 5/300. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] The 1000A 5/300 has a 300 MHz 21164 (EV5), [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_1000a_model_5xxx_owners_guide_supplement.pdf?linkonly|AlphaServer 1000/1000A Model 5/xxx Owner's Guide Supplement}}, p. 2-3)] while the 1000A 5/333 and 5/400, [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 2)] the AlphaServer 800 5/333, 5/400, and 5/500, [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}}, p. 7-3)] [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_illustrated_parts_breakdown.pdf?linkonly|DIGITAL AlphaServer 800 Series Illustrated Parts Breakdown}}, p. 2-3)] and the AlphaStation 600A 5/500 [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600a_user_information.pdf?linkonly|AlphaStation 600A User Information}}, p. 6-3)] have 21164A (EV56) CPUs.

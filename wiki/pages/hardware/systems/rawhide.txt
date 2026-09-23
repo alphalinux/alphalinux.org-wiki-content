@@ -1,5 +1,18 @@
 ===== AlphaServer 1200, 4000, and 4100 (Rawhide) =====
 
+<WRAP box right 340px>
+^ AlphaServer 1200, 4000, 4100, Digital Server 5300, 7300 ^^
+^ Codename | TinCup, DaVinci (1200); Dodge, Wrangler, Durango (4000, 4100) |
+^ CPU | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] |
+^ Processors | Up to 4 (4100), up to 2 (4000, 1200) |
+^ Core logic | MCPCIA |
+^ Memory | Pairs of modules, up to 8 GiB (4100), 4 GiB (4000) |
+^ Buses | 64-bit PCI, EISA (4000, 4100) |
+^ Firmware | SRM (last V6.0-4 on the 1200, V6.1-1 on the 4000 and 4100) |
+^ Kernel option | ''CONFIG_ALPHA_RAWHIDE'' |
+^ Linux | 21164A only; others to Linux 6.9 |
+</WRAP>
+
 Members of the Rawhide family are the Dodge, Wrangler, and Durango (AlphaServer 4000 and 4100) and the TinCup and DaVinci (AlphaServer 1200). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-October.mbox#L15721|"Re: Rawhide problems: TGA2 and SMP crash"]], Jay Estabrook, axp-list, 25 Oct 2002)] The core logic is MCPCIA. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_mcpcia.c?h=v6.10|arch/alpha/kernel/core_mcpcia.c]], Linux 6.10)] Current kernels support Rawhide systems with 21164A (EV56) CPUs only: Linux 6.10 removed support for the original 21164 (EV5), so 6.9 was the last kernel for 4000 and 4100 systems with the 300 MHz EV5 CPU modules. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_illustrated_parts_breakdown.pdf?linkonly|AlphaServer 4000/4100 Series Illustrated Parts Breakdown}}, Figure 1)] The AlphaServer 1200 was sold with 400 and 533 MHz CPUs, [(>{{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_technical_summary.pdf?linkonly|AlphaServer 1200 System Technical Summary}}, p. 1)] which its console reports as EV56. [(>{{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_users_guide.pdf?linkonly|AlphaServer 1200 User's Guide}}, p. 5-18)]
 
 The AlphaServer 4000 and 4100 are built around a system drawer that fits either a pedestal or a 19-inch cabinet, and which carries the system bus, the PCI I/O, power, and cooling. The two differ only in the drawer: the BA30A drawer of the 4100 has four CPU slots, four memory pairs, and one PCI card cage, while the narrower BA30B drawer of the 4000 has two CPU slots, two memory pairs, and room for a second PCI card cage. Systems could be upgraded in either direction. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_technical_summary.pdf?linkonly|AlphaServer 4000/4100 Systems Technical Summary}}, pp. 1-2)]

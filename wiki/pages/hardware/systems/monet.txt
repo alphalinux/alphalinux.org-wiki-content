@@ -1,5 +1,18 @@
 ===== AlphaStation XP1000 (Monet) =====
 
+<WRAP box right 340px>
+^ AlphaStation XP1000 ^^
+^ Codename | Monet (500 MHz), Brisbane (667 MHz) |
+^ CPU | [[wp>Alpha_21264|21264]], [[wp>Alpha_21264#Alpha_21264A|21264A]] |
+^ Processors | 1 |
+^ Core logic | [[hardware:chipsets#21272|21272]] (Tsunami) |
+^ Memory | Two banks of four registered ECC DIMMs |
+^ Buses | 64-bit and 32-bit PCI, ISA |
+^ Firmware | SRM (last V5.9-1) |
+^ Kernel option | ''CONFIG_ALPHA_DP264'' |
+^ Linux | Supported |
+</WRAP>
+
 The XP1000 is a single processor 21264 workstation with Tsunami core logic, code-named Monet at 500 MHz and Brisbane at 667 MHz. It was designed by the same workstation group as the [[hardware:systems:miata|Personal Workstation]] and closely resembles it inside and out, with the same style of cabinet and built-in Ethernet and sound, but a Personal Workstation cannot be upgraded to an XP1000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L22318|"Re: Can someone check the specs of this machine?"]], Jay Estabrook, axp-list, 11 Dec 1999)]
 
 ==== Specifications ====

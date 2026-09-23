@@ -1,5 +1,17 @@
 ===== AlphaStation 500 and 600 and Alpha XLT =====
 
+<WRAP box right 340px>
+^ AlphaStation 500, 600, Alpha XL 300, 366, 433 ^^
+^ Codename | Maverick, Bret (500), Alcor (600), XLT |
+^ CPU | [[wp>Alpha_21164|21164]] (EV5), [[wp>Alpha_21164#Alpha_21164A|21164A]] (EV56) |
+^ Core logic | [[hardware:chipsets#21171|21171]] (CIA) |
+^ Memory | AlphaStation 500: up to 1 GiB, banks of four DIMMs; AlphaStation 600: 32 MiB to 1 GiB, SIMMs |
+^ Buses | PCI, EISA |
+^ Firmware | SRM (last V7.2-2), ARC; the XLT has no SRM |
+^ Kernel option | ''CONFIG_ALPHA_ALCOR'' |
+^ Linux | 21164A only; others to Linux 6.9 |
+</WRAP>
+
 The AlphaStation 600 (Alcor), AlphaStation 500 (Maverick and Bret), and Alpha XL 300, 366, and 433 (XLT) share the CIA core logic, EISA, and one kernel platform. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10)] The kernel still supports the platform, but only with [[wp>Alpha_21164#Alpha_21164A|21164A]] (EV56) CPUs: Linux 6.10 removed support for the original 21164 (EV5), so 6.9 is the last kernel for EV5 models. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] These include every AlphaStation 600, whose CPU is a 21164 (EV5). [(>{{wiki:hardware:systems:alphastation_600:alphastation_600_technical_reference_information.pdf?linkonly|AlphaStation 600 Series Technical Reference Information}}, p. 1-1)] The AlphaStation 500/400 and 500/500 have 21164A (EV56) CPUs. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-February.mbox#L1281|"Install Alphacore 0.9 in text-mode ?"]], alpha-linux at gmx.net, axp-list, 24 Feb 2005)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2011-May.mbox#L6203|"RE: recent udev upgrade failure on alpha"]], Uwe Schindler, debian-alpha, 18 May 2011)] The AlphaStation 500/266 and 500/333 have 21164 (EV5) CPUs. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/2000-September.mbox#L11442|"Re: what was the last patch you sent out?"]], Andrew Gallatin, freebsd-alpha, 5 Sep 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2002-August.mbox#L4490|"Re: da driver problem?"]], Marcin Gryszkalis, freebsd-alpha, 9 Aug 2002)] The Alpha XL 300 has a 21164, [(>{{wiki:hardware:systems:alpha_xl:alpha_xl_systems_and_options_catalog.pdf?linkonly|Alpha XL Personal Workstation for Windows NT, Digital Systems and Options Catalog}}, September 1996, p. 1)] while the XL 366 and 433 have 21164A CPUs, since the 21164 was made only at speeds up to 333 MHz. [(>{{wiki:hardware:cpu:21164:21164_data_sheet.pdf?linkonly|Alpha 21164 Microprocessor Data Sheet}}, July 1996, p. 180)]
 
 ==== Specifications ====

@@ -1,5 +1,17 @@
 ===== AlphaStation 200, 250, 255, 400 and AlphaServer 300, 400 (Avanti) =====
 
+<WRAP box right 340px>
+^ AlphaStation 200, 205, 250, 255, 400, AlphaServer 300, 400 ^^
+^ Codename | Mustang (200), LX3 (205), M3 (250), LX3+ (255), Avanti (400), Melmac (AlphaServer 300) |
+^ CPU | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] |
+^ Core logic | [[hardware:chipsets#21071_and_21072|21071/21072]] (APECS) |
+^ Memory | SIMMs; up to 192 MiB (AlphaStation 400), 256 MiB (250), 512 MiB (AlphaServer 300), 1 GB (255) |
+^ Buses | 33 MHz PCI, ISA |
+^ Firmware | SRM (last V7.0-9; V7.2-1 on the AlphaStation 400), ARC |
+^ Kernel option | ''CONFIG_ALPHA_AVANTI_CH'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The Avanti family is Digital's first generation of 21064 and 21064A desktop workstations and small servers with PCI. Codenames: AlphaStation 200 Mustang, 205 LX3, 250 M3, 255 LX3+, 400 Avanti, and AlphaServer 300 Melmac. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] To MILO and the kernel, the AlphaStation 200 is identical to the other Avanti systems, although its motherboard does not use a CPU daughtercard. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L9214|"Re: AlphaStation info"]], Jay Estabrook, axp-list, 18 Apr 1996)] These systems have both SRM and ARC. The Avanti kernel platform (''CONFIG_ALPHA_AVANTI'') was removed in Linux 6.10, so 6.9 was the last kernel to support these systems. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=430ad3f0ddd7|"alpha: remove LCA and APECS based machines"]], Linux 6.10)]
 
 The [[hardware:systems:xl|Alpha XL 233 and 266]] are close relatives, and some early XL machines are in fact Avantis. A true XL has a different motherboard, on which Avanti kernels and MILO images do not work correctly; it can be identified by its 82379AB PCI-to-ISA bridge, where Avanti systems have the 82378IB or 82378ZB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L6843|"Alpha XL Support"]], Jay Estabrook, axp-list, 22 Mar 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L2473|"RE: SRM/bootp questions"]], Jay Estabrook, axp-list, 13 Jul 1996)]

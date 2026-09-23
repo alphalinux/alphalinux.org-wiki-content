@@ -1,5 +1,19 @@
 ===== AXPpci 33 =====
 
+<WRAP box right 340px>
+^ AXPpci 33 ^^
+^ Codename | Noname |
+^ CPU | [[wp>Alpha_21064#Alpha_21066|21066]] (LCA4), [[wp>Alpha_21064#Alpha_21066A|21066A]] (LCA45), [[wp>Alpha_21064#Alpha_21068|21068]], [[wp>Alpha_21064#Alpha_21068A|21068A]], 66 to 233 MHz |
+^ Core logic | Integrated in CPU |
+^ Memory | 4 SIMM slots, ECC FPM DRAM, up to 256 MiB |
+^ Buses | 32-bit PCI, ISA |
+^ Form factor | Baby AT |
+^ Onboard I/O | NCR 53C810 SCSI, IDE, floppy, 2 serial, parallel, keyboard, mouse |
+^ Firmware | ARC, SRM, MILO |
+^ Kernel option | ''CONFIG_ALPHA_NONAME'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The Digital AXPpci 33 is a baby AT motherboard built around the DECchip 21066 family, whose code name is Noname. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-March.mbox#L28020|"Re: UDB IDE cable"]], Maurice W. Hilarius, axp-list, 25 Mar 1997)] It was designed by Digital's Technical OEM group and shipped with no CPU, cache, or memory installed, leaving the system integrator to fit the level of performance wanted. [(>''des_pci33.html'', Digital, ''ftp.digital.com/pub/Digital/axppci/'')] The board first shipped in October 1994, and the design guide was revised for 233 MHz operation in August 1995. [(>{{wiki:hardware:motherboards:axppci33:axppci33_oem_design_guide.pdf?linkonly|Digital AXPpci 33 Alpha PC Motherboard OEM Design Guide}})] It descends from the [[hardware:motherboards:EB66|EB66]], being based on revision 1 of the EB66 design. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L3730|"Re: interesting benchmarks"]], David A Rusling, axp-list, 4 Sep 1996)]
 
 The [[hardware:systems:noname|Multia (UDB)]] uses the same processors and the same interrupt handling, and Linux treats the two as one platform, so "Noname" in Linux documentation, kernel images, and MILO images usually covers both. They are different products: the AXPpci 33 is a bare OEM motherboard, while the Multia is a complete small desktop with onboard TGA graphics and Ethernet, essentially a miniaturized Noname. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-March.mbox#L28020|"Re: UDB IDE cable"]], Maurice W. Hilarius, axp-list, 25 Mar 1997)]

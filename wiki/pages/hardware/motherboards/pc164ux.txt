@@ -1,5 +1,19 @@
 ===== PC164UX / PC164BX =====
 
+<WRAP box right 340px>
+^ AlphaPC 164UX/BX ^^
+^ Codename | Ruffian |
+^ CPU | [[wp>Alpha_21164#Alpha_21164A|21164A]] (EV56), 466 to 600 MHz |
+^ Core logic | [[hardware:chipsets#21174|21174]] (Pyxis) |
+^ Memory | 6 DIMM slots, ECC SDRAM, up to 1.5 GiB |
+^ Buses | 64-bit PCI, 32-bit PCI, ISA |
+^ Form factor | ATX |
+^ Onboard I/O | EIDE, floppy, 2 serial, parallel, keyboard, mouse; 21143 Ethernet and 53C875 SCSI (UX only) |
+^ Firmware | ARCSBIOS, MILO |
+^ Kernel option | ''CONFIG_ALPHA_RUFFIAN'' |
+^ Linux | Supported |
+</WRAP>
+
 The AlphaPC 164UX is an ATX form factor motherboard based on the Alpha 21164A microprocessor and the 21174 core logic chip. It was designed by DeskStation Technology under the code name "Ruffian", which is also the name of its Linux platform.
 
 <gallery right aligned nocrop>
@@ -23,6 +37,7 @@ wiki:hardware:motherboards:pc164ux:pc164ux-1.jpg AlphaPC 164UX
   * PS/2 keyboard and mouse
   * 1 MiB flash ROM
   * DeskStation ARCSBIOS firmware (for Windows NT)
+  * ATX board, 30.48 cm x 24.38 cm (12.0 in x 9.6 in), with mounting holes to the ATX 2.01 specification; the board exceeds the ATX height limits at the CPU and at the SCSI connectors [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}}, p. 14)]
 
 {{anchor:pc164bx}}
 ==== PC164BX ====

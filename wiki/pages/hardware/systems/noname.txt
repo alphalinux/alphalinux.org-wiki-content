@@ -1,5 +1,17 @@
 ===== Multia and AXPpci 33 (Noname) =====
 
+<WRAP box right 340px>
+^ Multia, AXPpci 33 ^^
+^ Codename | UDB (Multia), Noname |
+^ CPU | [[wp>Alpha_21064#Alpha_21066|21066]], [[wp>Alpha_21064#Alpha_21066A|21066A]] |
+^ Core logic | LCA (integrated in the CPU) |
+^ Memory | Multia: up to 256 MiB, parity SIMMs in pairs |
+^ Buses | PCI; Multia: one PCI slot |
+^ Firmware | SRM (last V4.7 on the AXPpci 33), ARC |
+^ Kernel option | ''CONFIG_ALPHA_NONAME_CH'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The Multia, or UDB ("Universal Desktop Box"), is a small desktop with a 21066 or 21066A CPU, onboard TGA graphics, a 21040 Ethernet controller, and one PCI slot. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-February.mbox#L329|"BETA Xserver for TGA Available"]], Jay Estabrook, axp-list, 2 Feb 1996)] Under an agreement with Microsoft, every Multia shipped with Windows NT installed. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L4880|"Re: Unable to install redhat 5.0 on multia through serial port"]], Jim Paradis, axp-list, 7 Jan 1998)] The [[hardware:motherboards:axppci33|AXPpci 33]] is a Baby-AT motherboard from Digital's Technical OEM group, based on the EB66 design, as is the Multia. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)] The two use the same CPUs and the same interrupt handling, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L1751|"Re: interesting benchmarks"]], David A Rusling, axp-list, 3 Sep 1996)] and the same MILO image serves both. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L949|"Re: fmu on PC164"]], Jay Estabrook, axp-list, 2 Jan 1998)] The Noname kernel platform (''CONFIG_ALPHA_NONAME'') was removed in Linux 6.10, so 6.9 was the last kernel to support either machine. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=430ad3f0ddd7|"alpha: remove LCA and APECS based machines"]], Linux 6.10)]
 
 ==== Specifications ====

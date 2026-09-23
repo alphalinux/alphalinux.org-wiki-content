@@ -15,7 +15,7 @@ In outline:
 
 === Supported systems ===
 
-Current kernels need an EV56 (21164A) or later processor. Check the CPU with the SRM ''show config'' command; a system with an EV4, EV45, or EV5 processor can run nothing newer than Linux 6.9, and no current distribution. See [[status#processor_baseline|Current Status]] and the Linux column of the [[hardware:systems|Systems]] and [[hardware:motherboards|Motherboards]] tables. Multiprocessor systems and all 21264 systems must boot from SRM.
+Current kernels need an EV56 (21164A) or later processor. Check the CPU with the SRM ''show config'' command; a system with an EV4, EV45, or EV5 processor can run nothing newer than Linux 6.9, and no current distribution. See [[status#processor_baseline|Current Status]] and the current kernel column of the [[hardware:systems|Systems]] and [[hardware:motherboards|Motherboards]] tables. Multiprocessor systems and all 21264 systems must boot from SRM.
 
 === Firmware ===
 

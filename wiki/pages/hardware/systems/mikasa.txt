@@ -1,5 +1,18 @@
 ===== AlphaServer 1000 (Mikasa) =====
 
+<WRAP box right 340px>
+^ AlphaServer 1000 ^^
+^ Codename | Mikasa, Mikasa-Primo |
+^ CPU | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] (4/xxx); [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] (5/xxx) |
+^ Processors | 1 |
+^ Core logic | [[hardware:chipsets#21071_and_21072|21071/21072]] (APECS) on 4/xxx, [[hardware:chipsets#21171|21171]] (CIA) on 5/xxx |
+^ Memory | 16 MB to 1 GB, SIMMs in banks of five (4/266) |
+^ Buses | 33 MHz PCI, EISA |
+^ Firmware | SRM (last V5.4-101 on 4/xxx, V5.4-104 on 5/xxx), ARC |
+^ Kernel option | ''CONFIG_ALPHA_MIKASA'' |
+^ Linux | 21164A only; others to Linux 6.9 |
+</WRAP>
+
 The AlphaServer 1000 is a single processor PCI/EISA server introduced in November 1994. [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide}}, November 1994)] The CPU is on a daughtercard, so the same enclosure was sold with 21064 and 21064A CPUs as the 4/200, 4/233 [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}}, pp. A-4, A-5)], and 4/266 models [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_technical_summary.pdf?linkonly|AlphaServer 1000 Technical Summary}}, p. 2)] and later with 21164 CPUs as the 5/xxx models. The AlphaServer 1000 is Mikasa and the 1000A is Noritake, and both were built with either EV4 (4/xxx) or EV5 (5/xxx) CPUs. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] The EV5 models are Mikasa-Primo, also called Mikasa-Pinnacle, and use CIA core logic rather than the APECS of the EV4 models. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L23114|"Re: kernel for mikasa"]], Jay Estabrook, axp-list, 19 Jan 1998)] [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}}, p. 5-19)] The system was sold as a deskside unit, in a cabinet, and as a rackmount unit. [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_technical_summary.pdf?linkonly|AlphaServer 1000 Technical Summary}}, p. 2)] Current kernels support only Mikasa-Primo systems with 21164A (EV56) CPUs: Linux 6.10 removed the EV4 Mikasa and support for the original 21164 (EV5), so 6.9 was the last kernel for the 4/xxx models and for the 5/300. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] The 5/300 has a 300 MHz 21164 (EV5). [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_illustrated_parts_breakdown.pdf?linkonly|AlphaServer 1000 Series Illustrated Parts Breakdown}}, Figure 1, item 6)] [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_1000a_model_5xxx_owners_guide_supplement.pdf?linkonly|AlphaServer 1000/1000A Model 5/xxx Owner's Guide Supplement}}, p. 2-5)] The AlphaServer 1000 accepts EV56 CPU daughtercards, and the AlphaServer 1000A uses the same daughtercards; [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L52630|"Re: which AlphaServers can I use"]], Jay Estabrook, axp-list, 30 Apr 1997)] the 5/333 and 5/400 models of both have a 21164A. [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 2)]
 
 ==== Specifications ====

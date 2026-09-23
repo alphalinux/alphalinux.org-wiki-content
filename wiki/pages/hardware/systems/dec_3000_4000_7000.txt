@@ -1,5 +1,16 @@
 ===== DEC 3000, DEC 4000, and DEC 7000 =====
 
+<WRAP box right 340px>
+^ DEC 3000, DEC 4000, DEC 7000, DEC 10000 ^^
+^ Codename | Pelican, Sandpiper, Flamingo (3000); Cobra, Fang (4000); Ruby, Laser, Blazer (7000, 10000) |
+^ CPU | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] (DEC 4000: 21064 only) |
+^ Processors | Up to 2 (DEC 4000), up to 6 (DEC 7000, 10000) |
+^ Memory | DEC 3000: up to 1 GB, SIMMs |
+^ Buses | TURBOchannel (3000), Futurebus+ (4000), LSB with XMI, Futurebus+, and VAXBI I/O (7000, 10000) |
+^ Firmware | SRM (last V7.0 on the DEC 3000, V4.0 on the DEC 4000, V5.0 on the DEC 7000 and 10000) |
+^ Linux | Never |
+</WRAP>
+
 These are Digital's first Alpha systems, predating PCI. The DEC 3000 series was the first Alpha workstation, and its system bus is TURBOchannel. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-October.mbox#L63171|"Re: DEC 3000"]], Jim Paradis, axp-list, 6 Oct 1998)] The DEC 3000 Models 300 are Pelican, the 400, 600, and 700 Sandpiper, and the 500, 800, and 900 Flamingo; the Models 700 and 900 have EV45 CPUs. The DEC 4000 (Cobra and Fang) is a Futurebus+ server with up to two CPUs, and the DEC 7000 and 10000 (Ruby) have up to six. [(>{{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual}}, Version 6, 1994, pp. D-2, D-5, D-6)] The DEC 7000 was also known as Laser, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1993-May.mbox#L3809|"Re: Alpha codenames?"]], Stephen Carpenter, comp.unix.osf.osf1, 4 May 1993)] and the DEC 10000 as Blazer. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1993-May.mbox#L3934|"Re: Alpha codenames?"]], Joe Smith, comp.unix.osf.osf1, 4 May 1993)]
 
 The fastest model, the Model 900 of August 1994, has a 275 MHz 21064A with 2 MB of cache, 32 MB to 1 GB of memory, two 10 MB/s Fast SCSI-2 controllers, and six 100 MB/s TURBOchannel slots, one of them taken by the graphics card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-August.mbox#L4889|"DEC 3000 Model 900 AXP Workstation Info Sheet"]], DECnews for Education, biz.digital.articles, 10 Aug 1994)] Digital also sold the DEC 3000 as an upgrade path from its DECstation and VAXstation workstations; each upgrade kit is a whole new system box, and the old machine goes back to Digital. [(>{{wiki:hardware:systems:dec_3000:dec_3000_model_300x_300lx_upgrade_information.pdf?linkonly|DEC 3000 Model 300X/300LX AXP Upgrade Information}}, EK-D33XP-UP.A01)] [(>{{wiki:hardware:systems:dec_3000:dec_3000_model_900_upgrade_information.pdf?linkonly|DEC 3000 Model 900 AXP Upgrade Information}}, EK-D39AX-UP.A01, pp. 4-1 to 4-2)]

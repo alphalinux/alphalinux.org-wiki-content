@@ -1,5 +1,15 @@
 ===== EB64 =====
 
+<WRAP box right 340px>
+^ EB64 ^^
+^ CPU | [[wp>Alpha_21064|21064]] (EV4), 150 MHz |
+^ Memory | 4 SIMM slots, parity FPM DRAM, up to 64 MiB |
+^ Buses | ISA |
+^ Onboard I/O | Am79C960 Ethernet, floppy, 2 serial, keyboard, mouse |
+^ Firmware | Debug monitor, SRM |
+^ Linux | Removed in 1995 |
+</WRAP>
+
 The DECchip 21064 Evaluation Board (EB64) is an evaluation board released in 1993.
 
 ==== Specifications ====

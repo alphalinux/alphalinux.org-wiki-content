@@ -1,5 +1,18 @@
 ===== AlphaServer DS10, DS10L, and AlphaStation XP900 (Webbrick, Slate) =====
 
+<WRAP box right 340px>
+^ AlphaServer DS10, DS10L, AlphaStation XP900 ^^
+^ Codename | Webbrick, Slate |
+^ CPU | [[wp>Alpha_21264|21264]] (EV6), [[wp>Alpha_21264#Alpha_21264A|21264A]] (EV67) |
+^ Processors | 1 |
+^ Core logic | [[hardware:chipsets#21272|21272]] (Tsunami) |
+^ Memory | Up to 2 GiB, ECC SDRAM DIMMs |
+^ Buses | 64-bit and 32-bit PCI |
+^ Firmware | SRM (last V7.3-1), AlphaBIOS |
+^ Kernel option | ''CONFIG_ALPHA_DP264'' |
+^ Linux | Supported |
+</WRAP>
+
 The DS10 is a single processor 21264 server in a 3U rack-ready or desktop enclosure, with Tsunami core logic and a single PCI bus. [(>{{wiki:hardware:systems:alphaserver_ds10:alphaserver_ds10_brochure.pdf?linkonly|Compaq AlphaServer DS10}}, Compaq, June 1999, p. 6)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_dp264.c?h=v6.10|arch/alpha/kernel/sys_dp264.c]], Linux 6.10)] The XP900 is a rebadged DS10 aimed at the OpenVMS workstation market. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L981|"Re: Debian on XP900?"]], David Huggins-Daines, debian-alpha, 12 Oct 2000)] The DS10L is a 1U version with the same CPU speeds and memory capacity, but room for one disk to the DS10's four, and one PCI slot to the DS10's four. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-November.mbox#L3445|"Re: Seeking opinion on DS10 veersus DS10L"]], Jay Estabrook, axp-list, 19 Nov 2003)]
 
 ==== Specifications ====

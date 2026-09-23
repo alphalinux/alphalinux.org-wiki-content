@@ -1,5 +1,18 @@
 ===== AlphaServer ES40 (Clipper) =====
 
+<WRAP box right 340px>
+^ AlphaServer ES40 ^^
+^ Codename | Clipper |
+^ CPU | [[wp>Alpha_21264|21264]] (EV6), [[wp>Alpha_21264#Alpha_21264A|21264A]] (EV67), [[wp>Alpha_21264#Alpha_21264B|21264B]] (EV68) |
+^ Processors | 1 to 4 |
+^ Core logic | [[hardware:chipsets#21272|21272]] (Tsunami) |
+^ Memory | Sets of four DIMMs, up to 32 DIMM slots (Model 2) |
+^ Buses | 64-bit PCI (6 or 10 slots) |
+^ Firmware | SRM (last V7.3-1) |
+^ Kernel option | ''CONFIG_ALPHA_DP264'' |
+^ Linux | Supported |
+</WRAP>
+
 The ES40 is a four processor 21264 server, sold in tower, pedestal, and rackmount enclosures. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_tru64_openvms_catalog.pdf?linkonly|AlphaServer ES40 Tru64 UNIX and OpenVMS}}, Systems and Options Catalog, June 1999, p. 2.1)] Its firmware also covers the ES40cv, ES40lp, TS40, and TS20. [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 1)]
 
 ==== Specifications ====

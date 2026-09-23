@@ -1,5 +1,16 @@
 ===== AXPvme and Alpha VME =====
 
+<WRAP box right 340px>
+^ AXPvme and Alpha VME ^^
+^ CPU | [[wp>Alpha_21064#Alpha_21066A|21066A]] (LCA45) (AXPvme), [[wp>Alpha_21064#Alpha_21064A|21064A]] (EV45) (Alpha VME 4), [[wp>Alpha_21164#Alpha_21164A|21164A]] (EV56) (Alpha VME 5/480) |
+^ Memory | 8 to 128 MiB (AXPvme, Alpha VME 4) |
+^ Buses | PCI (onboard), VMEbus |
+^ Form factor | 6U VMEbus |
+^ Onboard I/O | 21040 Ethernet, NCR 53C810 SCSI, serial |
+^ Firmware | SRM |
+^ Linux | Never |
+</WRAP>
+
 Digital's AXPvme and Alpha VME boards are 6U VMEbus single-board computers sold for embedded and realtime work rather than as general purpose machines. The first series, AXPvme, was built around the 21066A, which Digital introduced on 14 November 1994 as "the heart of Digital's AXPvme series of VMEbus single-board computers (SBCs)", for control systems in military and industrial realtime applications; the boards also ran VxWorks for Alpha. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1994-November.mbox#L5561|"Press/Alpha 21066A Chip With PCI Puts More Speed Into Embedded Apps"]], Digital Press and Analysts News, biz.digital.announce, 14 Nov 1994)] Members of that series include the AXPvme 160, 166, and 230. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 2-1)]
 
 Later boards moved to faster processors and dropped the AXPvme name. The Digital Alpha VME 4/224 and 4/288 use the 21064A, [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 1-1)] and an Alpha VME 5/480 identifies itself to Digital UNIX as a 21164A at 480 MHz with the 21172 chipset, 2 MiB of external cache, and the VMEbus system controller on PCI. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-August.mbox#L3894|"Linux to an Alpha 5/480 VME card?"]], bgeer, comp.os.linux.alpha, 24 Aug 1999)]

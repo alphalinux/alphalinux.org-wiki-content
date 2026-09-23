@@ -1,0 +1,37 @@
+===== @!PAGE@ =====
+
+<WRAP box right 340px>
+^ Board name ^^
+^ Codename | Internal name(s), from the kernel's system tables or Digital's documents |
+^ CPU | [[wp>Alpha_21264|21264]] (EV6), with part number and EV name for each processor offered |
+^ Core logic | [[hardware:chipsets|chipset]] part number and name, e.g. 21272 (Tsunami) |
+^ Memory | Type, slots, and maximum, e.g. sets of four DIMMs, up to 32 GiB |
+^ Buses | e.g. 64-bit PCI, 32-bit PCI, AGP, ISA |
+^ Form factor | e.g. ATX, Baby AT |
+^ Onboard I/O | e.g. IDE, floppy, 2 serial, parallel, USB, Ethernet |
+^ Firmware | SRM (last V//x.y//), AlphaBIOS, MILO, as available |
+^ Kernel option | ''CONFIG_ALPHA_...'', from [[documentation:kernel#configuring_for_a_system|Kernel]] |
+^ Linux | Supported / Linux 6.9 and earlier / Never |
+</WRAP>
+
+One or two sentences: what the board is, who made it, and when. Cite a source for each fact.
+
+Delete any infobox row whose value has no source.
+
+==== Specifications ====
+
+==== Firmware ====
+
+==== Linux ====
+
+==== Known issues ====
+
+==== Conflicting information ====
+
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+
+{{tag>hardware motherboard}}

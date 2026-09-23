@@ -1,5 +1,18 @@
 ===== AlphaServer DS20 and DS20E (Goldrush) =====
 
+<WRAP box right 340px>
+^ AlphaServer DS20, DS20E ^^
+^ Codename | Goldrush, Catamaran, Goldrack |
+^ CPU | [[wp>Alpha_21264|21264]] (EV6), [[wp>Alpha_21264#Alpha_21264A|21264A]] (EV67), [[wp>Alpha_21264#Alpha_21264B|21264B]] (EV68A) |
+^ Processors | 1 or 2 |
+^ Core logic | [[hardware:chipsets#21272|21272]] (Tsunami) |
+^ Memory | Up to 4 GiB, sets of four DIMMs |
+^ Buses | 64-bit PCI (two buses), ISA |
+^ Firmware | SRM (last V7.3-1) |
+^ Kernel option | ''CONFIG_ALPHA_DP264'' |
+^ Linux | Supported |
+</WRAP>
+
 The AlphaServer DS20 (Goldrush) has one or two CPUs on daughtercards and two PCI buses, and runs the kernel's DP264 platform. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L24945|"FAQ info (was Re: Linux on Compaq XP1000)"]], Jay Estabrook, axp-list, 9 Mar 1999)] The system is the Compaq product built from the same design as the [[hardware:motherboards:pc264dp|AlphaPC 264DP]], sold as a pedestal that also fits M-series cabinets. [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20_windows_nt_catalog.pdf?linkonly|AlphaServer DS20 Windows NT}}, Systems and Options Catalog, June 1999, p. 2.45)]
 
 ==== Specifications ====

@@ -1,5 +1,18 @@
 ===== EB64+ =====
 
+<WRAP box right 340px>
+^ EB64+ ^^
+^ CPU | [[wp>Alpha_21064|21064]] (EV4), [[wp>Alpha_21064#Alpha_21064A|21064A]] (EV45), 150 to 275 MHz |
+^ Core logic | [[hardware:chipsets#21071_and_21072|21072]] (APECS) |
+^ Memory | 8 SIMM slots, parity FPM DRAM, up to 512 MiB |
+^ Buses | 32-bit PCI, ISA |
+^ Form factor | Full-size AT |
+^ Onboard I/O | NCR 53C810 SCSI, 21040 Ethernet, floppy, 2 serial, parallel, keyboard, mouse |
+^ Firmware | ARC (last 4.49-7), SRM, MILO |
+^ Kernel option | ''CONFIG_ALPHA_EB64P'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board (EB64+) is an evaluation and development board for systems based on the 21064 or 21064A microprocessor and the 21072 chipset, released in 1994. Aspen Systems sold a closely related board as the Alpine (see [[#clones_and_oem_systems|Clones and OEM Systems]]).
 
 The EB64+ is a different board from the [[hardware:motherboards:PC64|AlphaPC64]] (Cabriolet), which was derived from it. Because Linux handles both with the same code, the names are often used interchangeably on mailing lists.
@@ -19,7 +32,7 @@ The EB64+ is a different board from the [[hardware:motherboards:PC64|AlphaPC64]]
   * National 87312 combination controller: floppy, 2x serial ports, parallel port
   * Intel 8242 keyboard and mouse controller
   * 512 KiB UVPROM containing the debug monitor
-  * Board dimensions: 33.02 cm x 30.48 cm (13.0 in x 12.0 in)
+  * Standard full-size PC AT board, 33.02 cm x 30.48 cm (13.0 in x 12.0 in) [(>{{wiki:hardware:motherboards:eb64plus:eb64plus_user_guide.pdf?linkonly|DECchip 21064 and DECchip 21064A Alpha AXP PCI Evaluation Board User's Guide}}, p. 5-2)]
   * Standard PC power supply (not included)
 
 The EB64+ has two ROMs, one of which contains the Windows NT ARC firmware and the other contains the Evaluation Board Debug Monitor.

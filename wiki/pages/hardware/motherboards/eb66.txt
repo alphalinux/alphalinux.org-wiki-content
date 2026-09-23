@@ -1,8 +1,28 @@
 ===== EB66 =====
 
+<WRAP box right 340px>
+^ EB66 ^^
+^ CPU | [[wp>Alpha_21064#Alpha_21066|21066]] (LCA4) at 166 MHz, [[wp>Alpha_21064#Alpha_21068|21068]] |
+^ Core logic | Integrated in CPU |
+^ Buses | 32-bit PCI, ISA |
+^ Form factor | Baby AT |
+^ Onboard I/O | NCR 53C810 SCSI, 21040 Ethernet, floppy, 2 serial, parallel, keyboard, mouse |
+^ Firmware | ARC, SRM, MILO |
+^ Kernel option | ''CONFIG_ALPHA_EB66'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The Alpha 21066 and Alpha 21068 Evaluation Board (EB66) is an evaluation board for systems based on the [[wp>Alpha_21064#Alpha_21066|Alpha 21066]] and 21068 microprocessors. [(>{{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}})] [(>{{wiki:hardware:motherboards:common:palcode_system_design_guide.pdf?linkonly|PALcode for Alpha Microprocessors System Design Guide}})] It reports system type 19 in the HWRPB. [(>{{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6 (1994)}})]
 
 The EB66 was Digital's first AT form factor Alpha motherboard, and the Noname (AXPpci 33) is based on revision 1 of its design. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L3730|"Re: interesting benchmarks"]], David A Rusling, axp-list, 4 Sep 1996)] The [[hardware:motherboards:eb66plus|EB66+]] is the corresponding board for the 21066A.
+
+==== Specifications ====
+
+  * [[wp>Alpha_21064#Alpha_21066|21066]] (LCA4) CPU; Digital's 21066 evaluation kit, available from late 1993, contained an example motherboard with a 166 MHz 21066, 32 MiB of memory, PCI and ISA, and embedded NCR SCSI [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1993-November.mbox#L3162|"Re: Likely price of 21066, 21064 systems?"]], Stephen Hoffman, comp.sys.dec, 29 Nov 1993)]
+  * Memory controller, cache controller, and PCI bus integrated into the CPU, which supports up to 512 MiB of DRAM and 2 MiB of cache [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1993-November.mbox#L3162|"Re: Likely price of 21066, 21064 systems?"]], Stephen Hoffman, comp.sys.dec, 29 Nov 1993)]
+  * Digital's published 21066 benchmarks were run on an EB66 with 256 KiB of cache [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L5135|"DECchip paper"]], Digital Technical Journal, biz.digital.articles, 17 Sep 1994)]
+  * I/O subsystem identical to the [[hardware:motherboards:eb64plus|EB64+]]'s: 3 ISA and 2 PCI slots (one pair shared), NCR 53C810 SCSI and Digital 21040 Ethernet on PCI, an Intel SaturnI/O PCI-to-ISA bridge, a Super I/O controller with 2 serial ports, a parallel port, and a floppy controller, PS/2 style keyboard and mouse, and RTC/NVRAM [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)]
+  * Baby AT size, running from a standard PC power supply [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)]
 
 ==== Firmware ====
 

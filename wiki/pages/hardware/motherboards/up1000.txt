@@ -1,5 +1,18 @@
 ===== UP1000 =====
 
+<WRAP box right 340px>
+^ UP1000 ^^
+^ CPU | [[wp>Alpha_21264#Alpha_21264A|21264A]] (EV67), 600 or 700 MHz |
+^ Core logic | [[hardware:chipsets#AMD-751|AMD-751]] (Irongate) |
+^ Memory | 3 DIMM slots, ECC SDRAM, up to 768 MiB |
+^ Buses | 32-bit PCI, AGP, ISA |
+^ Form factor | ATX |
+^ Onboard I/O | 2 IDE, floppy, 2 serial, parallel, keyboard, mouse, 2 USB |
+^ Firmware | AlphaBIOS, SRM |
+^ Kernel option | ''CONFIG_ALPHA_NAUTILUS'' |
+^ Linux | Supported |
+</WRAP>
+
 The UP1000 is a motherboard built by Samsung and Alpha Processor, Inc. (API), later API NetWorks, and introduced in late 1999. [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, p. iii)]
 
 <gallery right aligned nocrop>
@@ -14,6 +27,9 @@ wiki:hardware:motherboards:up1000:up1000-1.jpg API NetWorks UP1000
   * 1x AGP 2x (See limitations below)
   * 4x 33 MHz 32-bit PCI slots
   * 2x ISA slots [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}})]
+  * 2x Ultra DMA33 IDE connectors, a floppy controller, 2x serial ports, a parallel port, PS/2 keyboard and mouse, and 2x USB ports, all provided by the M1543C [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, p. 1-1)]
+  * 2 MiB flash ROM
+  * ATX form factor, 12 in x 9.6 in (30.48 cm x 24.38 cm)
 
 ==== Limitations ====
 

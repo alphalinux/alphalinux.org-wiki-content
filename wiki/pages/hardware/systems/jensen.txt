@@ -1,5 +1,17 @@
 ===== DEC 2000 AXP and DECpc AXP 150 (Jensen) =====
 
+<WRAP box right 340px>
+^ DEC 2000 AXP, DECpc AXP 150 ^^
+^ Codename | Jensen, Culzean (DEC 2000 Model 500) |
+^ CPU | [[wp>Alpha_21064|21064]] |
+^ Core logic | None (EISA) |
+^ Memory | 16 MiB to 128 MiB, options of four modules |
+^ Buses | EISA |
+^ Firmware | SRM (last V2.2), ARC |
+^ Kernel option | ''CONFIG_ALPHA_JENSEN'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The Jensen is an EISA system with a 150 MHz 21064. The DECpc AXP 150 and DEC 2000 AXP differ only in their bundled software. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L4787|"Jensen-HOWTO: First pass"]], Jim Paradis, axp-list, 15 Mar 1996)] The DEC 2000 Model 500 was code-named Culzean. [(>{{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual}}, Version 6, 1994, p. D-2)] Olivetti sold a rebadged version as the R7-600. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L2952|"RE: How to complete a Jensen system..."]], Jay Estabrook, axp-list, 10 Mar 1996)] The Jensen was the first machine to run Alpha/Linux, initially with a 32-bit kernel, followed by the Avanti (AlphaStation 400). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2006-July.mbox#L572|"first Linux port"]], Jay Estabrook, axp-list, 13 Jul 2006)] Linux 6.9 was the last kernel to support it; see [[hardware:systems|Systems]].
 
 The machine was developed by the group that designed the 21064, through the Beta and Theta demonstration systems, as a low-cost PC-style design whose base system deliberately contained little, leaving most capabilities to ISA and EISA option cards. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-June.mbox#L7939|"The Evolution of the Alpha AXP PC"]], David G. Conroy, Thomas E. Kopec, and Joseph R. Falcone, Digital Technical Journal, biz.digital.articles, 7 Jun 1994)]

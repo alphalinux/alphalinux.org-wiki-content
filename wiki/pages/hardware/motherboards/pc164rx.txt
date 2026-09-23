@@ -1,5 +1,18 @@
 ===== PC164RX =====
 
+<WRAP box right 340px>
+^ AlphaPC 164RX ^^
+^ CPU | [[wp>Alpha_21164#Alpha_21164PC_(PCA57)|21164PC]] (PCA57), 525 or 600 MHz |
+^ Core logic | VLSI Polaris |
+^ Memory | 4 DIMM slots, SDRAM, up to 512 MiB |
+^ Buses | 32-bit PCI, ISA |
+^ Form factor | ATX |
+^ Onboard I/O | IDE, 10/100 Ethernet, floppy, 2 serial, parallel, keyboard, mouse, 2 USB |
+^ Firmware | AlphaBIOS, MILO |
+^ Kernel option | ''CONFIG_ALPHA_RX164'' |
+^ Linux | Supported |
+</WRAP>
+
 The AlphaPC 164RX is an ATX form factor motherboard from Digital's OEM line, based on the 21164PC (PCA57) microprocessor and the VLSI Technology Polaris system controller. Its Linux platform name is RX164. It was announced in 1998, but only a small number of boards were built.
 
 ==== Specifications ====
@@ -13,9 +26,10 @@ The AlphaPC 164RX is an ATX form factor motherboard from Digital's OEM line, bas
   * 10/100 Mb/s Ethernet
   * PCI IDE (PIO mode 4) with UltraDMA support
   * Floppy, 2x UARTs, parallel port, keyboard and mouse, real-time clock
+  * 2x USB ports [(>{{wiki:hardware:motherboards:pc164rx:pc164rx_data_sheet.pdf?linkonly|AlphaPC 164RX Motherboard Data Sheet}})]
   * 1 MiB flash ROM
   * Windows NT AlphaBIOS firmware
-  * Standard ATX power supply
+  * ATX form factor and standard ATX power supply [(>{{wiki:hardware:motherboards:pc164rx:pc164rx_product_brief.pdf?linkonly|AlphaPC 164RX Motherboard Product Brief}})]
 
 ==== Firmware and Linux ====
 

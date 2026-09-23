@@ -1,5 +1,18 @@
 ===== EB164 =====
 
+<WRAP box right 340px>
+^ EB164 ^^
+^ CPU | [[wp>Alpha_21164|21164]] (EV5), 266 to 333 MHz |
+^ Core logic | [[hardware:chipsets#21171|21171]] (CIA) |
+^ Memory | 8 SIMM slots, FPM DRAM, up to 512 MiB |
+^ Buses | 64-bit PCI, 32-bit PCI, ISA |
+^ Form factor | Full-size AT |
+^ Onboard I/O | IDE, floppy, 2 serial, parallel, keyboard, mouse |
+^ Firmware | ARC, SRM (last V4.8), MILO |
+^ Kernel option | ''CONFIG_ALPHA_EB164'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The Digital Semiconductor 21164 Alpha Microprocessor Evaluation Board (EB164) is an evaluation and development board for systems based on the 21164 microprocessor and the 21171 core logic chipset.
 
 <gallery right aligned nocrop>
@@ -20,6 +33,7 @@ wiki:hardware:motherboards:eb164:eb164-1.jpg Digital EB164
   * Intel 8242 keyboard and mouse controller
   * Dallas Semiconductor DS1287 time-of-year clock
   * 1 MiB flash ROM containing the debug monitor and Windows NT ARC firmware
+  * Standard full-size PC AT board, 33.15 cm x 30.73 cm (13.05 in x 12.10 in) [(>{{wiki:hardware:motherboards:eb164:eb164_user_guide.pdf?linkonly|Digital Semiconductor 21164 Alpha Microprocessor Evaluation Board User's Guide}}, p. 5-2)]
 
 ==== CPU ====
 

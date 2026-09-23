@@ -1,5 +1,18 @@
 ===== PC164LX =====
 
+<WRAP box right 340px>
+^ AlphaPC 164LX ^^
+^ CPU | [[wp>Alpha_21164#Alpha_21164A|21164A]] (EV56), 466 to 600 MHz |
+^ Core logic | [[hardware:chipsets#21174|21174]] (Pyxis) |
+^ Memory | 4 DIMM slots, ECC SDRAM, up to 1 GiB |
+^ Buses | 64-bit PCI, 32-bit PCI, ISA |
+^ Form factor | ATX |
+^ Onboard I/O | CMD646 IDE, floppy, 2 serial, parallel, keyboard, mouse |
+^ Firmware | SRM (last V5.8), AlphaBIOS, MILO |
+^ Kernel option | ''CONFIG_ALPHA_LX164'' |
+^ Linux | Supported |
+</WRAP>
+
 The AlphaPC 164LX is an OEM ATX form factor motherboard released in 1997.
 
 <gallery right aligned nocrop>
@@ -23,6 +36,7 @@ wiki:hardware:motherboards:pc164lx:pc164lx-1.jpg Digital AlphaPC 164LX
   * 2x RS-232
   * 1x Parallel port
   * MMJ SROM console port
+  * ATX board, 30.48 cm x 24.38 cm (12.0 in x 9.6 in) [(>{{wiki:hardware:motherboards:pc164lx:pc164lx_technical_reference_manual.pdf?linkonly|AlphaPC 164LX Motherboard Technical Reference Manual}}, p. 3-2)]
 
 ==== Memory ====
 

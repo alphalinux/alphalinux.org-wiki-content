@@ -1,5 +1,16 @@
 ===== AlphaBook 1 =====
 
+<WRAP box right 340px>
+^ AlphaBook 1 ^^
+^ CPU | [[wp>Alpha_21064#Alpha_21066A|21066A]] (LCA45) |
+^ Core logic | LCA (integrated in the CPU) |
+^ Memory | 32 MB to 128 MB, SIMMs |
+^ Buses | PCI, PCMCIA |
+^ Firmware | SRM |
+^ Kernel option | ''CONFIG_ALPHA_BOOK1'' |
+^ Linux | Linux 6.9 and earlier |
+</WRAP>
+
 The ALPHAbook 1 is the only Alpha notebook computer that reached the market. It was built by Tadpole Technology, announced at DECUS on 5 December 1995, and shipped from early January 1996 under a strategic agreement with Digital announced in May 1994. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-January.mbox#L23398|"Re: Alpha Notebooks, Notebooks with hardware MPEG"]], Britt Lysaa, comp.sys.dec, 5 Jan 1996, quoting a Business Wire release of 5 Dec 1995)] Tadpole had built three generations of SPARCbook notebooks, and the ALPHAbook 1 applied the same design to Digital's 21066A. It was aimed at software development, defense, communications, and engineering customers who needed a portable OpenVMS machine; Digital's own low-power notebook projects, Alpha LEAN and Burns, never shipped. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-January.mbox#L25785|"Re: New Alpha XLs????"]], Terry C. Shannon, comp.sys.dec, 11 Jan 1996)] Linux 6.9 was the last kernel to support it.
 
 It is closely related to the [[hardware:motherboards:axppci33|AXPpci 33]] and the Multia: the same 21066A with its integrated PCI and memory controller, plus power management and a Cirrus PCI-to-PCMCIA controller. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-June.mbox#L7388|"First-draft AlphaBook support"]], Jason Thorpe, port-alpha, 25 Jun 1998)] It was nonetheless a separate Linux platform rather than part of Noname. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)]

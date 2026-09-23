@@ -1,5 +1,18 @@
 ===== UP1100 =====
 
+<WRAP box right 340px>
+^ UP1100 ^^
+^ CPU | [[wp>Alpha_21264#Alpha_21264A|21264A]] (EV67), 600 MHz |
+^ Core logic | [[hardware:chipsets#AMD-751|AMD-751]] (Irongate) |
+^ Memory | 3 DIMM slots, ECC SDRAM, up to 768 MiB |
+^ Buses | 32-bit PCI, AGP |
+^ Form factor | ATX |
+^ Onboard I/O | 2 IDE, floppy, 2 serial, parallel, keyboard, mouse, 2 USB, 21143 Ethernet, sound |
+^ Firmware | SRM |
+^ Kernel option | ''CONFIG_ALPHA_NAUTILUS'' |
+^ Linux | Supported |
+</WRAP>
+
 The UP1100 is a motherboard built by Samsung and Alpha Processor, Inc. (API), later API NetWorks, and introduced in 2000. [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. iii)]
 
 <gallery right aligned nocrop>
@@ -15,6 +28,9 @@ wiki:hardware:motherboards:up1100:up1100-1.jpg API NetWorks UP1100
   * 3x 33 MHz 32-bit PCI slots
   * DECchip 21143 Ethernet
   * ALi M5451 Sound [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L44443|"2.4.0 on UP1100"]], Michal Jaegermann, axp-list, 24 Nov 2000)]
+  * 2x Ultra DMA 33/66 IDE connectors, 2x USB ports, 2x serial ports, an ECP/EPP parallel port, and a floppy controller, all driven by the M1535D, plus PS/2 keyboard and mouse ports [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 1-2)]
+  * ATX form factor, 12 in x 9.6 in (30.48 cm x 24.38 cm) [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 1-1)]
+  * Front panel connectors for the power button, reset button, power LED, hard disk activity LED, speaker, and keyboard lock [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 2-3)]
 
 ==== Limitations ====
 
@@ -39,7 +55,7 @@ Because the UP1100 boots from SRM, the generic Alpha kernel works on it. [(>[[ht
 
 ==== Power supply ====
 
-The UP1100 can run from a good quality 300 W power supply, but 350 W to 400 W is recommended. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-September.mbox#L17709|"Re: Power Supply for UP 2000."]], Maurice Hilarius, axp-list, 22 Sep 2001)]
+The UP1100 can run from a good quality 300 W power supply, but 350 W to 400 W is recommended. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-September.mbox#L17709|"Re: Power Supply for UP 2000."]], Maurice Hilarius, axp-list, 22 Sep 2001)] The manual specifies a 300 W ATX power supply connected through a standard 20-pin ATX connector, and recommends the EMACS AP2-5300F (28 A at +3.3 V, 30 A at +5 V) or a comparable supply. [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, pp. 3-1 to 3-2)]
 
 ==== Conflicting information ====
 
