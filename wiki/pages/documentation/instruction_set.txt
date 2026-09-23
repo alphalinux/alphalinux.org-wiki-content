@@ -1,4 +1,6 @@
-===== Alpha Instruction Set =====
+===== Instruction Set =====
+
+Alpha is a 64-bit load/store RISC architecture. It has 32 integer and 32 floating-point registers, all 64 bits wide, and every instruction is 32 bits long. Memory is accessed only by loads and stores, which in the original architecture work on 32-bit longwords and 64-bit quadwords only. Later processors added extensions for byte and word access, multimedia, floating-point moves and square roots, and bit counting. This page summarizes the registers and their conventional use, the extensions and the processors that introduced them, and the instructions and assembler features most often met in Linux programming. The {{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}} is the definitive reference; see [[documentation:references|References]].
 
 ==== Registers ====
 
@@ -39,23 +41,25 @@ By convention, 15 registers are for temporary values, 8 are saved across functio
 
 ==== Example program ====
 
-<code asm>
-# hello.S
-# gcc hello.S -o hello
-# ./hello
-.data
-PRINT:	.asciz		"Hello, World!\n"
+The program below calls ''printf'' from assembly. It is built and run with ''gcc hello.S -o hello'' and ''./hello''. The ''.frame'', ''.mask'', and ''.prologue'' directives describe the stack frame for debuggers and the unwinder, and ''ldgp'' sets up the global pointer, which must be reloaded after every call to another function. [(>[[https://sourceware.org/git/?p=binutils-gdb.git;a=blob;f=gas/doc/c-alpha.texi|gas/doc/c-alpha.texi]], binutils)]
 
-.text
+<code asm>
+	.data
+PRINT:	.asciz	"Hello, World!\n"
+
+	.text
 	.align	4
 	.set	noreorder
-	.arch	ev4
+	.arch	ev56
 	.globl	main
 	.ent	main
-
-main:	ldgp	$gp,0($27)		# load global pointer
+main:
+	.frame	$sp,16,$26,0		# 16-byte frame, return address in $26
+	.mask	0x4000000,-16		# $26 is saved in the frame
+	ldgp	$gp,0($27)		# load global pointer
 	lda	$sp,-16($sp)		# allocate a stack frame
 	stq	$26,0($sp)		# save return address to stack
+	.prologue 1			# end of prologue; 1 means it uses $gp
 
 	lda	$16,PRINT		# load format string
 					# $16 is first argument to functions
@@ -68,17 +72,25 @@ main:	ldgp	$gp,0($27)		# load global pointer
 	lda	$sp,16($sp)		# release the stack frame
 	ret	$31,($26),1		# return, (1 signifies return from a procedure)
 	.end	main
+
+	.section .note.GNU-stack,"",@progbits
 </code>
 
 ==== ISA extensions ====
 
-=== Presence detection ===
+Each extension was introduced in one processor and is present in every later one, with one exception: the EV56 (21164A) has BWX but not MVI, which first appeared in the PCA56 (21164PC). The [[amask]] instruction reports at run time which extensions a processor implements, using the bit given in the table; ''IMPLVER'' reports only the processor generation, for tuning decisions. [(>{{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}, section 4.11 and Appendix D, pp. 4-141, D-4 to D-5)] GCC enables an extension with its ''-m'' option, or with a ''-mcpu'' value for a processor that has it. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.cc|gcc/config/alpha/alpha.cc]], GCC)] [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.opt|gcc/config/alpha/alpha.opt]], GCC)]
 
-The [[amask]] instruction reports which instruction set extensions are present at runtime.
+^ Extension ^ First processor ^ AMASK bit ^ GCC option ^ First ''-mcpu'' ^
+| Byte/word extension (BWX) | EV56 (21164A) | 0 | ''-mbwx'' | ''ev56'' |
+| Motion video instructions (MVI) | PCA56 (21164PC) | 8 | ''-mmax'' | ''pca56'' |
+| Floating-point extension (FIX) | EV6 (21264) | 1 | ''-mfix'' | ''ev6'' |
+| Count extension (CIX) | EV67 (21264A) | 2 | ''-mcix'' | ''ev67'' |
 
-=== Byte/Word eXtensions (BWX) ===
+Linux requires BWX since Linux 6.10; see [[documentation:kernel#processor_support|Kernel: Processor support]].
 
-The [[wp>DEC_Alpha#Byte-Word_Extensions_(BWX)|Byte/Word eXtensions (BWX)]] were introduced in the EV56 and are available in all subsequent implementations.
+=== Byte/word extension (BWX) ===
+
+The [[wp>DEC_Alpha#Byte-Word_Extensions_(BWX)|byte/word extension]] adds loads and stores of 8-bit bytes and 16-bit words, without which they are done by loading the containing quadword and extracting or inserting the byte; see [[documentation:porting:byte_word_access|Byte and Word Access]].
 
 ^ Mnemonic ^ Description ^
 | **ldbu** | Load byte, zero-extended |
@@ -90,46 +102,81 @@ The [[wp>DEC_Alpha#Byte-Word_Extensions_(BWX)|Byte/Word eXtensions (BWX)]] were 
 
 === Motion video instructions (MVI) ===
 
-[[wp>DEC_Alpha#Motion_Video_Instructions_(MVI)|Motion Video Instructions (MVI)]] were introduced in the PCA56 and are available in all subsequent implementations.
+The [[wp>DEC_Alpha#Motion_Video_Instructions_(MVI)|motion video instructions]] operate on bytes and words packed into a 64-bit register.
 
 ^ Mnemonic ^ Description ^
-| **maxsb8** | Vector Signed Byte Maximum |
-| **maxsw4** | Vector Signed Word Maximum |
-| **maxub8** | Vector Unsigned Byte Maximum |
-| **maxuw4** | Vector Unsigned Word Maximum |
-| **minsb8** | Vector Signed Byte Minimum |
-| **minsw4** | Vector Signed Word Minimum |
-| **minub8** | Vector Unsigned Byte Minimum |
-| **minuw4** | Vector Unsigned Word Minimum |
-| **perr** | Pixel Error |
-| **pklb** | Pack Longwords to Bytes |
-| **pkwb** | Pack Words to Bytes |
-| **unpkbl** | Unpack Bytes to Longwords |
-| **unpkbw** | Unpack Bytes to Words |
+| **maxsb8** | Vector signed byte maximum |
+| **maxsw4** | Vector signed word maximum |
+| **maxub8** | Vector unsigned byte maximum |
+| **maxuw4** | Vector unsigned word maximum |
+| **minsb8** | Vector signed byte minimum |
+| **minsw4** | Vector signed word minimum |
+| **minub8** | Vector unsigned byte minimum |
+| **minuw4** | Vector unsigned word minimum |
+| **perr** | Pixel error |
+| **pklb** | Pack longwords to bytes |
+| **pkwb** | Pack words to bytes |
+| **unpkbl** | Unpack bytes to longwords |
+| **unpkbw** | Unpack bytes to words |
 
-=== Floating-point instruction eXtensions (FIX) ===
+=== Floating-point extension (FIX) ===
 
-The [[wp>DEC_Alpha#Floating-point_Extensions_(FIX)|Floating-point Instruction eXtensions (FIX)]] were introduced in the EV6 and are available in all subsequent implementations.
+The [[wp>DEC_Alpha#Floating-point_Extensions_(FIX)|floating-point extension]] adds moves between the integer and floating-point registers, which otherwise go through memory, and square root instructions.
 
-^ Mnemonic ^ Description ^ Floating-Point Format ^
-| **itofs** | Copy Low 32 bits from Integer Register to Floating-Point Register using S_floating Format | IEEE |
-| **itoft** | Copy 64 bits from Integer Register to Floating-Point Register | IEEE |
-| **itoff** | Copy Low 32 bits from Integer Register to Floating-Point Register using F_floating Format | VAX |
-| **ftois** | Copy Floating-Point Register using S_floating Format to Integer Register | IEEE |
-| **ftoit** | Copy 64 bits from Floating-Point Register to Integer Register | IEEE |
-| **sqrts** | Calculate square root of S_floating Formatted Value | IEEE |
-| **sqrtt** | Calculate square root of T_floating Formatted Value | IEEE |
-| **sqrtf** | Calculate square root of F_floating Formatted Value | VAX |
-| **sqrtg** | Calculate square root of G_floating Formatted Value | VAX |
+^ Mnemonic ^ Description ^ Format ^
+| **itofs** | Copy the low 32 bits of an integer register to a floating-point register in S_floating format | IEEE |
+| **itoft** | Copy 64 bits from an integer register to a floating-point register | IEEE |
+| **itoff** | Copy the low 32 bits of an integer register to a floating-point register in F_floating format | VAX |
+| **ftois** | Copy a floating-point register in S_floating format to an integer register | IEEE |
+| **ftoit** | Copy 64 bits from a floating-point register to an integer register | IEEE |
+| **sqrts** | Square root of an S_floating value | IEEE |
+| **sqrtt** | Square root of a T_floating value | IEEE |
+| **sqrtf** | Square root of an F_floating value | VAX |
+| **sqrtg** | Square root of a G_floating value | VAX |
 
-=== Count instruction eXtensions (CIX) ===
+=== Count extension (CIX) ===
 
-The [[wp>DEC_Alpha#Count_Extensions_(CIX)|Count Instruction eXtensions (CIX)]] were introduced in the EV67 and are available in all subsequent implementations.
+The [[wp>DEC_Alpha#Count_Extensions_(CIX)|count extension]] adds bit counting instructions.
 
 ^ Mnemonic ^ Description ^
-| **ctlz** | Count Leading Zeros |
-| **ctpop** | Count Population (Count number of 1's) |
-| **cttz** | Count Trailing Zeros |
+| **ctlz** | Count leading zeros |
+| **ctpop** | Count population (the number of 1 bits) |
+| **cttz** | Count trailing zeros |
+
+==== Atomic operations ====
+
+Alpha has no atomic read-modify-write instructions. Atomic operations are built from a load-locked and store-conditional pair: ''ldl_l'' or ''ldq_l'' loads a longword or quadword and sets a lock flag, and ''stl_c'' or ''stq_c'' stores only if no other processor has written to the locked location in the meantime, writing 1 to its source register on success and 0 on failure. The sequence is retried in a loop until the store succeeds. There are no byte or word forms, even with BWX. The architecture limits what may appear between the two instructions, and the ordering of memory accesses around them is set with ''mb'' and ''wmb'' barriers. [(>{{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}, sections 4.2.4 and 4.2.5, pp. 4-9 to 4-15)] See [[documentation:porting:memory_model|Memory Model]] for the rules and their consequences for Linux code.
+
+==== PALcode calls ====
+
+''call_pal'' calls a function of the PALcode, the firmware layer beneath the operating system. Linux uses the PALcode interface of Tru64 UNIX (OSF/1). The calls a user program meets are: [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/pal.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/pal.h]], Linux 7.3)]
+
+^ Call ^ Number ^ Use ^
+| ''callsys'' | 0x83 | Enter the kernel for a system call |
+| ''bpt'' | 0x80 | Breakpoint trap, used by debuggers |
+| ''imb'' | 0x86 | Instruction memory barrier, needed after writing code to memory, as a JIT compiler does |
+| ''rduniq'' | 0x9e | Read the thread's unique value, the thread pointer used for TLS |
+| ''wruniq'' | 0x9f | Write the thread's unique value |
+
+GCC's ''%__builtin_thread_pointer%'' compiles to ''call_pal 0x9e'' (''rduniq''), and glibc uses it to find the thread's TLS block. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.md|gcc/config/alpha/alpha.md]], GCC)] [(>[[https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/alpha/nptl/tls.h|sysdeps/alpha/nptl/tls.h]], glibc)] The system call convention, with the number in ''$0'', arguments in ''$16'' to ''$21'', and an error flag returned in ''$19'', is described under [[documentation:porting:abi#system_calls|Linux ABI Differences: System calls]].
+
+==== Relocation operators ====
+
+GNU as accepts explicit relocation annotations on individual instructions, written after the operands with ''!''. GCC emits them when it schedules the address calculations itself, and they appear in its assembly output and in hand-written assembly: [(>[[https://sourceware.org/git/?p=binutils-gdb.git;a=blob;f=gas/doc/c-alpha.texi|gas/doc/c-alpha.texi]], binutils)]
+
+  * ''!literal'' marks an ''ldq'' that loads a symbol's address from the global offset table (GOT), and the ''!lituse_*'' operators mark the instructions that use the loaded address, so that the linker can optimize the sequence.
+  * ''!gpdisp'' marks the ''ldah'' and ''lda'' pair that computes the global pointer, as the ''ldgp'' macro does.
+  * ''!gprelhigh'', ''!gprellow'', and ''!gprel'' address data at a fixed offset from the global pointer.
+  * ''!tlsgd'', ''!tlsldm'', ''!gotdtprel'', ''!dtprelhi'', ''!gottprel'', ''!tprelhi'' and related operators implement the thread-local storage models.
+
+<code asm>
+	ldah	$29,0($27)	!gpdisp!1
+	lda	$29,0($29)	!gpdisp!1
+	ldq	$1,b($29)	!literal!2
+	ldl	$2,0($1)	!lituse_base!2
+</code>
+
+''!literal'' and ''!gprel'' reach the GOT or data through a 16-bit displacement from the global pointer, which limits them to a 64 KiB window around the global pointer; see [[documentation:toolchains|Toolchains]] for the "relocation truncated to fit" errors this causes in large programs.
 
 ==== Further reading ====
 
