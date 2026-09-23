@@ -31,6 +31,7 @@ wiki:hardware:motherboards:up1500:up1500-1.jpg Samsung UP1500
   * 2x Ultra DMA 33/66/100 IDE connectors, 2x USB ports, 2x serial ports, an ECP/EPP parallel port, and a floppy controller, all driven by the M1535D+, plus PS/2 keyboard and mouse ports [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, p. 1-2)]
   * ATX form factor, 12 in x 9.6 in (30.48 cm x 24.38 cm) [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, p. 1-1)]
   * Front panel connectors for the power button, reset button, power LED, hard disk activity LED, network receive LED, speaker, and keyboard lock [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, p. 2-3)]
+  * Configuration switchpack SW1: switches 1 and 2 select the firmware image (both on, the default, for the SRM console; both off for the fail-safe booter); switches 4, 5, and 6 set the system bus speed (off, off, on for 133 MHz, the default; all off for 100 MHz); switches 7 and 8 set the L2 cache size (on/off for 2 MiB, off/on for 4 MiB, off/off for 8 MiB, on/on to disable the cache) [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, pp. 2-5 to 2-6)]
 
 ==== Memory ====
 
@@ -46,6 +47,12 @@ The original CPU fan is an 80x15 mm Nidec Beta SL (12 V, 0.09 A). The fan contro
 
 The last SRM release for the UP1500 is 5.6-19. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L4880|"Latest SRM for UP1500"]], Maurice Hilarius, axp-list, 27 Nov 2008)] The final SRM revisions were made by Samsung to fix issues Hard Data found while testing the UP1500, and were distributed from Hard Data's FTP site. Samsung's development team was then reassigned to other projects. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L4822|"Re: UP1500?"]], Maurice Hilarius, axp-list, 8 Jan 2003)] The UP1500's SRM has a newer BIOS emulator than the UP1000 and UP1100, and handles more video cards. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)]
 
+A floppy image of the 5.6-19 update, ''srmupdt.5.6-19.img'', is kept in the [[https://github.com/alphalinux/firmware/tree/master/api/UP1500|alphalinux/firmware]] repository. Written raw to a floppy, it gives a FAT floppy holding ''albasrm.rom'' and ''up1500fw.txt''. After a power-up or reset, ''lfu'' is run at the SRM prompt, ''dva0'' is given as the device and ''up1500fw.txt'' as the file list, and ''update'' at the ''UPD>'' prompt writes the console; the system must not lose power until it finishes. [(>[[https://github.com/alphalinux/firmware/blob/master/api/UP1500/README.srm|README.srm]], alphalinux/firmware repository)]
+
+==== Firmware recovery ====
+
+If an SRM update is interrupted, setting SW1 switches 1 and 2 off starts the fail-safe booter, which reloads the SRM console; the switches are returned to on afterwards. [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, pp. 5-3 to 5-4)]
+
 ==== Linux ====
 
 Current kernels support the UP1500 with ''CONFIG_ALPHA_NAUTILUS'' or a generic kernel; it boots from SRM with [[software:boot_loaders:aboot|aboot]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] The onboard Ethernet and sound work under Linux, as does an AGP Radeon 7500. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L4594|"Re: UP1500?"]], Falk Hueffner, axp-list, 8 Jan 2003)] The onboard devices use the same drivers as on the [[hardware:motherboards:up1100#linux|UP1100]]: ''pata_ali'' for IDE, ''tulip'' for Ethernet, and ''snd-ali5451'' for sound.
@@ -59,6 +66,11 @@ Current kernels support the UP1500 with ''CONFIG_ALPHA_NAUTILUS'' or a generic k
 ==== History ====
 
 API NetWorks did not distribute the UP1500, so resellers such as Hard Data bought it directly from Samsung. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-August.mbox#L17570|"Re: UP1500"]], Maurice Hilarius, axp-list, 30 Aug 2001)] Samsung stopped making Alpha boards in early 2002. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L4438|"Re: UP1500?"]], Maurice Hilarius, axp-list, 8 Jan 2003)]
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}} | UP1500 800-A1 | May 2001 |
 
 {{gallery>:wiki:hardware:motherboards:up1500}}
 

@@ -32,6 +32,19 @@ The UP2000 was introduced in 2000. [(>{{wiki:hardware:motherboards:up2000:up2000
   * 1x ISA slot (shared)
   * Extended ATX form factor, 12 in x 13 in [(>{{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}}, p. 1-1)]
 
+The UP2000 has four configuration jumper blocks: J27, J29, and J34 together select the CPU speed and must all match the Slot B modules, and J36 selects the L2 cache size. [(>{{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}}, p. 2-4)] J29 also selects the recovery modes; the other J29 pins must stay at their defaults: [(>{{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}}, pp. 5-4 to 5-6)]
+
+^ Mode ^ J29 0/1 ^ J29 6/7 ^ J29 14/15 ^
+| Normal boot (default) | open | open | open |
+| Restore factory defaults (bypass the password) | open | open | jumpered |
+| Normal recovery | jumpered | open | open |
+| Alpha Diagnostics recovery | jumpered | open | jumpered |
+| Interactive Alpha Diagnostics (console) | jumpered | jumpered | open |
+| Interactive Alpha Diagnostics (debug port J42/J43) | jumpered | jumpered | jumpered |
+| Interactive reset PALcode (debug port J42/J43) | open | jumpered | open |
+
+The debug ports, J43 for the primary Slot B module and J42 for the secondary, default to 9600 baud. [(>{{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}}, p. 5-6)]
+
 {{anchor:up2000plus}}
 === UP2000+ ===
 
@@ -41,6 +54,18 @@ The UP2000+ is a minor update to the UP2000; apart from the changes below, the h
   * 2x 64-bit 33 MHz PCI Buses
     * 3x 64-bit Slots on bus 0
     * 1x 64-bit and 2x 32-bit slots on bus 1
+
+The UP2000+ has two jumper blocks. J31 sets the processor voltage (see [[#cpu|CPU]]). [(>{{wiki:hardware:motherboards:up2000plus:up2000plus_user_manual.pdf?linkonly|UP2000+ User Manual}}, p. 2-6)] J29 sets the other options; by default only pins 13-14 are jumpered: [(>{{wiki:hardware:motherboards:up2000plus:up2000plus_user_manual.pdf?linkonly|UP2000+ User Manual}}, pp. 2-7 to 2-8)]
+
+^ J29 pins ^ Function when jumpered ^
+| 1-2 | Recover firmware (normal recovery) |
+| 1-2 and 15-16 | Alpha Diagnostics recovery |
+| 1-2 and 7-8 | Interactive Alpha Diagnostics on the operator console (with 15-16: on debug port J42/J43) |
+| 7-8 | Interactive SROM code on debug port J42/J43 |
+| 9-10 | Write-protect the flash ROM |
+| 11-12 | Disable the L2 cache |
+| 13-14 | Serial remote reset enabled (default; remove to disable) |
+| 15-16 | Restore factory defaults and bypass the password |
 
 ==== CPU ====
 
@@ -69,6 +94,7 @@ DIMMs are installed in banks of four, and a system with fewer than four DIMMs do
 
   * AlphaBIOS and the SRM console are both present in flash, but Linux cannot be booted from AlphaBIOS on the UP2000, so it is booted from SRM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-September.mbox#L25979|"RE: Alpha-bios"]], Rich Payne, axp-list, 12 Sep 2000)]
   * The last SRM release for the UP2000 and UP2000+ is A5.8-81, dated 8 May 2001. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L4822|"Re: UP1500?"]], Maurice Hilarius, axp-list, 8 Jan 2003)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L3708|"how to get a Radeon 7500 to work in UP2000"]], Robert M. Riches Jr., axp-list, 7 Jan 2003)] After API's web site went offline, its firmware was mirrored by Peter Petrakis. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-July.mbox#L12574|"RE: API missing SRM firmware updates"]], Peter Petrakis, axp-list, 20 Jul 2002)]
+  * The same A5.8-81 package, ''up2000_srm_5.8-81.zip'' (''UP20SRM.ROM'' and the ''UP2000FW.TXT'' file list), serves both the UP2000 and the UP2000+, and is kept in the [[https://github.com/alphalinux/firmware/tree/master/api/UP2000|alphalinux/firmware]] repository with earlier releases in its ''archive'' directory. SRM 5.8-65 or later is required for 833 MHz Slot B modules in a UP2000+. When ''lfu'' asks for the file list, ''up2000fw.txt'' must be typed, because the default, ''pc264fw.txt'', fails; ''update srm'' then writes the image. [(>''readme.1st'' in [[https://github.com/alphalinux/firmware/blob/master/api/UP2000/up2000_srm_5.8-81.zip|up2000_srm_5.8-81.zip]], alphalinux/firmware repository)]
   * Compaq's Alpha Systems Firmware CD identifies the UP2000 as a DS20, and flashing a UP2000 from it leaves the system without a working SRM console; API's own UP2000 SRM image must be used instead. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2002-November.mbox#L4001|"SUMMARY: converting UP2000 (Dual CPU) from Linux to Tru64 V5.1"]], Gerfried J. Kumbartzki, tru64-unix-managers, 5 Nov 2002)]
   * SRM is updated with ''lfu'' from a floppy. If ''lfu'' hangs reading the floppy, running it after ''set auto_action halt'' and a power cycle avoids the hang. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2008-November.mbox#L589|"Re: UP2000 plus SRM update"]], Juhana Helovuo, debian-alpha, 6 Nov 2008)]
   * If the system shows only a blue screen with a cursor, the console is probably set to the serial port; ''set console graphics'', entered from a terminal on the serial port, restores the graphics console. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L25384|"Re: Trouble w/SRM on UP2000 Dual Alpha"]], Rich Payne, axp-list, 20 Jul 2001)]

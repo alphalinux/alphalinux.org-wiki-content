@@ -39,6 +39,21 @@ wiki:hardware:motherboards:pc164ux:pc164ux-1.jpg AlphaPC 164UX
   * DeskStation ARCSBIOS firmware (for Windows NT)
   * ATX board, 30.48 cm x 24.38 cm (12.0 in x 9.6 in), with mounting holes to the ATX 2.01 specification; the board exceeds the ATX height limits at the CPU and at the SCSI connectors [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}}, p. 14)]
 
+All configuration jumpers are on block J28: [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}}, pp. 3-1 to 3-3)]
+
+^ J28 option (pins) ^ Function ^
+| 1 to 4 (1-2 to 7-8) | CPU clock, 300 to 800 MHz in 33 MHz steps; 466 MHz is out, in, out, in and 600 MHz is out, in, in, out for options 1 to 4 |
+| 5 | Pyxis bus speed (default out) |
+| 7 | SROM debug mode (default out) |
+| 8 | Firmware debug mode (default out) |
+| 9 | Enable only one set of secondary cache (default out) |
+| 11 (21-22) | In: boot the Safe ARCSBIOS image instead of ARCSBIOS (default out) |
+| 13 | Must be in |
+| 14, 15 (27-30) | L3 cache size, set at the factory: out, out for 2 MiB; out, in for 4 MiB |
+| 16 | Fan OK signal; never jumpered |
+
+Options 6, 10, and 12 are reserved and left out. [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}}, p. 3-2)]
+
 {{anchor:pc164bx}}
 === AlphaPC 164BX ===
 
@@ -49,11 +64,18 @@ The AlphaPC 164BX is the same board as the 164UX, except that it lacks the Ether
 The only firmware for the board is DeskStation's ARCSBIOS, which is distinct from both ARC and AlphaBIOS. No SRM console or AlphaBIOS was ever released for it, so operating systems and installers that require SRM cannot be used. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L29483|"Re: AlphaBios vs SRM"]], Rich Payne, axp-list, 15 Sep 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-January.mbox#L19411|"RE: 164UX: This system is not compatible with Linux/Alpha..."]], Rich Payne, axp-list, 13 Jan 2000)]
 
   * ARCSBIOS updates are flashable, and the last versions (a few Y2K updates) were distributed by API, which never had the ARCSBIOS sources. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-January.mbox#L19411|"RE: 164UX: This system is not compatible with Linux/Alpha..."]], Rich Payne, axp-list, 13 Jan 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-September.mbox#L3760|"Re: Dekstation Raptor Reflex"]], Rich Payne, debian-alpha, 14 Sep 2000)]
+  * The [[https://github.com/alphalinux/firmware/tree/master/api/UX|alphalinux/firmware]] repository keeps ARCSBIOS images 1.3.061 (''UXbios_1.3.061.tgz'') and 1.3.062 (''UXbios_1.3.062.zip'', files dated November 1998), together with the user and technical reference manuals. [(>[[https://github.com/alphalinux/firmware/tree/master/api/UX|api/UX]], alphalinux/firmware repository)]
+  * If the primary image cannot be loaded, the Safe ARCSBIOS starts automatically, signaled by one long and two short beeps; it can also be selected with J28 option 11. It is used to reflash the firmware. [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}}, pp. 3-3, 8-4)]
   * There is no flash management utility for loading MILO into the flash ROM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-May.mbox#L2209|"Re: Flash management utility for ruffian?"]], Jay Estabrook, axp-list, 2 May 1999)]
 
 ==== Linux ====
 
-Current kernels include support for the board (''CONFIG_ALPHA_RUFFIAN'', or a generic kernel), [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] but it can only boot Linux through [[software:boot_loaders:milo|MILO]], and Linux 2.6.22.19 is the last kernel reported to boot on it; 2.6.23 was the first that did not. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2010-August.mbox#L709|"kernel regression on 164UX"]], Ian Las, debian-alpha, 3 Aug 2010)] The cause is the PT_NOTE program header that Linux 2.6.23 added to the kernel image, which MILO mistook for a loadable segment. A MILO fix was committed in May 2026, but has not yet been tested on a 164UX. [(>[[https://github.com/alphalinux-org/milo/commit/7a6701b734208c4fd36bb628996b32f811f6542a|"boot: skip non-PT_LOAD segments when loading kernel image"]], Matt Turner, MILO, 31 May 2026)]
+Current kernels include support for the board (''CONFIG_ALPHA_RUFFIAN'', or a generic kernel), [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] but it can only boot Linux through [[software:boot_loaders:milo|MILO]], and Linux 2.6.22.19 is the last kernel reported to boot on it; 2.6.23 was the first that did not. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2010-August.mbox#L709|"kernel regression on 164UX"]], Ian Las, debian-alpha, 3 Aug 2010)] The cause is the PT_NOTE program header that Linux 2.6.23 added to the kernel image, which MILO mistook for a loadable segment. A MILO fix was committed in May 2026, but has not yet been tested on a 164UX. [(>[[https://github.com/alphalinux-org/milo/commit/7a6701b734208c4fd36bb628996b32f811f6542a|"boot: skip non-PT_LOAD segments when loading kernel image"]], Matt Turner, MILO, 31 May 2026)] See [[software:boot_loaders:milo#booting_linux|MILO: Booting Linux]].
+
+The onboard devices are supported by these drivers:
+  * IDE (Intel 82371SB, PIIX3): ''ata_piix'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/ata_piix.c?h=v7.3-rc1|drivers/ata/ata_piix.c]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/pci_ids.h?h=v7.3-rc1|include/linux/pci_ids.h]], Linux 7.3)]
+  * Ethernet (DEC 21143, 164UX only): ''tulip'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/net/ethernet/dec/tulip/tulip_core.c?h=v7.3-rc1|drivers/net/ethernet/dec/tulip/tulip_core.c]], Linux 7.3)]
+  * SCSI (Symbios 53C875, 164UX only): ''sym53c8xx'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/scsi/sym53c8xx_2/sym_glue.c?h=v7.3-rc1|drivers/scsi/sym53c8xx_2/sym_glue.c]], Linux 7.3)]
 
 ARCSBIOS starts MILO through a DeskStation-specific loader, ''ldmilo.exe''; the ''linload.exe'' used on AlphaBIOS systems does not work, because ARCSBIOS has its own console application interface. The version of ''ldmilo.exe'' later rebuilt by DEC works much like ''linload.exe'', except that the MILO image must be named ''milo''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L43156|"Re: DeskStation/Ruffian booting methods"]], Jay Estabrook, axp-list, 18 Jan 1999)]
 
@@ -65,6 +87,7 @@ ARCSBIOS starts MILO through a DeskStation-specific loader, ''ldmilo.exe''; the 
   * **Onboard Ethernet:** the 21143 often fails to auto-negotiate, particularly at 100 Mbit. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-December.mbox#L2303|"Re: ruffian ether problems"]], Rich Payne, debian-alpha, 9 Dec 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-October.mbox#L10904|"Re: Ruffian & 100Mbit/s"]], Stig Telfer, axp-list, 16 Oct 2000)] Forcing the media type (for example ''options tulip options=14'' for MII 100baseTx full duplex) may help. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-October.mbox#L12835|"Re: Ruffian & 100Mbit/s"]], Michal Jaegermann, axp-list, 18 Oct 2000)]
   * **Memory:** boards with four DIMMs are sensitive to the choice of modules, because the 21174 does not drive the memory lines to the JEDEC standard; the [[hardware:motherboards:pc164lx|AlphaPC 164LX]], which uses the same chipset, is affected in the same way. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-April.mbox#L36191|"Re: UX4 memory problem"]], Brian Rerecich, axp-list, 23 Apr 1999)] Hard Data shipped UX systems with up to 1.5 GiB using selected modules. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-April.mbox#L36524|"Re: UX4 memory problem"]], Maurice Hilarius, axp-list, 23 Apr 1999)]
   * **PCI slots:** the onboard SCSI controller is behind the 21052 PCI-to-PCI bridge. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-December.mbox#L3095|"Re: ruffian ether problems"]], Ron Farrer, debian-alpha, 13 Dec 2000)] A VGA card used as the console must be in the single 64-bit slot, in front of the bridge. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-June.mbox#L26949|"Re: Installing Linux on AlphaPC 164UX"]], Jay Estabrook, axp-list, 12 Jun 1998)]
+  * **Real-time clock:** the RTC chip is soldered to the board. A 164UX that powered on but did not work was repaired in 2026 by replacing the RTC chip, after the old one was removed and a socket fitted. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/gmane-2026-April.mbox#L3143|"RE: The problems in src/sys/dev/ic/isp.c"]], Yoshihiko Iwama, port-alpha, 27 Apr 2026)]
 
 ==== History ====
 

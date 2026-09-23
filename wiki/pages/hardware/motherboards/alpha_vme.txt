@@ -41,6 +41,8 @@ The boards run the SRM console. Beyond the usual environment variables, it has '
 
 Unlike the evaluation boards, the VME boards had their firmware published on Digital's Alpha firmware CD-ROM and ''gatekeeper.dec.com'', in ''axpvme'' and ''alphavme'' directories. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1997-February.mbox#L2455|"Re: Support for AXP Motherboard"]], Carl S. Shapiro, port-alpha, 21 Feb 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1997-April.mbox#L2076|"Re: Where should I start?"]], Carl S. Shapiro, port-alpha, 28 Apr 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7397|"Re: How to flash MILO? ( Not a faq )"]], Peter Rival, axp-list, 6 Oct 1999)]
 
+The ''SMMTABLE.TXT'' file on the V7.3 firmware CD lists SRM 1.3 as the last version for the Alpha VME 4/224 and 4/288 and names no update file for it (the entry is ''[ARCHIVE]NOFILE.EXE''). [(>''SMMTABLE.TXT'', Alpha Systems Firmware Update CD V7.3, 14 Mar 2007)]
+
 ==== Linux ====
 
 Linux was never ported to these boards: no kernel platform for them exists. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)] The Alpha VME 4 is supported by VxWorks for Alpha and by Digital UNIX. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 1-1)] The AXPvme and Alpha VME boards are listed among the systems supported by Tru64 UNIX V4.0F (see [[software:operating_systems|Operating Systems]]).

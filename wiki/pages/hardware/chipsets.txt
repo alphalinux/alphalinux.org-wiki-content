@@ -1,6 +1,6 @@
 ===== Chipsets =====
 
-This page covers the core logic used on the [[hardware:motherboards|motherboards]]. Chipsets used only in Digital's and Compaq's own systems, such as Titan, Marvel, and Wildfire, are described on the [[hardware:systems|system]] pages.
+This page covers the core logic used on the [[hardware:motherboards|motherboards]]. Chipsets used only in Digital's and Compaq's own systems, such as Titan, Marvel, and Wildfire, are listed under [[#system_chipsets|System chipsets]] and described on the [[hardware:systems|system]] pages.
 
 ^ Chipset ^ CPUs ^ Motherboards ^ Linux code ^ Current kernels ^
 | [[#21071_and_21072|21071/21072 (APECS)]] | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | [[hardware:motherboards:eb64plus|EB64+]], [[hardware:motherboards:pc64|AlphaPC 64]] | ''core_apecs.c'' | Linux 6.9 and earlier |
@@ -15,6 +15,19 @@ This page covers the core logic used on the [[hardware:motherboards|motherboards
 The Linux code column names the file in ''arch/alpha/kernel'' that supports the chipset. The APECS and LCA files were removed with support for processors older than the EV56 (21164A) in Linux 6.10; [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/Makefile?h=v6.9|arch/alpha/kernel/Makefile]], Linux 6.9)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/Makefile?h=v7.3-rc1|arch/alpha/kernel/Makefile]], Linux 7.3)] the CIA code remains for EV56 systems. The Current kernels column uses the same values as the [[hardware:motherboards|Motherboards]] table.
 
 The [[wp>Alpha_21064#Alpha_21066A|21066 and 21066A]] integrate their memory and PCI controllers, so boards such as the [[hardware:motherboards:eb66|EB66]] and [[hardware:motherboards:eb66plus|EB66+]] need no separate chipset. Linux supported them with ''core_lca.c'' through Linux 6.9.
+
+==== System chipsets ====
+
+The kernel also has core logic support for chipsets that appear only in Digital's and Compaq's systems. Whether a system runs current kernels depends on its processor as well; see the Linux column of the [[hardware:systems|Systems]] table.
+
+^ Chipset ^ Systems ^ Linux code ^
+| T2 | [[hardware:systems:sable|AlphaServer 2000, 2100 (Sable)]], [[hardware:systems:lynx|AlphaServer 2100A (Lynx)]] | ''core_t2.c'' |
+| MCPCIA (MCbus to PCI adapter) | [[hardware:systems:rawhide|AlphaServer 1200, 4000, 4100 (Rawhide)]] | ''core_mcpcia.c'' |
+| Wildfire | [[hardware:systems:wildfire|AlphaServer GS80, GS160, GS320]] | ''core_wildfire.c'' |
+| Titan | [[hardware:systems:titan|AlphaServer DS25, ES45]] | ''core_titan.c'' |
+| IO7 (Marvel) | [[hardware:systems:marvel|AlphaServer ES47, ES80, GS1280]] | ''core_marvel.c'' |
+
+The kernel configuration names the systems each platform covers, and builds the T2 code for Sable and the MCPCIA code for Rawhide. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] ''sys_sable.c'' covers the Sable, Sable-Gamma, and Lynx systems, and ''core_t2.c'' serves both Sable and Lynx, [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_t2.c?h=v7.3-rc1|arch/alpha/kernel/core_t2.c]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_sable.c?h=v7.3-rc1|arch/alpha/kernel/sys_sable.c]], Linux 7.3)] ''core_mcpcia.c'' is the "code common to all MCbus-PCI Adaptor core logic chipsets", [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_mcpcia.c?h=v7.3-rc1|arch/alpha/kernel/core_mcpcia.c]], Linux 7.3)] and ''core_marvel.c'' manages the IO7 chips of the EV7 systems. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_marvel.c?h=v7.3-rc1|arch/alpha/kernel/core_marvel.c]], Linux 7.3)] The Titan and Wildfire code is in ''core_titan.c'' and ''core_wildfire.c''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_titan.c?h=v7.3-rc1|arch/alpha/kernel/core_titan.c]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_wildfire.c?h=v7.3-rc1|arch/alpha/kernel/core_wildfire.c]], Linux 7.3)]
 
 ==== 21071 and 21072 ====
 
@@ -68,6 +81,8 @@ The AMD-751 (Irongate) is an Athlon system controller, used with the 21264 on th
 | {{wiki:hardware:chipsets:amd-751:amd-751_data_sheet.pdf?linkonly|AMD-751 System Controller Data Sheet}} | 21910E | March 2000 |
 
 ==== AMD-761 ====
+
+The AMD-761 is an Athlon system controller with a DDR SDRAM memory interface, [(>{{wiki:hardware:chipsets:amd-761:amd-761_software_bios_design_guide.pdf?linkonly|AMD-761 System Controller Software/BIOS Design Guide}}, p. 149)] used on the [[hardware:motherboards:up1500|UP1500]]. ''core_irongate.c'' supports it and tells it apart from the AMD-751 by device ID, since the two keep their ECC status in different registers. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_irongate.c?h=v7.3-rc1|arch/alpha/kernel/core_irongate.c]], Linux 7.3)]
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:chipsets:amd-761:amd-761_software_bios_design_guide.pdf?linkonly|AMD-761 System Controller Software/BIOS Design Guide}} | 24081D | February 2002 |

@@ -38,13 +38,13 @@ Details and sources are on each board's page.
 
 ^ Motherboard ^ Form factor ^ Onboard I/O ^ Firmware ^ Current kernel ^
 | [[hardware:motherboards:eb64|EB64]] | unknown | Am79C960 Ethernet, floppy, 2 serial, keyboard, mouse | Debug monitor, SRM | Removed in 1995 |
-| [[hardware:motherboards:eb64plus|EB64+]] | Full-size AT | NCR 53C810 SCSI, 21040 Ethernet, floppy, 2 serial, parallel | ARC, SRM, MILO | Linux 6.9 and earlier |
+| [[hardware:motherboards:eb64plus|EB64+]] | Full-size AT | NCR 53C810 SCSI, 21040 Ethernet, floppy, 2 serial, parallel | ARC 4.49-7, SRM, MILO | Linux 6.9 and earlier |
 | [[hardware:motherboards:eb66|EB66]] | Baby AT | NCR 53C810 SCSI, 21040 Ethernet, floppy, 2 serial, parallel | ARC, SRM, MILO | Linux 6.9 and earlier |
 | [[hardware:motherboards:eb66plus|EB66+]] | Baby AT | IDE, floppy, 2 serial, parallel | SRM, MILO | Linux 6.9 and earlier |
 | [[hardware:motherboards:axppci33|AXPpci 33]] | Baby AT | NCR 53C810 SCSI, IDE, floppy, 2 serial, parallel | ARC, SRM, MILO | Linux 6.9 and earlier |
-| [[hardware:motherboards:pc64|AlphaPC 64]] | Baby AT | IDE, floppy, 2 serial, parallel | ARC, SRM 4.8, MILO | Linux 6.9 and earlier |
+| [[hardware:motherboards:pc64|AlphaPC 64]] | Baby AT | IDE, floppy, 2 serial, parallel | ARC 4.49-7, SRM 4.8, MILO | Linux 6.9 and earlier |
 | [[hardware:motherboards:eb164|EB164]] | Full-size AT | IDE, floppy, 2 serial, parallel | ARC, SRM 4.8, MILO | Linux 6.9 and earlier |
-| [[hardware:motherboards:pc164|AlphaPC 164]] | ATX | CMD646 IDE, floppy, 2 serial, parallel | ARC or SRM, MILO | Supported |
+| [[hardware:motherboards:pc164|AlphaPC 164]] | ATX | CMD646 IDE, floppy, 2 serial, parallel | ARC or SRM 5.6, MILO | Supported |
 | [[hardware:motherboards:pc164lx|AlphaPC 164LX]] | ATX | CMD646 IDE, floppy, 2 serial, parallel | SRM 5.8 or AlphaBIOS, MILO | Supported |
 | [[hardware:motherboards:pc164sx|AlphaPC 164SX]] | ATX | Cypress IDE, floppy, 2 serial, parallel | SRM 5.8 or AlphaBIOS, MILO | Supported |
 | [[hardware:motherboards:pc164ux|AlphaPC 164UX, 164BX]] | ATX | EIDE, floppy, 2 serial, parallel; 21143 Ethernet and 53C875 SCSI on the UX | ARCSBIOS, MILO | Untested |
@@ -54,6 +54,8 @@ Details and sources are on each board's page.
 | [[hardware:motherboards:up1100|UP1100]] | ATX | 2 IDE, floppy, 2 serial, parallel, 2 USB, 21143 Ethernet, sound | SRM | Supported |
 | [[hardware:motherboards:up1500|UP1500]] | ATX | 2 IDE, floppy, 2 serial, parallel, 2 USB, 21143 Ethernet, sound | SRM 5.6-19 | Supported |
 | [[hardware:motherboards:up2000|UP2000, UP2000+]] | Extended ATX | AIC-7891 SCSI, IDE, floppy, 2 serial, parallel, 2 USB | SRM A5.8-81, AlphaBIOS | Supported |
+
+The EB64+, EB66+, EB164, AXPpci 33, and AlphaPC 64 keep the time in a Dallas DS1287 or DS1287A clock chip that contains a sealed lithium cell, so the whole chip is replaced when the cell is exhausted; the AlphaPC 164, 164LX, 164SX, and 264DP use a replaceable CR2032 coin cell. Details and sources are on each board's page; see also [[hardware:systems#common_problems|Systems: Common problems]].
 
 API NetWorks also announced the [[hardware:motherboards:up1700|UP1700]] and [[hardware:motherboards:up2700|UP2700]] for 2001, but neither was released.
 

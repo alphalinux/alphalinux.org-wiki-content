@@ -38,6 +38,17 @@ wiki:hardware:motherboards:pc164lx:pc164lx-1.jpg Digital AlphaPC 164LX
   * MMJ SROM console port
   * ATX board, 30.48 cm x 24.38 cm (12.0 in x 9.6 in) [(>{{wiki:hardware:motherboards:pc164lx:pc164lx_technical_reference_manual.pdf?linkonly|AlphaPC 164LX Motherboard Technical Reference Manual}}, p. 3-2)]
 
+The board is configured with jumper blocks J27 and J28. [(>{{wiki:hardware:motherboards:pc164lx:pc164lx_technical_reference_manual.pdf?linkonly|AlphaPC 164LX Motherboard Technical Reference Manual}}, pp. 2-4 to 2-6)]
+
+^ Jumper ^ Function ^ Settings ^
+| J27 IRQ3 to IRQ0 (pins 1 to 8) | CPU speed | 466 MHz: in, out, out, out (default); 533 MHz: out, in, in, in; 600 MHz: out, in, in, out |
+| J27 CF1, CF2 (pins 11 to 14) | Bcache size | 2 MiB: both out (default); 4 MiB: CF1 out, CF2 in; 1 MiB: CF1 in, CF2 out |
+| J27 CF3 (pins 15, 16) | Password bypass | In bypasses and clears the AlphaBIOS password |
+| J27 CF7 (pins 23, 24) | Boot option | Out loads the console (default); in loads the fail-safe booter |
+| J28 | Flash ROM update | 2-3 write-enabled (default); 1-2 write-protected |
+
+J27 CF0 and CF4 to CF6 are reserved and left out.
+
 ==== CPU ====
 
 The 164LX can be jumpered for 466, 533, or 600 MHz. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L873|"searching for a wide alpha cpu heatsink"]], Jay Estabrook, axp-list, 5 Nov 2008)] The PCI bus runs at its maximum speed only when the CPU speed is a multiple of 66 MHz, which is true of all three standard 164LX speeds. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-May.mbox#L16649|"Q: Miata vs LX, ASUS SC875 SCSI, Teles ISDN"]], Jay Estabrook, axp-list, 12 May 1998)] 21164A CPUs taken from Personal Workstations work, but their heatsinks have no fan, since the fan is part of the workstation enclosure. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2006-December.mbox#L580|"Samsung CPU on a 164LX mainboard"]], Jay Estabrook, axp-list, 8 Dec 2006)]
@@ -82,6 +93,8 @@ The flash ROM holds only one console image at a time, either AlphaBIOS or SRM. [
 
 Switching from AlphaBIOS to SRM is done by copying ''lx164srm.rom'' to a FAT-formatted floppy and flashing it with the upgrade utility in AlphaBIOS Setup. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-October.mbox#L888|"SRM on 164LX"]], Steven Moix, axp-list, 4 Oct 2004)] The flash is write-protected unless pins 2 and 3 of J28 are jumpered together, which is the default. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-January.mbox#L1202|"Updating AlphaBIOS to SRM on an AlphaPC 164LX"]], Harald Simon, debian-alpha, 6 Jan 2002)]
 
+The ''SMMTABLE.TXT'' file on the V7.3 firmware CD lists SRM 5.8 as the last version for the board but names no update file for it (the entry is ''[ARCHIVE]NOFILE.EXE''). [(>''SMMTABLE.TXT'', Alpha Systems Firmware Update CD V7.3, 14 Mar 2007)] The ''api/LX'' directory of the [[https://github.com/alphalinux/firmware/tree/master/api/LX|alphalinux/firmware]] repository holds API's 164LX files: ''lx164srm.rom'' with ''fwupdate.exe'', whose accompanying ''fwreadme.txt'' (12 Oct 1998) describes SRM V5.3-3, and AlphaBIOS 5.68-1 (''LXbios_5.68-1.zip''). [(>[[https://github.com/alphalinux/firmware/blob/master/api/LX/fwreadme.txt|fwreadme.txt]], alphalinux/firmware repository)] According to its history file, AlphaBIOS 5.68-1 supports both the 28F008SA and 28F008S5 flash chips and is the version evaluated by Samsung. [(>''history.txt'' in [[https://github.com/alphalinux/firmware/blob/master/api/LX/LXbios_5.68-1.zip|LXbios_5.68-1.zip]], alphalinux/firmware repository)]
+
 AlphaBIOS uses different keys on a serial console: <key>Tab</key> to move between menu items, <key>C-b</key> to enter setup (instead of <key>F2</key>), and <key>C-u</key> to save the operating system configuration (instead of <key>F10</key>). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-December.mbox#L1926|"Headless install on LX164"]], Adam C Powell IV, debian-alpha, 7 Dec 1999)]
 
 The 164LX was manufactured by both Digital and Samsung. Digital boards use an Intel 28F008SA flash chip, while some Samsung boards use an Intel 28F008S5, which has a slightly different command set [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-May.mbox#L2490|"clearing SRM password for LX164"]], Peter Petrakis, axp-list, 3 May 2002)]; the change was a part substitution during production. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-May.mbox#L2573|"clearing SRM password for LX164"]], Rich Payne, axp-list, 3 May 2002)]
@@ -115,6 +128,15 @@ Current kernels support the AlphaPC 164LX with ''CONFIG_ALPHA_LX164'' or a gener
 
   * The CPU corresponds to GCC's ''-mcpu=ev56''; it has the BWX extension but not MVI. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L39096|"different alpha cpu compatibility issues?"]], Jay Estabrook, axp-list, 28 Mar 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L563|"Playing DVDs"]], Jay Estabrook, axp-list, 3 Jan 2002)] The [[hardware:chipsets#21174|21174]] core logic supports byte and word access to I/O space, which the kernel enables. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_cia.c?h=v7.3-rc1|arch/alpha/kernel/core_cia.c]], Linux 7.3)]
   * The boot message ''pci: failed valid tag invalid pte reload test (mcheck; workaround enabled)'' appears on every 164LX and is harmless: it reflects a known weakness of the 21174. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2005-April.mbox#L3188|"AlphaPC 164LX & SRM (again)"]], Jay Estabrook, axp-list, 13 Apr 2005)]
+
+The SMC FDC37C935 Super I/O controller's devices use the standard PC drivers:
+  * Serial ports: ''8250'', at the standard PC addresses listed in the Alpha serial port table. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/serial.h?h=v7.3-rc1|arch/alpha/include/asm/serial.h]], Linux 7.3)]
+  * Parallel port: ''parport_pc''; floppy: ''floppy''; keyboard and mouse: ''i8042''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/parport/parport_pc.c?h=v7.3-rc1|drivers/parport/parport_pc.c]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/block/floppy.c?h=v7.3-rc1|drivers/block/floppy.c]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/input/serio/i8042.c?h=v7.3-rc1|drivers/input/serio/i8042.c]], Linux 7.3)]
+  * Clock: the Alpha platform code reads the time-of-year clock itself rather than using ''rtc-cmos''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/rtc.c?h=v7.3-rc1|arch/alpha/kernel/rtc.c]], Linux 7.3)]
+
+==== Known issues ====
+
+  * **Clock battery:** the DS1287-compatible time-of-year clock is backed up by a replaceable CR2032 coin cell at B1. [(>{{wiki:hardware:motherboards:pc164lx:pc164lx_technical_reference_manual.pdf?linkonly|AlphaPC 164LX Motherboard Technical Reference Manual}}, pp. 2-3, 4-8)] Console settings that do not survive a power cycle usually mean the cell is exhausted; see [[hardware:systems#common_problems|Systems: Common problems]].
 
 ==== Clones and OEM systems ====
 

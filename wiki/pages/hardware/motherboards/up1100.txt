@@ -31,6 +31,7 @@ wiki:hardware:motherboards:up1100:up1100-1.jpg API NetWorks UP1100
   * 2x Ultra DMA 33/66 IDE connectors, 2x USB ports, 2x serial ports, an ECP/EPP parallel port, and a floppy controller, all driven by the M1535D, plus PS/2 keyboard and mouse ports [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 1-2)]
   * ATX form factor, 12 in x 9.6 in (30.48 cm x 24.38 cm) [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 1-1)]
   * Front panel connectors for the power button, reset button, power LED, hard disk activity LED, speaker, and keyboard lock [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 2-3)]
+  * Configuration switchpack SW1: switches 1 and 2 select the firmware image (both on, the default, for the SRM console; both off for the fail-safe booter), and switches 7 and 8 set the L2 cache size (7 on and 8 off for 2 MiB; both on to disable the cache). The other switches must stay at their factory settings. [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, pp. 2-5 to 2-6)]
 
 ==== Memory ====
 
@@ -44,6 +45,12 @@ The UP1100 can run from a good quality 300 W power supply, but 350 W to 400 W is
 ==== Firmware ====
 
 The UP1100 uses the SRM console. UP1100 SRM releases include 5.6-13. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L31967|"Re: UP1100 and linux 2.4.0, anyone?"]], John Jasen, axp-list, 30 Jan 2001)] After API closed, 5.6-13 was available from Microway's web site. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-November.mbox#L7025|"UP1100 and disk size"]], Robert Funnell, debian-alpha, 10 Nov 2005)] The UP1000 and UP1100 SRM images are different and cannot be used on each other's boards. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L30608|"Re: 2.40test10 working?"]], Rich Payne, axp-list, 17 Nov 2000)]
+
+The A5.6-13 package, ''up1100_srm_A5.6-13.zip'' (the ''gtsrm.rom'' image and the ''up1100fw.txt'' file list), is kept in the [[https://github.com/alphalinux/firmware/tree/master/api/UP1100|alphalinux/firmware]] repository, with A5.6-12 in its ''archive'' directory. The two files are copied to a DOS floppy, and ''lfu'' is run from SRM with ''dva0'' as the device and ''up1100fw.txt'' as the file list; ''update srm'' then writes the image. [(>''readme.1st'' in [[https://github.com/alphalinux/firmware/blob/master/api/UP1100/up1100_srm_A5.6-13.zip|up1100_srm_A5.6-13.zip]], alphalinux/firmware repository)]
+
+==== Firmware recovery ====
+
+If the flash is corrupted, for example by a power failure during an update, the fail-safe booter reloads SRM: with the power off, SW1 switches 1 and 2 are set off, the SRM firmware floppy is inserted, and the system is powered on. The fail-safe booter loads the image into memory, LFU is run to write it to flash, and the switches are then returned to their default positions. [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 5-4)]
 
 ==== Linux ====
 

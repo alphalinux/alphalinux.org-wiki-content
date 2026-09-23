@@ -39,9 +39,25 @@ SRM is installed using the Alpha Diagnostic Environment (ADE), a firmware mainte
 
 The UP1000 and UP1100 SRM images are different revisions and cannot be used on each other's boards. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L30608|"Re: 2.40test10 working?"]], Rich Payne, axp-list, 17 Nov 2000)]
 
+The [[https://github.com/alphalinux/firmware/tree/master/api/UP1000|alphalinux/firmware]] repository keeps API's UP1000 firmware: ''up1000_srm_5.6_beta.zip'', the May 2000 package that replaces AlphaBIOS with SRM console A5.6-4.1-9 and adds the fail-safe recovery modules, and ''nautilus.rom'' for AlphaBIOS. [(>''install.txt'' and ''readme.1st'' in [[https://github.com/alphalinux/firmware/blob/master/api/UP1000/up1000_srm_5.6_beta.zip|up1000_srm_5.6_beta.zip]], alphalinux/firmware repository)] The package's instructions start ADE by setting jumper J43 (Recover Firmware); the manual's Reload ADE setting also moves J42 to 1-2 (see [[#firmware_recovery|Firmware recovery]]). The instructions then load each of the three images from floppy and write it to flash with ADE's ''burn'' command. [(>''install.txt'' in [[https://github.com/alphalinux/firmware/blob/master/api/UP1000/up1000_srm_5.6_beta.zip|up1000_srm_5.6_beta.zip]], alphalinux/firmware repository)] Which SRM release was the last for the UP1000 is unclear; see [[#conflicting_information|Conflicting information]].
+
+==== Firmware recovery ====
+
+Six jumpers (J42, J43, J44, J15, J16, and J37) select the firmware recovery modes. Each is a 3-pin header; by default all six have the shunt on pins 2 and 3 (pin 1 is nearest the board edge). [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, pp. 2-8, 5-4)]
+
+^ Mode ^ J42 ^ J43 ^ Use ^
+| Normal boot (default) | 2-3 | 2-3 | |
+| Restore factory defaults | 1-2 | 2-3 | Firmware settings that prevent booting, or a forgotten password |
+| Reload ADE | 1-2 | 1-2 | Flash left corrupt by an interrupted firmware upgrade |
+
+J44, J15, J16, and J37 stay on pins 2 and 3. The shunts are returned to the default positions after the recovery. [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, pp. 5-4 to 5-5)] Jumpers J38, J41, J45, J50, and J51 and switch block SW4, which set the SROM format and the clocks, must be left at their factory settings. [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, pp. 2-9 to 2-10)]
+
 ==== Linux ====
 
-Current kernels support the UP1000 with ''CONFIG_ALPHA_NAUTILUS'' or a generic kernel; it boots from SRM with [[software:boot_loaders:aboot|aboot]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] The onboard IDE controller in the ALi M1543C uses the ''pata_ali'' driver. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_ali.c?h=v7.3-rc1|drivers/ata/pata_ali.c]], Linux 7.3)]
+Current kernels support the UP1000 with ''CONFIG_ALPHA_NAUTILUS'' or a generic kernel; it boots from SRM with [[software:boot_loaders:aboot|aboot]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] The onboard devices use these drivers:
+  * IDE (ALi M1543C): ''pata_ali'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_ali.c?h=v7.3-rc1|drivers/ata/pata_ali.c]], Linux 7.3)]
+  * USB (the M1543C's M5237 OHCI controller): ''ohci-pci'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/usb/host/pci-quirks.c?h=v7.3-rc1|drivers/usb/host/pci-quirks.c]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/usb/host/ohci-pci.c?h=v7.3-rc1|drivers/usb/host/ohci-pci.c]], Linux 7.3)]
+  * System management: an ADM9240 on the M1543C's SMBus monitors the supply voltages and fan speeds, [(>{{wiki:hardware:motherboards:up1000:up1000_technical_reference_manual.pdf?linkonly|UP1000 Technical Reference Manual}}, p. 4-8)] and is handled by the ''adm9240'' driver, with ''i2c-ali15x3'' for the SMBus. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/hwmon/adm9240.c?h=v7.3-rc1|drivers/hwmon/adm9240.c]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/i2c/busses/i2c-ali15x3.c?h=v7.3-rc1|drivers/i2c/busses/i2c-ali15x3.c]], Linux 7.3)]
 
   * The UP1000 has an LM75 temperature sensor. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L16086|"RE: UP2000 Temperature"]], Rich Payne, axp-list, 24 May 2000)] A well cooled UP1000 has a heatsink temperature of about 45 to 50 C. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L16402|"Re: UP2000 Temperature"]], Maurice Hilarius, axp-list, 24 May 2000)]
 

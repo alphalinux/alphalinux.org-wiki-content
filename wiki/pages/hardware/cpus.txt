@@ -8,23 +8,27 @@ See also [[hardware:chipsets|Chipsets]].
 
 Since Linux 6.10, released in July 2024, the kernel requires an EV56 (21164A) or later processor, because it needs the byte/word extension (BWX) to make byte and word stores atomic. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] Current kernels therefore support the EV56 (21164A), the PCA56 and PCA57 (21164PC), all 21264 variants (EV6, EV67, EV68), and the EV7 (21364). The EV4 and EV45 (21064 and 21064A), the LCA4 and LCA45 (21066, 21066A, 21068, and 21068A), and the EV5 (21164) need Linux 6.9 or earlier.
 
+Distribution userlands have their own baseline. Debian's GCC has generated EV56 code by default since May 2023, [(>[[https://bugs.debian.org/1036158|Debian bug #1036158]])] so Debian packages need at least a 21164A. Gentoo's Alpha profile sets no ''-mcpu'', so its stages use the compiler's default, the architecture baseline. [(>[[https://gitweb.gentoo.org/repo/gentoo.git/tree/profiles/arch/alpha/make.defaults|profiles/arch/alpha/make.defaults]], gentoo.git)] See [[documentation:toolchains#distribution_baselines|Toolchains: Distribution baselines]].
+
 ==== Names and type codes ====
 
 The consoles report processors by part number rather than by EV name, for example "Alpha 21264A-8 666 MHz" on a DS20E, so the EV name has to be looked up from the part number. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-January.mbox#L16570|"SUMMARY: cpu EV revision?"]], Kim Roy, tru64-unix-managers, 13 Jan 2000)] The table maps the processor type codes in Tru64 UNIX's ''cpuconf.h'' to part numbers and EV names, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-March.mbox#L6483|"Displaying system model ID string"]], Alan Davis, tru64-unix-managers, 16 Mar 2000)] with the LCA4 and EV7 codes from the kernel's ''hwrpb.h'', [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/hwrpb.h?h=v7.3-rc1|arch/alpha/include/asm/hwrpb.h]], Linux 7.3)] and gives the GCC ''-mcpu'' value for each. GCC has no separate value for the LCA4, which uses ''ev4'', for the EV68 and EV7, which add no instructions to the EV67, or for the PCA57, which uses ''pca56''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.cc|gcc/config/alpha/alpha.cc]], GCC)]
 
-^ Code ^ Name ^ Part ^ GCC ''-mcpu'' ^ Current kernels ^
-| 2 | EV4 | 21064 | ''ev4'' | No |
-| 4 | LCA4 | 21066, 21068 | ''ev4'' | No |
-| 5 | EV5 | 21164 | ''ev5'' | No |
-| 6 | EV45 | 21064A | ''ev45'' | No |
-| 7 | EV56 | 21164A | ''ev56'' | Yes |
-| 8 | EV6 | 21264 | ''ev6'' | Yes |
-| 9, 10 | PCA56, PCA57 | 21164PC | ''pca56'' | Yes |
-| 11 | EV67 | 21264A | ''ev67'' | Yes |
-| 12 | EV68CB | 21264C | ''ev67'' | Yes |
-| 13 | EV68AL | 21264B | ''ev67'' | Yes |
-| 14 | EV68CX | 21264D | ''ev67'' | Yes |
-| 15 | EV7 | 21364 | ''ev67'' | Yes |
+^ Code ^ Name ^ Part ^ GCC ''-mcpu'' ^ Extensions ^ Current kernels ^
+| 2 | EV4 | 21064 | ''ev4'' | none | No |
+| 4 | LCA4 | 21066, 21068 | ''ev4'' | none | No |
+| 5 | EV5 | 21164 | ''ev5'' | none | No |
+| 6 | EV45 | 21064A | ''ev45'' | none | No |
+| 7 | EV56 | 21164A | ''ev56'' | BWX | Yes |
+| 8 | EV6 | 21264 | ''ev6'' | BWX, MVI, FIX | Yes |
+| 9, 10 | PCA56, PCA57 | 21164PC | ''pca56'' | BWX, MVI | Yes |
+| 11 | EV67 | 21264A | ''ev67'' | BWX, MVI, FIX, CIX | Yes |
+| 12 | EV68CB | 21264C | ''ev67'' | BWX, MVI, FIX, CIX | Yes |
+| 13 | EV68AL | 21264B | ''ev67'' | BWX, MVI, FIX, CIX | Yes |
+| 14 | EV68CX | 21264D | ''ev67'' | BWX, MVI, FIX, CIX | Yes |
+| 15 | EV7 | 21364 | ''ev67'' | BWX, MVI, FIX, CIX | Yes |
+
+The Extensions column lists the optional instruction set extensions that GCC enables for each ''-mcpu'' value. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.cc|gcc/config/alpha/alpha.cc]], GCC)] BWX is the byte/word extension (''ldbu'', ''ldwu'', ''stb'', ''stw'', ''sextb'', ''sextw''), FIX the square-root and floating-point convert extension, CIX the count extension (''ctlz'', ''ctpop'', ''cttz''), and MVI the multimedia extension. [(>{{wiki:documentation:references:alpha_architecture_handbook_v4.pdf?linkonly|Alpha Architecture Handbook, Version 4}}, p. D-3)] Code built for a processor with more extensions does not run on one with fewer; see [[documentation:toolchains#selecting_a_processor|Toolchains: Selecting a processor]] and [[documentation:toolchains#distribution_baselines|Distribution baselines]] for the ''-mcpu'' that distributions build with, and [[documentation:amask|amask]] for checking a running processor.
 
 ==== Socket 499 (AlphaPC 164, 164LX, 164UX/BX, Personal Workstation) ====
 

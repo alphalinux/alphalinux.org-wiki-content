@@ -36,6 +36,15 @@ wiki:hardware:motherboards:pc164sx:pc164sx-1.jpg Digital AlphaPC 164SX
   * 1x Parallel port
   * ATX board, 30.48 cm x 24.38 cm (12.0 in x 9.6 in) [(>{{wiki:hardware:motherboards:pc164sx:pc164sx_technical_reference_manual.pdf?linkonly|AlphaPC 164SX Motherboard Technical Reference Manual}}, p. 3-2)]
 
+Instead of jumpers, the board is configured with switchpack SW1; in the manual's tables, 1 is the on position. [(>{{wiki:hardware:motherboards:pc164sx:pc164sx_technical_reference_manual.pdf?linkonly|AlphaPC 164SX Motherboard Technical Reference Manual}}, pp. 2-4 to 2-6)]
+
+^ Switch ^ Function ^ Settings ^
+| SW1 CF0, CF1 | Bcache size | 1 MiB: CF0 on, CF1 off (default); 512 KiB: both off; 2 MiB: CF0 off, CF1 on |
+| SW1 CF2 | Password bypass | On requires the AlphaBIOS password (default); off bypasses and clears it |
+| SW1 CF3 | Mini-Debugger | On (default); off traps to the SROM Mini-Debugger before the flash ROM code runs |
+| SW1 CF4 to CF6 | CPU speed | 400 MHz: all on; 533 MHz: CF4 on, CF5 off, CF6 on |
+| SW1 CF7 | Boot option | On loads AlphaBIOS or SRM; off loads the fail-safe booter |
+
 ==== CPU ====
 
 The 164SX documentation lists only two CPU speed settings, 400 and 533 MHz; the other settings are reserved and have been reported to yield 400 MHz. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L4541|"164SX overclocking"]], Kurt Ludwig, axp-list, 5 Oct 1999)] No 600 MHz 164SX was ever made. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L873|"searching for a wide alpha cpu heatsink"]], Jay Estabrook, axp-list, 5 Nov 2008)]
@@ -67,6 +76,8 @@ The flash ROM holds only one console image at a time, either AlphaBIOS or SRM. [
 
 Switching from AlphaBIOS to SRM is done by copying ''sx164srm.rom'' to a FAT-formatted floppy, choosing Upgrade AlphaBIOS, and then power cycling the machine. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-January.mbox#L17373|"SUMMARY: Linux --> Tru64 on AlphaPC 164SX"]], Gernot Salzer, tru64-unix-managers, 13 Jan 2000)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-April.mbox#L54|"Upgrading PC164SX firmware"]], Rich Payne, debian-alpha, 10 Apr 2001)]
 
+The ''SMMTABLE.TXT'' file on the V7.3 firmware CD lists SRM 5.8 as the last version for the board but names no update file for it (the entry is ''[ARCHIVE]NOFILE.EXE''). [(>''SMMTABLE.TXT'', Alpha Systems Firmware Update CD V7.3, 14 Mar 2007)]
+
 === SRM V5.8 hardware support ===
 
   * SRM V5.8 supports the same Adaptec SCSI controllers on the 164SX as on the [[hardware:motherboards:pc164lx#srm_v5.8_hardware_support|164LX]].
@@ -89,7 +100,15 @@ Current kernels support the AlphaPC 164SX with ''CONFIG_ALPHA_SX164''; it boots 
   * The PCA56 CPU corresponds to GCC's ''-mcpu=pca56'' [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L39096|"different alpha cpu compatibility issues?"]], Jay Estabrook, axp-list, 28 Mar 2000)], and it was the first Alpha CPU to support the MVI instruction set extension. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L563|"Playing DVDs"]], Jay Estabrook, axp-list, 3 Jan 2002)] The [[hardware:chipsets#21174|21174]] core logic supports byte and word access to I/O space, which the kernel enables. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_cia.c?h=v7.3-rc1|arch/alpha/kernel/core_cia.c]], Linux 7.3)]
   * IDE: the onboard Cypress CY82C693 controller uses the ''pata_cypress'' driver, which supports DMA. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_cypress.c?h=v7.3-rc1|drivers/ata/pata_cypress.c]], Linux 7.3)] Without DMA, the onboard IDE runs in PIO mode and heavy disk I/O severely degrades system performance. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L16865|"IDE I/O slows down 164SX to a crawl"]], Andreas Krebs, axp-list, 12 Oct 1999)]
   * Cypress IDE DMA transfers can disrupt ISA devices (PCI devices are not affected). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L44075|"PCI devices causing machine lockups on SX164"]], Ivan Kokshaysky, axp-list, 31 Mar 2000)]
+  * The SMSC FDC37C669 Super I/O controller provides the floppy controller, serial ports, and parallel port; the Cypress chip provides the keyboard and mouse controller and the time-of-year clock. [(>{{wiki:hardware:motherboards:pc164sx:pc164sx_technical_reference_manual.pdf?linkonly|AlphaPC 164SX Motherboard Technical Reference Manual}}, p. 1-4)] They use the standard PC drivers:
+    * Serial ports: ''8250'', at the standard PC addresses listed in the Alpha serial port table. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/serial.h?h=v7.3-rc1|arch/alpha/include/asm/serial.h]], Linux 7.3)]
+    * Parallel port: ''parport_pc''; floppy: ''floppy''; keyboard and mouse: ''i8042''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/parport/parport_pc.c?h=v7.3-rc1|drivers/parport/parport_pc.c]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/block/floppy.c?h=v7.3-rc1|drivers/block/floppy.c]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/input/serio/i8042.c?h=v7.3-rc1|drivers/input/serio/i8042.c]], Linux 7.3)]
+    * Clock: the Alpha platform code reads the time-of-year clock itself rather than using ''rtc-cmos''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/rtc.c?h=v7.3-rc1|arch/alpha/kernel/rtc.c]], Linux 7.3)]
   * USB: the Cypress chip includes a USB controller, which Linux detects, but its pins are not connected to the USB connector footprints on the board. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-February.mbox#L29728|"USB Ports on 164sx"]], Richard Henderson, axp-list, 18 Feb 1999)]
+
+==== Known issues ====
+
+  * **Clock battery:** the DS1287-compatible real-time clock is backed up by a replaceable CR2032 coin cell at XB1. [(>{{wiki:hardware:motherboards:pc164sx:pc164sx_technical_reference_manual.pdf?linkonly|AlphaPC 164SX Motherboard Technical Reference Manual}}, pp. 2-3, 4-6)] Console settings that do not survive a power cycle usually mean the cell is exhausted; see [[hardware:systems#common_problems|Systems: Common problems]].
 
 ==== Clones and OEM systems ====
 
