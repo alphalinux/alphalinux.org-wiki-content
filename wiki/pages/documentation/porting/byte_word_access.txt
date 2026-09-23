@@ -1,20 +1,21 @@
 ===== Byte and Word Access =====
 
-The original Alpha has no byte and no 16-bit word memory instructions. Every integer load and store is a longword or a quadword. Byte and word access is synthesized from ''LDQ_U''/''STQ_U'' plus the extract, insert and mask instructions.
+The original Alpha architecture has no byte and no 16-bit word memory instructions: every integer load and store is a longword or a quadword, and byte and word access is synthesized from ''LDQ_U''/''STQ_U'' plus the extract, insert and mask instructions. The byte/word extension (BWX), introduced with the EV56 (21164A), added byte and word loads and stores.
 
-This design decision is the origin of the sparse I/O windows, the ''readb''/''writeb'' discipline, and, eventually, the removal of pre-EV56 Alpha support from both Debian and the Linux kernel.
+Linux 6.10 removed support for processors older than the EV56, and Debian builds for EV56 or later, so every current Alpha/Linux system has BWX. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] For software built today the rules are short:
+
+  * **Build for EV56 or later.** With ''-mcpu=ev56'' (or ''pca56'', ''ev6'', ''ev67''), byte and word loads and stores are single instructions, and a byte or word store does not disturb its neighbors. The compiler's default may still be the pre-BWX baseline (see [[documentation:toolchains#distribution_baselines|Distribution baselines]]); ''%%__alpha_bwx__%%'' is defined when BWX code generation is enabled, so ''%%gcc -dM -E - < /dev/null | grep __alpha_bwx__%%'' shows whether it is.
+  * **Assemble for EV56 or later.** Without ''.arch ev56'' or ''-mcpu=ev56'', the assembler silently expands ''stb'' and ''stw'' into non-atomic pre-BWX sequences (see [[documentation:toolchains#binutils|Toolchains]]).
+  * **Byte and word atomics are still emulated.** There are no byte or word load-locked or store-conditional instructions, even with BWX; atomic operations on ''char'' and ''short'' objects operate on the containing quadword (see [[#load-locked_and_store-conditional_are_not_affected|below]]).
+  * **Keep independently updated atomic variables apart.** A store-conditional fails if another processor writes anywhere in the locked range, which is at least a quadword and often more (see [[#reservation_granularity|Reservation granularity]]).
+
+The pre-BWX sequences and the sparse I/O space that the original design required are described in the later sections of this page, for reading old code and kernel sources.
 
 See also [[documentation:porting:unaligned_access|Unaligned Access]], [[documentation:porting:memory_model|Memory Model]] and [[documentation:amask|Architecture Mask (amask)]].
 
 ==== BWX: the Byte/Word Extension ====
 
-BWX comprises six instructions. From Appendix D of the Architecture Reference Manual, 4th edition:
-
-<code>
-0      Support for the byte/word extension (BWX)
-       The instructions that comprise the BWX extension are LDBU, LDWU, SEXTB, SEXTW,
-       STB, and STW.
-</code>
+BWX comprises six instructions, ''LDBU'', ''LDWU'', ''SEXTB'', ''SEXTW'', ''STB'', and ''STW'', and is reported by bit 0 of ''AMASK''. [(>{{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}, Appendix D)]
 
 ^ Instruction ^ Opcode ^ Operation ^
 | ''LDBU Ra, disp(Rb)'' | 0x0A | load byte, zero-extended to 64 bits |
@@ -32,7 +33,7 @@ The Architecture Reference Manual states which form to prefer:
 LDBU and STB are the recommended way to perform byte load and store operations on Alpha implementations that support them; use them rather than the extract, insert, and mask byte instructions described in this section.
 </blockquote>
 
-Tru64 UNIX emulates these instructions in the operating system on processors without BWX, rather than in PALcode, so that older systems did not need new console firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-November.mbox#L13714|"UPDATE Oracle 8.1.7 on pre EV5.6 = arrghhh"]], Sim Alam, tru64-unix-managers, 14 Nov 2001)] Linux does not emulate them: a process that executes one on a pre-EV56 processor receives ''SIGILL''.
+Linux does not emulate these instructions: a process that executes one on a pre-EV56 processor receives ''SIGILL''.
 
 === Which processors have BWX ===
 
@@ -63,25 +64,136 @@ lw:	ldwu $0,0($16)
 sw:	stw  $17,0($16)
 </code>
 
-Two further flags address the non-atomicity described below:
+Two further flags, added in GCC 15, address the non-atomicity described below: [(>[[https://gcc.gnu.org/onlinedocs/gcc/DEC-Alpha-Options.html|DEC Alpha Options]], GCC manual)]
 
 ^ Flag ^ Meaning ^
-| ''-msafe-bwa'' | emit multi-thread and async-signal safe code for byte and word memory accesses |
-| ''-msafe-partial'' | the same for partial memory accesses |
+| ''-msafe-bwa'' | when BWX is not available, make byte and aligned word accesses thread and async-signal safe |
+| ''-msafe-partial'' | make other partial memory accesses safe, such as piecemeal accesses to unaligned data and block accesses to the leading and trailing parts of objects that do not start and end on a quadword boundary; this applies with or without BWX |
 
 The compile-time predicate is ''%%__alpha_bwx__%%'', defined when BWX code generation is enabled.
 
 GCC has no builtins for the BWX instructions: ''%%__builtin_alpha_ldbu%%'', ''%%__builtin_alpha_ldwu%%'', ''%%__builtin_alpha_stb%%'' and ''%%__builtin_alpha_stw%%'' have never existed. The instructions are obtained by compiling with ''-mbwx'' and writing ordinary ''unsigned char'' and ''unsigned short'' accesses. GCC provides builtins for the pre-BWX byte-manipulation instructions: ''%%__builtin_alpha_extbl%%'', ''%%__builtin_alpha_insbl%%'', ''%%__builtin_alpha_mskbl%%'' and the rest of the extract, insert and mask family, along with ''%%__builtin_alpha_amask%%'', ''%%__builtin_alpha_implver%%'', ''%%__builtin_alpha_cmpbge%%'', ''%%__builtin_alpha_zap%%'' and ''%%__builtin_alpha_zapnot%%''.
 
-=== Performance effect of BWX ===
-
-In 1999 a FreeBSD ''make buildworld'' on a 533 MHz AlphaPC 164LX took 10% less wall-clock time and 14% less user time when the system was built with ''-mcpu=ev56''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-June.mbox#L4698|"Significant speedups from -mcpu=ev56"]], John Polstra, freebsd-alpha, 21 Jun 1999)] ''-mcpu=ev56'' also selects scheduling for the 21164A, so the figure is an upper bound on the contribution of BWX alone.
-
 === Detecting BWX at runtime ===
 
 ''amask(1) == 0'' indicates that BWX is present. See [[documentation:amask|Architecture Mask (amask)]] for the instruction, its bit assignments and the kernel's ''AT_HWCAP'' export.
 
+==== Atomicity of byte and word access ====
+
+=== The problem ===
+
+On a pre-BWX Alpha, storing a byte means loading the containing quadword, modifying one byte of it, and storing the whole quadword back. If another processor stores to a //different// byte of the same quadword in between, that store is silently lost.
+
+C and C++ both require that distinct scalar objects can be updated concurrently without interfering. Pre-BWX Alpha cannot honor that for ''char'' and ''short'' without ''-msafe-bwa'', which GCC 15 added for this purpose. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=commit;h=3d4d82211c8cbfde0b852bde1603b5d549426df7|"Alpha: Add option to avoid data races for sub-longword memory stores [PR117759]"]], Maciej W. Rozycki, GCC, 30 Mar 2025)] The Linux kernel likewise assumes atomic byte stores.
+
+Non-atomic byte and word stores caused a large share of the bugs in Debian's Alpha port, possibly a third of them, and kernel developers wanted to assume atomic byte and word access on all architectures, which only pre-BWX Alpha prevented. [(>[[https://lists.debian.org/msgid-search/Y5gtYxqv78cTCdau@creeky|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, debian-alpha, 13 Dec 2022)] [(>[[https://lists.debian.org/msgid-search/20140905084622.GC5281@omega|"RFC: compile with BWX thus only support EV56 and later CPUs"]], Michael Cree, debian-alpha, 5 Sep 2014)]
+
+=== How it ended ===
+
+Debian Ports raised its Alpha baseline to EV56 in 2023, and Linux followed in 6.10. Alpha EV5 and earlier was the only CPU family the kernel supported without native byte access, and parts of the RCU code already relied on byte access and did not work reliably on EV5. [(>[[https://lists.debian.org/msgid-search/b4adb884e4c1014ecce7d1857adb7feb48ba837f.camel@physik.fu-berlin.de|"Re: [GIT PULL] alpha: cleanups and build fixes for 6.10"]], John Paul Adrian Glaubitz quoting Arnd Bergmann, debian-alpha, 12 May 2024)] Linux 6.10 dropped pre-EV56 support, and removed Jensen, LCA and APECS support along with it.
+
+Linux and Debian therefore require EV56 or later.
+
+=== Load-locked and store-conditional are not affected ===
+
+The locked primitives exist only at longword and quadword granularity:
+
+  * ''LDL_L'' / ''STL_C'', 32-bit
+  * ''LDQ_L'' / ''STQ_C'', 64-bit
+
+There is no ''LDB_L'', ''STB_C'', ''LDW_L'' or ''STW_C'', and BWX adds none. Atomic byte and word operations must be synthesized, on every Alpha, from the quadword primitives plus masking.
+
+GCC generates the following for ''%%__sync_fetch_and_add((unsigned char *)p, 1)%%'' at ''-mcpu=ev4'':
+
+<code asm>
+afa:
+	bic $16,7,$3          /* round down to a QUADWORD */
+	ldq_u $1,0($16)
+	extbl $1,$16,$1
+$L8:
+	mb
+	addl $1,1,$2
+	and $1,0xff,$5
+	insbl $2,$16,$2
+$L11:
+	ldq_l $6,0($3)        /* load-locked the containing quadword */
+	extbl $6,$16,$1
+	cmpeq $1,$5,$4
+	beq $4,$L12
+	mskbl $6,$16,$4
+	bis $4,$2,$4
+	stq_c $4,0($3)
+	beq $4,$L11
+	mb
+$L12:
+	beq $4,$L8
+	mov $5,$0
+	ret $31,($26),1
+</code>
+
+Three points follow:
+
+  * The alignment mask is ''bic $16,7'', rounding to a quadword rather than a longword, because ''extbl'', ''insbl'' and ''mskbl'' index by the low //three// bits of the address.
+  * The primitive is ''LDQ_L''/''STQ_C''. A hand-written version using ''LDL_L'' with quadword-relative extract and insert offsets silently corrupts memory for every address whose bit 2 is set.
+  * At ''-mcpu=ev56'' the loop body is identical; only the initial load becomes ''ldbu''. BWX changes nothing here.
+
+=== Reservation granularity ===
+
+The reservation is neither per-byte nor per-longword. From the Architecture Reference Manual:
+
+<blockquote>
+When a LDx_L instruction is executed without faulting, the processor records the target physical address in a per-processor locked_physical_address register and sets the per-processor lock_flag.
+
+If processor A's lock_flag is set and processor B successfully does a store within A's locked range of physical addresses, then A's lock_flag is cleared. A processor's locked range is the aligned block of %%2**N%% bytes that includes the locked_physical_address. The %%2**N%% value is implementation dependent. It is at least 8 (minimum lock range is an aligned quadword) and is at most the page size for that implementation (maximum lock range is one physical page).
+</blockquote>
+
+and, on what to do about it:
+
+<blockquote>
+  * Hardware implementations are encouraged to lock no more than 128 bytes.
+  * Software implementations are encouraged to separate locked locations by at least 128 bytes from other locations that could potentially be written by another processor while the first location is locked.
+</blockquote>
+
+The granularity relevant to contention is therefore an implementation-defined aligned block, which may be larger than a cache block. Two atomic variables in the same lock range cause each other's ''STQ_C'' to fail, even if they are in different cache blocks; separating them by 128 bytes, as the manual recommends, avoids this on every implementation.
+
+<code c>
+/* BAD: two independently-updated atomic bytes inside one lock range.
+   Every update to one makes the other's STQ_C fail and retry. */
+struct {
+	_Atomic unsigned char producer_flag;
+	_Atomic unsigned char consumer_flag;
+} state;
+
+/* BETTER: separate them by the architecture's recommended distance. */
+struct {
+	_Atomic unsigned char producer_flag;
+	char pad[127];
+	_Atomic unsigned char consumer_flag;
+} state_padded;
+</code>
+
+Folding the flags into a single word and using bit operations avoids the problem entirely, leaving one contended location:
+
+<code c>
+_Atomic uint32_t flags;
+
+atomic_fetch_or_explicit(&flags,  1U << 0, memory_order_relaxed);
+atomic_fetch_and_explicit(&flags, ~(1U << 1), memory_order_relaxed);
+</code>
+
+=== Contention causes retries rather than deadlock ===
+
+Sustained contention can starve an individual thread, but cannot stall the system. The architecture requires that:
+
+<blockquote>
+If two processors attempt STx_C instructions to the same lock range and that lock range was accessed by both processors' preceding LDx_L instructions, exactly one of the stores succeeds.
+</blockquote>
+
+The portability hazard lies elsewhere, and is covered under [[documentation:porting:memory_model#forward_progress_rules|Forward progress rules]]: an ''LDx_L''/''STx_C'' body containing any other memory access, a taken branch, a subsetted instruction, or too many instructions may fail every time on some implementations.
+
 ==== Pre-BWX byte and word access ====
+
+This section describes the code generated for processors without BWX, which current kernels no longer support.
 
 === Loading a byte ===
 
@@ -167,119 +279,6 @@ The unaligned case is the longest of these sequences: two read-modify-writes, te
 The Architecture Reference Manual's comment states the ordering constraint: the high quadword must be stored before the low one, so that the degenerate case where both ''LDQ_U'' hit the same quadword still produces the right answer.
 
 An //aligned// word store is a single read-modify-write, as for a byte.
-
-==== Atomicity of byte and word access ====
-
-=== The problem ===
-
-On a pre-BWX Alpha, storing a byte means loading the containing quadword, modifying one byte of it, and storing the whole quadword back. If another processor stores to a //different// byte of the same quadword in between, that store is silently lost.
-
-C and C++ both require that distinct scalar objects can be updated concurrently without interfering. Pre-BWX Alpha cannot honor that for ''char'' and ''short'' without ''-msafe-bwa'', which GCC 15 added for this purpose. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=commit;h=3d4d82211c8cbfde0b852bde1603b5d549426df7|"Alpha: Add option to avoid data races for sub-longword memory stores [PR117759]"]], Maciej W. Rozycki, GCC, 30 Mar 2025)] The Linux kernel likewise assumes atomic byte stores.
-
-Non-atomic byte and word stores were a common source of bugs. Michael Cree, then maintaining Debian's Alpha port, estimated in 2022 that possibly a third of the bugs in the Debian Alpha repository stemmed from them, and noted that kernel developers wanted to assume atomic byte and word access on all architectures, which only pre-BWX Alpha prevented. [(>[[https://lists.debian.org/msgid-search/Y5gtYxqv78cTCdau@creeky|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, debian-alpha, 13 Dec 2022)] He had made the same argument in 2014. [(>[[https://lists.debian.org/msgid-search/20140905084622.GC5281@omega|"RFC: compile with BWX thus only support EV56 and later CPUs"]], Michael Cree, debian-alpha, 5 Sep 2014)]
-
-=== How it ended ===
-
-Debian-Ports raised its Alpha baseline to EV56 in 2023, and Linux followed in 6.10. Arnd Bergmann's pull request noted that Alpha EV5 and earlier was the only CPU family supported by the kernel without native byte access, and that parts of the RCU code already relied on byte access and did not work reliably on EV5. [(>[[https://lists.debian.org/msgid-search/b4adb884e4c1014ecce7d1857adb7feb48ba837f.camel@physik.fu-berlin.de|"Re: [GIT PULL] alpha: cleanups and build fixes for 6.10"]], John Paul Adrian Glaubitz quoting Arnd Bergmann, debian-alpha, 12 May 2024)] Linux 6.10 dropped pre-EV56 support, and removed Jensen, LCA and APECS support along with it.
-
-Linux and Debian therefore require EV56 or later.
-
-=== Load-locked and store-conditional are not affected ===
-
-The locked primitives exist only at longword and quadword granularity:
-
-  * ''LDL_L'' / ''STL_C'', 32-bit
-  * ''LDQ_L'' / ''STQ_C'', 64-bit
-
-There is no ''LDB_L'', ''STB_C'', ''LDW_L'' or ''STW_C'', and BWX adds none. Atomic byte and word operations must be synthesized, on every Alpha, from the quadword primitives plus masking.
-
-GCC generates the following for ''%%__sync_fetch_and_add((unsigned char *)p, 1)%%'' at ''-mcpu=ev4'':
-
-<code asm>
-afa:
-	bic $16,7,$3          /* round down to a QUADWORD */
-	ldq_u $1,0($16)
-	extbl $1,$16,$1
-$L8:
-	mb
-	addl $1,1,$2
-	and $1,0xff,$5
-	insbl $2,$16,$2
-$L11:
-	ldq_l $6,0($3)        /* load-locked the containing quadword */
-	extbl $6,$16,$1
-	cmpeq $1,$5,$4
-	beq $4,$L12
-	mskbl $6,$16,$4
-	bis $4,$2,$4
-	stq_c $4,0($3)
-	beq $4,$L11
-	mb
-$L12:
-	beq $4,$L8
-	mov $5,$0
-	ret $31,($26),1
-</code>
-
-Three points follow:
-
-  * The alignment mask is ''bic $16,7'', rounding to a quadword rather than a longword, because ''extbl'', ''insbl'' and ''mskbl'' index by the low //three// bits of the address.
-  * The primitive is ''LDQ_L''/''STQ_C''. A hand-written version using ''LDL_L'' with quadword-relative extract and insert offsets silently corrupts memory for every address whose bit 2 is set.
-  * At ''-mcpu=ev56'' the loop body is identical; only the initial load becomes ''ldbu''. BWX changes nothing here.
-
-=== Reservation granularity ===
-
-The reservation is neither per-byte nor per-longword. From the Architecture Reference Manual:
-
-<blockquote>
-When a LDx_L instruction is executed without faulting, the processor records the target physical address in a per-processor locked_physical_address register and sets the per-processor lock_flag.
-
-If processor A's lock_flag is set and processor B successfully does a store within A's locked range of physical addresses, then A's lock_flag is cleared. A processor's locked range is the aligned block of %%2**N%% bytes that includes the locked_physical_address. The %%2**N%% value is implementation dependent. It is at least 8 (minimum lock range is an aligned quadword) and is at most the page size for that implementation (maximum lock range is one physical page).
-</blockquote>
-
-and, on what to do about it:
-
-<blockquote>
-  * Hardware implementations are encouraged to lock no more than 128 bytes.
-  * Software implementations are encouraged to separate locked locations by at least 128 bytes from other locations that could potentially be written by another processor while the first location is locked.
-</blockquote>
-
-The granularity relevant to contention is therefore an implementation-defined aligned block, in practice a cache block. Two atomic variables 64 bytes apart can still cause each other's ''STQ_C'' to fail.
-
-<code c>
-/* BAD: two independently-updated atomic bytes inside one lock range.
-   Every update to one makes the other's STQ_C fail and retry. */
-struct {
-	_Atomic unsigned char producer_flag;
-	_Atomic unsigned char consumer_flag;
-} state;
-
-/* BETTER: separate them by the architecture's recommended distance. */
-struct {
-	_Atomic unsigned char producer_flag;
-	char pad[127];
-	_Atomic unsigned char consumer_flag;
-} state_padded;
-</code>
-
-Folding the flags into a single word and using bit operations avoids the problem entirely, leaving one contended location:
-
-<code c>
-_Atomic uint32_t flags;
-
-atomic_fetch_or_explicit(&flags,  1U << 0, memory_order_relaxed);
-atomic_fetch_and_explicit(&flags, ~(1U << 1), memory_order_relaxed);
-</code>
-
-=== Contention causes retries rather than deadlock ===
-
-Sustained contention can starve an individual thread, but cannot stall the system. The architecture requires that:
-
-<blockquote>
-If two processors attempt STx_C instructions to the same lock range and that lock range was accessed by both processors' preceding LDx_L instructions, exactly one of the stores succeeds.
-</blockquote>
-
-The portability hazard lies elsewhere, and is covered under [[documentation:porting:memory_model#forward_progress_rules|Forward progress rules]]: an ''LDx_L''/''STx_C'' body containing any other memory access, a taken branch, a subsetted instruction, or too many instructions may fail every time on some implementations.
 
 ==== I/O space: sparse and dense ====
 
@@ -386,9 +385,7 @@ That "window" is the HAE (host address extension) register, which supplies the h
 
 === BWX in the core logic ===
 
-A processor with BWX can make byte-granular accesses to I/O space only if the core logic also implements them. Separately, early EBSDK PALcode left BWX disabled in the CPU on some EV56 systems, so BWX code failed with an illegal instruction until a later MILO enabled it. [(>"RE: Re: ev56 optimization -> illegal instruction", Jay Estabrook, axp-list, 14 Mar 1998)] [(>"Re: egcs and PC164 (ev56 ?)", Richard Henderson, axp-list, 18 Dec 1998)]
-
-According to Jay Estabrook, byte and word access to I/O space never worked on the 21172 (CIA-2), and Pyxis was the first core logic to implement it correctly. FreeBSD later enabled it on a 21172-based AlphaServer 800 without reported problems, so the two may describe different silicon revisions. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2005-September.mbox#L5417|"[patch] cia BWX oddity in RELENG4"]], Paul V. Bolotoff, freebsd-alpha, 30 Sep 2005)]
+A processor with BWX can make byte-granular accesses to I/O space only if the core logic also implements them. Byte and word access to I/O space was reported never to have worked on the 21172 (CIA-2), with Pyxis the first core logic to implement it correctly, although FreeBSD later enabled it on a 21172-based AlphaServer 800 without reported problems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2005-September.mbox#L5417|"[patch] cia BWX oddity in RELENG4"]], Paul V. Bolotoff, freebsd-alpha, 30 Sep 2005)]
 
 ==== Jensen ====
 
