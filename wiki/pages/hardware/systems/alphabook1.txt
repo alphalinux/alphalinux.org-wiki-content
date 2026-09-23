@@ -4,7 +4,7 @@
 ^ AlphaBook 1 ^^
 ^ CPU | [[wp>Alpha_21064#Alpha_21066A|21066A]] (LCA45) |
 ^ Core logic | LCA (integrated in the CPU) |
-^ Memory | 32 MB to 128 MB, SIMMs |
+^ Memory | 32 MiB to 128 MiB, SIMMs |
 ^ Buses | PCI, PCMCIA |
 ^ Firmware | SRM |
 ^ Kernel option | ''CONFIG_ALPHA_BOOK1'' |
@@ -15,15 +15,13 @@ The ALPHAbook 1 is the only Alpha notebook computer that reached the market. It 
 
 It is closely related to the [[hardware:motherboards:axppci33|AXPpci 33]] and the Multia: the same 21066A with its integrated PCI and memory controller, plus power management and a Cirrus PCI-to-PCMCIA controller. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-June.mbox#L7388|"First-draft AlphaBook support"]], Jason Thorpe, port-alpha, 25 Jun 1998)] It was nonetheless a separate Linux platform rather than part of Noname. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)]
 
-Few were sold. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-December.mbox#L8963|"Re: affordable Alpha laptops?"]], Terry C. Shannon, comp.sys.dec, 18 Dec 1996)]
-
 ==== Specifications ====
 
 Specifications are from the announcement except where noted. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-January.mbox#L23398|"Re: Alpha Notebooks, Notebooks with hardware MPEG"]], Britt Lysaa, comp.sys.dec, 5 Jan 1996, quoting a Business Wire release of 5 Dec 1995)]
 
   * DECchip [[wp>Alpha_21064#Alpha_21066A|21066A]] (LCA45) with a variable speed of up to 233 MHz, and 512 KiB of write-back level 2 cache
   * PCI bus and memory controller integrated into the CPU, feeding the graphics, PCMCIA, and SCSI interfaces
-  * Industry-standard SIMMs, user upgradable, 32 MB to 128 MB
+  * Industry-standard SIMMs, user upgradable, 32 MiB to 128 MiB
   * Removable 2.5-inch SCSI-2 hard disk, 520 MB, 810 MB, or 1.2 GB
   * Western Digital WD90C24A2 graphics controller with 1 MiB of video RAM [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-October.mbox#L12148|"Tadpole Alpha1 notebook"]], Nigel Metheringham, axp-list, 11 Oct 1996)]
   * 10.4-inch true-color TFT panel, 800x600 with 256 colors from a palette of 262,144; up to 1024x768 on an external display
@@ -33,41 +31,34 @@ Specifications are from the announcement except where noted. [(>[[https://github
   * Hitachi H8/337 microcontroller monitoring battery charging and CPU temperature [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1998-November.mbox#L20960|"REQ: Tadpole AlphaBook1 H8/337 power/thermal monitor info"]], Thomas Pfau, comp.os.linux.alpha, 13 Nov 1998)]
   * Rugged magnesium case, NiMH battery, 7.5 pounds
 
-==== Heat and clock throttling ====
-
-The 21066A runs hot in the notebook enclosure, and the firmware reduces the clock as the system warms. Although rated at 233 MHz, it typically ran at 116 MHz or even 57 MHz. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L9388|"Re: Alpha laptops"]], Jay Estabrook, axp-list, 13 Apr 2000)]
-
-Sustained operation at full speed requires external cooling such as a fan. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1997-August.mbox#L35804|"Need Quiet Cooling for Tadpole ALPHABook"]], Jerry Leslie, comp.sys.dec, 6 Aug 1997)]
-
 ==== Firmware ====
 
 The AlphaBook 1 has only the SRM console. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-August.mbox#L12298|"Re: Alpha based notebook available????"]], Jay Estabrook, axp-list, 15 Aug 1997)] Digital shipped its firmware in an ''alphabook1'' directory on the Alpha firmware CD-ROM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1997-February.mbox#L2455|"Re: Support for AXP Motherboard"]], Carl S. Shapiro, port-alpha, 21 Feb 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7397|"Re: How to flash MILO? ( Not a faq )"]], Peter Rival, axp-list, 6 Oct 1999)] Linux boots from SRM with aboot, though MILO also carried AlphaBook1 support in Nikita Schmidt's builds. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1998-September.mbox#L59|"MILO"]], Nikita Schmidt, debian-alpha, 3 Sep 1998)]
 
 ==== Linux ====
 
-Linux support came early and from inside Digital. Jim Paradis had Linux running on a prototype in May 1996, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L7828|"insmod troubles -- any clues?"]], Jim Paradis, axp-list, 10 May 1996)] and the platform was included in Jay Estabrook's public patch kit in July 1997. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-July.mbox#L20316|"NEW and IMPROVED Alpha Patches and MILO Sources!"]], Jay Estabrook, axp-list, 17 Jul 1997)]
-
-The kernel platform was ''CONFIG_ALPHA_BOOK1'', which no longer exists: it was removed in Linux 6.10, and 6.9 was the last kernel to support the platform. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)] It shares ''sys_sio.c'' with the Noname and Avanti platforms but has its own machine vector, which fixes the console at 800x600 and disables SCSI burst mode because the Cirrus 6729 PCMCIA controller is sensitive to PCI bus bursts. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_sio.c?h=v6.9|arch/alpha/kernel/sys_sio.c]], Linux 6.9)]
-
-The WD90C24A2 graphics controller is not supported by XFree86 4.x. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-March.mbox#L3205|"Xfree 3.3.6 and a wd90c24(a) videocard"]], g, debian-alpha, 28 Mar 2002)]
+Linux 6.9 was the last version to support the AlphaBook 1, with ''CONFIG_ALPHA_BOOK1''; Linux 6.10 removed support for processors older than the EV56 (21164A). [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)] It shares ''sys_sio.c'' with the Noname and Avanti platforms but has its own machine vector, which fixes the console at 800x600 and disables SCSI burst mode because the Cirrus 6729 PCMCIA controller is sensitive to PCI bus bursts. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_sio.c?h=v6.9|arch/alpha/kernel/sys_sio.c]], Linux 6.9)]
 
 ==== Known issues ====
 
+  * **Heat and clock throttling:** the 21066A runs hot in the notebook enclosure, and the firmware reduces the clock as the system warms. Although rated at 233 MHz, it typically ran at 116 MHz or even 57 MHz. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L9388|"Re: Alpha laptops"]], Jay Estabrook, axp-list, 13 Apr 2000)] Sustained operation at full speed requires external cooling such as a fan. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1997-August.mbox#L35804|"Need Quiet Cooling for Tadpole ALPHABook"]], Jerry Leslie, comp.sys.dec, 6 Aug 1997)]hrottling:** The 21066A runs hot in the notebook enclosure, and the firmware reduces the clock as the system warms. Although rated at 233 MHz, it typically ran at 116 MHz or even 57 MHz. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L9388|"Re: Alpha laptops"]], Jay Estabrook, axp-list, 13 Apr 2000)] Sustained operation at full speed requires external cooling such as a fan. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1997-August.mbox#L35804|"Need Quiet Cooling for Tadpole ALPHABook"]], Jerry Leslie, comp.sys.dec, 6 Aug 1997)]
   * **PCMCIA versus SCSI:** kernels have been reported to detect either the SCSI controller and disk or the PCMCIA bridge, but not both. Since the only networking is a PCMCIA card, this makes a networked, disk-booted configuration difficult. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-September.mbox#L976|"[RFC] Dropping Alpha sparse mapping support from X"]], Davis Johnson, axp-list, 20 Sep 2009)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2015-April.mbox#L946|"still someone here ?"]], Davis Johnson, axp-list, 7 Apr 2015)] The PCMCIA bridge interfering with DMA is the suspected cause, and no fix has been reported. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2015-April.mbox#L885|"still someone here ?"]], Davis Johnson, axp-list, 7 Apr 2015)]
   * **Disk size:** the drive is a 2.5-inch SCSI unit, and these are scarce; the largest reported in an AlphaBook or a Multia is 1.2 GB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/2002-February.mbox#L2356|"Re: RAM and drive for Multia?"]], Julian Coleman, port-alpha, 14 Feb 2002)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2015-April.mbox#L946|"still someone here ?"]], Davis Johnson, axp-list, 7 Apr 2015)]
   * **Memory ceiling:** 128 MiB is the maximum, which limits what can usefully be built on the machine itself. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2015-April.mbox#L946|"still someone here ?"]], Davis Johnson, axp-list, 7 Apr 2015)]
   * **Installation media:** there is no CD-ROM drive, so installation is done over the network from a PCMCIA card or from an external disk. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2000-November.mbox#L2418|"Tadpole AlphaBook 1 with linux.."]], KaV, comp.os.linux.alpha, 20 Nov 2000)]
 
-==== Other operating systems ====
+==== History ====
+
+Jim Paradis had Linux running on a prototype in May 1996, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L7828|"insmod troubles -- any clues?"]], Jim Paradis, axp-list, 10 May 1996)] and the platform was included in Jay Estabrook's public patch kit in July 1997. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-July.mbox#L20316|"NEW and IMPROVED Alpha Patches and MILO Sources!"]], Jay Estabrook, axp-list, 17 Jul 1997)]
+
+List prices started at $13,950 for 32 MiB of memory, a 520 MB disk, the 3Com Ethernet card, and bundled OpenVMS, and a fully loaded machine ran to $25,000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-January.mbox#L23398|"Re: Alpha Notebooks, Notebooks with hardware MPEG"]], Britt Lysaa, comp.sys.dec, 5 Jan 1996, quoting a Business Wire release of 5 Dec 1995)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2001-October.mbox#L1403|"Re: ALPHAbook1"]], Chan F. Y. K., comp.os.linux.alpha, 28 Oct 2001, quoting Information Week, 11 Dec 1995, p. 28)] Production had ended by 1999. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1999-July.mbox#L11339|"Re: wanted : alphabook"]], Harry Bligth, comp.sys.dec, 22 Jul 1999)] Few were sold. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-December.mbox#L8963|"Re: affordable Alpha laptops?"]], Terry C. Shannon, comp.sys.dec, 18 Dec 1996)]
+
+=== Other operating systems ===
 
   * **OpenVMS** was the launch operating system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-January.mbox#L23398|"Re: Alpha Notebooks, Notebooks with hardware MPEG"]], Britt Lysaa, comp.sys.dec, 5 Jan 1996, quoting a Business Wire release of 5 Dec 1995)] This made the machine unusual: OpenVMS did not otherwise support 21066-based systems such as the AXPpci 33 and the Multia. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1997-April.mbox#L9285|"Re: Help: AXPpci33 (was Re: Help: DEC PCI33 M/B)"]], Stephen Hoffman, comp.sys.dec, 25 Apr 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-March.mbox#L21056|"Re: AXP hardware support for VMS"]], Vance R. Haemmerle, comp.sys.dec, 14 Mar 1996)] OpenVMS V7.3-1 was the last release to support it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-tru64-mbox/googlegroups-2002-January.mbox#L1983|"Re: Where does VMS fit in here? (Was Re: HP admits...)"]], david20@alpha1.mdx.ac.uk, comp.unix.tru64, 30 Jan 2002)]
   * **Digital UNIX** was promised for 1996 and could be ordered by August 1997. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1997-August.mbox#L27104|"Re: Need Quiet Cooling for Tadpole ALPHABook"]], Al Herb, comp.sys.dec, 7 Aug 1997)]
   * **Windows NT** was never supported. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-April.mbox#L10601|"Re: NT on Alpha chart?"]], Jeff Monasch, comp.sys.dec, 26 Apr 1996)]
   * **NetBSD** gained preliminary support in June 1998, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-June.mbox#L7388|"First-draft AlphaBook support"]], Jason Thorpe, port-alpha, 25 Jun 1998)] and it appeared as a new platform in NetBSD 1.4. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-April.mbox#L9301|"NetBSD-1.4_ALPHA/alpha available [actually BETA]"]], Ross Harvey, port-alpha, 22 Apr 1999)]
-
-==== Availability ====
-
-List prices started at $13,950 for 32 MB of memory, a 520 MB disk, the 3Com Ethernet card, and bundled OpenVMS, and a fully loaded machine ran to $25,000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-January.mbox#L23398|"Re: Alpha Notebooks, Notebooks with hardware MPEG"]], Britt Lysaa, comp.sys.dec, 5 Jan 1996, quoting a Business Wire release of 5 Dec 1995)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2001-October.mbox#L1403|"Re: ALPHAbook1"]], Chan F. Y. K., comp.os.linux.alpha, 28 Oct 2001, quoting Information Week, 11 Dec 1995, p. 28)] Production had ended by 1999. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1999-July.mbox#L11339|"Re: wanted : alphabook"]], Harry Bligth, comp.sys.dec, 22 Jul 1999)]
 
 ==== Conflicting information ====
 

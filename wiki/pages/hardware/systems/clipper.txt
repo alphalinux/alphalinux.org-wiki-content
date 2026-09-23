@@ -29,22 +29,20 @@ Except where noted, the following comes from the systems and options catalog. [(
 
 ==== Firmware ====
 
-  * On the ES40, the SRM console's ''os_type'' variable takes ''unix'', ''vms'', or ''linux'', and setting it to ''linux'' starts the SRM firmware at power-up or reset. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, EK-ES240-UI.B01, p. 2-78)] An HP engineer later said otherwise; see [[software:firmware:srm#conflicting_information|SRM Console]].
-  * The manual gives the Linux boot settings: ''boot_file'' is ''2/boot/vmlinux.gz'' for Red Hat and ''2/boot/vmlinuz'' for SuSE, and ''boot_osflags'' takes the root device and run level. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, pp. 2-51 to 2-53)]
-  * The ES40 has no MILO; Linux boots from the SRM console. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L10001|"Re: HELP Linux on ES40"]], Jay Estabrook, axp-list, 10 Jul 2001)]
+  * On the ES40, the SRM console's ''os_type'' variable takes ''unix'', ''vms'', or ''linux'', and setting it to ''linux'' starts the SRM firmware at power-up or reset. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, EK-ES240-UI.B01, p. 2-78)]
   * The SRM console sizes its own heap for the installed options, so a heavily populated machine goes through one or more visible crash and reboot cycles the first time, printing "Console heap space will be automatically increased in size by 64KB" before restarting with the larger heap. No action is needed. ''show heap_expand'' shows the size, and ''set heap_expand none'' restores the default, which should be done after a configuration change. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_release_notes.pdf?linkonly|AlphaServer ES40 Release Notes}}, EK-ES240-RN.B01, June 1999, pp. 3-4)]
   * SRM V5.6 added "an X86 bios emulator" to support the KZPCC-CE RAID controller (see [[hardware:other|Other Hardware]]). [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 38)]
   * A failed update to SRM V5.8 can leave a TIG error on the operator control panel. Removing MMB1 and moving jumper J21 to position 2-3 forces the TIG NVRAM to be reloaded from the serial ROM, which avoids replacing the system board. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-September.mbox#L15269|"SUMMARY: firmware 5.8 on ES40 ==> motherboard damage"]], Emanuele Lombardi, tru64-unix-managers, 14 Sep 2000)]
   * Some ES40s shipped with jumper J31 in position 1-2 rather than the documented default of 2-3, which made COM1 unreachable through the RMC's modem port; J31 is not described in the owner's guide. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-November.mbox#L4684|"SUMMARY: COM1/modem port on ES40"]], Nikita Schmidt, tru64-unix-managers, 27 Nov 2000)]
 
+==== Linux ====
+
+Current kernels support the ES40, with ''CONFIG_ALPHA_DP264'' or a generic kernel, booted from the SRM console with [[software:boot_loaders:aboot|aboot]]; see [[documentation:installation|Installation]]. The ES40 has no MILO. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L10001|"Re: HELP Linux on ES40"]], Jay Estabrook, axp-list, 10 Jul 2001)] Use the final SRM version, V7.3-1 (see [[software:firmware:srm#final_versions|Final versions]]). QEMU emulates an ES40-class system (see [[software:emulators|Emulators]]). See also [[hardware:systems#tsunami_systems|Tsunami systems]].
+
 ==== Known issues ====
 
   * Only one VGA-enabled graphics card is supported in the PCI 0 slots, and unplugging the mouse at the SRM console stops the keyboard from responding until the mouse is reconnected. [(>{{wiki:software:firmware:alphaserver_es40_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer ES40 V7.3 Firmware Release Notes}}, April 2007, p. 20)]
   * ES40 memory is sensitive to how DIMMs are seated, and a bad connection is easy to make. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-July.mbox#L11473|"Re: 630/670 machine checks on SMP's"]], Phillip Ezolt, axp-list, 28 Jul 2000)]
-
-==== Linux ====
-
-  * QEMU emulates an ES40 (see [[software:emulators|Emulators]]). See also [[hardware:systems#tsunami_systems|Tsunami Systems]].
 
 ==== Conflicting information ====
 

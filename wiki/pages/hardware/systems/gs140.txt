@@ -8,6 +8,7 @@
 ^ Memory | Up to 12 GiB (GS60), 28 GiB (GS140) |
 ^ Buses | TLSB system bus; PCI, EISA, XMI |
 ^ Firmware | SRM (last V6.6), AlphaBIOS |
+^ Kernel option | None |
 ^ Linux | Never |
 </WRAP>
 
@@ -24,14 +25,11 @@ Except where noted, the following comes from the product profile. [(>{{wiki:hard
   * 40 or 48 internal storage slots, up to 720 GB of internal storage in the GS60 and 864 GB in the GS140
   * Hot swap disks, RAID, N+1 redundant power supplies, ECC memory, heat, fan, and power supply sensors
   * Tru64 UNIX and OpenVMS only; Windows NT was promised but never shipped
-
-==== Upgrades ====
-
-Upgrades used dual-CPU modules, such as one dual 500 MHz EV6 module replacing two EV56 625 MHz modules, and several owners reported doing it without changing the backplane. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-April.mbox#L10203|"Summary EV67 processors in a AS840"]], Gwen Pettigrew, tru64-unix-managers, 17 Apr 2000)]
+  * CPU upgrades use dual-CPU modules; one dual 500 MHz EV6 module replaces two 625 MHz EV56 modules, without a change of backplane [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-April.mbox#L10203|"Summary EV67 processors in a AS840"]], Gwen Pettigrew, tru64-unix-managers, 17 Apr 2000)]
 
 ==== Linux ====
 
-Linux does not support these systems. On an 8400 upgraded to a GS140, aboot loaded a kernel, which halted as soon as it started. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L12103|"Re: AlphaServer GS140 (8400)"]], Pasi Pirhonen, debian-alpha, 24 Sep 2003)] Alpha Core 3 on a GS60 printed garbage to the screen and locked up. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-February.mbox#L341|"GS60 available for porting"]], Adrian Looker, axp-list, 18 Feb 2008)]
+No Linux kernel has supported these systems; a kernel loaded by aboot halts as soon as it starts. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L12103|"Re: AlphaServer GS140 (8400)"]], Pasi Pirhonen, debian-alpha, 24 Sep 2003)]
 
 ==== Documentation ====
 

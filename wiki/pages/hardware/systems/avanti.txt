@@ -1,18 +1,18 @@
-===== AlphaStation 200, 250, 255, 400 and AlphaServer 300, 400 (Avanti) =====
+===== AlphaStation 200, 205, 250, 255, 400 and AlphaServer 300, 400 (Avanti) =====
 
 <WRAP box right 340px>
 ^ AlphaStation 200, 205, 250, 255, 400, AlphaServer 300, 400 ^^
 ^ Codename | Mustang (200), LX3 (205), M3 (250), LX3+ (255), Avanti (400), Melmac (AlphaServer 300) |
 ^ CPU | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] |
 ^ Core logic | [[hardware:chipsets#21071_and_21072|21071/21072]] (APECS) |
-^ Memory | SIMMs; up to 192 MiB (AlphaStation 400), 256 MiB (250), 512 MiB (AlphaServer 300), 1 GB (255) |
+^ Memory | SIMMs; up to 192 MiB (AlphaStation 400), 256 MiB (250), 512 MiB (AlphaServer 300), 1 GiB (255) |
 ^ Buses | 33 MHz PCI, ISA |
 ^ Firmware | SRM (last V7.0-9; V7.2-1 on the AlphaStation 400), ARC; AlphaBIOS on the AlphaStation 255 |
 ^ Kernel option | ''CONFIG_ALPHA_AVANTI_CH'' |
 ^ Linux | Linux 6.9 and earlier |
 </WRAP>
 
-The Avanti family is Digital's first generation of 21064 and 21064A desktop workstations and small servers with PCI. Codenames: AlphaStation 200 Mustang, 205 LX3, 250 M3, 255 LX3+, 400 Avanti, and AlphaServer 300 Melmac. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] To MILO and the kernel, the AlphaStation 200 is identical to the other Avanti systems, although its motherboard does not use a CPU daughtercard. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L9214|"Re: AlphaStation info"]], Jay Estabrook, axp-list, 18 Apr 1996)] These systems have both SRM and ARC. The Avanti kernel platform (''CONFIG_ALPHA_AVANTI'') was removed in Linux 6.10, so 6.9 was the last kernel to support these systems. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=430ad3f0ddd7|"alpha: remove LCA and APECS based machines"]], Linux 6.10)]
+The Avanti family is Digital's first generation of 21064 and 21064A desktop workstations and small servers with PCI. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] To MILO and the kernel, the AlphaStation 200 is identical to the other Avanti systems, although its motherboard does not use a CPU daughtercard. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L9214|"Re: AlphaStation info"]], Jay Estabrook, axp-list, 18 Apr 1996)] These systems have both SRM and ARC.
 
 The [[hardware:systems:xl|Alpha XL 233 and 266]] are close relatives, and some early XL machines are in fact Avantis. A true XL has a different motherboard, on which Avanti kernels and MILO images do not work correctly; it can be identified by its 82379AB PCI-to-ISA bridge, where Avanti systems have the 82378IB or 82378ZB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L6843|"Alpha XL Support"]], Jay Estabrook, axp-list, 22 Mar 1996)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L2473|"RE: SRM/bootp questions"]], Jay Estabrook, axp-list, 13 Jul 1996)]
 
@@ -34,6 +34,10 @@ Digital also sold the AlphaStation 400's boards to OEMs as the AXPpci 233XL modu
   * Floppy disk controller supporting a floppy drive and one CD drive
   * Keyboard and mouse ports, two serial ports, one enhanced bidirectional parallel port
 
+=== AlphaStation 200 ===
+
+The AlphaStation 200 takes "72-pin, 70ns, 36-bit PC-type SIMMs if they meet the standard specs"; the SIMMs Digital shipped in the system may be 33-bit parts that will not work in a PC. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1995-March.mbox#L24345|"Re: alphastation 100/166/233 running osf1"]], Steve Lionel, comp.unix.osf.osf1, 9 Mar 1995)]
+
 === AlphaStation 250 ===
 
 [(>{{wiki:hardware:systems:alphastation_250:alphastation_250_user_information.pdf?linkonly|Digital AlphaStation 250 Series User Information}}, pp. 2-1, C-2)]
@@ -54,7 +58,7 @@ Digital also sold the AlphaStation 400's boards to OEMs as the AXPpci 233XL modu
   * Socketed DECchip [[wp>Alpha_21064#Alpha_21064A|21064A]] with DECchip 21071-AA core logic
   * 1 MiB write-back secondary cache
   * Two PCI, one PCI/ISA combination, and one ISA-only slot on a riser card, PCI at 33.33 MHz
-  * Two banks of four SIMMs, expandable to 1 GB "when 128-MB SIMMs are available"
+  * Two banks of four SIMMs, expandable to 1 GiB "when 128-MB SIMMs are available"
   * Twisted-pair Ethernet on the motherboard, with an optional media adapter unit for ThinWire, and onboard audio jacks
   * A switchpack replaces the AlphaStation 250's SROM and boot jumpers: switches 1 and 2 select the SROM mini-console, booting the console image from floppy, or clearing the RTC and NVRAM [(>{{wiki:hardware:systems:alphastation_255:alphastation_255_user_information.pdf?linkonly|Digital AlphaStation 255 Family User Information}}, p. B-11)]
 
@@ -64,27 +68,25 @@ The AlphaStation 255's onboard Ethernet is a 10 Mb/s 21040. [(>[[https://github.
 
 [(>{{wiki:hardware:systems:alphastation_400:alphastation_400_user_information.pdf?linkonly|Digital AlphaStation 400 Series User Information}}, pp. 2-1, C-1)]
 
-  * CPU on a daughtercard: the PB50C-BA module carries a 233 MHz DECchip 21064A (EV4S) with 16 KB instruction and 16 KB data caches, DECchip 21071-AA core logic, 512 KiB of direct-mapped writeback secondary cache, 1 MiB of flashROM holding the ARC and SRM consoles, PALcode, and diagnostics, a 64 KiB diagnostic ROM, 8 KiB of NVRAM, and an 8-bit diagnostic LED display [(>{{wiki:hardware:systems:alphastation_400:alphastation_400_cpu_module_information.pdf?linkonly|Digital AlphaStation 400 Series CPU Module Information}}, p. 1-1)]
+  * CPU on a daughtercard: the PB50C-BA module carries a 233 MHz DECchip 21064A (EV4S) with 16 KiB instruction and 16 KiB data caches, DECchip 21071-AA core logic, 512 KiB of direct-mapped writeback secondary cache, 1 MiB of flashROM holding the ARC and SRM consoles, PALcode, and diagnostics, a 64 KiB diagnostic ROM, 8 KiB of NVRAM, and an 8-bit diagnostic LED display [(>{{wiki:hardware:systems:alphastation_400:alphastation_400_cpu_module_information.pdf?linkonly|Digital AlphaStation 400 Series CPU Module Information}}, p. 1-1)]
   * Six SIMM sockets on the motherboard, expandable to 192 MiB
   * 32-bit PCI at 33 MHz: two PCI slots, three ISA slots, and one combination PCI/ISA slot
   * SCSI-2 controller with internal and external buses for up to seven devices
   * Floppy disk controller supporting two floppy drives or one floppy and one tape drive, keyboard and mouse ports, two serial ports, one enhanced bidirectional parallel port
   * Three 5.25-inch half-height bays, one hidden 3.5-inch half-height bay, and one 3.5-inch diskette drive, on a 300 W power supply
 
-=== Memory ===
-
-The AlphaStation 200 takes "72-pin, 70ns, 36-bit PC-type SIMMs if they meet the standard specs"; the SIMMs Digital shipped in the system may be 33-bit parts that will not work in a PC. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1995-March.mbox#L24345|"Re: alphastation 100/166/233 running osf1"]], Steve Lionel, comp.unix.osf.osf1, 9 Mar 1995)]
-
 ==== Firmware ====
 
-  * Early AlphaStations shipped with both the ARC console (for Windows NT) and the SRM console (for Digital UNIX and OpenVMS). Later units have only one console installed, and the other can be loaded from the firmware CD. On the AlphaStation 200 this meant booting the firmware update image from the CD and running ''update ARC'' or ''update SRM'' at its ''Apu->'' prompt. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1996-February.mbox#L70|"Re: how to load arc firmware."]], Kenny House, comp.unix.osf.misc, 20 Feb 1996)]
-  * The AlphaStation 200 and 255 need different firmware images, though they share one README; flashing the 255 image into a 200 leaves its ARC console in a loop. On the AlphaStation 200, jumper J2 forces a firmware boot from floppy for recovery. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/1997-September.mbox#L4441|"SUMMARY: Firmware Update Problems with AlphaStation 200 4/166"]], Patrick McCormick, alpha-osf-managers, 25 Sep 1997)]
-  * On the AlphaStation 255, clearing the RTC and NVRAM with the configuration switches leaves firmware V1.3 with ''console = serial'', so power-up messages go to COM1 and the graphics head shows only a blinking cursor. [(>{{wiki:hardware:systems:alphastation_255:alphastation_255_customer_letter.pdf?linkonly|AlphaStation 255 customer letter}}, EK-VLLXA-FL.A01, 8 February 1996)]
+  * Early units have both the ARC and SRM consoles; later units have only one, and the other can be loaded from the firmware CD with ''update ARC'' or ''update SRM'' at the update utility's ''Apu->'' prompt. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1996-February.mbox#L70|"Re: how to load arc firmware."]], Kenny House, comp.unix.osf.misc, 20 Feb 1996)]
+  * The AlphaStation 200 and 255 need different firmware images; flashing the 255 image into a 200 leaves its ARC console in a loop. On the AlphaStation 200, jumper J2 forces a firmware boot from floppy for recovery. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/1997-September.mbox#L4441|"SUMMARY: Firmware Update Problems with AlphaStation 200 4/166"]], Patrick McCormick, alpha-osf-managers, 25 Sep 1997)]
+  * On the AlphaStation 255, clearing the NVRAM with the configuration switches sets ''console'' to ''serial'', so power-up messages go to COM1 and the graphics head shows only a blinking cursor. [(>{{wiki:hardware:systems:alphastation_255:alphastation_255_customer_letter.pdf?linkonly|AlphaStation 255 customer letter}}, EK-VLLXA-FL.A01, 8 February 1996)]
 
 ==== Linux ====
 
+Linux 6.9 was the last version to support the Avanti systems, with ''CONFIG_ALPHA_AVANTI_CH''; Linux 6.10 removed support for processors older than the EV56 (21164A). [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=430ad3f0ddd7|"alpha: remove LCA and APECS based machines"]], Linux 6.10)] They boot from SRM with [[software:boot_loaders:aboot|aboot]].
+
   * MILO must not be written to flash on Avanti systems, which do not support it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L59698|"Re: Questions."]], Jay Estabrook, axp-list, 23 Jul 1998)] Booting from SRM works cleanly. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L16159|"Re: Kernel 2.1.131 compiles but hangs..."]], Richard Henderson, axp-list, 7 Dec 1998)]
-  * The built-in 21040 and 21041 Ethernet controllers on the AlphaStation 200, 250, 255, and AlphaServer 300 have problems with the ''de2104x'' driver. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-January.mbox#L4129|""no link beat found" on digital alpha-station 255"]], Jay Estabrook, debian-alpha, 17 Jan 2006)]
+  * The built-in 21040 and 21041 Ethernet controllers on the AlphaStation 200, 250, 255, and AlphaServer 300 do not work reliably with the ''de2104x'' driver. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2006-January.mbox#L4129|""no link beat found" on digital alpha-station 255"]], Jay Estabrook, debian-alpha, 17 Jan 2006)]
   * S3 Trio64 cards are unreliable, particularly in the AlphaStation 200 and 400 (see [[hardware:other#pc_graphics_cards|Other Hardware]]).
 
 ==== History ====
