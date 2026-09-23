@@ -6,7 +6,7 @@ Work planned or under way on Alpha support in the projects below. The owner is t
 ^ Linux ^^^^
 | In progress | Generic kernel compression support | [[user:mattst88|Matt Turner]] | |
 | In progress | ''ProfileMe'' profiling support | [[user:mattst88|Matt Turner]] | |
-| In progress | EV67 profiling support | [[user:mattst88|Matt Turner]] | |
+| In progress | Profiling support for processors before the EV67 | [[user:mattst88|Matt Turner]] | |
 | In progress | Hugepage support | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/alpha-hugetlb-tests|tests]] |
 | Not started | vDSO support | | |
 ^ GCC ^^^^
