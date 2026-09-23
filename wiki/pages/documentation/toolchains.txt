@@ -35,6 +35,20 @@ Two compatibility issues apply:
 
 The [[documentation:amask|amask]] instruction reports what the running processor implements.
 
+=== Choosing -mcpu today ===
+
+Since Linux 6.10 requires an EV56 or later processor, every system that runs a current kernel implements BWX, and ''-mcpu=ev56'' is the natural baseline for new binaries: it runs on every such system, and avoids the long instruction sequences and the atomicity problems of pre-BWX byte and word access. The kernel's own generic configuration uses ''-mcpu=ev56 -mtune=ev6'', scheduling for the 21264 while staying compatible with the 21164A. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)] A binary for one's own system can use the processor's own value, ''-mcpu=ev67'' for a 21264A or later, which adds the FIX, CIX, and MVI instructions.
+
+''-mcpu=ev6'' and ''-mcpu=ev67'' binaries do not run on the 21164A and 21164PC, which the kernel still supports.
+
+=== Distribution baselines ===
+
+Debian raised the default processor of its GCC packages for Alpha from the architecture baseline to EV56 in May 2023. Aurelien Jarno had proposed in August 2021 to drop the ''libc6.1-alphaev67'' package, an EV67 build of glibc selected at run time through the hardware capabilities mechanism, and asked whether the baseline should instead go to EV6 or EV67; [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-August.mbox#L1|"future of the libc6.1-alphaev67 package"]], Aurelien Jarno, debian-alpha, 24 Aug 2021)] Michael Cree argued for EV56, since BWX removes a class of unaligned access bugs in GCC's byte handling. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-August.mbox#L152|"Re: future of the libc6.1-alphaev67 package"]], Michael Cree, debian-alpha, 25 Aug 2021)] In November 2022 Cree proposed going further, to EV67, after finding that most glibc test failures passed with an EV67 baseline, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2022-November.mbox#L109|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, gentoo-alpha, 20 Nov 2022)] but owners of pre-EV67 systems objected that they were the majority of working Alphas. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2022-November.mbox#L213|"Re: glibc regression on alpha with 2.34+"]], Frank Scheiner, gentoo-alpha, 20 Nov 2022)]
+
+When glibc 2.37 removed the legacy hardware capabilities directories, and with them the EV67 library, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2023-May.mbox#L1|"Re: future of the libc6.1-alphaev67 package"]], Aurelien Jarno, debian-alpha, 14 May 2023)] the porters settled on EV56. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2023-May.mbox#L136|"Re: future of the libc6.1-alphaev67 package"]], John Paul Adrian Glaubitz, debian-alpha, 14 May 2023)] John Paul Adrian Glaubitz filed the request against GCC on 16 May 2023, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2023-May.mbox#L484|"Bug#1036158: gcc-13: Please raise baseline for alpha to EV56"]], John Paul Adrian Glaubitz, debian-alpha, 16 May 2023)] and Matthias Klose made the change four days later, in gcc-13 13.1.0-3 and gcc-12 12.3.0-2. [(>[[https://bugs.debian.org/1036158|Debian bug #1036158]])] Debian's GCC packages have been configured with ''--with-cpu=ev56'' for Alpha since then. [(>[[https://salsa.debian.org/toolchain-team/gcc/-/blob/gcc-15-debian/debian/rules2|debian/rules2]], Debian gcc-15)]
+
+T2 builds its Alpha images for EV56. [(>[[https://dl.t2sde.org/binary/|dl.t2sde.org/binary]], T2 SDE)] Gentoo's Alpha profile sets no ''-mcpu'', so its stages use the compiler's default, the architecture baseline; users choose their own in ''make.conf''. [(>[[https://gitweb.gentoo.org/repo/gentoo.git/tree/profiles/arch/alpha/make.defaults|profiles/arch/alpha/make.defaults]], gentoo.git)]
+
 === Alpha-specific options ===
 
 ^ Option ^ What it does ^
@@ -75,7 +89,30 @@ Alpha's C library is ''libc.so.6.1'', not ''libc.so.6'', and glibc builds itself
 
 From glibc 2.34, statically linked programs on Alpha, ''ldconfig'' among them, crashed while dynamically linked ones worked. The static linker resolved the hidden weak reference to ''%%__ehdr_start%%'' to 0 on Alpha, leaving the program header pointers invalid; Adhemerval Zanella's fix restored the older setup for static binaries in January 2023. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2023-January.mbox#L240|"Re: Update on the glibc segfault issue on Alpha"]], Adhemerval Zanella Netto, gentoo-alpha, 3 Jan 2023)] Most of the remaining glibc test failures passed when built for an EV67 baseline, and Michael Cree proposed raising Debian's baseline accordingly, since "One of our last EV56 users has recently bowed out due to hardware failure". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2022-November.mbox#L109|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, gentoo-alpha, 20 Nov 2022)]
 
+Alpha's ''long double'' is the 128-bit IEEE quadruple format, implemented in software, and its pages are 8 KiB. These and the other ways in which Alpha's Linux ABI differs from x86-64 are described in [[documentation:porting:abi|Linux ABI Differences]].
+
 Open toolchain bugs are tracked from [[tasks:bugs|Bugs]].
+
+==== Cross compilers ====
+
+A cross compiler is the usual way to build a kernel for Alpha, and a quick way to check that other software builds. Prebuilt ones are available from several sources:
+
+^ Source ^ Package or file ^ Prefix ^ Notes ^
+| Debian and Ubuntu | ''gcc-alpha-linux-gnu'', ''binutils-alpha-linux-gnu'' | ''alpha-linux-gnu-'' | In the main archive. Versioned packages such as ''gcc-15-alpha-linux-gnu'' are also available. [(>[[https://packages.debian.org/search?keywords=gcc-alpha-linux-gnu|gcc-alpha-linux-gnu]], packages.debian.org)] Includes glibc, so it builds user programs as well as kernels |
+| Gentoo | ''crossdev --target alpha-unknown-linux-gnu'' | ''alpha-unknown-linux-gnu-'' | Builds binutils, GCC, the kernel headers, and glibc from source |
+| kernel.org | ''x86_64-gcc-//version//-nolibc-alpha-linux.tar.xz'' | ''alpha-linux-'' | Arnd Bergmann's prebuilt compilers, [[https://mirrors.edge.kernel.org/pub/tools/crosstool/|mirrors.edge.kernel.org/pub/tools/crosstool]]. Without a C library, so for kernels only |
+
+For example, on Debian:
+
+<code>
+apt install gcc-alpha-linux-gnu
+alpha-linux-gnu-gcc -O2 -mcpu=ev56 -o hello hello.c
+qemu-alpha -L /usr/alpha-linux-gnu ./hello
+</code>
+
+The last line runs the result with QEMU's user-mode emulator; see [[documentation:qemu#user-mode_emulation|QEMU]]. Building a kernel with a cross compiler is described on the [[documentation:kernel#cross_compiling|Kernel]] page.
+
+Clang cannot be used: LLVM has had no Alpha back end since 2011. See [[status#what_is_missing|Current Status]].
 
 ==== Compaq C ====
 
@@ -114,6 +151,7 @@ The main practical obstacle to using it was packaging rather than performance: b
 ==== See also ====
 
   * [[documentation:porting|Porting]], in particular [[documentation:porting:floating_point|Floating Point]] for ''-mieee'' and [[documentation:porting:byte_word_access|Byte and Word Access]] for BWX
+  * [[documentation:porting:abi|Linux ABI Differences]], for ''long double'', the page size, and system call conventions
   * [[documentation:amask|Architecture Mask (amask)]] for detecting extensions at runtime
   * [[documentation:instruction_set|Instruction Set]]
   * [[tasks:bugs|Bugs]] for open gcc, glibc and binutils bugs against Alpha

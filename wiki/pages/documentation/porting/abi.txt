@@ -1,0 +1,77 @@
+===== Linux ABI Differences =====
+
+Alpha's Linux ABI was modeled on DEC OSF/1, not on the i386 ABI that most later Linux ports copied. System call numbers, error numbers, signal numbers, ''ioctl'' encodings, and many flag values therefore differ from x86-64 and the generic ABI, and code that hard-codes any of them works on other 64-bit Linux architectures and fails on Alpha. This page lists the differences that most often matter to software that talks to the kernel directly, and two properties of the platform that are not OSF/1 heritage: the 8 KiB page size and the 128-bit ''long double''.
+
+Programs that use the C library's headers and functions are not affected by any of the numeric differences below, since glibc and the kernel headers supply the right values. Code that is affected is typically a language runtime that makes system calls without libc (Go, some JIT compilers, sanitizers), an emulator or tracer that decodes system calls, or a program that copies constants into its own source.
+
+==== Page size ====
+
+Alpha uses 8 KiB pages; the kernel selects ''HAVE_PAGE_SIZE_8KB'' and has no other option. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] Code that assumes 4096-byte pages fails in several ways: ''mmap()'' offsets and ''mprotect()'' addresses that are 4 KiB aligned but not 8 KiB aligned are rejected with ''EINVAL'', guard pages end up the wrong size, and allocators that compute page counts get them wrong. The page size should always be obtained at run time with ''sysconf(_SC_PAGESIZE)'' (or ''getpagesize()''), never from a constant.
+
+==== long double ====
+
+''long double'' on Alpha/Linux is the 128-bit IEEE 754 quadruple precision format. It was 64 bits wide, the same as ''double'', until glibc 2.4 in 2006, which moved Alpha to 128-bit ''long double'' as it did PowerPC, SPARC, and S/390; the functions whose ABI changed have new symbol versions, and the old 64-bit versions remain for existing binaries. [(>[[https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/alpha/Implies;hb=glibc-2.42|sysdeps/alpha/Implies]], glibc)] GCC uses the 128-bit format by default when it is configured against glibc 2.4 or later, and ''-mlong-double-64'' selects the old format. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/configure.ac|gcc/configure.ac]], GCC)]
+
+No Alpha processor implements quadruple precision in hardware, so every ''long double'' operation is a library call (''_OtsAddX'', ''_OtsMulX'' and so on). [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.cc|gcc/config/alpha/alpha.cc]], GCC)] Code that uses ''long double'' for extra precision on x86, where it is the 80-bit extended format in hardware, is much slower on Alpha, and code that assumes ''long double'' is the x87 format is wrong. C++ name mangling uses ''g'' for the 128-bit type. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/linux.h|gcc/config/alpha/linux.h]], GCC)]
+
+==== System calls ====
+
+The system call numbers follow OSF/1, and many slots are still named ''osf_'' in the kernel's table. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/syscalls/syscall.tbl?h=v7.3-rc1|arch/alpha/kernel/syscalls/syscall.tbl]], Linux 7.3)] Alpha does not use the generic system call table (''asm-generic/unistd.h'') that newer architectures share, so a system call number from x86-64 or arm64 is wrong on Alpha. Newer system calls added to every architecture at once, such as ''io_uring_setup'' and ''clone3'', have the same number on all architectures that use per-architecture tables, offset by 110 on Alpha.
+
+The calling convention is also different:
+
+  * The system call number goes in ''$0'' (''v0'') and the arguments in ''$16'' to ''$21'' (''a0'' to ''a5''). The ''callsys'' PALcode instruction enters the kernel.
+  * **Errors are not returned as negative values.** On return, ''$19'' (''a3'') is 0 on success and 1 on failure, and on failure ''$0'' holds the positive ''errno'' value. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/entry.S?h=v7.3-rc1|arch/alpha/kernel/entry.S]], Linux 7.3)] Code that tests for a return value between -4095 and -1, as on x86-64, never sees an error on Alpha, and treats small positive error numbers as successful results.
+  * Some system calls return two values, in ''$0'' and ''$20'' (''a4''), after the OSF/1 convention: ''getxpid'' returns the process and parent process IDs, ''getxuid'' and ''getxgid'' the real and effective IDs, and ''pipe'' both file descriptors. Separate ''getppid'', ''geteuid'' and ''getegid'' system calls were added later, as numbers 530 to 532. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/syscalls/syscall.tbl?h=v7.3-rc1|arch/alpha/kernel/syscalls/syscall.tbl]], Linux 7.3)]
+  * Alpha has no vDSO, so ''gettimeofday()'' and ''clock_gettime()'' are always real system calls, and the auxiliary vector has no ''AT_SYSINFO_EHDR''. [(>[[https://github.com/warmchang/procps/commit/9196b59143f6a4d7d54c8a128d753269e496f458|procps commit 9196b59]], Craig Small, 7 Jul 2026)]
+
+==== Error numbers ====
+
+Error numbers 1 to 34 are the same as on other architectures, except that ''EAGAIN'' and ''EDEADLK'' are swapped; from 35 up most of them differ, following OSF/1. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/errno.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/errno.h]], Linux 7.3)] For example:
+
+^ Name ^ Alpha ^ x86-64 ^
+| ''EDEADLK'' | 11 | 35 |
+| ''EAGAIN'', ''EWOULDBLOCK'' | 35 | 11 |
+| ''EINPROGRESS'' | 36 | 115 |
+| ''ENOSYS'' | 78 | 38 |
+
+Code that stores ''errno'' values in files or sends them over the network, or that has tables indexed by error number, needs to use the names, not the numbers.
+
+==== Signal numbers ====
+
+Signal numbers also follow OSF/1. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/signal.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/signal.h]], Linux 7.3)] Signals 1 to 6, 8, and 9 match other architectures; 7 is ''SIGEMT'' on Alpha and ''SIGBUS'' on x86. The others differ, for example:
+
+^ Name ^ Alpha ^ x86-64 ^
+| ''SIGBUS'' | 10 | 7 |
+| ''SIGSYS'' | 12 | 31 |
+| ''SIGSTOP'' | 17 | 19 |
+| ''SIGCONT'' | 19 | 18 |
+| ''SIGCHLD'' | 20 | 17 |
+| ''SIGUSR1'' | 30 | 10 |
+| ''SIGUSR2'' | 31 | 12 |
+
+Scripts that send signals by number, such as ''kill -10'', send a different signal on Alpha.
+
+==== ioctl numbers ====
+
+The ''ioctl'' request encoding has a 13-bit size field and a 3-bit direction field, rather than the 14-bit size and 2-bit direction of the generic encoding, and the direction values differ: ''_IOC_NONE'' is 1, ''_IOC_READ'' 2, and ''_IOC_WRITE'' 4. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/ioctl.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/ioctl.h]], Linux 7.3)] PowerPC, MIPS, and SPARC use the same layout. Every request number built with ''_IO'', ''_IOR'', ''_IOW'', or ''_IOWR'' therefore differs from x86, even ''_IO'' requests without data, which carry a direction bit on Alpha and none on x86.
+
+The terminal ''ioctl'' requests differ further. On x86 they are the old fixed values, ''TCGETS'' being ''0x5401''; on Alpha they are encoded with ''_IOR'' and ''_IOW'', like ''TCGETS'', which is ''_IOR('t', 19, struct termios)''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/ioctls.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/ioctls.h]], Linux 7.3)] Alpha's ''struct termios'' also differs, with ''c_line'' after ''c_cc'' rather than before it. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/termbits.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/termbits.h]], Linux 7.3)]
+
+==== Flags and constants ====
+
+Many flag values passed to system calls differ as well. A few examples: [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/fcntl.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/fcntl.h]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/mman.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/mman.h]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/socket.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/socket.h]], Linux 7.3)]
+
+^ Name ^ Alpha ^ x86-64 ^
+| ''O_NONBLOCK'' | ''0x4'' | ''0x800'' |
+| ''O_CREAT'' | ''0x200'' | ''0x40'' |
+| ''MAP_ANONYMOUS'' | ''0x10'' | ''0x20'' |
+| ''MAP_FIXED'' | ''0x100'' | ''0x10'' |
+| ''SOL_SOCKET'' | ''0xffff'' | ''1'' |
+| ''SO_REUSEADDR'' | ''0x4'' | ''0x2'' |
+
+==== The C library ====
+
+Alpha's C library is ''libc.so.6.1'' rather than ''libc.so.6''; see [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]]. Its floating-point environment and ''-mieee'' are described in [[documentation:porting:floating_point|Floating Point]].
+
+{{tag>documentation porting}}

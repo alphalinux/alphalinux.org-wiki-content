@@ -10,6 +10,7 @@ Many of these failures are latent defects in portable code rather than Alpha-spe
 | [[documentation:porting:memory_model|Memory Model]] | The weakest memory model Linux supports, dependent load reordering, barriers, and load-locked / store-conditional |
 | [[documentation:porting:floating_point|Floating Point]] | Imprecise traps, software completion, ''-mieee'', the FPCR, and denormals |
 | [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] | The January 1997 ABI break, and its cause |
+| [[documentation:porting:abi|Linux ABI Differences]] | The 8 KiB page size, 128-bit ''long double'', and the system call, ''errno'', signal, and ''ioctl'' numbers that differ from x86-64 |
 
 See also [[documentation:instruction_set|Instruction Set]], [[documentation:amask|Architecture Mask (amask)]] and [[documentation:references|References]].
 
