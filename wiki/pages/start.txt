@@ -14,7 +14,7 @@ Alpha is still supported in mainline Linux, GCC, binutils, and glibc. Since Linu
 [[Hardware:Systems]] • [[hardware:motherboards|Motherboards]] • [[Hardware:CPUs]] • [[Hardware:Chipsets]] • [[Hardware:Other]]
 
 ==== Documentation ====
-[[Documentation:Porting]] • [[Documentation:Toolchains]] • [[Documentation:Instruction Set]] • [[Documentation:References]]
+[[documentation:installation|Installation]] • [[Documentation:Porting]] • [[Documentation:Toolchains]] • [[Documentation:Instruction Set]] • [[Documentation:References]]
 
 ==== Community ====
 [[community#mailing_lists|Mailing Lists]] • [[community#irc|IRC]] • [[community#forums|Forums]] • [[community#distributions|Distributions]]
