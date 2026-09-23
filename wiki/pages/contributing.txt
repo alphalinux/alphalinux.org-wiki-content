@@ -1,0 +1,44 @@
+===== Contributing to the Wiki =====
+
+Corrections and new material are welcome, from anyone who runs, maintains, or remembers Alpha systems. This page describes how to get an account and the conventions the wiki's pages follow.
+
+==== Getting an account ====
+
+Anyone can read the wiki, but editing needs an account, and self-registration is disabled to keep out spam. To get an account, ask in **#alpha** on Libera.Chat or on the linux-alpha mailing list (see [[:community|Community]]), or contact the wiki's maintainer, [[user:mattst88|Matt Turner]]. Each account has a user page under ''user:'', which can say who you are and what you work on.
+
+Small corrections can also be sent the same way, without an account: say which page, what is wrong, and the source for the correct information.
+
+The wiki is DokuWiki. Every edit is committed to a git repository, so nothing is lost and every change can be reviewed and reverted. Content is licensed under the GNU Free Documentation License.
+
+==== What the wiki covers ====
+
+  * **Documentation**: how to install, run, and develop for Linux on Alpha, and how the architecture differs from others. Guides such as [[documentation:installation|Installation]] and [[documentation:qemu|QEMU]] give instructions; reference pages such as [[documentation:porting|Porting]] explain.
+  * **Hardware and software**: one page per system, motherboard, firmware, boot loader, and operating system, with what is known about each and the sources for it.
+  * **History**: the companies, people, lists, and distributions of Alpha and Alpha/Linux.
+  * **News**: dated one-line entries for notable changes, such as merged patches and releases, on [[:news|News]], which the front page includes.
+  * **Tasks**: the [[tasks:todo|To Do]] list and [[tasks:bugs|Bugs]].
+
+==== Style ====
+
+  * **Write in encyclopedic style.** State facts plainly, in the third person, without "we" or "you" outside the step-by-step guides. Prefer the past tense for history and the present tense for what is still true.
+  * **Cite a source for every fact** that is not common knowledge, with a footnote directly after the sentence it supports. Footnotes use the refnotes syntax, for example:<code>
+[(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L37024|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 14 Jul 1998)]
+</code>A mailing list citation gives the subject, author, list, and date, and links to the message in the [[https://github.com/alphalinux-org/mailing-list-archives|mailing list archives]], at the line where the message starts. A manual gives its title and page, and links to the PDF in the wiki's media, as ''%%{{wiki:path:file.pdf?linkonly|Title}}%%''. A kernel commit gives its subject and the release it appeared in.
+  * **Record conflicts rather than resolving them silently.** When sources disagree, the page gives the account the evidence supports, and lists the other sources, with short quotes, in a section titled "Conflicting information" at the end.
+  * **Use US spelling**, one space after a full stop, and no em dashes. Write dates as "14 Jul 1998" in citations and "14 July 1998" in text, and binary sizes as KiB, MiB, and GiB.
+  * **Name things as the sources do**: Alpha, not AXP, except in product names; processor part numbers (21164A) with the EV name (EV56) where helpful; system names with their codename (AlphaServer ES40, Clipper).
+
+==== Pages ====
+
+  * Page names are lowercase, with words separated by underscores, in a namespace: ''hardware:systems:clipper'', ''software:boot_loaders:aboot'', ''documentation:porting:floating_point''.
+  * New system and motherboard pages start from a template with an infobox; creating a page in ''hardware:systems'' or ''hardware:motherboards'' fills it in. The infobox fields are explained in the template.
+  * Tag each page at the end with ''%%{{tag>...}}%%'', using the tags of similar pages.
+  * Manuals, data sheets, and photographs go in the media manager, under the same namespace as the page that uses them, for example ''wiki:hardware:systems:alphaserver_es40''. Upload only documents that may be redistributed.
+  * A news entry is one table row in [[:news|News]], newest first: the date, who did what, a link to the patch or release, and the release that will include it.
+
+==== See also ====
+
+  * [[https://www.dokuwiki.org/wiki:syntax|DokuWiki syntax]]
+  * [[:faq|FAQ]] and [[:glossary|Glossary]]
+
+{{tag>wiki}}

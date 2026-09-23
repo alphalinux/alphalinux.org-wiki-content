@@ -1,29 +1,39 @@
 ===== To Do =====
 
-^ Status ^ Task ^
-^ Linux ||
-| In progress | Generic kernel compression support |
-| In progress | ''ProfileMe'' profiling support |
-| In progress | EV67 profiling support |
-| In progress | Hugepage support |
-| Not started | vDSO support |
-| Done | SECCOMP and SECCOMP_FILTER support |
-| Done | GENERIC_ENTRY support |
-^ GCC ||
-| In progress | Switch to LRA for BWX ([[https://gcc.gnu.org/pipermail/gcc-patches/2026-July/724654.html|patch]]) |
-| In progress | Switch to LRA for non-BWX |
-| In progress | Fix test suite failures |
-| Done | Stack protector support |
-| Done | IFUNC support |
-^ glibc ||
-| In progress | Fix test suite failures |
-| In progress | IFUNC and multiarch support |
-| In progress | ''mem*'' and ''str*'' function optimizations |
-^ binutils ||
-| Done | IFUNC support |
-^ aboot ||
-| Done | XFS support |
-| Done | ext4 support |
-| Done | Release 2.0 |
+Work planned or under way on Alpha support in the projects below. The owner is the person doing the work, where someone is; tasks without an owner are open for anyone to take up, and a message to the project's list is the way to start. Gaps that have no task yet are described under [[status#what_is_missing|Current Status]].
+
+^ Status ^ Task ^ Owner ^ Link ^
+^ Linux ^^^^
+| In progress | Generic kernel compression support | [[user:mattst88|Matt Turner]] | |
+| In progress | ''ProfileMe'' profiling support | [[user:mattst88|Matt Turner]] | |
+| In progress | EV67 profiling support | [[user:mattst88|Matt Turner]] | |
+| In progress | Hugepage support | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/alpha-hugetlb-tests|tests]] |
+| Not started | vDSO support | | |
+| Done | SECCOMP and SECCOMP_FILTER support | [[user:lindholm|Magnus Lindholm]] | [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a10e80be6343cbdaabe80f82cbd640fe3772d102|Linux 7.1]] |
+| Done | GENERIC_ENTRY support | [[user:lindholm|Magnus Lindholm]] | [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ca58a3dde621067333f481547db4afc587d7708a|Linux 7.3]] |
+^ GCC ^^^^
+| In progress | Switch to LRA for BWX | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-July/724654.html|patch]], [[https://github.com/alphalinux-org/issues/issues/3|issue]] |
+| In progress | Switch to LRA for non-BWX | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/issues/issues/3|issue]] |
+| In progress | Fix test suite failures | | |
+| Done | Stack protector support | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-August/729301.html|patch]] |
+| Done | IFUNC support | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-August/726956.html|patch]] |
+^ glibc ^^^^
+| In progress | Fix test suite failures | | |
+| In progress | IFUNC and multiarch support | [[user:mattst88|Matt Turner]] | |
+| In progress | ''mem*'' and ''str*'' function optimizations | [[user:mattst88|Matt Turner]] | |
+^ binutils ^^^^
+| Done | IFUNC support | [[user:mattst88|Matt Turner]] | [[https://sourceware.org/pipermail/binutils/2026-September/151152.html|patch]] |
+^ aboot ^^^^
+| Done | XFS support | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
+| Done | ext4 support | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
+| Done | Release 2.0 | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
+^ Rust ^^^^
+| In progress | Alpha target in rustc_codegen_gcc, the GCC back end for ''rustc'' | | [[https://github.com/rust-lang/rustc_codegen_gcc/issues/742|issue #742]] |
+| Not started | Alpha target in the Rust compiler and standard library | | |
+^ QEMU ^^^^
+| Not started | SRM console callbacks in qemu-palcode, so that aboot can boot a disk | | |
+^ Other software ^^^^
+| Not started | Alpha support in libseccomp | | [[https://github.com/alphalinux-org/issues/issues/2|issue]] |
+| Done | Basic Alpha support in gperftools | [[user:creemj|Michael Cree]] | [[https://github.com/gperftools/gperftools/commit/5f64fd287a4046911b3d676f90128979982e4088|commit]] |
 
 {{tag>tasks}}

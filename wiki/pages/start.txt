@@ -17,7 +17,7 @@ Alpha is still supported in mainline Linux, GCC, binutils, and glibc. Since Linu
 [[faq|FAQ]] • [[glossary|Glossary]] • [[documentation:installation|Installation]] • [[documentation:qemu|QEMU]] • [[documentation:kernel|Kernel]] • [[documentation:srm|Using SRM]] • [[Documentation:Porting]] • [[Documentation:Toolchains]] • [[Documentation:Instruction Set]] • [[Documentation:References]]
 
 ==== Community ====
-[[community#mailing_lists|Mailing Lists]] • [[community#irc|IRC]] • [[community#forums|Forums]] • [[distributions|Distributions]]
+[[community#mailing_lists|Mailing Lists]] • [[community#irc|IRC]] • [[community#forums|Forums]] • [[distributions|Distributions]] • [[contributing|Contributing]]
 
 ==== History ====
 [[History:Companies]] • [[History:Community]] • [[History:News Coverage]] • [[History:alphalinux.org]]

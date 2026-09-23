@@ -1,5 +1,7 @@
 ===== News Coverage =====
 
+Articles about Alpha in the general and trade press, from 1993, shortly after Digital introduced the processor, to the end of its development under HP, and later coverage of Alpha in the Linux kernel. The early years are dominated by the business press's coverage of Digital, and 1998 to 2001 by Compaq's handling of Alpha and its sale to Intel. Many of the older links are to archived copies; those marked dead link have no known copy.
+
 ==== 1993 ====
 
 ^ Source ^ Date ^ Title ^
@@ -341,5 +343,16 @@
 ^ Source ^ Date ^ Title ^
 | The Inquirer | 2005-06-27 | [[https://web.archive.org/web/20050713083949/http://www.theinquirer.net/?article=24212|Could HP bring the Alpha processor back to life?]] |
 | The Inquirer | 2005-06-30 | [[http://www.theinquirer.net/inquirer/news/498/1032498/will-the-alpha-chip-stage-a-comeback|Will the Alpha Chip Stage a Comeback? (dead link)]] |
+
+==== 2024 ====
+
+^ Source ^ Date ^ Title ^
+| Phoronix | 2024-05-06 | [[https://www.phoronix.com/news/Linux-6.10-Drop-Old-DEC-Alpha|Linux 6.10 To Drop Support For Very Old DEC Alpha Hardware]] |
+| LWN.net | 2024-05-16 | [[https://lwn.net/Articles/973687/|The first half of the 6.10 merge window]] |
+
+==== 2025 ====
+
+^ Source ^ Date ^ Title ^
+| LWN.net | 2025-11-18 | [[https://lwn.net/Articles/1045363/|The current state of Linux architecture support]] |
 
 {{tag>history}}

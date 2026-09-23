@@ -10,6 +10,12 @@ Binaries built against one library do not work with the other. [(>[[https://gith
 
 Nothing in current Alpha glibc requires the ''.1''. It is a remnant of the 1997 ABI change, kept because changing it back would break every existing Alpha binary.
 
+==== Consequences for portable code ====
+
+Code that names the C library by its file name breaks on Alpha. Typical cases are a ''dlopen("libc.so.6", ...)'' call, a language runtime or foreign function interface that loads ''libc.so.6'' by name, and a test suite or build script that looks for ''libc.so.6'' to find the C library or decide that it is glibc. All of them fail on Alpha, where no file of that name exists. [(>[[https://github.com/martinpitt/umockdev/commit/a52fb88c855708508a16f1d1c03fcdd5101866f3|umockdev commit a52fb88]], Michael Cree, 6 Jul 2026)] The same applies to ''libm.so.6''.
+
+Portable code should not hard-code the name. In C, glibc's ''<gnu/lib-names.h>'' defines ''LIBC_SO'' and ''LIBM_SO'' as the correct names for the target, ''"libc.so.6.1"'' and ''"libm.so.6.1"'' on Alpha. Alternatively, ''dlopen(NULL, ...)'' returns a handle for the main program, through which the C library's symbols can be found without naming it. Python's ''ctypes.util.find_library("c")'' also returns the right name.
+
 ==== IA-64 ====
 
 IA-64 also used ''libc.so.6.1'' and ''libm.so.6.1'', for undocumented reasons. It entered glibc at ''GLIBC_2.2'' already using 6.1, so it never shipped a ''libc.so.6'' and had no break to signal. IA-64 has since been removed from glibc, leaving Alpha as the only architecture using 6.1.

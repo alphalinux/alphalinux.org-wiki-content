@@ -133,7 +133,7 @@ All three BSDs boot only from the [[software:firmware:srm|SRM console]], because
 
 NetBSD/alpha was started by Chris Demetriou and is the oldest of the three. Snapshots of the 1.2 development line were circulating by June 1996, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1996-June.mbox#L1468|"Another NetBSD/Alpha 1.2_ALPHA snapshot (960615) available!"]], Chris G Demetriou, port-alpha, 16 Jun 1996)] and users were running the 1.2 release by October 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1996-October.mbox#L134|"alpha 1.2 release"]], Michael Graff, port-alpha, 7 Oct 1996)] That release was statically linked ECOFF; ELF and shared libraries were still being finished at the end of 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1996-October.mbox#L149|"Re: alpha 1.2 release"]], Chris G Demetriou, port-alpha, 8 Oct 1996)]
 
-The port is still maintained, and its ''port-alpha@netbsd.org'' mailing list remains active.
+The port is still maintained, and its ''port-alpha@netbsd.org'' mailing list remains active. Alpha is a supported port in NetBSD's current releases, 11.0, released on 30 July 2026, and 10.2; NetBSD 11.0 added support for Secure PLT binaries on Alpha. [(>[[https://www.netbsd.org/releases/formal-11/NetBSD-11.0.html|NetBSD 11.0 release notes]], The NetBSD Project, 30 Jul 2026)] Install images are published for each release, such as ''NetBSD-11.0-alpha.iso''. [(>[[https://cdn.netbsd.org/pub/NetBSD/NetBSD-11.0/images/|NetBSD-11.0/images]], cdn.netbsd.org)] NetBSD also runs under QEMU; see [[software:emulators#other_operating_systems|Emulators]].
 
 === FreeBSD ===
 
@@ -143,7 +143,7 @@ FreeBSD/alpha was Doug Rabson's work and was the first non-x86 port added to Fre
 
 OpenBSD 2.2, announced on 14 December 1997, included an Alpha binary release. It supported the DEC 3000, the AlphaStation 200, 250, 255, 400, and 500, the AXPpci 33, and the Multia, from SRM only, with limited binary compatibility with OSF/1. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1997-December.mbox#L2919|"OpenBSD 2.2 released for the alpha"]], Theo de Raadt, comp.unix.osf.misc, 14 Dec 1997)]
 
-OpenBSD/alpha is still supported, including SMP. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/openbsd-alpha-mbox/2026-February.mbox#L1|"Re: SMP on AlphaServer DS20E"]], Miod Vallat, openbsd-alpha, 14 Feb 2026)]
+OpenBSD/alpha is still supported, including SMP, and is part of the current release, OpenBSD 7.9 of 19 May 2026, whose changes include reworked TLB shootdown on Alpha. [(>[[https://www.openbsd.org/79.html|OpenBSD 7.9]], The OpenBSD Project, 19 May 2026)] The installation media are ''install79.iso'' and ''cd79.iso'', and the procedure is described in the release's ''INSTALL.alpha''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/openbsd-alpha-mbox/2026-February.mbox#L1|"Re: SMP on AlphaServer DS20E"]], Miod Vallat, openbsd-alpha, 14 Feb 2026)]
 
 ==== Windows NT ====
 
@@ -164,6 +164,8 @@ The first OpenVMS for Alpha was OpenVMS AXP. The DEC 2000 was added with OpenVMS
 | AlphaServer ES47, ES80, GS1280 | V7.3-1 with an upgrade kit [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_tower_quickspecs.pdf?linkonly|HP AlphaServer ES47 Tower QuickSpecs}}, November 2003, p. 2)] |
 
 OpenVMS could be licensed for non-commercial use from at least 1998, through the OpenVMS Hobbyist program run with DECUS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-vms-mbox/googlegroups-1998-August.mbox#L306|"Re: HELP needed with an old DEC/MicroVAX II"]], Hoff Hoffman, comp.sys.vms, 31 Aug 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-vms-mbox/googlegroups-1998-April.mbox#L2260|"Re: Unix geek with a VAX"]], Hoff Hoffman, comp.sys.vms, 15 Apr 1998)]
+
+In July 2014 HP named VMS Software Inc. (VSI) the exclusive developer of future versions of OpenVMS, and licensed it the source code. [(>[[https://www.infoworld.com/article/2608367/hp-gives-openvms-new-life.html|"HP gives OpenVMS new life"]], Computerworld, 31 Jul 2014)] VSI's releases for Alpha are OpenVMS V8.4-2L1 and V8.4-2L2; V8.4-2L2 is built for EV6 and later processors, and uses the byte/word extension. [(>[[https://vmssoftware.com/products/versions/|Versions]], VMS Software Inc.)] VSI offers standard support for both through 2035. [(>[[https://products.vmssoftware.com/alpha|"Future Proof Your Alpha System"]], VMS Software Inc.)] OpenVMS does not run under QEMU; the ES40-based emulators described under [[software:emulators|Emulators]] run it.
 
 ==== Tru64 UNIX ====
 
