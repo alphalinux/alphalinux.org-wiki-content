@@ -1,6 +1,6 @@
 ===== AlphaServer ES47, ES80, and GS1280 (Marvel) =====
 
-The Marvel systems are the last Alpha machines, built from 21364 (EV7) processors whose on-chip memory controllers and router links connect directly to each other, without core logic between them. Compaq said when it announced the move to Itanium in June 2001 that the EV7 "will require new systems", and that the existing ES, DS, and GS systems "have never been destined to run the EV7 chip". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-June.mbox#L34268|"Compaq/Intel agreement... postings on this list"]], Vincent D'Antonio, tru64-unix-managers, 27 Jun 2001)] The GS1280 was sold in models with up to 64 CPUs. [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_drawer_upgrade.pdf?linkonly|HP AlphaServer ES47/ES80/GS1280 I/O Drawer Upgrade}}, p. 1-3)]
+The Marvel systems are the last Alpha machines, built from 21364 (EV7) processors whose on-chip memory controllers and router links connect directly to each other, without core logic between them. When Compaq announced its move to Itanium in June 2001, it said that the EV7 would require new systems and that the existing ES, DS, and GS systems had never been intended to run it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-June.mbox#L34268|"Compaq/Intel agreement... postings on this list"]], Vincent D'Antonio, tru64-unix-managers, 27 Jun 2001)] The GS1280 was sold in models with up to 64 CPUs. [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_drawer_upgrade.pdf?linkonly|HP AlphaServer ES47/ES80/GS1280 I/O Drawer Upgrade}}, p. 1-3)]
 
 ==== Specifications ====
 
@@ -10,7 +10,7 @@ Except where noted, the following comes from the ES47 and ES80 QuickSpecs. [(>{{
   * 1.75 MiB of seven-way set associative ECC protected L2 cache on each chip
   * Up to 8 GiB of RDRAM per CPU, with optional RAID memory
   * A glueless multiprocessor architecture assembled from system building block drawers, dual CPU building block modules, and I/O expansion drawers; the ES47 Tower holds one drawer, and the ES80 models 2, 3, 6, and 8 hold one to four
-  * Each two-processor building block drawer has "5 PCI-X/PCI slots and one AGP slot"
+  * Each two-processor building block drawer has five PCI-X/PCI slots and one AGP slot
   * Maximums: ES47 Tower two CPUs, 16 GiB, five PCI slots; ES47 four CPUs, 32 GiB, 32 PCI slots; ES80 Model 8 eight CPUs and 64 GiB
   * Optional standard I/O drawer with 11 configurable PCI-X/PCI slots and one AGP slot, or high performance I/O drawer with eight 133 MHz PCI-X slots
   * N+1 voltage regulator modules, hot plug redundant power supplies and fans, dual AC input, ECC on memory, cache, and system data paths
@@ -20,17 +20,17 @@ Except where noted, the following comes from the ES47 and ES80 QuickSpecs. [(>{{
 
 ==== Console ====
 
-  * The console is not a serial port: user access is "via the USB port in a Master I/O Drawer, a network connection ... or local terminal" [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, p. 6)]
-  * For Linux this means "ttyS0 cannot be used ... be sure to specify "console=srm" when booting." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-July.mbox#L2911|"Installation HPWrapper ISO for ES47, ES80, 2100A and DAC960 systems for RH-7.2."]], George France, axp-list, 11 Jul 2003)]
+  * The console is not a serial port: it is reached through the USB port in a master I/O drawer, a network connection, or a local terminal [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, p. 6)]
+  * Linux therefore cannot use ''ttyS0'' as its console, and must be booted with ''console=srm'' [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-July.mbox#L2911|"Installation HPWrapper ISO for ES47, ES80, 2100A and DAC960 systems for RH-7.2."]], George France, axp-list, 11 Jul 2003)]
   * The ES47 needs SRM V6.4-8 or later [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2006-March.mbox#L3148|"KVM switch for ES47 - II"]], Jens Kieffer-Olsen, tru64-unix-managers, 15 Mar 2006)]
 
 ==== Linux ====
 
   * HP's QuickSpecs list Tru64 UNIX and OpenVMS as the supported operating systems, and point at alphalinux.org for Linux. [(>{{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_quickspecs.pdf?linkonly|HP AlphaServer ES47/ES80 QuickSpecs}}, July 2007, p. 6)]
-  * Linux supports at most 32 CPUs, because "MARVEL support is limited to 32 CPUs whan using 42-bit KSEG - one needs 48-bit KSEG to handle up to 64, and we've never supported 48-bit KSEG." [(>[[https://git.kernel.org/torvalds/c/d7083174a2ca|"ALPHA: misc fixes"]], Linux 2.6.22)]
-  * The Marvel has no real PC clock: "RTC accesses are emulated via PAL calls. Unfortunately, for unknown reason these calls work only on CPU #0." [(>[[https://git.kernel.org/torvalds/c/5f7dc5d75076|"alpha: fix RTC on marvel"]], Linux 2.6.29)]
-  * For Alpha Core 3 in 2007, "support for MARVEL (ES47/ES80/GS1280) is back after a long hiatus; I've only an ES47 to test on". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2007-March.mbox#L1087|"Torrents galore...but has anyone actually tried it?"]], Jay Estabrook, axp-list, 7 Mar 2007)] Jay Estabrook's Fedora 8 based release listed "No NUMA support on MARVEL (ES47 et al)". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L1|"Fedora 8-based distro for Alpha CD Announcement"]], Jay Estabrook, axp-list, 14 Apr 2008)]
-  * Linux 7.3 fixed interrupt setup bugs on the Marvel dating from 2.6.38. [(>[[https://git.kernel.org/torvalds/c/3a3ac1f6c6a6|"alpha: marvel: Fix irq_set_status_flags to use correct IRQ number"]], Linux 7.3)] [(>[[https://git.kernel.org/torvalds/c/24d68db713d6|"alpha: marvel: Fix lock ordering in init_io7_irqs()"]], Linux 7.3)]
+  * Linux supports at most 32 CPUs, because it uses a 42-bit KSEG; 64 CPUs would need a 48-bit KSEG, which Linux has never supported. [(>[[https://git.kernel.org/torvalds/c/d7083174a2ca|"ALPHA: misc fixes"]], Linux 2.6.22)]
+  * The Marvel has no real PC clock. RTC accesses are emulated through PALcode calls, which for unknown reasons work only on CPU 0, so the kernel performs them there. [(>[[https://git.kernel.org/torvalds/c/5f7dc5d75076|"alpha: fix RTC on marvel"]], Linux 2.6.29)]
+  * The kernel has no NUMA support for the Marvel: Alpha NUMA support was removed in Linux 5.14. [(>[[https://git.kernel.org/torvalds/c/fdb7d9b7acd0|"alpha: remove DISCONTIGMEM and NUMA"]], Linux 5.14)]
+  * Fixes for interrupt setup bugs on the Marvel dating from 2.6.38 were merged for Linux 7.3. [(>[[https://git.kernel.org/torvalds/c/3a3ac1f6c6a6|"alpha: marvel: Fix irq_set_status_flags to use correct IRQ number"]], Linux 7.3)] [(>[[https://git.kernel.org/torvalds/c/24d68db713d6|"alpha: marvel: Fix lock ordering in init_io7_irqs()"]], Linux 7.3)]
 
 ==== Documentation ====
 
