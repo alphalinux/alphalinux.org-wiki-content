@@ -32,6 +32,8 @@ The AlphaPC 64 was derived from the [[hardware:motherboards:eb64plus|EB64+]], an
   * 1 MiB flash ROM containing Windows NT ARC firmware and debug monitor
   * Baby AT board, 33.0 cm x 22.1 cm [(>{{wiki:hardware:motherboards:pc64:pc64_motherboard_user_manual.pdf?linkonly|AlphaPC64 Motherboard User's Manual}}, p. 1-9)]
 
+The keyboard and mouse connectors are placed together where an AT case normally has only the keyboard connector, so the opening in a standard AT case must be enlarged. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L21001|"RE: questions about the Cabriolet"]], Maurice Hilarius, axp-list, 9 Dec 1998)]
+
 ==== Memory ====
 
 The board takes 72-pin 36-bit true parity SIMMs, installed in banks of four. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L19972|"Re: questions about the Cabriolet"]], Maurice Hilarius, axp-list, 9 Dec 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L22939|"Re: Cabriolet"]], glenn murphy, axp-list, 9 Dec 1998)]
@@ -39,8 +41,6 @@ The board takes 72-pin 36-bit true parity SIMMs, installed in banks of four. [(>
 ==== Power supply ====
 
 The AlphaPC 64 does not use a standard AT or ATX power supply. It requires an AT power supply with two additional 6-pin connectors (often labeled P9 to P12), each carrying three +3.3 V and three ground pins, in addition to the usual +5 V, +12 V, -5 V, and -12 V. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L21001|"RE: questions about the Cabriolet"]], Maurice Hilarius, axp-list, 9 Dec 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L22939|"Re: Cabriolet"]], glenn murphy, axp-list, 9 Dec 1998)] On the board, the +3.3 V connectors are J27 and J28. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L18323|"Re: More Newbie crap!"]], Maurice Hilarius, axp-list, 9 Jan 1999)]
-
-The keyboard and mouse connectors are placed together where an AT case normally has only the keyboard connector, so the opening in a standard AT case must be enlarged. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L21001|"RE: questions about the Cabriolet"]], Maurice Hilarius, axp-list, 9 Dec 1998)]
 
 ==== Firmware ====
 
@@ -61,14 +61,6 @@ Both SRM (with aboot) and ARC (with MILO) can boot Linux. [(>[[https://github.co
 ==== Known issues ====
 
   * **SCSI boot:** the board has no onboard SCSI. SRM 4.8 boots only from NCR 53C810 and QLogic ISP1020 adapters, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-January.mbox#L18434|"Re: (pc64-275) SRM v4.8 SCSI controllers"]], Robert Parnell, axp-list, 12 Jan 2000)] and ARC from few SCSI adapters: Intraserver 3140U-N and 4140UE-N cards are reported to work, and the Diamond Fireport40, BusLogic BT958, and Adaptec 2940 not to. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L21001|"RE: questions about the Cabriolet"]], Maurice Hilarius, axp-list, 9 Dec 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L69662|"Re: XP1000 and Linux"]], Maurice Hilarius, axp-list, 23 Mar 1999)]
-
-==== Conflicting information ====
-
-The following sources conflict with each other or with the account given above. They are listed here for further investigation.
-
-  * **EB64+ and PC64 as the same board**
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L37352|"RE: Memory on my new Alpha PCI64-275"]], Bob Segrest, axp-list, 16 Dec 1998: "The names Cabrieolet, EB64+, EB64P, Alpha PCI64-275 and AlphaPC 64, all refer to the same ATX form factor motherboard."
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L37647|"Re: Memory on my new Alpha PCI64-275"]], John Anstreicher, axp-list, 16 Dec 1998: "The PC64 motherboard (21A01-xx) is not ATX format. It is a slightly modified (thank you again, Digital) baby AT."
 
 ==== Documentation ====
 

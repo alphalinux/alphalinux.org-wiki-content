@@ -19,14 +19,16 @@ Digital announced the 4/224 and 4/288 on 24 April 1996 for "industrial automatio
 
 Digital also sold the **Alpha VME 2100**, an [[hardware:systems:sable|AlphaServer 2100]] in 19-inch rackmount packaging with VME64 in place of EISA, announced in October 1994 as the AlphaServer 2100 4/190 VME. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-October.mbox#L252|"Digital AlphaServer 2100 4/190 VME"]], Customer Update, biz.digital.articles, 5 Oct 1994)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-June.mbox#L12012|"Digital Alpha VME 2100"]], Customer Update, biz.digital.articles, 16 Jun 1995)]
 
-==== AXPvme specifications ====
+==== Specifications ====
+
+=== AXPvme ===
 
   * 6U VMEbus module built on the LCA processor family, with integrated memory and PCI controllers [(>{{wiki:hardware:systems:alpha_vme:axpvme_technical_description.pdf?linkonly|AXPvme Single-Board Computer Technical Description}}, EK-EBV1X-TD.B01, July 1995, pp. 1-1 to 1-4)]
   * 8 to 128 MiB of DRAM, with a 256 KiB (AXPvme 64, 64LC, and 160) or 512 KiB (AXPvme 100, 166, and 230) backup cache
   * Full master and slave VME interface, built on the Cypress VIC64, able to act as VME system controller
   * DECchip 21040 Ethernet, NCR 53C810 SCSI, and 85C30 serial lines on PCI
 
-==== Alpha VME 4 specifications ====
+=== Alpha VME 4 ===
 
   * [[wp>Alpha_21064#Alpha_21064A|21064A]] at 224 MHz with 512 KiB of cache, or at 288 MHz with 2 MiB of cache, with a DECchip 21071-DA PCI host bridge [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, pp. 1-1 to 1-5)]
   * 8 to 128 MiB of ECC memory on DIMMs

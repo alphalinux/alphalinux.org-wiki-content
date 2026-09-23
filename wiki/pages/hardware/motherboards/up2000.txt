@@ -15,7 +15,9 @@
 
 The UP2000 and UP2000+ are dual-processor motherboards produced by Alpha Processor, Inc. (API), with the Tsunami chipset and a Slot B processor interface. [(>{{wiki:hardware:motherboards:up2000plus:up2000plus_user_manual.pdf?linkonly|UP2000+ User Manual}}, p. iii)]
 
-==== UP2000 ====
+==== Specifications ====
+
+=== UP2000 ===
 
 The UP2000 was introduced in 2000. [(>{{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}}, p. iii)]
 
@@ -30,10 +32,8 @@ The UP2000 was introduced in 2000. [(>{{wiki:hardware:motherboards:up2000:up2000
   * 1x ISA slot (shared)
   * Extended ATX form factor, 12 in x 13 in [(>{{wiki:hardware:motherboards:up2000:up2000_user_manual.pdf?linkonly|UP2000 User Manual}}, p. 1-1)]
 
-{{gallery>:wiki:hardware:motherboards:up2000}}
-
 {{anchor:up2000plus}}
-==== UP2000+ ====
+=== UP2000+ ===
 
 The UP2000+ is a minor update to the UP2000; apart from the changes below, the hardware is the same. The UP2000+ detects the CPU frequency automatically, whereas the UP2000 required jumpered configuration. [(>[[https://www.theregister.com/on-prem/2000/09/15/api-messes-up-alpha-mobo-upgrade/1545403|"API messes up Alpha mobo upgrade"]], Mike Magee, The Register, 15 Sep 2000)]
 
@@ -42,9 +42,7 @@ The UP2000+ is a minor update to the UP2000; apart from the changes below, the h
     * 3x 64-bit Slots on bus 0
     * 1x 64-bit and 2x 32-bit slots on bus 1
 
-{{gallery>:wiki:hardware:motherboards:up2000plus}}
-
-==== CPUs ====
+==== CPU ====
 
   * The CPU is soldered to the Slot B module and cannot be replaced separately. The UP2000's SROM only has code for 667 MHz (2/4 MiB cache) and 750 MHz (8 MiB cache) processors. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L11176|"Re: Can I swap the 21264A in a UP2000 processor cardridge ?"]], Rich Payne, axp-list, 21 Dec 2001)]
   * 750 MHz processors run with a 75 MHz memory bus, compared to 83 MHz for 667 MHz and 833 MHz processors, which is why all 750 MHz modules sold had 8 MiB of cache. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L10940|"Re: Can I swap the 21264A in a UP2000 processor cardridge ?"]], Maurice Hilarius, axp-list, 20 Dec 2001)] The 750 MHz modules use the most power of any Slot B module; the EV68 833 MHz modules use much less. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-September.mbox#L1467|"Re: FW: UP2000 MoBo test?"]], Kurt A. Ludwig, axp-list, 9 Sep 2003)]
@@ -53,7 +51,7 @@ The UP2000+ is a minor update to the UP2000; apart from the changes below, the h
 
 ==== Memory ====
 
-At least four DIMMs must be installed; two DIMMs per bank will not start. Four 256 MiB DIMMs and eight 128 MiB DIMMs perform the same. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L20944|"Re: should I use 8 DIMMs for UP2000 M/B when I put two 667Mhz"]], Rich Payne, axp-list, 9 Nov 2000)]
+DIMMs are installed in banks of four, and a system with fewer than four DIMMs does not start. Four 256 MiB DIMMs and eight 128 MiB DIMMs perform the same. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L20944|"Re: should I use 8 DIMMs for UP2000 M/B when I put two 667Mhz"]], Rich Payne, axp-list, 9 Nov 2000)]
 
 ==== Power supply and cooling ====
 
@@ -87,13 +85,11 @@ Current kernels support both boards with ''CONFIG_ALPHA_DP264'' or a generic ker
   * IDE (Cypress CY82C693): ''pata_cypress'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_cypress.c?h=v7.3-rc1|drivers/ata/pata_cypress.c]], Linux 7.3)]
   * USB: the onboard controller generally cannot be used, because SRM assigns it no interrupt; see [[#onboard_devices|Onboard devices]].
 
-The UP2000 is not an officially supported Tru64 UNIX platform. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L43541|"RE: UP2000 and Tru64?"]], Mike Foley, axp-list, 23 Dec 1999)]
-
 ==== History ====
 
 API, renamed API NetWorks at the end of 2000, [(>{{wiki:hardware:motherboards:up2000plus:up2000plus_user_manual.pdf?linkonly|UP2000+ User Manual}}, p. iii)] took over the barely started development of the UP2000 from Samsung. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-August.mbox#L6772|"RE: Samsung EV69"]], Maurice Hilarius, axp-list, 8 Aug 2002)] The UP2000+ and the 833 MHz Slot B modules were announced in late 2000, but deliveries to resellers were delayed until June 2001. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L12658|"RE: Bye-bye our API...Drove my Alpha to the..."]], Maurice Hilarius, axp-list, 15 Jan 2002)]
 
-==== Related systems ====
+The UP2000 is not an officially supported Tru64 UNIX platform. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L43541|"RE: UP2000 and Tru64?"]], Mike Foley, axp-list, 23 Dec 1999)]
 
 The [[hardware:systems:shark|API NetWorks CS20]] is a 1U dual processor system similar to the UP2000+. It uses the Tsunami chipset, but has CPUs soldered to the board instead of Slot B modules, an ALi south bridge instead of the Cypress, LSI Ultra160 SCSI instead of Adaptec, and dual onboard Ethernet. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L13502|"Re: 1U DUAL 833MHz Alpha"]], Rich Payne, axp-list, 7 Nov 2000)] Cray used the CS20 as the building block of its SuperCluster systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L31275|"RE: Cray chooses Alpha Linux ..."]], Tom Morris, axp-list, 30 Jan 2001)] API designed the CS20 and sold the design to Compaq, which produced it as the [[hardware:systems:shark|AlphaServer DS20L]]. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-July.mbox#L18051|"Re: API / CS20"]], Rich Payne, axp-list, 30 Jul 2002)]
 
@@ -108,6 +104,9 @@ The following sources conflict with each other or with the account given above. 
   * **667 MHz Slot B modules with DDR cache**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L11134|"Re: API Networks article on The Register"]], Rich Payne, axp-list, 6 Nov 2000: "There are no 667/750 DDR SlotBs."
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-March.mbox#L1|"RE: UP2000"]], Maurice Hilarius, axp-list, 28 Feb 2001: "EV68 in 667 and 833, both with 4MB DDR is the current offering."
-    * The same Rich Payne message also mentions "dual 667 4MB (DDR) CPUs", possibly referring to the CS20.
+
+{{gallery>:wiki:hardware:motherboards:up2000}}
+
+{{gallery>:wiki:hardware:motherboards:up2000plus}}
 
 {{tag>hardware motherboard 21264 api}}

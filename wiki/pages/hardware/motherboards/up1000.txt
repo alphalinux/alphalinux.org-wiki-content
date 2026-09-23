@@ -8,7 +8,7 @@
 ^ Buses | 32-bit PCI, AGP, ISA |
 ^ Form factor | ATX |
 ^ Onboard I/O | 2 IDE, floppy, 2 serial, parallel, keyboard, mouse, 2 USB |
-^ Firmware | AlphaBIOS, SRM |
+^ Firmware | SRM, AlphaBIOS |
 ^ Kernel option | ''CONFIG_ALPHA_NAUTILUS'' |
 ^ Linux | Supported |
 </WRAP>
@@ -24,20 +24,12 @@ wiki:hardware:motherboards:up1000:up1000-1.jpg API NetWorks UP1000
   * 600 MHz EV67 with 2 MiB L2 cache or 700 MHz EV67 with 4 MiB L2 cache, L2 cache bandwidth 3.2 GiB/s [(>{{wiki:hardware:motherboards:up1000:up1000_spec_sheet.pdf?linkonly|UP1000 Spec Sheet}}, Alpha Processor, Inc. and Samsung Electronics, January 2000)]
   * AMD-751 Chipset, ALi M1543C south bridge
   * 3x 168-pin DIMMs, supports 64 MiB to 768 MiB of ECC unbuffered PC100 SDRAM
-  * 1x AGP 2x (See limitations below)
+  * 1x AGP 2x (see [[#known_issues|Known issues]])
   * 4x 33 MHz 32-bit PCI slots
   * 2x ISA slots [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}})]
   * 2x Ultra DMA33 IDE connectors, a floppy controller, 2x serial ports, a parallel port, PS/2 keyboard and mouse, and 2x USB ports, all provided by the M1543C [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, p. 1-1)]
   * 2 MiB flash ROM
   * ATX form factor, 12 in x 9.6 in (30.48 cm x 24.38 cm)
-
-==== Limitations ====
-
-  * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB
-  * The AGP slot of the UP1000, UP1100, and UP1500 operates only as a PCI slot. Alpha is fully cache coherent and provides no non-cacheable mappings or software cache flushing, which the x86 AGP support in Linux depends on for native AGP transfers.
-  * The AMD-751 can address at most 768 MiB of memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L30727|"Re: UP1100 delivery problems"]], Rich Payne, axp-list, 26 Mar 2002)]
-  * ATI Rage II and Rage Pro based video cards do not work in the UP1000 or [[hardware:motherboards:up1100|UP1100]], although they work in the UP2000 and DP264. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L17091|"Re: (no subject)"]], Maurice Hilarius, axp-list, 22 Aug 2000)]
-  * The BIOS emulator in the UP1000 and UP1100 SRM firmware is older than the one in the UP1500's firmware. No AGP Radeon card has been made to work with it on a UP1100. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L2650|"AW: Some observations regarding FC* on UP2000+"]], Jay Estabrook, axp-list, 24 Apr 2008)]
 
 ==== Firmware ====
 
@@ -52,6 +44,14 @@ The UP1000 and UP1100 SRM images are different revisions and cannot be used on e
 Current kernels support the UP1000 with ''CONFIG_ALPHA_NAUTILUS'' or a generic kernel; it boots from SRM with [[software:boot_loaders:aboot|aboot]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] The onboard IDE controller in the ALi M1543C uses the ''pata_ali'' driver. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_ali.c?h=v7.3-rc1|drivers/ata/pata_ali.c]], Linux 7.3)]
 
   * The UP1000 has an LM75 temperature sensor. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L16086|"RE: UP2000 Temperature"]], Rich Payne, axp-list, 24 May 2000)] A well cooled UP1000 has a heatsink temperature of about 45 to 50 C. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L16402|"Re: UP2000 Temperature"]], Maurice Hilarius, axp-list, 24 May 2000)]
+
+==== Known issues ====
+
+  * The IDE controller's DMA engine cannot perform 48-bit LBA transfers on ALi revisions before C5, so the ''pata_ali'' driver uses PIO for accesses beyond the first 128 GiB of a disk. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_ali.c?h=v7.3-rc1|drivers/ata/pata_ali.c]], Linux 7.3)]
+  * The AGP slot of the UP1000, UP1100, and UP1500 operates only as a PCI slot. Alpha is fully cache coherent and provides no non-cacheable mappings or software cache flushing, which the x86 AGP support in Linux depends on for native AGP transfers.
+  * The AMD-751 can address at most 768 MiB of memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L30727|"Re: UP1100 delivery problems"]], Rich Payne, axp-list, 26 Mar 2002)]
+  * ATI Rage II and Rage Pro based video cards do not work in the UP1000 or [[hardware:motherboards:up1100|UP1100]], although they work in the UP2000 and DP264. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L17091|"Re: (no subject)"]], Maurice Hilarius, axp-list, 22 Aug 2000)]
+  * The BIOS emulator in the UP1000 and UP1100 SRM firmware is older than the one in the UP1500's firmware. No AGP Radeon card has been made to work with it on a UP1100. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L2650|"AW: Some observations regarding FC* on UP2000+"]], Jay Estabrook, axp-list, 24 Apr 2008)]
 
 ==== History ====
 

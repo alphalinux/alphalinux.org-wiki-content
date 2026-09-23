@@ -24,21 +24,13 @@ wiki:hardware:motherboards:up1100:up1100-1.jpg API NetWorks UP1100
   * 600 MHz EV67 with 2 MiB L2 cache (3.2 GiB/s) [(>{{wiki:hardware:motherboards:up1100:up1100_spec_sheet.pdf?linkonly|UP1100 Spec Sheet}}, API NetWorks, Inc., January 2001)]
   * AMD-751 Chipset, ALi M1535D south bridge [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}})] (the spec sheets list the M1543C)
   * 3x 168-pin DIMMs, supports 64 MiB to 768 MiB of ECC unbuffered PC100 SDRAM
-  * 1x AGP 2x (See limitations below)
+  * 1x AGP 2x (see [[#known_issues|Known issues]])
   * 3x 33 MHz 32-bit PCI slots
   * DECchip 21143 Ethernet
   * ALi M5451 Sound [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L44443|"2.4.0 on UP1100"]], Michal Jaegermann, axp-list, 24 Nov 2000)]
   * 2x Ultra DMA 33/66 IDE connectors, 2x USB ports, 2x serial ports, an ECP/EPP parallel port, and a floppy controller, all driven by the M1535D, plus PS/2 keyboard and mouse ports [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 1-2)]
   * ATX form factor, 12 in x 9.6 in (30.48 cm x 24.38 cm) [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 1-1)]
   * Front panel connectors for the power button, reset button, power LED, hard disk activity LED, speaker, and keyboard lock [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 2-3)]
-
-==== Limitations ====
-
-  * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB
-  * The AGP slot is limited to PCI transfers; see [[hardware:motherboards:up1000#limitations|UP1000]].
-  * ATI Rage II and Rage Pro based video cards do not work; see [[hardware:motherboards:up1000#limitations|UP1000]].
-  * The BIOS emulator in the UP1100's SRM firmware cannot initialize any AGP Radeon card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L2650|"AW: Some observations regarding FC* on UP2000+"]], Jay Estabrook, axp-list, 24 Apr 2008)] The UP1500's newer firmware does not have this problem. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)]
-  * There is no halt switch connector on the motherboard. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L3592|"Re: UP1100 & Matrox"]], Rich Payne, debian-alpha, 26 Oct 2000)]
 
 ==== Memory ====
 
@@ -59,6 +51,14 @@ Current kernels support the UP1100 with ''CONFIG_ALPHA_NAUTILUS'' or a generic k
   * IDE (ALi M1535D): ''pata_ali'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_ali.c?h=v7.3-rc1|drivers/ata/pata_ali.c]], Linux 7.3)]
   * Ethernet (DECchip 21143): ''tulip'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/net/ethernet/dec/tulip/tulip_core.c?h=v7.3-rc1|drivers/net/ethernet/dec/tulip/tulip_core.c]], Linux 7.3)]
   * Sound (ALi M5451): ''snd-ali5451'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/pci/ali5451/ali5451.c?h=v7.3-rc1|sound/pci/ali5451/ali5451.c]], Linux 7.3)]
+
+==== Known issues ====
+
+  * The IDE controller's DMA engine cannot perform 48-bit LBA transfers on ALi revisions before C5, so the ''pata_ali'' driver uses PIO for accesses beyond the first 128 GiB of a disk. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_ali.c?h=v7.3-rc1|drivers/ata/pata_ali.c]], Linux 7.3)]
+  * The AGP slot is limited to PCI transfers; see [[hardware:motherboards:up1000#known_issues|UP1000]].
+  * ATI Rage II and Rage Pro based video cards do not work; see [[hardware:motherboards:up1000#known_issues|UP1000]].
+  * The BIOS emulator in the UP1100's SRM firmware cannot initialize any AGP Radeon card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L2650|"AW: Some observations regarding FC* on UP2000+"]], Jay Estabrook, axp-list, 24 Apr 2008)] The UP1500's newer firmware does not have this problem. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)]
+  * There is no halt switch connector on the motherboard. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L3592|"Re: UP1100 & Matrox"]], Rich Payne, debian-alpha, 26 Oct 2000)]
 
 ==== Conflicting information ====
 

@@ -27,9 +27,12 @@ All boards also have PS/2 keyboard and mouse ports. The firmware column lists th
 
 Boards with EV4, EV45, LCA, or EV5 processors are not supported by Linux 6.10 or later, which requires an EV56 (21164A) or later processor; Linux 6.9 was the last version to support them. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] The current kernel column uses these values:
   * **Supported**: current kernels support the board.
-  * **Untested**: the support code is in current kernels, but no one has reported booting a current kernel. The AlphaPC 164UX and 164RX can only boot Linux through [[software:boot_loaders:milo|MILO]].
-  * **Linux 6.9 and earlier**: the board has a processor older than the EV56.
-  * **Removed in //year//**: support was removed earlier for another reason.
+  * **Untested**: the support code is in current kernels, but no one has reported booting a current kernel, or there is a specific doubt, such as a board that only MILO can boot.
+  * **Linux 6.9 and earlier**: the board has a processor older than the EV56 (21164A).
+  * **Removed in //year//**: support was removed before Linux 6.10 for another reason.
+  * **Never**: Linux never supported the board.
+
+The AlphaPC 164UX and 164RX can only boot Linux through [[software:boot_loaders:milo|MILO]].
 
 Details and sources are on each board's page.
 

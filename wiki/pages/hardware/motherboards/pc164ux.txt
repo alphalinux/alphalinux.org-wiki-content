@@ -40,7 +40,7 @@ wiki:hardware:motherboards:pc164ux:pc164ux-1.jpg AlphaPC 164UX
   * ATX board, 30.48 cm x 24.38 cm (12.0 in x 9.6 in), with mounting holes to the ATX 2.01 specification; the board exceeds the ATX height limits at the CPU and at the SCSI connectors [(>{{wiki:hardware:motherboards:pc164ux:pc164ux_windows_nt_user_manual.pdf?linkonly|AlphaPC 164UX/BX Motherboard Windows NT User's Manual}}, p. 14)]
 
 {{anchor:pc164bx}}
-==== AlphaPC 164BX ====
+=== AlphaPC 164BX ===
 
 The AlphaPC 164BX is the same board as the 164UX, except that it lacks the Ethernet and Ultra Wide SCSI controllers and has only a 2 MiB L3 cache.
 
@@ -58,7 +58,6 @@ Current kernels include support for the board (''CONFIG_ALPHA_RUFFIAN'', or a ge
 ARCSBIOS starts MILO through a DeskStation-specific loader, ''ldmilo.exe''; the ''linload.exe'' used on AlphaBIOS systems does not work, because ARCSBIOS has its own console application interface. The version of ''ldmilo.exe'' later rebuilt by DEC works much like ''linload.exe'', except that the MILO image must be named ''milo''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L43156|"Re: DeskStation/Ruffian booting methods"]], Jay Estabrook, axp-list, 18 Jan 1999)]
 
   * ''ldmilo.exe'', MILO, and the PALcode go on a small FAT partition, and an ARCSBIOS boot entry points ''OsLoader'' at ''ldmilo.exe'' and passes MILO commands in ''OsLoadOptions''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-October.mbox#L17406|"Problem booting Samsung 164UX ("Ruffian") MB"]], Ivor Dvorecky, axp-list, 18 Oct 1998)]
-  * Use a Ruffian MILO based on MILO 2.2-18 or later, such as those released in May 2002; earlier MILO versions hang when loading 2.4 kernels or on reboot. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-December.mbox#L9610|"milo on ruffian does not like kernel 2.4.x"]], Ingo T. Storm, axp-list, 18 Dec 2001)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-May.mbox#L492|"XLT-PC164-Ruffian MILOs available for test"]], Jay Estabrook, axp-list, 1 May 2002)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-May.mbox#L1679|"Re: XLT-PC164-Ruffian MILOs available for test"]], Ingo T. Storm, axp-list, 2 May 2002)]
   * The board cannot boot from CD-ROM, only from floppy or a FAT partition on a hard disk. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2007-December.mbox#L616|"Re: Debian Etch on Samsung 164UX/BX Alpha"]], Lennart Sorensen, debian-alpha, 6 Dec 2007)] Current distribution installers, which boot from SRM, cannot be used.
 
 ==== Known issues ====

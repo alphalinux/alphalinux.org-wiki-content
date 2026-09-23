@@ -38,7 +38,7 @@ wiki:hardware:motherboards:pc164:pc164-1.jpg Digital AlphaPC 164
 ==== CPU ====
 
   * The CPU speed is set by the clock oscillator (crystal) together with the speed-select jumpers described in the Technical Reference Manual. Changing speed requires a crystal of the matching frequency, e.g. 50.0 MHz for 500 MHz. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L17873|"Re: Weirdness with AlphaPC 164: installing SRM firmware, etc."]], Jim Barriault, axp-list, 10 Dec 1999)]
-  * The CPU supports the EV56 byte/word extension (BWX), so code compiled with ''-mcpu=ev56'' runs on the board. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L563|"Re: Playing DVDs"]], Jay Estabrook, axp-list, 3 Jan 2002)] Early versions of the PALcode used by MILO left BWX disabled, so such code failed with "illegal instruction"; later MILO versions enable it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L42672|"Re: egcs and PC164 (ev56 ?)"]], Richard Henderson, axp-list, 18 Dec 1998)] The [[hardware:chipsets#21172|21172]] core logic cannot make byte and word accesses to I/O space, so the kernel uses sparse I/O addressing on this board.
+  * The CPU supports the EV56 byte/word extension (BWX), so code compiled with ''-mcpu=ev56'' runs on the board. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L563|"Re: Playing DVDs"]], Jay Estabrook, axp-list, 3 Jan 2002)] The [[hardware:chipsets#21172|21172]] core logic cannot make byte and word accesses to I/O space, so the kernel uses sparse I/O addressing on this board.
   * The CPU fan has a rotation sense connection, and the board will not run without a working fan. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-August.mbox#L1855|"Re: Replacing PC164 CPU fan"]], David A Rusling, axp-list, 4 Aug 1997)]
 
 ==== Memory ====
@@ -86,12 +86,6 @@ The following sources conflict with each other or with the account given above. 
   * **CPU speeds**
     * {{wiki:hardware:motherboards:pc164:pc164_product_brief.pdf?linkonly|AlphaPC 164 Motherboard Product Brief}}: "366, 400, 433, 466, and 500 MHz"
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002: "PC164 EV56 (433-500) CIA-2 AlphaPC164"
-  * **CPU type**
-    * {{wiki:hardware:motherboards:pc164:pc164_product_brief.pdf?linkonly|AlphaPC 164 Motherboard Product Brief}}: "Digital Semiconductor 21164 Alpha microprocessor"
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002: "PC164 EV56 (433-500) CIA-2 AlphaPC164"
-  * **BWX with the SRM and ARC consoles**
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L18328|"RE: Re: ev56 optimization -> illegal instruction"]], Jay Estabrook, axp-list, 14 Mar 1998: "by default (SRM and ARC consoles) the BWX (Byte-Word Extension) is *not* enabled, I believe."
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L42672|"Re: egcs and PC164 (ev56 ?)"]], Richard Henderson, axp-list, 18 Dec 1998: "that bit was off in early versions of the EBSDK PALcode."
 
 ==== Documentation ====
 

@@ -36,6 +36,10 @@ wiki:hardware:motherboards:pc164sx:pc164sx-1.jpg Digital AlphaPC 164SX
   * 1x Parallel port
   * ATX board, 30.48 cm x 24.38 cm (12.0 in x 9.6 in) [(>{{wiki:hardware:motherboards:pc164sx:pc164sx_technical_reference_manual.pdf?linkonly|AlphaPC 164SX Motherboard Technical Reference Manual}}, p. 3-2)]
 
+==== CPU ====
+
+The 164SX documentation lists only two CPU speed settings, 400 and 533 MHz; the other settings are reserved and have been reported to yield 400 MHz. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L4541|"164SX overclocking"]], Kurt Ludwig, axp-list, 5 Oct 1999)] No 600 MHz 164SX was ever made. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L873|"searching for a wide alpha cpu heatsink"]], Jay Estabrook, axp-list, 5 Nov 2008)]
+
 ==== Memory ====
 
 Both 64-bit and 72-bit (ECC) 100 MHz SDRAM modules are supported and must be installed in pairs. Modules up to 128 MiB are officially supported, but some 256 MiB modules also work. The following table lists some RAM modules known to work or not work with the 164SX board.
@@ -53,13 +57,9 @@ As on the 164LX, 4x 256 MiB (1 GiB) is reported to work. [(>[[https://github.com
 
 Single-sided Hyundai HY57V28820HCT-H 128 MiB DIMMs were reported not to work. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-August.mbox#L1885|"164SX memory"]], Iso-H, axp-list, 6 Aug 2001)]
 
-==== CPU speed ====
+==== Power supply and cooling ====
 
-The 164SX documentation lists only two CPU speed settings, 400 and 533 MHz; the other settings are reserved and have been reported to yield 400 MHz. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L4541|"164SX overclocking"]], Kurt Ludwig, axp-list, 5 Oct 1999)] No 600 MHz 164SX was ever made. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L873|"searching for a wide alpha cpu heatsink"]], Jay Estabrook, axp-list, 5 Nov 2008)]
-
-==== Power supply and CPU fan ====
-
-The power supply requirements and the CPU fan connector are the same as on the [[hardware:motherboards:pc164lx#power_supply|AlphaPC 164LX]]: a 300 W supply is sufficient for a typical workstation, and the fan connector has a different pin order from PC fans, whose pins must be rearranged before use. A rewired PC fan ran on a 164SX, but the CPU would not start, because the board did not accept the fan's tachometer signal. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L1167|"Need 164SX CPU Fan"]], Donald White, axp-list, 6 Jan 2002)]
+The power supply requirements and the CPU fan connector are the same as on the [[hardware:motherboards:pc164lx#power_supply_and_cooling|AlphaPC 164LX]]: a 300 W supply is sufficient for a typical workstation, and the fan connector has a different pin order from PC fans, whose pins must be rearranged before use. A rewired PC fan ran on a 164SX, but the CPU would not start, because the board did not accept the fan's tachometer signal. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L1167|"Need 164SX CPU Fan"]], Donald White, axp-list, 6 Jan 2002)]
 
 ==== Firmware ====
 

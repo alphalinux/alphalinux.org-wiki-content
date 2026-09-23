@@ -4,7 +4,7 @@ The tables below list add-on cards and memory tested with the [[hardware:motherb
 
 ==== AGP video cards ====
 
-Standard [[wp>Accelerated_Graphics_Port|AGP]] video cards are available with three different connector variants: 3.3V only, 1.5V only, and dual-voltage. The UP1500's AGP slot has the 3.3V notch, and thus requires that the AGP card accept 3.3V signalling.
+Standard [[wp>Accelerated_Graphics_Port|AGP]] video cards are available with three different connector variants: 3.3V only, 1.5V only, and dual-voltage. The UP1500's AGP slot has the 3.3V notch, and thus requires that the AGP card accept 3.3V signaling.
 
 Some video card BIOSes are also incompatible with the BIOS emulator in the UP1500's SRM.
 

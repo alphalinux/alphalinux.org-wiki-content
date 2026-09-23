@@ -10,10 +10,11 @@ Since Linux 6.10, released in July 2024, the kernel requires an EV56 (21164A) or
 
 ==== Names and type codes ====
 
-The consoles report processors by part number rather than by EV name, for example "Alpha 21264A-8 666 MHz" on a DS20E, so the EV name has to be looked up from the part number. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-January.mbox#L16570|"SUMMARY: cpu EV revision?"]], Kim Roy, tru64-unix-managers, 13 Jan 2000)] The table maps the processor type codes in Tru64 UNIX's ''cpuconf.h'' to part numbers and EV names, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-March.mbox#L6483|"Displaying system model ID string"]], Alan Davis, tru64-unix-managers, 16 Mar 2000)] and gives the GCC ''-mcpu'' value for each. GCC has no separate value for the EV68, which adds no instructions to the EV67, or for the PCA57, which uses ''pca56''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.cc|gcc/config/alpha/alpha.cc]], GCC)]
+The consoles report processors by part number rather than by EV name, for example "Alpha 21264A-8 666 MHz" on a DS20E, so the EV name has to be looked up from the part number. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-January.mbox#L16570|"SUMMARY: cpu EV revision?"]], Kim Roy, tru64-unix-managers, 13 Jan 2000)] The table maps the processor type codes in Tru64 UNIX's ''cpuconf.h'' to part numbers and EV names, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-March.mbox#L6483|"Displaying system model ID string"]], Alan Davis, tru64-unix-managers, 16 Mar 2000)] with the LCA4 and EV7 codes from the kernel's ''hwrpb.h'', [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/hwrpb.h?h=v7.3-rc1|arch/alpha/include/asm/hwrpb.h]], Linux 7.3)] and gives the GCC ''-mcpu'' value for each. GCC has no separate value for the LCA4, which uses ''ev4'', for the EV68 and EV7, which add no instructions to the EV67, or for the PCA57, which uses ''pca56''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.cc|gcc/config/alpha/alpha.cc]], GCC)]
 
 ^ Code ^ Name ^ Part ^ GCC ''-mcpu'' ^ Current kernels ^
 | 2 | EV4 | 21064 | ''ev4'' | No |
+| 4 | LCA4 | 21066, 21068 | ''ev4'' | No |
 | 5 | EV5 | 21164 | ''ev5'' | No |
 | 6 | EV45 | 21064A | ''ev45'' | No |
 | 7 | EV56 | 21164A | ''ev56'' | Yes |
@@ -23,6 +24,7 @@ The consoles report processors by part number rather than by EV name, for exampl
 | 12 | EV68CB | 21264C | ''ev67'' | Yes |
 | 13 | EV68AL | 21264B | ''ev67'' | Yes |
 | 14 | EV68CX | 21264D | ''ev67'' | Yes |
+| 15 | EV7 | 21364 | ''ev67'' | Yes |
 
 ==== Socket 499 (AlphaPC 164, 164LX, 164UX/BX, Personal Workstation) ====
 
@@ -51,7 +53,7 @@ The Samsung part numbers are from Samsung's AlphaPC 164UX/BX manual. [(>{{wiki:h
 
 ==== DP264, DS20, DS20E ====
 
-Compaq sold the DS20 and DS20E CPU modules as options ''KN310'' (500 MHz), ''KN311'' (667 MHz), and ''KN312'' (833 MHz). The suffix of the option number gives the operating system the option was sold for: -//x//B for Tru64 UNIX, -//x//C for OpenVMS, and -//x//D for Linux.
+Compaq sold the DS20 and DS20E CPU modules as options ''KN310'' (500 MHz), ''KN311'' (667 MHz), and ''KN312'' (833 MHz). The suffix of the option number gives the operating system the option was sold for: -//x//B for Tru64 UNIX, -//x//C for OpenVMS, and -//x//D for Linux. The table lists the Compaq modules; the AlphaPC 264DP's own 500 MHz daughtercard (21A06-M0) has 2 MiB of cache. [(>{{wiki:hardware:motherboards:pc264dp:pc264dp_data_sheet.pdf?linkonly|AlphaPC 264DP Motherboard Data Sheet}})]
 
 ^ Part Number ^ Type ^ Frequency ^ Cache ^ Notes ^
 | 54-24758-01 | EV6 | 500 MHz | 4 MiB | |

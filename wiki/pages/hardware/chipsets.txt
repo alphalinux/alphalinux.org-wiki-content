@@ -1,5 +1,7 @@
 ===== Chipsets =====
 
+This page covers the core logic used on the [[hardware:motherboards|motherboards]]. Chipsets used only in Digital's and Compaq's own systems, such as Titan, Marvel, and Wildfire, are described on the [[hardware:systems|system]] pages.
+
 ^ Chipset ^ CPUs ^ Motherboards ^ Linux code ^ Current kernels ^
 | [[#21071_and_21072|21071/21072 (APECS)]] | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | [[hardware:motherboards:eb64plus|EB64+]], [[hardware:motherboards:pc64|AlphaPC 64]] | ''core_apecs.c'' | Linux 6.9 and earlier |
 | [[#21171|21171 (CIA)]] | [[wp>Alpha_21164|21164]] | [[hardware:motherboards:eb164|EB164]] | ''core_cia.c'' | Linux 6.9 and earlier |

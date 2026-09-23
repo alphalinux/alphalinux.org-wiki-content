@@ -27,13 +27,27 @@ Use only the sections that have content, in this order. Sizes are in KiB, MiB, a
 
 ==== Specifications ====
 
+Subsections (''=== Variant ==='') may separate board variants.
+
+==== CPU ====
+
 ==== Memory ====
+
+==== Cache ====
 
 ==== Power supply ====
 
+Named "Power supply and cooling" when it also covers fans and heatsinks.
+
+==== Onboard devices ====
+
 ==== Firmware ====
 
-Which consoles the board has, the version to use (normally the final version), and how to update or recover the flash.
+Which consoles the board has, the version to use (normally the final version), and how to update the flash.
+
+==== Firmware recovery ====
+
+==== Beep codes ====
 
 ==== Linux ====
 
@@ -41,7 +55,11 @@ Open with one sentence giving current kernel status, the kernel option (and whet
 
 ==== Known issues ====
 
+Hardware limitations also go here; do not use a "Limitations" section.
+
 ==== Clones and OEM systems ====
+
+==== Part numbers ====
 
 ==== History ====
 

@@ -51,7 +51,6 @@ The following sources conflict with each other or with the account given above. 
 
   * **CPU speeds**
     * {{wiki:hardware:motherboards:pc164rx:pc164rx_product_brief.pdf?linkonly|AlphaPC 164RX Motherboard Product Brief}}: "operating at speeds of 525 or 600 MHz"
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L8619|"Re: New Alphas (ev57 164+264) and boards"]], Aaron Spink, axp-list, 4 Nov 1998: "The 525 MHz AlphaPC 164RX is priced at $799/unit for 1000 units."
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002: "RX164 PCA57 (525) POLARIS AlphaPC164-RX (no product)"
   * **PCI slots**
     * {{wiki:hardware:motherboards:pc164rx:pc164rx_product_brief.pdf?linkonly|AlphaPC 164RX Motherboard Product Brief}}: "One ISA expansion slot (shared with the bridged PCI slot)"

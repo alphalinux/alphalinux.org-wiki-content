@@ -24,7 +24,7 @@ wiki:hardware:motherboards:up1500:up1500-1.jpg Samsung UP1500
   * 800 MHz EV68AL with 2/4/8 MiB external L2 cache [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}})], L2 cache bandwidth 8.5 GiB/s [(>[[https://web.archive.org/web/20030311052727/http://www.harddata.com/Systems/up15brief|"HP-SPx264-1500 Hardware Features"]], Archived March 11, 2003)]
   * AMD-761 Chipset, ALi M1535D+ south bridge
   * 4x 184-pin DIMMs, supports 128 MiB to 4 GiB of ECC Registered PC2100 RAM (2.13 GiB/s [(>[[https://web.archive.org/web/20020606002508/http://samsungelectronics.com/semiconductors/alpha_cpu/up1500/up1500.htm|"Samsung Semiconductor: UP1500"]], Archived June 6, 2002)])
-  * 1x AGP 4x (See limitations below)
+  * 1x AGP (see [[#known_issues|Known issues]])
   * 3x 33 MHz 32-bit PCI slots
   * DECchip 21143 Ethernet
   * ALi M5451 Sound
@@ -32,31 +32,29 @@ wiki:hardware:motherboards:up1500:up1500-1.jpg Samsung UP1500
   * ATX form factor, 12 in x 9.6 in (30.48 cm x 24.38 cm) [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, p. 1-1)]
   * Front panel connectors for the power button, reset button, power LED, hard disk activity LED, network receive LED, speaker, and keyboard lock [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, p. 2-3)]
 
-==== Limitations ====
-
-  * **AGP:** the slot accepts only 3.3 V signalling cards, effectively limiting the choice of video cards to those supporting AGP 2x, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L4291|"Re: Graphics card for UP1500, AGP Compatibility and Signalling Voltages"]], Alex Deucher, axp-list, 27 Nov 2008)] and it operates only as a PCI slot (see [[hardware:motherboards:up1000#limitations|UP1000]]). Not all AGP cards that fit the slot work; see [[hardware:motherboards:up1500_compatibility|UP1500 compatibility]].
-  * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB.
-  * I/O space needed for PCI counts against the amount of memory usable by the AMD-761. [(>[[https://lore.kernel.org/all/20020913184310.B7498@jurassic.park.msu.ru/|"[patch 2.5.34] alpha: nautilus update"]], Ivan Kokshaysky, linux-kernel, 13 Sep 2002)]
-
 ==== Memory ====
 
 The UP1500 requires PC2100 ECC registered DDR SDRAM; unbuffered DIMMs do not work. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-February.mbox#L6661|"Re: up1500 specs sheets"]], Maurice Hilarius, axp-list, 12 Feb 2003)] Vendors tested modules from Viking [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L18275|"Re: UP1500 memory specs"]], Iwao Makino, axp-list, 18 Apr 2002)], Kingston, Kentron, and Corsair. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L18363|"Re: UP1500 memory specs"]], Maurice Hilarius, axp-list, 18 Apr 2002)] See [[hardware:motherboards:up1500_compatibility|UP1500 compatibility]] for DIMMs known to work. PC2700 ECC registered DIMMs have been reported to give better results under heavy use. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-February.mbox#L6366|"Re: up1500 specs sheets"]], Iwao Makino, axp-list, 13 Feb 2003)]
+
+==== Power supply and cooling ====
+
+The manual specifies a 300 W ATX supply, as for the [[hardware:motherboards:up1100#power_supply|UP1100]], [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, pp. 3-1 to 3-2)] but a 400 W supply is recommended in practice. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L4594|"Re: UP1500?"]], Falk Hueffner, axp-list, 8 Jan 2003)]
+
+The original CPU fan is an 80x15 mm Nidec Beta SL (12 V, 0.09 A). The fan controller is reported to be sensitive, and many replacement fans do not work with it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-December.mbox#L2256|"Alpha UP1500 CPU Fan"]], Will Givens, axp-list, 31 Dec 2009)]
 
 ==== Firmware ====
 
 The last SRM release for the UP1500 is 5.6-19. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L4880|"Latest SRM for UP1500"]], Maurice Hilarius, axp-list, 27 Nov 2008)] The final SRM revisions were made by Samsung to fix issues Hard Data found while testing the UP1500, and were distributed from Hard Data's FTP site. Samsung's development team was then reassigned to other projects. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L4822|"Re: UP1500?"]], Maurice Hilarius, axp-list, 8 Jan 2003)] The UP1500's SRM has a newer BIOS emulator than the UP1000 and UP1100, and handles more video cards. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)]
 
-==== Power supply ====
-
-The manual specifies a 300 W ATX supply, as for the [[hardware:motherboards:up1100#power_supply|UP1100]], [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}}, pp. 3-1 to 3-2)] but a 400 W supply is recommended in practice. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L4594|"Re: UP1500?"]], Falk Hueffner, axp-list, 8 Jan 2003)]
-
 ==== Linux ====
 
 Current kernels support the UP1500 with ''CONFIG_ALPHA_NAUTILUS'' or a generic kernel; it boots from SRM with [[software:boot_loaders:aboot|aboot]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] The onboard Ethernet and sound work under Linux, as does an AGP Radeon 7500. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L4594|"Re: UP1500?"]], Falk Hueffner, axp-list, 8 Jan 2003)] The onboard devices use the same drivers as on the [[hardware:motherboards:up1100#linux|UP1100]]: ''pata_ali'' for IDE, ''tulip'' for Ethernet, and ''snd-ali5451'' for sound.
 
-==== Cooling ====
+==== Known issues ====
 
-The original CPU fan is an 80x15 mm Nidec Beta SL (12 V, 0.09 A). The fan controller is reported to be sensitive, and many replacement fans do not work with it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-December.mbox#L2256|"Alpha UP1500 CPU Fan"]], Will Givens, axp-list, 31 Dec 2009)]
+  * **AGP:** the slot is keyed for 3.3 V signaling and runs at AGP 1x/2x, so cards that support only 1.5 V signaling (AGP 4x/8x only) do not fit, while universal cards do, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L4291|"Re: Graphics card for UP1500, AGP Compatibility and Signalling Voltages"]], Alex Deucher, axp-list, 27 Nov 2008)] and it operates only as a PCI slot (see [[hardware:motherboards:up1000#known_issues|UP1000]]). Not all AGP cards that fit the slot work; see [[hardware:motherboards:up1500_compatibility|UP1500 compatibility]].
+  * The IDE controller's DMA engine cannot perform 48-bit LBA transfers on ALi revisions before C5, so the ''pata_ali'' driver uses PIO for accesses beyond the first 128 GiB of a disk. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_ali.c?h=v7.3-rc1|drivers/ata/pata_ali.c]], Linux 7.3)]
+  * I/O space needed for PCI counts against the amount of memory usable by the AMD-761. [(>[[https://lore.kernel.org/all/20020913184310.B7498@jurassic.park.msu.ru/|"[patch 2.5.34] alpha: nautilus update"]], Ivan Kokshaysky, linux-kernel, 13 Sep 2002)]
 
 ==== History ====
 
