@@ -1,6 +1,6 @@
 ===== Contributing to the Wiki =====
 
-Corrections and new material are welcome, from anyone who runs, maintains, or remembers Alpha systems. This page describes how to get an account and the conventions the wiki's pages follow.
+Corrections and new material are welcome. This page describes how to get an account and the conventions the wiki's pages follow.
 
 ==== Getting an account ====
 
@@ -8,7 +8,7 @@ Anyone can read the wiki, but editing needs an account, and self-registration is
 
 Small corrections can also be sent the same way, without an account: say which page, what is wrong, and the source for the correct information.
 
-The wiki is DokuWiki. Every edit is committed to a git repository, so nothing is lost and every change can be reviewed and reverted. Content is licensed under the GNU Free Documentation License.
+The wiki is DokuWiki. Every edit is committed to a git repository, where it can be reviewed and reverted. Content is licensed under the GNU Free Documentation License.
 
 ==== What the wiki covers ====
 
@@ -21,12 +21,15 @@ The wiki is DokuWiki. Every edit is committed to a git repository, so nothing is
 ==== Style ====
 
   * **Write in encyclopedic style.** State facts plainly, in the third person, without "we" or "you" outside the step-by-step guides. Prefer the past tense for history and the present tense for what is still true.
+  * **Write for today's reader.** Pages should help someone running or developing Linux on Alpha now. Historical detail belongs on a page when it is still useful or interesting; long-fixed bugs, old distribution workarounds, and settled mailing list debates usually are not.
+  * **State facts, not who said them.** Write "The XL needs MILO", with the mailing list message in the footnote, rather than "In 2004, Jay Estabrook said that the XL needs MILO". Attribute a statement in the text only when it is an opinion or is disputed.
   * **Cite a source for every fact** that is not common knowledge, with a footnote directly after the sentence it supports. Footnotes use the refnotes syntax, for example:<code>
 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L37024|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 14 Jul 1998)]
 </code>A mailing list citation gives the subject, author, list, and date, and links to the message in the [[https://github.com/alphalinux-org/mailing-list-archives|mailing list archives]], at the line where the message starts. A manual gives its title and page, and links to the PDF in the wiki's media, as ''%%{{wiki:path:file.pdf?linkonly|Title}}%%''. A kernel commit gives its subject and the release it appeared in.
-  * **Record conflicts rather than resolving them silently.** When sources disagree, the page gives the account the evidence supports, and lists the other sources, with short quotes, in a section titled "Conflicting information" at the end.
+  * **Record conflicts rather than resolving them silently.** When sources disagree, the page gives the account the evidence supports, and lists the other sources, with short quotes, in a section titled "Conflicting information" at the end. Keep each entry short, and list only real disagreements, not sources that merely add detail.
   * **Use US spelling**, one space after a full stop, and no em dashes. Write dates as "14 Jul 1998" in citations and "14 July 1998" in text, and binary sizes as KiB, MiB, and GiB.
-  * **Name things as the sources do**: Alpha, not AXP, except in product names; processor part numbers (21164A) with the EV name (EV56) where helpful; system names with their codename (AlphaServer ES40, Clipper).
+  * **Name things as the sources do**: Alpha, not AXP, except in product names; processors by EV name with the part number on first mention, as in "EV56 (21164A)"; system names with their codename (AlphaServer ES40, Clipper); motherboards by their marketing names (AlphaPC 164LX), with the kernel's platform names (LX164) only in kernel context.
+  * **Call the port Alpha/Linux**, not Linux/Alpha or Alpha Linux, except in quoted titles and product names. "Linux on Alpha" is fine in ordinary prose.
 
 ==== Pages ====
 
@@ -34,7 +37,7 @@ The wiki is DokuWiki. Every edit is committed to a git repository, so nothing is
   * New system and motherboard pages start from a template with an infobox; creating a page in ''hardware:systems'' or ''hardware:motherboards'' fills it in. The infobox fields are explained in the template.
   * Tag each page at the end with ''%%{{tag>...}}%%'', using the tags of similar pages.
   * Manuals, data sheets, and photographs go in the media manager, under the same namespace as the page that uses them, for example ''wiki:hardware:systems:alphaserver_es40''. Upload only documents that may be redistributed.
-  * A news entry is one table row in [[:news|News]], newest first: the date, who did what, a link to the patch or release, and the release that will include it.
+  * A news entry is one table row in [[:news|News]], newest first: the date, what changed, with a link to the patch or release, who did the work, and the release that will include it.
 
 ==== See also ====
 
