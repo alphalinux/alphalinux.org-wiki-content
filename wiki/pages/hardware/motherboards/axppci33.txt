@@ -10,7 +10,7 @@
 ^ Form factor | Baby AT |
 ^ Onboard I/O | NCR 53C810 SCSI, IDE, floppy, 2 serial, parallel, keyboard, mouse |
 ^ Firmware | ARC, SRM, MILO |
-^ Kernel option | ''CONFIG_ALPHA_NONAME'' |
+^ Kernel option | ''CONFIG_ALPHA_NONAME_CH'' |
 ^ Linux | Linux 6.9 and earlier |
 </WRAP>
 

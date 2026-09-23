@@ -78,7 +78,7 @@ The system type is chosen under "Alpha system type" in the configuration. A gene
 Other options worth knowing about:
 
   * ''CONFIG_ALPHA_EV67'' should be set on DP264 systems with 21264A or later CPUs, and is set automatically for the platforms that only take them. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)]
-  * ''CONFIG_ALPHA_LEGACY_START_ADDRESS'' links the kernel at the old start address, ''0x310000''. It must be off for the Titan, Wildfire, and Marvel systems, whose consoles occupy more memory. See [[hardware:systems#identifying_a_system|Identifying a system]].
+  * ''CONFIG_ALPHA_LEGACY_START_ADDRESS'', which Linux 2.4 kernels used to load at the old start address for old MILO and APB versions, cannot be selected in current kernels: it has no Kconfig entry, and survives only in a few ''#ifdef''s. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/setup.h?h=v7.3-rc1|arch/alpha/include/asm/setup.h]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] Current kernels therefore always start high enough in memory for the larger consoles of the Titan, Wildfire, and Marvel systems. See [[hardware:systems#identifying_a_system|Identifying a system]].
   * ''CONFIG_ALPHA_QEMU'' builds a kernel that runs only under QEMU. A generic kernel detects QEMU by itself. See [[software:emulators#qemu-palcode|qemu-palcode]].
   * ''CONFIG_SRM_ENV'' exposes the SRM environment variables under ''/proc/srm_environment''.
   * ''CONFIG_VERBOSE_MCHECK'' decodes machine checks, which is useful when reporting hardware problems.

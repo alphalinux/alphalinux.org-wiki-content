@@ -14,11 +14,11 @@ Work planned or under way on Alpha support in the projects below. The owner is t
 ^ GCC ^^^^
 | In progress | Switch to LRA for BWX | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-July/724654.html|patch]], [[https://github.com/alphalinux-org/issues/issues/3|issue]] |
 | In progress | Switch to LRA for non-BWX | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/issues/issues/3|issue]] |
-| In progress | Fix test suite failures | | |
+| In progress | Fix test suite failures | [[user:mattst88|Matt Turner]] | |
 | Done | Stack protector support | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-August/729301.html|patch]] |
 | Done | IFUNC support | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-August/726956.html|patch]] |
 ^ glibc ^^^^
-| In progress | Fix test suite failures | | |
+| In progress | Fix test suite failures | [[user:mattst88|Matt Turner]], [[user:lindholm|Magnus Lindholm]] | |
 | In progress | IFUNC and multiarch support | [[user:mattst88|Matt Turner]] | |
 | In progress | ''mem*'' and ''str*'' function optimizations | [[user:mattst88|Matt Turner]] | |
 ^ binutils ^^^^

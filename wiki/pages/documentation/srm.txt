@@ -128,7 +128,6 @@ If the system halts back to the prompt instead of booting, the usual causes are:
   * The disk has no BSD disklabel or no aboot. Check that ''show device'' lists the disk, and see [[documentation:installation#partitioning|Partitioning]].
   * The kernel is not on the named partition, or the partition number is wrong. Boot with ''-flags i'' and list the directory with aboot's ''d'' command.
   * A pre-EV56 processor with a kernel from Linux 6.10 or later, which stops without printing anything. See [[status|Current Status]].
-  * The kernel was built with ''CONFIG_ALPHA_LEGACY_START_ADDRESS'' on a Titan, Wildfire, or Marvel system. See [[documentation:kernel#configuring_for_a_system|Configuring for a system]].
 
 ==== Firmware versions ====
 

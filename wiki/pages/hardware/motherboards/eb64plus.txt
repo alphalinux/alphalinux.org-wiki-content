@@ -9,7 +9,7 @@
 ^ Form factor | Full-size AT |
 ^ Onboard I/O | NCR 53C810 SCSI, 21040 Ethernet, floppy, 2 serial, parallel, keyboard, mouse |
 ^ Firmware | ARC (last 4.49-7), SRM, MILO |
-^ Kernel option | ''CONFIG_ALPHA_EB64P'' |
+^ Kernel option | ''CONFIG_ALPHA_EB64P_CH'' |
 ^ Linux | Linux 6.9 and earlier |
 </WRAP>
 
