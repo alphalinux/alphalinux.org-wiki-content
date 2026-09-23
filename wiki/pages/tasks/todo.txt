@@ -35,8 +35,8 @@ Completed tasks stay here until the release that includes them, and are then rem
 | GCC | Stack protector support | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-August/729301.html|patch]] |
 | GCC | IFUNC support | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-August/726956.html|patch]] |
 | binutils | IFUNC support | [[user:mattst88|Matt Turner]] | [[https://sourceware.org/pipermail/binutils/2026-September/151152.html|patch]] |
-| aboot | XFS support | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
-| aboot | ext4 support | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
+| aboot | XFS support | [[user:lindholm|Magnus Lindholm]] | [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
+| aboot | ext4 support | [[user:lindholm|Magnus Lindholm]] | [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
 | aboot | Release 2.0 | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
 | Other software | Basic Alpha support in gperftools | [[user:creemj|Michael Cree]] | [[https://github.com/gperftools/gperftools/commit/5f64fd287a4046911b3d676f90128979982e4088|commit]] |
 

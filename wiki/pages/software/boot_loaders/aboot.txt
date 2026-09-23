@@ -130,10 +130,10 @@ The system then boots with ''boot ewa0 -flags ""'', taking the file name from th
 ^ File system ^ Since ^ Notes ^
 | ext2 | 0.1 | Symbolic links since 0.6. [(>[[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]], aboot 0.9, 25 Oct 2001)] |
 | ext3 | | Read as ext2, without replaying the journal. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-March.mbox#L7212|"Re: Couple quick questions 164Lx milo/aboot/ext3 AlphaBIOS versus SRM"]], Falk Hueffner, debian-alpha, 19 Mar 2003)] |
-| ext4 | 2.0 | First added in 2017, released in 2.0. Extents stored in the inode only; see below. [(>[[https://github.com/alphalinux-org/aboot/commit/2ab0cfd|"fs: Add ext4 support"]], alphalinux-org/aboot)] |
+| ext4 | 2.0 | First added in 2017; Magnus Lindholm added 64-bit group descriptors and multi-extent reads for 2.0. Extents stored in the inode only; see below. [(>[[https://github.com/alphalinux-org/aboot/commit/2ab0cfd|"fs: Add ext4 support"]], alphalinux-org/aboot)] [(>[[https://github.com/alphalinux-org/aboot/commit/707f7af|"ext4: add initial ext4 support with 64-bit group descriptors and multi-extent reads"]], alphalinux-org/aboot)] |
 | ISO 9660 | 0.4 | Rock Ridge long names since 0.7 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L2892|"aboot 0.7 released"]], David Huggins-Daines, axp-list, 2 May 2000)] and symbolic links since 0.9. [(>[[https://github.com/alphalinux-org/aboot/blob/c91a39e9a735/README|README]], aboot 0.9, 25 Oct 2001)] |
 | UFS (BSD FFS) | 0.1 | "not well exercised and may be broken". [(>[[https://github.com/alphalinux-org/aboot/blob/master/README.md|README.md]], aboot 2.0)] |
-| XFS | 2.0 | Versions 4 and 5. [(>[[https://github.com/alphalinux-org/aboot/commit/89ced1f|"Initial XFSv5 suppport"]], alphalinux-org/aboot)] |
+| XFS | 2.0 | Versions 4 and 5, added by Magnus Lindholm. [(>[[https://github.com/alphalinux-org/aboot/commit/89ced1f|"Initial XFSv5 suppport"]], alphalinux-org/aboot)] |
 
 aboot does not read FAT, ReiserFS, or Tru64 AdvFS. [(>[[https://github.com/alphalinux-org/aboot/blob/master/disk.c|disk.c]], aboot 2.0)]
 
