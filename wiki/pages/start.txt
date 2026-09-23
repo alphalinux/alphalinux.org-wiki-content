@@ -18,14 +18,14 @@ Alpha is supported in mainline Linux, GCC, binutils, and glibc, and Gentoo, Debi
 ==== Documentation ====
 [[faq|FAQ]] • [[glossary|Glossary]] • [[documentation:installation|Installation]] • [[documentation:qemu|QEMU]] • [[documentation:kernel|Kernel]] • [[documentation:srm|Using SRM]] • [[Documentation:Porting]] • [[Documentation:Toolchains]] • [[Documentation:Instruction Set]] • [[Documentation:References]]
 
+==== Tasks ====
+[[Tasks:Bugs]] • [[Tasks:Todo|To Do]]
+
 ==== Community ====
 [[community#mailing_lists|Mailing Lists]] • [[community#irc|IRC]] • [[community#forums|Forums]] • [[distributions|Distributions]] • [[contributing|Contributing]]
 
 ==== History ====
 [[History:Companies]] • [[History:Community]] • [[History:News Coverage]] • [[History:alphalinux.org]]
-
-==== Tasks ====
-[[Tasks:Bugs]] • [[Tasks:Todo|To Do]]
 </WRAP>
 
 ===== News =====
