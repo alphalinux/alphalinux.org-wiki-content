@@ -8,18 +8,18 @@
 ^ Core logic | Titan |
 ^ Memory | Up to 4 GiB (DS15), 16 GiB (DS25), 32 GiB (ES45) |
 ^ Buses | 64-bit PCI, AGP |
-^ Firmware | SRM (last V7.3-2) |
+^ Firmware | SRM (last V7.3-2 on the DS15, DS25, and ES45) |
 ^ Kernel option | ''CONFIG_ALPHA_TITAN'' |
-^ Linux | Supported |
+^ Linux | Supported (DS15, DS25, ES45); Untested (TS202c) |
 </WRAP>
 
-The DS15 (HyperBrick), DS25 (Granite), and ES45 (Privateer) use the Titan core logic, the successor to Tsunami. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-November.mbox#L1365|"Re: Sanity checking needed of Alpha subarch codenames in d-i manual"]], Jay Estabrook, debian-alpha, 8 Nov 2004)] The DS15 has an EV68 CPU and replaced the [[hardware:systems:webbrick|DS10]], largely because the Tsunami chipset had reached end of life. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-October.mbox#L8451|"Re: Blimey New Alpha Workstation"]], Jay Estabrook, axp-list, 27 Oct 2003)] The TS202c (Falcon) firmware release notes list Tru64 UNIX as its only operating system. [(>{{wiki:software:firmware:alphaserver_ts202c_v6.8b_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8B Firmware Release Notes and Update Procedures}}, September 2005, p. 6)] Each model was sold both as an AlphaServer and, with graphics, as an AlphaStation.
+The DS15 (HyperBrick), DS25 (Granite), and ES45 (Privateer) use the Titan core logic, the successor to Tsunami. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-November.mbox#L1365|"Re: Sanity checking needed of Alpha subarch codenames in d-i manual"]], Jay Estabrook, debian-alpha, 8 Nov 2004)] The DS15 has an EV68 CPU and replaced the [[hardware:systems:webbrick|DS10]], largely because the Tsunami chipset had reached end of life. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-October.mbox#L8451|"Re: Blimey New Alpha Workstation"]], Jay Estabrook, axp-list, 27 Oct 2003)] The DS15 and DS25 were also sold, with graphics, as AlphaStations. [(>{{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15_quickspecs.pdf?linkonly|HP AlphaServer DS15 and HP AlphaStation DS15 QuickSpecs}}, June 2005, p. 5)] [(>{{wiki:hardware:systems:alphaserver_ds25:alphaserver_ds25_quickspecs.pdf?linkonly|HP AlphaServer/AlphaStation DS25 QuickSpecs}}, May 2007, pp. 1-2)]
 
 ==== Specifications ====
 
 === AlphaServer and AlphaStation DS15 and DS15A ===
 
-The DS15 and DS15A are identical and interchangeable except that the DS15A is RoHS compliant. [(>[[https://www.islandco.com/hp-alphaserver/hp-alphaserver-ds15-ds15a|HP AlphaServer DS15 / DS15A]], Island Computers)] Their QuickSpecs list the same configuration under different order numbers (DA-75CAA for the DS15, DA-76CAA for the DS15A). [(>{{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15_quickspecs.pdf?linkonly|HP AlphaServer DS15 and HP AlphaStation DS15 QuickSpecs}}, June 2005, p. 5)] [(>{{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15a_quickspecs.pdf?linkonly|HP AlphaServer DS15A and HP AlphaStation DS15A QuickSpecs}}, May 2007, p. 5)]
+The DS15A is a RoHS compliant DS15, otherwise identical and interchangeable. [(>[[https://www.islandco.com/hp-alphaserver/hp-alphaserver-ds15-ds15a|HP AlphaServer DS15 / DS15A]], Island Computers)] [(>{{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15_quickspecs.pdf?linkonly|HP AlphaServer DS15 and HP AlphaStation DS15 QuickSpecs}}, June 2005, p. 5)] [(>{{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15a_quickspecs.pdf?linkonly|HP AlphaServer DS15A and HP AlphaStation DS15A QuickSpecs}}, May 2007, p. 5)]
 
 [(>{{wiki:hardware:systems:alphaserver_ds15:alphaserver_ds15a_quickspecs.pdf?linkonly|HP AlphaServer DS15A and HP AlphaStation DS15A QuickSpecs}}, May 2007, p. 2)]
 
@@ -47,41 +47,39 @@ The DS15 and DS15A are identical and interchangeable except that the DS15A is Ro
 Except where noted, the following comes from the ES45 Technical Summary. [(>{{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_technical_summary.pdf?linkonly|AlphaServer ES45 Systems Technical Summary}}, August 2002, pp. 1-16)]
 
   * One to four [[wp>Alpha_21264|21264C]] (EV68, 0.18 micron) CPUs at 1 GHz with 8 MiB of L2 cache at 250 MHz DDR, or at 1.25 GHz with 16 MiB at 313 MHz DDR, each with 64 KiB instruction and 64 KiB data caches on chip
-  * A switch-based interconnect in place of the ES40's bus, built from one C-chip, two P-chips, and eight D-chips. In the ES40 the whole chipset was on the system board; in the ES45 the C-chip and D-chips are on the system board and the P-chips moved to the PCI backplane
   * Two 256-bit memory buses at 125 MHz, 4 GB/s each and 8 GB/s in total, 120 ns latency, ECC protected. Four memory motherboards take memory options of four identical 200-pin SDRAM DIMMs, sold as 512 MiB, 1 GiB, 2 GiB, and 4 GiB options. One option gives no interleaving, two give two-way, and four give four-way. ES40 and ES45 DIMMs are not interchangeable
-  * Each P-chip drives two 64-bit PCI buses, or one PCI and one 4X AGP bus on Model 1. An Acer Labs 1543C bridges PCI 0 to ISA for the serial, parallel, keyboard, mouse, floppy, and DVD-ROM logic
+  * Two P-chips on the PCI backplane each drive two 64-bit PCI buses, or one PCI and one 4X AGP bus on Model 1B. An Acer Labs 1543C bridges PCI 0 to ISA for the serial, parallel, keyboard, mouse, floppy, and DVD-ROM logic
   * Two serial ports, a dedicated 6-pin MMJ RMC modem port, a 25-pin parallel port, PS/2 keyboard and mouse, and two SCSI breakouts
   * Up to twelve 1-inch Ultra3 SCSI disks in two six-disk cages, each cage needing its own SCSI adapter, plus a DVD-ROM, a 1.44 MB floppy drive, and two half-height 5.25-inch removable media bays
   * One to three 1080 W (DC) power supplies. A second is required for more than two CPUs, more than one disk cage, or more than 16 DIMMs; a third provides N+1 redundancy. Three AC cords allow three separate power sources
-  * A remote management console (RMC) on a PIC17C44 microprocessor on the system board, powered from auxiliary 5 V so that it is reachable while the system is powered off
+  * A remote management console (RMC) on the system board, powered from auxiliary 5 V so that it is reachable while the system is powered off
   * Sold as a tower, a pedestal with room for two additional StorageWorks shelves, and an 8U rackmount chassis
 
-The models differ only in the PCI backplane and memory motherboards. The B suffix marks the 1 GHz variants; the 1.25 GHz variants drop it.
+The models differ only in the PCI backplane and memory motherboards. The original Model 2 has 1 GHz CPUs and 720 W power supplies; Models 1B, 2B, and 3B were sold with 1 GHz or 1.25 GHz CPUs and take 1080 W supplies. [(>{{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_quickspecs.pdf?linkonly|HP AlphaServer ES45 QuickSpecs}}, April 2005, pp. 8, 10)] [(>{{wiki:hardware:systems:alphaserver_es45:alphaserver_es45_owners_guide.pdf?linkonly|AlphaServer ES45 Owner's Guide}}, pp. 1-3 to 1-4)]
 
 ^ Model ^ Maximum memory ^ I/O slots ^ PCI throughput ^
-| 1B / 1 | 16 GiB | Two 33 MHz PCI, four 66 MHz PCI, one 4X AGP | 1.32 GB/s plus 1 GB/s AGP |
-| 2B / 2 | 32 GiB | Four 33 MHz PCI, six 66 MHz PCI | 1.85 GB/s |
-| 3B / 3 | 32 GiB | Eight 33 MHz PCI, two 66 MHz PCI | 1.32 GB/s |
+| 1B | 16 GiB | Two 33 MHz PCI, four 66 MHz PCI, one 4X AGP | 1.32 GB/s plus 1 GB/s AGP |
+| 2, 2B | 32 GiB | Four 33 MHz PCI, six 66 MHz PCI | 1.85 GB/s |
+| 3B | 32 GiB | Eight 33 MHz PCI, two 66 MHz PCI | 1.32 GB/s |
 
-The 33 MHz slots are 5 V and the 66 MHz slots are 3.3 V. Seven of the ten slots are hot pluggable on Models 2 and 3, and four of the seven on Model 1.
+The 33 MHz slots are 5 V and the 66 MHz slots are 3.3 V. Seven of the ten slots are hot pluggable on Models 2, 2B, and 3B, and four of the seven on Model 1B.
 
 ==== Firmware ====
 
-Use the final SRM version, V7.3-2 (see [[software:firmware:srm#final_versions|final SRM versions]]).
+Use the final SRM version, V7.3-2, on the DS15, DS25, and ES45 (see [[software:firmware:srm#final_versions|final SRM versions]]). The TS202c V6.8B firmware release carries SRM V6.8-20. [(>{{wiki:software:firmware:alphaserver_ts202c_v6.8b_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8B Firmware Release Notes and Update Procedures}}, September 2005, p. 6)]
 
-  * An ES45 that stops with "Bootstrap address collision, image loading aborted" needs ''set heap_expand none''; the ''console_memory_allocation old'' fix used on other systems does not work on the ES45. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2002-June.mbox#L4037|"ES45 and Bootstrap address collision, image loading aborted"]], Robert Fridman, tru64-unix-managers, 5 Jun 2002)]
+  * An ES45 that stops with "Bootstrap address collision, image loading aborted" needs ''set heap_expand none''; the ''console_memory_allocation old'' fix used on other systems does not work on the ES45 (reported under Tru64 UNIX). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2002-June.mbox#L4037|"ES45 and Bootstrap address collision, image loading aborted"]], Robert Fridman, tru64-unix-managers, 5 Jun 2002)]
   * The escape sequence from the console to the RMC on the ES45 is <key>Esc</key> <key>Esc</key> ''rmc''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2003-January.mbox#L437|"SUMMARY: Bootprompt on ES45"]], Evert Jan van Ramselaar, tru64-unix-managers, 2 Jan 2003)] The DS15's RMC can halt the system, power cycle it, and report fan and temperature readings, but it has no network access. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2005-September.mbox#L5892|"SUMMARY: RMC for DS15 (Remote Management)"]], Aaron Siebert, tru64-unix-managers, 30 Sep 2005)]
 
 ==== Linux ====
 
-Current kernels support these systems (''CONFIG_ALPHA_TITAN'', or a generic kernel), which boot from SRM with aboot. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_titan.c?h=v7.3-rc1|arch/alpha/kernel/sys_titan.c]], Linux 7.3)] The SRM console on Titan machines occupies the low memory where older systems load the kernel, so the kernel must start at 8 MiB or above, and preferably 16 MiB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-August.mbox#L1628|"Re: AlphaServer DS25 failure"]], Jay Estabrook, debian-alpha, 6 Aug 2004)] A generic kernel must therefore be built with ''CONFIG_ALPHA_LEGACY_START_ADDRESS'' turned off; with it on, as in the default configuration, the kernel leaves out Titan support entirely (see [[documentation:kernel#kernel_start_address|Kernel]]). [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/Makefile?h=v7.3-rc1|arch/alpha/kernel/Makefile]], Linux 7.3)]
+Current kernels support the DS15, DS25, and ES45 (''CONFIG_ALPHA_TITAN'', or a generic kernel), which boot from SRM with aboot. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_titan.c?h=v7.3-rc1|arch/alpha/kernel/sys_titan.c]], Linux 7.3)] The kernel also recognizes the TS202c (Falcon), [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v7.3-rc1|arch/alpha/kernel/setup.c]], Linux 7.3)] but no one has reported running Linux on it; its firmware release notes list Tru64 UNIX as its only operating system. [(>{{wiki:software:firmware:alphaserver_ts202c_v6.8b_firmware_release_notes.pdf?linkonly|AlphaServer TS202c V6.8B Firmware Release Notes and Update Procedures}}, September 2005, p. 6)] The SRM console on Titan machines occupies the low memory where older systems load the kernel, so the kernel must start at 8 MiB or above, and preferably 16 MiB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2004-August.mbox#L1628|"Re: AlphaServer DS25 failure"]], Jay Estabrook, debian-alpha, 6 Aug 2004)] A generic kernel must therefore be built with ''CONFIG_ALPHA_LEGACY_START_ADDRESS'' turned off; with it on, as in the default configuration, the kernel leaves out Titan support entirely (see [[documentation:kernel#kernel_start_address|Kernel]]). [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/Makefile?h=v7.3-rc1|arch/alpha/kernel/Makefile]], Linux 7.3)]
 
 The DS15's onboard Intel 82559ER Ethernet ports use the ''e100'' driver and its Adaptec 7899 SCSI controller the ''aic7xxx'' driver. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/net/ethernet/intel/e100.c?h=v7.3-rc1|drivers/net/ethernet/intel/e100.c]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/scsi/aic7xxx/aic7xxx_pci.c?h=v7.3-rc1|drivers/scsi/aic7xxx/aic7xxx_pci.c]], Linux 7.3)]
 
 ==== Known issues ====
 
   * **Loose CPUs:** on early ES45s the CPU mounting could work loose in use, causing random crashes; Compaq fitted retaining sleeves and later a hardware fix. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2002-March.mbox#L9907|"[UPDATE] ES45 troubles"]], Will Scates, tru64-unix-managers, 20 Mar 2002)]
-  * **Memory Channel:** with two Memory Channel adapters, both sit on the same PCI bus of the ES45, so they must be jumpered for a 128 MiB window rather than 512 MiB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-December.mbox#L3391|"Summary: TruCluster Question"]], Matt Morris, tru64-unix-managers, 20 Dec 2001)]
   * **120 V power:** some ES45 supplies are built for 200 to 240 V only: an ES45 "B" model reports every supply as failed on 120 V. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2008-April.mbox#L2183|"Re: ES45 says power supply failed"]], David Turner, comp.sys.dec, 30 Apr 2008)]
   * **Power:** an ES45 with three 1.25 GHz CPUs and 4 GiB of memory draws about 600 W. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2012-April.mbox#L4811|"Re: Alpha ES45 buildd"]], Michael Cree, debian-alpha, 30 Apr 2012)]
 

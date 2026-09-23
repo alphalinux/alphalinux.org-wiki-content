@@ -10,16 +10,16 @@
 ^ Buses | 64-bit PCI, EISA (4000, 4100) |
 ^ Firmware | SRM (last V6.0-4 on the 1200, V6.1-1 on the 4000 and 4100), AlphaBIOS |
 ^ Kernel option | ''CONFIG_ALPHA_RAWHIDE'' |
-^ Linux | Supported (21164A CPUs); Linux 6.9 and earlier (21164) |
+^ Linux | Supported (21164A models); others Linux 6.9 and earlier |
 </WRAP>
 
-Members of the Rawhide family are the Dodge, Wrangler, and Durango (AlphaServer 4000 and 4100) and the Tincup and DaVinci (AlphaServer 1200). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-October.mbox#L15721|"Re: Rawhide problems: TGA2 and SMP crash"]], Jay Estabrook, axp-list, 25 Oct 2002)] The core logic is MCPCIA. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_mcpcia.c?h=v6.10|arch/alpha/kernel/core_mcpcia.c]], Linux 6.10)]
-
-The AlphaServer 4000 and 4100 are built around a system drawer that fits either a pedestal or a 19-inch cabinet, and which carries the system bus, the PCI I/O, power, and cooling. The two differ only in the drawer: the BA30A drawer of the 4100 has four CPU slots, four memory pairs, and one PCI card cage, while the narrower BA30B drawer of the 4000 has two CPU slots, two memory pairs, and room for a second PCI card cage. Systems could be upgraded in either direction. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_technical_summary.pdf?linkonly|AlphaServer 4000/4100 Systems Technical Summary}}, pp. 1-2)]
+The Rawhide family comprises the Dodge, Wrangler, and Durango (AlphaServer 4000 and 4100) and the Tincup and DaVinci (AlphaServer 1200). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-October.mbox#L15721|"Re: Rawhide problems: TGA2 and SMP crash"]], Jay Estabrook, axp-list, 25 Oct 2002)] Digital sold these SMP servers from May 1996, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1996-September.mbox#L206|"Press/Digital Widens 64-Bit Server Lead w/ new AlphaServer Systems"]], Digital Press and Analysts News, biz.digital.announce, 5 Sep 1996)] and they use MCPCIA core logic. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_mcpcia.c?h=v6.10|arch/alpha/kernel/core_mcpcia.c]], Linux 6.10)]
 
 ==== Specifications ====
 
 === AlphaServer 4000 and 4100 ===
+
+The AlphaServer 4000 and 4100 are built around a system drawer that fits either a pedestal or a 19-inch cabinet, and which carries the system bus, the PCI I/O, power, and cooling. The two differ only in the drawer: the BA30A drawer of the 4100 has four CPU slots, four memory pairs, and one PCI card cage, while the narrower BA30B drawer of the 4000 has two CPU slots, two memory pairs, and room for a second PCI card cage. Systems could be upgraded in either direction. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_technical_summary.pdf?linkonly|AlphaServer 4000/4100 Systems Technical Summary}}, pp. 1-2)]
 
 Except where noted, the following comes from the technical summary. [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_technical_summary.pdf?linkonly|AlphaServer 4000/4100 Systems Technical Summary}}, pp. 4-7)]
 
@@ -52,7 +52,7 @@ There is no MILO for the AlphaServer 1200, 4000, or 4100; Linux boots from the S
 
 Current kernels support Rawhide systems with EV56 (21164A) CPUs (''CONFIG_ALPHA_RAWHIDE'', or a generic kernel), which boot from SRM with aboot. Linux 6.9 was the last version to support the 4000 and 4100 systems with 300 MHz EV5 (21164) CPU modules; Linux 6.10 removed support for processors older than the EV56 (21164A). [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] [(>{{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_illustrated_parts_breakdown.pdf?linkonly|AlphaServer 4000/4100 Series Illustrated Parts Breakdown}}, Figure 1)] The AlphaServer 1200 was sold with 400 and 533 MHz CPUs, [(>{{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_technical_summary.pdf?linkonly|AlphaServer 1200 System Technical Summary}}, p. 1)] which its console reports as EV56. [(>{{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_users_guide.pdf?linkonly|AlphaServer 1200 User's Guide}}, p. 5-18)]
 
-  * Current kernels run the timer at 1200 Hz on Rawhide, as the hardware requires; generic kernels once used 1024 Hz, which caused clock skew. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-November.mbox#L11560|"Re: Clock skew on Rawhide, was Re: Rawhide problems: TGA2 and SMP crash"]], Jay Estabrook, axp-list, 15 Nov 2002)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10)]
+  * Rawhide's timer interrupt runs at 1200 Hz. A kernel built with ''CONFIG_ALPHA_RAWHIDE'' defaults to ''HZ'' of 1200, but a generic kernel defaults to 1024 and must be configured for 1200; a mismatch causes clock skew. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-November.mbox#L11560|"Re: Clock skew on Rawhide, was Re: Rawhide problems: TGA2 and SMP crash"]], Jay Estabrook, axp-list, 15 Nov 2002)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.10|arch/alpha/Kconfig]], Linux 6.10)]
   * The AlphaServer 4000, 4100, and 1200 have no IDE controller. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-July.mbox#L1749|"Hardware compat with Fc8"]], Jay Estabrook, axp-list, 25 Jul 2008)]
 
 ==== Known issues ====
@@ -63,7 +63,7 @@ Current kernels support Rawhide systems with EV56 (21164A) CPUs (''CONFIG_ALPHA_
 
 ==== History ====
 
-Digital introduced the drawer approach with the AlphaServer 4100 in May 1996 and extended it to the AlphaServer 4000 5/300 and 5/400 on 4 September 1996. The 128-bit system bus is synchronous with the processor, so its bandwidth grows with CPU speed. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1996-September.mbox#L206|"Press/Digital Widens 64-Bit Server Lead w/ new AlphaServer Systems"]], Digital Press and Analysts News, biz.digital.announce, 5 Sep 1996)]
+Digital introduced the drawer approach with the AlphaServer 4100 in May 1996 and extended it to the AlphaServer 4000 5/300 and 5/400 on 4 September 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1996-September.mbox#L206|"Press/Digital Widens 64-Bit Server Lead w/ new AlphaServer Systems"]], Digital Press and Analysts News, biz.digital.announce, 5 Sep 1996)]
 
 ==== Conflicting information ====
 

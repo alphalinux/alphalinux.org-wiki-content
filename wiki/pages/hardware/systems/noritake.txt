@@ -5,21 +5,21 @@
 ^ Codename | Noritake, Noritake-Primo (1000A), Corelle (800), Alcor-Primo (600A) |
 ^ CPU | [[wp>Alpha_21064#Alpha_21064A|21064A]], [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] |
 ^ Processors | 1 |
-^ Core logic | [[hardware:chipsets#21071_and_21072|21071/21072]] (APECS), CIA |
+^ Core logic | [[hardware:chipsets#21071_and_21072|21071/21072]] (APECS), [[hardware:chipsets#21171|21171]] (CIA) |
 ^ Memory | Up to 1 GiB, SIMMs (1000A, 600A) |
 ^ Buses | 33 MHz PCI, EISA |
 ^ Firmware | SRM (last V5.7-83 on the 1000A 4/xxx, V5.7-80 on the 1000A 5/xxx, V5.8-16 on the 800, V5.6-114 on the 600A), AlphaBIOS |
 ^ Kernel option | ''CONFIG_ALPHA_NORITAKE'' |
-^ Linux | Supported (21164A models); Linux 6.9 and earlier (others) |
+^ Linux | Supported (21164A models); others Linux 6.9 and earlier |
 </WRAP>
 
 The Noritake family comprises the AlphaServer 1000A (Noritake), built with either EV4 (4/xxx) or EV5 (5/xxx, Noritake-Primo) CPUs; the AlphaServer 800 (Corelle), sold only as 5/xxx models; and the AlphaStation 600A (Alcor-Primo), also 5/xxx only. All have an EISA bus. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L14347|"Re: Alpha Server 1000A - Noritake Image (Kernel)"]], Jay Estabrook, axp-list, 8 Jan 1999)] The Digital Server 3300 and 3305 are AlphaServer 800 models (see [[hardware:systems#naming|Naming]]). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L1874|"Re: 3305 and RH6 boot problems"]], Rich Payne, axp-list, 2 Dec 1999)]
 
-The AlphaServer 1000A is a revision of the [[hardware:systems:mikasa|AlphaServer 1000]] with most of the EISA slots traded for PCI slots behind a PCI-to-PCI bridge. It was sold as pedestal, rackmount, and cabinet systems. [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 1)]
-
 ==== Specifications ====
 
 === AlphaServer 1000A ===
+
+The AlphaServer 1000A is a revision of the [[hardware:systems:mikasa|AlphaServer 1000]] with most of the EISA slots traded for PCI slots behind a PCI-to-PCI bridge. It was sold as pedestal, rackmount, and cabinet systems. [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 1)]
 
 [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, pp. 2-3)]
 

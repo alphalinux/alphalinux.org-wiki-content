@@ -17,17 +17,14 @@ The CS20 is a 1U dual processor 21264 server designed by Alpha Processor, Inc., 
 
 ==== Specifications ====
 
-API's specification for the CS20, as posted in 2000: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L7232|"CS-20 Dual 21264 1U server"]], Bill Broadley, axp-list, 3 Nov 2000, quoting API's web site)]
+Except where noted, the following comes from API's specification for the CS20. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L7232|"CS-20 Dual 21264 1U server"]], Bill Broadley, axp-list, 3 Nov 2000, quoting API's web site)]
 
   * Two 667 MHz [[wp>Alpha_21264#Alpha_21264A|21264A]] or 833 MHz [[wp>Alpha_21264#Alpha_21264B|21264B]] CPUs with 4 MiB of DDR L2 cache each
-  * 2.65 GB/s peak main memory bandwidth
   * Two 64-bit 33 MHz PCI slots
   * Onboard Ultra3 SCSI (Symbios 53c1000)
   * 1U rackmount
-
-The DS20L takes up to 2 GiB of memory in eight DIMM slots. [(>{{wiki:hardware:systems:alphaserver_ds20l:alphaserver_ds20l_technical_summary.pdf?linkonly|AlphaServer DS20L System Technical Summary}}, 2002, p. 5)]
-
-The CS20 has two independent PCI buses, with most onboard devices on bus 0, so demanding cards perform better on the second bus. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L10816|"Re: matroxfb on SMP alpha"]], Peter Petrakis, debian-alpha, 24 Jan 2003)]
+  * Up to 2 GiB of memory in eight DIMM slots on the DS20L [(>{{wiki:hardware:systems:alphaserver_ds20l:alphaserver_ds20l_technical_summary.pdf?linkonly|AlphaServer DS20L System Technical Summary}}, 2002, p. 5)]
+  * Two independent PCI buses, with most onboard devices on bus 0, so demanding cards perform better on the second bus [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L10816|"Re: matroxfb on SMP alpha"]], Peter Petrakis, debian-alpha, 24 Jan 2003)]
 
 ==== Firmware ====
 
@@ -37,7 +34,7 @@ If the DS20L environment variable ''sysvar'' is set to 5, it must be set to 12 a
 
 ==== Linux ====
 
-Current kernels support the Shark (''CONFIG_ALPHA_SHARK'', or a generic kernel), which boots from SRM with aboot. Kernel support was added in 2001 as a variant of the DP264 platform. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_dp264.c?h=v6.10|arch/alpha/kernel/sys_dp264.c]], Linux 6.10)] See also [[hardware:systems#tsunami_systems|Tsunami Systems]].
+Current kernels support the Shark (''CONFIG_ALPHA_SHARK'', or a generic kernel), which boots from SRM with aboot. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_dp264.c?h=v6.10|arch/alpha/kernel/sys_dp264.c]], Linux 6.10)] See also [[hardware:systems#tsunami_systems|Tsunami Systems]].
 
 ==== Known issues ====
 
