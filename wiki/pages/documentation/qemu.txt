@@ -1,0 +1,140 @@
+===== QEMU =====
+
+[[https://www.qemu.org/|QEMU]] is the easiest way to run Alpha/Linux without Alpha hardware, and the usual way to test kernel and toolchain changes. It has two modes, both covered here:
+
+  * **System emulation**, ''qemu-system-alpha'', emulates a complete Alpha system, an AlphaServer ES40 class machine, and boots an Alpha kernel.
+  * **User-mode emulation**, ''qemu-alpha'', runs individual Alpha/Linux programs on another architecture's kernel. With ''binfmt_misc'' it runs a whole Alpha chroot.
+
+The history of QEMU's Alpha support, and of the other Alpha emulators, is on the [[software:emulators#qemu|Emulators]] page.
+
+==== System emulation ====
+
+=== The machine ===
+
+QEMU's only Alpha machine is ''clipper'', which is also the default. It emulates up to four CPUs, EV67 by default, with the 21272 Tsunami core logic, a CMD646 IDE controller, VGA, and an Intel e1000 network card. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/hw/alpha/dp264.c|hw/alpha/dp264.c]], QEMU 11.1.0)] A generic Alpha kernel runs on it, as does one built with ''CONFIG_ALPHA_DP264''; see [[documentation:kernel|Kernel]].
+
+QEMU does not run Digital's SRM console. Its firmware, qemu-palcode, provides enough for Linux to boot, but has no command prompt and none of the console's I/O services. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2011-May.mbox#L823|"Re: QEMU Alpha system status"]], Richard Henderson, debian-alpha, 5 May 2011)] QEMU therefore cannot boot from a disk or CD by itself. The kernel, and the initrd if one is used, are always passed to QEMU from the host with ''-kernel'' and ''-initrd'', and the kernel arguments with ''-append''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L470|"Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image (fwd)"]], Thorsten Glaser, debian-alpha, 27 Mar 2021)]
+
+QEMU loads the kernel as an ELF file, and does not decompress it. A kernel that is gzip-compressed, such as a distribution's ''vmlinuz'' or the kernel build's ''arch/alpha/boot/vmlinux.gz'', must be decompressed first; QEMU's own tests do the same. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/tests/functional/alpha/test_clipper.py|tests/functional/alpha/test_clipper.py]], QEMU 11.1.0)] ''file'' shows which it is:
+
+<code>
+file vmlinuz
+zcat vmlinuz > vmlinux
+</code>
+
+=== Booting an installer ===
+
+The Debian Ports netinst CD carries its kernel and initrd as ''/boot/vmlinuz'' and ''/boot/initrd.gz''. Copy them out of the ISO, for example with ''bsdtar'' or ''7z'', or by loop-mounting it, and decompress the kernel:
+
+<code>
+bsdtar -xf debian-13.0.0-alpha-NETINST-1.iso boot/vmlinuz boot/initrd.gz
+zcat boot/vmlinuz > vmlinux
+qemu-img create -f qcow2 alpha.qcow2 20G
+</code>
+
+Then boot the installer with the new disk and the ISO attached:
+
+<code>
+qemu-system-alpha -M clipper -m 2G -smp 2 -nographic \
+    -kernel vmlinux -initrd boot/initrd.gz -append 'console=ttyS0' \
+    -drive file=alpha.qcow2,format=qcow2 \
+    -cdrom debian-13.0.0-alpha-NETINST-1.iso \
+    -nic user
+</code>
+
+This is essentially the method reported to work for Debian in 2021. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L470|"Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image (fwd)"]], Thorsten Glaser, debian-alpha, 27 Mar 2021)] The installer partitions the disk with a BSD disklabel and tries to install aboot, exactly as on real hardware. The aboot it installs is not used under QEMU, but it does no harm, and the same disk image can later be written to a real disk.
+
+At least 2 GiB of memory is recommended. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-January.mbox#L2582|"Re: Booting Debian in qemu-system-alpha"]], Philippe Mathieu-Daudé, debian-alpha, 27 Jan 2020)] Quote the ''-append'' string with plain ASCII quotes: typographic quotes copied from a web page end up in the kernel command line, and the kernel then ignores ''console=ttyS0''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-January.mbox#L2336|"Re: Booting Debian in qemu-system-alpha"]], Richard Henderson, debian-alpha, 24 Jan 2020)]
+
+=== Booting the installed system ===
+
+Because QEMU cannot load the kernel from the disk, the installed system's kernel and initrd have to be copied out to the host, and passed to QEMU as before:
+
+<code>
+qemu-system-alpha -M clipper -m 2G -smp 2 -nographic \
+    -kernel vmlinux-installed -initrd initrd.img-installed \
+    -append 'root=/dev/sda3 console=ttyS0' \
+    -drive file=alpha.qcow2,format=qcow2 \
+    -nic user
+</code>
+
+The files can be copied out with ''virt-copy-out'' from libguestfs, or by attaching the image with ''qemu-nbd'' and mounting the ''/boot'' partition. The host kernel must understand the BSD disklabel for the partition to appear; if it does not, the partition's offset from ''parted'' can be passed to ''mount'' instead:
+
+<code>
+qemu-nbd --connect=/dev/nbd0 alpha.qcow2
+parted /dev/nbd0 unit B print
+mount -o ro,offset=1048576 /dev/nbd0 /mnt
+</code>
+
+Each time the guest installs a new kernel, it has to be copied out again. A common alternative is to build the kernel on the host with a cross compiler and pass it to QEMU directly, which is how most kernel testing is done; see [[documentation:kernel#cross_compiling|Kernel: Cross compiling]].
+
+=== Networking ===
+
+''-nic user'' gives the guest an e1000 card on QEMU's built-in NAT network, with DHCP; the guest reaches the outside world, but not the other way round. To log in to the guest with ''ssh'', forward a port from the host:
+
+<code>
+-nic user,hostfwd=tcp::2222-:22
+</code>
+
+and connect to port 2222 on the host. For a guest on the host's own network, use a bridge or tap device, as for any other QEMU guest.
+
+=== Serial console and graphics ===
+
+With ''-nographic'', the guest's first serial port is connected to QEMU's standard input and output, and the firmware sets up the system for a serial console. ''console=ttyS0'' in ''-append'' sends the kernel's messages there, and most distributions then start a login prompt on it. Ctrl-A X quits QEMU, and Ctrl-A C switches to the QEMU monitor.
+
+Without ''-nographic'', QEMU emulates a VGA card, and the kernel uses it unless told otherwise. The serial console is still available with ''-serial stdio'' or in the ''View'' menu.
+
+==== User-mode emulation ====
+
+''qemu-alpha'' runs a single Alpha/Linux program on another architecture, translating its system calls to the host kernel's. It needs the program's shared libraries, which it looks for under the directory given with ''-L'' or the ''QEMU_LD_PREFIX'' variable:
+
+<code>
+alpha-linux-gnu-gcc -o hello hello.c
+qemu-alpha -L /usr/alpha-linux-gnu ./hello
+</code>
+
+This is the quickest way to test a program built with a cross compiler, and glibc developers use it to test Alpha changes. [(>[[https://sourceware.org/git/?p=glibc.git;a=commit;h=80a40a9e14|"alpha: Fix fesetexceptflag (BZ 30998)"]], Bruno Haible, glibc 2.39)] The CPU is EV67 by default; ''-cpu'' selects another, for example ''-cpu ev56'' to check that a program does not use newer instructions. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/linux-user/alpha/elfload.c|linux-user/alpha/elfload.c]], QEMU 11.1.0)]
+
+=== binfmt_misc and chroots ===
+
+Registered with the kernel's ''binfmt_misc'', a statically linked ''qemu-alpha'' runs Alpha programs transparently, which makes a complete Alpha root file system usable as a chroot on an x86-64 host. It can then be used to build packages natively, or to prepare a disk for a real Alpha system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2019-July.mbox#L1219|"Re: systemd woes continue"]], Michael Cree, debian-alpha, 17 Jul 2019)]
+
+Distributions package the static binary and its binfmt registration: Debian as ''qemu-user-static'' (or ''qemu-user'' with ''qemu-user-binfmt'' in newer releases), and Gentoo as ''app-emulation/qemu'' with the ''static-user'' USE flag, ''alpha'' in ''QEMU_USER_TARGETS'', and the ''qemu-binfmt'' service. Elsewhere, the registration can be written by hand as a ''systemd-binfmt'' configuration file, ''/etc/binfmt.d/qemu-alpha.conf''. The magic and mask are those in QEMU's own ''scripts/qemu-binfmt-conf.sh'': [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/scripts/qemu-binfmt-conf.sh|scripts/qemu-binfmt-conf.sh]], QEMU 11.1.0)]
+
+<code>
+:qemu-alpha:M::\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x26\x90:\xff\xff\xff\xff\xff\xfe\xfe\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-alpha-static:F
+</code>
+
+The ''F'' flag makes the kernel open the interpreter when the entry is registered, so it works inside a chroot without copying ''qemu-alpha-static'' into it.
+
+A Gentoo chroot starts from a stage3 tarball:
+
+<code>
+mkdir alpha-root
+tar -xpf stage3-alpha-openrc-*.tar.xz -C alpha-root
+cp /etc/resolv.conf alpha-root/etc/
+mount --rbind /dev alpha-root/dev
+mount -t proc proc alpha-root/proc
+chroot alpha-root /bin/bash
+</code>
+
+A Debian one is built with ''debootstrap'' from Debian Ports, which needs the ports archive keyring:
+
+<code>
+debootstrap --arch=alpha \
+    --keyring=/usr/share/keyrings/debian-ports-archive-keyring.gpg \
+    unstable alpha-root http://deb.debian.org/debian-ports/
+chroot alpha-root /bin/bash
+</code>
+
+Inside the chroot, ''uname -m'' reports ''alpha'', and programs behave as on an Alpha system, with some exceptions: the host's kernel and page size are the ones in effect, ''/proc'' describes the host, and a few system calls are not emulated. Test results under user-mode emulation are therefore not final, and failures should be confirmed under system emulation or on hardware before they are reported as Alpha bugs.
+
+==== Limitations ====
+
+  * **No SRM console.** QEMU runs its own firmware, so there is no ''%%>>>%%'' prompt, no SRM environment variables, and no way to test SRM or the [[software:firmware:srm|SRM]] behavior of a kernel.
+  * **No aboot.** [[software:boot_loaders:aboot|aboot]] depends on the SRM console's I/O services, which qemu-palcode does not provide, so it cannot be tested, and QEMU cannot boot a disk the way real hardware does.
+  * **No OpenVMS or Tru64 UNIX.** Both need the SRM console, and neither runs under QEMU. [(>[[https://raymii.org/s/articles/NetBSD_on_QEMU_Alpha.html|"Install NetBSD 9.2 on a DEC Alpha CPU in QEMU with X11"]], Remy van Elst, 18 Aug 2021)] The [[software:emulators#es40_and_axpbox|ES40 and AXPbox]] emulators and the commercial emulators run the real SRM firmware, and with it OpenVMS and Tru64. NetBSD does run under QEMU, since QEMU 6.1. [(>[[https://gitlab.com/qemu-project/qemu/-/commit/5ec4f1d348e164355ff0e50486d537973e517e19|"hw/alpha: Provide a PCI-ISA bridge device node"]], Jason Thorpe, 16 Jun 2021, QEMU 6.1)]
+  * **One system type.** Only the Tsunami platform is emulated. Code specific to other chipsets, such as the CIA, Pyxis, Titan, or Marvel, needs real hardware to test.
+  * **Timing and memory ordering.** QEMU runs guest code much faster or slower than real hardware, depending on the host, and its memory model is the host's, so it does not reproduce the Alpha's weak memory ordering. Bugs in barriers and in timing-dependent code often do not show up under QEMU. See [[documentation:porting:memory_model|Memory Model]].
+
+{{tag>documentation emulator qemu}}
