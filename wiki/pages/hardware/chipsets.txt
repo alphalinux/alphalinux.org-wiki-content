@@ -1,15 +1,18 @@
 ===== Chipsets =====
 
-^ Chipset ^ CPUs ^ Motherboards ^
-| [[#21071_and_21072|21071/21072 (APECS)]] | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | [[hardware:motherboards:eb64plus|EB64+]], [[hardware:motherboards:pc64|AlphaPC64]] |
-| [[#21171|21171 (CIA)]] | [[wp>Alpha_21164|21164]] | [[hardware:motherboards:eb164|EB164]] |
-| [[#21172|21172 (CIA)]] | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | [[hardware:motherboards:pc164|AlphaPC164]] |
-| [[#21174|21174 (Pyxis)]] | [[wp>Alpha_21164#Alpha_21164A|21164A]], [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|21164PC]] | [[hardware:motherboards:pc164lx|AlphaPC164LX]], [[hardware:motherboards:pc164sx|AlphaPC164SX]], [[hardware:motherboards:pc164ux|AlphaPC164UX/BX]] |
-| [[#21272|21272 (Tsunami/Typhoon)]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:pc264dp|AlphaPC264DP]], [[hardware:motherboards:up2000|UP2000]], [[hardware:motherboards:up2000#up2000plus|UP2000+]] |
-| [[#AMD-751|AMD-751 (Irongate)]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:up1000|UP1000]], [[hardware:motherboards:up1100|UP1100]] |
-| [[#AMD-761|AMD-761]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:up1500|UP1500]] |
+^ Chipset ^ CPUs ^ Motherboards ^ Linux code ^ Current kernels ^
+| [[#21071_and_21072|21071/21072 (APECS)]] | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | [[hardware:motherboards:eb64plus|EB64+]], [[hardware:motherboards:pc64|AlphaPC 64]] | ''core_apecs.c'' | Linux 6.9 and earlier |
+| [[#21171|21171 (CIA)]] | [[wp>Alpha_21164|21164]] | [[hardware:motherboards:eb164|EB164]] | ''core_cia.c'' | Linux 6.9 and earlier |
+| [[#21172|21172 (CIA-2)]] | [[wp>Alpha_21164#Alpha_21164A|21164A]] | [[hardware:motherboards:pc164|AlphaPC 164]] | ''core_cia.c'' | Supported |
+| [[#21174|21174 (Pyxis)]] | [[wp>Alpha_21164#Alpha_21164A|21164A]], [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|21164PC]] | [[hardware:motherboards:pc164lx|AlphaPC 164LX]], [[hardware:motherboards:pc164sx|AlphaPC 164SX]], [[hardware:motherboards:pc164ux|AlphaPC 164UX/BX]] | ''core_cia.c'' | Supported |
+| [[#polaris|VLSI Polaris]] | [[wp>Alpha_21164#Alpha_21164PC_(PCA57)|21164PC]] | [[hardware:motherboards:pc164rx|AlphaPC 164RX]] | ''core_polaris.c'' | Untested |
+| [[#21272|21272 (Tsunami/Typhoon)]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:pc264dp|AlphaPC 264DP]], [[hardware:motherboards:up2000|UP2000]], [[hardware:motherboards:up2000#up2000plus|UP2000+]] | ''core_tsunami.c'' | Supported |
+| [[#AMD-751|AMD-751 (Irongate)]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:up1000|UP1000]], [[hardware:motherboards:up1100|UP1100]] | ''core_irongate.c'' | Supported |
+| [[#AMD-761|AMD-761]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:up1500|UP1500]] | ''core_irongate.c'' | Supported |
 
-The [[wp>Alpha_21064#Alpha_21066A|21066 and 21066A]] integrate their memory and PCI controllers, so boards such as the [[hardware:motherboards:eb66|EB66]] and [[hardware:motherboards:eb66plus|EB66+]] need no separate chipset.
+The Linux code column names the file in ''arch/alpha/kernel'' that supports the chipset. The APECS and LCA files were removed with support for processors older than the EV56 (21164A) in Linux 6.10; [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/Makefile?h=v6.9|arch/alpha/kernel/Makefile]], Linux 6.9)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/Makefile?h=v7.3-rc1|arch/alpha/kernel/Makefile]], Linux 7.3)] the CIA code remains for EV56 systems. The Current kernels column uses the same values as the [[hardware:motherboards|Motherboards]] table.
+
+The [[wp>Alpha_21064#Alpha_21066A|21066 and 21066A]] integrate their memory and PCI controllers, so boards such as the [[hardware:motherboards:eb66|EB66]] and [[hardware:motherboards:eb66plus|EB66+]] need no separate chipset. Linux supported them with ''core_lca.c'' through Linux 6.9.
 
 ==== 21071 and 21072 ====
 
@@ -21,11 +24,15 @@ The 21071 and 21072 are "two configurations of a core logic chip set for the DEC
 
 ==== 21171 ====
 
+The 21171 (CIA) is the core logic of the [[hardware:motherboards:eb164|EB164]] and of EV5 systems such as the AlphaStation 500 and 600 (Alcor). Linux supports it in ''core_cia.c'', which also handles the 21172 and 21174. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_cia.c?h=v7.3-rc1|arch/alpha/kernel/core_cia.c]], Linux 7.3)]
+
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:chipsets:21171:21171_technical_reference_manual.pdf?linkonly|DECchip 21171 Core Logic Chipset Technical Reference Manual}} | EC-QE18B-TE | September 1995 |
 | {{wiki:hardware:chipsets:21171:21171_product_brief.pdf?linkonly|DECchip 21171 Core Logic Chipset Product Brief}} | EC-QC3EB-TE | March 1995 |
 
 ==== 21172 ====
+
+The 21172 (CIA-2) is the core logic of the [[hardware:motherboards:pc164|AlphaPC 164]]. Although it was intended to allow byte and word access to I/O space, this never worked, so Linux uses sparse I/O addressing on it as on the 21171. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L18328|"RE: Re: ev56 optimization -> illegal instruction"]], Jay Estabrook, axp-list, 14 Mar 1998)]
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:chipsets:21172:21172_technical_reference_manual.pdf?linkonly|Digital Semiconductor 21172 Core Logic Chipset Technical Reference Manual}} | EC-QUQJA-TE | April 1996 |
@@ -33,21 +40,27 @@ The 21071 and 21072 are "two configurations of a core logic chip set for the DEC
 
 ==== 21174 ====
 
-Early 21174 (Pyxis) parts have an erratum affecting DMA that crosses a page boundary when the scatter-gather hardware is in use, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-October.mbox#L3263|"Re: pci cards supported by SRM?"]], Jay Estabrook, debian-alpha, 9 Oct 2003)] which operating systems must work around. NetBSD prints a warning when it detects a pass 1 Pyxis. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-July.mbox#L4288|"Miata"]], Johan Danielsson, port-alpha, 28 Jul 1998)]
+Early 21174 (Pyxis) parts have an erratum affecting DMA that crosses a page boundary when the scatter-gather hardware is in use, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-October.mbox#L3263|"Re: pci cards supported by SRM?"]], Jay Estabrook, debian-alpha, 9 Oct 2003)] which operating systems must work around. NetBSD prints a warning when it detects a pass 1 Pyxis. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-July.mbox#L4288|"Miata"]], Johan Danielsson, port-alpha, 28 Jul 1998)] On the Personal Workstation (Miata), the PCI-to-PCI bridge in front of the 32-bit slots masks the bug; see [[hardware:other#personal_workstation_64-bit_slots|Other Hardware]] for the 64-bit slots, which are not behind it.
 
-On the Digital Personal Workstation (Miata) the bug is masked for most cards by the PCI-PCI bridge that the 32-bit slots sit behind, which breaks transfers up so the chip never sees the access pattern that provokes it. The firmware refuses unrecognized cards in the two 64-bit slots in front of the bridge. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-December.mbox#L9759|"Re: Pyxis chip on a 500a."]], Hal Murray, port-alpha, 28 Dec 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-December.mbox#L9909|"Re: Pyxis chip on a 500a."]], Chris G. Demetriou, port-alpha, 29 Dec 1999)] See [[hardware:other#personal_workstation_64-bit_slots|Other Hardware]] for the override and why DMA cards must stay out of those slots.
-
-Pyxis was also the first Alpha core logic on which byte and word access to I/O space worked; see [[documentation:porting:byte_word_access#bwx_in_the_core_logic|Byte and Word Access]].
+Pyxis was also the first Alpha core logic on which byte and word access to I/O space worked, and Linux enables it on every Pyxis system; [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_cia.c?h=v7.3-rc1|arch/alpha/kernel/core_cia.c]], Linux 7.3)] see [[documentation:porting:byte_word_access#bwx_in_the_core_logic|Byte and Word Access]].
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:chipsets:21174:21174_technical_reference_manual.pdf?linkonly|Digital Semiconductor 21174 Core Logic Chip Technical Reference Manual}} | EC-R12GB-TE | August 1997 |
 
+==== Polaris ====
+
+The VLSI Technology Polaris system controller is used only on the [[hardware:motherboards:pc164rx|AlphaPC 164RX]]. It supports only 32-bit PCI. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002)] Linux supports it in ''core_polaris.c''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_polaris.c?h=v7.3-rc1|arch/alpha/kernel/core_polaris.c]], Linux 7.3)]
+
 ==== 21272 ====
+
+The 21272 (Tsunami, and the later Typhoon) is the core logic of the 21264 motherboards and of the AlphaServer DS10, DS20, and ES40 families. Linux supports it in ''core_tsunami.c''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_tsunami.c?h=v7.3-rc1|arch/alpha/kernel/core_tsunami.c]], Linux 7.3)]
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:chipsets:21272:21272_hardware_reference_manual.pdf?linkonly|Tsunami/Typhoon 21272 Chipset Hardware Reference Manual, Revision 4.0}} | DS-0025A-TE | October 1999 |
 
 ==== AMD-751 ====
+
+The AMD-751 (Irongate) is an Athlon system controller, used with the 21264 on the [[hardware:motherboards:up1000|UP1000]] and [[hardware:motherboards:up1100|UP1100]]. Linux supports it, and the AMD-761, in ''core_irongate.c''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_irongate.c?h=v7.3-rc1|arch/alpha/kernel/core_irongate.c]], Linux 7.3)]
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:chipsets:amd-751:amd-751_data_sheet.pdf?linkonly|AMD-751 System Controller Data Sheet}} | 21910E | March 2000 |

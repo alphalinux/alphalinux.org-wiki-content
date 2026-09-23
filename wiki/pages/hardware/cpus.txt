@@ -4,23 +4,27 @@ Wikipedia has articles on the [[wp>DEC Alpha|Alpha architecture]] and on the [[w
 
 See also [[hardware:chipsets|Chipsets]].
 
+==== Linux support ====
+
+Since Linux 6.10, released in July 2024, the kernel requires an EV56 (21164A) or later processor, because it needs the byte/word extension (BWX) to make byte and word stores atomic. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] Current kernels therefore support the EV56 (21164A), the PCA56 and PCA57 (21164PC), all 21264 variants (EV6, EV67, EV68), and the EV7 (21364). The EV4 and EV45 (21064 and 21064A), the LCA4 and LCA45 (21066, 21066A, 21068, and 21068A), and the EV5 (21164) need Linux 6.9 or earlier.
+
 ==== Names and type codes ====
 
-The consoles report processors by part number rather than by EV name, for example "Alpha 21264A-8 666 MHz" on a DS20E, so the EV name has to be looked up from the part number. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-January.mbox#L16570|"SUMMARY: cpu EV revision?"]], Kim Roy, tru64-unix-managers, 13 Jan 2000)] Tru64 UNIX's ''cpuconf.h'' gives the processor type codes and the correspondence between the two naming schemes: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-March.mbox#L6483|"Displaying system model ID string"]], Alan Davis, tru64-unix-managers, 16 Mar 2000)]
+The consoles report processors by part number rather than by EV name, for example "Alpha 21264A-8 666 MHz" on a DS20E, so the EV name has to be looked up from the part number. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-January.mbox#L16570|"SUMMARY: cpu EV revision?"]], Kim Roy, tru64-unix-managers, 13 Jan 2000)] The table maps the processor type codes in Tru64 UNIX's ''cpuconf.h'' to part numbers and EV names, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2000-March.mbox#L6483|"Displaying system model ID string"]], Alan Davis, tru64-unix-managers, 16 Mar 2000)] and gives the GCC ''-mcpu'' value for each. GCC has no separate value for the EV68, which adds no instructions to the EV67, or for the PCA57, which uses ''pca56''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.cc|gcc/config/alpha/alpha.cc]], GCC)]
 
-^ Code ^ Name ^ Part ^
-| 2 | EV4 | 21064 |
-| 5 | EV5 | 21164 |
-| 6 | EV45 | 21064A |
-| 7 | EV56 | 21164A |
-| 8 | EV6 | 21264 |
-| 9, 10 | PCA56, PCA57 | 21164PC |
-| 11 | EV67 | 21264A |
-| 12 | EV68CB | 21264C |
-| 13 | EV68AL | 21264B |
-| 14 | EV68CX | 21264D |
+^ Code ^ Name ^ Part ^ GCC ''-mcpu'' ^ Current kernels ^
+| 2 | EV4 | 21064 | ''ev4'' | No |
+| 5 | EV5 | 21164 | ''ev5'' | No |
+| 6 | EV45 | 21064A | ''ev45'' | No |
+| 7 | EV56 | 21164A | ''ev56'' | Yes |
+| 8 | EV6 | 21264 | ''ev6'' | Yes |
+| 9, 10 | PCA56, PCA57 | 21164PC | ''pca56'' | Yes |
+| 11 | EV67 | 21264A | ''ev67'' | Yes |
+| 12 | EV68CB | 21264C | ''ev67'' | Yes |
+| 13 | EV68AL | 21264B | ''ev67'' | Yes |
+| 14 | EV68CX | 21264D | ''ev67'' | Yes |
 
-==== Socket 499 (PC164, PC164LX, PC164BX/UX, Personal Workstation) ====
+==== Socket 499 (AlphaPC 164, 164LX, 164UX/BX, Personal Workstation) ====
 
 ^ Manufacturer ^ Part Number ^ Type ^ Frequency ^
 | Digital | 21-43918-03 | EV56 | 400 MHz |
@@ -71,13 +75,11 @@ On earlier revisions of the 500 MHz modules the second CPU of a dual system coul
 
 ==== Performance notes ====
 
-The direct-mapped backup caches of the early systems caused run-to-run benchmark variations of about 20 percent, depending on how virtual pages happened to be mapped to physical memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1993-May.mbox#L2600|"Re: AXP 3000/300 oddity #1 -- CPU timings"]], Dick Sites, comp.unix.osf.osf1, 11 May 1993)] Alpha has no integer divide instruction; division is a library routine, so division-heavy code runs slowly. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1994-January.mbox#L2040|"Re: Optimization on ALPHA OSF1 ??"]], Burkhard Neidecker-Lutz, comp.unix.osf.misc, 27 Jan 1994)]
+Alpha has no integer divide instruction; division is a library routine, so division-heavy code runs slowly. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1994-January.mbox#L2040|"Re: Optimization on ALPHA OSF1 ??"]], Burkhard Neidecker-Lutz, comp.unix.osf.misc, 27 Jan 1994)]
 
 ==== History ====
 
-The 21164 was announced on 7 September 1994 in 266 MHz and 300 MHz versions, with 9.3 million transistors. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1994-September.mbox#L855|"Press/Digital Microprocessor Posts World Record"]], Digital Press and Analysts News, biz.digital.announce, 7 Sep 1994)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1994-September.mbox#L1003|"Press/Digital Extends Performance Leadership With New Microprocessors"]], Digital Press and Analysts News, biz.digital.announce, 9 Sep 1994)] It was the first Alpha with two levels of on-chip cache: 8 KiB of instruction cache and 8 KiB of data cache backed by a 96 KiB unified second-level cache. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L7010|"Alpha AXP 21164 Microprocessor -- The World's Fastest Chip"]], Customer Update, biz.digital.articles, 23 Sep 1994)] The chip was built in a 0.5 micron CMOS process with four levels of metal, ran at 3.3 V, and dissipated 50 W. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L11905|"Circuit Implementation of a 300-MHz 64-bit Second-generation CMOS Alpha CPU"]], William J. Bowhill et al., Digital Technical Journal, biz.digital.articles, 16 Aug 1995)] It is quad-issue, with two integer and two floating-point pipelines. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L13096|"Internal Organization of the Alpha 21164"]], John H. Edmondson et al., Digital Technical Journal, biz.digital.articles, 16 Aug 1995)]
-
-Faster parts followed: the 21164-333 and 21064A-300 in October 1995, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1995-October.mbox#L270|"Press/Speed Upgrades To Alpha Microprocessors Up To 333Mhz"]], Digital Press and Analysts News, biz.digital.announce, 3 Oct 1995)] samples of a 0.35 micron 21164 in November 1995, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1995-November.mbox#L1505|"Press/Digital To Ship Samples Of Latest Alpha Chip"]], Digital Press and Analysts News, biz.digital.announce, 15 Nov 1995)] and 433 MHz and 500 MHz parts in July 1996. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1996-July.mbox#L721|"Press/Alpha Microprocessor Hits 500MHz; Tops for WinNT Visual Computing"]], Digital Press and Analysts News, biz.digital.announce, 8 Jul 1996)] Digital's 600 MHz 21164 was announced on 31 March 1997 alongside the ATX form factor [[hardware:motherboards:pc164lx|AlphaPC 164LX]] motherboard; Samsung later sold 633 MHz and 667 MHz parts. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1997-April.mbox#L1|"Press/Alpha 21164 Microprocessor Streaks to 600MHz, Sets New Records"]], Digital Press and Analysts News, biz.digital.announce, 2 Apr 1997)]
+The 21164 was announced on 7 September 1994 in 266 MHz and 300 MHz versions, as the first Alpha with two levels of on-chip cache. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1994-September.mbox#L855|"Press/Digital Microprocessor Posts World Record"]], Digital Press and Analysts News, biz.digital.announce, 7 Sep 1994)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L7010|"Alpha AXP 21164 Microprocessor -- The World's Fastest Chip"]], Customer Update, biz.digital.articles, 23 Sep 1994)] Faster parts followed, reaching 600 MHz from Digital on 31 March 1997, alongside the ATX form factor [[hardware:motherboards:pc164lx|AlphaPC 164LX]] motherboard; Samsung later sold 633 MHz and 667 MHz parts. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1997-April.mbox#L1|"Press/Alpha 21164 Microprocessor Streaks to 600MHz, Sets New Records"]], Digital Press and Analysts News, biz.digital.announce, 2 Apr 1997)]
 
 ==== Documentation ====
 
