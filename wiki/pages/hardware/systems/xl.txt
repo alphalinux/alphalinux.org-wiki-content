@@ -5,33 +5,32 @@
 ^ Codename | XL |
 ^ CPU | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] |
 ^ Core logic | [[hardware:chipsets#21071_and_21072|21071/21072]] (APECS) |
+^ Memory | 70 ns 36-bit SIMMs |
 ^ Buses | PCI, ISA |
 ^ Firmware | ARC |
 ^ Kernel option | ''CONFIG_ALPHA_XL'' |
 ^ Linux | Linux 6.9 and earlier |
 </WRAP>
 
-The Alpha XL 233 and 266 are Windows NT workstations with EV4 or EV45 CPUs. They have only the ARC console; an AlphaBIOS was developed for them but never shipped. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L46358|"Re: DEC Celebris"]], Jay Estabrook, axp-list, 25 Nov 1996)] The EV5 Alpha XL 300, 366, and 433 are a different design (see [[hardware:systems:alcor|XLT]]). The XL kernel platform (''CONFIG_ALPHA_XL'') was removed in Linux 6.10, so 6.9 was the last kernel to support these machines. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=430ad3f0ddd7|"alpha: remove LCA and APECS based machines"]], Linux 6.10)]
-
-Digital announced the Alpha XL on 3 October 1995 as the Alpha half of a Windows NT personal workstation line alongside the Pentium-based Celebris XL. Both use the same minitower and a processor-independent CPU daughtercard, so that the rest of the machine is common to the Pentium and Alpha models. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-October.mbox#L4845|"Celebris XL & Alpha XL -- Digital Personal Workstation for Windows NT"]], Customer Update, biz.digital.articles, 3 Oct 1995)]
+The Alpha XL 233 and 266 are Windows NT workstations with EV4 or EV45 CPUs. They have only the ARC console; an AlphaBIOS was developed for them but never shipped. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L46358|"Re: DEC Celebris"]], Jay Estabrook, axp-list, 25 Nov 1996)] The EV5 Alpha XL 300, 366, and 433 are a different design (see [[hardware:systems:alcor|XLT]]).
 
 ==== Specifications ====
 
   * [[wp>Alpha_21064|21064]] or [[wp>Alpha_21064#Alpha_21064A|21064A]] at 233 or 266 MHz, with APECS core logic and an Intel SIO PCI-to-ISA bridge, which the kernel handles together with the Avanti and Noname machines [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_sio.c?h=v6.10|arch/alpha/kernel/sys_sio.c]], Linux 6.10)]
   * PCI and ISA, with an Intel 82379AB PCI-to-ISA bridge; the closely related [[hardware:systems:avanti|Avanti]] machines use an 82378IB or 82378ZB instead, which is how the two are told apart [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-March.mbox#L6843|"Alpha XL Support"]], Jay Estabrook, axp-list, 22 Mar 1996)]
   * ARC console only; MILO is used to boot Linux [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-October.mbox#L20901|"Re: Milo booting other OSes?"]], Jay Estabrook, axp-list, 29 Oct 1997)]
-  * Machines have been reported with 192 MiB of memory [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-hardware-mbox/2000-May.mbox#L1|"Alpha XL266"]], AzRaeL, axp-hardware, 4 May 2000)]
+  * Memory options of 8 to 128 MiB, each two or four 70 ns 36-bit SIMMs [(>{{wiki:hardware:systems:alpha_xl:alpha_xl_systems_and_options_catalog.pdf?linkonly|Alpha XL Personal Workstation for Windows NT, Digital Systems and Options Catalog}}, September 1996, p. 6)]; machines have been reported with 192 MiB installed [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-hardware-mbox/2000-May.mbox#L1|"Alpha XL266"]], AzRaeL, axp-hardware, 4 May 2000)]
 
 ==== Linux ====
 
-Linux 6.9 was the last version to support the XL; see [[hardware:systems|Systems]].
+Linux 6.9 was the last version to support the Alpha XL 233 and 266; Linux 6.10 removed support for processors older than the EV56 (21164A), including the XL kernel platform (''CONFIG_ALPHA_XL''). [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=430ad3f0ddd7|"alpha: remove LCA and APECS based machines"]], Linux 6.10)] With only the ARC console, the XL boots Linux through MILO.
 
   * XL kernels and MILO run on both the XL 233/266 and Avanti systems, but Avanti kernels and MILO do not run correctly on the XL. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L48090|"Re: XL or Avanti?"]], Jay Estabrook, axp-list, 26 Nov 1996)] With an Avanti kernel, the XL's floppy drive cannot DMA to all of memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-December.mbox#L30289|"Re: Can't load RAMDISK on XL-266"]], Jay Estabrook, axp-list, 23 Dec 1997)]
   * A Matrox Millennium requires an XL kernel. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-June.mbox#L34116|"Re: XL266: MILO/SCSI problem, X I/O problem"]], Jay Estabrook, axp-list, 17 Jun 1998)]
 
-==== Graphics ====
+==== History ====
 
-Cards recommended for X on the XL in 1996 included Number 9, Mach64, and Digital ZLXp (TGA) cards, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L11197|"RE: Which graphics accelerator should one use for Linux-Alpha XL266?"]], David Rusling, axp-list, 23 Apr 1996)] and most PCI S3-based cards, such as the Diamond Stealth 64 and Number 9 GXE64. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-April.mbox#L11271|"Re: Which graphics accelerator should one use for Linux-Alpha XL266?"]], Jay Estabrook, axp-list, 23 Apr 1996)] See also [[hardware:other#pc_graphics_cards|Other Hardware]].
+Digital announced the Alpha XL on 3 October 1995 as the Alpha half of a Windows NT personal workstation line alongside the Pentium-based Celebris XL. Both use the same minitower and a processor-independent CPU daughtercard, so that the rest of the machine is common to the Pentium and Alpha models. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-October.mbox#L4845|"Celebris XL & Alpha XL -- Digital Personal Workstation for Windows NT"]], Customer Update, biz.digital.articles, 3 Oct 1995)]
 
 ==== Conflicting information ====
 

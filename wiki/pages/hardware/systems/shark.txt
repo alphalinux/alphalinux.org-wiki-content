@@ -6,13 +6,14 @@
 ^ CPU | [[wp>Alpha_21264#Alpha_21264A|21264A]], [[wp>Alpha_21264#Alpha_21264B|21264B]] |
 ^ Processors | 2 |
 ^ Core logic | [[hardware:chipsets#21272|21272]] (Tsunami) |
+^ Memory | Up to 2 GiB, eight DIMM slots |
 ^ Buses | 64-bit 33 MHz PCI (two slots) |
 ^ Firmware | SRM (last V6.6-10 on the DS20L) |
 ^ Kernel option | ''CONFIG_ALPHA_SHARK'' |
 ^ Linux | Supported |
 </WRAP>
 
-The CS20 is a 1U dual processor 21264 server designed by Alpha Processor, Inc., later API NetWorks, and the DS20L is Compaq's version of it. Apart from the front cover, the two differ only in their SRM firmware and the SCSI controller on the PCI riser card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-July.mbox#L17774|"Re: API / CS20"]], Kurt A. Ludwig, axp-list, 29 Jul 2002)] The kernel support was added by Christopher C. Chimelis in 2001, as a variant of the DP264 platform. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_dp264.c?h=v6.10|arch/alpha/kernel/sys_dp264.c]], Linux 6.10)]
+The CS20 is a 1U dual processor 21264 server designed by Alpha Processor, Inc., later API NetWorks, and the DS20L is Compaq's version of it. Apart from the front cover, the two differ only in their SRM firmware and the SCSI controller on the PCI riser card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-July.mbox#L17774|"Re: API / CS20"]], Kurt A. Ludwig, axp-list, 29 Jul 2002)]
 
 ==== Specifications ====
 
@@ -22,18 +23,26 @@ API's specification for the CS20, as posted in 2000: [(>[[https://github.com/alp
   * 2.65 GB/s peak main memory bandwidth
   * Two 64-bit 33 MHz PCI slots
   * Onboard Ultra3 SCSI (Symbios 53c1000)
-  * Linux in the boot flash ROM
   * 1U rackmount
+
+The DS20L takes up to 2 GiB of memory in eight DIMM slots. [(>{{wiki:hardware:systems:alphaserver_ds20l:alphaserver_ds20l_technical_summary.pdf?linkonly|AlphaServer DS20L System Technical Summary}}, 2002, p. 5)]
 
 The CS20 has two independent PCI buses, with most onboard devices on bus 0, so demanding cards perform better on the second bus. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L10816|"Re: matroxfb on SMP alpha"]], Peter Petrakis, debian-alpha, 24 Jan 2003)]
 
 ==== Firmware ====
 
+Use the final SRM version, V6.6-10 on the DS20L (see [[software:firmware:srm#final_versions|final SRM versions]]).
+
 If the DS20L environment variable ''sysvar'' is set to 5, it must be set to 12 and the console re-initialized before the firmware update utility is run, then reset to 5 and re-initialized after the update. [(>{{wiki:software:firmware:alphaserver_ds20l_v6.6_firmware_release_notes.pdf?linkonly|AlphaServer DS20L V6.6 Console Firmware Release Notes}}, December 2003, p. 6)]
 
 ==== Linux ====
 
-Current kernels support the Shark as a variant of the DP264 platform. See also [[hardware:systems#tsunami_systems|Tsunami Systems]].
+Current kernels support the Shark (''CONFIG_ALPHA_SHARK'', or a generic kernel), which boots from SRM with aboot. Kernel support was added in 2001 as a variant of the DP264 platform. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_dp264.c?h=v6.10|arch/alpha/kernel/sys_dp264.c]], Linux 6.10)] See also [[hardware:systems#tsunami_systems|Tsunami Systems]].
+
+==== Known issues ====
+
+  * **Power supplies:** the DS20L and CS20 power supplies are prone to failure, which shows as the front LED changing from flashing green to steady red. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2007-July.mbox#L1197|"API CS20 / DS20L power supply flaw"]], SDF Poster, comp.sys.dec, 23 Jul 2007)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2012-November.mbox#L152|"Re: WTD: UP1500 or UP2000+ motherboard"]], Marc Schlensog, comp.os.linux.alpha, 12 Nov 2012)] On one DS20L the replacement capacitors failed as well. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2019-September.mbox#L1|"[gentoo-alpha] Gentoo/Alpha is without a build machine"]], Matt Turner, gentoo-alpha, 1 Sep 2019)]
+  * **Noise:** the systems are loud. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2011-February.mbox#L1|"[gentoo-alpha] ABOOT problem..."]], Romuald Lobet, gentoo-alpha, 26 Feb 2011)]
 
 ==== Documentation ====
 

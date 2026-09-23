@@ -5,26 +5,27 @@
 ^ Codename | TurboLaser |
 ^ CPU | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] |
 ^ Processors | Up to 6 (8200), up to 12 (8400) |
-^ Memory | Up to 12 GB (8200), 28 GB (8400) |
+^ Memory | Up to 12 GiB (8200), 28 GiB (8400) |
 ^ Buses | TLSB system bus; PCI, XMI (8400 only) |
 ^ Firmware | SRM (last V6.4), AlphaBIOS |
+^ Kernel option | None |
 ^ Linux | Never |
 </WRAP>
 
-The AlphaServer 8200 and 8400 are the largest Alpha systems Digital built around the 21164, and they use the same system bus, processor modules, memory modules, and I/O port modules. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, p. 1)] The 8200 is a 19-inch rackmount cabinet with single-phase power for office and laboratory use, while the 8400 uses the DEC 7000 cabinet with three-phase power for computer rooms. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, p. 4)] A DEC 7000 could be upgraded to an 8400 in its cabinet by swapping the card cage and centerplane; even the SIMMs from its MS7AA-FA memory modules carried over. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, p. 4)] The EV6 [[hardware:systems:gs140|AlphaServer GS60 and GS140]] are the same machines with 21264 CPUs. Digital announced the 8200 and 8400 in April 1995 as the first systems built on the 300 MHz 21164. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-April.mbox#L1626|"AlphaServer 8400 5/300 Enterprise Server"]], Customer Update, biz.digital.articles, 17 Apr 1995)]
+The AlphaServer 8200 and 8400 are the largest Alpha systems Digital built around the 21164, and they use the same system bus, processor modules, memory modules, and I/O port modules. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, p. 1)] The 8200 is a 19-inch rackmount cabinet with single-phase power for office and laboratory use, while the 8400 uses the DEC 7000 cabinet with three-phase power for computer rooms. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, p. 4)] The EV6 [[hardware:systems:gs140|AlphaServer GS60 and GS140]] are the same machines with 21264 CPUs.
 
 ==== Specifications ====
 
 Except where noted, the following comes from the technical summary. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, pp. 2, 4-5)]
 
   * TLSB system bus with a 40-bit command and address path and a separate 256-bit data path with 32 ECC bits, run synchronously at a submultiple of the CPU clock: 75 MHz with 300 MHz CPUs for 1.6 GB/s, and 87.4 MHz with 350 and 440 MHz CPUs for 1.87 GB/s
-  * AlphaServer 8400: nine bus slots, up to six processor modules (12 CPUs), up to seven memory modules (28 GB), up to three I/O modules (12 I/O buses), 1260 MB/s of I/O bandwidth
-  * AlphaServer 8200: five bus slots, up to three processor modules (6 CPUs), up to three memory modules (12 GB), up to three I/O modules, 945 MB/s of I/O bandwidth
+  * AlphaServer 8400: nine bus slots, up to six processor modules (12 CPUs), up to seven memory modules (28 GiB), up to three I/O modules (12 I/O buses), 1260 MB/s of I/O bandwidth
+  * AlphaServer 8200: five bus slots, up to three processor modules (6 CPUs), up to three memory modules (12 GiB), up to three I/O modules, 945 MB/s of I/O bandwidth
   * Processor modules carry one or two [[wp>Alpha_21164|21164]] CPUs at 300, 350, or 440 MHz, each with its own data and address path and a 4 MiB third-level cache on the module; the 440 MHz module was sold only as a dual
   * The minimum configuration is one processor module, one memory module, and one I/O adapter
-  * Memory modules of 128, 256, and 512 MiB and 1, 2, and 4 GiB, built from SIMMs; modules of 2 GiB and smaller interleave two ways onboard, the 4 GB module four ways, and two to eight ways between modules
+  * Memory modules of 128, 256, and 512 MiB and 1, 2, and 4 GiB, built from SIMMs; modules of 2 GiB and smaller interleave two ways onboard, the 4 GiB module four ways, and two to eight ways between modules
   * I/O connects through "hoses" to 12-slot PCI or, on the 8400 only, 12-slot XMI channels; the 8200 supports only PCI buses. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_operations_manual.pdf?linkonly|AlphaServer 8200/8400 Operations Manual}}, pp. 1-2, 1-7)]
-  * The KFTHA I/O port module drives external I/O buses; the KFTIA adds direct SCSI, two Ethernet ports, optional FDDI, and an optional 4 MB Prestoserve
+  * The KFTHA I/O port module drives external I/O buses; the KFTIA adds direct SCSI, two Ethernet ports, optional FDDI, and an optional 4 MiB Prestoserve
   * Multiple power regulators, optional battery backup, and an optional integrated uninterruptible power supply
 
 The 8200 uses the upper half of the 8400's slot numbering, so its CPU and memory modules sit in slots 8 and higher and its CPUs are numbered from 8, not 0. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-April.mbox#L18821|"Summary: Why on AS 8200 the CPU number begin from 8 instead of 0"]], Iwan R Tamimi, tru64-unix-managers, 17 Apr 2001)]
@@ -32,6 +33,10 @@ The 8200 uses the upper half of the 8400's slot numbering, so its CPU and memory
 ==== Linux ====
 
 Linux never supported the AlphaServer 8200 and 8400. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-September.mbox#L17415|"Re: AlphaServer GS140 (8400)"]], Jay Estabrook, debian-alpha, 23 Sep 2003)] A Linux port was started at NASA Ames but abandoned in favor of NetBSD, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L27651|"Re: AS 8400 (was: Re: Prices for AlphaLinux systems with 4-8GB RAM"]], Matthew Jacob, axp-list, 10 Mar 1999)] which runs on them, initially on a single CPU only. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L11094|"Re: AlphaServer 8400"]], Jay Estabrook, axp-list, 10 Jun 1997)]
+
+==== History ====
+
+Digital announced the 8200 and 8400 in April 1995 as the first systems built on the 300 MHz 21164. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-April.mbox#L1626|"AlphaServer 8400 5/300 Enterprise Server"]], Customer Update, biz.digital.articles, 17 Apr 1995)] A DEC 7000 could be upgraded to an 8400 in its cabinet by swapping the card cage and centerplane; even the SIMMs from its MS7AA-FA memory modules carried over. [(>{{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, p. 4)]
 
 ==== Conflicting information ====
 
@@ -41,9 +46,6 @@ The following sources conflict with each other or with the account given above. 
     * {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_operations_manual.pdf?linkonly|AlphaServer 8200/8400 Operations Manual}}, March 1998, p. 1-7: "up to seven processor modules for a total of 14 CPUs"
     * {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, 1996, pp. 2, 5: "Up to 6 CPU modules, for a maximum of 12 CPUs"
     * {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_windows_nt_systems_catalog.pdf?linkonly|AlphaServer 8200 and 8400 Windows NT Systems}}, June 1999, p. 2.4: "maximum of four CPU modules (total of 8 CPUs)"
-  * **AlphaServer 8200 maximum CPUs**
-    * {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_operations_manual.pdf?linkonly|AlphaServer 8200/8400 Operations Manual}}, March 1998, p. 1-7: "up to three processor modules for a total of six CPUs"
-    * {{wiki:hardware:systems:alphaserver_8400:alphaserver_8200_8400_technical_summary.pdf?linkonly|AlphaServer 8200/8400 Systems Technical Summary}}, 1996, p. 5, agrees, giving up to 6 CPUs on 3 modules.
 
 ==== Documentation ====
 

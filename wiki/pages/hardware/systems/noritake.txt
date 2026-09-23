@@ -1,4 +1,4 @@
-===== AlphaServer 1000A, AlphaServer 800, and AlphaStation 600A (Noritake) =====
+===== AlphaServer 1000A, AlphaServer 800, AlphaStation 600A, and Digital Server 3300 (Noritake) =====
 
 <WRAP box right 340px>
 ^ AlphaServer 1000A, 800, AlphaStation 600A, Digital Server 3300 ^^
@@ -10,12 +10,10 @@
 ^ Buses | 33 MHz PCI, EISA |
 ^ Firmware | SRM (last V5.7-83 on the 1000A 4/xxx, V5.7-80 on the 1000A 5/xxx, V5.8-16 on the 800, V5.6-114 on the 600A), AlphaBIOS |
 ^ Kernel option | ''CONFIG_ALPHA_NORITAKE'' |
-^ Linux | 21164A only; others to Linux 6.9 |
+^ Linux | Supported (21164A models); Linux 6.9 and earlier (others) |
 </WRAP>
 
 The Noritake family comprises the AlphaServer 1000A (Noritake), built with either EV4 (4/xxx) or EV5 (5/xxx, Noritake-Primo) CPUs; the AlphaServer 800 (Corelle), sold only as 5/xxx models; and the AlphaStation 600A (Alcor-Primo), also 5/xxx only. All have an EISA bus. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-January.mbox#L14347|"Re: Alpha Server 1000A - Noritake Image (Kernel)"]], Jay Estabrook, axp-list, 8 Jan 1999)] The Digital Server 3300 and 3305 are AlphaServer 800 models (see [[hardware:systems#naming|Naming]]). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L1874|"Re: 3305 and RH6 boot problems"]], Rich Payne, axp-list, 2 Dec 1999)]
-
-Current kernels support only Noritake-Primo systems with 21164A (EV56) CPUs: Linux 6.10 removed the EV4 machine vector (''noritake_mv'') and support for the original 21164 (EV5), so 6.9 was the last kernel for the 1000A 4/266 and the 1000A 5/300. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] The 1000A 5/300 has a 300 MHz 21164 (EV5), [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_1000a_model_5xxx_owners_guide_supplement.pdf?linkonly|AlphaServer 1000/1000A Model 5/xxx Owner's Guide Supplement}}, p. 2-3)] while the 1000A 5/333 and 5/400, [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 2)] the AlphaServer 800 5/333, 5/400, and 5/500, [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}}, p. 7-3)] [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_illustrated_parts_breakdown.pdf?linkonly|DIGITAL AlphaServer 800 Series Illustrated Parts Breakdown}}, p. 2-3)] and the AlphaStation 600A 5/500 [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600a_user_information.pdf?linkonly|AlphaStation 600A User Information}}, p. 6-3)] have 21164A (EV56) CPUs.
 
 The AlphaServer 1000A is a revision of the [[hardware:systems:mikasa|AlphaServer 1000]] with most of the EISA slots traded for PCI slots behind a PCI-to-PCI bridge. It was sold as pedestal, rackmount, and cabinet systems. [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 1)]
 
@@ -29,10 +27,10 @@ The AlphaServer 1000A is a revision of the [[hardware:systems:mikasa|AlphaServer
   * 2 MiB of direct-mapped, ECC protected level 2 cache and 8 KiB of serial ROM on each CPU card
   * 128-bit ECC protected memory bus
   * Model 4/266: 20 SIMM sockets in banks of five (four data plus ECC); Models 5/333 and 5/400: 16 SIMM sockets in banks of four including ECC
-  * 4, 8, 16, 32, and 64 MB SIMMs, 32 MB to 1 GB total
+  * 4, 8, 16, 32, and 64 MiB SIMMs, 32 MiB to 1 GiB total
   * Seven 33 MHz PCI slots, of which slots 11, 12, and 13 are on the primary bus and slots 1 to 4 behind the 21050 PCI-to-PCI bridge; some options are restricted to the primary bus [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_service_guide.pdf?linkonly|AlphaServer 1000A Service Guide}}, p. 5-34)]
   * Two 8.33 MHz EISA/ISA slots, both bus master capable
-  * Onboard fast wide SCSI-2 controller, PCI-to-EISA bridge, 1 MiB of flash ROM, 8 KB of NVRAM, TOY clock, two serial ports, bidirectional parallel port, floppy controller, keyboard and mouse interface, PC-style speaker
+  * Onboard fast wide SCSI-2 controller, PCI-to-EISA bridge, 1 MiB of flash ROM, 8 KiB of NVRAM, TOY clock, two serial ports, bidirectional parallel port, floppy controller, keyboard and mouse interface, PC-style speaker
   * Onboard SVGA controller on the Model 4/266 only
   * Dual SCSI backplane, up to 30.1 GB of internal storage in the pedestal, optional RAID controllers and redundant power supplies [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 1)]
 
@@ -60,12 +58,14 @@ Except where noted, the following comes from the technical summary. [(>{{wiki:ha
   * Primary and secondary PCI slots plus EISA slots, an onboard SCSI controller, and an onboard graphics controller that the EISA Configuration Utility can disable
   * Both SRM and AlphaBIOS, with an ''os_type'' environment variable selecting which the NVRAM boots, and a ''pci_parity'' variable whose default depends on the SCSI controller revision [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600a_user_information.pdf?linkonly|AlphaStation 600A User Information}}, p. 5-53)]
 
-Digital sold an upgrade from the [[hardware:systems:alcor|AlphaStation 600]], which shows how little the two share: the kit replaces the main logic board and the CPU module, and the Alcor memory towers are returned to Digital. [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600_to_600a_upgrade_information.pdf?linkonly|AlphaStation 600 to AlphaStation 600A Upgrade Information}}, January 1997, pp. 1-1 to 1-4)]
+Digital sold an upgrade from the [[hardware:systems:alcor|AlphaStation 600]]: the kit replaces the main logic board and the CPU module, and the Alcor memory towers are returned to Digital. [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600_to_600a_upgrade_information.pdf?linkonly|AlphaStation 600 to AlphaStation 600A Upgrade Information}}, January 1997, pp. 1-1 to 1-4)]
 
 ==== Linux ====
 
-  * Linux boots from the SRM console; there is no MILO for any member of the family. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L29808|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)]
-  * The AlphaServer 1000 and 1000A have quite different interrupt delivery mechanisms, and the 1000A's built-in PCI-to-PCI bridge needs special handling, so a kernel built for the Mikasa platform does not run on a Noritake or the reverse. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L36383|"Re: Kernel for AlphaServer 1000 (Success!... and a question)"]], Jay Estabrook, axp-list, 29 Nov 1997)] A generic kernel supports both.
+Current kernels support the Noritake family members with EV56 (21164A) CPUs (''CONFIG_ALPHA_NORITAKE'', or a generic kernel), which boot from SRM with aboot. The 1000A 5/300 has a 300 MHz 21164 (EV5), [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_1000a_model_5xxx_owners_guide_supplement.pdf?linkonly|AlphaServer 1000/1000A Model 5/xxx Owner's Guide Supplement}}, p. 2-3)] while the 1000A 5/333 and 5/400, [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 2)] the AlphaServer 800 5/333, 5/400, and 5/500, [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_service_guide.pdf?linkonly|AlphaServer 800 Service Guide}}, p. 7-3)] [(>{{wiki:hardware:systems:alphaserver_800:alphaserver_800_illustrated_parts_breakdown.pdf?linkonly|DIGITAL AlphaServer 800 Series Illustrated Parts Breakdown}}, p. 2-3)] and the AlphaStation 600A 5/500 [(>{{wiki:hardware:systems:alphastation_600a:alphastation_600a_user_information.pdf?linkonly|AlphaStation 600A User Information}}, p. 6-3)] have 21164A (EV56) CPUs. Linux 6.9 was the last version to support the 1000A 4/266 and 5/300; Linux 6.10 removed support for processors older than the EV56 (21164A), along with the EV4 machine vector ''noritake_mv''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)]
+
+  * There is no MILO for any member of the family. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L29808|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)]
+  * A kernel built for the [[hardware:systems:mikasa|Mikasa]] platform does not run on a Noritake or the reverse, because the two deliver interrupts differently and the 1000A's built-in PCI-to-PCI bridge needs special handling. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L36383|"Re: Kernel for AlphaServer 1000 (Success!... and a question)"]], Jay Estabrook, axp-list, 29 Nov 1997)] A generic kernel supports both.
   * Unlike most Alpha systems, the Noritake family has PCI slots behind a PCI-to-PCI bridge that can hold a VGA card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-August.mbox#L26968|"Re: PC164UX doesnt work - anyone got details"]], Jay Estabrook, axp-list, 11 Aug 1998)]
 
 ==== History ====
