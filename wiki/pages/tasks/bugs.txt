@@ -12,6 +12,7 @@ The right place for a report depends on where the bug is. If it is unclear which
 | glibc, binutils | [[https://sourceware.org/bugzilla/|Sourceware Bugzilla]], with the host set to the output of ''gcc -dumpmachine'', such as ''alpha-unknown-linux-gnu'' |
 | A Gentoo package | [[https://bugs.gentoo.org/|Gentoo Bugzilla]], with ''alpha@gentoo.org'' on Cc |
 | A Debian package | The Debian bug tracking system, with ''reportbug''. Add the user tag with ''User: debian-alpha@lists.debian.org'' and ''Usertags: alpha'' pseudo-headers, and send a copy to the debian-alpha list with ''X-Debbugs-Cc'' |
+| A T2 SDE package | The [[https://github.com/rxrbln/t2sde/issues|T2 SDE issue tracker]] on GitHub, linked from [[https://t2sde.org/|t2sde.org]] |
 | QEMU's Alpha emulation | The [[https://gitlab.com/qemu-project/qemu/-/issues|QEMU issue tracker]]. Include the full command line and QEMU version |
 | Other software | The software's own tracker |
 

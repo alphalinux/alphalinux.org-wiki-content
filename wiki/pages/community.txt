@@ -4,7 +4,7 @@ The mailing lists, IRC channels, and forums where Alpha/Linux users and develope
 
 ==== Mailing lists ====
 
-The Alpha/Linux kernel mailing list is **linux-alpha@vger.kernel.org**, hosted at [[https://subspace.kernel.org/vger.kernel.org.html|vger.kernel.org]]. It is also the place for general questions about Linux on Alpha.
+The Alpha/Linux kernel mailing list is **linux-alpha@vger.kernel.org**, hosted at [[https://subspace.kernel.org/vger.kernel.org.html|vger.kernel.org]]. It is also the place for general questions about Linux on Alpha. A question is easier to answer when it gives the system model, the distribution and kernel version, and the output of the SRM ''show config'' command or the kernel log; see [[documentation:kernel#reporting_bugs|Kernel: Reporting bugs]].
 
   * **Subscribe:** send an email to **linux-alpha+subscribe@vger.kernel.org**; the subject and body are ignored.
   * **Daily digest:** subscribe with **linux-alpha+subscribe-digest@vger.kernel.org** instead.
@@ -29,5 +29,7 @@ Gentoo has a [[https://forums.gentoo.org/viewforum.php?f=32|Gentoo on Alternativ
 ==== Issue tracker ====
 
 Known problems that affect Linux on Alpha across projects are tracked in [[https://github.com/alphalinux-org/issues/issues|alphalinux-org/issues]] on GitHub. How to report a bug is described under [[tasks:bugs|Bugs]].
+
+The port's own tools, among them [[software:boot_loaders:aboot|aboot]] and [[software:boot_loaders:milo|MILO]], and the [[https://github.com/alphalinux-org/mailing-list-archives|mailing list archives]] cited throughout this wiki, are kept in the [[https://github.com/alphalinux-org|alphalinux-org]] organization on GitHub.
 
 {{tag>community}}

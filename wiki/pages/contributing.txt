@@ -38,6 +38,7 @@ The wiki is DokuWiki. Every edit is committed to a git repository, where it can 
   * New system and motherboard pages start from a template with an infobox; creating a page in ''hardware:systems'' or ''hardware:motherboards'' fills it in. The infobox fields are explained in the template.
   * Tag each page at the end with ''%%{{tag>...}}%%'', using the tags of similar pages.
   * Manuals, data sheets, and photographs go in the media manager, under the same namespace as the page that uses them, for example ''wiki:hardware:systems:alphaserver_es40''. Upload only documents that may be redistributed.
+  * Some pages date quickly. [[:status|Current Status]] states the month it describes, which is updated whenever the page is, and completed tasks on the [[tasks:todo|To Do]] list are removed once the release that includes them is out.
   * A news entry is one table row in [[:news|News]], newest first: the date, what changed, with a link to the patch or release, who did the work, and, when known, the release that will include it.
 
 ==== See also ====

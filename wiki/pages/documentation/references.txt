@@ -25,6 +25,15 @@ Specifications, reference manuals, and books on the Alpha architecture and its s
 | {{wiki:documentation:references:vsi_openvms_calling_standard.pdf?linkonly|VSI OpenVMS Calling Standard}} | | 2026 |
 | {{wiki:documentation:references:tru64_unix_object_file_and_symbol_table_format_specification.pdf?linkonly|Tru64 UNIX Object File and Symbol Table Format Specification}} | | August 2000 |
 
+==== Compilers ====
+
+The compiler writer's guides describe instruction scheduling, code alignment, and the pipeline rules that matter for code generation on the 21264 and 21364. They are also listed with the processor manuals under [[hardware:cpus|CPUs]].
+
+^ Document ^ Part number ^ Date ^
+| {{wiki:hardware:cpu:21264:21264_compiler_writers_guide.pdf?linkonly|Compiler Writer's Guide for the Alpha 21264}} | EC-RJ66A-TE | June 1999 |
+| {{wiki:hardware:cpu:21264_21364_compiler_writers_guide.pdf?linkonly|Compiler Writer's Guide for the 21264/21364}} | EC-0100A-TE | January 2002 |
+| [[https://gcc.gnu.org/onlinedocs/gcc/DEC-Alpha-Options.html|DEC Alpha Options]], GCC manual | | |
+
 ==== Other books ====
 
 ^ Title ^ ISBN ^

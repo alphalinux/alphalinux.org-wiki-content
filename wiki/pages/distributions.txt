@@ -9,9 +9,11 @@ Three Linux distributions produce current releases for Alpha: Gentoo, Debian thr
 | [[#debian|Debian]] | Unofficial port in Debian Ports, built for unstable (''sid'') | Netinst CD snapshots, [[https://cdimage.debian.org/cdimage/ports/snapshots/|cdimage.debian.org]] |
 | [[#t2_sde|T2 SDE]] | Supported, built for EV56 | ISO images, [[https://dl.t2sde.org/binary/|dl.t2sde.org]] |
 
+The three differ mainly in how they are installed. Gentoo is installed by hand from a shell, from a stage3 tarball; Debian has its own installer, and builds only the unstable distribution; T2 publishes ready-built ISO images, among them a desktop variant. Debian's installer kernel supports the Titan, Wildfire, and Marvel systems, such as the DS25, ES45, and ES47; Gentoo's install CD supports them with a second kernel that is not the default; see [[documentation:installation#distribution_kernels|Installation: Distribution kernels]].
+
 === Gentoo ===
 
-[[https://www.gentoo.org/|Gentoo Linux]] has a maintained [[https://wiki.gentoo.org/wiki/Project:Alpha|Alpha port]], installed by hand from a minimal install CD and a stage3 tarball, following the [[https://wiki.gentoo.org/wiki/Handbook:Alpha|Gentoo Handbook for Alpha]]. New stage3 tarballs, for OpenRC and systemd, are built regularly. [(>[[https://distfiles.gentoo.org/releases/alpha/autobuilds/|releases/alpha/autobuilds]], distfiles.gentoo.org)] All packages are keyworded unstable (''~alpha''), and have been since January 2020; the Alpha profiles are stable.
+[[https://www.gentoo.org/|Gentoo Linux]] has a maintained [[https://wiki.gentoo.org/wiki/Project:Alpha|Alpha port]], installed by hand from a minimal install CD and a stage3 tarball, following the [[https://wiki.gentoo.org/wiki/Handbook:Alpha|Gentoo Handbook for Alpha]]. New stage3 tarballs, for OpenRC and systemd, are built regularly. [(>[[https://distfiles.gentoo.org/releases/alpha/autobuilds/|releases/alpha/autobuilds]], distfiles.gentoo.org)] All packages are keyworded unstable (''~alpha''), and have been since January 2020; the Alpha profiles are stable. The Alpha profile sets ''ACCEPT_KEYWORDS="alpha ~alpha"'', so these unstable packages are installed without further configuration. [(>[[https://gitweb.gentoo.org/repo/gentoo.git/tree/profiles/arch/alpha/make.defaults|profiles/arch/alpha/make.defaults]], gentoo.git)]
 
 The profile sets ''CHOST'' to ''alpha-unknown-linux-gnu'' and no ''-mcpu'', so the stages run on any Alpha processor that the kernel supports. [(>[[https://gitweb.gentoo.org/repo/gentoo.git/tree/profiles/arch/alpha/make.defaults|profiles/arch/alpha/make.defaults]], gentoo.git)] The port uses the gentoo-alpha mailing list and the ''#gentoo-alpha'' IRC channel. Its history is described under [[history:community#the_gentoo_alpha_port|Community History]].
 
@@ -20,6 +22,15 @@ The profile sets ''CHOST'' to ''alpha-unknown-linux-gnu'' and no ''-mcpu'', so t
 Alpha was an official [[https://www.debian.org/|Debian]] architecture from Debian 2.1 (1999) [(>[[https://www.debian.org/releases/slink/|Debian GNU/Linux 2.1 ("slink")]], debian.org)] to 5.0 (2009), [(>[[https://www.debian.org/releases/lenny/|Debian "lenny" Release Information]], debian.org)] and is now an unofficial port in [[https://www.debian.org/ports/alpha/|Debian Ports]], which builds only the unstable distribution (''sid''). The port is maintained by [[user:creemj|Michael Cree]] and others.
 
 Debian Ports publishes netinst CD images as dated snapshots. [(>[[https://cdimage.debian.org/cdimage/ports/snapshots/|cdimage/ports/snapshots]], cdimage.debian.org)] Since May 2023 Debian's GCC has generated EV56 code by default; see [[documentation:toolchains#distribution_baselines|Distribution baselines]]. The port uses the [[https://lists.debian.org/debian-alpha/|debian-alpha]] mailing list.
+
+After installation, APT is set up for the Debian Ports archive rather than the main Debian archive. The recommended ''/etc/apt/sources.list'' entries are:
+
+<code>
+deb http://deb.debian.org/debian-ports unstable main
+deb http://deb.debian.org/debian-ports unreleased main
+</code>
+
+The ''unreleased'' suite holds packages that need changes not yet integrated into Debian, and an ''experimental'' suite is also available. The archive is signed with the keys in the ''debian-ports-archive-keyring'' package. [(>[[https://www.ports.debian.org/archive|Debian Ports archive]], ports.debian.org, 19 Jul 2026)]
 
 === T2 SDE ===
 

@@ -46,6 +46,23 @@ The installer partitions the disk with a BSD disklabel and tries to install aboo
 
 The guest needs at least 2 GiB of memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-January.mbox#L2582|"Re: Booting Debian in qemu-system-alpha"]], Philippe Mathieu-Daudé, debian-alpha, 27 Jan 2020)] Quote the ''-append'' string with plain ASCII quotes: typographic quotes copied from a web page end up in the kernel command line, and the kernel then ignores ''console=ttyS0''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-January.mbox#L2336|"Re: Booting Debian in qemu-system-alpha"]], Richard Henderson, debian-alpha, 24 Jan 2020)]
 
+=== Booting the Gentoo install CD ===
+
+Gentoo's minimal install CD carries its default kernel and initramfs as ''/boot/gentoo'' and ''/boot/gentoo.igz'', and a second pair, ''/boot/gentoo_nolsa'' and ''/boot/gentoo_nolsa.igz'', built without ''CONFIG_ALPHA_LEGACY_START_ADDRESS''; either runs under QEMU. The kernel is gzip-compressed and is decompressed in the same way, and the kernel arguments are those of the CD's own ''/etc/aboot.conf'', with ''console=ttyS0'' added: [(>[[https://distfiles.gentoo.org/releases/alpha/autobuilds/20260426T153103Z/|install-alpha-minimal-20260426T153103Z.iso]], distfiles.gentoo.org, 26 Apr 2026)]
+
+<code>
+bsdtar -xf install-alpha-minimal-VERSION.iso boot/gentoo boot/gentoo.igz
+zcat boot/gentoo > vmlinux-gentoo
+qemu-system-alpha -M clipper -m 2G -smp 2 -nographic \
+    -kernel vmlinux-gentoo -initrd boot/gentoo.igz \
+    -append 'looptype=squashfs loop=/image.squashfs cdroot console=ttyS0' \
+    -drive file=alpha.qcow2,format=qcow2 \
+    -drive file=install-alpha-minimal-VERSION.iso,media=cdrom,index=1 \
+    -nic user
+</code>
+
+The CD is attached as the second drive on the IDE controller's primary channel. QEMU's CMD646 enables only its primary channel, [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/hw/ide/cmd646.c|hw/ide/cmd646.c]], QEMU 11.1.0)] and Linux does not use a disabled channel, [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_cmd64x.c?h=v7.3-rc1|drivers/ata/pata_cmd64x.c]], Linux 7.3)] so the CD's init script does not find a CD attached with ''-cdrom'', which QEMU places on the secondary channel. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/system/vl.c|system/vl.c]], QEMU 11.1.0)] The CD starts a root shell, from which Gentoo is installed as on real hardware, following the [[https://wiki.gentoo.org/wiki/Handbook:Alpha|Gentoo Handbook for Alpha]].
+
 === Booting the installed system ===
 
 Because QEMU cannot load the kernel from the disk, the installed system's kernel and initrd have to be copied out to the host, the kernel decompressed, and both passed to QEMU as before:

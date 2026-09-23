@@ -25,7 +25,7 @@ Alpha is supported in mainline Linux, GCC, binutils, glibc, and QEMU. Gentoo, De
 [[community#mailing_lists|Mailing Lists]] • [[community#irc|IRC]] • [[community#forums|Forums]] • [[contributing|Contributing]]
 
 ==== History ====
-[[History:Companies]] • [[History:Community]] • [[History:News Coverage]] • [[History:alphalinux.org]]
+[[history:linux_port|Linux Port]] • [[History:Companies]] • [[History:Community]] • [[History:News Coverage]] • [[History:alphalinux.org]]
 </WRAP>
 
 ===== News =====

@@ -29,6 +29,10 @@ Yes, with an SMP kernel booted from SRM. MILO does not support multiprocessor sy
 
 ATI Radeon cards with the kernel's ''radeon'' modesetting driver are the only graphics cards known to work with current X.Org on Alpha. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2016-April.mbox#L636|"Re: Multia state of support"]], Michael Cree, debian-alpha, 3 Apr 2016)] The firmware must also be able to initialize the card; see [[hardware:other#graphics|Other Hardware: Graphics]].
 
+=== Is there a desktop and a web browser? ===
+
+Debian Ports has packages for Xfce, MATE, LXQt, and LXDE and for the NetSurf, Dillo, and Epiphany browsers, but there is no Firefox or Chromium for Alpha. [(>[[https://deb.debian.org/debian-ports/dists/unstable/main/binary-alpha/|debian-ports unstable binary-alpha Packages]], deb.debian.org, 23 Sep 2026)] See [[status#desktop_use|Current Status: Desktop use]].
+
 === My system forgets its settings and the time when it is unplugged ===
 
 The console settings and the clock are kept in memory backed by a battery on the motherboard, and after twenty or more years that battery is usually dead. Replace it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2010-August.mbox#L757|"Minifridge"]], Jay Estabrook, axp-list, 20 Aug 2010)] See [[hardware:systems#common_problems|Systems: Common problems]].
@@ -50,6 +54,10 @@ Update the SRM firmware, set up a serial console, partition the disk with a BSD 
 === Why can't fdisk create a partition table SRM will boot? ===
 
 SRM needs a BSD disklabel, and ''fdisk'' from util-linux cannot create one. Use ''parted'' with ''mktable bsd''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2024-April.mbox#L85|"Re: [gentoo-alpha] fdisk on mini-installer iso"]], Matt Turner, gentoo-alpha, 8 Apr 2024)] See [[documentation:installation#partitioning|Installation: Partitioning]].
+
+=== Will a distribution kernel boot my DS25, ES45, or ES47? ===
+
+Debian's kernel is built for them: it is built without ''CONFIG_ALPHA_LEGACY_START_ADDRESS'', as the Titan, Wildfire, and Marvel systems require, and its installer uses the same kernel. [(>[[https://salsa.debian.org/kernel-team/linux/-/blob/debian/7.2/forky/debian/config/alpha/defines.toml|debian/config/alpha/defines.toml]], Debian linux 7.2.7-1)] Gentoo's minimal install CD boots a kernel built with the option by default, but also carries ''gentoo_nolsa'', built without it, which is booted with ''-flags 1'', or ''-flags 3'' for a serial console. Gentoo's ''gentoo-kernel'' package is built without the option. A kernel built from the kernel's own ''defconfig'' also has the option on. See [[documentation:installation#distribution_kernels|Installation: Distribution kernels]] and [[documentation:kernel#kernel_start_address|Kernel: Kernel start address]].
 
 === aboot says "unknown compression method" ===
 
@@ -95,13 +103,17 @@ The program was built for a newer processor than the one running it: for example
 
 Alpha's C library is ''libc.so.6.1''. Code that hard-codes ''libc.so.6'', for example in a ''dlopen()'' call or in a language's foreign function interface, fails on Alpha. See [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]].
 
+=== What page size does Alpha use? ===
+
+8 KiB, and the kernel has no other option. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] Code that assumes 4096-byte pages fails on Alpha; the page size should be read with ''sysconf(_SC_PAGESIZE)''. See [[documentation:porting:abi#page_size|Linux ABI Differences: Page size]].
+
 === Why is a program built with long double so slow? ===
 
 ''long double'' is the 128-bit IEEE quadruple format on Alpha, and every operation on it is a library call. See [[documentation:porting:abi#long_double|Linux ABI Differences]].
 
 === Is there Clang, Rust, or Go for Alpha? ===
 
-No Clang, and no ''rustc'', because LLVM has no Alpha back end. ''gccgo'' builds Go code, but its library is that of Go 1.18, so software that needs a newer Go release does not build with it. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=libgo/VERSION|libgo/VERSION]], GCC)] See [[status#what_is_missing|Current Status]].
+No Clang, and no ''rustc'', because LLVM has no Alpha back end. Alpha support is being worked on in rustc_codegen_gcc, a GCC back end for ''rustc''. [(>[[https://github.com/rust-lang/rustc_codegen_gcc/issues/742|"DEC Alpha support"]], rustc_codegen_gcc issue #742)] ''gccgo'' builds Go code, but its library is that of Go 1.18, so software that needs a newer Go release does not build with it. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=libgo/VERSION|libgo/VERSION]], GCC)] See [[status#what_is_missing|Current Status]].
 
 ==== Getting help ====
 
