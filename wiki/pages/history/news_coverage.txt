@@ -344,6 +344,11 @@ Articles about Alpha in the general and trade press, from 1993, shortly after Di
 | The Inquirer | 2005-06-27 | [[https://web.archive.org/web/20050713083949/http://www.theinquirer.net/?article=24212|Could HP bring the Alpha processor back to life?]] |
 | The Inquirer | 2005-06-30 | [[http://www.theinquirer.net/inquirer/news/498/1032498/will-the-alpha-chip-stage-a-comeback|Will the Alpha Chip Stage a Comeback? (dead link)]] |
 
+==== 2014 ====
+
+^ Source ^ Date ^ Title ^
+| Computerworld | 2014-07-31 | [[https://www.infoworld.com/article/2608367/hp-gives-openvms-new-life.html|HP gives OpenVMS new life]] |
+
 ==== 2024 ====
 
 ^ Source ^ Date ^ Title ^
