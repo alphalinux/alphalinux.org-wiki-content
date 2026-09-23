@@ -10,12 +10,24 @@ Only if it has an EV56 (21164A) or later processor. Linux 6.10 removed support f
 
 === Which firmware does my system need? ===
 
-For Linux, the [[software:firmware:srm|SRM console]], wherever the system has it. SRM boots Linux with [[software:boot_loaders:aboot|aboot]], the boot loader that current distributions install, and it is the only firmware that supports multiprocessor systems and every 21264 system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L37024|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 14 Jul 1998)] The ARC and AlphaBIOS firmware were written for Windows NT, and boot Linux only through [[software:boot_loaders:milo|MILO]], which no distribution has shipped for many years.
+For Linux, the [[software:firmware:srm|SRM console]], wherever the system has it. The ARC and AlphaBIOS firmware were written for Windows NT, and boot Linux only through [[software:boot_loaders:milo|MILO]], which no distribution has shipped for many years. SRM boots Linux with [[software:boot_loaders:aboot|aboot]], the boot loader that current distributions install, and it is the only firmware that supports multiprocessor systems and every 21264 system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L37024|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 14 Jul 1998)]
 
   * **Systems with only SRM**, such as the AlphaServers, need nothing further. Update to the last SRM version; see [[software:firmware:srm#final_versions|Final versions]].
   * **Systems with both**, such as the Personal Workstation, the AlphaStation 500 and 600, and the 21264 workstations and servers, should be switched to SRM. See [[software:firmware:arc#switching_to_srm|Switching to SRM]].
   * **Systems whose flash holds only one firmware**, such as the AlphaPC 164LX and 164SX sold with AlphaBIOS, can be reflashed with SRM. See [[software:firmware:srm#updating_firmware|Updating firmware]].
   * **Systems with no SRM**, the Alpha XL family and the Ruffian (AlphaPC 164UX), can only boot Linux with MILO. See [[documentation:installation#arc-only_systems|ARC-only systems]].
+
+=== Which Alpha should I get? ===
+
+For a current distribution, a system with an EV56 (21164A) or later processor and an SRM console. The single-processor 21264 systems, the AlphaServer DS10 and DS15 and the AlphaStation XP1000, are the most practical; the multiprocessor servers are faster but power-hungry. See [[hardware:systems#choosing_a_system_today|Systems: Choosing a system today]].
+
+=== Are multiprocessor systems supported? ===
+
+Yes, with an SMP kernel booted from SRM. MILO does not support multiprocessor systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L37024|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 14 Jul 1998)] See [[status#hardware|Current Status: Hardware]].
+
+=== Does X work, and which graphics cards? ===
+
+ATI Radeon cards with the kernel's ''radeon'' modesetting driver are the only graphics cards known to work with current X.Org on Alpha. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2016-April.mbox#L636|"Re: Multia state of support"]], Michael Cree, debian-alpha, 3 Apr 2016)] The firmware must also be able to initialize the card; see [[hardware:other#graphics|Other Hardware: Graphics]].
 
 === My system forgets its settings and the time when it is unplugged ===
 
@@ -30,6 +42,10 @@ The console settings and the clock are kept in memory backed by a battery on the
 Yes, with QEMU, which emulates an ES40-class system and runs current Debian and Gentoo. See [[documentation:qemu|QEMU]].
 
 ==== Installing and booting ====
+
+=== How do I install a distribution? ===
+
+Update the SRM firmware, set up a serial console, partition the disk with a BSD disklabel, and boot the distribution's install CD from SRM. [[documentation:installation|Installation]] describes each step, and [[:distributions|Distributions]] lists the current distributions and their install media.
 
 === Why can't fdisk create a partition table SRM will boot? ===
 
@@ -53,9 +69,13 @@ Messages such as
 dbus-daemon(366): unaligned trap at 0000020000080bf0: 00000000f6857c0e 28 18
 </code>
 
-mean that the program read or wrote a 4 or 8 byte value at an address that was not a multiple of its size. Alpha cannot do that in hardware, so the kernel traps the access, performs it in software, and logs the message. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L470|"Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image (fwd)"]], Thorsten Glaser, debian-alpha, 27 Mar 2021)] The program keeps running and gets the right result, but each such access is far slower than an aligned one. The message gives the program name and PID, the address of the faulting instruction, the data address, the opcode (''28'' is a 4-byte load, ''29'' an 8-byte load, ''2c'' and ''2d'' the stores), and the register.
+mean that the program read or wrote a 2, 4, or 8 byte value at an address that was not a multiple of its size. Alpha cannot do that in hardware, so the kernel traps the access, performs it in software, and logs the message. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L470|"Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image (fwd)"]], Thorsten Glaser, debian-alpha, 27 Mar 2021)] The program keeps running and gets the right result, but each such access is far slower than an aligned one. The message gives the program name and PID, the address of the faulting instruction, the data address, the opcode, and the register.
 
 The cause is almost always a bug in the program, typically a pointer cast from a ''char'' buffer to a wider type, and the same code is undefined behavior on every architecture. It should be reported to the program's developers. How to find the instruction and fix the code is described in [[documentation:porting:unaligned_access|Unaligned Access]].
+
+=== A program dies with "Floating point exception" ===
+
+The program performed floating-point arithmetic that produced or used a NaN, an infinity, or a denormal, and was not compiled with ''-mieee''. Alpha handles these cases only with help from the compiler, which ''-mieee'' requests, and without it the processor raises ''SIGFPE''. Debian and Gentoo build with ''-mieee'' by default, [(>[[https://salsa.debian.org/toolchain-team/gcc/-/blob/master/debian/patches/alpha-ieee.diff|alpha-ieee.diff]], Debian GCC packaging)] [(>[[https://github.com/gentoo/gcc-patches/blob/master/17.0.0/gentoo/05_all_alpha-mieee-default.patch|05_all_alpha-mieee-default.patch]], Gentoo GCC patchset 17.0.0)] but upstream GCC does not, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-May.mbox#L18387|"Re: log(-1) raises SIGFPE"]], Richard Henderson, axp-list, 14 May 1997)] so software built with another compiler or with explicit flags may lack it. See [[documentation:porting:floating_point|Floating Point]].
 
 === Linking fails with "relocation truncated to fit" ===
 
@@ -82,5 +102,11 @@ Alpha's C library is ''libc.so.6.1''. Code that hard-codes ''libc.so.6'', for ex
 === Is there Clang, Rust, or Go for Alpha? ===
 
 No Clang, and no ''rustc'', because LLVM has no Alpha back end. Go code can be built with ''gccgo''. See [[status#what_is_missing|Current Status]].
+
+==== Getting help ====
+
+=== Where can I ask a question? ===
+
+On the linux-alpha mailing list or in **#alpha** on Libera.Chat, or on a distribution's own Alpha list. See [[:community|Community]]. Report bugs to the affected project; see [[tasks:bugs|Bugs]].
 
 {{tag>faq}}

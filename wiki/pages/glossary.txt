@@ -4,7 +4,7 @@ Terms used throughout this wiki and in Alpha documentation. See also the [[:faq|
 
 ==== Processors ====
 
-Digital named each Alpha processor design with an EV ("Extended VAX") number, and sold it under a 21//x//64 part number. The consoles report part numbers, so the EV name often has to be looked up; see [[hardware:cpus#names_and_type_codes|CPUs: Names and type codes]].
+Digital named each Alpha processor design with an EV number, usually expanded as "Extended VAX", and sold it under a 21//x//64 part number. The consoles report part numbers, so the EV name often has to be looked up; see [[hardware:cpus#names_and_type_codes|CPUs: Names and type codes]].
 
 ^ Name ^ Part ^ Notes ^
 | **EV4** | 21064 | The first Alpha, 1992. Supported by Linux up to 6.9 |
@@ -13,7 +13,7 @@ Digital named each Alpha processor design with an EV ("Extended VAX") number, an
 | **EV5** | 21164 | Four-issue, with an on-chip secondary cache. Up to Linux 6.9 |
 | **EV56** | 21164A | EV5 with the BWX extension. The oldest processor current kernels support |
 | **PCA56**, **PCA57** | 21164PC | A cheaper EV56 without the on-chip secondary cache, and with MVI |
-| **EV6** | 21264 | Out-of-order execution. Adds FIX and MVI |
+| **EV6** | 21264 | Out-of-order execution. Adds FIX, and has BWX and MVI |
 | **EV67** | 21264A | Adds CIX |
 | **EV68** | 21264B, 21264C, 21264D | Die shrinks of the EV67, in several variants (EV68AL, EV68CB, EV68CX) |
 | **EV7** | 21364 | EV68 core with integrated memory controllers and interprocessor links, used in the ES47, ES80, and GS1280 |
@@ -28,6 +28,13 @@ The Alpha architecture was extended after the first processors shipped. Each ext
   * **MVI**, the motion video instructions: byte and word minimum and maximum, pixel error, and pack and unpack. First in the PCA56.
   * **FIX**, the floating-point extension: square root, and moves between the integer and floating-point registers. First in the EV6.
   * **CIX**, the count extension: count leading zeros, trailing zeros, and population. First in the EV67.
+
+==== Programming ====
+
+  * **gp**, the global pointer: register ''$29'', through which Alpha code reaches global data and the addresses of other functions, using 16-bit displacements. The limited reach is the cause of "relocation truncated to fit" errors; see [[documentation:toolchains#relocation_truncated_to_fit|Toolchains]].
+  * **''-mieee''**, the GCC option that makes floating-point code handle NaNs, infinities, and denormals as IEEE 754 requires, by marking instructions for software completion. Without it, such values raise ''SIGFPE''. See [[documentation:porting:floating_point|Floating Point]].
+  * **Software completion**, the kernel's finishing of a floating-point operation that the hardware traps on, such as one with a denormal operand, so that it returns the IEEE result. It applies only to instructions compiled for it, with ''-mieee''. See [[documentation:porting:floating_point#trap_modes_and_software_completion|Floating Point: Trap modes and software completion]].
+  * **Unaligned trap**, the exception taken when a load or store is not aligned to its size. Linux completes the access in software and logs an "unaligned trap" message. See [[documentation:porting:unaligned_access|Unaligned Access]].
 
 ==== Firmware and booting ====
 
