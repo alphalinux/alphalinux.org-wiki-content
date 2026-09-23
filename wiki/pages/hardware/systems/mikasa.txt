@@ -37,12 +37,22 @@ Except where noted, the following describes the 4/266 model. [(>{{wiki:hardware:
   * Optional redundant power supply
   * The onboard Cirrus VGA can be disabled by a jumper at the top left of the motherboard, not on the CPU daughtercard, and through the EISA Configuration Utility, in order to use another card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L36383|"Re: Kernel for AlphaServer 1000 (Success!... and a question)"]], Jay Estabrook, axp-list, 29 Nov 1997)] [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_service_guide.pdf?linkonly|AlphaServer 1000 Service Guide}}, p. 5-38)]
 
+==== Firmware ====
+
+Use the final SRM version, V5.4-104 on the 5/xxx models (see [[software:firmware:srm#final_versions|final SRM versions]] and [[software:firmware:srm#updating_firmware|Updating firmware]]).
+
 ==== Linux ====
 
 Current kernels support only the Mikasa-Primo models with EV56 (21164A) CPUs (''CONFIG_ALPHA_MIKASA'', or a generic kernel), which boot from SRM with aboot. The AlphaServer 1000 accepts EV56 CPU daughtercards, and the AlphaServer 1000A uses the same daughtercards; [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L52630|"Re: which AlphaServers can I use"]], Jay Estabrook, axp-list, 30 Apr 1997)] the 5/333 and 5/400 models of both have a 21164A. [(>{{wiki:hardware:systems:alphaserver_1000a:alphaserver_1000a_technical_summary.pdf?linkonly|AlphaServer 1000A Technical Summary}}, p. 2)] Linux 6.9 was the last version to support the 4/xxx models and the 5/300, which has a 300 MHz EV5 (21164); Linux 6.10 removed support for processors older than the EV56 (21164A), along with the EV4 machine vector ''mikasa_mv''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_illustrated_parts_breakdown.pdf?linkonly|AlphaServer 1000 Series Illustrated Parts Breakdown}}, Figure 1, item 6)] [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_1000a_model_5xxx_owners_guide_supplement.pdf?linkonly|AlphaServer 1000/1000A Model 5/xxx Owner's Guide Supplement}}, p. 2-5)]
 
   * Boot the Mikasa from the SRM console. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L37128|"Re: AlphaServer 1000 5/xxx isntall"]], Jay Estabrook, axp-list, 29 Jul 1999)]
   * The AlphaServer 1000 and 1000A ([[hardware:systems:noritake|Noritake]]) deliver interrupts quite differently, so a kernel built for one platform does not run on the other. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-November.mbox#L36383|"Re: Kernel for AlphaServer 1000 (Success!... and a question)"]], Jay Estabrook, axp-list, 29 Nov 1997)]
+  * The onboard NCR 53C810 SCSI controller uses the ''sym53c8xx'' driver. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/scsi/sym53c8xx_2/sym_glue.c?h=v7.3-rc1|drivers/scsi/sym53c8xx_2/sym_glue.c]], Linux 7.3)] The ''cirrusfb'' framebuffer driver supports Zorro boards and PCI Cirrus chips from the GD5430 on, not the onboard GD5424. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/video/fbdev/cirrusfb.c?h=v7.3-rc1|drivers/video/fbdev/cirrusfb.c]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/video/fbdev/Kconfig?h=v7.3-rc1|drivers/video/fbdev/Kconfig]], Linux 7.3)]
+  * For a serial console, see [[documentation:srm#serial_console|Using SRM]].
+
+==== Known issues ====
+
+  * **Weight:** the pedestal system weighs 36 kg (80 lb) without disks and with one power supply, and up to 42 kg (93 lb) fully configured with two power supplies. [(>{{wiki:hardware:systems:alphaserver_1000:alphaserver_1000_owners_guide.pdf?linkonly|AlphaServer 1000 Owner's Guide}}, p. 9-18)]
 
 ==== History ====
 
