@@ -10,20 +10,13 @@
 | NY Times | 1993-09-11 | [[https://www.nytimes.com/1993/09/11/business/company-news-new-high-powered-alpha-chip-is-introduced.html|New High-Powered Alpha Chip Is Introduced]] |
 | NY Times | 1993-09-28 | [[https://www.nytimes.com/1993/09/28/business/company-news-new-cray-computer.html|New Cray Computer]] |
 | Electronic News | 1993-10-18 | [[http://findarticles.com/p/articles/mi_m0EKF/is_n1985_v39/ai_14635855|DEC readies 225/275MHz Alphas (dead link)]] |
-| NY Times | 1993-10-21 | [[https://www.nytimes.com/1993/10/21/business/company-news-tv-venture-for-digital.html|TV Venture For Digital]] |
 | NY Times | 1993-11-09 | [[https://www.nytimes.com/1993/11/09/business/company-news-a-new-line-of-personal-computers-from-digital.html|A new line of Personal Computers from Digital]] |
 
 ==== 1994 ====
 
 ^ Source ^ Date ^ Title ^
-| NY Times | 1994-01-20 | [[https://www.nytimes.com/1994/01/20/business/company-reports-digital-loss-in-2d-quarter-stuns-market.html|Digital Loss In 2d Quarter Stuns Market]] |
 | Electronic News | 1994-04-04 | [[http://findarticles.com/p/articles/mi_m0EKF/is_n2008_v40/ai_15308636|100MHz PowerPC seen by 4Q; Mitsubishi to ramp Alpha in '95 (dead link)]] |
-| NY Times | 1994-04-16 | [[https://www.nytimes.com/1994/04/16/business/company-reports-a-deepening-of-losses-at-digital-equipment.html|Deepening of Losses at Digital Equipment]] |
 | NY Times | 1994-06-07 | [[https://www.nytimes.com/1994/06/07/business/company-news-digital-equipment-cuts-price-of-alpha-axp-chip.html|Digital Equipment cuts price of Alpha AXP Chip]] |
-| NY Times | 1994-07-20 | [[https://www.nytimes.com/1994/07/20/business/business-technology-digital-shows-doctrine-the-door.html|Digital Shows Doctrine the Door]] |
-| NY Times | 1994-07-27 | [[https://www.nytimes.com/1994/07/27/business/company-reports-digital-s-loss-is-linked-to-a-revamping-charge.html|Digital's Loss Is Linked To a Revamping Charge]] |
-| NY Times | 1994-08-23 | [[https://www.nytimes.com/1994/08/23/business/company-news-sequoia-systems-courts-digital-product-line.html|Sequoia Systems Courts Digital Product Line]] |
-| NY Times | 1994-08-25 | [[https://www.nytimes.com/1994/08/25/business/digital-sells-olivetti-stake.html|Digital Sells Olivetti Stake]] |
 | NY Times | 1994-09-08 | [[https://www.nytimes.com/1994/09/08/business/company-news-digital-introduces-high-performance-chip.html|Digital Introduces High-Performance Chip]] |
 | EDN | 1994-10-01 | [[https://www.edn.com/massive-alpha-microprocessor-has-level-2-cache-on-chip/|Massive Alpha microprocessor has level-2 cache on chip]] |
 | NY Times | 1994-10-17 | [[https://www.nytimes.com/1994/10/17/business/despite-rivals-chip-speed-intel-still-leads-pc-market.html|Despite Rivals' Chip Speed, Intel Still Leads PC Market]] |
@@ -50,12 +43,10 @@
 | NY Times | 1996-03-09 | [[https://www.nytimes.com/1996/03/09/business/company-news-two-new-families-of-work-stations-are-displayed.html|Two New Families of Work Stations Are Displayed]] |
 | NY Times | 1996-06-19 | [[https://www.nytimes.com/1996/06/19/business/samsung-licensed-to-market-digital-s-alpha-microprocessors.html|Samsung Licensed to Market Digital's Alpha Microprocessors]] |
 | NY Times | 1996-07-03 | [[https://www.nytimes.com/1996/07/03/business/market-place-for-digital-a-tunnel-at-the-end-of-the-light.html|For Digital, a Tunnel at the End of the Light]] |
-| NY Times | 1996-07-31 | [[https://www.nytimes.com/1996/07/31/business/company-reports-digital-posts-433-million-deficit-in-quarter.html|Digital Posts $433 Million Deficit in Quarter]] |
 | CNET | 1996-09-04 | [[https://web.archive.org/web/20040518074600/http://news.com.com:80/2100-1001_3-224714.html|DEC: more power, less money]] |
 | CNET | 1996-09-12 | [[https://web.archive.org/web/20040509085246/http://news.com.com:80/2100-1001_3-227880.html|Alpha eyes lower-end PC market]] |
 | CNET | 1996-09-23 | [[https://www.cnet.com/tech/tech-industry/dec-hp-do-double-duty/|DEC, HP do double duty]] |
 | CNET | 1996-10-23 | [[https://web.archive.org/web/20031223180924/http://news.com.com:80/2100-1001_3-240380.html|Digital debuts fastest Alpha processor]] |
-| NY Times | 1996-10-23 | [[https://www.nytimes.com/1996/10/23/business/digital-posts-a-big-loss-and-stock-hits-two-year-low.html|Digital Posts a Big Loss, and Stock Hits Two-Year Low]] |
 | EDN | 1996-12-01 | [[https://www.edn.com/microprocessor-developments-advance-on-several-fronts/|Microprocessor developments advance on several fronts]] |
 | CNET | 1996-12-02 | [[https://www.cnet.com/tech/tech-industry/500-mhz-carrera-is-porsche-of-chips/|500-MHz Carrera is Porsche of chips]] |
 
@@ -63,7 +54,6 @@
 
 ^ Source ^ Date ^ Title ^
 | NY Times | 1997-01-10 | [[https://www.nytimes.com/1997/01/10/business/digital-cuts-prices-for-high-end-computers.html|Digital Cuts Prices for High-End Computers]] |
-| NY Times | 1997-01-17 | [[https://www.nytimes.com/1997/01/17/business/digital-says-it-was-again-profitable-in-2d-quarter.html|Digital Says It Was Again Profitable in 2d Quarter]] |
 | CNET | 1997-03-05 | [[https://www.cnet.com/tech/tech-industry/digital-has-600-mhz-workstation/|Digital has 600-MHz workstation]] |
 | CNET | 1997-03-14 | [[https://www.cnet.com/tech/tech-industry/ms-stands-by-alpha-chip/|MS stands by Alpha chip]] |
 | CNET | 1997-03-17 | [[https://www.cnet.com/tech/tech-industry/new-alpha-chip-hits-533-mhz/|New Alpha chip hits 533 MHz]] |
@@ -71,7 +61,6 @@
 | CNET | 1997-04-02 | [[https://www.cnet.com/tech/tech-industry/digital-announces-reorg/|Digital announces reorg]] |
 | NY Times | 1997-04-03 | [[https://www.nytimes.com/1997/04/03/business/digital-equipment-reshuffles-again-to-try-to-lift-fortunes.html|Digital Equipment Reshuffles, Again, to Try to Lift Fortunes]] |
 | CNET | 1997-04-14 | [[https://www.cnet.com/tech/tech-industry/digital-makes-servers-available/|Digital makes servers available]] |
-| NY Times | 1997-04-18 | [[https://www.nytimes.com/1997/04/18/business/profit-at-digital-equipment-fell-59-in-third-quarter.html|Profit at Digital Equipment Fell 59% in Third Quarter]] |
 | BYTE.com | 1997-05 | [[https://web.archive.org/web/20001020223255/http://byte.com:80/art/9705/sec5/art3.htm|Alpha Arrives at the Desktop]] |
 | Linux Journal | 1997-05 | [[https://www.linuxjournal.com/article/2105|An Interview with DEC]] |
 | NY Times | 1997-05-14 | [[https://www.nytimes.com/1997/05/14/business/suit-by-digital-says-intel-stole-pentium-design.html|Suit by Digital Says Intel Stole Pentium Design]] |
@@ -80,7 +69,6 @@
 | NY Times | 1997-05-25 | [[https://www.nytimes.com/1997/05/25/business/for-digital-s-chief-a-last-grab-for-glory.html|For Digital's Chief, a Last Grab for Glory]] |
 | The Journal Record | 1997-05-29 | [[https://journalrecord.com/1997/05/29/intel-sues-digital-equipment-for-breach-of-contract/|Intel sues Digital Equipment for breach of contract]] |
 | NY Times | 1997-05-29 | [[https://www.nytimes.com/1997/05/29/business/chip-empire-strikes-back-intel-countersues-digital.html|Chip Empire Strikes Back: Intel Countersues Digital]] |
-| NY Times | 1997-07-25 | [[https://www.nytimes.com/1997/07/25/business/digital-equipment-s-operating-earnings-rise-in-quarter.html|Digital Equipment's Operating Earnings Rise in Quarter]] |
 | EDN | 1997-08-01 | [[https://www.edn.com/system-controller-fits-alpha-mpu/|System controller fits Alpha MPU]] |
 | NY Times | 1997-08-13 | [[https://www.nytimes.com/1997/08/13/business/intel-files-a-counterclaim-against-digital-equipment.html|Intel Files a Counterclaim Against Digital Equipment]] |
 | EE Times | 1997-08-26 | [[https://www.eetimes.com/digital-and-multipath-announce-matrix-processing-performance-affordability/|Digital and Multipath Announce Matrix Processing Performance, Affordability]] |
@@ -104,15 +92,8 @@
 
 ^ Source ^ Date ^ Title ^
 | CNET | 1998-01-26 | [[https://www.cnet.com/tech/tech-industry/compaq-to-buy-digital-for-9-6-billion/|Compaq to buy Digital for $9.6 billion]] |
-| SF Gate | 1998-01-26 | [[https://www.sfgate.com/news/article/compaq-buys-out-digital-in-huge-deal-3106026.php|Compaq buys out Digital in huge deal]] |
 | Wired | 1998-01-26 | [[https://www.wired.com/1998/01/compaq-to-acquire-digital/|Compaq to Acquire Digital]] |
-| ZDNet | 1998-01-26 | [[https://www.zdnet.com/article/compaqs-digital-buyout-is-its-biggest-yet/|Compaq's Digital buyout is IT's biggest yet]] |
-| Irish Times | 1998-01-27 | [[https://www.irishtimes.com/business/compaq-to-pay-6-76bn-for-digital-in-the-biggest-computer-deal-to-date-1.128884|Compaq to pay £6.76bn for Digital in the biggest computer deal to date]] |
-| LA Times | 1998-01-27 | [[https://www.latimes.com/archives/la-xpm-1998-jan-27-mn-12577-story.html|Compaq to Join Forces With Digital]] |
 | NY Times | 1998-01-27 | [[https://www.nytimes.com/1998/01/27/business/compaq-is-buying-digital-aiming-challenge-at-ibm.html|Compaq Is Buying Digital, Aiming Challenge at I.B.M.]] |
-| NY Times | 1998-01-27 | [[https://archive.nytimes.com/www.nytimes.com/library/cyber/week/012798digital-side.html|Compaq to Buy Digital Equipment for $9.6 Billion]] |
-| Variety | 1998-01-27 | [[https://variety.com/1998/digital/news/compaq-digital-unveil-merger-1117467102/|Compaq, Digital unveil merger]] |
-| Wall Street Journal | 1998-01-27 | [[https://www.wsj.com/articles/SB885817641399131000|Compaq to Acquire Digital, Once an Unthinkable Deal]] |
 | Computergram International | 1998-01-29 | [[http://findarticles.com/p/articles/mi_m0CGN/is_n3337/ai_20186887|Dec Set To Lose Mitsubishi As Alpha Source (dead link)]] |
 | BYTE | 1998-02 | [[https://www.halfhill.com/byte/1998-2_cover_thickens.html|The Slot Thickens]] |
 | Linux Journal | 1998-02 | [[https://www.linuxjournal.com/article/2494|Linux Helps Bring Titanic to Life]] |
@@ -131,12 +112,12 @@
 | LA Times | 1998-06-12 | [[https://www.latimes.com/archives/la-xpm-1998-jun-12-fi-59100-story.html|Compaq to Take $5.4-Billion Charge]] |
 | CNET | 1998-06-12 | [[https://www.cnet.com/tech/tech-industry/digital-takes-compaq-into-enterprise/|Digital takes Compaq into enterprise]] |
 | CNET | 1998-06-16 | [[https://www.cnet.com/tech/tech-industry/samsung-announces-alpha-subsidiary/|Samsung announces Alpha subsidiary]] |
+| The Register | 1998-07-10 | [[https://www.theregister.com/on-prem/1999/07/09/stricken-mitsubishi-backs-off-from-alpha/654710|Stricken Mitsubishi backs off from Alpha]] |
 | CNET | 1998-07-23 | [[https://web.archive.org/web/20040517182508/http://news.com.com:80/2100-1001_3-213655.html|Alpha chip may reach 1 GHz in '99]] |
 | Business Standard | 1998-08-13 | [[https://www.business-standard.com/article/specials/digital-becomes-compaq-structure-rejig-likely-198081301029_1.html|Digital Becomes Compaq, Structure Rejig Likely]] |
 | The Register | 1998-08-20 | [[https://www.theregister.com/on-prem/1998/08/20/compaq-kicks-intels-merced-butt-while-its-down/992318|Compaq kicks Intel's Merced butt while it's down]] |
 | EE Times | 1998-10-10 | [[https://www.eetimes.com/update-chaotic-pc-market-shapes-processor-road-maps/|Update: Chaotic PC market shapes processor road maps]] |
 | CNET | 1998-10-12 | [[https://web.archive.org/web/20040405080910/http://news.com.com:80/2100-1001_3-216592.html|Compaq headed for high end]] |
-| CNET | 1998-10-16 | [[https://web.archive.org/web/20031223174206/http://news.com.com:80/2100-1001_3-216810.html|Rambus shines in Intel-Micron deal]] |
 | CNET | 1998-10-19 | [[https://web.archive.org/web/20031225180842/http://news.com.com:80/2100-1001_3-216826.html|Compaq rolls out Alpha server]] |
 | EE Times | 1998-10-22 | [[https://www.eetimes.com/wave-of-64-bit-processors-raise-workstation-ante/|Wave of 64-bit processors raise workstation ante]] |
 | PC Week | 1998-10-26 | [[https://web.archive.org/web/19991112002133/http://www.zdnet.com/pcweek/stories/news/0,4153,361622,00.html|Alpha ahead by a nose in 64-bit sprint]] |
@@ -172,8 +153,6 @@
 | The Register | 1999-02-04 | [[https://www.theregister.com/on-prem/1999/02/04/pfeiffer-stopped-128-bit-alpha-workstations-in-its-tracks/750909|Pfeiffer stopped 128-bit Alpha workstations in its tracks]] |
 | Computer Business Review | 1999-02-10 | [[https://www.techmonitor.ai/technology/alpha_will_exit_the_year_in_pole_position_again|Alpha will exit the year in pole position (again)]] |
 | CNET | 1999-02-12 | [[https://web.archive.org/web/20040512221202/http://news.com.com:80/2100-1001_3-252482.html|Compaq releases Alpha chip amid brighter prospects]] |
-| CNET | 1999-02-17 | [[https://www.cnet.com/tech/tech-industry/network-appliance-hits-expectations/|Network Appliance hits expectations]] |
-| The Register | 1999-03-02 | [[https://www.theregister.com/on-prem/1999/03/02/microsoft-to-ship-beta-3-of-w2000-on-21-april/900102|Microsoft to ship beta 3 of W2000 on 21 April]] |
 | The Register | 1999-03-03 | [[https://www.theregister.com/on-prem/1999/03/03/alpha-chip-to-clock-14ghz-in-copper/1551992|Alpha chip to clock 1.4GHz in copper]] |
 | The Register | 1999-03-05 | [[https://www.theregister.com/on-prem/1999/03/05/high-end-alpha-spreads-like-wildfire/784897|High-end Alpha spreads like Wildfire]] |
 | The Register | 1999-03-17 | [[https://www.theregister.com/on-prem/1999/03/17/compaq-re-visiting-merced-strategy/1237361|Compaq re-visiting Merced strategy]] |
@@ -206,8 +185,6 @@
 | The Register | 1999-07-01 | [[https://www.theregister.com/on-prem/1999/07/01/alpha-processor-strikes-linux-deal/708582|Alpha Processor strikes Linux deal]] |
 | The Register | 1999-07-05 | [[https://www.theregister.com/on-prem/1999/07/05/compaq-rejigs-europe/1018206|CompaQ rejigs Europe]] |
 | CNET | 1999-07-08 | [[https://www.cnet.com/tech/tech-industry/compaq-changes-server-strategy/|Compaq changes server strategy]] |
-| The Register | 1999-07-09 | [[https://www.theregister.com/on-prem/1999/07/09/stricken-mitsubishi-backs-off-from-alpha/654710|Stricken Mitsubishi backs off from Alpha]] |
-| The Register | 1999-07-13 | [[https://www.theregister.com/on-prem/1999/07/13/eight-way-amd-k7-chipset-on-cards/614729|Eight way AMD K7 chipset on cards]] |
 | CNET | 1999-07-14 | [[https://www.cnet.com/tech/tech-industry/making-supercomputers-out-of-cheap-parts/|Making supercomputers out of cheap parts]] |
 | CNET | 1999-07-19 | [[https://web.archive.org/web/20031227073426/http://news.com.com:80/2100-1001_3-228681.html|Compaq to ship 667-MHz computers]] |
 | EE Times | 1999-07-19 | [[https://www.eetimes.com/compaq-shows-alpha-based-servers-workstations/|Compaq shows Alpha-based servers, workstations]] |
@@ -343,7 +320,6 @@
 | The Inquirer | 2003-01-20 | [[https://web.archive.org/web/20050324013007/http://www.theinquirer.net/?article=7297|HP's new Alpha Marvels revealed]] |
 | Rambus | 2003-01-20 | [[https://web.archive.org/web/20050324041540/http://www.rambus.com/news/pressrelease.cfm?id=80|Rambus RDRAM Memory Interface Ships In Award-Winning HP AlphaServer Systems]] |
 | The Register | 2003-01-21 | [[https://www.theregister.com/on-prem/2003/01/21/ev7-alphaservers-unleashed-as-chip-line-heads-into-sunset/1414298|EV7 AlphaServers unleashed as chip line heads into sunset]] |
-| CNET | 2003-04-08 | [[https://web.archive.org/web/20040406163520/http://news.com.com:80/2008-1082_3-995885.html|AMD's Opteron aspirations]] |
 | CNET | 2003-07-02 | [[https://web.archive.org/web/20041026014454/http://news.com.com:80/2100-1006_3-1023146.html|Intel gets more key Alpha alums]] |
 | The Inquirer | 2003-10-10 | [[https://web.archive.org/web/20041225074408/http://www.theinquirer.net/?article=12035|Alpha chip – is the EV79 a dead duck?]] |
 | The Register | 2003-10-20 | [[https://www.theregister.com/on-prem/2003/10/20/hp-unveils-the-last-big-alpha-box/751714|HP unveils the last, big Alpha box]] |
@@ -364,10 +340,5 @@
 ^ Source ^ Date ^ Title ^
 | The Inquirer | 2005-06-27 | [[https://web.archive.org/web/20050713083949/http://www.theinquirer.net/?article=24212|Could HP bring the Alpha processor back to life?]] |
 | The Inquirer | 2005-06-30 | [[http://www.theinquirer.net/inquirer/news/498/1032498/will-the-alpha-chip-stage-a-comeback|Will the Alpha Chip Stage a Comeback? (dead link)]] |
-
-==== 2008 ====
-
-^ Source ^ Date ^ Title ^
-| The Inquirer | 2008-04-29 | [[https://web.archive.org/web/20080516232245/http://www2.theinquirer.net/gb/inquirer/news/2008/04/29/intel-upcoming-avx-instructions|Intel's upcoming AVX instructions go back to the future]] |
 
 {{tag>history}}
