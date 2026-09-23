@@ -28,7 +28,7 @@ Articles about Alpha in the general and trade press, from 1993, shortly after Di
 
 ^ Source ^ Date ^ Title ^
 | Business Wire | 1995-05-10 | [[http://findarticles.com/p/articles/mi_m0EIN/is_1995_May_10/ai_16940638|Superpowered Alpha Workstation from BTG Inc. aimed at power PC users (dead link)]] |
-| BYTE.com | 1995-06 | [[https://web.archive.org/web/19980115043909/http://byte.com:80/art/9506/sec13/art1.htm|Designing Alpha-Based Systems]] |
+| BYTE | 1995-06 | [[https://web.archive.org/web/19980115043909/http://byte.com:80/art/9506/sec13/art1.htm|Designing Alpha-Based Systems]] |
 | Linux Journal | 1995-07 | [[https://www.linuxjournal.com/article/2677|Linux at DECUS]] |
 | NY Times | 1995-07-14 | [[https://www.nytimes.com/1995/07/14/business/more-powerful-work-station-from-digital.html|More Powerful Work Station From Digital]] |
 | NY Times | 1995-08-03 | [[https://www.nytimes.com/1995/08/03/business/microsoft-and-digital-in-a-deal-that-expands-partnership.html|Microsoft and Digital in a Deal That Expands Partnership]] |
@@ -63,7 +63,7 @@ Articles about Alpha in the general and trade press, from 1993, shortly after Di
 | CNET | 1997-04-02 | [[https://www.cnet.com/tech/tech-industry/digital-announces-reorg/|Digital announces reorg]] |
 | NY Times | 1997-04-03 | [[https://www.nytimes.com/1997/04/03/business/digital-equipment-reshuffles-again-to-try-to-lift-fortunes.html|Digital Equipment Reshuffles, Again, to Try to Lift Fortunes]] |
 | CNET | 1997-04-14 | [[https://www.cnet.com/tech/tech-industry/digital-makes-servers-available/|Digital makes servers available]] |
-| BYTE.com | 1997-05 | [[https://web.archive.org/web/20001020223255/http://byte.com:80/art/9705/sec5/art3.htm|Alpha Arrives at the Desktop]] |
+| BYTE | 1997-05 | [[https://web.archive.org/web/20001020223255/http://byte.com:80/art/9705/sec5/art3.htm|Alpha Arrives at the Desktop]] |
 | Linux Journal | 1997-05 | [[https://www.linuxjournal.com/article/2105|An Interview with DEC]] |
 | NY Times | 1997-05-14 | [[https://www.nytimes.com/1997/05/14/business/suit-by-digital-says-intel-stole-pentium-design.html|Suit by Digital Says Intel Stole Pentium Design]] |
 | LA Times | 1997-05-15 | [[https://www.latimes.com/archives/la-xpm-1997-05-15-fi-58796-story.html|Intel, Digital Brace for a Risky Battle]] |
@@ -217,7 +217,7 @@ Articles about Alpha in the general and trade press, from 1993, shortly after Di
 | EE Times | 1999-12-13 | [[https://www.eetimes.com/compaq-samsung-expand-alpha-collaboration-with-investment-pledge/|Compaq, Samsung expand Alpha collaboration with investment pledge]] |
 | The Register | 1999-12-13 | [[https://www.theregister.com/on-prem/1999/12/13/compaq-api-announce-alpha-cash-plunge/969912|Compaq, API announce Alpha cash-plunge]] |
 | LA Times | 1999-12-13 | [[https://www.latimes.com/archives/la-xpm-1999-dec-13-fi-43417-story.html|Samsung to Produce Compaq's Alpha Chip in 500-Million Deal]] |
-| Info World | 1999-12-13 | [[https://web.archive.org/web/20050105092823/http://www.infoworld.com:80/articles/pi/xml/99/12/13/991213pisamsung.html|Compaq, Samsung pump $500 million into Alpha]] |
+| InfoWorld | 1999-12-13 | [[https://web.archive.org/web/20050105092823/http://www.infoworld.com:80/articles/pi/xml/99/12/13/991213pisamsung.html|Compaq, Samsung pump $500 million into Alpha]] |
 | The Register | 1999-12-13 | [[https://www.theregister.com/on-prem/1999/12/13/compaq-avoids-ia-64-question-in-alpha-push/1300285|Compaq avoids IA-64 question in Alpha push]] |
 | EE Times | 1999-12-15 | [[https://www.eetimes.com/samsung-and-compaq-extend-alpha-deal/|Samsung and Compaq extend Alpha deal]] |
 | EE Times | 1999-12-17 | [[https://www.eetimes.com/AMD-to-play-key-role-in-future-of-Alpha-architecture/|AMD to play key role in future of Alpha architecture]] |
@@ -248,7 +248,7 @@ Articles about Alpha in the general and trade press, from 1993, shortly after Di
 | The Register | 2000-05-26 | [[https://www.theregister.com/on-prem/2000/05/26/samsung-to-co-develop-linux-alpha-supercomputer/1536752|Samsung to co-develop Linux Alpha supercomputer]] |
 | Real World Technologies | 2000-06-20 | [[https://www.realworldtech.com/battle64/2/|The Looming Battle in 64 Bit Land]] |
 | The Register | 2000-06-23 | [[https://www.theregister.com/off-prem/2000/06/23/compaq-to-create-013-micron-intel-killer/494788|Compaq to create 0.13 micron Intel killer]] |
-| The Register | 2000-08-20 | [[https://www.theregister.com/off-prem/2000/08/25/64-bit-compaq-alpha-tops-1040mhz/1550046|64-bit Compaq Alpha tops 1040MHz]] |
+| The Register | 2000-08-25 | [[https://www.theregister.com/off-prem/2000/08/25/64-bit-compaq-alpha-tops-1040mhz/1550046|64-bit Compaq Alpha tops 1040MHz]] |
 | The Register | 2000-08-27 | [[https://www.theregister.com/off-prem/2000/08/27/alpha-strikes-back-against-intel/1158583|Alpha strikes back against Intel]] |
 | The Register | 2000-09-15 | [[https://www.theregister.com/on-prem/2000/09/15/api-messes-up-alpha-mobo-upgrade/1545403|API messes up Alpha mobo upgrade]] |
 | CNET | 2000-09-21 | [[https://web.archive.org/web/20040405213639/http://news.com.com:80/2100-1001_3-239325.html|Manufacturers compete for share of high-end Unix market]] |
@@ -290,14 +290,14 @@ Articles about Alpha in the general and trade press, from 1993, shortly after Di
 | Linux Journal | 2001-08 | [[https://www.linuxjournal.com/article/4756|Kernel Tuning Gives 40% Gains]] |
 | The Inquirer | 2001-08-06 | [[https://web.archive.org/web/20010808092922/http://www.theinquirer.net/06080116.htm|Itanic will use Alpha EV8, SMT features]] |
 | EE Times | 2001-08-09 | [[https://www.eetimes.com/api-slashes-headcount-by-30-and-halts-development-of-alpha-mpu-designs/|API slashes headcount by 30% and halts development of Alpha MPU designs]] |
-| The Register | 2001-10-06 | [[https://www.theregister.com/on-prem/2001/10/16/compaq-on-speed-with-1ghz-64-bit-alpha-boxen/420686|Compaq on speed with 1GHz 64-bit Alpha boxen]] |
+| The Register | 2001-10-16 | [[https://www.theregister.com/on-prem/2001/10/16/compaq-on-speed-with-1ghz-64-bit-alpha-boxen/420686|Compaq on speed with 1GHz 64-bit Alpha boxen]] |
 | The Inquirer | 2001-11-25 | [[https://web.archive.org/web/20050427202913/http://www.theinquirer.net/?article=1692|Compaq's Alpha Marvel a Ramboosta]] |
 
 ==== 2002 ====
 
 ^ Source ^ Date ^ Title ^
 | The Inquirer | 2002-01-03 | [[https://web.archive.org/web/20050321193822/http://www.theinquirer.net/?article=2081|Compaq's Curly gets nice Alpha makeover]] |
-| The Register | 2002-02-23 | [[https://www.theregister.com/on-prem/2002/02/22/compaq-pumps-up-alphaserver-4-way-benchmarks/512526|Compaq pumps up AlphaServer 4-way benchmarks]] |
+| The Register | 2002-02-22 | [[https://www.theregister.com/on-prem/2002/02/22/compaq-pumps-up-alphaserver-4-way-benchmarks/512526|Compaq pumps up AlphaServer 4-way benchmarks]] |
 | CNET | 2002-02-28 | [[https://www.cnet.com/tech/tech-industry/promoter-of-storied-alpha-to-shut-doors/|Promoter of storied Alpha to shut doors]] |
 | The Inquirer | 2002-03-04 | [[https://web.archive.org/web/20050321193349/http://www.theinquirer.net/?article=2719|Alpha-Itanium CPUs collide]] |
 | EE Times | 2002-03-08 | [[https://www.eetimes.com/one-on-one-veteran-samsung-ic-chief-lays-out-strategy/|One-On-One: Veteran Samsung IC chief lays out strategy]] |
