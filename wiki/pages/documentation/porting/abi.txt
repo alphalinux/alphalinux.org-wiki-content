@@ -2,7 +2,7 @@
 
 Alpha's Linux ABI was modeled on DEC OSF/1, not on the i386 ABI that most later Linux ports copied. System call numbers, error numbers, signal numbers, ''ioctl'' encodings, and many flag values therefore differ from x86-64 and the generic ABI, and code that hard-codes any of them works on other 64-bit Linux architectures and fails on Alpha. This page lists the differences that most often matter to software that talks to the kernel directly, and two properties of the platform that are not OSF/1 heritage: the 8 KiB page size and the 128-bit ''long double''.
 
-Programs that use the C library's headers and functions are not affected by any of the numeric differences below, since glibc and the kernel headers supply the right values. Code that is affected is typically a language runtime that makes system calls without libc (Go, some JIT compilers, sanitizers), an emulator or tracer that decodes system calls, or a program that copies constants into its own source.
+Programs that use the C library's headers and functions are not affected by any of the numeric differences below, since glibc and the kernel headers supply the right values. Code that is affected is typically a language runtime or JIT compiler that makes system calls without libc, a sanitizer runtime, an emulator or tracer that decodes system calls, or a program that copies constants into its own source.
 
 ==== Page size ====
 
@@ -39,7 +39,7 @@ Code that stores ''errno'' values in files or sends them over the network, or th
 
 ==== Signal numbers ====
 
-Signal numbers also follow OSF/1. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/signal.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/signal.h]], Linux 7.3)] Signals 1 to 6, 8, and 9 match other architectures; 7 is ''SIGEMT'' on Alpha and ''SIGBUS'' on x86. The others differ, for example:
+Signal numbers also follow OSF/1. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/signal.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/signal.h]], Linux 7.3)] Signals 1 to 6, 8, 9, 11, 13 to 15, 21, 22, and 24 to 28 have the same numbers as on x86; 7 is ''SIGEMT'' on Alpha and ''SIGBUS'' on x86. The others differ, for example:
 
 ^ Name ^ Alpha ^ x86-64 ^
 | ''SIGBUS'' | 10 | 7 |
@@ -56,7 +56,7 @@ Scripts that send signals by number, such as ''kill -10'', send a different sign
 
 The ''ioctl'' request encoding has a 13-bit size field and a 3-bit direction field, rather than the 14-bit size and 2-bit direction of the generic encoding, and the direction values differ: ''_IOC_NONE'' is 1, ''_IOC_READ'' 2, and ''_IOC_WRITE'' 4. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/ioctl.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/ioctl.h]], Linux 7.3)] PowerPC, MIPS, and SPARC use the same layout. Every request number built with ''_IO'', ''_IOR'', ''_IOW'', or ''_IOWR'' therefore differs from x86, even ''_IO'' requests without data, which carry a direction bit on Alpha and none on x86.
 
-The terminal ''ioctl'' requests differ further. On x86 they are the old fixed values, ''TCGETS'' being ''0x5401''; on Alpha they are encoded with ''_IOR'' and ''_IOW'', like ''TCGETS'', which is ''_IOR('t', 19, struct termios)''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/ioctls.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/ioctls.h]], Linux 7.3)] Alpha's ''struct termios'' also differs, with ''c_line'' after ''c_cc'' rather than before it. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/termbits.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/termbits.h]], Linux 7.3)]
+The terminal ''ioctl'' requests differ further. On x86 they are the old fixed values, ''TCGETS'' being ''0x5401''; on Alpha they use the ''_IOR''/''_IOW'' encoding, and ''TCGETS'' is ''_IOR('t', 19, struct termios)''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/ioctls.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/ioctls.h]], Linux 7.3)] Alpha's ''struct termios'' also differs, with ''c_line'' after ''c_cc'' rather than before it. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/termbits.h?h=v7.3-rc1|arch/alpha/include/uapi/asm/termbits.h]], Linux 7.3)]
 
 ==== Flags and constants ====
 
@@ -70,8 +70,10 @@ Many flag values passed to system calls differ as well. A few examples: [(>[[htt
 | ''SOL_SOCKET'' | ''0xffff'' | ''1'' |
 | ''SO_REUSEADDR'' | ''0x4'' | ''0x2'' |
 
-==== The C library ====
+==== The C library and the toolchain ====
 
 Alpha's C library is ''libc.so.6.1'' rather than ''libc.so.6''; see [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]]. Its floating-point environment and ''-mieee'' are described in [[documentation:porting:floating_point|Floating Point]].
+
+The compiler side of the ABI, including the global offset table limits behind ''relocation truncated to fit'' errors and the absence of LLVM, is described on the [[documentation:toolchains|Toolchains]] page.
 
 {{tag>documentation porting}}
