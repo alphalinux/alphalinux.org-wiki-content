@@ -1,0 +1,126 @@
+===== Kernel =====
+
+Alpha is supported in the mainline Linux kernel under ''arch/alpha''. This page describes how to build a kernel for an Alpha system, natively or with a cross compiler, how to choose a configuration for a particular system, how Alpha patches reach the kernel, and how to report a bug.
+
+==== Maintainers ====
+
+The Alpha port has three maintainers: Richard Henderson, [[user:mattst88|Matt Turner]], and [[user:lindholm|Magnus Lindholm]]. Its status in the ''MAINTAINERS'' file is "Odd Fixes", and its list is linux-alpha@vger.kernel.org. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/MAINTAINERS?h=v7.3-rc1|MAINTAINERS]], Linux 7.3)] Lindholm became a maintainer in November 2025, [(>[[https://lore.kernel.org/linux-alpha/CA+=Fv5QhoHsS2EC_QR-zANZdXTPeQmOLoP1w4LNmgYNqryKb+g@mail.gmail.com/|linux-alpha]], 4 Nov 2025)] and the merge window pull requests since Linux 6.19 have come from his tree, [[https://git.kernel.org/pub/scm/linux/kernel/git/lindholm/alpha.git/|lindholm/alpha.git]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5c179cac0519|"Merge tag 'alpha-for-v6.19-tag'"]], Linux 6.19)] Fixes during a release cycle have also gone through [[https://git.kernel.org/pub/scm/linux/kernel/git/mattst88/alpha.git/|mattst88/alpha.git]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=89ee862a4dd3|"Merge tag 'alpha-fixes-v6.18-rc5'"]], Linux 6.18)]
+
+==== Processor support ====
+
+Since Linux 6.10, the kernel requires a processor with the byte/word extension (BWX), that is, an EV56 (21164A) or later. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] Linux 6.9 is the last version that runs on EV4, EV45, and EV5 processors, and on the systems that can only use them. The systems affected are listed under [[software:operating_systems#linux|Operating Systems]], and the reason for the change, that the kernel could not make byte and word stores atomic without BWX, under [[documentation:porting:byte_word_access|Byte and Word Access]].
+
+==== Building ====
+
+=== Native builds ===
+
+A kernel is built on an Alpha system in the usual way. Alpha has one configuration in the tree, ''arch/alpha/configs/defconfig'', a generic configuration that runs on every supported system. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/configs?h=v7.3-rc1|arch/alpha/configs]], Linux 7.3)]
+
+<code>
+make defconfig
+make menuconfig
+make -j$(nproc)
+make modules_install
+cp arch/alpha/boot/vmlinux.gz /boot/vmlinux-$(make -s kernelrelease).gz
+</code>
+
+The default target on Alpha is ''boot'', which produces a gzip-compressed ELF image, ''arch/alpha/boot/vmlinux.gz''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)] [[software:boot_loaders:aboot|aboot]] loads either the compressed or the uncompressed image; the uncompressed ''vmlinux'' is needed for QEMU (see [[documentation:qemu|QEMU]]) and for a kernel written directly after aboot with ''swriteboot''. The other targets are rarely used:
+
+^ Target ^ Output ^ Use ^
+| ''boot'' | ''arch/alpha/boot/vmlinux.gz'' | The kernel for aboot, the normal case |
+| ''bootimage'' | ''arch/alpha/boot/bootimage'' | A kernel that SRM boots directly from a disk, without aboot |
+| ''bootpfile'' | ''arch/alpha/boot/bootpfile'' | A kernel that SRM loads over the network with BOOTP |
+| ''bootpzfile'' | ''arch/alpha/boot/bootpzfile'' | A compressed BOOTP image |
+
+aboot's own ''netabootwrap'' is usually a better choice than ''bootpfile'' for network booting, since its images can include an initrd. See [[software:boot_loaders:aboot#network_booting|Network booting]].
+
+A native build on real hardware is slow, so most kernel development is done with a cross compiler and tested in [[documentation:qemu|QEMU]] before real hardware.
+
+=== Cross compiling ===
+
+Any cross compiler targeting ''alpha-linux-gnu'' builds the kernel. The ''CROSS_COMPILE'' prefix depends on where the compiler comes from; see [[documentation:toolchains#cross_compilers|Cross compilers]].
+
+<code>
+make ARCH=alpha CROSS_COMPILE=alpha-linux-gnu- defconfig
+make ARCH=alpha CROSS_COMPILE=alpha-linux-gnu- -j$(nproc)
+</code>
+
+The kernel builds only with GCC and GNU binutils. LLVM has had no Alpha back end since 2011, so ''LLVM=1'' does not work, and the Rust support in the kernel is not available on Alpha. See [[status#what_is_missing|Current Status]].
+
+The kernel is compiled with ''-mno-fp-regs'' and ''-ffixed-8'', and passes ''-Wa,-mev6'' to the assembler so that it never silently emulates an instruction the target lacks. A generic kernel is built with ''-mcpu=ev56 -mtune=ev6''. A kernel configured for one system uses that system's processor: ''-mcpu=ev56'' for the 21164A systems, ''-mcpu=pca56'' for the PC164SX and PC164RX, and ''-mcpu=ev6'' or ''-mcpu=ev67'' for the 21264 systems. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)]
+
+==== Configuring for a system ====
+
+The system type is chosen under "Alpha system type" in the configuration. A generic kernel runs everywhere, while one configured for a specific system is smaller and faster, because the kernel can call the chipset's routines directly instead of through the machine vector. A kernel built for one system panics with "Unsupported system type" on any other. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v7.3-rc1|arch/alpha/kernel/setup.c]], Linux 7.3)] Distribution kernels are generic.
+
+^ Option ^ Systems ^
+| ''CONFIG_ALPHA_GENERIC'' | All supported systems |
+| ''CONFIG_ALPHA_ALCOR'' | [[hardware:systems:alcor|AlphaStation 500 and 600, Alpha XL 300 to 433]] |
+| ''CONFIG_ALPHA_DP264'' | [[hardware:systems:monet|XP1000]], [[hardware:systems:webbrick|DS10, DS10L, XP900]], [[hardware:systems:goldrush|DS20, DS20E]], [[hardware:systems:clipper|ES40]], [[hardware:motherboards:pc264dp|264DP]], [[hardware:motherboards:up2000|UP2000, UP2000+]], and QEMU |
+| ''CONFIG_ALPHA_EIGER'' | An OEM Tsunami board about which little is known |
+| ''CONFIG_ALPHA_LX164'' | [[hardware:motherboards:pc164lx|AlphaPC 164LX]] |
+| ''CONFIG_ALPHA_MARVEL'' | [[hardware:systems:marvel|ES47, ES80, GS1280]] |
+| ''CONFIG_ALPHA_MIATA'' | [[hardware:systems:miata|Personal Workstation]] |
+| ''CONFIG_ALPHA_MIKASA'' | [[hardware:systems:mikasa|AlphaServer 1000]] |
+| ''CONFIG_ALPHA_NAUTILUS'' | [[hardware:motherboards:up1000|UP1000]], [[hardware:motherboards:up1100|UP1100]], [[hardware:motherboards:up1500|UP1500]] |
+| ''CONFIG_ALPHA_NORITAKE'' | [[hardware:systems:noritake|AlphaServer 1000A and 800, AlphaStation 600A]] |
+| ''CONFIG_ALPHA_PC164'' | [[hardware:motherboards:pc164|AlphaPC 164]] |
+| ''CONFIG_ALPHA_RAWHIDE'' | [[hardware:systems:rawhide|AlphaServer 1200, 4000, 4100]] |
+| ''CONFIG_ALPHA_RUFFIAN'' | [[hardware:motherboards:pc164ux|AlphaPC 164UX]] |
+| ''CONFIG_ALPHA_RX164'' | [[hardware:motherboards:pc164rx|AlphaPC 164RX]] |
+| ''CONFIG_ALPHA_SABLE'' | [[hardware:systems:sable|AlphaServer 2000 and 2100]] with 21164A CPUs |
+| ''CONFIG_ALPHA_SHARK'' | [[hardware:systems:shark|DS20L, CS20]] |
+| ''CONFIG_ALPHA_SX164'' | [[hardware:motherboards:pc164sx|AlphaPC 164SX]] |
+| ''CONFIG_ALPHA_TAKARA'' | An OEM 21164 board |
+| ''CONFIG_ALPHA_TITAN'' | [[hardware:systems:titan|DS15, DS25, ES45]] |
+| ''CONFIG_ALPHA_WILDFIRE'' | [[hardware:systems:wildfire|GS80, GS160, GS320]] |
+
+Other options worth knowing about:
+
+  * ''CONFIG_ALPHA_EV67'' should be set on DP264 systems with 21264A or later CPUs, and is set automatically for the platforms that only take them. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)]
+  * ''CONFIG_ALPHA_LEGACY_START_ADDRESS'' links the kernel at the old start address, ''0x310000''. It must be off for the Titan, Wildfire, and Marvel systems, whose consoles occupy more memory. See [[hardware:systems#identifying_a_system|Identifying a system]].
+  * ''CONFIG_ALPHA_QEMU'' builds a kernel that runs only under QEMU. A generic kernel detects QEMU by itself. See [[software:emulators#qemu-palcode|qemu-palcode]].
+  * ''CONFIG_SRM_ENV'' exposes the SRM environment variables under ''/proc/srm_environment''.
+  * ''CONFIG_VERBOSE_MCHECK'' decodes machine checks, which is useful when reporting hardware problems.
+  * ''CONFIG_NR_CPUS'' defaults to 32 for generic and Marvel kernels and to 4 for the others, since no other system has more than four processors with working support. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)]
+
+The machine vector of a generic kernel can be forced at boot with ''alpha_mv='', for example ''alpha_mv=Rawhide''. See [[hardware:systems#identifying_a_system|Identifying a system]].
+
+==== Submitting patches ====
+
+Alpha patches follow the kernel's normal process, described in the kernel's own [[https://docs.kernel.org/process/submitting-patches.html|Submitting patches]] guide. A patch that touches ''arch/alpha'' goes by email to linux-alpha@vger.kernel.org, with the maintainers on Cc. ''scripts/get_maintainer.pl'' lists them:
+
+<code>
+git format-patch -1 --cover-letter -o outgoing/
+./scripts/get_maintainer.pl outgoing/*.patch
+git send-email --to linux-alpha@vger.kernel.org --cc ... outgoing/*.patch
+</code>
+
+The list is archived on [[https://lore.kernel.org/linux-alpha/|lore.kernel.org]], which is the easiest way to follow it and to apply a series under discussion, for example with ''b4 am'' //message-id//. Patches that also touch generic code are sent to the subsystem's own list and maintainers as well, as ''get_maintainer.pl'' reports.
+
+Accepted patches are collected in the maintainers' trees on git.kernel.org and sent to Linus Torvalds during the merge window, as a pull request tagged ''alpha-for-v//x.y//''. Alpha changes also reach mainline through other trees: tree-wide cleanups, system call additions, and changes to generic infrastructure that Alpha adopts, such as the generic entry code merged for Linux 7.3. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ca58a3dde621067333f481547db4afc587d7708a|"Merge tag 'alpha-for-v7.3-tag'"]], Linux 7.3)]
+
+Before sending a patch, it should at least build as a generic kernel and boot under QEMU. Changes to code that QEMU does not emulate, such as a chipset other than Tsunami, need testing on the hardware, and the list is the place to ask someone with the system to test.
+
+==== Reporting bugs ====
+
+Bugs in the Alpha kernel are best reported to linux-alpha@vger.kernel.org. A report should include:
+
+  * the kernel version and whether it is a distribution or a mainline kernel,
+  * the system model and CPU, from ''/proc/cpuinfo'' or the SRM ''show config'' command,
+  * the console firmware version (''show version'' at the SRM prompt),
+  * the full kernel log from boot, captured from a [[documentation:installation#serial_console|serial console]] if the system does not come up,
+  * the kernel configuration, if it is not a distribution kernel.
+
+For a regression, the last kernel version that worked and the first that failed are the most useful information, and a ''git bisect'' between them is better still. Bisecting is practical with a cross compiler and a network boot, or under [[documentation:qemu|QEMU]] if the problem reproduces there.
+
+The kernel's own [[https://docs.kernel.org/admin-guide/reporting-issues.html|Reporting issues]] guide describes the process in general. Known problems are tracked in the [[https://github.com/alphalinux-org/issues|alphalinux-org/issues]] repository, and trackers for the other projects are listed on [[tasks:bugs|Bugs]].
+
+==== See also ====
+
+  * [[documentation:installation|Installation]]
+  * [[documentation:toolchains|Toolchains]]
+  * [[hardware:systems|Systems]], for the kernel platform of each system
+  * [[software:operating_systems#linux|Operating Systems: Linux]], for the systems removed in Linux 6.10
+
+{{tag>documentation kernel}}
