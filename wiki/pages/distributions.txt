@@ -11,13 +11,15 @@ Three Linux distributions produce current releases for Alpha: Gentoo, Debian thr
 
 === Gentoo ===
 
-[[https://www.gentoo.org/|Gentoo Linux]] has a maintained [[https://wiki.gentoo.org/wiki/Project:Alpha|Alpha port]], installed by hand from a minimal install CD and a stage3 tarball, following the [[https://wiki.gentoo.org/wiki/Handbook:Alpha|Gentoo Handbook for Alpha]]. New stage3 tarballs, for OpenRC and systemd, are built regularly. [(>[[https://distfiles.gentoo.org/releases/alpha/autobuilds/|releases/alpha/autobuilds]], distfiles.gentoo.org)] All packages are keyworded unstable (''~alpha''), and have been since January 2020; the Alpha profiles are stable. The profile sets ''CHOST'' to ''alpha-unknown-linux-gnu'' and no ''-mcpu'', so the stages run on any Alpha processor that the kernel supports. [(>[[https://gitweb.gentoo.org/repo/gentoo.git/tree/profiles/arch/alpha/make.defaults|profiles/arch/alpha/make.defaults]], gentoo.git)] The port uses the gentoo-alpha mailing list and the ''#gentoo-alpha'' IRC channel. Its history is described under [[history:community#the_gentoo_alpha_port|Community History]].
+[[https://www.gentoo.org/|Gentoo Linux]] has a maintained [[https://wiki.gentoo.org/wiki/Project:Alpha|Alpha port]], installed by hand from a minimal install CD and a stage3 tarball, following the [[https://wiki.gentoo.org/wiki/Handbook:Alpha|Gentoo Handbook for Alpha]]. New stage3 tarballs, for OpenRC and systemd, are built regularly. [(>[[https://distfiles.gentoo.org/releases/alpha/autobuilds/|releases/alpha/autobuilds]], distfiles.gentoo.org)] All packages are keyworded unstable (''~alpha''), and have been since January 2020; the Alpha profiles are stable.
+
+The profile sets ''CHOST'' to ''alpha-unknown-linux-gnu'' and no ''-mcpu'', so the stages run on any Alpha processor that the kernel supports. [(>[[https://gitweb.gentoo.org/repo/gentoo.git/tree/profiles/arch/alpha/make.defaults|profiles/arch/alpha/make.defaults]], gentoo.git)] The port uses the gentoo-alpha mailing list and the ''#gentoo-alpha'' IRC channel. Its history is described under [[history:community#the_gentoo_alpha_port|Community History]].
 
 === Debian ===
 
-[[https://www.debian.org/|Debian]] released Alpha as an official architecture from Debian 2.1 (Slink), in March 1999, [(>[[https://www.debian.org/releases/slink/|Debian GNU/Linux 2.1 ("slink")]], debian.org)] to Debian 5.0 (Lenny), in February 2009. [(>[[https://www.debian.org/releases/lenny/|Debian "lenny" Release Information]], debian.org)] Alpha was not a release architecture in Debian 6.0 (Squeeze) or later, and has continued since then as an unofficial port in [[https://www.debian.org/ports/alpha/|Debian Ports]], which builds the unstable distribution only. The port is maintained by [[user:creemj|Michael Cree]] and others.
+Alpha was an official [[https://www.debian.org/|Debian]] architecture from Debian 2.1 (1999) [(>[[https://www.debian.org/releases/slink/|Debian GNU/Linux 2.1 ("slink")]], debian.org)] to 5.0 (2009), [(>[[https://www.debian.org/releases/lenny/|Debian "lenny" Release Information]], debian.org)] and is now an unofficial port in [[https://www.debian.org/ports/alpha/|Debian Ports]], which builds only the unstable distribution (''sid''). The port is maintained by [[user:creemj|Michael Cree]] and others.
 
-Debian Ports publishes netinst CD images as dated snapshots. [(>[[https://cdimage.debian.org/cdimage/ports/snapshots/|cdimage/ports/snapshots]], cdimage.debian.org)] Since May 2023 Debian's GCC has generated EV56 code by default; see [[documentation:toolchains#distribution_baselines|Distribution baselines]]. Packages are built both on Alpha hardware and on QEMU. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-January.mbox#L2472|"Re: Booting Debian in qemu-system-alpha"]], John Paul Adrian Glaubitz, debian-alpha, 24 Jan 2020)] The port uses the [[https://lists.debian.org/debian-alpha/|debian-alpha]] mailing list.
+Debian Ports publishes netinst CD images as dated snapshots. [(>[[https://cdimage.debian.org/cdimage/ports/snapshots/|cdimage/ports/snapshots]], cdimage.debian.org)] Since May 2023 Debian's GCC has generated EV56 code by default; see [[documentation:toolchains#distribution_baselines|Distribution baselines]]. The port uses the [[https://lists.debian.org/debian-alpha/|debian-alpha]] mailing list.
 
 === T2 SDE ===
 
@@ -34,9 +36,9 @@ Many Linux distributions formerly supported Alpha. The table lists each one's la
 | SuSE Linux | 7.1 | Former members of the SuSE Alpha team later released an unofficial SuSE Linux 8.1 Alpha Edition. See [[history:companies#suse|SuSE]]. |
 | Mandrake Linux | 7.1 | Developed in the open on the cooker-axp list. See [[history:companies#mandrakesoft|MandrakeSoft]]. |
 | TurboLinux | 6.0 | Alpha edition shipped in July 2000. See [[history:companies#turbolinux|TurboLinux]]. |
-| AlphaCore | 3 | Unofficial port of Fedora Core to Alpha. Version 1.0, named "Svetlana" and based on Fedora Core 3, was released on 8 May 2005 by Balint Cristian and Sergey Tikhonov. |
-| CentOS | 4 | The Alpha tree was declared end of life by its maintainer, Pasi Pirhonen, in August 2006. Packages continued to be rebuilt informally through RHEL 4 Update 4. The later CentOS 4 point releases on vault.centos.org carry an unchanged copy of this tree. |
+| AlphaCore | 3 | Unofficial port of Fedora Core to Alpha. Its last release, Alpha Core 3, was based on Fedora Core 5. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2007-March.mbox#L114|"Alpha Core 3 is available"]], Sergey Tikhonov, axp-list, 5 Mar 2007)] |
+| CentOS | 4 | The Alpha tree was declared end of life by its maintainer in August 2006. |
 
 A Slackware port to Alpha was attempted more than once, most seriously in 2001, but was never completed and had been abandoned by 2004.
 
-{{tag>community history}}
+{{tag>distributions history}}

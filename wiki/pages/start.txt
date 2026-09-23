@@ -4,25 +4,25 @@
 
 Alpha/Linux is a port of [[wp>Linux|Linux]] to the [[wp>DEC_Alpha|Alpha architecture]].
 
-Alpha is supported in mainline Linux, GCC, binutils, and glibc, and Gentoo, Debian Ports, and T2 SDE produce current releases. Current kernels require an EV56 (21164A) or later processor; see [[status|Current Status]] for what works today and what is missing.
+Alpha is supported in mainline Linux, GCC, binutils, glibc, and QEMU. Gentoo, Debian Ports, and T2 SDE produce current releases. Current kernels require an EV56 (21164A) or later processor; see [[status|Current Status]] for what works today and what is missing.
 
 **Getting started:** check that the system is supported in the [[hardware:systems|Systems]] table, then follow [[documentation:installation|Installation]]. Without Alpha hardware, [[documentation:qemu|QEMU]] runs current distributions. Questions are welcome on the [[community|mailing lists and IRC]], and many are answered in the [[faq|FAQ]].
 
 <WRAP col3 navcols>
 ==== Software ====
-[[Software:Operating Systems]] • [[Software:Boot Loaders]] • [[Software:Firmware]] • [[Software:Emulators]]
+[[Software:Operating Systems]] • [[distributions|Distributions]] • [[Software:Boot Loaders]] • [[Software:Firmware]] • [[Software:Emulators]]
 
 ==== Hardware ====
 [[Hardware:Systems]] • [[hardware:motherboards|Motherboards]] • [[Hardware:CPUs]] • [[Hardware:Chipsets]] • [[Hardware:Other]]
 
 ==== Documentation ====
-[[faq|FAQ]] • [[glossary|Glossary]] • [[documentation:installation|Installation]] • [[documentation:qemu|QEMU]] • [[documentation:kernel|Kernel]] • [[documentation:srm|Using SRM]] • [[Documentation:Porting]] • [[Documentation:Toolchains]] • [[Documentation:Instruction Set]] • [[Documentation:References]]
+[[status|Current Status]] • [[faq|FAQ]] • [[glossary|Glossary]] • [[documentation:installation|Installation]] • [[documentation:qemu|QEMU]] • [[documentation:kernel|Kernel]] • [[documentation:srm|Using SRM]] • [[Documentation:Porting]] • [[Documentation:Toolchains]] • [[Documentation:Instruction Set]] • [[Documentation:References]]
 
 ==== Tasks ====
 [[Tasks:Bugs]] • [[Tasks:Todo|To Do]]
 
 ==== Community ====
-[[community#mailing_lists|Mailing Lists]] • [[community#irc|IRC]] • [[community#forums|Forums]] • [[distributions|Distributions]] • [[contributing|Contributing]]
+[[community#mailing_lists|Mailing Lists]] • [[community#irc|IRC]] • [[community#forums|Forums]] • [[contributing|Contributing]]
 
 ==== History ====
 [[History:Companies]] • [[History:Community]] • [[History:News Coverage]] • [[History:alphalinux.org]]

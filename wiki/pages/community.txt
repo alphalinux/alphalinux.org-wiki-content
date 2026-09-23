@@ -12,9 +12,9 @@ The Alpha/Linux kernel mailing list is **linux-alpha@vger.kernel.org**, hosted a
   * **NNTP:** the list can be read at **nntp://nntp.lore.kernel.org**.
   * **Archives:** [[https://lore.kernel.org/linux-alpha/|lore.kernel.org]], from April 2002, and [[https://marc.info/?l=linux-alpha|marc.info]], from May 1998.
 
-Both [[https://archives.gentoo.org/gentoo-alpha/|Gentoo]] and [[https://lists.debian.org/debian-alpha/|Debian]] have distribution-related Alpha mailing lists.
+Gentoo and Debian each have an Alpha mailing list: [[https://archives.gentoo.org/gentoo-alpha/|gentoo-alpha]] and [[https://lists.debian.org/debian-alpha/|debian-alpha]].
 
-The [[https://mail-index.netbsd.org/port-alpha/|NetBSD Alpha]] and [[http://marc.info/?l=openbsd-alpha|OpenBSD Alpha]] mailing lists, both still active, also carry Alpha hardware and porting information.
+The [[https://mail-index.netbsd.org/port-alpha/|NetBSD Alpha]] and [[http://marc.info/?l=openbsd-alpha|OpenBSD Alpha]] mailing lists also carry Alpha hardware and porting information.
 
 The lists that carried most of the port's history, among them Red Hat's **axp-list** and the lists hosted on alphalinux.org, are gone, as are the Alpha newsgroups. Their archives are described in [[history:community|Community History]].
 

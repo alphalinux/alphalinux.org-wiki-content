@@ -20,8 +20,8 @@ The wiki is DokuWiki. Every edit is committed to a git repository, where it can 
 
 ==== Style ====
 
-  * **Write in encyclopedic style.** State facts plainly, in the third person, without "we" or "you" outside the step-by-step guides. Prefer the past tense for history and the present tense for what is still true.
-  * **Write for today's reader.** Pages should help someone running or developing Linux on Alpha now. Historical detail belongs on a page when it is still useful or interesting; long-fixed bugs, old distribution workarounds, and settled mailing list debates usually are not.
+  * **Write in encyclopedic style.** State facts plainly, in the third person, without "we" or "you" outside the step-by-step guides and this page. Prefer the past tense for history and the present tense for what is still true.
+  * **Write for today's reader.** Pages should help someone running or developing Linux on Alpha now. Historical detail belongs on the history pages; other pages keep it only when it still helps a present-day reader. Long-fixed bugs, old distribution workarounds, and settled mailing list debates usually do not.
   * **State facts, not who said them.** Write "The XL needs MILO", with the mailing list message in the footnote, rather than "In 2004, Jay Estabrook said that the XL needs MILO". Attribute a statement in the text only when it is an opinion or is disputed.
   * **Cite a source for every fact** that is not common knowledge, with a footnote directly after the sentence it supports. Footnotes use the refnotes syntax, for example:<code>
 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L37024|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 14 Jul 1998)]
@@ -38,7 +38,7 @@ The wiki is DokuWiki. Every edit is committed to a git repository, where it can 
   * New system and motherboard pages start from a template with an infobox; creating a page in ''hardware:systems'' or ''hardware:motherboards'' fills it in. The infobox fields are explained in the template.
   * Tag each page at the end with ''%%{{tag>...}}%%'', using the tags of similar pages.
   * Manuals, data sheets, and photographs go in the media manager, under the same namespace as the page that uses them, for example ''wiki:hardware:systems:alphaserver_es40''. Upload only documents that may be redistributed.
-  * A news entry is one table row in [[:news|News]], newest first: the date, what changed, with a link to the patch or release, who did the work, and the release that will include it.
+  * A news entry is one table row in [[:news|News]], newest first: the date, what changed, with a link to the patch or release, who did the work, and, when known, the release that will include it.
 
 ==== See also ====
 

@@ -17,8 +17,8 @@ Digital named each Alpha processor design with an EV number, usually expanded as
 | **EV67** | 21264A | Adds CIX |
 | **EV68** | 21264B, 21264C, 21264D | Die shrinks of the EV67, in several variants (EV68AL, EV68CB, EV68CX) |
 | **EV7** | 21364 | EV68 core with integrated memory controllers and interprocessor links, used in the ES47, ES80, and GS1280 |
-| **EV79** | 21364A | A die shrink of the EV7, cancelled |
-| **EV8** | 21464 | A four-thread simultaneous multithreading design, cancelled in 2001 |
+| **EV79** | 21364A | A die shrink of the EV7, canceled |
+| **EV8** | 21464 | A four-thread simultaneous multithreading design, canceled in 2001 |
 
 ==== Instruction set extensions ====
 
@@ -42,7 +42,7 @@ The Alpha architecture was extended after the first processors shipped. Each ext
   * **SRM**, the console firmware for OpenVMS and Digital UNIX, named after the //Alpha System Reference Manual// that specifies it. It has a ''%%>>>%%'' command prompt, and is the firmware Linux should boot from. See [[software:firmware:srm|SRM Console]] and [[documentation:srm|Using the SRM Console]].
   * **ARC**, the menu-driven firmware for Windows NT, after the Advanced RISC Computing specification. See [[software:firmware:arc|ARC Firmware]].
   * **AlphaBIOS**, the later, PC BIOS-like firmware for Windows NT that replaced ARC. Also on the [[software:firmware:arc|ARC Firmware]] page.
-  * **ARCSBIOS**, the firmware of Deskstation's Ruffian board.
+  * **ARCSBIOS**, the firmware of Deskstation's Ruffian board. See [[software:firmware:arc#arcsbios|ARC Firmware: ARCSBIOS]].
   * **MILO**, the Alpha Linux Miniloader: a boot loader that brings its own PALcode, so that Linux can boot from ARC and AlphaBIOS. See [[software:boot_loaders:milo|MILO]].
   * **aboot**, the Linux boot loader for SRM systems. See [[software:boot_loaders:aboot|aboot]].
   * **HWRPB**, the Hardware Restart Parameter Block: the structure in which the firmware describes the system to the operating system, including its type, processors, and memory. See [[software:firmware:srm#hwrpb|SRM Console: HWRPB]].

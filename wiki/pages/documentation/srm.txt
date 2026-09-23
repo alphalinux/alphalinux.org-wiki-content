@@ -8,7 +8,7 @@ With ''auto_action'' set to ''halt'', the default, an SRM system stops at the ''
 
   * **<key>C-c</key> during startup.** Pressing <key>C-c</key> repeatedly while the console is initializing, before it starts the boot, stops the automatic boot. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L1499|"Re: Getting out of aboot in SRM?"]], Jay Estabrook, axp-list, 2 Jun 1997)]
   * **The Halt button.** Most Digital systems have a Halt button on the front panel. Pressed in at power-up, it brings the system up at the SRM prompt whatever ''auto_action'' says; pressed while an operating system runs, it sends a halt interrupt to the CPU. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 1-9)] A button left in brings the system up at the prompt on every power-up.
-  * **<key>C-p</key>.** <key>C-p</key> halts OpenVMS from a serial console, [(>{{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 32)] but under Linux it is an ordinary character. The Linux equivalent is the Magic SysRq ''b'' command, which halts a kernel booted from SRM back to the prompt; see [[documentation:kernel#debugging|Kernel: Debugging]].
+  * **<key>C-p</key>.** <key>C-p</key> halts OpenVMS from a serial console, [(>{{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 32)] but under Linux it is an ordinary character. Under Linux, Magic SysRq ''b'' has the same effect on a system booted from SRM: it halts to the prompt instead of rebooting; see [[documentation:kernel#debugging|Kernel: Debugging]].
   * **Shutting down Linux.** ''halt'' or ''poweroff'' returns to SRM on most systems, although SRM may then report machine checks or show a blank screen, because Linux has changed the state it left the system in; ''init'' at the prompt resets it. See [[software:firmware:srm#known_issues|Known issues]].
   * **The remote management console.** Systems with an RMC, such as the ES40, DS20E, and ES45, can halt and reset the system from the RMC prompt, reached with its escape sequence on the COM1 port. See [[#remote_management|Remote management]].
 
@@ -37,7 +37,7 @@ picocom -b 9600 /dev/ttyUSB0
 
 === Linux ===
 
-Linux does not inherit the firmware's console setting. The kernel must be told to use the serial port, with ''console=ttyS0'' in the kernel arguments (see [[#booting_linux|Booting Linux]]). The speed can be given as well, as in ''console=ttyS0,9600n8'', to match the console's. If a graphics console is also wanted, both can be given; the last one named becomes ''/dev/console''.
+Linux does not inherit the firmware's console setting. The kernel must be told to use the serial port, with ''console=ttyS0'' in the kernel arguments (see [[#booting_linux|Booting Linux]]). The speed can be given as well, as in ''console=ttyS0,9600n8'', to match the console's. If a graphics console is also wanted, both can be given; the last one named becomes ''/dev/console''. The ES47, ES80, and GS1280 need ''console=srm'' (below) instead of ''console=ttyS0''; see [[hardware:systems:marvel|Marvel]].
 
 For the permanent setting, add ''console=ttyS0'' to the entry in ''/etc/aboot.conf'', or to ''boot_osflags'' if the kernel arguments are kept there. Most distributions start a login prompt on the kernel's console automatically, at the kernel's console speed.
 
@@ -56,7 +56,7 @@ The ES47, ES80, and GS1280 have a backplane manager (MBM) instead, with its own 
 
 ==== Everyday commands ====
 
-The commands below cover most of what is needed to run Linux. Commands may be abbreviated, and numbers are hexadecimal. The full list is on the [[software:firmware:srm#console_commands|SRM Console]] page and in each system's documentation. Not every console has every command; ''show fru'' in particular is found only on the larger systems.
+The commands below cover most of what is needed to run Linux. Commands may be abbreviated, and numeric arguments are usually hexadecimal. The full list is on the [[software:firmware:srm#console_commands|SRM Console]] page and in each system's documentation. Not every console has every command; ''show fru'' in particular is found only on the larger systems.
 
 ^ Command ^ What it shows or does ^
 | ''show config'' | The model, firmware versions, CPUs, memory, and every PCI and EISA device. The first thing to capture when asking for help |
@@ -73,17 +73,6 @@ The commands below cover most of what is needed to run Linux. Commands may be ab
 | ''test'' | Run the system's diagnostics |
 | ''isacfg'' | Edit the console's table of ISA devices on the Digital Semiconductor motherboards, which cannot detect ISA cards by themselves. The table is for Tru64 UNIX and OpenVMS; Linux does not read it [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 3-28 to 3-32)] |
 | ''wwidmgr'' | Register Fibre Channel disks so that SRM can boot from them [(>{{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 68)] |
-
-=== wwidmgr ===
-
-SRM does not scan Fibre Channel storage for bootable disks by itself. ''wwidmgr'' lists the disks it can see on a Fibre Channel loop or fabric and assigns each a small number, so that it appears as a ''dga'' device in ''show device''. On the AlphaServer 1200, 4000, 4100, 8200, 8400, GS60, and GS140 it runs only in diagnostic mode, entered with ''set mode diag''. On every system, ''init'' or a reset is needed after using it and before booting. [(>{{wiki:software:firmware:wwidmgr_v1.3_users_manual.pdf?linkonly|Wwidmgr User's Manual, V1.3}}, section 2.1)] [(>{{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 68)]
-
-<code>
->>> wwidmgr -show wwid
->>> wwidmgr -quickset -udid 10
->>> init
->>> show device
-</code>
 
 ==== Booting Linux ====
 
@@ -102,17 +91,28 @@ Without an aboot.conf, or to boot a different kernel, name the kernel's partitio
 
 ''-flags i'' starts aboot's interactive prompt, whose ''l'' command lists the aboot.conf entries. The variables that make the system boot unattended, ''bootdef_dev'', ''boot_file'', ''boot_osflags'', and ''auto_action'', are set as described under [[documentation:installation#booting_the_installed_system|Installation: Booting the installed system]].
 
-A kernel can also be booted from the network with BOOTP and TFTP, for example ''boot ewa0 -protocol bootp''. ''ewa0_protocols'' sets the default protocol for the first Ethernet interface, ''mop'' unless changed, and ''ewa0_mode'' its media type, such as ''fast'' or ''fastfd'' for 100BaseT; other interfaces use ''ewb0_'' and so on. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, pp. 2-67 to 2-68)] See [[software:boot_loaders:aboot#network_booting|aboot: Network booting]] for the server side.
+A kernel can also be booted from the network with BOOTP and TFTP, for example ''boot -protocols bootp ewa0''. ''ewa0_protocols'' sets the default protocol for the first Ethernet interface, ''mop'' unless changed, and ''ewa0_mode'' its media type, such as ''fast'' or ''fastfd'' for 100BaseT; other interfaces use ''ewb0_'' and so on. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, pp. 2-67 to 2-68)] See [[software:boot_loaders:aboot#network_booting|aboot: Network booting]] for the server side.
 
 If the system halts back to the prompt instead of booting, the usual causes are:
 
   * The disk has no BSD disklabel or no aboot. Check that ''show device'' lists the disk, and see [[documentation:installation#partitioning|Partitioning]].
   * The kernel is not on the named partition, or the partition number is wrong. Boot with ''-flags i'' and list the directory with aboot's ''d'' command.
-  * A pre-EV56 processor with a kernel from Linux 6.10 or later, which stops without printing anything. See [[:status|Current Status]].
+  * A pre-EV56 processor with a kernel from Linux 6.10 or later, which stops without printing anything. See [[:status#processor_baseline|Current Status]].
+
+=== wwidmgr ===
+
+SRM does not scan Fibre Channel storage for bootable disks by itself. ''wwidmgr'' lists the disks it can see on a Fibre Channel loop or fabric and assigns each a small number, so that it appears as a ''dga'' device in ''show device''. On the AlphaServer 1200, 4000, 4100, 8200, 8400, GS60, and GS140 it runs only in diagnostic mode, entered with ''set mode diag''. On every system, ''init'' or a reset is needed after using it and before booting. [(>{{wiki:software:firmware:wwidmgr_v1.3_users_manual.pdf?linkonly|Wwidmgr User's Manual, V1.3}}, section 2.1)] [(>{{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 68)]
+
+<code>
+>>> wwidmgr -show wwid
+>>> wwidmgr -quickset -udid 10
+>>> init
+>>> show device
+</code>
 
 ==== Firmware versions ====
 
-Use the last SRM version released for the system, listed in the table of [[software:firmware:srm#final_versions|final versions]]. Older versions may be too old for Linux: the DS20E, for example, needs V5.6-3 or later, [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20e_reference_guide.pdf?linkonly|AlphaServer DS20E Reference Guide}})] and later versions added booting from Adaptec SCSI controllers and support for more video cards (see [[software:firmware:srm#known_issues|Known issues]]).
+Use the last SRM version released for the system, listed in the table of [[software:firmware:srm#final_versions|final versions]]. Older versions may be too old for Linux: the DS20E, for example, needs V5.6-3 or later, [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20e_reference_guide.pdf?linkonly|AlphaServer DS20E Reference Guide}})] and booting from Adaptec SCSI controllers needs V5.8 on the AlphaPC 164LX and 164SX and V5.9 on the DS10, DS20, ES40, and XP1000 (see [[software:firmware:srm#known_issues|Known issues]]). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L35378|"Re: Alpha PC164, SRM, and Adaptec 2940UW"]], Jay Estabrook, axp-list, 11 Apr 2001)]
 
 Archived firmware images and the update procedure are described in [[software:firmware#obtaining_and_updating_firmware|Firmware: Obtaining and updating firmware]].
 

@@ -10,12 +10,12 @@ Only if it has an EV56 (21164A) or later processor. Linux 6.10 removed support f
 
 === Which firmware does my system need? ===
 
-For Linux, the [[software:firmware:srm|SRM console]], wherever the system has it. The ARC and AlphaBIOS firmware were written for Windows NT, and boot Linux only through [[software:boot_loaders:milo|MILO]], which no distribution has shipped for many years. SRM boots Linux with [[software:boot_loaders:aboot|aboot]], the boot loader that current distributions install, and it is the only firmware that supports multiprocessor systems and every 21264 system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L37024|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 14 Jul 1998)]
+For Linux, the [[software:firmware:srm|SRM console]], wherever the system has it. The ARC and AlphaBIOS firmware were written for Windows NT, and boot Linux only through [[software:boot_loaders:milo|MILO]], which no distribution has shipped for many years. SRM boots Linux with [[software:boot_loaders:aboot|aboot]], the boot loader that current distributions install, and it is the only firmware that can boot Linux on multiprocessor systems. Every 21264 system has it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L37024|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 14 Jul 1998)]
 
   * **Systems with only SRM**, such as the AlphaServers, need nothing further. Update to the last SRM version; see [[software:firmware:srm#final_versions|Final versions]].
   * **Systems with both**, such as the Personal Workstation, the AlphaStation 500 and 600, and the 21264 workstations and servers, should be switched to SRM. See [[software:firmware:arc#switching_to_srm|Switching to SRM]].
   * **Systems whose flash holds only one firmware**, such as the AlphaPC 164LX and 164SX sold with AlphaBIOS, can be reflashed with SRM. See [[software:firmware:srm#updating_firmware|Updating firmware]].
-  * **Systems with no SRM**, the Alpha XL family and the Ruffian (AlphaPC 164UX), can only boot Linux with MILO. See [[documentation:installation#arc-only_systems|ARC-only systems]].
+  * **Systems with no SRM**, the Alpha XL 366 and 433 (XLT), the AlphaPC 164UX (Ruffian), and the AlphaPC 164RX, can only boot Linux with MILO, and no current kernel has yet been reported booting through it. See [[documentation:installation#arc-only_systems|ARC-only systems]] and [[software:boot_loaders:milo|MILO]].
 
 === Which Alpha should I get? ===
 
@@ -35,7 +35,7 @@ The console settings and the clock are kept in memory backed by a battery on the
 
 === How do I get a serial console? ===
 
-''set console serial'' and ''init'' at the SRM prompt, and ''console=ttyS0'' on the kernel command line. Both are needed. See [[documentation:srm#serial_console|Using the SRM Console]].
+''set console serial'' and ''init'' at the SRM prompt, and ''console=ttyS0'' on the kernel command line. Both are needed. The ES47, ES80, and GS1280 need ''console=srm'' instead of ''console=ttyS0''. See [[documentation:srm#serial_console|Using the SRM Console]].
 
 === Can I try Alpha/Linux without Alpha hardware? ===
 
@@ -49,7 +49,7 @@ Update the SRM firmware, set up a serial console, partition the disk with a BSD 
 
 === Why can't fdisk create a partition table SRM will boot? ===
 
-SRM needs a BSD disklabel, and ''fdisk'' from util-linux has been unable to create one since about version 2.23. Use ''parted'' with ''mktable bsd''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2024-April.mbox#L85|"Re: [gentoo-alpha] fdisk on mini-installer iso"]], Matt Turner, gentoo-alpha, 8 Apr 2024)] See [[documentation:installation#partitioning|Installation: Partitioning]].
+SRM needs a BSD disklabel, and ''fdisk'' from util-linux cannot create one. Use ''parted'' with ''mktable bsd''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2024-April.mbox#L85|"Re: [gentoo-alpha] fdisk on mini-installer iso"]], Matt Turner, gentoo-alpha, 8 Apr 2024)] See [[documentation:installation#partitioning|Installation: Partitioning]].
 
 === aboot says "unknown compression method" ===
 
@@ -101,7 +101,7 @@ Alpha's C library is ''libc.so.6.1''. Code that hard-codes ''libc.so.6'', for ex
 
 === Is there Clang, Rust, or Go for Alpha? ===
 
-No Clang, and no ''rustc'', because LLVM has no Alpha back end. Go code can be built with ''gccgo''. See [[status#what_is_missing|Current Status]].
+No Clang, and no ''rustc'', because LLVM has no Alpha back end. ''gccgo'' builds Go code, but its library is that of Go 1.18, so software that needs a newer Go release does not build with it. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=libgo/VERSION|libgo/VERSION]], GCC)] See [[status#what_is_missing|Current Status]].
 
 ==== Getting help ====
 

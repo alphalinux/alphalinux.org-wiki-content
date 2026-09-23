@@ -15,11 +15,11 @@ In outline:
 
 === Supported systems ===
 
-Current kernels need an EV56 (21164A) or later processor. Check the CPU with the SRM ''show config'' command; a system with an EV4, EV45, or EV5 processor can run nothing newer than Linux 6.9, and no current distribution. See [[:status#processor_baseline|Current Status]] and the current kernel column of the [[hardware:systems|Systems]] and [[hardware:motherboards|Motherboards]] tables. Multiprocessor systems and all 21264 systems must boot from SRM.
+Current kernels need an EV56 (21164A) or later processor. Check the CPU with the SRM ''show config'' command; a system with an EV4, EV45, or EV5 processor can run nothing newer than Linux 6.9, and no current distribution. See [[:status#processor_baseline|Current Status]] and the current kernel column of the [[hardware:systems|Systems]] and [[hardware:motherboards|Motherboards]] tables. Multiprocessor systems must boot from SRM, and every 21264 system has it.
 
 === Firmware ===
 
-Update the SRM console to the last version released for the system before installing. Older versions cannot boot from some SCSI controllers or initialize some video cards, and some are too old for Linux at all. The last version for each system is listed under [[software:firmware:srm#final_versions|Final versions]], where to find the images under [[documentation:srm#firmware_versions|Using the SRM Console]], and how to install them under [[software:firmware:srm#updating_firmware|Updating firmware]]. ''show version'' at the prompt displays the current version.
+Update the SRM console to the last version released for the system before installing. Older versions cannot boot from some SCSI controllers or initialize some video cards, and some are too old for Linux at all. The last version for each system is listed under [[software:firmware:srm#final_versions|Final versions]], and where to find the images and how to install them under [[software:firmware#obtaining_and_updating_firmware|Firmware: Obtaining and updating firmware]]. ''show version'' at the prompt displays the current version.
 
 If the system starts ARC or AlphaBIOS rather than SRM, switch it to SRM first, as described in [[software:firmware:arc#switching_to_srm|Switching to SRM]].
 
@@ -32,13 +32,13 @@ Three distributions publish current Alpha install media:
 | Debian Ports | Netinst CD snapshots, and netboot images | [[https://cdimage.debian.org/cdimage/ports/snapshots/|cdimage.debian.org/cdimage/ports/snapshots]] |
 | T2 SDE | Install ISOs, built for EV56 | [[https://dl.t2sde.org/binary/|dl.t2sde.org/binary]] |
 
-Gentoo's minimal CD boots to a shell, from which the system is installed by hand from a stage3 tarball, following the [[https://wiki.gentoo.org/wiki/Handbook:Alpha|Gentoo Handbook for Alpha]]. Debian's netinst CDs, named ''debian-//version//-alpha-NETINST-1.iso'', start the Debian installer. They carry the kernel and initrd as ''/boot/vmlinuz'' and ''/boot/initrd.gz'', with aboot as ''/boot/bootlx'' and an ''/etc/aboot.conf''. Debian's Alpha porters recommend the CD snapshots over the separate netboot images, which see less testing. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L366|"Re: Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image"]], John Paul Adrian Glaubitz, debian-alpha, 27 Mar 2021)] T2 SDE's ISOs boot its own installer.
+Gentoo's minimal CD boots to a shell, from which the system is installed by hand from a stage3 tarball, following the [[https://wiki.gentoo.org/wiki/Handbook:Alpha|Gentoo Handbook for Alpha]]. Debian's netinst CDs boot the Debian installer, which partitions the disk and installs aboot itself. Debian's Alpha porters recommend the CD snapshots over the separate netboot images, which see less testing. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L366|"Re: Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image"]], John Paul Adrian Glaubitz, debian-alpha, 27 Mar 2021)] T2 SDE's ISOs boot its own installer.
 
 The image is written to a CD-R. SRM does not boot from USB storage, so a CD drive, or a network boot, is needed. Current SRM versions boot from SCSI and IDE (ATAPI) CD drives. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L23168|"Re: Bootable CD ?"]], Martin Ostermann, axp-list, 9 Nov 1998)] A system without a working CD drive can boot the installer over the network; see [[software:boot_loaders:aboot#network_booting|aboot: Network booting]].
 
 ==== Serial console ====
 
-A serial console is strongly recommended for the installation. Many video cards work only partly with the SRM console, and without a serial console, a kernel that fails to boot usually fails silently. It needs ''set console serial'' in SRM, and ''console=ttyS0'' in the kernel arguments, both when booting the installer and in ''/etc/aboot.conf'' for the installed system. See [[documentation:srm#serial_console|Using the SRM Console: Serial console]] for the settings, cables, and the RMC.
+A serial console is strongly recommended for the installation. Many video cards work only partly with the SRM console, and without a serial console, a kernel that fails to boot usually fails silently. It needs ''set console serial'' in SRM, and ''console=ttyS0'' in the kernel arguments, both when booting the installer and in ''/etc/aboot.conf'' for the installed system. The ES47, ES80, and GS1280 need ''console=srm'' instead of ''console=ttyS0''; see [[hardware:systems:marvel|Marvel]]. See [[documentation:srm#serial_console|Using the SRM Console: Serial console]] for the settings, cables, and the RMC.
 
 ==== Booting the installer ====
 
@@ -72,7 +72,7 @@ parted /dev/sda mkpart ext2 4609MiB 100%
 parted /dev/sda print
 </code>
 
-A BSD disklabel holds at most eight partitions, ''a'' to ''h'', which aboot and SRM number 1 to 8. Linux names them ''/dev/sda1'' and so on, in the same order. By convention partition ''c'' covers the whole disk; a disklabel created by ''parted'' has none, but a disk labeled by another tool may, and ''swriteboot'' then needs ''-f3''. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)]
+A BSD disklabel holds at most eight partitions, ''a'' to ''h'', which aboot and SRM number 1 to 8. Linux names them ''/dev/sda1'' and so on, in the same order. By convention partition ''c'' covers the whole disk; a disklabel created by ''parted'' has none, but a disk labeled by another tool may, and ''swriteboot'' then needs ''-f3'' to write the boot block although partition ''c'' overlaps it. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)]
 
 aboot 2.0 reads ''/boot'' from ext2, ext3, ext4, or XFS. It rejects ext4 file systems with some newer features, and cannot load a kernel file split into more than four extents; see [[software:boot_loaders:aboot#file_systems|aboot: File systems]]. A small ext2 ''/boot'' avoids both limits. Recycled disks with an old PC partition table can confuse installers; erasing the old signatures first, with ''wipefs -a /dev/sda'', avoids this. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L11200|"Re: swriteboot ?"]], Michal Jaegermann, axp-list, 23 Jan 2003)]
 
@@ -135,25 +135,11 @@ The disk in the Alpha may have a different name from the one under QEMU, and the
 
 ==== ARC-only systems ====
 
-A few systems have only the [[software:firmware:arc|ARC, AlphaBIOS, or ARCSBIOS]] firmware, whose PALcode is designed for Windows NT and cannot run Linux. They boot Linux with [[software:boot_loaders:milo|MILO]], which provides its own PALcode, instead of aboot. Among systems that current kernels still support, these are: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-September.mbox#L5923|"Alpha Core ISO Images"]], Jay Estabrook, axp-list, 29 Sep 2004)]
+A few systems have only the [[software:firmware:arc|ARC, AlphaBIOS, or ARCSBIOS]] firmware, whose PALcode is designed for Windows NT and cannot run Linux. They boot Linux with [[software:boot_loaders:milo|MILO]], which provides its own PALcode, instead of aboot. Among systems that current kernels still support, these are the Alpha XL 366 and 433 ([[hardware:systems:alcor|XLT]]), the [[hardware:motherboards:pc164ux|AlphaPC 164UX]] (Ruffian), and the [[hardware:motherboards:pc164rx|AlphaPC 164RX]]. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-September.mbox#L5923|"Alpha Core ISO Images"]], Jay Estabrook, axp-list, 29 Sep 2004)]
 
-  * the Alpha XL 366 and 433 (XLT), which have 21164A processors; the XL 300 has a 21164 and runs nothing newer than Linux 6.9, [(>{{wiki:hardware:systems:alpha_xl:alpha_xl_systems_and_options_catalog.pdf?linkonly|Alpha XL Personal Workstation for Windows NT, Digital Systems and Options Catalog}}, September 1996, p. 1)] [(>{{wiki:hardware:cpu:21164:21164_data_sheet.pdf?linkonly|Alpha 21164 Microprocessor Data Sheet}}, July 1996, p. 180)]
-  * the Deskstation Ruffian, [[hardware:motherboards:pc164ux|AlphaPC 164UX]] and BX, which have ARCSBIOS.
+Released versions of MILO cannot load kernels from Linux 2.6.23 onward. A fix was made in 2026, but no current kernel has yet been reported booting on these systems through MILO. [(>[[https://github.com/alphalinux-org/milo/commit/7a6701b734208c4fd36bb628996b32f811f6542a|"boot: skip non-PT_LOAD segments when loading kernel image"]], Matt Turner, MILO, 31 May 2026)] No current distribution ships MILO. The disk needs a PC (MBR) partition table with a small FAT partition for MILO and its loader, so it cannot also be booted from SRM; see [[software:boot_loaders:milo#from_arc_or_alphabios|MILO: From ARC or AlphaBIOS]].
 
-No current kernel has been reported booting on these systems through MILO.
-
-Most other systems sold with ARC or AlphaBIOS, among them the [[hardware:motherboards:pc164lx|AlphaPC 164LX]], [[hardware:motherboards:pc164sx|AlphaPC 164SX]], [[hardware:systems:miata|Personal Workstation]], and [[hardware:systems:alcor|AlphaStation 500 and 600]], can run SRM, and should be switched to it; see [[software:firmware:arc#switching_to_srm|Switching to SRM]].
-
-There is no usable MILO for the 21264 systems, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L43450|"Re: XP1000 & MILO & SCSI"]], Rich Payne, axp-list, 24 Nov 2000)] all of which have an SRM console. The [[hardware:motherboards:up1000|UP1000]] can also boot Linux from AlphaBIOS with API's APB loader, which needs a kernel built with the old start address; see [[documentation:kernel#kernel_start_address|Kernel start address]] and [[software:boot_loaders|Boot Loaders]].
-
-On a system that must use MILO:
-
-  * No current distribution ships MILO or installs it. MILO's last release, 2.2-18, is from 2001, and is based on Linux 2.2. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/milo-list-mbox/2001-July.mbox#L89|"[Milo-list] Milo 2.2-18 released."]], Stefan Reinauer, milo-list, 23 Jul 2001)] Its source is kept at [[https://github.com/alphalinux-org/milo|alphalinux-org/milo]].
-  * The disk needs a PC (MBR) partition table, with a small FAT partition first that holds ''linload.exe'' (or ''ldmilo.exe'' on the Ruffian) and the MILO image, because the firmware reads only FAT. It cannot also be booted from SRM. See [[software:boot_loaders:milo#from_arc_or_alphabios|MILO: From ARC or AlphaBIOS]].
-  * MILO does not support multiprocessor systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L37024|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 14 Jul 1998)]
-  * A kernel for the Ruffian or XLT can be generic, or configured with ''CONFIG_ALPHA_RUFFIAN'' or ''CONFIG_ALPHA_ALCOR''. See [[documentation:kernel#configuring_for_a_system|Kernel]].
-
-The installation is otherwise done as on an SRM system, from install media booted through MILO, or by preparing the disk on another machine or under [[documentation:qemu|QEMU]].
+Most other systems sold with ARC or AlphaBIOS, among them the [[hardware:motherboards:pc164lx|AlphaPC 164LX]], [[hardware:motherboards:pc164sx|AlphaPC 164SX]], [[hardware:systems:miata|Personal Workstation]], and [[hardware:systems:alcor|AlphaStation 500 and 600]], can run SRM, and should be switched to it; see [[software:firmware:arc#switching_to_srm|Switching to SRM]]. There is no usable MILO for the 21264 systems, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L43450|"Re: XP1000 & MILO & SCSI"]], Rich Payne, axp-list, 24 Nov 2000)] all of which have an SRM console.
 
 ==== See also ====
 

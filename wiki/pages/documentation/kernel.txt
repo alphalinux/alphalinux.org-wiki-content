@@ -8,13 +8,13 @@ The Alpha port has three maintainers: Richard Henderson, [[user:mattst88|Matt Tu
 
 ==== Processor support ====
 
-Since Linux 6.10, the kernel requires a processor with the byte/word extension (BWX), that is, an EV56 (21164A) or later. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] Linux 6.9 is the last version that runs on EV4, EV45, and EV5 processors, and on the systems that can only use them. The systems affected are listed under [[software:operating_systems#linux|Operating Systems]], and the reason for the change, that the kernel could not make byte and word stores atomic without BWX, under [[documentation:porting:byte_word_access|Byte and Word Access]].
+Since Linux 6.10, the kernel requires an EV56 (21164A) or later processor, and Linux 6.9 is the last version for the EV4, EV45, and EV5. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] See [[:status#processor_baseline|Current Status: Processor baseline]].
 
 ==== Building ====
 
 === Native builds ===
 
-A kernel is built on an Alpha system in the usual way. Alpha has one configuration in the tree, ''arch/alpha/configs/defconfig'', a generic configuration. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/configs?h=v7.3-rc1|arch/alpha/configs]], Linux 7.3)] A running distribution kernel's configuration is usually a better starting point, since it enables the drivers and file systems the distribution relies on. It is in ''/boot/config-//release//'', or in ''/proc/config.gz'' if the kernel was built with ''CONFIG_IKCONFIG_PROC''; ''make olddefconfig'' then answers the questions for options that are new in the source tree with their defaults.
+A kernel is built on an Alpha system in the usual way. Alpha has one configuration in the tree, ''arch/alpha/configs/defconfig'', a generic configuration. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/configs?h=v7.3-rc1|arch/alpha/configs]], Linux 7.3)] It turns on ''CONFIG_ALPHA_LEGACY_START_ADDRESS'', so a kernel built from it does not boot on the Titan, Wildfire, and Marvel systems; see [[#kernel_start_address|Kernel start address]]. A running distribution kernel's configuration is usually a better starting point, since it enables the drivers and file systems the distribution relies on. It is in ''/boot/config-//release//'', or in ''/proc/config.gz'' if the kernel was built with ''CONFIG_IKCONFIG_PROC''; ''make olddefconfig'' then answers the questions for options that are new in the source tree with their defaults.
 
 <code>
 zcat /proc/config.gz > .config
@@ -26,17 +26,11 @@ cp arch/alpha/boot/vmlinux.gz /boot/vmlinuz-$(make -s kernelrelease)
 cp System.map /boot/System.map-$(make -s kernelrelease)
 </code>
 
-Alpha has no ''make install'' target, so the kernel is copied to ''/boot'' by hand. [(>[(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)])] If the root file system or its drivers are not built into the kernel, an initramfs is then generated with the distribution's tool, such as ''update-initramfs -c -k //release//'' on Debian or ''dracut'' on Gentoo, and an entry for the new kernel is added to ''/etc/aboot.conf''; see [[software:boot_loaders:aboot#booting|aboot]]. Keeping the entry for the previous, working kernel makes it easy to go back to it from the SRM prompt.
+Alpha has no ''make install'' target, so the kernel is copied to ''/boot'' by hand. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)] If the root file system or its drivers are not built into the kernel, an initramfs is then generated with the distribution's tool, such as ''update-initramfs -c -k //release//'' on Debian or ''dracut'' on Gentoo, and an entry for the new kernel is added to ''/etc/aboot.conf''; see [[software:boot_loaders:aboot#booting|aboot]]. Keeping the entry for the previous, working kernel makes it easy to go back to it from the SRM prompt.
 
-The default target on Alpha is ''boot'', which produces a gzip-compressed ELF image, ''arch/alpha/boot/vmlinux.gz''. [(>[(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)])] [[software:boot_loaders:aboot|aboot]] loads either the compressed or the uncompressed image; the uncompressed ''vmlinux'' is needed for QEMU (see [[documentation:qemu|QEMU]]) and for a kernel written directly after aboot with ''swriteboot''. The other targets are rarely used:
+The default target on Alpha is ''boot'', which produces a gzip-compressed ELF image, ''arch/alpha/boot/vmlinux.gz''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)] [[software:boot_loaders:aboot|aboot]] loads either the compressed or the uncompressed image; the uncompressed ''vmlinux'' is needed for QEMU (see [[documentation:qemu|QEMU]]).
 
-^ Target ^ Output ^ Use ^
-| ''boot'' | ''arch/alpha/boot/vmlinux.gz'' | The kernel for aboot, the normal case |
-| ''bootimage'' | ''arch/alpha/boot/bootimage'' | A kernel that SRM boots directly from a disk, without aboot |
-| ''bootpfile'' | ''arch/alpha/boot/bootpfile'' | A kernel that SRM loads over the network with BOOTP |
-| ''bootpzfile'' | ''arch/alpha/boot/bootpzfile'' | A compressed BOOTP image |
-
-aboot's own ''netabootwrap'' is usually a better choice than ''bootpfile'' for network booting, since its images can include an initrd. See [[software:boot_loaders:aboot#network_booting|Network booting]].
+''bootimage'', ''bootpfile'', and ''bootpzfile'' build images that SRM boots directly, from disk or over the network with BOOTP, without aboot. aboot's own ''netabootwrap'' is usually a better choice for network booting, since its images can include an initrd. See [[software:boot_loaders:aboot#network_booting|Network booting]].
 
 A native build on real hardware is slow, so most kernel development is done with a cross compiler and tested in [[documentation:qemu|QEMU]] before real hardware.
 
@@ -56,7 +50,7 @@ The kernel reaches the target system by copying ''arch/alpha/boot/vmlinux.gz'' a
 
 The kernel builds only with GCC and GNU binutils. LLVM has had no Alpha back end since 2011, so ''LLVM=1'' does not work, and the Rust support in the kernel is not available on Alpha. See [[:status#what_is_missing|Current Status]].
 
-The kernel is compiled with ''-mno-fp-regs'' and ''-ffixed-8'', and passes ''-Wa,-mev6'' to the assembler so that it never silently emulates an instruction the target lacks. A generic kernel is built with ''-mcpu=ev56 -mtune=ev6''. A kernel configured for one system uses that system's processor: ''-mcpu=ev56'' for the 21164A systems, ''-mcpu=pca56'' for the AlphaPC 164SX and 164RX, and ''-mcpu=ev6'' or ''-mcpu=ev67'' for the 21264 systems. [(>[(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)])]
+The kernel is compiled with ''-mno-fp-regs'' and ''-ffixed-8'', and passes ''-Wa,-mev6'' to the assembler so that it never silently emulates an instruction the target lacks. A generic kernel is built with ''-mcpu=ev56 -mtune=ev6''. A kernel configured for one system uses that system's processor: ''-mcpu=ev56'' for the 21164A systems, ''-mcpu=pca56'' for the AlphaPC 164SX and 164RX, and ''-mcpu=ev6'' or ''-mcpu=ev67'' for the 21264 systems. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)]
 
 ==== Configuring for a system ====
 
@@ -64,7 +58,7 @@ The system type is chosen under "Alpha system type" in the configuration. A gene
 
 ^ Option ^ Systems ^
 | ''CONFIG_ALPHA_GENERIC'' | All supported systems |
-| ''CONFIG_ALPHA_ALCOR'' | [[hardware:systems:alcor|AlphaStation 500 and 600, Alpha XL 300 to 433]] |
+| ''CONFIG_ALPHA_ALCOR'' | [[hardware:systems:alcor|AlphaStation 500 and 600, Alpha XL 366 and 433]] |
 | ''CONFIG_ALPHA_DP264'' | [[hardware:systems:monet|XP1000]], [[hardware:systems:webbrick|DS10, DS10L, XP900]], [[hardware:systems:goldrush|DS20, DS20E]], [[hardware:systems:clipper|ES40]], [[hardware:motherboards:pc264dp|264DP]], [[hardware:motherboards:up2000|UP2000, UP2000+]], and QEMU |
 | ''CONFIG_ALPHA_EIGER'' | An OEM board based on the Tsunami chipset |
 | ''CONFIG_ALPHA_LX164'' | [[hardware:motherboards:pc164lx|AlphaPC 164LX]] |
@@ -90,7 +84,7 @@ Other Alpha-specific options:
   * ''CONFIG_ALPHA_QEMU'' builds a kernel that runs only under QEMU. A generic kernel detects QEMU by itself. See [[software:emulators#qemu|qemu-palcode]].
   * ''CONFIG_SRM_ENV'' exposes the SRM environment variables under ''/proc/srm_environment''.
   * ''CONFIG_VERBOSE_MCHECK'' decodes machine checks; see [[#debugging|Debugging]].
-  * ''CONFIG_NR_CPUS'' defaults to 32 for generic and Marvel kernels and to 4 for the others, since no other system has more than four processors with working support. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)]
+  * ''CONFIG_NR_CPUS'' defaults to 32 for generic and Marvel kernels and to 4 for the others, since the kernel's other platforms with working SMP support have at most four processors. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)]
 
 === Kernel start address ===
 
@@ -108,10 +102,10 @@ For a generic kernel, the option is a question under "Kernel hacking", since ''a
 Besides the kernel's generic parameters, an Alpha kernel reads these from its command line: [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v7.3-rc1|arch/alpha/kernel/setup.c]], Linux 7.3)]
 
 ^ Parameter ^ Effect ^
-| ''console=ttyS0'' | Sends kernel messages to the first serial port, the usual console on a system without a monitor. See [[documentation:srm#serial_console|Serial console]]. |
+| ''console=ttyS0'' | Sends kernel messages to the first serial port, the usual console on a system without a monitor. The ES47, ES80, and GS1280 need ''console=srm'' instead. See [[documentation:srm#serial_console|Serial console]]. |
 | ''srmcons'' | Prints the early boot messages through the SRM console's callbacks, before the kernel's own console drivers start. |
 | ''console=srm'' | Uses the SRM console's callbacks as the kernel's console for the whole run, including the early messages. |
-| ''alpha_mv=//name//'' | Forces the machine vector of a generic kernel, for example ''alpha_mv=Rawhide''. The name is compared, ignoring case, with the kernel's machine vector names, such as ''Alcor'', ''Clipper'', ''DP264'', ''Miata'', ''Nautilus'', ''Rawhide'', ''Webbrick'', or ''XLT''; Titan and Marvel cannot be forced this way. See [[hardware:systems#identifying_a_system|Identifying a system]]. |
+| ''alpha_mv=//name//'' | Forces the machine vector of a generic kernel, for example ''alpha_mv=Rawhide''. The name is compared, ignoring case, with the kernel's machine vector names, such as ''Alcor'', ''Clipper'', ''DP264'', ''Miata'', ''Nautilus'', ''Rawhide'', ''Webbrick'', or ''XLT''; Titan and Marvel are not in the list of names the kernel searches, so they cannot be forced this way. See [[hardware:systems#identifying_a_system|Identifying a system]]. |
 | ''mem=//size//'' | Limits the memory the kernel uses. |
 | ''verbose_mcheck=//n//'' | With ''CONFIG_VERBOSE_MCHECK'', sets how much machine check information is printed: 0 for none, 1 for the decoded error, 2 for everything. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] |
 
@@ -130,7 +124,7 @@ Most kernel problems are debugged the same way as on any other architecture, fro
 Alpha patches follow the kernel's normal process, described in the kernel's own [[https://docs.kernel.org/process/submitting-patches.html|Submitting patches]] guide. A patch that touches ''arch/alpha'' goes by email to linux-alpha@vger.kernel.org, with the maintainers on Cc. ''scripts/get_maintainer.pl'' lists them:
 
 <code>
-git format-patch -1 --cover-letter -o outgoing/
+git format-patch -1 -o outgoing/
 ./scripts/get_maintainer.pl outgoing/*.patch
 git send-email --to linux-alpha@vger.kernel.org --cc ... outgoing/*.patch
 </code>

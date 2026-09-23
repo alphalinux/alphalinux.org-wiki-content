@@ -24,10 +24,10 @@ zcat vmlinuz > vmlinux
 
 === Booting an installer ===
 
-The Debian Ports netinst CD carries its kernel and initrd as ''/boot/vmlinuz'' and ''/boot/initrd.gz''. Copy them out of the ISO, for example with ''bsdtar'' or ''7z'', or by loop-mounting it, and decompress the kernel:
+The Debian Ports netinst CD carries its kernel and initrd as ''/boot/vmlinuz'' and ''/boot/initrd.gz''. Copy them out of the ISO, for example with ''bsdtar'' or ''7z'', or by loop-mounting it, and decompress the kernel. Replace ''VERSION'' with the version in the downloaded image's name:
 
 <code>
-bsdtar -xf debian-13.0.0-alpha-NETINST-1.iso boot/vmlinuz boot/initrd.gz
+bsdtar -xf debian-VERSION-alpha-NETINST-1.iso boot/vmlinuz boot/initrd.gz
 zcat boot/vmlinuz > vmlinux
 qemu-img create -f qcow2 alpha.qcow2 20G
 </code>
@@ -38,7 +38,7 @@ Then boot the installer with the new disk and the ISO attached:
 qemu-system-alpha -M clipper -m 2G -smp 2 -nographic \
     -kernel vmlinux -initrd boot/initrd.gz -append 'console=ttyS0' \
     -drive file=alpha.qcow2,format=qcow2 \
-    -cdrom debian-13.0.0-alpha-NETINST-1.iso \
+    -cdrom debian-VERSION-alpha-NETINST-1.iso \
     -nic user
 </code>
 
@@ -48,7 +48,7 @@ The guest needs at least 2 GiB of memory. [(>[[https://github.com/alphalinux-org
 
 === Booting the installed system ===
 
-Because QEMU cannot load the kernel from the disk, the installed system's kernel and initrd have to be copied out to the host, and passed to QEMU as before:
+Because QEMU cannot load the kernel from the disk, the installed system's kernel and initrd have to be copied out to the host, the kernel decompressed, and both passed to QEMU as before:
 
 <code>
 qemu-system-alpha -M clipper -m 2G -smp 2 -nographic \
@@ -60,14 +60,15 @@ qemu-system-alpha -M clipper -m 2G -smp 2 -nographic \
 
 The ''root='' argument must name the installed root partition, which depends on how the disk was partitioned; ''parted print'' in the guest or on the host shows the layout.
 
-The files can be copied out with ''virt-copy-out'' from libguestfs, or by attaching the image with ''qemu-nbd'' and mounting the ''/boot'' partition. The partitions appear as ''/dev/nbd0p1'' and so on only if the host kernel reads the Alpha disklabel, which needs ''CONFIG_OSF_PARTITION''; [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/block/partitions/Kconfig?h=v7.3-rc1|block/partitions/Kconfig]], Linux 7.3)] otherwise, the partition's offset from ''parted'' can be passed to ''mount'' instead:
+The files can be copied out with ''virt-copy-out'' from libguestfs, or by attaching the image with ''qemu-nbd'' and mounting the ''/boot'' partition. The partitions appear as ''/dev/nbd0p1'' and so on only if the host kernel reads the Alpha disklabel, which needs ''CONFIG_OSF_PARTITION''; [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/block/partitions/Kconfig?h=v7.3-rc1|block/partitions/Kconfig]], Linux 7.3)] otherwise, the partition's offset from ''parted'' can be passed to ''mount'' instead. In this example, 1048576 is the start of partition 1, the ''/boot'' file system, in bytes; it depends on the layout:
 
 <code>
 modprobe nbd
 qemu-nbd --connect=/dev/nbd0 alpha.qcow2
 parted /dev/nbd0 unit B print
 mount -o ro,offset=1048576 /dev/nbd0 /mnt
-cp /mnt/vmlinuz /mnt/initrd.img .
+zcat /mnt/vmlinuz > vmlinux-installed
+cp /mnt/initrd.img initrd.img-installed
 umount /mnt
 qemu-nbd --disconnect /dev/nbd0
 </code>
@@ -158,14 +159,14 @@ debootstrap --arch=alpha \
 chroot alpha-root /bin/bash
 </code>
 
-Inside the chroot, ''uname -m'' reports ''alpha'', and programs behave as on an Alpha system, with some exceptions: the host's kernel and page size are the ones in effect, ''/proc'' describes the host, and a few system calls are not emulated. Test results under user-mode emulation are therefore not final, and failures should be confirmed under system emulation or on hardware before they are reported as Alpha bugs.
+Inside the chroot, ''uname -m'' reports ''alpha'', and programs behave as on an Alpha system, with some exceptions: the host's kernel and page size are the ones in effect, ''/proc'' describes the host, and not every system call is emulated identically. Test results under user-mode emulation are therefore not final, and failures should be confirmed under system emulation or on hardware before they are reported as Alpha bugs.
 
 ==== Limitations ====
 
   * **No SRM console.** QEMU runs its own firmware, so there is no ''%%>>>%%'' prompt, no SRM environment variables, and no way to test SRM or the [[software:firmware:srm|SRM]] behavior of a kernel.
   * **No aboot.** [[software:boot_loaders:aboot|aboot]] depends on the SRM console's I/O services, which qemu-palcode does not provide, so it cannot be tested, and QEMU cannot boot a disk the way real hardware does.
-  * **No OpenVMS or Tru64 UNIX.** Both need the SRM console, and neither runs under QEMU. [(>[[https://raymii.org/s/articles/NetBSD_on_QEMU_Alpha.html|"Install NetBSD 9.2 on a DEC Alpha CPU in QEMU with X11"]], Remy van Elst, 18 Aug 2021)] The [[software:emulators#es40_and_axpbox|ES40 and AXPbox]] emulators and the commercial emulators run the real SRM firmware, and with it OpenVMS and Tru64. NetBSD does run under QEMU, since QEMU 6.1. [(>[[https://gitlab.com/qemu-project/qemu/-/commit/5ec4f1d348e164355ff0e50486d537973e517e19|"hw/alpha: Provide a PCI-ISA bridge device node"]], Jason Thorpe, 16 Jun 2021, QEMU 6.1)]
+  * **No OpenVMS or Tru64 UNIX.** Both need the SRM console, and neither runs under QEMU. [(>[[https://raymii.org/s/articles/NetBSD_on_QEMU_Alpha.html|"Install NetBSD 9.2 on a DEC Alpha CPU in QEMU with X11"]], Remy van Elst, 18 Aug 2021)] The [[software:emulators#es40_and_axpbox|ES40 and AXPbox]] emulators and the commercial emulators run the real SRM firmware, and with it OpenVMS and Tru64.
   * **One system type.** Only the Tsunami platform is emulated. Code specific to other chipsets, such as the CIA, Pyxis, Titan, or Marvel, needs real hardware to test.
-  * **Timing and memory ordering.** QEMU runs guest code much faster or slower than real hardware, depending on the host, and its memory model is the host's, so it does not reproduce the Alpha's weak memory ordering. Bugs in barriers and in timing-dependent code often do not show up under QEMU. See [[documentation:porting:memory_model|Memory Model]].
+  * **Timing and memory ordering.** QEMU's speed relative to real hardware depends on the host, and its memory model is the host's, so it does not reproduce the Alpha's weak memory ordering. Bugs in barriers and in timing-dependent code often do not show up under QEMU. See [[documentation:porting:memory_model|Memory Model]].
 
 {{tag>documentation emulator qemu}}
