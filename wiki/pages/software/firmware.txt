@@ -3,14 +3,26 @@
 Alpha systems use one of two families of firmware, depending on the operating system they were designed for: the SRM console, and the ARC family (ARC, AlphaBIOS, and ARCSBIOS). Some systems carry both and can switch between them.
 
 ^ Firmware ^ Interface ^ Operating systems ^ Linux boot loader ^
-| [[software:firmware:srm|SRM console]] | Command line | OpenVMS, Digital UNIX (Tru64 UNIX), Linux, NetBSD, OpenBSD, FreeBSD (to 6.x) | [[software:boot_loaders:aboot|aboot]] |
+| [[software:firmware:srm|SRM console]] | Command line | OpenVMS, Tru64 UNIX, Linux, NetBSD, OpenBSD, FreeBSD (to 6.x) | [[software:boot_loaders:aboot|aboot]] |
 | [[software:firmware:arc|ARC, AlphaBIOS, and ARCSBIOS]] | Menus | Windows NT, Linux | [[software:boot_loaders:milo|MILO]] (APB on the UP1000) |
 
-The pages on individual [[hardware:systems|systems]] and [[hardware:motherboards|motherboards]] describe the firmware available for each.
+The pages on individual [[hardware:systems|systems]] and [[hardware:motherboards|motherboards]] describe the firmware available for each, and [[software:firmware:srm#final_versions|SRM Console: Final versions]] lists the last SRM release for each system.
+
+==== Choosing firmware for Linux ====
+
+Linux should be booted from SRM wherever the system has it. SRM provides the PALcode that Linux uses and loads [[software:boot_loaders:aboot|aboot]] from the disk; ARC and AlphaBIOS provide Windows NT PALcode, so Linux on them must be started through [[software:boot_loaders:milo|MILO]], which brings its own PALcode. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L26796|"Re: Does DEC have a clue?"]], Jay Estabrook, axp-list, 21 Jan 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L12590|"Re: SRM vs. AlphaBIOS"]], Phillip Ezolt, axp-list, 7 Sep 1999)] OpenVMS, Tru64 UNIX, and the BSDs also require SRM. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 1-2)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L3081|"Re: MILO for fbsd?"]], Andrew Gallatin, freebsd-alpha, 8 Apr 1999)]
+
+On systems that hold ARC or AlphaBIOS alongside SRM, the console is switched as described in [[software:firmware:arc#switching_to_srm|ARC Firmware: Switching to SRM]]. The AlphaPC 164, 164LX, and 164SX hold only one firmware at a time, so moving them to SRM means flashing the SRM image. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 2-20)]
+
+Systems with no SRM firmware, among them the Alpha XL and XLT, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L3642|"Re: SRM license issues"]], Jay Estabrook, axp-list, 6 Jan 1998)] the AlphaPC 164RX, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L9150|"Re: switching from ARC back to SRM"]], Jay Estabrook, axp-list, 16 Aug 2000)] and the Ruffian (AlphaPC 164UX and 164BX), [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L29483|"Re: AlphaBios vs SRM"]], Rich Payne, axp-list, 15 Sep 1999)] can boot Linux only with MILO. Linux 6.10 removed support for processors older than the EV56 (21164A), so of these only systems with an EV56 or later processor can run a current kernel. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)]
+
+==== Obtaining and updating firmware ====
+
+HP's firmware site, ''ftp.hp.com/pub/alphaserver/firmware'', no longer exists. Its contents survive in the Wayback Machine, [(>[[http://web.archive.org/web/20200502043806/ftp://ftp.hp.com/pub/alphaserver/firmware|ftp.hp.com/pub/alphaserver/firmware]], Wayback Machine, 2 May 2020)] and the Internet Archive holds images of the Alpha Systems Firmware Update CDs, among them [[https://archive.org/details/alphafwupcds|a collection of the update CDs]] and individual releases such as [[https://archive.org/details/alphasystemsfirmwareupdate60_agrcfbjbs|V6.0]]. The last CD, V7.3, was released in April 2007. [(>{{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}})] Firmware for API's UP1000, UP1100, UP1500, UP2000, and CS20 and for several Digital Semiconductor boards is kept in the [[https://github.com/alphalinux/firmware|alphalinux/firmware]] repository on GitHub.
+
+AlphaServers and workstations are updated by booting the firmware CD, which runs the Loadable Firmware Update utility (LFU); ''update srm'' at its ''UPD>'' prompt updates the console. [(>{{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}}, p. 6)] The Digital Semiconductor motherboards are updated from a FAT floppy holding ''fwupdate.exe'' and the ROM image, run with SRM's ''fwupdate'' command or AlphaBIOS's "Upgrade AlphaBIOS", and most have a fail-safe booter, enabled by a jumper, for recovering from a failed update. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 2-1, 2-3, 3-16)] The procedures are described in [[software:firmware:srm#updating_firmware|SRM Console: Updating firmware]] and [[software:firmware:arc#updating_firmware|ARC Firmware: Updating firmware]].
 
 ==== Documentation ====
-
-The [[software:firmware:srm|SRM]] and [[software:firmware:arc|ARC]] pages have their own documentation sections.
 
 === Firmware release notes ===
 
