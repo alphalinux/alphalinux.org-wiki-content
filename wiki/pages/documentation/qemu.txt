@@ -15,7 +15,7 @@ QEMU's only Alpha machine is ''clipper'', which is also the default. It emulates
 
 QEMU does not run Digital's SRM console. Its firmware, qemu-palcode, provides enough for Linux to boot, but has no command prompt and none of the console's I/O services. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2011-May.mbox#L823|"Re: QEMU Alpha system status"]], Richard Henderson, debian-alpha, 5 May 2011)] QEMU therefore cannot boot from a disk or CD by itself. The kernel, and the initrd if one is used, are always passed to QEMU from the host with ''-kernel'' and ''-initrd'', and the kernel arguments with ''-append''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L470|"Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image (fwd)"]], Thorsten Glaser, debian-alpha, 27 Mar 2021)]
 
-QEMU loads the kernel as an ELF file, and does not decompress it. A kernel that is gzip-compressed, such as a distribution's ''vmlinuz'' or the kernel build's ''arch/alpha/boot/vmlinux.gz'', must be decompressed first; QEMU's own tests do the same. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/tests/functional/alpha/test_clipper.py|tests/functional/alpha/test_clipper.py]], QEMU 11.1.0)] ''file'' shows which it is:
+QEMU loads the kernel as an ELF file, and does not decompress it. A kernel that is gzip-compressed, such as a distribution's ''vmlinuz'' or the kernel build's ''arch/alpha/boot/vmlinux.gz'', must be decompressed first. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/tests/functional/alpha/test_clipper.py|tests/functional/alpha/test_clipper.py]], QEMU 11.1.0)] ''file'' shows which it is:
 
 <code>
 file vmlinuz
@@ -42,9 +42,9 @@ qemu-system-alpha -M clipper -m 2G -smp 2 -nographic \
     -nic user
 </code>
 
-This is essentially the method reported to work for Debian in 2021. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L470|"Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image (fwd)"]], Thorsten Glaser, debian-alpha, 27 Mar 2021)] The installer partitions the disk with a BSD disklabel and tries to install aboot, exactly as on real hardware. The aboot it installs is not used under QEMU, but it does no harm, and the same disk image can later be written to a real disk.
+The installer partitions the disk with a BSD disklabel and tries to install aboot, exactly as on real hardware. The aboot it installs is not used under QEMU, but it does no harm, and the same disk image can later be written to a real disk.
 
-At least 2 GiB of memory is recommended. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-January.mbox#L2582|"Re: Booting Debian in qemu-system-alpha"]], Philippe Mathieu-Daudé, debian-alpha, 27 Jan 2020)] Quote the ''-append'' string with plain ASCII quotes: typographic quotes copied from a web page end up in the kernel command line, and the kernel then ignores ''console=ttyS0''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-January.mbox#L2336|"Re: Booting Debian in qemu-system-alpha"]], Richard Henderson, debian-alpha, 24 Jan 2020)]
+The guest needs at least 2 GiB of memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-January.mbox#L2582|"Re: Booting Debian in qemu-system-alpha"]], Philippe Mathieu-Daudé, debian-alpha, 27 Jan 2020)] Quote the ''-append'' string with plain ASCII quotes: typographic quotes copied from a web page end up in the kernel command line, and the kernel then ignores ''console=ttyS0''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2020-January.mbox#L2336|"Re: Booting Debian in qemu-system-alpha"]], Richard Henderson, debian-alpha, 24 Jan 2020)]
 
 === Booting the installed system ===
 
@@ -58,15 +58,43 @@ qemu-system-alpha -M clipper -m 2G -smp 2 -nographic \
     -nic user
 </code>
 
-The files can be copied out with ''virt-copy-out'' from libguestfs, or by attaching the image with ''qemu-nbd'' and mounting the ''/boot'' partition. The host kernel must understand the BSD disklabel for the partition to appear; if it does not, the partition's offset from ''parted'' can be passed to ''mount'' instead:
+The ''root='' argument must name the installed root partition, which depends on how the disk was partitioned; ''parted print'' in the guest or on the host shows the layout.
+
+The files can be copied out with ''virt-copy-out'' from libguestfs, or by attaching the image with ''qemu-nbd'' and mounting the ''/boot'' partition. The partitions appear as ''/dev/nbd0p1'' and so on only if the host kernel reads the Alpha disklabel, which needs ''CONFIG_OSF_PARTITION''; [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/block/partitions/Kconfig?h=v7.3-rc1|block/partitions/Kconfig]], Linux 7.3)] otherwise, the partition's offset from ''parted'' can be passed to ''mount'' instead:
 
 <code>
+modprobe nbd
 qemu-nbd --connect=/dev/nbd0 alpha.qcow2
 parted /dev/nbd0 unit B print
 mount -o ro,offset=1048576 /dev/nbd0 /mnt
+cp /mnt/vmlinuz /mnt/initrd.img .
+umount /mnt
+qemu-nbd --disconnect /dev/nbd0
 </code>
 
 Each time the guest installs a new kernel, it has to be copied out again. A common alternative is to build the kernel on the host with a cross compiler and pass it to QEMU directly, which is how most kernel testing is done; see [[documentation:kernel#cross_compiling|Kernel: Cross compiling]].
+
+=== Kernel development ===
+
+A kernel from a cross build is passed to QEMU as the uncompressed ''vmlinux'' at the top of the build tree, with the disk image of an installed system as its root file system. Modules, if the configuration uses them, have to be installed into that image first, for example over ''qemu-nbd''.
+
+<code>
+qemu-system-alpha -M clipper -m 2G -nographic \
+    -kernel linux/vmlinux -append 'root=/dev/sda3 console=ttyS0' \
+    -drive file=alpha.qcow2,format=qcow2 -nic user
+</code>
+
+''-cpu'' selects the emulated processor, as in user-mode emulation. The models are ''ev4'', ''ev5'', ''ev56'', ''pca56'', ''ev6'', ''ev67'' (the default), and ''ev68''. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/target/alpha/cpu.c|target/alpha/cpu.c]], QEMU 11.1.0)] [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/hw/alpha/dp264.c|hw/alpha/dp264.c]], QEMU 11.1.0)] ''-cpu ev56'' checks that a kernel runs on the oldest processor current kernels support.
+
+QEMU's gdb stub debugs the guest kernel. ''-s'' listens for gdb on TCP port 1234, and ''-S'' stops the CPU before the first instruction, so that breakpoints can be set before the kernel starts. [(>[[https://www.qemu.org/docs/master/system/gdb.html|"GDB usage"]], QEMU documentation)] A gdb built for Alpha, such as ''gdb-multiarch'', then connects with the kernel's symbols:
+
+<code>
+gdb-multiarch linux/vmlinux
+(gdb) target remote :1234
+(gdb) continue
+</code>
+
+A kernel built with ''CONFIG_DEBUG_INFO'' gives source-level debugging.
 
 === Networking ===
 
@@ -93,7 +121,7 @@ alpha-linux-gnu-gcc -o hello hello.c
 qemu-alpha -L /usr/alpha-linux-gnu ./hello
 </code>
 
-This is the quickest way to test a program built with a cross compiler, and glibc developers use it to test Alpha changes. [(>[[https://sourceware.org/git/?p=glibc.git;a=commit;h=80a40a9e14|"alpha: Fix fesetexceptflag (BZ 30998)"]], Bruno Haible, glibc 2.39)] The CPU is EV67 by default; ''-cpu'' selects another, for example ''-cpu ev56'' to check that a program does not use newer instructions. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/linux-user/alpha/elfload.c|linux-user/alpha/elfload.c]], QEMU 11.1.0)]
+This is the quickest way to test a program built with a cross compiler. The CPU is EV67 by default; ''-cpu'' selects another, for example ''-cpu ev56'' to check that a program does not use newer instructions. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/linux-user/alpha/elfload.c|linux-user/alpha/elfload.c]], QEMU 11.1.0)]
 
 === binfmt_misc and chroots ===
 
@@ -113,12 +141,15 @@ A Gentoo chroot starts from a stage3 tarball:
 mkdir alpha-root
 tar -xpf stage3-alpha-openrc-*.tar.xz -C alpha-root
 cp /etc/resolv.conf alpha-root/etc/
+mount --types proc /proc alpha-root/proc
+mount --rbind /sys alpha-root/sys
+mount --make-rslave alpha-root/sys
 mount --rbind /dev alpha-root/dev
-mount -t proc proc alpha-root/proc
+mount --make-rslave alpha-root/dev
 chroot alpha-root /bin/bash
 </code>
 
-A Debian one is built with ''debootstrap'' from Debian Ports, which needs the ports archive keyring:
+A Debian one is built with ''debootstrap'' (or ''mmdebstrap'') from Debian Ports, which needs the ports archive keyring from the ''debian-ports-archive-keyring'' package:
 
 <code>
 debootstrap --arch=alpha \
