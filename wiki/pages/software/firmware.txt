@@ -3,8 +3,8 @@
 Alpha systems use one of two families of firmware, depending on the operating system they were designed for: the SRM console, and the ARC family (ARC, AlphaBIOS, and ARCSBIOS). Some systems carry both and can switch between them.
 
 ^ Firmware ^ Interface ^ Operating systems ^ Linux boot loader ^
-| [[software:firmware:srm|SRM console]] | Command line | OpenVMS, Tru64 UNIX, Linux, NetBSD, OpenBSD, FreeBSD (to 6.x) | [[software:boot_loaders:aboot|aboot]] |
-| [[software:firmware:arc|ARC, AlphaBIOS, and ARCSBIOS]] | Menus | Windows NT, Linux | [[software:boot_loaders:milo|MILO]] (APB on the UP1000) |
+| [[software:firmware:srm|SRM console]] | Command line | OpenVMS, Tru64 UNIX, Linux, NetBSD, OpenBSD | [[software:boot_loaders:aboot|aboot]] |
+| [[software:firmware:arc|ARC, AlphaBIOS, and ARCSBIOS]] | Menus | Windows NT, Linux | [[software:boot_loaders:milo|MILO]], built from source for current kernels (APB on the UP1000) |
 
 The pages on individual [[hardware:systems|systems]] and [[hardware:motherboards|motherboards]] describe the firmware available for each, and [[software:firmware:srm#final_versions|SRM Console: Final versions]] lists the last SRM release for each system.
 
@@ -14,7 +14,7 @@ Linux should be booted from SRM wherever the system has it. SRM provides the PAL
 
 On systems that hold ARC or AlphaBIOS alongside SRM, the console is switched as described in [[software:firmware:arc#switching_to_srm|ARC Firmware: Switching to SRM]]. The AlphaPC 164, 164LX, and 164SX hold only one firmware at a time, so moving them to SRM means flashing the SRM image. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 2-20)]
 
-Systems with no SRM firmware, among them the Alpha XL and XLT, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L3642|"Re: SRM license issues"]], Jay Estabrook, axp-list, 6 Jan 1998)] the AlphaPC 164RX, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L9150|"Re: switching from ARC back to SRM"]], Jay Estabrook, axp-list, 16 Aug 2000)] and the Ruffian (AlphaPC 164UX and 164BX), [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L29483|"Re: AlphaBios vs SRM"]], Rich Payne, axp-list, 15 Sep 1999)] can boot Linux only with MILO. Linux 6.10 removed support for processors older than the EV56 (21164A), so of these only systems with an EV56 or later processor can run a current kernel. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)]
+Systems with no SRM firmware, among them the Alpha XL and XLT, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-January.mbox#L3642|"Re: SRM license issues"]], Jay Estabrook, axp-list, 6 Jan 1998)] the AlphaPC 164RX, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L9150|"Re: switching from ARC back to SRM"]], Jay Estabrook, axp-list, 16 Aug 2000)] and the Ruffian (AlphaPC 164UX and 164BX), [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-September.mbox#L29483|"Re: AlphaBios vs SRM"]], Rich Payne, axp-list, 15 Sep 1999)] can boot Linux only with MILO. A current kernel needs an EV56 (21164A) or later processor [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] and a MILO built from the alphalinux-org repository; see [[software:boot_loaders:milo|MILO]].
 
 ==== Obtaining and updating firmware ====
 
@@ -26,7 +26,7 @@ AlphaServers and workstations are updated by booting the firmware CD, which runs
 
 === Firmware release notes ===
 
-These release notes are from the Alpha Systems Firmware Update V7.3 CD (April 2007) and describe the Loadable Firmware Update utility, update procedures, and changes in each release.
+These release notes cover firmware releases from V6.0 (2001) to V7.3 (April 2007) and describe the Loadable Firmware Update utility, update procedures, and changes in each release. The last two entries are the release notes for the KZPSA SCSI adapter and the manual for the WWIDMGR console utility.
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:software:firmware:alpha_systems_firmware_update_v7.3_release_notes_overview.pdf?linkonly|Alpha Systems Firmware Update V7.3 Release Notes Overview}} | AA-RGKNV-TS | April 2007 |

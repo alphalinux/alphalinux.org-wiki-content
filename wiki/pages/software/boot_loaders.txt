@@ -1,10 +1,10 @@
 ===== Boot Loaders =====
 
-Which boot loader an Alpha system uses depends on its [[software:firmware|firmware]]. Almost every Alpha that runs Linux today boots it with [[software:boot_loaders:aboot|aboot]] from the SRM console. [[software:boot_loaders:milo|MILO]] is needed only on the few systems without SRM, such as the Alpha XLT and the AlphaPC 164UX (Ruffian). Under [[software:emulators#qemu|QEMU]], no boot loader is used: QEMU loads the kernel and initrd itself. See [[documentation:installation|Installation]] for the complete procedure.
+Which boot loader an Alpha system uses depends on its [[software:firmware|firmware]]. Almost every Alpha that runs Linux today boots it with [[software:boot_loaders:aboot|aboot]] from the SRM console. [[software:boot_loaders:milo|MILO]] is needed only on the few systems without SRM, such as the Alpha XLT and the AlphaPC 164UX (Ruffian); no released MILO binary boots a current kernel, so it must be built from the [[https://github.com/alphalinux-org/milo|alphalinux-org/milo]] repository. Under [[software:emulators#qemu|QEMU]], no boot loader is used: QEMU loads the kernel and initrd itself. See [[documentation:installation|Installation]] for the complete procedure.
 
 ^ Boot loader ^ Firmware ^ Description ^
 | [[software:boot_loaders:aboot|aboot]] | SRM console | Loads Linux from a disk, CD, or the network, using the console's PALcode and services |
-| [[software:boot_loaders:milo|MILO]] | ARC, AlphaBIOS, ARCSBIOS | Miniloader that provides its own PALcode and device drivers, loaded through ''linload.exe'' or ''ldmilo.exe'' |
+| [[software:boot_loaders:milo|MILO]] | ARC, AlphaBIOS, ARCSBIOS | Miniloader that provides its own PALcode and device drivers, loaded through ''linload.exe'' or ''ldmilo.exe''; last released in 2001, so current kernels need a MILO built from source |
 | APB | AlphaBIOS on the [[hardware:motherboards:up1000|UP1000]] | Loaded by AlphaBIOS; reads the AlphaBIOS boot configuration to find the kernel [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, pp. 4-14 to 4-15)] |
 | None | qemu-palcode, under [[software:emulators#qemu|QEMU]] | QEMU loads the kernel and initrd given with ''-kernel'' and ''-initrd''; see [[documentation:qemu|QEMU]] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L470|"Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image (fwd)"]], Thorsten Glaser, debian-alpha, 27 Mar 2021)] |
 
@@ -15,6 +15,6 @@ The SRM console can also boot a Linux kernel directly over the network with BOOT
 ^ Document ^ Date ^
 | [[documentation:installation|Installation]], on this wiki | |
 | [[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1 by Rich Payne and David Huggins-Daines | February 2004 |
-| {{wiki:software:boot_loaders:milo_howto.pdf?linkonly|Alpha Miniloader Howto, v0.85}} | April 1997 |
+| {{wiki:software:boot_loaders:milo_howto.pdf?linkonly|Alpha Miniloader Howto, v0.85}} (historical; see [[software:boot_loaders:milo|MILO]] for current usage) | April 1997 |
 
 {{tag>software boot_loader}}
