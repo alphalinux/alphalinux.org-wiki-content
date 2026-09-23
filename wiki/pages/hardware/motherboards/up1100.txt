@@ -1,6 +1,6 @@
 ===== UP1100 =====
 
-The UP1100 is a motherboard built by Samsung and Alpha Processor, Inc. (API), later API NetWorks. The first product release of the UP1100 User Manual is dated May 2000. [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. iii)]
+The UP1100 is a motherboard built by Samsung and Alpha Processor, Inc. (API), later API NetWorks, and introduced in 2000. [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. iii)]
 
 <gallery right aligned nocrop>
 wiki:hardware:motherboards:up1100:up1100-1.jpg API NetWorks UP1100

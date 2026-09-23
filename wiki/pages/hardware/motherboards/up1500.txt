@@ -8,7 +8,7 @@ wiki:hardware:motherboards:up1500:up1500-1.jpg Samsung UP1500
 
 ==== Specifications ====
 
-  * 800 MHz EV68AL with 2/4/8 MiB external L2 cache [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}})] (8.5 GiB/s [(>[[https://web.archive.org/web/20030311052727/http://www.harddata.com/Systems/up15brief|"HP-SPx264-1500 Hardware Features"]], Archived March 11, 2003)])
+  * 800 MHz EV68AL with 2/4/8 MiB external L2 cache [(>{{wiki:hardware:motherboards:up1500:up1500_user_s_manual.pdf?linkonly|UP1500 User Manual}})], L2 cache bandwidth 8.5 GiB/s [(>[[https://web.archive.org/web/20030311052727/http://www.harddata.com/Systems/up15brief|"HP-SPx264-1500 Hardware Features"]], Archived March 11, 2003)]
   * AMD-761 Chipset, ALi M1535D+ south bridge
   * 4x 184-pin DIMMs, supports 128 MiB to 4 GiB of ECC Registered PC2100 RAM (2.13 GiB/s [(>[[https://web.archive.org/web/20020606002508/http://samsungelectronics.com/semiconductors/alpha_cpu/up1500/up1500.htm|"Samsung Semiconductor: UP1500"]], Archived June 6, 2002)])
   * 1x AGP 4x (See limitations below)
@@ -19,14 +19,14 @@ wiki:hardware:motherboards:up1500:up1500-1.jpg Samsung UP1500
 ==== Limitations ====
 
   * The AGP slot accepts only 3.3V signalling cards, effectively limiting the selection of video cards to those supporting AGP 2x [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-November.mbox#L4291|"Re: Graphics card for UP1500, AGP Compatibility and Signalling Voltages"]], Alex Deucher, axp-list, 27 Nov 2008)]
-  * Not all AGP cards that fit the slot work, see [[UP1500 Compatibility]].
+  * Not all AGP cards that fit the slot work; compatibility is listed on [[UP1500 Compatibility]].
   * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB (137GB)
   * IO space needed for PCI counts against the amount of memory usable by the AMD-761 [(>[[https://lore.kernel.org/all/20020913184310.B7498@jurassic.park.msu.ru/|"[patch 2.5.34] alpha: nautilus update"]], Ivan Kokshaysky, linux-kernel, 13 Sep 2002)]
   * The AGP slot is limited to PCI transfers; see [[UP1000#limitations|UP1000]].
 
 ==== Memory ====
 
-The UP1500 requires PC2100 ECC registered DDR SDRAM; unbuffered DIMMs do not work. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-February.mbox#L6661|"Re: up1500 specs sheets"]], Maurice Hilarius, axp-list, 12 Feb 2003)] Vendors tested modules from Viking [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L18275|"Re: UP1500 memory specs"]], Iwao Makino, axp-list, 18 Apr 2002)], Kingston, Kentron, and Corsair. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L18363|"Re: UP1500 memory specs"]], Maurice Hilarius, axp-list, 18 Apr 2002)] See [[UP1500 Compatibility]] for DIMMs known to work. Iwao Makino reported better results with PC2700 ECC registered DIMMs under heavy use. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-February.mbox#L6366|"Re: up1500 specs sheets"]], Iwao Makino, axp-list, 13 Feb 2003)]
+The UP1500 requires PC2100 ECC registered DDR SDRAM; unbuffered DIMMs do not work. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-February.mbox#L6661|"Re: up1500 specs sheets"]], Maurice Hilarius, axp-list, 12 Feb 2003)] Vendors tested modules from Viking [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L18275|"Re: UP1500 memory specs"]], Iwao Makino, axp-list, 18 Apr 2002)], Kingston, Kentron, and Corsair. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L18363|"Re: UP1500 memory specs"]], Maurice Hilarius, axp-list, 18 Apr 2002)] See [[UP1500 Compatibility]] for DIMMs known to work. PC2700 ECC registered DIMMs have been reported to give better results under heavy use. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-February.mbox#L6366|"Re: up1500 specs sheets"]], Iwao Makino, axp-list, 13 Feb 2003)]
 
 ==== Firmware ====
 
@@ -38,11 +38,11 @@ The onboard Ethernet and sound work under Linux, as does an AGP Radeon 7500. A 4
 
 ==== Cooling ====
 
-The original CPU fan is an 80x15 mm Nidec Beta SL (12 V, 0.09 A). One user reported that the fan controller is sensitive, and that many replacement fans did not work. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-December.mbox#L2256|"Alpha UP1500 CPU Fan"]], Will Givens, axp-list, 31 Dec 2009)]
+The original CPU fan is an 80x15 mm Nidec Beta SL (12 V, 0.09 A). The fan controller is reported to be sensitive, and many replacement fans do not work with it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-December.mbox#L2256|"Alpha UP1500 CPU Fan"]], Will Givens, axp-list, 31 Dec 2009)]
 
 ==== History ====
 
-Hard Data received its first UP1500 sample from Samsung in June 2001, with an 800 MHz CPU and 4 MiB of DDR cache. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-June.mbox#L2886|"Samsung UP1500"]], Maurice Hilarius, axp-list, 6 Jun 2001)] API NetWorks did not distribute the UP1500, so resellers such as Hard Data bought it directly from Samsung. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-August.mbox#L17570|"Re: UP1500"]], Maurice Hilarius, axp-list, 30 Aug 2001)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L12658|"RE: Bye-bye our API...Drove my Alpha to the..."]], Maurice Hilarius, axp-list, 15 Jan 2002)] Samsung stopped making Alpha boards around early 2002, selling its last boards to vendors with a one year warranty. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L4438|"Re: UP1500?"]], Maurice Hilarius, axp-list, 8 Jan 2003)]
+API NetWorks did not distribute the UP1500, so resellers such as Hard Data bought it directly from Samsung. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-August.mbox#L17570|"Re: UP1500"]], Maurice Hilarius, axp-list, 30 Aug 2001)] Samsung stopped making Alpha boards in early 2002. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L4438|"Re: UP1500?"]], Maurice Hilarius, axp-list, 8 Jan 2003)]
 
 {{gallery>:wiki:hardware:motherboards:up1500}}
 

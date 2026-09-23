@@ -10,9 +10,7 @@ Digital also sold a VME variant of a complete system under the same name. The **
 
 ==== AXPvme specifications ====
 
-All of the following comes from the technical description. [(>{{wiki:hardware:systems:alpha_vme:axpvme_technical_description.pdf?linkonly|AXPvme Single-Board Computer Technical Description}}, EK-EBV1X-TD.B01, July 1995, pp. 1-1 to 1-4)]
-
-  * 6U VMEbus module built on the LCA (21066A), with on-chip 8 KiB instruction and data caches and integrated memory and I/O controllers; the supported operating systems are OSF/1 and VxWorks
+  * 6U VMEbus module built on the LCA processor family, with on-chip 8 KiB instruction and data caches and integrated memory and I/O controllers; the supported operating systems are OSF/1 and VxWorks [(>{{wiki:hardware:systems:alpha_vme:axpvme_technical_description.pdf?linkonly|AXPvme Single-Board Computer Technical Description}}, EK-EBV1X-TD.B01, July 1995, pp. 1-1 to 1-4)]
   * 8, 16, 32, 64, or 128 MiB of DRAM on a 64-bit memory bus, with a fixed external write-back backup cache whose size depends on the module: 256 KiB on the AXPvme 64, 64LC, and 160, and 512 KiB on the 100, 166, and 230
   * PCI is the onboard I/O bus, driven by the LCA's integral I/O controller, which also acts as a PCI target and a PCI to main memory bridge for DMA
   * Full master and slave VME interface to IEC 821 and IEEE 1014-1987, able to act as VME system controller in slot 1; A16, A24, and A32 address spaces with D08, D16, D32, and D64 transfers, D64 giving over 24 MB/s
@@ -22,9 +20,7 @@ All of the following comes from the technical description. [(>{{wiki:hardware:sy
 
 ==== Alpha VME 4 specifications ====
 
-All of the following comes from the user guide. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, pp. 1-1 to 1-5)]
-
-  * [[wp>Alpha_21064#Alpha_21064A|21064A]] at 224 MHz with 512 KiB of cache, or at 288 MHz with 2 MiB of cache, on cache modules; 16 KiB instruction and 16 KiB data caches on chip
+  * [[wp>Alpha_21064#Alpha_21064A|21064A]] at 224 MHz with 512 KiB of cache, or at 288 MHz with 2 MiB of cache, on cache modules; 16 KiB instruction and 16 KiB data caches on chip [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, pp. 1-1 to 1-5)]
   * DECchip 21071-DA PCI host bridge, with PCI as the on-board bus
   * 8, 16, 32, 64, or 128 MiB of ECC main memory on DIMMs, on a 128-bit data bus, accessible from the CPU, from PCI, and from the VMEbus
   * 4 MiB flash EPROM and 32 KiB NVRAM
@@ -36,7 +32,6 @@ All of the following comes from the user guide. [(>{{wiki:hardware:systems:alpha
   * One double-width or two single-width PCI mezzanine cards (PMC, IEEE P1386.1)
   * Two board set occupying two adjacent 6U VME slots, or three with the PMC I/O companion card
   * 62 W for the 4/224 and 70 W for the 4/288 with 128 MiB of memory; at least 200 lfm of airflow at 40 degrees C ambient is required over the processor heatsink
-  * At 288 MHz: 238.51 SPECfp92, 188.84 SPECint92, 5.44 SPECfp95, and 4.69 SPECint95
 
 The front panel carries a Reset/Halt switch, a status display for power-on self-test and software use, an amber VMEbus access and watchdog LED, and a green power LED. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, pp. 3-1 to 3-2)]
 
@@ -50,13 +45,13 @@ Unlike the evaluation boards, the VME boards had their firmware published on Dig
 
 The Alpha VME 4 is supported by VxWorks for Alpha and by Digital UNIX. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 1-1)] The AXPvme and Alpha VME boards are listed among the systems supported by Tru64 UNIX V4.0F (see [[software:operating_systems|Operating Systems]]).
 
-Linux was never ported. Users asked about ports to the Alpha VME 4 in 1997 and to the 4/288 and 5/480 in 1999, without result. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L3795|"VME?"]], Christian Curtis, axp-list, 2 Apr 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-August.mbox#L3894|"Linux to an Alpha 5/480 VME card?"]], bgeer, comp.os.linux.alpha, 24 Aug 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-August.mbox#L5224|"Re: Linux to an Alpha 5/480 VME card?"]], Tony Awtrey, comp.os.linux.alpha, 26 Aug 1999)] No kernel platform for these boards exists; the Alpha system types in the kernel configuration cover none of them. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)]
+Linux was never ported to these boards. No kernel platform for these boards exists; the Alpha system types in the kernel configuration cover none of them. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)]
 
 ==== Programming the VMEbus ====
 
 VMEbus space is reached through the PCI sparse address space, so a hardware address is scaled and the transfer size encoded in the low address bits rather than accessed directly. Appendix C.1 of the VxWorks programmer's guide, "VxWorks for Alpha AXP I/O Architecture", describes the scheme. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-September.mbox#L16203|"Re: PCI Sparse Address Space"]], Fred Zwarts, comp.sys.dec, 18 Sep 1996)]
 
-Under Digital UNIX, devices are reached with the ''vba_*'' kernel interfaces for programmed I/O, DMA, or memory mapping. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1995-September.mbox#L21934|"Re: Alpha VME64 shared memory"]], Dan Gulkis, comp.sys.dec, 12 Sep 1995)] Digital UNIX ships an example AXPvme driver in ''/usr/examples/devdriver/lh100''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-September.mbox#L14539|"Re: PCI Sparse Address Space"]], Hubert Robitaille, comp.sys.dec, 17 Sep 1996)]
+Under Digital UNIX, devices are reached with the ''vba_*'' kernel interfaces for programmed I/O, DMA, or memory mapping. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1995-September.mbox#L21934|"Re: Alpha VME64 shared memory"]], Dan Gulkis, comp.sys.dec, 12 Sep 1995)]
 
 The boards have more interrupt hardware than the operating systems use: the AXPvme has many distinct interrupt mask bits, but the OSF/1 PALcode presents a single device interrupt level. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-September.mbox#L3104|"Re: alphastation serial @ 115200"]], Todd Whitesel, port-alpha, 15 Sep 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-September.mbox#L3203|"Re: alphastation serial @ 115200"]], Ross Harvey, port-alpha, 15 Sep 1999)]
 
@@ -77,8 +72,6 @@ Field replaceable units for the Alpha VME 4: [(>{{wiki:hardware:systems:alpha_vm
 | EBV1P-AA | 54-24665-01 | PMC I/O companion card |
 
 An asterisk stands for any of A, Z, R, or X.
-
-For the earlier series, EBV12-AD is a 160 MHz AXPvme processor board taking a memory daughter board, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1999-July.mbox#L26302|"DEC VME system for sale"]], Ben Cook, comp.sys.dec, 12 Jul 1999)] and EBVXM-AA is an 8 MiB AXPvme memory card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-September.mbox#L4562|"FS: AXPvme 8 MB Memory"]], Leslie Connally, comp.sys.dec, 28 Sep 1996)]
 
 ==== Documentation ====
 

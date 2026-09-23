@@ -1,6 +1,6 @@
 ===== UP1000 =====
 
-The UP1000 is a motherboard built by Samsung and Alpha Processor, Inc. (API), later API NetWorks. The first product release of the UP1000 User Manual is dated December 1999. [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, p. iii)]
+The UP1000 is a motherboard built by Samsung and Alpha Processor, Inc. (API), later API NetWorks, and introduced in late 1999. [(>{{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}, p. iii)]
 
 <gallery right aligned nocrop>
 wiki:hardware:motherboards:up1000:up1000-1.jpg API NetWorks UP1000
@@ -18,11 +18,10 @@ wiki:hardware:motherboards:up1000:up1000-1.jpg API NetWorks UP1000
 ==== Limitations ====
 
   * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB (137GB)
-  * According to Ivan Kokshaysky, the UP1000, UP1100, and UP1500's AGP is limited to PCI transfers:
-    <blockquote>There is quite fundamental conflict between the Alpha architecture and x86 AGP implementation - Alpha is entirely cache coherent by design, while x86 AGP is not (I mean native AGP DMA transactions, not a PCI over AGP). There are no such things as non-cacheable mappings or software support for cache flushing/invalidation on Alpha, so x86 AGP code won't work on Nautilus.</blockquote>
+  * The AGP slot of the UP1000, UP1100, and UP1500 operates only as a PCI slot. Alpha is fully cache coherent and provides no non-cacheable mappings or software cache flushing, which the x86 AGP support in Linux depends on for native AGP transfers.
   * The AMD-751 can address at most 768 MiB of memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L30727|"Re: UP1100 delivery problems"]], Rich Payne, axp-list, 26 Mar 2002)]
   * ATI Rage II and Rage Pro based video cards do not work in the UP1000 or UP1100, although they work in the UP2000 and DP264. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L17091|"Re: (no subject)"]], Maurice Hilarius, axp-list, 22 Aug 2000)]
-  * The BIOS emulator in the UP1000 and UP1100 SRM firmware is older than the one in the UP1500's firmware. Jay Estabrook was unable to get any AGP Radeon card to work with it on a UP1100. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L2650|"AW: Some observations regarding FC* on UP2000+"]], Jay Estabrook, axp-list, 24 Apr 2008)]
+  * The BIOS emulator in the UP1000 and UP1100 SRM firmware is older than the one in the UP1500's firmware. No AGP Radeon card has been made to work with it on a UP1100. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L2650|"AW: Some observations regarding FC* on UP2000+"]], Jay Estabrook, axp-list, 24 Apr 2008)]
 
 ==== Firmware ====
 
@@ -39,7 +38,7 @@ The UP1000 and UP1100 SRM images are different revisions and cannot be used on e
 
 ==== History ====
 
-According to Maurice Hilarius of Hard Data, Samsung developed the UP1x00 family of boards, while API took over development of the UP2000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-August.mbox#L6772|"RE: Samsung EV69"]], Maurice Hilarius, axp-list, 8 Aug 2002)]
+Samsung developed the UP1x00 family of boards, while API took over development of the UP2000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-August.mbox#L6772|"RE: Samsung EV69"]], Maurice Hilarius, axp-list, 8 Aug 2002)]
 
 ==== Conflicting information ====
 

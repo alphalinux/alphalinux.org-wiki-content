@@ -23,13 +23,19 @@ wiki:hardware:motherboards:eb164:eb164-1.jpg Digital EB164
 
 ==== CPU ====
 
-  * The EB164 supports only the 21164 (EV5), not the 21164A (EV56). The fastest CPU used was 333 MHz; changing CPU speed also requires a clock oscillator of the matching frequency. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L14246|"Re: EB164 SRM Problems - Followup"]], Jay Estabrook, debian-alpha, 30 Jan 2003)]
+The EB164 supports only the 21164 (EV5), not the 21164A (EV56). The fastest CPU used was 333 MHz; changing CPU speed also requires a clock oscillator of the matching frequency. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L14246|"Re: EB164 SRM Problems - Followup"]], Jay Estabrook, debian-alpha, 30 Jan 2003)]
 
 ==== Firmware ====
 
-  * In addition to the ARC console, an SRM console is available, and it is the preferred console for Linux. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L12634|"Re: EB164 SRM Problems"]], Jay Estabrook, debian-alpha, 28 Jan 2003)] Only SRM reports correctable ECC memory errors; the EBSDK PALcode used by MILO does not. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L13340|"Re: EB164 SRM Problems - Followup"]], Jay Estabrook, debian-alpha, 29 Jan 2003)]
-  * The last SRM release for the EB164 is V4.8. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L13722|"Re: EB164 SRM Problems"]], Stefan Schroepfer, debian-alpha, 29 Jan 2003)] It does not support newer PCI-to-PCI bridges such as the DECchip 21154, so cards using them do not work from SRM, although they work with ARC and MILO. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L12634|"Re: EB164 SRM Problems"]], Jay Estabrook, debian-alpha, 28 Jan 2003)] The board had been retired years earlier, and no further SRM updates were planned. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L13255|"Re: EB164 SRM Problems"]], Jay Estabrook, debian-alpha, 29 Jan 2003)]
-  * The onboard IDE interface is part of the National PC87312 Super I/O chip (not a CMD646, which first appeared on the [[hardware:motherboards:pc164|PC164]]), and Linux supports it only in PIO mode. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-January.mbox#L27608|"Re: EB164 onboard IDE characteristics"]], Jay Estabrook, axp-list, 19 Jan 2000)]
+In addition to the ARC console, an SRM console is available, and it is the preferred console for Linux. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L12634|"Re: EB164 SRM Problems"]], Jay Estabrook, debian-alpha, 28 Jan 2003)] Only SRM reports correctable ECC memory errors; the EBSDK PALcode used by MILO does not. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L13340|"Re: EB164 SRM Problems - Followup"]], Jay Estabrook, debian-alpha, 29 Jan 2003)]
+
+The last SRM release for the EB164 is V4.8. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L13722|"Re: EB164 SRM Problems"]], Stefan Schroepfer, debian-alpha, 29 Jan 2003)] It does not support newer PCI-to-PCI bridges such as the DECchip 21154, so cards using them do not work from SRM, although they work with ARC and MILO. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L12634|"Re: EB164 SRM Problems"]], Jay Estabrook, debian-alpha, 28 Jan 2003)]
+
+==== Linux ====
+
+Because the EB164 supports only the 21164 (EV5), current kernels do not run on it: support for pre-EV56 processors was removed in Linux 6.10, and Linux 6.9 was the last version to support the board. The ''CONFIG_ALPHA_EB164'' kernel option no longer exists.
+
+The onboard IDE interface is part of the National PC87312 Super I/O chip (not a CMD646, which first appeared on the [[hardware:motherboards:pc164|PC164]]), and Linux supported it only in PIO mode. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-January.mbox#L27608|"Re: EB164 onboard IDE characteristics"]], Jay Estabrook, axp-list, 19 Jan 2000)]
 
 ==== Known issues ====
 
@@ -38,8 +44,7 @@ wiki:hardware:motherboards:eb164:eb164-1.jpg Digital EB164
 ==== Clones and OEM systems ====
 
   * Carrera and Microway built systems based on the EB164. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-August.mbox#L348|"Re: Linux on Alpha 21164 and Alpine Durango board"]], Jay Estabrook, axp-list, 1 Aug 1996)]
-  * One vendor sold an EB164 as an "AlphaStation 500/333"; its console identified itself as an EB164, and Digital's AlphaStation 500 firmware would not work on it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-misc-mbox/googlegroups-1996-October.mbox#L1765|"Re: Problem updating firmware on AlphaStation 500"]], Andrew Gallatin, comp.unix.osf.misc, 21 Oct 1996)]
-  * The Aspen Timberline is Aspen's own design, essentially an EB164 with a PCI-to-PCI bridge providing seven PCI slots. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8946|"Re: linux on EB164+"]], Jim Paradis, axp-list, 12 May 1996)]
+  * The Aspen Timberline is Aspen's own design, essentially an EB164 with a PCI-to-PCI bridge providing seven PCI slots. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-May.mbox#L8946|"Re: linux on EB164+"]], Jim Paradis, axp-list, 12 May 1996)] Aspen named the EB164 as the closest Digital equivalent of both the Timberline and its Summit system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-June.mbox#L10560|"DEC systems equivalents to Aspen Systems"]], Brian Cruikshank, axp-list, 21 Jun 1996)]
 
 ==== Documentation ====
 

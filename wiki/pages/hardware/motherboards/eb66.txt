@@ -2,7 +2,7 @@
 
 The Alpha 21066 and Alpha 21068 Evaluation Board (EB66) is an evaluation board for systems based on the [[wp>Alpha_21064#Alpha_21066|Alpha 21066]] and 21068 microprocessors. [(>{{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}})] [(>{{wiki:hardware:motherboards:common:palcode_system_design_guide.pdf?linkonly|PALcode for Alpha Microprocessors System Design Guide}})] It reports system type 19 in the HWRPB. [(>{{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6 (1994)}})]
 
-According to David Rusling of DEC, the EB66 was Digital's first AT form factor Alpha motherboard, and the Noname (UDB) is based on revision 1 of its design. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L3730|"Re: interesting benchmarks"]], David A Rusling, axp-list, 4 Sep 1996)] The [[hardware:motherboards:eb66plus|EB66+]] is the corresponding board for the 21066A.
+The EB66 was Digital's first AT form factor Alpha motherboard, and the Noname (AXPpci 33) is based on revision 1 of its design. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-September.mbox#L3730|"Re: interesting benchmarks"]], David A Rusling, axp-list, 4 Sep 1996)] The [[hardware:motherboards:eb66plus|EB66+]] is the corresponding board for the 21066A.
 
 ==== Firmware ====
 
@@ -12,13 +12,11 @@ DEC also distributed SRM consoles for the EB66, along with its other evaluation 
 
 ==== Linux ====
 
-Linux supports the EB66 with the ''CONFIG_ALPHA_EB66'' kernel option. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1997-July.mbox#L208|"Help requested compiling kernel: which arch is mine?"]], Terrence Brannon, debian-alpha, 6 Jul 1997)] The MILO image is named ''eb66''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)]
+Linux supported the EB66 with the ''CONFIG_ALPHA_EB66'' kernel option. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1997-July.mbox#L208|"Help requested compiling kernel: which arch is mine?"]], Terrence Brannon, debian-alpha, 6 Jul 1997)] The option no longer exists: support for pre-EV56 systems was removed in Linux 6.10, and Linux 6.9 was the last version to support the EB66. The MILO image is named ''eb66''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L30004|"Re: AlphaServer 800"]], Jay Estabrook, axp-list, 25 Mar 1998)]
 
 Many mailing list posts use "EB66" to refer to the [[hardware:motherboards:eb66plus|EB66+]], so reports of a given "EB66" do not necessarily apply to this board.
 
 ==== Documentation ====
-
-No EB66 user's guide has been located.
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:motherboards:common:windows_nt_installation_guide.pdf?linkonly|Alpha Microprocessors Motherboard Windows NT 3.51 and 4.0 Installation Guide}} (includes EB66 firmware and POST codes) | EC-QLUAH-TE | October 1997 |
