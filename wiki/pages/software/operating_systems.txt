@@ -65,7 +65,7 @@ Linux support is according to the platforms in ''arch/alpha'' in Linux 6.10 and 
 | [[hardware:motherboards:eb64plus|EB64+]] | Yes | | Yes | Linux 6.9 and earlier |
 | [[hardware:motherboards:eb66|EB66]] | Yes | | | Linux 6.9 and earlier |
 | [[hardware:motherboards:eb66plus|EB66+]] | Yes | | Yes | Linux 6.9 and earlier |
-| AXPpci 33 (Noname) | Yes | | Yes | Linux 6.9 and earlier |
+| [[hardware:motherboards:axppci33|AXPpci 33]] (Noname) | Yes | | Yes | Linux 6.9 and earlier |
 | [[hardware:motherboards:pc64|AlphaPC 64]] | Yes | | Yes | Linux 6.9 and earlier |
 | [[hardware:motherboards:eb164|EB164]] | Yes | No | Yes | Linux 6.9 and earlier |
 | [[hardware:motherboards:pc164|AlphaPC 164]] | Yes | | Yes | Supported |
