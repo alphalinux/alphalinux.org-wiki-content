@@ -108,7 +108,7 @@ and connect to port 2222 on the host. For a guest on the host's own network, use
 
 === Serial console and graphics ===
 
-With ''-nographic'', the guest's first serial port is connected to QEMU's standard input and output, and the firmware sets up the system for a serial console. ''console=ttyS0'' in ''-append'' sends the kernel's messages there, and most distributions then start a login prompt on it. Ctrl-A X quits QEMU, and Ctrl-A C switches to the QEMU monitor.
+With ''-nographic'', the guest's first serial port is connected to QEMU's standard input and output, and the firmware sets up the system for a serial console. ''console=ttyS0'' in ''-append'' sends the kernel's messages there, and most distributions then start a login prompt on it. <key>C-a</key> <key>x</key> quits QEMU, and <key>C-a</key> <key>c</key> switches to the QEMU monitor.
 
 Without ''-nographic'', QEMU emulates a VGA card, and the kernel uses it unless told otherwise. The serial console is still available with ''-serial stdio'' or in the ''View'' menu.
 

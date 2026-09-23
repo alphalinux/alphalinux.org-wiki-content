@@ -29,6 +29,7 @@ The wiki is DokuWiki. Every edit is committed to a git repository, where it can 
   * **Record conflicts rather than resolving them silently.** When sources disagree, the page gives the account the evidence supports, and lists the other sources, with short quotes, in a section titled "Conflicting information" at the end. Keep each entry short, and list only real disagreements, not sources that merely add detail.
   * **Use US spelling**, one space after a full stop, and no em dashes. Write dates as "14 Jul 1998" in citations and "14 July 1998" in text, and binary sizes as KiB, MiB, and GiB.
   * **Name things as the sources do**: Alpha, not AXP, except in product names; processors by EV name with the part number on first mention, as in "EV56 (21164A)"; system names with their codename (AlphaServer ES40, Clipper); motherboards by their marketing names (AlphaPC 164LX), with the kernel's platform names (LX164) only in kernel context.
+  * **Mark key presses** with the [[https://www.dokuwiki.org/plugin:keyboard|keyboard plugin]]: ''%%<key>C-c</key>%%'' for Ctrl-C, and ''%%<key>Esc</key> <key>Esc</key>%%'' for a sequence. ''C'', ''S'', and ''A'' alone mean Ctrl, Shift, and Alt, so write letter keys in lowercase. Put text typed at a prompt in ''%%''monospace''%%''.
   * **Call the port Alpha/Linux**, not Linux/Alpha or Alpha Linux, except in quoted titles and product names. "Linux on Alpha" is fine in ordinary prose.
 
 ==== Pages ====

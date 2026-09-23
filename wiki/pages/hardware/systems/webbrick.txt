@@ -41,7 +41,7 @@ The XP900 has the same 466 MHz 21264 with 2 MiB of L2 cache and the same memory 
 Use the final SRM version, V7.3-1 (see [[software:firmware:srm#final_versions|final SRM versions]]). The XP900 console reference describes AlphaBIOS as the console for Windows NT and Linux, and SRM as the console for Tru64 UNIX and OpenVMS, [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, EK-DS10V-CR.A01, title page)] but current Linux distributions boot from SRM with aboot.
 
   * The console numbers the PCI slots differently from the chassis: logical slots 14 to 17 are physical slots 0 to 3, counting from the bottom, and the bottom slot is the 32-bit one. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, pp. 1-4 to 1-5, 2-11)] Onboard, the two DE500-BA Ethernet controllers are on bus 0 slots 9 and 11 and the Acer Labs M1543C IDE (''dqa'' and ''dqb'') on slot 13. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_console_reference.pdf?linkonly|AlphaStation XP900 Console Reference}}, p. 1-4)]
-  * The remote management console is reached with Ctrl/[ Ctrl/[ R M C, of which only the "MC" is echoed. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_release_notes.pdf?linkonly|AlphaStation XP900 Release Notes}}, EK-DS10V-RN.A01, August 1999)]
+  * The remote management console is reached with <key>C-[</key> <key>C-[</key> ''rmc'', of which only the "MC" is echoed. [(>{{wiki:hardware:systems:alphastation_xp900:alphastation_xp900_release_notes.pdf?linkonly|AlphaStation XP900 Release Notes}}, EK-DS10V-RN.A01, August 1999)]
 
 ==== Linux ====
 

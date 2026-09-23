@@ -88,7 +88,7 @@ The flash ROM holds only one console image at a time, either AlphaBIOS or SRM. [
 
 Switching from AlphaBIOS to SRM is done by copying ''lx164srm.rom'' to a FAT-formatted floppy and flashing it with the upgrade utility in AlphaBIOS Setup. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-October.mbox#L888|"SRM on 164LX"]], Steven Moix, axp-list, 4 Oct 2004)] The flash is write-protected unless pins 2 and 3 of J28 are jumpered together, which is the default. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2002-January.mbox#L1202|"Updating AlphaBIOS to SRM on an AlphaPC 164LX"]], Harald Simon, debian-alpha, 6 Jan 2002)]
 
-AlphaBIOS uses different keys on a serial console: Tab to move between menu items, Ctrl-B to enter setup (instead of F2), and Ctrl-U to save the operating system configuration (instead of F10). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-December.mbox#L1926|"Headless install on LX164"]], Adam C Powell IV, debian-alpha, 7 Dec 1999)]
+AlphaBIOS uses different keys on a serial console: <key>Tab</key> to move between menu items, <key>C-b</key> to enter setup (instead of <key>F2</key>), and <key>C-u</key> to save the operating system configuration (instead of <key>F10</key>). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-December.mbox#L1926|"Headless install on LX164"]], Adam C Powell IV, debian-alpha, 7 Dec 1999)]
 
 === SRM V5.8 hardware support ===
 
