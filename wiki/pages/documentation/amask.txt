@@ -1,6 +1,6 @@
 ===== Architecture Mask (amask) =====
 
-The Architecture Mask instruction is used to determine the presence of [[instruction_set#isa_extensions|instruction set extensions]] at runtime.
+The Architecture Mask instruction, ''AMASK'', reports which [[instruction_set#isa_extensions|instruction set extensions]] the processor implements. Its companion, ''IMPLVER'', reports only the processor generation (0 for the 21064 family, 1 for the 21164 family, 2 for the 21264, 3 for the 21364), and is meant for tuning decisions rather than for choosing instructions. [(>{{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}, p. 4-141, Table D-4)] User programs on Linux normally do not execute ''AMASK'' themselves, but read the kernel's ''AT_HWCAP'' value with ''getauxval()'', as shown [[#in_the_kernel|below]]. The table of which processor introduced each extension is under [[instruction_set#isa_extensions|Instruction Set: ISA extensions]].
 
 ==== Semantics ====
 
@@ -34,9 +34,17 @@ On the earliest implementations ''AMASK'' is a no-op that copies its operand str
   * On 21164A (EV56), 21164PC (PCA56), and 21264 (EV6), AMASK correctly indicates support for architecture extensions by copying Rbv to Rc and clearing appropriate bits.
 </blockquote>
 
+The 21264 hardware reference manuals give the feature mask each processor reports, that is, the bits that ''AMASK'' clears, and the value of ''AT_HWCAP'' under Linux:
+
+^ Processor ^ Feature mask ^ Extensions ^
+| EV6 (21264), pass 1 | ''0x001'' | BWX [(>{{wiki:hardware:cpu:21264:21264_ev6_hardware_reference_manual.pdf?linkonly|Alpha 21264/EV6 Hardware Reference Manual}}, Table 2-15, p. 2-37)] |
+| EV6 (21264), pass 2 | ''0x303'' | BWX, FIX, MVI, precise traps |
+| EV67 (21264A) | ''0x307'' | BWX, FIX, CIX, MVI, precise traps [(>{{wiki:hardware:cpu:21264:21264_ev67_hardware_reference_manual.pdf?linkonly|Alpha 21264/EV67 Hardware Reference Manual}}, Table 2-15, p. 2-38)] |
+| EV68CB and EV68DC | ''0x1307'' | BWX, FIX, CIX, MVI, precise traps, prefetch with modify intent [(>{{wiki:hardware:cpu:21264:21264_ev68cb_ev68dc_hardware_reference_manual.pdf?linkonly|Alpha 21264/EV68CB and 21264/EV68DC Hardware Reference Manual}}, Table 2-15, p. 2-37)] |
+
 ==== Example ====
 
-This program uses gcc's ''%%__builtin_alpha_amask%%'' intrinsic to determine which architectural extensions are present in the host CPU.
+This program uses GCC's ''%%__builtin_alpha_amask%%'' intrinsic to determine which architectural extensions are present in the host CPU.
 
 <code c>
 #include <stdio.h>
@@ -86,6 +94,25 @@ Kernel code tests it with the architectural polarity, for example ''if (!amask(A
 
 <code c>
 #define ELF_HWCAP  (~amask(-1))
+</code>
+
+A user program therefore tests the bits of ''AT_HWCAP'' directly, without the inversion: [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/elf.h?h=v7.3-rc1|arch/alpha/include/asm/elf.h]], Linux 7.3)]
+
+<code c>
+#include <stdio.h>
+#include <sys/auxv.h>
+
+int main(void)
+{
+	/* The kernel inverts AMASK's result, so a set bit means present. */
+	unsigned long hwcap = getauxval(AT_HWCAP);
+
+	if (hwcap & (1UL << 0)) puts("BWX supported.");
+	if (hwcap & (1UL << 1)) puts("FIX supported.");
+	if (hwcap & (1UL << 2)) puts("CIX supported.");
+	if (hwcap & (1UL << 8)) puts("MVI supported.");
+	return 0;
+}
 </code>
 
 ==== References ====
