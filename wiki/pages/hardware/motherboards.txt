@@ -7,14 +7,14 @@
 | [[hardware:motherboards:eb66|EB66]] | [[wp>Alpha_21064#Alpha_21066|21066/LCA4]] | 166 MHz | unknown | unknown | None (integrated in CPU) | 256 KiB | 0 | 2 (1 shared) | 0 | 3 (1 shared) |
 | [[hardware:motherboards:eb66plus|EB66+]] | [[wp>Alpha_21064#Alpha_21066A|21066A/LCA45]] | 233 MHz | FPM Parity (ECC) | 384 MiB | None (integrated in CPU) | 256 KiB - 1 MiB | 0 | 4 (1 shared) | 0 | 5 (1 shared) |
 | [[hardware:motherboards:axppci33|AXPpci 33]] | [[wp>Alpha_21064#Alpha_21066|21066/LCA4]], [[wp>Alpha_21064#Alpha_21066A|21066A/LCA45]], [[wp>Alpha_21064#Alpha_21068|21068]], [[wp>Alpha_21064#Alpha_21068A|21068A]] | 66 - 233 MHz | FPM ECC | 256 MiB | None (integrated in CPU) | 0, 256 KiB, 1 MiB | 0 | 3 (1 shared) | 0 | 5 (1 shared) |
-| [[hardware:motherboards:pc64|AlphaPC64]] | [[wp>Alpha_21064#Alpha_21064A|21064A/EV45]] | 200, 233, 275 MHz | FPM Parity | 512 MiB | 21072 | 512 KiB - 8 MiB | 0 | 4 (1 shared) | 0 | 3 (1 shared) |
+| [[hardware:motherboards:pc64|AlphaPC 64]] | [[wp>Alpha_21064#Alpha_21064A|21064A/EV45]] | 200, 233, 275 MHz | FPM Parity | 512 MiB | 21072 | 512 KiB - 8 MiB | 0 | 4 (1 shared) | 0 | 3 (1 shared) |
 | [[hardware:motherboards:eb164|EB164]] | [[wp>Alpha_21164|21164/EV5]] | 266, 300, 333 MHz | FPM Parity (ECC) | 512 MiB | 21171 | 2 - 8 MiB | 2 (1 shared) | 2 | 0 | 3 (1 shared) |
-| [[hardware:motherboards:pc164|AlphaPC164]] | [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 366 - 500 MHz | FPM Parity (ECC) | 512 MiB | 21172 | 1 MiB | 2 | 2 | 0 | 2 |
-| [[hardware:motherboards:pc164lx|AlphaPC164LX]] | [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 466, 533, 600 MHz | ECC SDRAM | 1024 MiB | 21174 | 2, 4 MiB | 2 | 2 | 0 | 2 |
-| [[hardware:motherboards:pc164sx|AlphaPC164SX]] | [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|21164PC/PCA56]] | 400, 533 MHz | SDRAM (ECC optional) | 1024 MiB | 21174 | 1 MiB | 2 | 2 | 0 | 2 |
-| [[hardware:motherboards:pc164ux|AlphaPC164UX]], [[hardware:motherboards:pc164ux#pc164bx|PC164BX]] | [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 466, 533, 600 MHz | ECC SDRAM | 1536 MiB | 21174 | 2, 4 MiB | 1 | 5 | 0 | 1 |
-| [[hardware:motherboards:pc164rx|AlphaPC164RX]] | [[wp>Alpha_21164#Alpha_21164PC_(PCA57)|21164PC/PCA57]] | 525, 600 MHz | ECC SDRAM | 512 MiB | Polaris | 1 MiB | 0 | 5 (1 shared) | 0 | 1 (shared) |
-| [[hardware:motherboards:pc264dp|AlphaPC264DP]] | [[wp>Alpha_21264|21264/EV6]], [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 500, 667 MHz | ECC SDRAM | 4096 MiB | 21272 | 2, 4 MiB | 6 (1 shared) | 0 | 0 | 1 (shared) |
+| [[hardware:motherboards:pc164|AlphaPC 164]] | [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 366 - 500 MHz | FPM Parity (ECC) | 512 MiB | 21172 | 1 MiB | 2 | 2 | 0 | 2 |
+| [[hardware:motherboards:pc164lx|AlphaPC 164LX]] | [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 466, 533, 600 MHz | ECC SDRAM | 1024 MiB | 21174 | 2, 4 MiB | 2 | 2 | 0 | 2 |
+| [[hardware:motherboards:pc164sx|AlphaPC 164SX]] | [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|21164PC/PCA56]] | 400, 533 MHz | SDRAM (ECC optional) | 1024 MiB | 21174 | 1 MiB | 2 | 2 | 0 | 2 |
+| [[hardware:motherboards:pc164ux|AlphaPC 164UX]], [[hardware:motherboards:pc164ux#alphapc_164bx|AlphaPC 164BX]] | [[wp>Alpha_21164#Alpha_21164A|21164A/EV56]] | 466, 533, 600 MHz | ECC SDRAM | 1536 MiB | 21174 | 2, 4 MiB | 1 | 5 | 0 | 1 |
+| [[hardware:motherboards:pc164rx|AlphaPC 164RX]] | [[wp>Alpha_21164#Alpha_21164PC_(PCA57)|21164PC/PCA57]] | 525, 600 MHz | ECC SDRAM | 512 MiB | VLSI Polaris | 1 MiB | 0 | 5 (1 shared) | 0 | 1 (shared) |
+| [[hardware:motherboards:pc264dp|AlphaPC 264DP]] | [[wp>Alpha_21264|21264/EV6]], [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 500, 667 MHz | ECC SDRAM | 4096 MiB | 21272 | 2, 4 MiB | 6 (1 shared) | 0 | 0 | 1 (shared) |
 | [[hardware:motherboards:up1000|UP1000]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 600, 700 MHz | ECC SDRAM | 768 MiB | AMD-751 | 2, 4 MiB | 0 | 4 | 1 | 2 |
 | [[hardware:motherboards:up1100|UP1100]] | [[wp>Alpha_21264#Alpha_21264A|21264A/EV67]] | 600 MHz | ECC SDRAM | 768 MiB | AMD-751 | 2 MiB | 0 | 3 | 1 | 0 |
 | [[hardware:motherboards:up1500|UP1500]] | [[wp>Alpha_21264#Alpha_21264B|21264B/EV68]] | 800 MHz | ECC DDR SDRAM | 4096 MiB | AMD-761 | 2 - 8 MiB | 0 | 3 | 1 | 0 |
@@ -23,26 +23,36 @@
 
 ==== Form factor, firmware, and Linux ====
 
-All boards also have PS/2 keyboard and mouse ports. The firmware column lists the consoles available for each board, with the last SRM version where it is known; "or" marks boards whose flash holds only one console at a time. The current kernel column says whether current Linux kernels support the board; boards removed in Linux 6.10 show the last version that did. Details and sources are on each board's page.
+All boards also have PS/2 keyboard and mouse ports. The firmware column lists the consoles available for each board, with the last SRM version where it is known; "or" marks boards whose flash holds only one console at a time.
+
+Boards with EV4, EV45, LCA, or EV5 processors are not supported by Linux 6.10 or later, which requires an EV56 (21164A) or later processor; Linux 6.9 was the last version to support them. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] The current kernel column uses these values:
+  * **Supported**: current kernels support the board.
+  * **Untested**: the support code is in current kernels, but no one has reported booting a current kernel. The AlphaPC 164UX and 164RX can only boot Linux through [[software:boot_loaders:milo|MILO]].
+  * **Linux 6.9 and earlier**: the board has a processor older than the EV56.
+  * **Removed in //year//**: support was removed earlier for another reason.
+
+Details and sources are on each board's page.
 
 ^ Motherboard ^ Form factor ^ Onboard I/O ^ Firmware ^ Current kernel ^
 | [[hardware:motherboards:eb64|EB64]] | unknown | Am79C960 Ethernet, floppy, 2 serial, keyboard, mouse | Debug monitor, SRM | Removed in 1995 |
-| [[hardware:motherboards:eb64plus|EB64+]] | Full-size AT | NCR 53C810 SCSI, 21040 Ethernet, floppy, 2 serial, parallel | ARC, SRM, MILO | No, last 6.9 |
-| [[hardware:motherboards:eb66|EB66]] | Baby AT | NCR 53C810 SCSI, 21040 Ethernet, floppy, 2 serial, parallel | ARC, SRM, MILO | No, last 6.9 |
-| [[hardware:motherboards:eb66plus|EB66+]] | Baby AT | IDE, floppy, 2 serial, parallel | SRM, MILO | No, last 6.9 |
-| [[hardware:motherboards:axppci33|AXPpci 33]] | Baby AT | NCR 53C810 SCSI, IDE, floppy, 2 serial, parallel | ARC, SRM, MILO | No, last 6.9 |
-| [[hardware:motherboards:pc64|AlphaPC64]] | Baby AT | IDE, floppy, 2 serial, parallel | ARC, SRM 4.8, MILO | No, last 6.9 |
-| [[hardware:motherboards:eb164|EB164]] | Full-size AT | IDE, floppy, 2 serial, parallel | ARC, SRM 4.8, MILO | No, last 6.9 |
-| [[hardware:motherboards:pc164|AlphaPC164]] | ATX | CMD646 IDE, floppy, 2 serial, parallel | ARC or SRM, MILO | Yes |
-| [[hardware:motherboards:pc164lx|AlphaPC164LX]] | ATX | CMD646 IDE, floppy, 2 serial, parallel | SRM 5.8 or AlphaBIOS, MILO | Yes |
-| [[hardware:motherboards:pc164sx|AlphaPC164SX]] | ATX | Cypress IDE, floppy, 2 serial, parallel | SRM 5.8 or AlphaBIOS, MILO | Yes |
-| [[hardware:motherboards:pc164ux|AlphaPC164UX, PC164BX]] | ATX | EIDE, floppy, 2 serial, parallel; 21143 Ethernet and 53C875 SCSI on the UX | ARCSBIOS, MILO | Yes |
-| [[hardware:motherboards:pc164rx|AlphaPC164RX]] | ATX | IDE, 10/100 Ethernet, floppy, 2 serial, parallel, 2 USB | AlphaBIOS, MILO | Yes |
-| [[hardware:motherboards:pc264dp|AlphaPC264DP]] | 42.11 x 33.02 cm | AIC-7895 SCSI, IDE, floppy, 2 serial, parallel | SRM, AlphaBIOS | Yes |
-| [[hardware:motherboards:up1000|UP1000]] | ATX | 2 IDE, floppy, 2 serial, parallel, 2 USB | SRM, AlphaBIOS | Yes |
-| [[hardware:motherboards:up1100|UP1100]] | ATX | 2 IDE, floppy, 2 serial, parallel, 2 USB, 21143 Ethernet, sound | SRM | Yes |
-| [[hardware:motherboards:up1500|UP1500]] | ATX | 2 IDE, floppy, 2 serial, parallel, 2 USB, 21143 Ethernet, sound | SRM 5.6-19 | Yes |
-| [[hardware:motherboards:up2000|UP2000, UP2000+]] | Extended ATX | AIC-7891 SCSI, IDE, floppy, 2 serial, parallel, 2 USB | SRM A5.8-81, AlphaBIOS | Yes |
+| [[hardware:motherboards:eb64plus|EB64+]] | Full-size AT | NCR 53C810 SCSI, 21040 Ethernet, floppy, 2 serial, parallel | ARC, SRM, MILO | Linux 6.9 and earlier |
+| [[hardware:motherboards:eb66|EB66]] | Baby AT | NCR 53C810 SCSI, 21040 Ethernet, floppy, 2 serial, parallel | ARC, SRM, MILO | Linux 6.9 and earlier |
+| [[hardware:motherboards:eb66plus|EB66+]] | Baby AT | IDE, floppy, 2 serial, parallel | SRM, MILO | Linux 6.9 and earlier |
+| [[hardware:motherboards:axppci33|AXPpci 33]] | Baby AT | NCR 53C810 SCSI, IDE, floppy, 2 serial, parallel | ARC, SRM, MILO | Linux 6.9 and earlier |
+| [[hardware:motherboards:pc64|AlphaPC 64]] | Baby AT | IDE, floppy, 2 serial, parallel | ARC, SRM 4.8, MILO | Linux 6.9 and earlier |
+| [[hardware:motherboards:eb164|EB164]] | Full-size AT | IDE, floppy, 2 serial, parallel | ARC, SRM 4.8, MILO | Linux 6.9 and earlier |
+| [[hardware:motherboards:pc164|AlphaPC 164]] | ATX | CMD646 IDE, floppy, 2 serial, parallel | ARC or SRM, MILO | Supported |
+| [[hardware:motherboards:pc164lx|AlphaPC 164LX]] | ATX | CMD646 IDE, floppy, 2 serial, parallel | SRM 5.8 or AlphaBIOS, MILO | Supported |
+| [[hardware:motherboards:pc164sx|AlphaPC 164SX]] | ATX | Cypress IDE, floppy, 2 serial, parallel | SRM 5.8 or AlphaBIOS, MILO | Supported |
+| [[hardware:motherboards:pc164ux|AlphaPC 164UX, 164BX]] | ATX | EIDE, floppy, 2 serial, parallel; 21143 Ethernet and 53C875 SCSI on the UX | ARCSBIOS, MILO | Untested |
+| [[hardware:motherboards:pc164rx|AlphaPC 164RX]] | ATX | IDE, 10/100 Ethernet, floppy, 2 serial, parallel, 2 USB | AlphaBIOS, MILO | Untested |
+| [[hardware:motherboards:pc264dp|AlphaPC 264DP]] | 42.11 x 33.02 cm | AIC-7895 SCSI, IDE, floppy, 2 serial, parallel | SRM, AlphaBIOS | Supported |
+| [[hardware:motherboards:up1000|UP1000]] | ATX | 2 IDE, floppy, 2 serial, parallel, 2 USB | SRM, AlphaBIOS | Supported |
+| [[hardware:motherboards:up1100|UP1100]] | ATX | 2 IDE, floppy, 2 serial, parallel, 2 USB, 21143 Ethernet, sound | SRM | Supported |
+| [[hardware:motherboards:up1500|UP1500]] | ATX | 2 IDE, floppy, 2 serial, parallel, 2 USB, 21143 Ethernet, sound | SRM 5.6-19 | Supported |
+| [[hardware:motherboards:up2000|UP2000, UP2000+]] | Extended ATX | AIC-7891 SCSI, IDE, floppy, 2 serial, parallel, 2 USB | SRM A5.8-81, AlphaBIOS | Supported |
+
+API NetWorks also announced the [[hardware:motherboards:up1700|UP1700]] and [[hardware:motherboards:up2700|UP2700]] for 2001, but neither was released.
 
 Digital's VMEbus single-board computers are on the [[hardware:motherboards:alpha_vme|AXPvme and Alpha VME]] page.
 

@@ -13,7 +13,7 @@
 ^ Linux | Supported |
 </WRAP>
 
-The UP2000 and UP2000+ are motherboards produced by Alpha Processor, Inc. (API), renamed API NetWorks at the end of 2000, which featured the Tsunami chipset and a Slot B processor interface. [(>{{wiki:hardware:motherboards:up2000plus:up2000plus_user_manual.pdf?linkonly|UP2000+ User Manual}}, p. iii)] Linux uses the DP264 kernel type for both boards, like other Tsunami systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-February.mbox#L31906|"RE: UP2000"]], Rich Payne, axp-list, 28 Feb 2001)]
+The UP2000 and UP2000+ are dual-processor motherboards produced by Alpha Processor, Inc. (API), with the Tsunami chipset and a Slot B processor interface. [(>{{wiki:hardware:motherboards:up2000plus:up2000plus_user_manual.pdf?linkonly|UP2000+ User Manual}}, p. iii)]
 
 ==== UP2000 ====
 
@@ -35,7 +35,7 @@ The UP2000 was introduced in 2000. [(>{{wiki:hardware:motherboards:up2000:up2000
 {{anchor:up2000plus}}
 ==== UP2000+ ====
 
-The UP2000+ is a minor update to the UP2000; apart from the changes below, the hardware is the same. The UP2000+ detects the CPU frequency automatically, whereas the UP2000 required jumpered configuration. [(>[[https://www.theregister.com/on-prem/2000/09/15/api-messes-up-alpha-mobo-upgrade/1545403|"API messes up Alpha mobo upgrade"]], Mike Magee, The Register, 15 Sept 2000)]
+The UP2000+ is a minor update to the UP2000; apart from the changes below, the hardware is the same. The UP2000+ detects the CPU frequency automatically, whereas the UP2000 required jumpered configuration. [(>[[https://www.theregister.com/on-prem/2000/09/15/api-messes-up-alpha-mobo-upgrade/1545403|"API messes up Alpha mobo upgrade"]], Mike Magee, The Register, 15 Sep 2000)]
 
   * 1-2 833 MHz EV68AL CPUs with 4/8 MiB external L2 cache (in addition to CPUs supported by UP2000) [(>{{wiki:hardware:motherboards:up2000plus:up2000plus_user_manual.pdf?linkonly|UP2000+ User Manual}})]
   * 2x 64-bit 33 MHz PCI Buses
@@ -80,13 +80,18 @@ At least four DIMMs must be installed; two DIMMs per bank will not start. Four 2
 
 On the UP2000+, jumper block J29 pins 15-16 invoke the fail-safe boot recovery, and pins 1-2 recover the firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-May.mbox#L53|"Trouble booting UP2000+"]], Matt Turner, axp-list, 15 May 2009)] If that does not work, the firmware can be recovered through the SROM serial debug port (a DEC MMJ connector): load the EBSDK debug monitor over the serial line, use it to load SRM, then reflash SRM from a floppy. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-May.mbox#L254|"Trouble booting UP2000+"]], Matt Turner, axp-list, 17 May 2009)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2009-May.mbox#L482|"Trouble booting UP2000+"]], Peter Petrakis, axp-list, 18 May 2009)] The debug monitor image is ''dp264dbm.cmp'', and transfers only work at 9600 baud. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2010-March.mbox#L157|"AW: Continuing UP2000+ problems"]], Ian Las, axp-list, 27 Mar 2010)]
 
-==== Operating systems ====
+==== Linux ====
 
-  * The UP2000 is not an officially supported Tru64 UNIX platform, and Tru64 does not support Adaptec SCSI controllers. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L43541|"RE: UP2000 and Tru64?"]], Mike Foley, axp-list, 23 Dec 1999)] Tru64 V5.1 can be installed after disabling the onboard controller with ''set onboard_adaptec disabled'' and fitting a supported PCI SCSI controller. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2002-November.mbox#L4001|"SUMMARY: converting UP2000 (Dual CPU) from Linux to Tru64 V5.1"]], Gerfried J. Kumbartzki, tru64-unix-managers, 5 Nov 2002)]
+Current kernels support both boards with ''CONFIG_ALPHA_DP264'' or a generic kernel, like other Tsunami systems, including both CPUs in SMP kernels; [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-February.mbox#L31906|"RE: UP2000"]], Rich Payne, axp-list, 28 Feb 2001)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_dp264.c?h=v7.3-rc1|arch/alpha/kernel/sys_dp264.c]], Linux 7.3)] they boot from SRM with [[software:boot_loaders:aboot|aboot]]. The onboard devices use these drivers:
+  * SCSI (Adaptec AIC-7891): ''aic7xxx'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/scsi/aic7xxx/aic7xxx_pci.c?h=v7.3-rc1|drivers/scsi/aic7xxx/aic7xxx_pci.c]], Linux 7.3)]
+  * IDE (Cypress CY82C693): ''pata_cypress'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_cypress.c?h=v7.3-rc1|drivers/ata/pata_cypress.c]], Linux 7.3)]
+  * USB: the onboard controller generally cannot be used, because SRM assigns it no interrupt; see [[#onboard_devices|Onboard devices]].
+
+The UP2000 is not an officially supported Tru64 UNIX platform. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L43541|"RE: UP2000 and Tru64?"]], Mike Foley, axp-list, 23 Dec 1999)]
 
 ==== History ====
 
-API took over the barely started development of the UP2000 from Samsung. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-August.mbox#L6772|"RE: Samsung EV69"]], Maurice Hilarius, axp-list, 8 Aug 2002)] The UP2000+ and the 833 MHz Slot B modules were announced in late 2000, but deliveries to resellers were delayed until June 2001. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L12658|"RE: Bye-bye our API...Drove my Alpha to the..."]], Maurice Hilarius, axp-list, 15 Jan 2002)]
+API, renamed API NetWorks at the end of 2000, [(>{{wiki:hardware:motherboards:up2000plus:up2000plus_user_manual.pdf?linkonly|UP2000+ User Manual}}, p. iii)] took over the barely started development of the UP2000 from Samsung. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-August.mbox#L6772|"RE: Samsung EV69"]], Maurice Hilarius, axp-list, 8 Aug 2002)] The UP2000+ and the 833 MHz Slot B modules were announced in late 2000, but deliveries to resellers were delayed until June 2001. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L12658|"RE: Bye-bye our API...Drove my Alpha to the..."]], Maurice Hilarius, axp-list, 15 Jan 2002)]
 
 ==== Related systems ====
 

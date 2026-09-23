@@ -33,15 +33,15 @@ wiki:hardware:motherboards:up1000:up1000-1.jpg API NetWorks UP1000
 
 ==== Limitations ====
 
-  * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB (137GB)
+  * The IDE controller does not support 48-bit LBA, so hard drive sizes are limited to 128 GiB
   * The AGP slot of the UP1000, UP1100, and UP1500 operates only as a PCI slot. Alpha is fully cache coherent and provides no non-cacheable mappings or software cache flushing, which the x86 AGP support in Linux depends on for native AGP transfers.
   * The AMD-751 can address at most 768 MiB of memory. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L30727|"Re: UP1100 delivery problems"]], Rich Payne, axp-list, 26 Mar 2002)]
-  * ATI Rage II and Rage Pro based video cards do not work in the UP1000 or UP1100, although they work in the UP2000 and DP264. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L17091|"Re: (no subject)"]], Maurice Hilarius, axp-list, 22 Aug 2000)]
+  * ATI Rage II and Rage Pro based video cards do not work in the UP1000 or [[hardware:motherboards:up1100|UP1100]], although they work in the UP2000 and DP264. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-August.mbox#L17091|"Re: (no subject)"]], Maurice Hilarius, axp-list, 22 Aug 2000)]
   * The BIOS emulator in the UP1000 and UP1100 SRM firmware is older than the one in the UP1500's firmware. No AGP Radeon card has been made to work with it on a UP1100. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L2650|"AW: Some observations regarding FC* on UP2000+"]], Jay Estabrook, axp-list, 24 Apr 2008)]
 
 ==== Firmware ====
 
-Initial shipments of the UP1000 came with AlphaBIOS only [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L16749|"RE: UP1000 & UP2000 Installation."]], Tom Morris, axp-list, 6 Nov 1999)], and Linux was booted from AlphaBIOS using APB. API released SRM for the UP1000 in May 2000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-June.mbox#L412|"Re: SRM For the UP1000?"]], Rich Payne, axp-list, 1 Jun 2000)] There is no MILO for Nautilus systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L9754|"Re: Upgrading to RedHat 7.1 on UP1000"]], Rich Payne, axp-list, 9 Apr 2002)]
+Initial shipments of the UP1000 came with AlphaBIOS only [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L16749|"RE: UP1000 & UP2000 Installation."]], Tom Morris, axp-list, 6 Nov 1999)], and Linux was booted from AlphaBIOS using APB, which needs kernels built with the legacy start address (see [[documentation:kernel#kernel_start_address|Kernel]]). API released SRM for the UP1000 in May 2000. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-June.mbox#L412|"Re: SRM For the UP1000?"]], Rich Payne, axp-list, 1 Jun 2000)] There is no MILO for Nautilus systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L9754|"Re: Upgrading to RedHat 7.1 on UP1000"]], Rich Payne, axp-list, 9 Apr 2002)]
 
 SRM is installed using the Alpha Diagnostic Environment (ADE), a firmware maintenance console unique to API boards that is invoked by a jumper. The SRM package contains three images (two ADE images and the SRM console) that are flashed over AlphaBIOS. To return to AlphaBIOS, the SRM console image is overwritten with ''nautilus.rom''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-April.mbox#L11016|"Re: Upgrading to RedHat 7.1 on UP1000"]], Rich Payne, axp-list, 10 Apr 2002)]
 
@@ -49,7 +49,8 @@ The UP1000 and UP1100 SRM images are different revisions and cannot be used on e
 
 ==== Linux ====
 
-  * Nautilus support was added in Linux 2.2.14. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-March.mbox#L38331|"Re: UP1000 + RedHat 6.X + S3 = no X"]], Rich Payne, axp-list, 28 Mar 2000)]
+Current kernels support the UP1000 with ''CONFIG_ALPHA_NAUTILUS'' or a generic kernel; it boots from SRM with [[software:boot_loaders:aboot|aboot]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] The onboard IDE controller in the ALi M1543C uses the ''pata_ali'' driver. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_ali.c?h=v7.3-rc1|drivers/ata/pata_ali.c]], Linux 7.3)]
+
   * The UP1000 has an LM75 temperature sensor. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L16086|"RE: UP2000 Temperature"]], Rich Payne, axp-list, 24 May 2000)] A well cooled UP1000 has a heatsink temperature of about 45 to 50 C. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L16402|"Re: UP2000 Temperature"]], Maurice Hilarius, axp-list, 24 May 2000)]
 
 ==== History ====
@@ -63,9 +64,6 @@ The following sources conflict with each other or with the account given above. 
   * **Latest SRM version**
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L30608|"Re: 2.40test10 working?"]], Rich Payne, axp-list, 17 Nov 2000: "The latest for the UP1000 is 5.6-4.1-9."
     * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L50553|"Re: Ultra ATA 100 on UP1000"]], Rich Payne, axp-list, 26 Nov 2000: "5.6-12 should be the latest."
-  * **ISA or EISA slots**
-    * {{wiki:hardware:motherboards:up1000:up1000_user_manual.pdf?linkonly|UP1000 User Manual}}: "Two ISA expansion slots"
-    * This page previously listed "2x EISA slots", carried over from the old wiki.
 
 ==== Documentation ====
 

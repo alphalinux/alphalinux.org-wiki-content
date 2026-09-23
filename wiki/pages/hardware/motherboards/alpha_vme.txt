@@ -17,34 +17,21 @@ Later boards moved to faster processors and dropped the AXPvme name. The Digital
 
 Digital announced the 4/224 and 4/288 on 24 April 1996 for "industrial automation, military defense and communications", claiming double the CPU performance of the AXPvme 230 and four times the memory bandwidth of the 21066 based boards. The CPU design used "the same core logic found in Digital's AlphaServer 1000 system", and PCI carried the on-board SCSI, Ethernet, and VME interfaces. Digital offered Digital UNIX and VxWorks for Alpha for them. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1996-April.mbox#L3335|"Press/Digital Announces New Family of Alpha-Based VME Single Board Computers"]], Digital Press and Analysts News, biz.digital.announce, 25 Apr 1996)]
 
-Digital also sold a VME variant of a complete system under the same name. The **Alpha VME 2100** is an [[hardware:systems:sable|AlphaServer 2100]] with the VME64 bus in place of EISA, in 19-inch rackmount packaging, otherwise identical to the standard AlphaServer 2100, with three PCI plus five VME64 slots. It was announced in October 1994 as the AlphaServer 2100 4/190 VME, available only at 190 MHz, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-October.mbox#L252|"Digital AlphaServer 2100 4/190 VME"]], Customer Update, biz.digital.articles, 5 Oct 1994)] and renamed to Alpha VME 2100 in June 1995, when a 275 MHz model joined it. It ran Digital UNIX and OpenVMS. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-June.mbox#L12012|"Digital Alpha VME 2100"]], Customer Update, biz.digital.articles, 16 Jun 1995)]
+Digital also sold the **Alpha VME 2100**, an [[hardware:systems:sable|AlphaServer 2100]] in 19-inch rackmount packaging with VME64 in place of EISA, announced in October 1994 as the AlphaServer 2100 4/190 VME. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-October.mbox#L252|"Digital AlphaServer 2100 4/190 VME"]], Customer Update, biz.digital.articles, 5 Oct 1994)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-June.mbox#L12012|"Digital Alpha VME 2100"]], Customer Update, biz.digital.articles, 16 Jun 1995)]
 
 ==== AXPvme specifications ====
 
-  * 6U VMEbus module built on the LCA processor family, with on-chip 8 KiB instruction and data caches and integrated memory and I/O controllers; the supported operating systems are OSF/1 and VxWorks [(>{{wiki:hardware:systems:alpha_vme:axpvme_technical_description.pdf?linkonly|AXPvme Single-Board Computer Technical Description}}, EK-EBV1X-TD.B01, July 1995, pp. 1-1 to 1-4)]
-  * 8, 16, 32, 64, or 128 MiB of DRAM on a 64-bit memory bus, with a fixed external write-back backup cache whose size depends on the module: 256 KiB on the AXPvme 64, 64LC, and 160, and 512 KiB on the 100, 166, and 230
-  * PCI is the onboard I/O bus, driven by the LCA's integral I/O controller, which also acts as a PCI target and a PCI to main memory bridge for DMA
-  * Full master and slave VME interface to IEC 821 and IEEE 1014-1987, able to act as VME system controller in slot 1; A16, A24, and A32 address spaces with D08, D16, D32, and D64 transfers, D64 giving over 24 MB/s
-  * Outbound and inbound scatter/gather maps between VME space and local memory, with hardware byte swapping for big-endian VME peers
-  * VME interface built on the Cypress VIC64 with Digital's DC7407; VIC registers accessed over PCI appear at byte zero of each longword rather than byte 3 as in the VIC64 databook
-  * PCI Ethernet (DECchip 21040), NCR 53C810 SCSI, an Intel 82378ZB bridge, 85C30 serial lines, 8254 timers, flash ROM, and NVRAM
+  * 6U VMEbus module built on the LCA processor family, with integrated memory and PCI controllers [(>{{wiki:hardware:systems:alpha_vme:axpvme_technical_description.pdf?linkonly|AXPvme Single-Board Computer Technical Description}}, EK-EBV1X-TD.B01, July 1995, pp. 1-1 to 1-4)]
+  * 8 to 128 MiB of DRAM, with a 256 KiB (AXPvme 64, 64LC, and 160) or 512 KiB (AXPvme 100, 166, and 230) backup cache
+  * Full master and slave VME interface, built on the Cypress VIC64, able to act as VME system controller
+  * DECchip 21040 Ethernet, NCR 53C810 SCSI, and 85C30 serial lines on PCI
 
 ==== Alpha VME 4 specifications ====
 
-  * [[wp>Alpha_21064#Alpha_21064A|21064A]] at 224 MHz with 512 KiB of cache, or at 288 MHz with 2 MiB of cache, on cache modules; 16 KiB instruction and 16 KiB data caches on chip [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, pp. 1-1 to 1-5)]
-  * DECchip 21071-DA PCI host bridge, with PCI as the on-board bus
-  * 8, 16, 32, 64, or 128 MiB of ECC main memory on DIMMs, on a 128-bit data bus, accessible from the CPU, from PCI, and from the VMEbus
-  * 4 MiB flash EPROM and 32 KiB NVRAM
-  * VME64 interface built on the Cypress VIC64 chip, capable of DMA transfers
-  * DECchip 21040 PCI Ethernet controller, 10BASE-T
-  * NCR 53C810 PCI SCSI-2 processor, single-ended 8-bit, up to 10 MB/s, brought out through the VMEbus P2 connector
-  * Two asynchronous DEC423 serial ports on front panel MMJ connectors, 75 to 19200 baud; keyboard, mouse, and an extended parallel port through the secondary breakout module or the PMC I/O companion card
-  * Dallas DS1386 real-time clock with battery backup, plus three 16-bit timers and a watchdog timer with programmable reset
-  * One double-width or two single-width PCI mezzanine cards (PMC, IEEE P1386.1)
-  * Two board set occupying two adjacent 6U VME slots, or three with the PMC I/O companion card
-  * 62 W for the 4/224 and 70 W for the 4/288 with 128 MiB of memory; at least 200 lfm of airflow at 40 degrees C ambient is required over the processor heatsink
-
-The front panel carries a Reset/Halt switch, a status display for power-on self-test and software use, an amber VMEbus access and watchdog LED, and a green power LED. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, pp. 3-1 to 3-2)]
+  * [[wp>Alpha_21064#Alpha_21064A|21064A]] at 224 MHz with 512 KiB of cache, or at 288 MHz with 2 MiB of cache, with a DECchip 21071-DA PCI host bridge [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, pp. 1-1 to 1-5)]
+  * 8 to 128 MiB of ECC memory on DIMMs
+  * VME64 interface built on the Cypress VIC64, capable of DMA transfers
+  * DECchip 21040 Ethernet, NCR 53C810 SCSI, two DEC423 serial ports, and one double-width or two single-width PCI mezzanine cards, in a two board set occupying two adjacent 6U VME slots
 
 ==== Firmware ====
 
@@ -52,19 +39,9 @@ The boards run the SRM console. Beyond the usual environment variables, it has '
 
 Unlike the evaluation boards, the VME boards had their firmware published on Digital's Alpha firmware CD-ROM and ''gatekeeper.dec.com'', in ''axpvme'' and ''alphavme'' directories. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1997-February.mbox#L2455|"Re: Support for AXP Motherboard"]], Carl S. Shapiro, port-alpha, 21 Feb 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1997-April.mbox#L2076|"Re: Where should I start?"]], Carl S. Shapiro, port-alpha, 28 Apr 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7397|"Re: How to flash MILO? ( Not a faq )"]], Peter Rival, axp-list, 6 Oct 1999)]
 
-==== Operating systems ====
+==== Linux ====
 
-The Alpha VME 4 is supported by VxWorks for Alpha and by Digital UNIX. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 1-1)] The AXPvme and Alpha VME boards are listed among the systems supported by Tru64 UNIX V4.0F (see [[software:operating_systems|Operating Systems]]).
-
-Linux was never ported to these boards. No kernel platform for these boards exists; the Alpha system types in the kernel configuration cover none of them. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)]
-
-==== Programming the VMEbus ====
-
-VMEbus space is reached through the PCI sparse address space, so a hardware address is scaled and the transfer size encoded in the low address bits rather than accessed directly. Appendix C.1 of the VxWorks programmer's guide, "VxWorks for Alpha AXP I/O Architecture", describes the scheme. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1996-September.mbox#L16203|"Re: PCI Sparse Address Space"]], Fred Zwarts, comp.sys.dec, 18 Sep 1996)]
-
-Under Digital UNIX, devices are reached with the ''vba_*'' kernel interfaces for programmed I/O, DMA, or memory mapping. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1995-September.mbox#L21934|"Re: Alpha VME64 shared memory"]], Dan Gulkis, comp.sys.dec, 12 Sep 1995)]
-
-The boards have more interrupt hardware than the operating systems use: the AXPvme has many distinct interrupt mask bits, but the OSF/1 PALcode presents a single device interrupt level. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-September.mbox#L3104|"Re: alphastation serial @ 115200"]], Todd Whitesel, port-alpha, 15 Sep 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-September.mbox#L3203|"Re: alphastation serial @ 115200"]], Ross Harvey, port-alpha, 15 Sep 1999)]
+Linux was never ported to these boards: no kernel platform for them exists. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v6.9|arch/alpha/Kconfig]], Linux 6.9)] The Alpha VME 4 is supported by VxWorks for Alpha and by Digital UNIX. [(>{{wiki:hardware:systems:alpha_vme:alpha_vme_4_user_guide_and_technical_description.pdf?linkonly|Digital Alpha VME 4/224 and 4/288 Single-Board Computers User Guide and Technical Description}}, p. 1-1)] The AXPvme and Alpha VME boards are listed among the systems supported by Tru64 UNIX V4.0F (see [[software:operating_systems|Operating Systems]]).
 
 ==== Known issues ====
 

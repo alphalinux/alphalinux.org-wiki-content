@@ -32,7 +32,7 @@ DEC made SRM consoles available for its evaluation boards, including the EB64, a
 
 Linux has not supported the EB64 since November 1995, when support was removed at DEC's request because the board was out of production and had never sold in volume. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1995-November.mbox#L188|"RE: test"]], David Rusling, axp-list, 23 Nov 1995)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1995-November.mbox#L308|"Re: test"]], David Mosberger-Tang, axp-list, 26 Nov 1995)]
 
-The EB64 should not be confused with the PCI-based [[hardware:motherboards:eb64plus|EB64+]] or [[hardware:motherboards:PC64|AlphaPC64]]; some mailing list posts use "EB64" to refer to one of those boards.
+The EB64 should not be confused with the PCI-based [[hardware:motherboards:eb64plus|EB64+]] or [[hardware:motherboards:pc64|AlphaPC 64]]; some mailing list posts use "EB64" to refer to one of those boards.
 
 ==== Documentation ====
 

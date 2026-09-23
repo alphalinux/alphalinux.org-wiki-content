@@ -1,4 +1,4 @@
-===== PC264DP =====
+===== AlphaPC 264DP =====
 
 <WRAP box right 340px>
 ^ AlphaPC 264DP ^^
@@ -33,16 +33,16 @@ wiki:hardware:motherboards:pc264dp:ds20-top.jpg Digital 54-24756 mainboard (Alph
   * Mainboard dimensions: 42.11 cm x 33.02 cm (16.58 in x 13.0 in)
   * AlphaBIOS and SRM console firmware
 
-==== Firmware and booting Linux ====
+==== Firmware ====
 
-Linux on the 264DP boots from the SRM console with ''aboot''. There is no MILO for the board. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L4314|"Re: milo for dp264?"]], Jay Estabrook, axp-list, 3 Nov 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-June.mbox#L26765|"RE: Milo for dp264 ?"]], James Livingston, axp-list, 21 Jun 1999)]
+The 264DP is essentially the same board as the AlphaServer DS20, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L22011|"Re: DP264 sdk debugger on DS20"]], Rich Payne, axp-list, 25 Apr 2000)] while the DS20E has some differences. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L2869|"Re: Hosed DSP264 system"]], Rich Payne, axp-list, 2 Nov 2000)] Its SRM firmware came from Compaq, including copies distributed by API. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-August.mbox#L2752|"Re: ATI Rage 128 and UP2000/264DP board"]], Rich Payne, debian-alpha, 7 Aug 2001)] See [[hardware:systems:goldrush|AlphaServer DS20]] for the DS20 itself.
 
-  * Early SRM versions did not initialize large amounts of memory correctly when ''os_type'' was set to UNIX. Setting ''os_type'' to OpenVMS works around it, since ''aboot'' switches to the OSF/1 PALcode anyway. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-May.mbox#L29770|"Re: DP264 Kernels...."]], Thomas Leitner, axp-list, 13 May 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-May.mbox#L33206|"Re: DP264 Kernels...."]], Richard Henderson, axp-list, 14 May 1999)] Upgrading SRM also fixes it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L34879|"Re: DS20 fail with 1G memory...."]], Rich Payne, axp-list, 27 Jul 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L35139|"Re: DS20 fail with 1G memory...."]], Xiaozhou Qiu, axp-list, 27 Jul 1999)]
+  * Early SRM versions did not initialize large amounts of memory correctly when ''os_type'' was set to UNIX; upgrading SRM fixes it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L34879|"Re: DS20 fail with 1G memory...."]], Rich Payne, axp-list, 27 Jul 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-July.mbox#L35139|"Re: DS20 fail with 1G memory...."]], Xiaozhou Qiu, axp-list, 27 Jul 1999)]
   * The console prompt shows which CPU is running the console (''P00>>>'' for CPU 0). Linux must be booted from CPU 0. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-May.mbox#L30756|"Re: DP264 Kernels...."]], Jay Estabrook, axp-list, 13 May 1999)]
 
-==== AlphaServer DS20 ====
+==== Linux ====
 
-The 264DP is essentially the same board as the AlphaServer DS20 [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L22011|"Re: DP264 sdk debugger on DS20"]], Rich Payne, axp-list, 25 Apr 2000)], while the DS20E has some differences. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L2869|"Re: Hosed DSP264 system"]], Rich Payne, axp-list, 2 Nov 2000)] SRM firmware for the DP264 came from Compaq, including copies distributed by API. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-August.mbox#L2752|"Re: ATI Rage 128 and UP2000/264DP board"]], Rich Payne, debian-alpha, 7 Aug 2001)]
+Current kernels support the AlphaPC 264DP with ''CONFIG_ALPHA_DP264'' or a generic kernel, including both CPUs in SMP kernels; [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_dp264.c?h=v7.3-rc1|arch/alpha/kernel/sys_dp264.c]], Linux 7.3)] it boots from SRM with [[software:boot_loaders:aboot|aboot]]. There is no MILO for the board. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L4314|"Re: milo for dp264?"]], Jay Estabrook, axp-list, 3 Nov 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-June.mbox#L26765|"RE: Milo for dp264 ?"]], James Livingston, axp-list, 21 Jun 1999)] The onboard AIC-7895 SCSI controller uses the ''aic7xxx'' driver, [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/scsi/aic7xxx/aic7xxx_pci.c?h=v7.3-rc1|drivers/scsi/aic7xxx/aic7xxx_pci.c]], Linux 7.3)] and the Cypress IDE controller ''pata_cypress''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_cypress.c?h=v7.3-rc1|drivers/ata/pata_cypress.c]], Linux 7.3)]
 
 ==== CPU daughtercards ====
 

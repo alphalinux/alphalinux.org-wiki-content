@@ -1,6 +1,6 @@
-===== UP1500 Compatibility =====
+===== UP1500 compatibility =====
 
-The tables below list add-on cards and memory tested with the [[UP1500]] under SRM 5.6-19. Only SRM compatibility is recorded: for storage controllers, whether SRM can boot from them. Whether a Linux or BSD driver works is a separate matter.
+The tables below list add-on cards and memory tested with the [[hardware:motherboards:up1500|UP1500]] under SRM 5.6-19. Only SRM compatibility is recorded: for storage controllers, whether SRM can boot from them. Whether a Linux or BSD driver works is a separate matter.
 
 ==== AGP video cards ====
 
@@ -9,7 +9,7 @@ Standard [[wp>Accelerated_Graphics_Port|AGP]] video cards are available with thr
 Some video card BIOSes are also incompatible with the BIOS emulator in the UP1500's SRM.
 
 ^ Vendor & Name ^ Chipset ^ Memory (MiB) ^ PCI ID ^ Voltages ^ Tester ^
-^ Fully working ^^^^^^
+^ SRM initializes the card ^^^^^^
 | ATI Rage Pro AGP 2x | Rage Pro | 16 | 1002:4742 | 3.3V | klausman |
 | Tyan Tachyon Radeon 9700 Pro | R300 | 128 | 1002:4E44 | 3.3V, 1.5V | mattst88 |
 | Club3D Radeon 9800 Pro | R350 | 128 | 1002:4E48 | 3.3V, 1.5V | mattst88 |
@@ -34,7 +34,7 @@ Some video card BIOSes are also incompatible with the BIOS emulator in the UP150
 | NVIDIA Quadro NVS200 | NV17GL | 64 | 10DE:017A | 3.3V, 1.5V | martisch |
 | PV-T34K-NAHG | GeForce FX5200 | 128 | 10DE:0322 | 3.3V, 1.5V | martisch |
 | MS-8806 Ver1.1 | TNT2 Ultra | 32 | 10DE:? | 3.3V, 1.5V | martisch |
-^ Not working ^^^^^^
+^ SRM does not initialize the card ^^^^^^
 | Creative CT6710 | Riva TNT2 | 32 | | 3.3V | martisch |
 | ATI Xpert 2000 | Rage 128 | 32 | | 3.3V | martisch |
 | ATI Rage 2C AGP | Rage 2C | | | 3.3V | martisch |
@@ -48,7 +48,7 @@ Some video card BIOSes are also incompatible with the BIOS emulator in the UP150
 ==== SCSI cards ====
 
 ^ Vendor & Name ^ Chipset ^ PCI ID ^ Tester ^
-^ Fully working ^^^^
+^ SRM boots from the card ^^^^
 | LSI Logic | 53c810 (rev 23) | 1000:0001 | mattst88 |
 | Symbios Logic | 53c8x5 (875, 895) | (multiple) | klausman |
 | LSI Logic | 53c895 (rev 02) | 1000:000c | mattst88 |
@@ -64,7 +64,7 @@ Some video card BIOSes are also incompatible with the BIOS emulator in the UP150
 | Adaptec 29160LP | AIC-7892A | 9005:0080 | martisch |
 | Adaptec 29160 | AIC-7892A | 9005:0080 | martisch |
 | Adaptec 39160 | AIC-7899A | 9005:00c0 | martisch |
-^ Not working ^^^^
+^ SRM cannot boot from the card ^^^^
 | DPT/Adaptec | SmartRAID V/I2O RAID | 1044:a401 | klausman |
 | Mylex | AcceleRAID 252/160/170 (aka DAC960) | 1069:0050 | klausman |
 | QLogic | ISP1080 | 1077:1080 | martisch |
@@ -74,7 +74,7 @@ The Mylex AcceleRAID sold with Compaq Alpha systems carries different firmware, 
 ==== Memory ====
 
 ^ Vendor ^ Model ^ Speed ^ Latency ^ Size ^ Tester ^
-^ Fully working ^^^^^^
+^ Works ^^^^^^
 | Samsung | M312L2828DTO-CA2 | PC2100 | CL2 | 1 GiB | mattst88 |
 | Samsung | M312L2828ETO-CA2 | PC2100 | CL2 | 1 GiB | mattst88 |
 | Samsung | M312L2828DTO-CB0Q0 | PC2100 | CL2.5 | 1 GiB | klausman |
@@ -82,7 +82,6 @@ The Mylex AcceleRAID sold with Compaq Alpha systems carries different firmware, 
 
 ==== Contributing ====
 
-  * Only SRM compatibility is recorded, not whether the Linux or BSD driver works
   * Only cards that physically fit are listed; AGP cards without the 3.3V notch are omitted
   * A card's ID is obtained with ''lspci -nn''
   * Compatibility of hard drive controller cards (SCSI, RAID, IDE) is determined by the ability of SRM to boot from them

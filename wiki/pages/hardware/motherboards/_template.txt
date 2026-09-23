@@ -9,22 +9,41 @@
 ^ Buses | e.g. 64-bit PCI, 32-bit PCI, AGP, ISA |
 ^ Form factor | e.g. ATX, Baby AT |
 ^ Onboard I/O | e.g. IDE, floppy, 2 serial, parallel, USB, Ethernet |
-^ Firmware | SRM (last V//x.y//), AlphaBIOS, MILO, as available |
+^ Firmware | SRM (last V//x.y//), AlphaBIOS, MILO, as available, from [[software:firmware:srm#final_versions|Final versions]] |
 ^ Kernel option | ''CONFIG_ALPHA_...'', from [[documentation:kernel#configuring_for_a_system|Kernel]] |
-^ Linux | Supported / Linux 6.9 and earlier / Never |
+^ Linux | Supported / Untested / Linux 6.9 and earlier / Removed in //year// / Never |
 </WRAP>
 
 One or two sentences: what the board is, who made it, and when. Cite a source for each fact.
 
-Delete any infobox row whose value has no source.
+Delete any infobox row whose value has no source. The Linux row takes one of these values, which the [[hardware:motherboards|Motherboards]] table also uses:
+  * **Supported**: current kernels support the board.
+  * **Untested**: the support code is in current kernels, but no one has reported booting a current kernel, or there is a specific doubt, such as a board that only MILO can boot.
+  * **Linux 6.9 and earlier**: the board has a processor older than the EV56 (21164A).
+  * **Removed in //year//**: support was removed before Linux 6.10 for another reason.
+  * **Never**: Linux never supported the board.
+
+Use only the sections that have content, in this order. Sizes are in KiB, MiB, and GiB.
 
 ==== Specifications ====
 
+==== Memory ====
+
+==== Power supply ====
+
 ==== Firmware ====
+
+Which consoles the board has, the version to use (normally the final version), and how to update or recover the flash.
 
 ==== Linux ====
 
+Open with one sentence giving current kernel status, the kernel option (and whether a generic kernel works), and the boot path, for example: "Current kernels support the board with ''CONFIG_ALPHA_...'' or a generic kernel; it boots from SRM with aboot." For a board with a processor older than the EV56, use: "Linux 6.9 was the last version to support the //board//; Linux 6.10 removed support for processors older than the EV56 (21164A)." Then list the onboard devices with their drivers, and anything specific to Linux.
+
 ==== Known issues ====
+
+==== Clones and OEM systems ====
+
+==== History ====
 
 ==== Conflicting information ====
 
