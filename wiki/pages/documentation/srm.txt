@@ -1,14 +1,14 @@
 ===== Using the SRM Console =====
 
-This page is a practical guide to the [[software:firmware:srm|SRM console]] for someone running Linux on an Alpha system today: how to reach the ''%%>>>%%'' prompt, how to set up a serial console, the commands most often needed, and how to boot a current distribution. The [[software:firmware:srm|SRM Console]] page describes the firmware itself, its environment variables and device names in more detail, and its history.
+This page covers everyday use of the [[software:firmware:srm|SRM console]] with Linux: reaching the ''%%>>>%%'' prompt, setting up a serial console, the commands most often needed, and booting a current distribution. The [[software:firmware:srm|SRM Console]] page describes the firmware itself, its environment variables and device names in more detail, and its history.
 
 ==== Reaching the prompt ====
 
 With ''auto_action'' set to ''halt'', the default, an SRM system stops at the ''%%>>>%%'' prompt after its power-on tests. Multiprocessor systems print ''P00>>>'', where the number is the primary CPU. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 3-2 to 3-4)] If the system is set to boot automatically, or is running an operating system, there are several ways back to the prompt:
 
   * **Ctrl-C during startup.** Pressing Ctrl-C repeatedly while the console is initializing, before it starts the boot, stops the automatic boot. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L1499|"Re: Getting out of aboot in SRM?"]], Jay Estabrook, axp-list, 2 Jun 1997)]
-  * **The Halt button.** Most Digital systems have a Halt button on the front panel. Pressed in at power-up, it brings the system up at the SRM prompt whatever ''auto_action'' says; pressed while an operating system runs, it sends a halt interrupt to the CPU. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 1-9)] A button left in brings the system up at the prompt on every power-up. Motherboards built into PC cases may have a halt switch header instead; the [[hardware:motherboards:up1100|UP1100]] has none. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L3592|"Re: UP1100 & Matrox"]], Rich Payne, debian-alpha, 26 Oct 2000)]
-  * **Ctrl-P.** At the SRM prompt, Ctrl-C or Ctrl-P stops a running console command. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 6-29)] On a serial console, Ctrl-P also halts OpenVMS and returns to the prompt, [(>{{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 32)] [(>{{wiki:software:firmware:alphaserver_2000_2100_2100a_firmware_reference_guide.pdf?linkonly|AlphaServer 2000/2100/2100A Firmware Reference Guide}})] but under Linux the serial port belongs to Linux's own driver, and Ctrl-P is an ordinary character.
+  * **The Halt button.** Most Digital systems have a Halt button on the front panel. Pressed in at power-up, it brings the system up at the SRM prompt whatever ''auto_action'' says; pressed while an operating system runs, it sends a halt interrupt to the CPU. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 1-9)] A button left in brings the system up at the prompt on every power-up.
+  * **Ctrl-P.** Ctrl-P halts OpenVMS from a serial console, [(>{{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 32)] but under Linux it is an ordinary character. The Linux equivalent is the Magic SysRq ''b'' command, which halts a kernel booted from SRM back to the prompt; see [[documentation:kernel#debugging|Kernel: Debugging]].
   * **Shutting down Linux.** ''halt'' or ''poweroff'' returns to SRM on most systems, although SRM may then report machine checks or show a blank screen, because Linux has changed the state it left the system in; ''init'' at the prompt resets it. See [[software:firmware:srm#known_issues|Known issues]].
   * **The remote management console.** Systems with an RMC, such as the ES40, DS20E, and ES45, can halt and reset the system from the RMC prompt, reached with its escape sequence on the COM1 port. See [[#remote_management|Remote management]].
 
@@ -25,9 +25,11 @@ A serial console is the most convenient way to use an Alpha system today: it nee
 >>> init
 </code>
 
-''console'' takes ''graphics'' or ''serial'', and the change takes effect after ''init'' or a power cycle. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 6-13)] If no keyboard is connected, SRM uses the serial console regardless. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L2188|"Re: installation on PC164LX, SRM 5.1-3, serial console"]], Jay Estabrook, axp-list, 1 Jul 1998)] The console uses the first serial port (COM1), at 9600 baud, 8 data bits, no parity, and one stop bit; ''com1_baud'' changes the speed on systems that have it. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 6-31)] Some Digital systems have a 6-pin DEC MMJ connector for COM1 rather than a 9-pin D connector, and need an MMJ cable and adapter; on the AlphaServer 800 the MMJ port is COM1. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 6-1)] The cable to a modern computer is a null modem cable.
+''console'' takes ''graphics'' or ''serial'', and the change takes effect after ''init'' or a power cycle. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 6-13)] If no keyboard is connected, SRM uses the serial console regardless. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L2188|"Re: installation on PC164LX, SRM 5.1-3, serial console"]], Jay Estabrook, axp-list, 1 Jul 1998)]
 
-A terminal program on the other end should be set to the same speed, for example:
+The console uses the first serial port (COM1), at 9600 baud, 8 data bits, no parity, and one stop bit; ''com1_baud'' changes the speed on systems that have it. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 6-31)]
+
+Some Digital systems have a 6-pin DEC MMJ connector for COM1 rather than a 9-pin D connector, and need an MMJ cable and adapter; on the AlphaServer 800 the MMJ port is COM1. [(>{{wiki:software:firmware:alphaserver_800_users_guide.pdf?linkonly|AlphaServer 800 User's Guide}}, p. 6-1)] The cable to a modern computer is a null modem cable, or a USB serial adapter with a null modem cable or adapter. A terminal program on the other end is set to the same speed, for example:
 
 <code>
 picocom -b 9600 /dev/ttyUSB0
@@ -35,20 +37,16 @@ picocom -b 9600 /dev/ttyUSB0
 
 === Linux ===
 
-Linux does not inherit the firmware's console setting. The kernel must be told to use the serial port, with ''console=ttyS0'' in the boot flags, and optionally the speed, as in ''console=ttyS0,9600''. If a graphics console is also wanted, both can be given; the last one named becomes ''/dev/console''.
+Linux does not inherit the firmware's console setting. The kernel must be told to use the serial port, with ''console=ttyS0'' in the kernel arguments (see [[#booting_linux|Booting Linux]]). The speed can be given as well, as in ''console=ttyS0,9600n8'', to match the console's. If a graphics console is also wanted, both can be given; the last one named becomes ''/dev/console''.
 
-<code>
->>> boot dka0 -file 2/vmlinux.gz -flags "root=/dev/sda3 console=ttyS0"
-</code>
-
-For the permanent setting, add ''console=ttyS0'' to the entry in ''/etc/aboot.conf'', or to ''boot_osflags'' if the kernel arguments are kept there. Most distributions start a login prompt on the kernel's console automatically.
+For the permanent setting, add ''console=ttyS0'' to the entry in ''/etc/aboot.conf'', or to ''boot_osflags'' if the kernel arguments are kept there. Most distributions start a login prompt on the kernel's console automatically, at the kernel's console speed.
 
 Two more options use the firmware's own console routines rather than the serial driver, and are useful when a kernel fails too early for the serial driver to print anything:
 
   * ''srmcons'' echoes the kernel's early messages through the SRM console until the real console driver takes over.
   * ''console=srm'' uses the SRM console routines for the whole session. It is slow, but works on any SRM system, whatever its serial hardware.
 
-Both are handled in ''arch/alpha/kernel/setup.c''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v7.3-rc1|arch/alpha/kernel/setup.c]], Linux 7.3)] aboot itself prints nothing on the screen when the SRM console is serial. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-July.mbox#L29944|"Re: aboot gives no output on SX164"]], Falk Hueffner, axp-list, 23 Jul 2001)]
+Both are handled in ''arch/alpha/kernel/setup.c'', [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/setup.c?h=v7.3-rc1|arch/alpha/kernel/setup.c]], Linux 7.3)] and listed with the other Alpha parameters under [[documentation:kernel#kernel_parameters|Kernel: Kernel parameters]].
 
 === Remote management ===
 
@@ -71,20 +69,8 @@ The commands below cover most of what is needed to run Linux. Commands may be ab
 | ''init'' | Reinitialize the system, as after power-up |
 | ''boot'' | Boot, see [[#booting_linux|below]] |
 | ''test'' | Run the system's diagnostics |
-| ''isacfg'' | Configure ISA cards on the Digital Semiconductor motherboards, which cannot detect them by themselves [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, p. 3-28)] |
+| ''isacfg'' | Edit the console's table of ISA devices on the Digital Semiconductor motherboards, which cannot detect ISA cards by themselves. The table is for Tru64 UNIX and OpenVMS; Linux does not read it [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 3-28 to 3-32)] |
 | ''wwidmgr'' | Register Fibre Channel disks so that SRM can boot from them [(>{{wiki:software:firmware:alphaserver_es47_es80_gs1280_srm_console_reference.pdf?linkonly|AlphaServer ES47/ES80/GS1280 SRM Console Reference}}, p. 68)] |
-
-=== isacfg ===
-
-ISA cards cannot be probed for their configuration, so on the Digital Semiconductor motherboards, such as the AlphaPC 164 family, SRM keeps a table of the ISA devices present, which ''isacfg'' edits. The table exists for Digital UNIX and OpenVMS, which must be told about an ISA card before it is installed; its entries also take part in the console's own resource allocation. ''isacfg -all'' lists the table, ''-mk'' adds an entry, ''-mod'' changes one, and ''-rm'' removes one. Slot 0 is reserved for the devices on the motherboard. [(>{{wiki:hardware:motherboards:common:srm_console_user_guide.pdf?linkonly|Alpha SRM Console for Alpha Microprocessor Motherboards User's Guide}}, pp. 3-28 to 3-32)]
-
-<code>
->>> isacfg -all
->>> isacfg -mod -slot 1 -irq0 14
->>> isacfg -rm -slot 1 -dev 0
-</code>
-
-Linux does not read the table. Its ISA drivers probe for the card or take the card's resources as module parameters.
 
 === wwidmgr ===
 
@@ -112,16 +98,9 @@ Without an aboot.conf, or to boot a different kernel, name the kernel's partitio
 >>> boot dka0 -file 2/vmlinux.gz -flags "root=/dev/sda3 console=ttyS0"
 </code>
 
-''-flags i'' starts aboot's interactive prompt, whose ''l'' command lists the aboot.conf entries. To boot unattended, set the defaults and make the console boot at power-up: [(>[[https://github.com/alphalinux-org/aboot/blob/master/README.md|README.md]], aboot 2.0)]
+''-flags i'' starts aboot's interactive prompt, whose ''l'' command lists the aboot.conf entries. The variables that make the system boot unattended, ''bootdef_dev'', ''boot_file'', ''boot_osflags'', and ''auto_action'', are set as described under [[documentation:installation#booting_the_installed_system|Installation: Booting the installed system]].
 
-<code>
->>> set bootdef_dev dka0
->>> set boot_file ""
->>> set boot_osflags 0
->>> set auto_action boot
-</code>
-
-A kernel can also be booted from the network with BOOTP and TFTP, for example ''boot ewa0 -protocol bootp''. See [[software:boot_loaders:aboot#network_booting|aboot: Network booting]], and [[documentation:installation|Installation]] for setting up the disk.
+A kernel can also be booted from the network with BOOTP and TFTP, for example ''boot ewa0 -protocol bootp''. ''ewa0_protocols'' sets the default protocol for the first Ethernet interface, ''mop'' unless changed, and ''ewa0_mode'' its media type, such as ''fast'' or ''fastfd'' for 100BaseT; other interfaces use ''ewb0_'' and so on. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, pp. 2-67 to 2-68)] See [[software:boot_loaders:aboot#network_booting|aboot: Network booting]] for the server side.
 
 If the system halts back to the prompt instead of booting, the usual causes are:
 
@@ -131,8 +110,8 @@ If the system halts back to the prompt instead of booting, the usual causes are:
 
 ==== Firmware versions ====
 
-The last SRM version released for each system is listed in the table of [[software:firmware:srm#final_versions|final versions]]. Linux needs a reasonably recent console: the DS20E reference guide requires SRM V5.6-3 or later to install Linux, [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20e_reference_guide.pdf?linkonly|AlphaServer DS20E Reference Guide}})] and later versions added booting from Adaptec SCSI controllers and support for more video cards (see [[software:firmware:srm#known_issues|Known issues]]). There is no reason to run anything but the last version.
+Use the last SRM version released for the system, listed in the table of [[software:firmware:srm#final_versions|final versions]]. Older versions may be too old for Linux: the DS20E, for example, needs V5.6-3 or later, [(>{{wiki:hardware:systems:alphaserver_ds20:alphaserver_ds20e_reference_guide.pdf?linkonly|AlphaServer DS20E Reference Guide}})] and later versions added booting from Adaptec SCSI controllers and support for more video cards (see [[software:firmware:srm#known_issues|Known issues]]).
 
-HP's firmware site, ''ftp.hp.com/pub/alphaserver/firmware'', no longer exists. Its contents survive in the Wayback Machine, [(>[[http://web.archive.org/web/20200502043806/ftp://ftp.hp.com/pub/alphaserver/firmware|ftp.hp.com/pub/alphaserver/firmware]], Wayback Machine, 2 May 2020)] and the Internet Archive holds images of the Alpha Systems Firmware Update CDs, among them [[https://archive.org/details/alphafwupcds|a collection of the update CDs]] and individual releases such as [[https://archive.org/details/alphasystemsfirmwareupdate60_agrcfbjbs|V6.0]]. Firmware for API's UP1000, UP1100, UP1500, UP2000, and CS20 and for several Digital Semiconductor boards is kept in the [[https://github.com/alphalinux/firmware|alphalinux/firmware]] repository on GitHub. See [[software:firmware:srm#updating_firmware|Updating firmware]] for how to install an image.
+Archived firmware images and the update procedure are described in [[software:firmware#obtaining_and_updating_firmware|Firmware: Obtaining and updating firmware]].
 
 {{tag>documentation firmware srm}}

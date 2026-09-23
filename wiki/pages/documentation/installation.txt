@@ -32,18 +32,13 @@ Three distributions publish current Alpha install media:
 | Debian Ports | Netinst CD snapshots, and netboot images | [[https://cdimage.debian.org/cdimage/ports/snapshots/|cdimage.debian.org/cdimage/ports/snapshots]] |
 | T2 SDE | Install ISOs, built for EV56 | [[https://dl.t2sde.org/binary/|dl.t2sde.org/binary]] |
 
-Debian's netinst CDs are named ''debian-//version//-alpha-NETINST-1.iso'' and carry the kernel and initrd as ''/boot/vmlinuz'' and ''/boot/initrd.gz'', with aboot as ''/boot/bootlx'' and an ''/etc/aboot.conf''. Debian's Alpha porters recommend the CD snapshots over the separate netboot images, which see less testing. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L366|"Re: Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image"]], John Paul Adrian Glaubitz, debian-alpha, 27 Mar 2021)] Gentoo's CD boots to a shell, from which the system is installed by hand following the [[https://wiki.gentoo.org/wiki/Handbook:Alpha|Gentoo Handbook for Alpha]].
+Gentoo's minimal CD boots to a shell, from which the system is installed by hand from a stage3 tarball, following the [[https://wiki.gentoo.org/wiki/Handbook:Alpha|Gentoo Handbook for Alpha]]. Debian's netinst CDs, named ''debian-//version//-alpha-NETINST-1.iso'', start the Debian installer. They carry the kernel and initrd as ''/boot/vmlinuz'' and ''/boot/initrd.gz'', with aboot as ''/boot/bootlx'' and an ''/etc/aboot.conf''. Debian's Alpha porters recommend the CD snapshots over the separate netboot images, which see less testing. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L366|"Re: Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image"]], John Paul Adrian Glaubitz, debian-alpha, 27 Mar 2021)] T2 SDE's ISOs boot its own installer.
 
-The image is written to a CD-R. SRM does not boot from USB storage, so a CD drive, or a network boot, is needed. Older SRM versions need a SCSI CD-ROM drive that can be set to 512-byte blocks; later consoles boot from IDE (ATAPI) drives too. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L23168|"Re: Bootable CD ?"]], Martin Ostermann, axp-list, 9 Nov 1998)] A system without a working CD drive can boot the installer over the network; see [[software:boot_loaders:aboot#network_booting|aboot: Network booting]].
+The image is written to a CD-R. SRM does not boot from USB storage, so a CD drive, or a network boot, is needed. Current SRM versions boot from SCSI and IDE (ATAPI) CD drives. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-November.mbox#L23168|"Re: Bootable CD ?"]], Martin Ostermann, axp-list, 9 Nov 1998)] A system without a working CD drive can boot the installer over the network; see [[software:boot_loaders:aboot#network_booting|aboot: Network booting]].
 
 ==== Serial console ====
 
-A serial console is strongly recommended for the installation. Many video cards work only partly with the SRM console, and without a serial console, a kernel that fails to boot usually fails silently. Two settings are needed, one in the firmware and one for Linux:
-
-  * In SRM, ''set console serial'' and ''init''. SRM then uses COM1 at 9600 baud, 8N1.
-  * For Linux, add ''console=ttyS0'' to the kernel arguments, both when booting the installer and in ''/etc/aboot.conf'' for the installed system.
-
-The details, including cables and the RMC, are under [[documentation:srm#serial_console|Using the SRM Console: Serial console]].
+A serial console is strongly recommended for the installation. Many video cards work only partly with the SRM console, and without a serial console, a kernel that fails to boot usually fails silently. It needs ''set console serial'' in SRM, and ''console=ttyS0'' in the kernel arguments, both when booting the installer and in ''/etc/aboot.conf'' for the installed system. See [[documentation:srm#serial_console|Using the SRM Console: Serial console]] for the settings, cables, and the RMC.
 
 ==== Booting the installer ====
 
@@ -67,7 +62,7 @@ Kernel arguments can follow the entry number, for example to add the serial cons
 
 SRM finds aboot through a boot block in the disk's first sector, where a PC partition table would also be. The boot disk must therefore have a BSD disklabel, not an MBR or GPT partition table. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)] Other disks in the system can use any partition table.
 
-''fdisk'' from util-linux has been unable to create BSD disklabels since about version 2.23, so use ''parted''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2024-April.mbox#L85|"Re: [gentoo-alpha] fdisk on mini-installer iso"]], Matt Turner, gentoo-alpha, 8 Apr 2024)] Leave free space at the start of the disk for aboot; starting the first partition at 1 MiB leaves plenty. A typical layout, with a separate ''/boot'':
+''fdisk'' from util-linux cannot create BSD disklabels, so use ''parted''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2024-April.mbox#L85|"Re: [gentoo-alpha] fdisk on mini-installer iso"]], Matt Turner, gentoo-alpha, 8 Apr 2024)] Leave free space at the start of the disk for aboot; starting the first partition at 1 MiB leaves plenty. A typical layout, with a separate ''/boot'':
 
 <code>
 parted /dev/sda mktable bsd
@@ -79,7 +74,7 @@ parted /dev/sda print
 
 A BSD disklabel holds at most eight partitions, ''a'' to ''h'', which aboot and SRM number 1 to 8. Linux names them ''/dev/sda1'' and so on, in the same order. By convention partition ''c'' covers the whole disk; a disklabel created by ''parted'' has none, but a disk labeled by another tool may, and ''swriteboot'' then needs ''-f3''. [(>[[https://github.com/alphalinux-org/aboot/blob/master/doc/faq/SRM-HOWTO.sgml|SRM Firmware Howto]], v0.8.1, 14 Feb 2004)]
 
-aboot 2.0 reads ''/boot'' from ext2, ext3, ext4, or XFS. It rejects ext4 file systems with some newer features, and cannot load a kernel file split into more than four extents; see [[software:boot_loaders:aboot#file_systems|aboot: File systems]]. A small ext2 ''/boot'' avoids both limits. Recycled disks with an old PC partition table can confuse installers; zeroing the first few sectors first avoids this. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L11200|"Re: swriteboot ?"]], Michal Jaegermann, axp-list, 23 Jan 2003)]
+aboot 2.0 reads ''/boot'' from ext2, ext3, ext4, or XFS. It rejects ext4 file systems with some newer features, and cannot load a kernel file split into more than four extents; see [[software:boot_loaders:aboot#file_systems|aboot: File systems]]. A small ext2 ''/boot'' avoids both limits. Recycled disks with an old PC partition table can confuse installers; erasing the old signatures first, with ''wipefs -a /dev/sda'', avoids this. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2003-January.mbox#L11200|"Re: swriteboot ?"]], Michal Jaegermann, axp-list, 23 Jan 2003)]
 
 ==== Installing aboot ====
 
@@ -119,18 +114,37 @@ Once it works, set it to boot automatically: [(>[[https://github.com/alphalinux-
 >>> set auto_action boot
 </code>
 
-''boot_osflags'' names the ''aboot.conf'' entry; ''boot_file'' is left empty because aboot.conf supplies the kernel. On systems whose ''os_type'' offers a ''linux'' setting, such as the ES40, it can be set as well. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, February 2000, p. 2-78)] Pressing Ctrl-C during startup returns to the SRM prompt, and ''set auto_action halt'' stops automatic booting.
+''boot_osflags'' names the ''aboot.conf'' entry; ''boot_file'' is left empty because aboot.conf supplies the kernel. ''bootdef_dev'' can list more than one device, separated by commas, and SRM tries them in order. [(>{{wiki:hardware:systems:alphaserver_es40:alphaserver_es40_user_interface_guide.pdf?linkonly|AlphaServer ES40 and AlphaStation ES40 User Interface Guide}}, February 2000, p. 2-50)] Pressing Ctrl-C during startup returns to the SRM prompt, and ''set auto_action halt'' stops automatic booting.
 
 If the system returns to the SRM prompt instead of booting, see the checklist under [[documentation:srm#booting_linux|Using the SRM Console: Booting Linux]], and the [[software:boot_loaders:aboot#known_issues|known issues]] of aboot.
+
+==== After installation ====
+
+aboot has no configuration step of its own to rerun: it reads ''aboot.conf'' and the kernel from the file system at every boot. A kernel update therefore needs no action if the ''aboot.conf'' entries name files, or symbolic links, that the distribution's kernel package updates. If they name versioned files instead, such as ''vmlinuz-6.12.0'', the entries must be edited after each update. Keeping an entry for the previous kernel gives a fallback that can be booted from the SRM prompt by its number. A kernel built by hand is installed as described under [[documentation:kernel#native_builds|Kernel: Native builds]].
+
+==== Installing from a disk image ====
+
+A system can also be installed under [[documentation:qemu|QEMU]] and the disk image written to a real disk afterwards, which is useful for a system without a working CD drive. Debian's installer writes a BSD disklabel and aboot under QEMU as on real hardware; see [[documentation:qemu#booting_an_installer|QEMU: Booting an installer]]. The image is converted to a raw image and copied to the disk, attached to another computer, with ''dd'':
+
+<code>
+qemu-img convert -O raw alpha.qcow2 alpha.img
+dd if=alpha.img of=/dev/sdX bs=4M conv=fsync
+</code>
+
+The disk in the Alpha may have a different name from the one under QEMU, and the ''root='' arguments in ''aboot.conf'' and the entries in ''/etc/fstab'' have to match it. The kernel installed under QEMU must also support the real system's disk controller and network card, which a distribution's generic kernel does.
 
 ==== ARC-only systems ====
 
 A few systems have only the [[software:firmware:arc|ARC, AlphaBIOS, or ARCSBIOS]] firmware, whose PALcode is designed for Windows NT and cannot run Linux. They boot Linux with [[software:boot_loaders:milo|MILO]], which provides its own PALcode, instead of aboot. Among systems that current kernels still support, these are: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-September.mbox#L5923|"Alpha Core ISO Images"]], Jay Estabrook, axp-list, 29 Sep 2004)]
 
-  * the Alpha XL 300, 366, and 433 (XLT), if fitted with a 21164A processor,
-  * the Deskstation Ruffian, [[hardware:motherboards:pc164ux|AlphaPC164UX]] and BX, which have ARCSBIOS.
+  * the Alpha XL 366 and 433 (XLT), which have 21164A processors; the XL 300 has a 21164 and runs nothing newer than Linux 6.9, [(>{{wiki:hardware:systems:alpha_xl:alpha_xl_systems_and_options_catalog.pdf?linkonly|Alpha XL Personal Workstation for Windows NT, Digital Systems and Options Catalog}}, September 1996, p. 1)] [(>{{wiki:hardware:cpu:21164:21164_data_sheet.pdf?linkonly|Alpha 21164 Microprocessor Data Sheet}}, July 1996, p. 180)]
+  * the Deskstation Ruffian, [[hardware:motherboards:pc164ux|AlphaPC 164UX]] and BX, which have ARCSBIOS.
 
-Most other systems sold with ARC or AlphaBIOS, among them the [[hardware:motherboards:pc164lx|PC164LX]], [[hardware:motherboards:pc164sx|PC164SX]], [[hardware:systems:miata|Personal Workstation]], and [[hardware:systems:alcor|AlphaStation 500 and 600]], can run SRM, and should be switched to it; see [[software:firmware:arc#switching_to_srm|Switching to SRM]]. There is no usable MILO for the 21264 systems, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L43450|"Re: XP1000 & MILO & SCSI"]], Rich Payne, axp-list, 24 Nov 2000)] all of which have an SRM console; the [[hardware:motherboards:up1000|UP1000]] can also boot Linux from AlphaBIOS with API's APB loader. See [[software:boot_loaders|Boot Loaders]].
+No current kernel has been reported booting on these systems through MILO.
+
+Most other systems sold with ARC or AlphaBIOS, among them the [[hardware:motherboards:pc164lx|AlphaPC 164LX]], [[hardware:motherboards:pc164sx|AlphaPC 164SX]], [[hardware:systems:miata|Personal Workstation]], and [[hardware:systems:alcor|AlphaStation 500 and 600]], can run SRM, and should be switched to it; see [[software:firmware:arc#switching_to_srm|Switching to SRM]].
+
+There is no usable MILO for the 21264 systems, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L43450|"Re: XP1000 & MILO & SCSI"]], Rich Payne, axp-list, 24 Nov 2000)] all of which have an SRM console. The [[hardware:motherboards:up1000|UP1000]] can also boot Linux from AlphaBIOS with API's APB loader, which needs a kernel built with the old start address; see [[documentation:kernel#kernel_start_address|Kernel start address]] and [[software:boot_loaders|Boot Loaders]].
 
 On a system that must use MILO:
 
