@@ -1,35 +1,44 @@
 ===== Current Status =====
 
-Alpha is still a supported architecture in the core of the GNU/Linux system. The Linux kernel, GCC, binutils, and glibc all carry Alpha support in their main development trees, and all four are still actively maintained for it. Three distributions produce current Alpha releases. What Alpha lacks is support in the newer parts of the toolchain, above all LLVM, and with it everything that depends on LLVM.
+Alpha is supported in the main development trees of the Linux kernel, GCC, binutils, glibc, and QEMU, and three distributions produce current Alpha releases. What Alpha lacks is support in the newer parts of the toolchain, above all LLVM, and everything that depends on it.
 
-This page summarizes the state of the port as of September 2026. Recent changes are listed in the [[:start#news|News]] on the front page, and work in progress on the [[tasks:todo|To Do]] list.
+This page summarizes the state of the port as of September 2026. Recent changes are listed in the [[:start#news|News]] on the front page, and work in progress on the [[tasks:todo|To Do]] list. Known problems that affect Linux on Alpha across projects are tracked in [[https://github.com/alphalinux-org/issues/issues|alphalinux-org/issues]]; see also [[tasks:bugs|Bugs]].
 
 ==== Processor baseline ====
 
-Since Linux 6.10, released in July 2024, the kernel requires an EV56 (21164A) or later processor, because it needs the byte/word extension (BWX) to make byte and word stores atomic. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] [(>[[https://lwn.net/Articles/973687/|"The first half of the 6.10 merge window"]], LWN.net, 16 May 2024)] Linux 6.9 is the last kernel for the EV4, EV45, and EV5 processors and for the systems that can only use them, among them the Jensen, the Multia, the AlphaStation 200 to 400, and the EB164. The full list is under [[software:operating_systems#linux|Operating Systems]], and the reasoning under [[documentation:porting:byte_word_access|Byte and Word Access]]. Systems sold with EV5 processors that also accept EV56 processors, such as the AlphaStation 500 and 600, still run current kernels once the processor is upgraded.
+Since Linux 6.10, released in July 2024, the kernel requires an EV56 (21164A) or later processor, because it needs the byte/word extension (BWX) to make byte and word stores atomic. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] [(>[[https://lwn.net/Articles/973687/|"The first half of the 6.10 merge window"]], LWN.net, 16 May 2024)]
+
+Linux 6.9 is the last kernel for the EV4, EV45, and EV5 processors and for the systems that can only use them, among them the Jensen, the Multia, the AlphaStation 200 to 400, and the EB164. The full list is under [[software:operating_systems#linux|Operating Systems]], and the reasoning under [[documentation:porting:byte_word_access|Byte and Word Access]]. Systems sold with EV5 processors that also accept EV56 processors, such as the AlphaStation 500 and 600, still run current kernels once the processor is upgraded.
 
 Debian's GCC has also produced EV56 code by default since May 2023, and T2's Alpha images are built for EV56. See [[documentation:toolchains#selecting_a_processor|Selecting a processor]].
+
+==== Hardware ====
+
+Current kernels include support for every platform that has an EV56 (21164A) or later processor. The [[hardware:systems|Systems]] and [[hardware:motherboards|Motherboards]] tables give the status of each system and board, and [[hardware:other|Other Hardware]] lists the expansion cards known to work. The main caveats are:
+
+  * **Boot firmware.** Linux boots from the [[software:firmware:srm|SRM console]] with [[software:boot_loaders:aboot|aboot]]. The few supported systems without SRM, the Alpha XL 366 and 433 (XLT), the AlphaPC 164UX (Ruffian), and the AlphaPC 164RX, can boot only through [[software:boot_loaders:milo|MILO]]. Released versions of MILO cannot load kernels from Linux 2.6.23 on, which added a ''PT_NOTE'' program header, and the fix, made in 2026, has not yet been reported working on these systems. [(>[[https://github.com/alphalinux-org/milo/commit/dd79b34|"fix(boot): skip non-PT_LOAD segments when loading kernel image"]], alphalinux-org/milo)]
+  * **Titan, Wildfire, and Marvel.** A generic kernel for the DS15, DS25, ES45, GS80, GS160, GS320, ES47, ES80, or GS1280 must be built with ''CONFIG_ALPHA_LEGACY_START_ADDRESS'' turned off, because a kernel built with it leaves these platforms out. The kernel's ''defconfig'' turns the option on. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig.debug?h=v7.3-rc1|arch/alpha/Kconfig.debug]], Linux 7.3)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/configs/defconfig?h=v7.3-rc1|arch/alpha/configs/defconfig]], Linux 7.3)] See [[documentation:kernel#kernel_start_address|Kernel]].
+  * **Wildfire.** The GS80, GS160, and GS320 have not been reported running Linux since the 2.6 series; see [[hardware:systems:wildfire|Wildfire]].
+  * **Multiprocessor systems** run SMP kernels from SRM. MILO does not support multiprocessor systems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L37024|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 14 Jul 1998)]
+  * **Graphics.** ATI Radeon cards with the ''radeon'' kernel modesetting driver are the only graphics cards known to work with current X.Org; see [[hardware:other#graphics|Other Hardware: Graphics]]. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2016-April.mbox#L636|"Re: Multia state of support"]], Michael Cree, debian-alpha, 3 Apr 2016)]
+
+Anyone who can test a current kernel on a system marked "Untested" is asked to report the result to the linux-alpha list; see [[:community|Community]].
 
 ==== Core projects ====
 
 ^ Project ^ Status ^ Maintainers ^
-| [[documentation:kernel|Linux]] | Mainline, ''arch/alpha''. Status "Odd Fixes" | Richard Henderson, [[user:mattst88|Matt Turner]], [[user:lindholm|Magnus Lindholm]] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/MAINTAINERS?h=v7.3-rc1|MAINTAINERS]], Linux 7.3)] |
+| [[documentation:kernel|Linux]] | Mainline, ''arch/alpha''. Status "Odd Fixes": the maintainers accept fixes, but have little time for other work | Richard Henderson, [[user:mattst88|Matt Turner]], [[user:lindholm|Magnus Lindholm]] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/MAINTAINERS?h=v7.3-rc1|MAINTAINERS]], Linux 7.3)] |
 | [[documentation:toolchains#gcc|GCC]] | Mainline, ''gcc/config/alpha'' | Richard Henderson [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=MAINTAINERS|MAINTAINERS]], GCC)] |
 | binutils | Mainline, including ''gas'', ''ld'', and ''gdb'' | |
 | glibc | Mainline, ''sysdeps/alpha'' and ''sysdeps/unix/sysv/linux/alpha'' | |
 | QEMU | Mainline, system and user-mode emulation | Richard Henderson [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/MAINTAINERS|MAINTAINERS]], QEMU 11.1.0)] |
 | [[software:boot_loaders:aboot|aboot]] | Version 2.0, September 2026 | [[user:mattst88|Matt Turner]] |
 
-Kernel work since 2025 has added SECCOMP and seccomp filter support (Linux 7.1) and moved Alpha to the kernel's generic entry code (Linux 7.3). Toolchain work in 2026 has added stack protector and IFUNC support to GCC and binutils, and is moving GCC's Alpha back end to the LRA register allocator, which Alpha needs to stay in GCC once the old reload pass is removed. [(>[[https://github.com/alphalinux-org/issues/issues/3|"GCC alpha backend needs to be switched to LRA"]], alphalinux-org/issues #3)] See the [[:start#news|News]] and the [[tasks:todo|To Do]] list.
+The main risk to the port is in GCC: its Alpha back end must move to the LRA register allocator to stay in GCC once the old reload pass is removed, and that work is under way. [(>[[https://github.com/alphalinux-org/issues/issues/3|"GCC alpha backend needs to be switched to LRA"]], alphalinux-org/issues #3)] Other recent work, such as SECCOMP support in Linux 7.1 and stack protector and IFUNC support in GCC and binutils, is listed in the [[:start#news|News]].
 
 ==== Distributions ====
 
-^ Distribution ^ Status ^ Install media ^
-| [[https://wiki.gentoo.org/wiki/Project:Alpha|Gentoo]] | Supported. The Alpha profiles are stable again since August 2024, but every package keyword is unstable (''~alpha'') | Minimal install CD and weekly stage3 tarballs, from [[https://distfiles.gentoo.org/releases/alpha/autobuilds/|distfiles.gentoo.org]] |
-| [[https://www.debian.org/ports/alpha/|Debian Ports]] | Unofficial port, built for unstable (''sid'') | Netinst CD snapshots, from [[https://cdimage.debian.org/cdimage/ports/snapshots/|cdimage.debian.org]] |
-| [[https://t2sde.org/|T2 SDE]] | Supported, built for EV56 | ISO images, from [[https://dl.t2sde.org/binary/|dl.t2sde.org]] |
-
-Debian's last official Alpha release was 5.0 (Lenny) in 2009; the port has continued in Debian Ports since then, and is maintained there by [[user:creemj|Michael Cree]] and others. The distributions that supported Alpha in the past are listed under [[:distributions|Distributions]], with more detail for each current one.
+Three distributions produce current Alpha releases: [[distributions#gentoo|Gentoo]], whose Alpha profiles have been stable since August 2024 although every package is keyworded unstable; [[distributions#debian|Debian]], as an unofficial port in Debian Ports, built for unstable (''sid''); and [[distributions#t2_sde|T2 SDE]], built for EV56. Their install media, and the distributions that supported Alpha in the past, are listed under [[:distributions|Distributions]].
 
 ==== Other operating systems ====
 
@@ -47,6 +56,6 @@ See [[software:operating_systems|Operating Systems]] for the history of each.
   * **Go, and other languages with their own code generators.** The Go toolchain and many JIT compilers, such as the JavaScript engines in web browsers, have no Alpha code generator. ''gccgo'' builds Go code on Alpha. A JIT for PCRE2, through sljit, was added in 2026.
   * **A vDSO.** Alpha has no vDSO, so time functions are real system calls. See [[documentation:porting:abi|Linux ABI Differences]].
 
-The [[tasks:todo|To Do]] list tracks these and other gaps.
+Work under way on some of these, such as a GCC-based Rust compiler, is on the [[tasks:todo|To Do]] list.
 
 {{tag>status}}
