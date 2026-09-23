@@ -1,6 +1,6 @@
 ===== Companies =====
 
-This page covers the companies that designed, built, sold, and supported Alpha hardware and software, and their part in Linux on Alpha. See also [[history:news_coverage|News Coverage]] for contemporary news articles.
+This page covers the companies that designed, built, sold, and supported Alpha hardware and software, and their part in Linux on Alpha. See also [[history:linux_port|History of the Linux port]] for the port itself, and [[history:news_coverage|News Coverage]] for contemporary news articles.
 
 ==== Digital, Compaq, and HP ====
 
