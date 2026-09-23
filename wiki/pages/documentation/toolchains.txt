@@ -1,20 +1,16 @@
 ===== Toolchains =====
 
-Two C compilers have been used on Alpha/Linux. **GCC** builds the kernel, the C library and every distribution, and is the only one still in use. **Compaq C** (''ccc'') was the commercial compiler Digital wrote for its own operating systems, ported to Linux in 1999 and distributed free of charge. It was faster on floating-point code, could not build a distribution, and is no longer available.
+Alpha/Linux is built with the GNU toolchain: **GCC**, **binutils**, and **glibc**, all of which carry Alpha support in their main development trees. GCC builds the kernel, the C library, and every current distribution. The Alpha-specific parts of the toolchain differ from those of other architectures in three respects: processor selection, the ''-m'' options that have no counterpart on other architectures, and the size limit of the global offset table (GOT). Several newer tools, LLVM above all, have no Alpha support; see [[#not_available_on_alpha|Not available on Alpha]].
 
-The Alpha-specific parts of the GNU toolchain differ from those of other architectures in three respects: processor selection, the ''-m'' options that have no counterpart on other architectures, and the size limit of the global offset table (GOT).
+Compaq C (''ccc''), a commercial compiler, was also available for Alpha/Linux from 1999; see [[#compaq_c|Compaq C]].
 
 ==== GCC ====
 
-=== History ===
-
-The Linux port began on a cross compiler: in September 1994 Jim Paradis described ''gcc'' 2.5.8 configured for ''alpha-linux'' on a DEC 3000 running DEC OSF/1. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-September.mbox#L14204|"Linux/AXP Progress Report"]], Jim Paradis, comp.os.linux.announce, 12 Sep 1994)] See [[software:operating_systems]] for that era. Alpha adopted the egcs fork early, because development of the Alpha back end took place there. After the egcs and GCC lines merged, ''gcc'' 2.95 was a marked improvement on Alpha, and by 2003 the gap to the commercial compiler had closed for integer code (see [[#how_much_faster_was_ccc|How much faster was ccc]]). Richard Henderson maintained the Alpha back end and the Alpha half of binutils through that period.
+Richard Henderson maintains GCC's Alpha back end. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=MAINTAINERS|MAINTAINERS]], GCC)] Upstream GCC's default target is the architecture baseline, so a compiler built without ''--with-cpu'' produces code that runs on every Alpha processor, including those current kernels no longer support.
 
 === Selecting a processor ===
 
-GCC's default target is the architecture baseline, so distribution binaries run on the oldest processor the distribution supports. Anything newer must be requested explicitly. ''-mcpu=ev5'' changes only instruction scheduling relative to ''ev4'', because the 21164 issues four instructions per cycle rather than two, and its code runs on a 21064; ''-mcpu=ev56'' adds the byte and word instructions, and its code does not run on earlier processors. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1997-December.mbox#L2007|"Re: :( (about alphaev*)"]], Nikita Schmidt, debian-alpha, 6 Dec 1997)]
-
-In general, ''-mcpu=ev5'' and below is a scheduling choice and stays compatible, while ''-mcpu=ev56'' and above changes the instructions emitted and does not.
+''-mcpu='' selects both the instruction set and the scheduling model. Values up to ''ev5'' change only scheduling and produce code that runs on every Alpha; ''ev56'' and above add instructions, and their code does not run on earlier processors. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1997-December.mbox#L2007|"Re: :( (about alphaev*)"]], Nikita Schmidt, debian-alpha, 6 Dec 1997)]
 
 ^ ''-mcpu'' ^ Processors ^ Adds ^
 | ''ev4'', ''ev45'' | 21064, 21064A, 21066, 21068 | baseline |
@@ -24,30 +20,28 @@ In general, ''-mcpu=ev5'' and below is a scheduling choice and stays compatible,
 | ''ev6'' | 21264 | BWX, MVI, FIX |
 | ''ev67'' | 21264A and later | BWX, MVI, FIX, CIX |
 
-GCC has no ''ev68'' value, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2005-September.mbox#L1033|"[gentoo-alpha] ev6, ev67 or ev68?"]], Davide Cittaro, gentoo-alpha, 19 Sep 2005)] and ''ev67'' is the appropriate choice for the EV68 processors, since "ev68 doesn't support any new instructions afaik and scheduling is similar as well". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2005-September.mbox#L1092|"Re: [gentoo-alpha] ev6, ev67 or ev68?"]], Bryan Østergaard, gentoo-alpha, 19 Sep 2005)]
+GCC has no ''ev68'' value. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2005-September.mbox#L1033|"[gentoo-alpha] ev6, ev67 or ev68?"]], Davide Cittaro, gentoo-alpha, 19 Sep 2005)] ''-mcpu=ev67'' is the right choice for the EV68 processors, which add no instructions and schedule like the EV67. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2005-September.mbox#L1092|"Re: [gentoo-alpha] ev6, ev67 or ev68?"]], Bryan Østergaard, gentoo-alpha, 19 Sep 2005)] The extensions themselves are described on the [[documentation:instruction_set|Instruction Set]] page.
 
 ''-mtune='' takes the same values and changes only instruction scheduling, never the instruction set. The numeric names (''21064'', ''21164a'', ''21264'' and so on) are accepted as synonyms.
 
 Two compatibility issues apply:
 
-  * **An extension may be implemented and still disabled.** The ARC and SRM consoles on some machines leave BWX disabled, so code built with ''-mcpu=ev56'' fails with an illegal instruction on a CPU that implements it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L18328|"RE: Re: ev56 optimization -> illegal instruction"]], Jay Estabrook, axp-list, 14 Mar 1998)] Later MILO versions enable it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L42672|"Re: egcs and PC164 (ev56 ?)"]], Richard Henderson, axp-list, 18 Dec 1998)]
-  * **Binaries built for ev56 do not run on older CPUs.** Linux does not emulate the byte and word instructions; on a pre-EV56 processor they raise an illegal instruction fault and the process receives ''SIGILL''. A binary-only Acrobat Reader that would not run is a typical case. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-May.mbox#L1242|"Re: acrobat reader"]], Falk Hueffner, debian-alpha, 4 May 2003)] Since Linux 6.10 the kernel itself requires EV56 or later. See [[documentation:porting:byte_word_access|Byte and Word Access]].
+  * **An extension may be implemented and still disabled.** Early versions of the PALcode used by MILO left BWX disabled on the AlphaPC 164, so code built with ''-mcpu=ev56'' failed with an illegal instruction on a CPU that implements it; later MILO versions enable it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-December.mbox#L42672|"Re: egcs and PC164 (ev56 ?)"]], Richard Henderson, axp-list, 18 Dec 1998)]
+  * **Binaries built for ev56 do not run on older CPUs.** Linux does not emulate the byte and word instructions; on a pre-EV56 processor they raise an illegal instruction fault and the process receives ''SIGILL''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-May.mbox#L1242|"Re: acrobat reader"]], Falk Hueffner, debian-alpha, 4 May 2003)] See [[documentation:porting:byte_word_access|Byte and Word Access]].
 
 The [[documentation:amask|amask]] instruction reports what the running processor implements.
 
 === Choosing -mcpu today ===
 
-Since Linux 6.10 requires an EV56 or later processor, every system that runs a current kernel implements BWX, and ''-mcpu=ev56'' is the natural baseline for new binaries: it runs on every such system, and avoids the long instruction sequences and the atomicity problems of pre-BWX byte and word access. The kernel's own generic configuration uses ''-mcpu=ev56 -mtune=ev6'', scheduling for the 21264 while staying compatible with the 21164A. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)] A binary for one's own system can use the processor's own value, ''-mcpu=ev67'' for a 21264A or later, which adds the FIX, CIX, and MVI instructions.
+Linux 6.10 removed support for processors older than the EV56 (21164A), so every system that runs a current kernel implements BWX, and ''-mcpu=ev56'' is the natural baseline for new binaries: it runs on every such system, and avoids the long instruction sequences and the atomicity problems of pre-BWX byte and word access. The kernel's own generic configuration uses ''-mcpu=ev56 -mtune=ev6'', scheduling for the 21264 while staying compatible with the 21164A. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)] A binary for one's own system can use the processor's own value, ''-mcpu=ev67'' for a 21264A or later, which adds the FIX, CIX, and MVI instructions.
 
 ''-mcpu=ev6'' and ''-mcpu=ev67'' binaries do not run on the 21164A and 21164PC, which the kernel still supports.
 
 === Distribution baselines ===
 
-Debian raised the default processor of its GCC packages for Alpha from the architecture baseline to EV56 in May 2023. Aurelien Jarno had proposed in August 2021 to drop the ''libc6.1-alphaev67'' package, an EV67 build of glibc selected at run time through the hardware capabilities mechanism, and asked whether the baseline should instead go to EV6 or EV67; [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-August.mbox#L1|"future of the libc6.1-alphaev67 package"]], Aurelien Jarno, debian-alpha, 24 Aug 2021)] Michael Cree argued for EV56, since BWX removes a class of unaligned access bugs in GCC's byte handling. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-August.mbox#L152|"Re: future of the libc6.1-alphaev67 package"]], Michael Cree, debian-alpha, 25 Aug 2021)] In November 2022 Cree proposed going further, to EV67, after finding that most glibc test failures passed with an EV67 baseline, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2022-November.mbox#L109|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, gentoo-alpha, 20 Nov 2022)] but owners of pre-EV67 systems objected that they were the majority of working Alphas. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2022-November.mbox#L213|"Re: glibc regression on alpha with 2.34+"]], Frank Scheiner, gentoo-alpha, 20 Nov 2022)]
+Debian's GCC packages have been configured with ''--with-cpu=ev56'' since gcc-13 13.1.0-3 and gcc-12 12.3.0-2, in May 2023, [(>[[https://bugs.debian.org/1036158|Debian bug #1036158]])] [(>[[https://salsa.debian.org/toolchain-team/gcc/-/blob/gcc-15-debian/debian/rules2|debian/rules2]], Debian gcc-15)] after glibc 2.37 removed the legacy hardware capabilities directories and with them the separate EV67 build of glibc. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2023-May.mbox#L1|"Re: future of the libc6.1-alphaev67 package"]], Aurelien Jarno, debian-alpha, 14 May 2023)] An EV67 baseline was also proposed, but owners of pre-EV67 systems objected that they were the majority of working Alphas. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2022-November.mbox#L213|"Re: glibc regression on alpha with 2.34+"]], Frank Scheiner, gentoo-alpha, 20 Nov 2022)]
 
-When glibc 2.37 removed the legacy hardware capabilities directories, and with them the EV67 library, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2023-May.mbox#L1|"Re: future of the libc6.1-alphaev67 package"]], Aurelien Jarno, debian-alpha, 14 May 2023)] the porters settled on EV56. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2023-May.mbox#L136|"Re: future of the libc6.1-alphaev67 package"]], John Paul Adrian Glaubitz, debian-alpha, 14 May 2023)] John Paul Adrian Glaubitz filed the request against GCC on 16 May 2023, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2023-May.mbox#L484|"Bug#1036158: gcc-13: Please raise baseline for alpha to EV56"]], John Paul Adrian Glaubitz, debian-alpha, 16 May 2023)] and Matthias Klose made the change four days later, in gcc-13 13.1.0-3 and gcc-12 12.3.0-2. [(>[[https://bugs.debian.org/1036158|Debian bug #1036158]])] Debian's GCC packages have been configured with ''--with-cpu=ev56'' for Alpha since then. [(>[[https://salsa.debian.org/toolchain-team/gcc/-/blob/gcc-15-debian/debian/rules2|debian/rules2]], Debian gcc-15)]
-
-T2 builds its Alpha images for EV56. [(>[[https://dl.t2sde.org/binary/|dl.t2sde.org/binary]], T2 SDE)] Gentoo's Alpha profile sets no ''-mcpu'', so its stages use the compiler's default, the architecture baseline; users choose their own in ''make.conf''. [(>[[https://gitweb.gentoo.org/repo/gentoo.git/tree/profiles/arch/alpha/make.defaults|profiles/arch/alpha/make.defaults]], gentoo.git)]
+T2 builds its Alpha images for EV56. [(>[[https://dl.t2sde.org/binary/|dl.t2sde.org/binary]], T2 SDE)] Gentoo's Alpha profile sets no ''-mcpu'', so its stages use the compiler's default, the architecture baseline. [(>[[https://gitweb.gentoo.org/repo/gentoo.git/tree/profiles/arch/alpha/make.defaults|profiles/arch/alpha/make.defaults]], gentoo.git)] Gentoo users choose their own in ''make.conf''; since current kernels need an EV56 or later, ''-mcpu=ev56'' or the processor's own value (see [[#choosing_-mcpu_today|Choosing -mcpu today]]) loses nothing.
 
 === Alpha-specific options ===
 
@@ -62,36 +56,45 @@ T2 builds its Alpha images for EV56. [(>[[https://dl.t2sde.org/binary/|dl.t2sde.
 | ''-msmall-data'' / ''-mlarge-data'' | put small objects in ''.sdata'' addressed off the GP, or not |
 | ''-msmall-text'' / ''-mlarge-text'' | assume the text segment fits in 4 MiB so calls can be ''BSR'' |
 | ''-mexplicit-relocs'' | emit explicit relocations rather than leaving the assembler to macro-expand memory references |
-| ''-msafe-bwa'', ''-msafe-partial'' | thread and signal safe byte, word and partial accesses on pre-BWX CPUs, added in GCC 15 (PR117759) [(>[[https://gcc.gnu.org/bugzilla/show_bug.cgi?id=117759|PR117759]], GCC Bugzilla)] |
+| ''-msafe-bwa'', ''-msafe-partial'' | make byte and word accesses without BWX (''-msafe-bwa''), and piecemeal unaligned and partial-quadword accesses (''-msafe-partial''), thread and signal safe; added in GCC 15 (PR117759) [(>[[https://gcc.gnu.org/bugzilla/show_bug.cgi?id=117759|PR117759]], GCC Bugzilla)] |
 | ''-mmemory-latency='' | scheduling assumption for the memory system |
 
 ''-mieee'' is the option most often needed. Upstream GCC does not enable it by default, but the Debian and Gentoo GCC packages do. The reasoning, and its cost, are described on the [[documentation:porting:floating_point|Floating Point]] page.
 
 === "relocation truncated to fit" ===
 
-A link failure of the following form indicates an overflowing global offset table: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L43360|"ld reports 'relocation truncated to fit'"]], Topi Kanerva, axp-list, 24 Nov 1996)]
+Alpha addresses global data through the GP register plus a 16-bit signed displacement, so one GOT holds 64 KiB of entries. A link failure such as ''relocation truncated to fit: LITERAL'' means a GOT or small data area has overflowed. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L43360|"ld reports 'relocation truncated to fit'"]], Topi Kanerva, axp-list, 24 Nov 1996)] The linker splits an application's GOT into multiple subsections, each with its own GP, so ordinary programs do not reach the limit. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L10307|"linker beta"]], Richard Henderson, axp-list, 6 Dec 1996)]
 
-<code>
-/usr/lib/gcc-lib/alpha-linux/2.7.2/crtend.o(.text+0x14): relocation truncated to fit: LITERAL __CTOR_END__
-worn.o: In function `setworn':
-worn.c(.text+0x60): relocation truncated to fit: LITERAL worn
-</code>
+The limit is still reached in these cases:
 
-Alpha addresses global data through a GP register plus a 16-bit signed displacement, so one GOT holds 64 KiB of entries and no more. The error can also result from mixing ELF and ECOFF objects. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L22101|"Re: GCC linker error... Help?"]], Richard Henderson, axp-list, 11 Nov 1996)] Since December 1996 the linker has been able to emit multiple GOT subsections, which lifts the limit for applications. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-December.mbox#L10307|"linker beta"]], Richard Henderson, axp-list, 6 Dec 1996)]
+  * **''-fpic'' shared libraries.** ''-fpic'' implies ''-msmall-data'', which limits the small data area to 64 KiB; ''-fPIC'' implies ''-mlarge-data'', which does not. A large library that fails to link with ''-fpic'' should be built with ''-fPIC''. [(>[[https://gcc.gnu.org/onlinedocs/gcc/DEC-Alpha-Options.html|DEC Alpha Options]], GCC manual)]
+  * **Kernel modules.** The module loader builds one GOT for each module, [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/module.c?h=v7.3-rc1|arch/alpha/kernel/module.c]], Linux 7.3)] and ''R_ALPHA_LITERAL'' relocations "can easily overflow if things get large". A very large driver such as ''radeon'' can fail to load as a module; building it into the kernel avoids the problem. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2014-December.mbox#L84|"[gentoo-alpha] Re: radeon questions"]], Måns Rullgård, gentoo-alpha, 9 Dec 2014)]
+  * **The kernel itself.** The statically linked kernel has no such diagnostic: an overflowing kernel ''.got'' section produces a kernel that fails at run time rather than at build time. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L7673|"Re: copy_from_user() kills RH 6.1 kernel"]], Richard Henderson, axp-list, 11 Apr 2000)]
 
-The statically linked kernel has no such diagnostic: an overflowing kernel ''.got'' section produces a kernel that fails at run time rather than at build time. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-April.mbox#L7673|"Re: copy_from_user() kills RH 6.1 kernel"]], Richard Henderson, axp-list, 11 Apr 2000)]
+==== binutils ====
 
-Large kernel modules, such as the radeon driver, can fail to load for a related reason: relocation type 4, ''R_ALPHA_LITERAL'', "can easily overflow if things get large". Before Linux 3.9 the kernel was built with ''-msmall-data'', which made modules "especially prone" to it; building the driver into the kernel avoids it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2014-December.mbox#L84|"[gentoo-alpha] Re: radeon questions"]], Måns Rullgård, gentoo-alpha, 9 Dec 2014)]
+The assembler takes ''-mev4'' to ''-mev68'', ''-mpca56'', and ''-mall'' to select the instruction set; the numeric forms (''-m21064'' to ''-m21264b'') also accept the PALcode instructions of that processor. The ''.arch'' directive does the same from within a source file. GCC passes its ''-mcpu'' value to the assembler as the corresponding ''-m'' option. [(>[[https://sourceware.org/git/?p=binutils-gdb.git;a=blob;f=gas/config/tc-alpha.c|gas/config/tc-alpha.c]], binutils)] [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/elf.h|gcc/config/alpha/elf.h]], GCC)]
 
-=== glibc ===
+Without one of these options the assembler targets the base architecture, and hand-written assembly is affected in two ways. Instructions from the extensions, such as ''ctpop'', are rejected. The byte and word instructions ''ldbu'', ''ldwu'', ''stb'', ''stw'', ''sextb'', and ''sextw'' are not rejected but treated as macros, and silently expanded into pre-BWX sequences; the expansions of ''stb'' and ''stw'' are non-atomic read-modify-write sequences (see [[documentation:porting:byte_word_access|Byte and Word Access]]). [(>[[https://sourceware.org/git/?p=binutils-gdb.git;a=blob;f=gas/config/tc-alpha.c|gas/config/tc-alpha.c]], binutils)] An assembly file that uses byte stores should therefore start with ''.arch ev56'' or be assembled with ''-mcpu=ev56''.
 
-Alpha's C library is ''libc.so.6.1'', not ''libc.so.6'', and glibc builds itself with ''-mieee''. Both have Alpha-specific reasons, covered in [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] and [[documentation:porting:floating_point|Floating Point]].
+==== GDB ====
 
-From glibc 2.34, statically linked programs on Alpha, ''ldconfig'' among them, crashed while dynamically linked ones worked. The static linker resolved the hidden weak reference to ''%%__ehdr_start%%'' to 0 on Alpha, leaving the program header pointers invalid; Adhemerval Zanella's fix restored the older setup for static binaries in January 2023. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2023-January.mbox#L240|"Re: Update on the glibc segfault issue on Alpha"]], Adhemerval Zanella Netto, gentoo-alpha, 3 Jan 2023)] Most of the remaining glibc test failures passed when built for an EV67 baseline, and Michael Cree proposed raising Debian's baseline accordingly, since "One of our last EV56 users has recently bowed out due to hardware failure". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2022-November.mbox#L109|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, gentoo-alpha, 20 Nov 2022)]
+GDB supports Alpha/Linux as a native debugger, and can debug Alpha core files and QEMU's gdbstub from another host. [(>[[https://sourceware.org/git/?p=binutils-gdb.git;a=blob;f=gdb/alpha-linux-nat.c|gdb/alpha-linux-nat.c]], binutils-gdb)] [(>[[https://sourceware.org/git/?p=binutils-gdb.git;a=blob;f=gdb/alpha-linux-tdep.c|gdb/alpha-linux-tdep.c]], binutils-gdb)] ''gdbserver'' has no Alpha support. [(>[[https://sourceware.org/git/?p=binutils-gdb.git;a=blob;f=gdbserver/configure.srv|gdbserver/configure.srv]], binutils-gdb)]
+
+==== glibc ====
+
+glibc is the only C library for Alpha/Linux. Its library is ''libc.so.6.1'', not ''libc.so.6'', and glibc builds itself with ''-mieee''. Both have Alpha-specific reasons, covered in [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] and [[documentation:porting:floating_point|Floating Point]].
 
 Alpha's ''long double'' is the 128-bit IEEE quadruple format, implemented in software, and its pages are 8 KiB. These and the other ways in which Alpha's Linux ABI differs from x86-64 are described in [[documentation:porting:abi|Linux ABI Differences]].
 
-Open toolchain bugs are tracked from [[tasks:bugs|Bugs]].
+==== Not available on Alpha ====
+
+The following are missing on Alpha; details and sources are on the [[status#what_is_missing|Current Status]] page.
+
+  * **LLVM and Clang.** LLVM has had no Alpha back end since 2011, so Clang cannot be used, and the kernel cannot be built with ''LLVM=1''.
+  * **Rust**, except through the GCC-based projects rustc_codegen_gcc and gccrs, both still in development. Zig and other LLVM-based compilers are likewise unavailable.
+  * **musl.** glibc is the only C library.
+  * **The Go toolchain.** ''gccgo'' builds Go code on Alpha.
 
 ==== Cross compilers ====
 
@@ -112,41 +115,9 @@ qemu-alpha -L /usr/alpha-linux-gnu ./hello
 
 The last line runs the result with QEMU's user-mode emulator; see [[documentation:qemu#user-mode_emulation|QEMU]]. Building a kernel with a cross compiler is described on the [[documentation:kernel#cross_compiling|Kernel]] page.
 
-Clang cannot be used: LLVM has had no Alpha back end since 2011. See [[status#what_is_missing|Current Status]].
-
 ==== Compaq C ====
 
-''ccc'' is the compiler Digital shipped as **DEC C** on OSF/1, Digital UNIX, Tru64 and OpenVMS, built on the GEM optimizing back end and retargeted to produce ELF objects and link against glibc. The Fortran compiler shares that back end. It was proprietary and distributed without source.
-
-=== DEC C on DEC OSF/1 ===
-
-On DEC OSF/1 and Digital UNIX up to V3.2, the default compiler was the MIPS-derived ''ucode'' compiler; DEC C was available from V1.3 under the ''-migrate'' switch and became the default in V4.0. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1996-February.mbox#L207|"Re: Roll-yer-own Alpha OSF box"]], David Metsky, comp.unix.osf.osf1, 28 Feb 1996)] ''cc -migrate'' therefore selected DEC C, the compiler Digital used for its performance benchmarks. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-September.mbox#L24322|"RE: Any compiler in the OSF/1"]], Steve Lionel, comp.unix.osf.osf1, 1 Sep 1994)]
-
-=== Compaq C for Linux ===
-
-Compaq released a public beta of Compaq C for Linux Alpha, as RPMs tested primarily on Red Hat 5.2, on 8 September 1999, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-September.mbox#L261|"Compaq announces public Beta test for Linux Alpha C compiler"]], Compaq C/C++ Team, debian-alpha, 8 Sep 1999)] and Compaq C V6.2 and Compaq Fortran V1.0 on 17 December 1999. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L32196|"Compaq C V6.2 for Linux Alpha is available"]], Compaq C/C++ Team, axp-list, 17 Dec 1999)] Compaq claimed improvements of "a factor of two or more" for some floating-point intensive C applications and "15% to 30%" for integer code. C was free to download. Fortran was free for non-commercial use under a "Technology Enthusiast" license, with a commercial license at US$399. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-December.mbox#L13399|"Compaq Fortran for Linux Alpha Systems now available"]], Steve Lionel, comp.os.linux.alpha, 17 Dec 1999)] A C++ compiler (''cxx'') followed.
-
-^ Component ^ Notes ^
-| ''ccc'' | Compaq C. The driver is also installed as ''cc'', and its diagnostics are prefixed ''cc:'' |
-| ''cxx'' | Compaq C++, a later and less reliable port than C |
-| ''fort'' | Compaq Fortran, full Fortran 95, without OpenMP or HPF |
-| ''ladebug'' | the Tru64 debugger, shipped with the compilers |
-| **CPML** | Compaq Portable Math Library, a drop-in replacement for ''libm'' |
-| **CXML** | Compaq Extended Math Library, BLAS, LAPACK, signal processing and sparse solvers |
-
-The usual recommendation for floating-point performance was to build with ''cc -fast'' and link against CPML in place of the system ''libm''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-1999-October.mbox#L8457|"Re: Is FFT inherently slow on Alpha CPUs?"]], David A. Long, comp.os.linux.alpha, 15 Oct 1999)] ''-fast'' implies ''-O3'', ''-fp_reorder'' and ''-assume nomath_errno'', among others, and is not IEEE-safe; floating-point code that needs IEEE semantics must add ''-ieee''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2005-July.mbox#L529|"Re: Compaq C vs GCC-4.0.1"]], Måns Rullgård, comp.os.linux.alpha, 24 Jul 2005)]
-
-The predefined macros ''%%__DECC_VER%%'' and ''%%__DECCXX_VER%%'' identify the compilers. Neither compiler uses an external preprocessor, and code that tests ''%%__GNUC__%%'' takes the non-GCC branch; the usual casualty is ''alloca()'', which ''alloca.h'' defines only for GCC. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L13460|"Re: error logs RE: compiling X with ccc"]], W Bauske, axp-list, 11 Mar 2002)]
-
-The compilers were never self-contained. They located headers and libraries through a generated ''comp.config'' file pointing at GCC's include and library directories, so each installation was tied to the installed ''gcc'' version. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/1999-November.mbox#L1962|"Re: compaq c"]], Falk Hueffner, debian-alpha, 16 Nov 1999)] The RPMs could not be redistributed, so Debian and Gentoo provided installer packages that extracted a separately downloaded RPM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2001-March.mbox#L5495|"ITP: CPML and CXML alpha installer packages"]], Adam C Powell IV, debian-alpha, 27 Mar 2001)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/gmane-2003-May.mbox#L1411|"new eclass: ccc"]], Tavis Ormandy, gentoo-alpha, 26 May 2003)] Requests to HP for redistribution rights were unsuccessful. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-April.mbox#L8850|"Re: HPaq cxx trouble"]], Adam C Powell IV, debian-alpha, 22 Apr 2005)]
-
-=== How much faster was ccc ===
-
-In May 2000 an Ace's Hardware article comparing ''ccc'' against ''egcs'' on a DS10 was widely read as evidence that GCC performed poorly on Alpha. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L5835|"aticle about DS10 / ccc vs gcc"]], Jaap Hogenberg, axp-list, 10 May 2000)] The article used egcs 1.1.2, although ''gcc'' 2.95, which performed considerably better on Alpha, had been available for months. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L8239|"Re: aticle about DS10 / ccc vs gcc"]], Brad Lucier, axp-list, 16 May 2000)] For Fortran, the gap between ''g77'' and ''fort'' was estimated at 0 to 20% on code written with the compiler in mind, and larger on naive code. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-May.mbox#L8357|"Re: aticle about DS10 / ccc vs gcc"]], W Bauske, axp-list, 16 May 2000)]
-
-By 2003 there was little difference for integer code between ''ccc'' and ''gcc'' 3.2 when GCC was given processor-specific options. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2003-March.mbox#L3402|"Re: GCC vs. ccc"]], Måns Rullgård, comp.os.linux.alpha, 25 Mar 2003)] Many ''ccc'' versus ''gcc'' comparisons measured ''-arch ev6'' against a distribution's generic baseline build rather than a difference between the compilers. ''ccc'' retained an advantage in floating-point code.
-
-The main practical obstacle to using it was packaging rather than performance: builds that worked statically often failed to produce the shared libraries the rest of a distribution expected. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2005-February.mbox#L1|"Re: CCC vs GCC Optimizations - my current results"]], Måns Rullgård, comp.os.linux.alpha, 27 Feb 2005)]
+Compaq C (''ccc'') was the DEC C compiler of Digital UNIX and OpenVMS, built on Digital's GEM optimizing back end and retargeted to Linux. Compaq released it free of charge in December 1999, with a Fortran compiler (''fort''), a C++ compiler (''cxx''), and the CPML and CXML math libraries. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1999-December.mbox#L32196|"Compaq C V6.2 for Linux Alpha is available"]], Compaq C/C++ Team, axp-list, 17 Dec 1999)] It was faster than GCC on floating-point code, but by 2003 there was little difference for integer code, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2003-March.mbox#L3402|"Re: GCC vs. ccc"]], Måns Rullgård, comp.os.linux.alpha, 25 Mar 2003)] and it was never used to build a distribution. The packages could not be redistributed, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-April.mbox#L8850|"Re: HPaq cxx trouble"]], Adam C Powell IV, debian-alpha, 22 Apr 2005)] and the compilers are no longer available.
 
 ==== See also ====
 
