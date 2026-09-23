@@ -251,6 +251,7 @@
 | The Register | 2000-09-15 | [[https://www.theregister.com/on-prem/2000/09/15/api-messes-up-alpha-mobo-upgrade/1545403|API messes up Alpha mobo upgrade]] |
 | CNET | 2000-09-21 | [[https://web.archive.org/web/20040405213639/http://news.com.com:80/2100-1001_3-239325.html|Manufacturers compete for share of high-end Unix market]] |
 | The Register | 2000-10-11 | [[https://www.theregister.com/off-prem/2000/10/11/samsung-greases-the-alpha-skids/835178|Samsung greases the Alpha skids]] |
+| EE Times | 2000-10-11 | [[https://www.eetimes.com/server-mpus-jockey-for-position-against-itanium/|Server MPUs jockey for position against Itanium]] |
 | The Register | 2000-11-06 | [[https://www.theregister.com/on-prem/2000/11/06/thin-n-fast-alpha-linux-servers-coming-rsn/875925|Thin 'n' fast Alpha Linux servers coming RSN]] |
 | Electronics Weekly | 2000-11-07 | [[https://www.electronicsweekly.com/news/archived/resources-archived/alpha-changes-name-debuts-server-833mhz-processor-2000-11/|Alpha Changes Name; Debuts Server, 833MHz Processor]] |
 | ZDNet | 2000-11-08 | [[https://www.zdnet.com/article/linux-cluster-for-performance-computing/|Linux cluster for performance computing]] |
