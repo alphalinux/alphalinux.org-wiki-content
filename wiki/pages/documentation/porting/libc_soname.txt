@@ -2,19 +2,19 @@
 
 Every other currently supported Linux architecture that uses glibc 2.x has ''libc.so.6''. Alpha has ''libc.so.6.1'', and ''libm.so.6.1'' with it. The dynamic linker, ''ld-linux.so.2'', was not renamed.
 
-==== Why ====
-
-The reason is an ABI break in January 1997. As of the glibc 970104 snapshot, several basic types changed size on Alpha: ''dev_t'' became 64 bits wide and glibc's ''sigset_t'' changed from an array of ''unsigned int'' to an array of ''unsigned long'' (1024 bits in either case). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-January.mbox#L26971|"Re: glibc upgrade advice?"]], Richard Henderson, axp-list, 23 Jan 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-May.mbox#L5740|"Re: Glibc 2.0.3 and LibX11"]], Richard Henderson, axp-list, 5 May 1997)] Alpha had already shipped binaries against ''libc.so.6'', and those binaries could not be allowed to load the incompatible library, so Richard Henderson changed Alpha's soname to 6.1 on 18 January 1997. [(>[[https://sourceware.org/git/?p=glibc.git;a=commit;h=0c5ecdc449ce581b56090758d5bb5673763ea909|"update from main arhive 970119"]], glibc, 20 Jan 1997)] The same change simplified ''clone()'' to take a single ''void *'' argument. It shipped in glibc 2.0.1. [(>[[https://sourceware.org/git/?p=glibc.git;a=commit;h=831372e7c1|"update from main archive 970127"]], glibc, 28 Jan 1997)]
-
-Binaries built against one library do not work with the other. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-January.mbox#L26756|"Re: glibc upgrade advice?"]], Philip Blundell, axp-list, 23 Jan 1997)] The transition required rebuilding the whole system, and users upgrading from Red Hat 4.x, whose libc was a pre-release glibc snapshot, were still encountering it a year later. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-February.mbox#L18518|"Re: Explain Compilers Libc and Glibc, and what is causing the Probs."]], Richard Henderson, axp-list, 21 Feb 1998)]
-
-Nothing in current Alpha glibc requires the ''.1''. It is a remnant of the 1997 ABI change, kept because changing it back would break every existing Alpha binary.
-
 ==== Consequences for portable code ====
 
 Code that names the C library by its file name breaks on Alpha. Typical cases are a ''dlopen("libc.so.6", ...)'' call, a language runtime or foreign function interface that loads ''libc.so.6'' by name, and a test suite or build script that looks for ''libc.so.6'' to find the C library or decide that it is glibc. All of them fail on Alpha, where no file of that name exists. [(>[[https://github.com/martinpitt/umockdev/commit/a52fb88c855708508a16f1d1c03fcdd5101866f3|umockdev commit a52fb88]], Michael Cree, 6 Jul 2026)] The same applies to ''libm.so.6''.
 
 Portable code should not hard-code the name. In C, glibc's ''<gnu/lib-names.h>'' defines ''LIBC_SO'' and ''LIBM_SO'' as the correct names for the target, ''"libc.so.6.1"'' and ''"libm.so.6.1"'' on Alpha. Alternatively, ''dlopen(NULL, ...)'' returns a handle for the main program, through which the C library's symbols can be found without naming it. Python's ''ctypes.util.find_library("c")'' also returns the right name.
+
+Debian names its packages after the soname, so on Alpha the C library is ''libc6.1'' and its development files ''libc6.1-dev'', not ''libc6'' and ''libc6-dev''. [(>[[https://packages.debian.org/search?keywords=libc6.1|libc6.1]], packages.debian.org)] Build dependencies and packaging scripts that name ''libc6-dev'' directly fail on Alpha.
+
+==== Why ====
+
+The reason is an ABI break in January 1997, in glibc 2.0.1. ''dev_t'' became 64 bits wide and glibc's ''sigset_t'' changed from an array of ''unsigned int'' to an array of ''unsigned long'' (1024 bits in either case). [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-January.mbox#L26971|"Re: glibc upgrade advice?"]], Richard Henderson, axp-list, 23 Jan 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-May.mbox#L5740|"Re: Glibc 2.0.3 and LibX11"]], Richard Henderson, axp-list, 5 May 1997)] Alpha binaries had already been built against ''libc.so.6'', and to keep them from loading the incompatible library, Alpha's soname was changed to 6.1. [(>[[https://sourceware.org/git/?p=glibc.git;a=commit;h=0c5ecdc449ce581b56090758d5bb5673763ea909|"update from main arhive 970119"]], glibc, 20 Jan 1997)] [(>[[https://sourceware.org/git/?p=glibc.git;a=commit;h=831372e7c1|"update from main archive 970127"]], glibc, 28 Jan 1997)] Binaries built against one library do not work with the other. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-January.mbox#L26756|"Re: glibc upgrade advice?"]], Philip Blundell, axp-list, 23 Jan 1997)]
+
+Nothing in current Alpha glibc requires the ''.1''. It is a remnant of the 1997 ABI change, kept because changing it back would break every existing Alpha binary.
 
 ==== IA-64 ====
 

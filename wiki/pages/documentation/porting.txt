@@ -1,17 +1,50 @@
 ===== Porting =====
 
-These pages describe the parts of the Alpha architecture that most often cause problems when software is first built for Alpha.
+These pages describe the parts of the Alpha architecture that most often cause problems when software is first built for Alpha/Linux.
 
-Many of these failures are latent defects in portable code rather than Alpha-specific problems. The base architecture has no byte store, no unaligned-tolerant load, no dependent-load ordering and no precise arithmetic traps, so Alpha exposes defects that x86 tolerates. Where that is the case, these pages cite the evidence that a change is a genuine fix rather than an architecture-specific workaround.
+Many of these failures are latent defects in portable code rather than Alpha-specific problems. Alpha has no unaligned-tolerant load, no ordering of dependent loads, and no precise arithmetic traps, and the original architecture had no byte or word stores, so Alpha exposes defects that x86 tolerates. Where that is the case, these pages cite the evidence that a change is a genuine fix rather than an architecture-specific workaround.
 
 ^ Page ^ Topic ^
 | [[documentation:porting:unaligned_access|Unaligned Access]] | Why ''%%*(uint32_t *)(buf + 1)%%'' is undefined behavior in C, how it also crashes x86 programs, and how to find and fix it |
-| [[documentation:porting:byte_word_access|Byte and Word Access]] | Pre-BWX byte and word access, the byte/word extension, sparse and dense I/O, and why non-atomic byte access ended pre-EV56 support |
+| [[documentation:porting:byte_word_access|Byte and Word Access]] | The byte/word extension (BWX), pre-BWX byte and word access, and why non-atomic byte access ended pre-EV56 support |
 | [[documentation:porting:memory_model|Memory Model]] | The weakest memory model Linux supports, dependent load reordering, barriers, and load-locked / store-conditional |
-| [[documentation:porting:floating_point|Floating Point]] | Imprecise traps, software completion, ''-mieee'', the FPCR, and denormals |
-| [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] | The January 1997 ABI break, and its cause |
+| [[documentation:porting:floating_point|Floating Point]] | ''-mieee'', imprecise traps, software completion, the FPCR, and denormals |
+| [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] | Code that names ''libc.so.6'', and the January 1997 ABI break behind the different name |
 | [[documentation:porting:abi|Linux ABI Differences]] | The 8 KiB page size, 128-bit ''long double'', and the system call, ''errno'', signal, and ''ioctl'' numbers that differ from x86-64 |
 
-See also [[documentation:instruction_set|Instruction Set]], [[documentation:amask|Architecture Mask (amask)]] and [[documentation:references|References]].
+==== Symptoms ====
+
+^ Symptom ^ Likely cause ^ Page ^
+| ''unaligned trap'' messages in the kernel log, or ''SIGBUS'' | A misaligned load or store, or a misaligned atomic operation | [[documentation:porting:unaligned_access|Unaligned Access]] |
+| ''SIGFPE'' on floating-point code, often on NaN, infinity, or denormal operands | Code built without ''-mieee'' | [[documentation:porting:floating_point|Floating Point]] |
+| ''SIGILL'' | Code built for a newer processor (''-mcpu'') than the one running it | [[documentation:toolchains#selecting_a_processor|Toolchains]] |
+| Corrupted neighboring bytes under threads or signals | Non-atomic byte or word stores in code built for pre-EV56 processors | [[documentation:porting:byte_word_access|Byte and Word Access]] |
+| Intermittent failures in lock-free code | Missing memory barriers | [[documentation:porting:memory_model|Memory Model]] |
+| ''libc.so.6: cannot open shared object file'' | The C library named by file name | [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] |
+| Wrong ''errno'' values, signals, or ''ioctl'' requests; ''EINVAL'' from ''mmap()'' | Numbers copied from x86, or a 4 KiB page size assumed | [[documentation:porting:abi|Linux ABI Differences]] |
+| ''relocation truncated to fit'' at link time | GOT or small data area overflow | [[documentation:toolchains#relocation_truncated_to_fit|Toolchains]] |
+
+==== Checklist ====
+
+  * **No LLVM.** Clang, Rust (except through GCC-based efforts), Zig, and other LLVM-based compilers are not available; code must build with GCC. See [[documentation:toolchains#not_available_on_alpha|Toolchains]].
+  * **Processor baseline.** Current kernels require an EV56 (21164A) or later, but the compiler's default may be older: Debian's GCC defaults to ''-mcpu=ev56'', Gentoo's to the architecture baseline. See [[documentation:toolchains#distribution_baselines|Distribution baselines]].
+  * **''-mieee''.** Debian and Gentoo enable it by default; upstream GCC does not. Code that handles NaN, infinity, or denormals needs it. See [[documentation:porting:floating_point|Floating Point]].
+  * **8 KiB pages.** Obtain the page size with ''sysconf(_SC_PAGESIZE)''. See [[documentation:porting:abi#page_size|Page size]].
+  * **Alignment.** Misaligned ordinary loads and stores are fixed up by the kernel, slowly; misaligned atomic operations always raise ''SIGBUS''. See [[documentation:porting:unaligned_access|Unaligned Access]].
+  * **Sub-word atomics.** Atomic operations on 8-bit and 16-bit objects are built from quadword load-locked/store-conditional sequences. See [[documentation:porting:memory_model|Memory Model]].
+  * **Large shared libraries** may need ''-fPIC'' instead of ''-fpic''. See [[documentation:toolchains#relocation_truncated_to_fit|Toolchains]].
+  * **The C library** is ''libc.so.6.1'', packaged in Debian as ''libc6.1'' and ''libc6.1-dev'' rather than ''libc6'' and ''libc6-dev''. See [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]].
+  * **The target triplet** is ''alpha-unknown-linux-gnu'' (''alpha-linux-gnu'' on Debian). Processor-specific triplets such as ''alphaev67-unknown-linux-gnu'' are also valid, so configure scripts should match ''alpha*''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config.gcc|gcc/config.gcc]], GCC)]
+
+==== Terms ====
+
+Alpha documentation calls a 16-bit quantity a **word**, a 32-bit quantity a **longword**, and a 64-bit quantity a **quadword**. These pages follow that usage.
+
+==== See also ====
+
+  * [[documentation:toolchains|Toolchains]], for ''-mcpu'', ''-mieee'', and the other Alpha-specific compiler options
+  * [[documentation:instruction_set|Instruction Set]]
+  * [[documentation:amask|Architecture Mask (amask)]]
+  * [[documentation:references|References]]
 
 {{tag>documentation porting}}
