@@ -1,18 +1,21 @@
 ===== References =====
 
-Specifications, reference manuals and books on the Alpha architecture and its software conventions. See also [[hardware:cpus|CPUs]] and [[hardware:chipsets|Chipsets]].
+Specifications, reference manuals, and books on the Alpha architecture and its software conventions. For Linux work, the Fourth Edition of the //Alpha Architecture Reference Manual// is the definitive description of the instruction set, memory model, and PALcode interface, and the //Digital UNIX Calling Standard for Alpha Systems// describes the calling convention Linux follows. The hardware reference manuals of the individual processors are listed under [[hardware:cpus|CPUs]], those of the core logic under [[hardware:chipsets|Chipsets]], and the firmware manuals under [[software:firmware|Firmware]].
 
 ==== Architecture ====
 
-^ Document ^ Part number ^ Date ^
-| {{wiki:documentation:references:alpha_architecture_handbook_v1.pdf?linkonly|Alpha Architecture Handbook, Version 1}} | EC-H1689-10 | 1992 |
-| {{wiki:documentation:references:alpha_architecture_handbook_v4.pdf?linkonly|Alpha Architecture Handbook, Version 4}} | EC-QD2KC-TE | October 1998 |
-| {{wiki:documentation:references:alpha_architecture_reference_manual_1st_edition.pdf?linkonly|Alpha Architecture Reference Manual, First Edition}} | EY-L520E-DP | 1992 |
-| {{wiki:documentation:references:alpha_architecture_reference_manual_2nd_edition.pdf?linkonly|Alpha AXP Architecture Reference Manual, Second Edition}} | EY-TI32E-DP | 1995 |
-| {{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}} | | January 2002 |
-| {{wiki:documentation:references:alpha_system_reference_manual_v5.pdf?linkonly|Alpha System Reference Manual, Version 5}} | | May 1992 |
-| {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6}} | | 1994 |
-| {{wiki:documentation:references:alpha_system_reference_manual_v7.pdf?linkonly|Alpha System Reference Manual, Version 7}} | | 1997 |
+^ Document ^ Part number ^ ISBN ^ Date ^
+| {{wiki:documentation:references:alpha_architecture_handbook_v1.pdf?linkonly|Alpha Architecture Handbook, Version 1}} | EC-H1689-10 | | 1992 |
+| Alpha Architecture Handbook, Version 2 | EC-QD2KA-TE | | |
+| Alpha Architecture Handbook, Version 3 | EC-QD2KB-TE | | |
+| {{wiki:documentation:references:alpha_architecture_handbook_v4.pdf?linkonly|Alpha Architecture Handbook, Version 4}} | EC-QD2KC-TE | | October 1998 |
+| {{wiki:documentation:references:alpha_architecture_reference_manual_1st_edition.pdf?linkonly|Alpha Architecture Reference Manual, First Edition}} | EY-L520E-DP | [[https://search.worldcat.org/title/26593349|978-1555580988]] | 1992 |
+| {{wiki:documentation:references:alpha_architecture_reference_manual_2nd_edition.pdf?linkonly|Alpha AXP Architecture Reference Manual, Second Edition}} | EY-TI32E-DP | [[https://search.worldcat.org/title/32625680|978-1555581459]] | 1995 |
+| Alpha Architecture Reference Manual, Third Edition | | [[https://search.worldcat.org/title/39190622|978-1555582029]] | |
+| {{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}} | | | January 2002 |
+| {{wiki:documentation:references:alpha_system_reference_manual_v5.pdf?linkonly|Alpha System Reference Manual, Version 5}} | | | May 1992 |
+| {{wiki:documentation:references:alpha_axp_system_reference_manual_v6.pdf?linkonly|Alpha AXP System Reference Manual, Version 6}} | | | 1994 |
+| {{wiki:documentation:references:alpha_system_reference_manual_v7.pdf?linkonly|Alpha System Reference Manual, Version 7}} | | | 1997 |
 
 ==== Calling standards and object files ====
 
@@ -22,39 +25,26 @@ Specifications, reference manuals and books on the Alpha architecture and its so
 | {{wiki:documentation:references:vsi_openvms_calling_standard.pdf?linkonly|VSI OpenVMS Calling Standard}} | | 2026 |
 | {{wiki:documentation:references:tru64_unix_object_file_and_symbol_table_format_specification.pdf?linkonly|Tru64 UNIX Object File and Symbol Table Format Specification}} | | August 2000 |
 
-==== Software ====
+==== Other books ====
 
-^ Document ^ Part number ^ Date ^
-| {{wiki:documentation:references:fx32_product_brief.pdf?linkonly|DIGITAL FX!32 Translation-Emulation Software for Alpha and Windows NT 4.0 Product Brief}} | EC-R4TAA-TE | February 1997 |
-
-==== Books ====
-
-^ Title ^ Order number ^ ISBN ^
-| Alpha Architecture Handbook, Version 1 ({{wiki:documentation:references:alpha_architecture_handbook_v1.pdf?linkonly|PDF}}) | EC-H1689-10 | |
-| Alpha Architecture Handbook, Version 2 | EC-QD2KA-TE | |
-| Alpha Architecture Handbook, Version 3 | EC-QD2KB-TE | |
-| Alpha Architecture Handbook, Version 4 ({{wiki:documentation:references:alpha_architecture_handbook_v4.pdf?linkonly|PDF}}) | EC-QD2KC-TE | |
-| Alpha Architecture Reference Manual, First Edition ({{wiki:documentation:references:alpha_architecture_reference_manual_1st_edition.pdf?linkonly|PDF}}) | | [[https://search.worldcat.org/title/26593349|978-1555580988]] |
-| Alpha Architecture Reference Manual, Second Edition ({{wiki:documentation:references:alpha_architecture_reference_manual_2nd_edition.pdf?linkonly|PDF}}) | | [[https://search.worldcat.org/title/32625680|978-1555581459]] |
-| Alpha Architecture Reference Manual, Third Edition | | [[https://search.worldcat.org/title/39190622|978-1555582029]] |
-| Alpha Architecture Reference Manual, Fourth Edition ({{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|PDF}}) | | |
-| [[https://www2.lawrence.edu/fast/EVANSJ/ARAFP.HTML|Alpha RISC Architecture for Programmers]] ([[https://www2.lawrence.edu/fast/EVANSJ/ARAFPE1P.HTML|Errata]], [[https://www2.lawrence.edu/fast/EVANSJ/ARAFPREF.HTML|References]]) | | [[https://search.worldcat.org/title/40449540|978-0130814388]] |
-| Alpha Implementations and Architecture: Complete Reference and Guide ([[https://dl.acm.org/doi/pdf/10.1145/232790.564994|review]]) | | [[https://search.worldcat.org/title/32821055|978-1555581305]] |
+^ Title ^ ISBN ^
+| [[https://www2.lawrence.edu/fast/EVANSJ/ARAFP.HTML|Alpha RISC Architecture for Programmers]] ([[https://www2.lawrence.edu/fast/EVANSJ/ARAFPE1P.HTML|Errata]], [[https://www2.lawrence.edu/fast/EVANSJ/ARAFPREF.HTML|References]]) | [[https://search.worldcat.org/title/40449540|978-0130814388]] |
+| Alpha Implementations and Architecture: Complete Reference and Guide ([[https://dl.acm.org/doi/pdf/10.1145/232790.564994|review]]) | [[https://search.worldcat.org/title/32821055|978-1555581305]] |
 
 ==== Digital Technical Journal ====
 
-Digital posted //Digital Technical Journal// papers in full to the biz.digital.articles newsgroup. The Alpha-related papers are listed below.
+Digital posted //Digital Technical Journal// papers in full to the biz.digital.articles newsgroup. The Alpha-related papers are listed below. The papers themselves give the issue of the Vol. 6, No. 3 papers as Summer 1994, although the newsgroup posting labeled it Spring 1994. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L1649|"The AlphaServer 2100 I/O Subsystem"]], Andrew P. Russo, biz.digital.articles, reference 1)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L637|"Design of the AlphaServer Multiprocessor Server Systems"]], Fidelma M. Hayes, biz.digital.articles, reference 6)]
 
 ^ Paper ^ Authors ^ Issue ^
 | [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-June.mbox#L7939|The Evolution of the Alpha AXP PC]] | David G. Conroy, Thomas E. Kopec, and Joseph R. Falcone | Vol. 6, No. 1, Winter 1994 |
 | [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-June.mbox#L8845|Digital's DECchip 21066: The First Cost-focused Alpha AXP Chip]] | Dina L. McKinney et al. | Vol. 6, No. 1, Winter 1994 |
-| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L1992|A Shared Memory MPP from Cray Research]] | R. Kent Koeninger, Mark Furtney, and Martin Walker | Vol. 6, No. 2 |
-| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L3126|The E2COTS System and Alpha AXP Technology: The New Computer Standard for Military Use]] | Robert Couranz | Vol. 6, No. 2 |
-| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L5135|Development of Digital's PCI Chip Sets and Evaluation Kit for the DECchip 21064 Microprocessor]] | Samyojita A. Nadkarni et al. | Vol. 6, No. 2 |
-| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L637|Design of the AlphaServer Multiprocessor Server Systems]] | Fidelma M. Hayes | Vol. 6, No. 3, Spring 1994 |
-| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L1649|The AlphaServer 2100 I/O Subsystem]] | Andrew P. Russo | Vol. 6, No. 3, Spring 1994 |
-| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L2349|DEC OSF/1 Symmetric Multiprocessing]] | Jeffrey M. Denham, Paula Long, and James A. Woodward | Vol. 6, No. 3, Spring 1994 |
-| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L3712|DXML: A High-performance Scientific Subroutine Library]] | Chandrika Kamath, Roy Ho, and Dwight P. Manley | Vol. 6, No. 3, Spring 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L1992|A Shared Memory MPP from Cray Research]] | R. Kent Koeninger, Mark Furtney, and Martin Walker | Vol. 6, No. 2, Spring 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L3126|The E2COTS System and Alpha AXP Technology: The New Computer Standard for Military Use]] | Robert Couranz | Vol. 6, No. 2, Spring 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L5135|Development of Digital's PCI Chip Sets and Evaluation Kit for the DECchip 21064 Microprocessor]] | Samyojita A. Nadkarni et al. | Vol. 6, No. 2, Spring 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L637|Design of the AlphaServer Multiprocessor Server Systems]] | Fidelma M. Hayes | Vol. 6, No. 3, Summer 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L1649|The AlphaServer 2100 I/O Subsystem]] | Andrew P. Russo | Vol. 6, No. 3, Summer 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L2349|DEC OSF/1 Symmetric Multiprocessing]] | Jeffrey M. Denham, Paula Long, and James A. Woodward | Vol. 6, No. 3, Summer 1994 |
+| [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-February.mbox#L3712|DXML: A High-performance Scientific Subroutine Library]] | Chandrika Kamath, Roy Ho, and Dwight P. Manley | Vol. 6, No. 3, Summer 1994 |
 | [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L7024|The AlphaServer 8000 Series: High-end Server Platform Development]] | David M. Fenwick et al. | Special 10th Anniversary Issue |
 | [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L9056|The Second-generation Processor Module for AlphaServer 2100 Systems]] | Nitin D. Godiwala and Barry A. Maskas | Special 10th Anniversary Issue |
 | [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1995-August.mbox#L10071|Digital's High-performance CMOS ASIC]] | Jean H. Basmaji et al. | Special 10th Anniversary Issue |
