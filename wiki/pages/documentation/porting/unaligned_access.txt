@@ -1,6 +1,6 @@
 ===== Unaligned Access =====
 
-Unaligned memory access is the most common reason software fails when first built for Alpha. Every Alpha load and store except ''LDQ_U'' and ''STQ_U'' traps when the address is not a multiple of the operand size, and no implementation corrects the access in hardware.
+Unaligned memory access is one of the most common reasons software fails when first built for Alpha. Every Alpha load and store except ''LDQ_U'' and ''STQ_U'' traps when the address is not a multiple of the operand size, and no implementation corrects the access in hardware.
 
 The construct responsible is almost always a pointer cast such as ''%%*(uint32_t *)(buf + 1)%%''. It is undefined behavior in C on every target, including x86, where the hardware ordinarily tolerates it; the sections below include an x86-64 program that fails because of it. Alpha differs from such targets only in reporting the error immediately.
 
@@ -81,7 +81,7 @@ Two properties of the message limit its use:
 
 === Counting them properly ===
 
-Alpha exports cumulative, un-rate-limited counters:
+Alpha exports cumulative, un-rate-limited, system-wide counters:
 
 <code>
 $ grep unaligned /proc/cpuinfo
@@ -89,7 +89,7 @@ kernel unaligned acc	: 0 (pc=0,va=0)
 user unaligned acc	: 1174 (pc=120001234,va=11ffff8e5)
 </code>
 
-Sampling these counters before and after a run shows whether a program performed any unaligned access.
+Sampling these counters before and after a run shows whether any unaligned access occurred during the run. The kernel keeps one counter for all user processes, so on a busy system other processes also increment it.
 
 === Making it fatal ===
 
@@ -128,7 +128,7 @@ Setting one of these at the top of ''main()'' in a test harness turns every unal
 
 === Absence of a sysctl ===
 
-Some guides suggest ''echo 2 > /proc/sys/kernel/unaligned-trap''. It does not apply to Alpha. The ''unaligned-trap'' sysctl exists only on architectures that opt in to it (parisc, arc, loongarch and riscv), takes only the values 0 and 1, and is not available on Alpha, which registers no sysctls of its own. Alpha's only controls are the two per-process interfaces described above.
+The command ''echo 2 > /proc/sys/kernel/unaligned-trap'' does not work on Alpha. The ''unaligned-trap'' sysctl exists only on architectures that opt in to it (parisc, arc, loongarch and riscv), takes only the values 0 and 1, and is not available on Alpha, which registers no sysctls of its own. Alpha's only controls are the two per-process interfaces described above.
 
 === Other operating systems ===
 
@@ -250,7 +250,7 @@ give_sigbus:
 	return;
 </code>
 
-''$_siginfo'' is only populated when GDB intercepts a live signal, so this works under ''handle SIGBUS stop'', not on a core file.
+''$_siginfo'' is populated when GDB intercepts a live signal under ''handle SIGBUS stop'', and also when it opens a core file, which carries the signal information in an ''NT_SIGINFO'' note.
 
 === Kernel log and addr2line ===
 
@@ -263,7 +263,7 @@ sort -u | while read -r pc; do
 done
 </code>
 
-''addr2line'' expects a link-time address, so for a PIE or a shared library the mapping base must be subtracted first. The binary must be built with ''-g''.
+''addr2line'' expects a link-time address, so for a PIE or a shared library the mapping base must be subtracted first. Function names come from the symbol table; file names and line numbers require a binary built with ''-g''.
 
 ==== Detection workflow ====
 
@@ -272,7 +272,7 @@ The steps below combine the tools described above.
   - Build with ''-g -fsanitize=undefined -fno-sanitize-recover=alignment -Wcast-align=strict''. The ''=strict'' form is required, since the plain form does nothing on x86.
   - Run the test suite on x86. UBSan finds the majority of alignment defects without Alpha hardware.
   - On Alpha, call ''prctl(PR_SET_UNALIGN, PR_UNALIGN_SIGBUS, 0, 0, 0)'' at the top of ''main()'' and run under ''gdb'' with ''handle SIGBUS stop print''.
-  - Compare ''grep unaligned /proc/cpuinfo'' before and after a run as a regression check.
+  - Compare ''grep unaligned /proc/cpuinfo'' before and after a run as a regression check, on an otherwise idle system, since the counters are system-wide.
   - Repair the access with ''memcpy'', or with ''get_unaligned()'' in kernel code. Casting through ''void *'' silences the warning without removing the undefined behavior.
 
 ==== Common causes ====

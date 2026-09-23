@@ -33,7 +33,7 @@ The [[documentation:amask|amask]] instruction reports what the running processor
 
 === Choosing -mcpu today ===
 
-Linux 6.10 removed support for processors older than the EV56 (21164A), so every system that runs a current kernel implements BWX, and ''-mcpu=ev56'' is the natural baseline for new binaries: it runs on every such system, and avoids the long instruction sequences and the atomicity problems of pre-BWX byte and word access. The kernel's own generic configuration uses ''-mcpu=ev56 -mtune=ev6'', scheduling for the 21264 while staying compatible with the 21164A. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)] A binary for one's own system can use the processor's own value, ''-mcpu=ev67'' for a 21264A or later, which adds the FIX, CIX, and MVI instructions.
+Linux 6.10 removed support for processors older than the EV56 (21164A), so every system that runs a current kernel implements BWX, and ''-mcpu=ev56'' is the natural baseline for new binaries: it runs on every such system, and avoids the long instruction sequences and the atomicity problems of pre-BWX byte and word access. The kernel's own generic configuration uses ''-mcpu=ev56 -mtune=ev6'', scheduling for the 21264 while staying compatible with the 21164A. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Makefile?h=v7.3-rc1|arch/alpha/Makefile]], Linux 7.3)] A binary built for a specific machine can use that processor's own value, ''-mcpu=ev67'' for a 21264A or later, which adds the FIX, CIX, and MVI instructions.
 
 ''-mcpu=ev6'' and ''-mcpu=ev67'' binaries do not run on the 21164A and 21164PC, which the kernel still supports.
 

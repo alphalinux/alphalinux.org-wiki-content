@@ -20,7 +20,7 @@ See also [[documentation:instruction_set|Instruction Set]] and [[documentation:a
 ==== Compiler flags ====
 
 ^ Flag ^ Effect ^
-| ''-mieee'' | IEEE-conformant except that the inexact flag is not maintained. Sets ''-mtrap-precision=i'' and emits ''/SU''. Defines ''_IEEE_FP''. |
+| ''-mieee'' | IEEE-conformant except that the inexact flag is not maintained. Sets ''-mtrap-precision=i'' (except with ''-mcpu=ev6'' or later; see [[#trap_shadows_trapb_and_excb|Trap shadows]]) and emits ''/SU''. Defines ''_IEEE_FP''. |
 | ''-mieee-with-inexact'' | as above but maintains the inexact flag; emits ''/SUI''. Additionally defines ''_IEEE_FP_EXACT''. Significantly slower. |
 | ''-mfp-trap-mode='' | ''n'' (default), ''u'', ''su'', ''sui'' |
 | ''-mfp-rounding-mode='' | ''n'' (default), ''m'', ''c'', ''d''. There is no ''p'' value, matching the ISA. ''-frounding-math'' makes ''d'' the default. |
@@ -37,7 +37,7 @@ On processors before the EV6 the cost comes from the trap barriers, and depends 
 
 ==== Denormals ====
 
-Alpha hardware does not produce denormal results. Without a trap qualifier, underflow is disabled and the result is forced to a true zero. With ''/SU'' the underflow trap fires and the software-completion handler produces the correct denormal. GCC's own comment:
+Alpha hardware does not produce denormal results. Without a trap qualifier, underflow is disabled and the result is forced to a true zero. With ''/SU'' the underflow trap fires and the software-completion handler produces the correct denormal. GCC's own comment, in ''gcc/config/alpha/alpha.cc'':
 
 <code c>
   /* ... Without software completion -- which the compiler only arranges for
@@ -203,7 +203,7 @@ long (*alpha_fp_emul)(...) = (void *)dummy_emul;
 #else
 </code>
 
-and every software-completion trap becomes ''SIGFPE''. The option lives in ''arch/alpha/Kconfig.debug'', not ''arch/alpha/Kconfig'', is enabled in the shipped ''defconfig'', and can be built as a module.
+and every software-completion trap becomes ''SIGFPE''. The option lives in ''arch/alpha/Kconfig.debug'', not ''arch/alpha/Kconfig'', is enabled in the shipped ''defconfig'', and can be built as a module only in a uniprocessor kernel with ''CONFIG_DEBUG_KERNEL'' set; otherwise it is always built in.
 
 === Illegal instructions ===
 

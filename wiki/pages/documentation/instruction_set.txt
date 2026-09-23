@@ -8,7 +8,7 @@ Alpha is a 64-bit load/store RISC architecture. It has 32 integer and 32 floatin
 
 There are 32 integer registers. The ''$31'' register holds the constant value 0. Writes to it are ignored.
 
-By convention 12 registers are for temporary values, 7 are saved across function calls, and 6 are for passing arguments to functions.
+By convention 12 registers are for temporary values, 7 (''$9'' to ''$15'') are saved across function calls, and 6 are for passing arguments to functions. The return address (''$26'') and the stack pointer (''$30'') are also preserved.
 
 ^ Register ^ Alternate Name ^ Preserved? ^ Purpose ^
 | **$0** | **$v0** | No | Return Value |
@@ -78,7 +78,7 @@ main:
 
 ==== ISA extensions ====
 
-Each extension was introduced in one processor and is present in every later one, with one exception: the EV56 (21164A) has BWX but not MVI, which first appeared in the PCA56 (21164PC). The [[amask]] instruction reports at run time which extensions a processor implements, using the bit given in the table; ''IMPLVER'' reports only the processor generation, for tuning decisions. [(>{{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}, section 4.11 and Appendix D, pp. 4-141, D-4 to D-5)] GCC enables an extension with its ''-m'' option, or with a ''-mcpu'' value for a processor that has it. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.cc|gcc/config/alpha/alpha.cc]], GCC)] [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.opt|gcc/config/alpha/alpha.opt]], GCC)]
+The extensions accumulate along the line EV56 (21164A, BWX), PCA56 (21164PC, adds MVI), EV6 (21264, adds FIX), and EV67 (21264A, adds CIX); each processor in that sequence implements the extensions of those before it, so the 21164A has BWX but not MVI. The [[amask]] instruction reports at run time which extensions a processor implements, using the bit given in the table; ''IMPLVER'' reports only the processor generation, for tuning decisions. [(>{{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}, section 4.11 and Appendix D, pp. 4-141, D-4 to D-5)] GCC enables an extension with its ''-m'' option, or with a ''-mcpu'' value for a processor that has it. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.cc|gcc/config/alpha/alpha.cc]], GCC)] [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.opt|gcc/config/alpha/alpha.opt]], GCC)]
 
 ^ Extension ^ First processor ^ AMASK bit ^ GCC option ^ First ''-mcpu'' ^
 | Byte/word extension (BWX) | EV56 (21164A) | 0 | ''-mbwx'' | ''ev56'' |
@@ -158,7 +158,7 @@ Alpha has no atomic read-modify-write instructions. Atomic operations are built 
 | ''rduniq'' | 0x9e | Read the thread's unique value, the thread pointer used for TLS |
 | ''wruniq'' | 0x9f | Write the thread's unique value |
 
-GCC's ''%__builtin_thread_pointer%'' compiles to ''call_pal 0x9e'' (''rduniq''), and glibc uses it to find the thread's TLS block. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.md|gcc/config/alpha/alpha.md]], GCC)] [(>[[https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/alpha/nptl/tls.h|sysdeps/alpha/nptl/tls.h]], glibc)] The system call convention, with the number in ''$0'', arguments in ''$16'' to ''$21'', and an error flag returned in ''$19'', is described under [[documentation:porting:abi#system_calls|Linux ABI Differences: System calls]].
+GCC's ''%%__builtin_thread_pointer%%'' compiles to ''call_pal 0x9e'' (''rduniq''), and glibc uses it to find the thread's TLS block. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.md|gcc/config/alpha/alpha.md]], GCC)] [(>[[https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/alpha/nptl/tls.h|sysdeps/alpha/nptl/tls.h]], glibc)] The system call convention, with the number in ''$0'', arguments in ''$16'' to ''$21'', and an error flag returned in ''$19'', is described under [[documentation:porting:abi#system_calls|Linux ABI Differences: System calls]].
 
 ==== Relocation operators ====
 

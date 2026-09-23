@@ -2,7 +2,7 @@
 
 These pages describe the parts of the Alpha architecture that most often cause problems when software is first built for Alpha/Linux.
 
-Many of these failures are latent defects in portable code rather than Alpha-specific problems. Alpha has no unaligned-tolerant load, no ordering of dependent loads, and no precise arithmetic traps, and the original architecture had no byte or word stores, so Alpha exposes defects that x86 tolerates. Where that is the case, these pages cite the evidence that a change is a genuine fix rather than an architecture-specific workaround.
+Many of these failures are latent defects in portable code rather than Alpha-specific problems. Alpha traps on every misaligned load or store other than ''LDQ_U'' and ''STQ_U'', does not order dependent loads, and reports arithmetic traps imprecisely on processors before the 21264; the original architecture also had no byte or word stores. Alpha therefore exposes defects that x86 tolerates. Where that is the case, these pages cite the evidence that a change is a genuine fix rather than an architecture-specific workaround.
 
 ^ Page ^ Topic ^
 | [[documentation:porting:unaligned_access|Unaligned Access]] | Why ''%%*(uint32_t *)(buf + 1)%%'' is undefined behavior in C, how it also crashes x86 programs, and how to find and fix it |

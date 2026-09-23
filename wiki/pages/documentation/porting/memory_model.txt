@@ -11,8 +11,8 @@ See also [[documentation:porting:unaligned_access|Unaligned Access]] and [[docum
   * **Use the C11 or C++11 atomics**, or GCC's ''%%__atomic%%'' builtins, rather than hand-written barriers. GCC emits the barriers Alpha needs for each memory order (see [[#what_gcc_emits|What GCC emits]]).
   * **Never rely on a data dependency for ordering.** A load through a pointer that was just loaded may return stale data on Alpha (see [[#why_dependent_loads_reorder|Why dependent loads reorder]]). ''memory_order_consume'' is safe, because every implementation promotes it to ''memory_order_acquire''; code that uses a relaxed load and depends on the address dependency is not.
   * **Keep atomic objects aligned.** Atomic operations are load-locked/store-conditional loops, and the kernel never emulates a misaligned ''LDx_L'' or ''STx_C'': a misaligned atomic object, for example in a packed structure, always raises ''SIGBUS''. See [[documentation:porting:unaligned_access|Unaligned Access]].
-  * **Expect sub-word atomics to be emulated.** Alpha's load-locked and store-conditional instructions operate only on longwords and quadwords. GCC implements atomic operations on 8-bit and 16-bit objects by operating on the aligned quadword that contains them, masking the other bytes. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.cc|gcc/config/alpha/alpha.cc]], GCC)] They are correct but slower, and contend with any other atomic variable in the same quadword. There is no 16-byte atomic instruction, so 16-byte atomic operations are not lock-free and are handled by ''libatomic'', which must be linked with ''-latomic''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/sync.md|''gcc/config/alpha/sync.md'']], GCC)]
-  * **Follow the load-locked/store-conditional rules in inline assembly.** Only register-to-register integer instructions may appear between ''LDx_L'' and ''STx_C'', and branches between them should be forward branches (see [[#load-locked_store-conditional|Load-Locked / Store-Conditional]]).
+  * **Expect sub-word atomics to be emulated.** Alpha's load-locked and store-conditional instructions operate only on longwords and quadwords. GCC implements atomic operations on 8-bit and 16-bit objects by operating on the aligned quadword that contains them, masking the other bytes. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.cc|gcc/config/alpha/alpha.cc]], GCC)] They are correct but slower, and contend with any other atomic variable in the same lock range, which is at least the containing quadword (see [[documentation:porting:byte_word_access#reservation_granularity|Reservation granularity]]). There is no 16-byte atomic instruction, so 16-byte atomic operations are not lock-free and are handled by ''libatomic'', which must be linked with ''-latomic''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/sync.md|''gcc/config/alpha/sync.md'']], GCC)]
+  * **Follow the load-locked/store-conditional rules in inline assembly.** Only register-to-register integer instructions may appear between ''LDx_L'' and ''STx_C'', and no branch may be taken on the path from one to the other; a branch that abandons the sequence without executing the ''STx_C'' is permitted (see [[#load-locked_store-conditional|Load-Locked / Store-Conditional]]).
   * **Execute ''CALL_PAL IMB'' after writing code.** A JIT compiler must make newly written instructions visible to the instruction stream; ''%%__builtin___clear_cache()%%'' emits the ''IMB''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.md|''gcc/config/alpha/alpha.md'']], GCC)]
 
 ==== Permitted reorderings ====
@@ -253,7 +253,7 @@ static inline void arch_spin_unlock(arch_spinlock_t * lock)
 }
 </code>
 
-Alpha has not been converted to qspinlock; the code above is the current implementation.
+As of Linux 7.3, Alpha has not been converted to qspinlock; the code above is the current implementation.
 
 On barrier placement, the Architecture Reference Manual prescribes: [(arm2)]
 
@@ -346,7 +346,7 @@ fence:   mb  ;  ret
 Two points follow from this output:
 
   * A release store emits ''MB'' before the store, not ''WMB''.
-  * GCC's Alpha back end has no ''WMB'' pattern, and ''mb'' is the only barrier it emits. The single barrier pattern in ''gcc/config/alpha/sync.md'' expands ''UNSPEC_MB'' to the string ''"mb"'', and ''grep -r wmb gcc/config/alpha/'' returns nothing. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/sync.md|''gcc/config/alpha/sync.md'']], GCC)]
+  * GCC's Alpha back end has no ''WMB'' pattern, and ''mb'' is the only barrier it emits. The single barrier pattern in ''gcc/config/alpha/sync.md'' expands ''UNSPEC_MB'' to the string ''"mb"'', and no file in ''gcc/config/alpha/'' refers to ''wmb''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/sync.md|''gcc/config/alpha/sync.md'']], GCC)]
 
 The legacy ''%%__sync%%'' builtins are full barriers by definition, and GCC brackets them accordingly:
 
@@ -383,7 +383,7 @@ At label ''$L13'' the trailing ''mb'' covers the failure path as well as the suc
 | Full barrier | ''MB'' |
 | Write barrier | ''WMB'' (architecture only; GCC never emits it) |
 | Read barrier | does not exist; use ''MB'' |
-| Atomic read-modify-write | ''LDx_L''/''STx_C'' loop, forward branches, register operates only in between |
+| Atomic read-modify-write | ''LDx_L''/''STx_C'' loop, with only register operates and no taken branch in between |
 | Fully ordered RMW | ''MB'' before and after the loop |
 | Publish a pointer, writer | ''WMB'' (or ''MB'') before the pointer store |
 | Publish a pointer, reader | ''MB'' after the pointer load; in the kernel, ''READ_ONCE()'' supplies it |

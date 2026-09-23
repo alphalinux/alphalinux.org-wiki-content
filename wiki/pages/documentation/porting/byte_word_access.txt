@@ -72,7 +72,7 @@ Two further flags, added in GCC 15, address the non-atomicity described below: [
 
 The compile-time predicate is ''%%__alpha_bwx__%%'', defined when BWX code generation is enabled.
 
-GCC has no builtins for the BWX instructions: ''%%__builtin_alpha_ldbu%%'', ''%%__builtin_alpha_ldwu%%'', ''%%__builtin_alpha_stb%%'' and ''%%__builtin_alpha_stw%%'' have never existed. The instructions are obtained by compiling with ''-mbwx'' and writing ordinary ''unsigned char'' and ''unsigned short'' accesses. GCC provides builtins for the pre-BWX byte-manipulation instructions: ''%%__builtin_alpha_extbl%%'', ''%%__builtin_alpha_insbl%%'', ''%%__builtin_alpha_mskbl%%'' and the rest of the extract, insert and mask family, along with ''%%__builtin_alpha_amask%%'', ''%%__builtin_alpha_implver%%'', ''%%__builtin_alpha_cmpbge%%'', ''%%__builtin_alpha_zap%%'' and ''%%__builtin_alpha_zapnot%%''.
+GCC has no builtins for the BWX instructions: ''%%__builtin_alpha_ldbu%%'', ''%%__builtin_alpha_ldwu%%'', ''%%__builtin_alpha_stb%%'' and ''%%__builtin_alpha_stw%%'' do not exist. The instructions are obtained by compiling with ''-mbwx'' and writing ordinary ''unsigned char'' and ''unsigned short'' accesses. GCC provides builtins for the pre-BWX byte-manipulation instructions: ''%%__builtin_alpha_extbl%%'', ''%%__builtin_alpha_insbl%%'', ''%%__builtin_alpha_mskbl%%'' and the rest of the extract, insert and mask family, along with ''%%__builtin_alpha_amask%%'', ''%%__builtin_alpha_implver%%'', ''%%__builtin_alpha_cmpbge%%'', ''%%__builtin_alpha_zap%%'' and ''%%__builtin_alpha_zapnot%%''.
 
 === Detecting BWX at runtime ===
 
@@ -86,7 +86,7 @@ On a pre-BWX Alpha, storing a byte means loading the containing quadword, modify
 
 C and C++ both require that distinct scalar objects can be updated concurrently without interfering. Pre-BWX Alpha cannot honor that for ''char'' and ''short'' without ''-msafe-bwa'', which GCC 15 added for this purpose. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=commit;h=3d4d82211c8cbfde0b852bde1603b5d549426df7|"Alpha: Add option to avoid data races for sub-longword memory stores [PR117759]"]], Maciej W. Rozycki, GCC, 30 Mar 2025)] The Linux kernel likewise assumes atomic byte stores.
 
-Non-atomic byte and word stores caused a large share of the bugs in Debian's Alpha port, possibly a third of them, and kernel developers wanted to assume atomic byte and word access on all architectures, which only pre-BWX Alpha prevented. [(>[[https://lists.debian.org/msgid-search/Y5gtYxqv78cTCdau@creeky|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, debian-alpha, 13 Dec 2022)] [(>[[https://lists.debian.org/msgid-search/20140905084622.GC5281@omega|"RFC: compile with BWX thus only support EV56 and later CPUs"]], Michael Cree, debian-alpha, 5 Sep 2014)]
+Michael Cree, the Debian Alpha port maintainer, estimated that possibly a third of the bugs in the port arose from non-atomic byte and word accesses, and noted that kernel developers wanted to assume atomic byte and word access on all architectures, which only pre-BWX Alpha prevented. [(>[[https://lists.debian.org/msgid-search/Y5gtYxqv78cTCdau@creeky|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, debian-alpha, 13 Dec 2022)] [(>[[https://lists.debian.org/msgid-search/20140905084622.GC5281@omega|"RFC: compile with BWX thus only support EV56 and later CPUs"]], Michael Cree, debian-alpha, 5 Sep 2014)]
 
 === How it ended ===
 
