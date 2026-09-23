@@ -1,13 +1,13 @@
 ===== Chipsets =====
 
 ^ Chipset ^ CPUs ^ Motherboards ^
-| [[#21071_and_21072|21071/21072]] | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | [[hardware:motherboards:eb64plus|EB64+]], [[hardware:motherboards:PC64]] |
-| [[#21171|21171 (CIA)]] | [[wp>Alpha_21164|21164]] | [[hardware:motherboards:EB164]] |
-| [[#21172|21172 (CIA)]] | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | [[hardware:motherboards:PC164]] |
-| [[#21174|21174 (Pyxis)]] | [[wp>Alpha_21164#Alpha_21164A|21164A]], [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|21164PC]] | [[hardware:motherboards:PC164LX]], [[hardware:motherboards:PC164SX]], [[hardware:motherboards:pc164ux|PC164UX/BX]] |
-| [[#21272|21272 (Tsunami/Typhoon)]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:PC264DP]], [[hardware:motherboards:UP2000]], [[hardware:motherboards:UP2000#up2000plus|UP2000+]] |
-| [[#AMD-751|AMD-751 (Irongate)]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:UP1000]], [[hardware:motherboards:UP1100]] |
-| [[#AMD-761|AMD-761]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:UP1500]] |
+| [[#21071_and_21072|21071/21072 (APECS)]] | [[wp>Alpha_21064|21064]], [[wp>Alpha_21064#Alpha_21064A|21064A]] | [[hardware:motherboards:eb64plus|EB64+]], [[hardware:motherboards:pc64|AlphaPC64]] |
+| [[#21171|21171 (CIA)]] | [[wp>Alpha_21164|21164]] | [[hardware:motherboards:eb164|EB164]] |
+| [[#21172|21172 (CIA)]] | [[wp>Alpha_21164|21164]], [[wp>Alpha_21164#Alpha_21164A|21164A]] | [[hardware:motherboards:pc164|AlphaPC164]] |
+| [[#21174|21174 (Pyxis)]] | [[wp>Alpha_21164#Alpha_21164A|21164A]], [[wp>Alpha_21164#Alpha_21164PC_(PCA56)|21164PC]] | [[hardware:motherboards:pc164lx|AlphaPC164LX]], [[hardware:motherboards:pc164sx|AlphaPC164SX]], [[hardware:motherboards:pc164ux|AlphaPC164UX/BX]] |
+| [[#21272|21272 (Tsunami/Typhoon)]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:pc264dp|AlphaPC264DP]], [[hardware:motherboards:up2000|UP2000]], [[hardware:motherboards:up2000#up2000plus|UP2000+]] |
+| [[#AMD-751|AMD-751 (Irongate)]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:up1000|UP1000]], [[hardware:motherboards:up1100|UP1100]] |
+| [[#AMD-761|AMD-761]] | [[wp>Alpha_21264|21264]] | [[hardware:motherboards:up1500|UP1500]] |
 
 The [[wp>Alpha_21064#Alpha_21066A|21066 and 21066A]] integrate their memory and PCI controllers, so boards such as the [[hardware:motherboards:eb66|EB66]] and [[hardware:motherboards:eb66plus|EB66+]] need no separate chipset.
 
@@ -33,18 +33,11 @@ The 21071 and 21072 are "two configurations of a core logic chip set for the DEC
 
 ==== 21174 ====
 
-Early 21174 (Pyxis) parts have a DMA erratum, described by Jay Estabrook as "DMA crossing page boundaries when using the scatter/gather hardware", [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-October.mbox#L3263|"Re: pci cards supported by SRM?"]], Jay Estabrook, debian-alpha, 9 Oct 2003)] which operating systems work around by hand. NetBSD prints a warning whenever it attaches to one: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-July.mbox#L4288|"Miata"]], Johan Danielsson, port-alpha, 28 Jul 1998)]
+Early 21174 (Pyxis) parts have an erratum affecting DMA that crosses a page boundary when the scatter-gather hardware is in use, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-October.mbox#L3263|"Re: pci cards supported by SRM?"]], Jay Estabrook, debian-alpha, 9 Oct 2003)] which operating systems must work around. NetBSD prints a warning when it detects a pass 1 Pyxis. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-July.mbox#L4288|"Miata"]], Johan Danielsson, port-alpha, 28 Jul 1998)]
 
-<code>
-cia0 at mainbus0: DECchip 2117x Core Logic Chipset (Pyxis), pass 1
-cia0: extended capabilities: 1<BWEN>
-cia0: using BWX for PCI config and device access
-cia0: WARNING: Pyxis pass 1 DMA bug; no bets...
-</code>
+On the Digital Personal Workstation (Miata) the bug is masked for most cards by the PCI-PCI bridge that the 32-bit slots sit behind, which breaks transfers up so the chip never sees the access pattern that provokes it. The firmware refuses unrecognized cards in the two 64-bit slots in front of the bridge. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-December.mbox#L9759|"Re: Pyxis chip on a 500a."]], Hal Murray, port-alpha, 28 Dec 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-December.mbox#L9909|"Re: Pyxis chip on a 500a."]], Chris G. Demetriou, port-alpha, 29 Dec 1999)] See [[hardware:other#personal_workstation_64-bit_slots|Other Hardware]] for the override and why DMA cards must stay out of those slots.
 
-On the Digital Personal Workstation (Miata) the bug is masked for most cards by the PCI-PCI bridge that the 32-bit slots sit behind, which breaks transfers up so the chip never sees the access pattern that provokes it. The firmware refuses unrecognized cards in the two 64-bit slots in front of the bridge. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-December.mbox#L9759|"Re: Pyxis chip on a 500a."]], Hal Murray, port-alpha, 28 Dec 1999)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-December.mbox#L9909|"Re: Pyxis chip on a 500a."]], Chris G. Demetriou, port-alpha, 29 Dec 1999)] See [[hardware:other#personal_workstation_64-bit_slots|Other Hardware]] for the override and why DMA cards must stay out of those slots. Andrew Gallatin reported that bursty writes to PCI dense space could lock up a buggy revision as well. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1999-December.mbox#L10001|"Re: Pyxis chip on a 500a."]], Andrew Gallatin, port-alpha, 29 Dec 1999)]
-
-Pyxis was also, according to Jay Estabrook, the first Alpha core logic on which byte and word access to I/O space worked; see [[documentation:porting:byte_word_access#bwx_in_the_core_logic|Byte and Word Access]].
+Pyxis was also the first Alpha core logic on which byte and word access to I/O space worked; see [[documentation:porting:byte_word_access#bwx_in_the_core_logic|Byte and Word Access]].
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:chipsets:21174:21174_technical_reference_manual.pdf?linkonly|Digital Semiconductor 21174 Core Logic Chip Technical Reference Manual}} | EC-R12GB-TE | August 1997 |
