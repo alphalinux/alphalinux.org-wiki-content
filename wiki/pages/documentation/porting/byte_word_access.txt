@@ -6,6 +6,81 @@ This design decision is the origin of the sparse I/O windows, the ''readb''/''wr
 
 See also [[documentation:porting:unaligned_access|Unaligned Access]], [[documentation:porting:memory_model|Memory Model]] and [[documentation:amask|Architecture Mask (amask)]].
 
+==== BWX: the Byte/Word Extension ====
+
+BWX comprises six instructions. From Appendix D of the Architecture Reference Manual, 4th edition:
+
+<code>
+0      Support for the byte/word extension (BWX)
+       The instructions that comprise the BWX extension are LDBU, LDWU, SEXTB, SEXTW,
+       STB, and STW.
+</code>
+
+^ Instruction ^ Opcode ^ Operation ^
+| ''LDBU Ra, disp(Rb)'' | 0x0A | load byte, zero-extended to 64 bits |
+| ''LDWU Ra, disp(Rb)'' | 0x0C | load 16-bit word, zero-extended to 64 bits |
+| ''STW Ra, disp(Rb)'' | 0x0D | store 16-bit word |
+| ''STB Ra, disp(Rb)'' | 0x0E | store byte |
+| ''SEXTB Rb, Rc'' | 0x1C.00 | sign-extend byte |
+| ''SEXTW Rb, Rc'' | 0x1C.01 | sign-extend word |
+
+There is no sign-extending byte or word //load//; the equivalent is ''LDBU'' followed by ''SEXTB''.
+
+The Architecture Reference Manual states which form to prefer:
+
+<blockquote>
+LDBU and STB are the recommended way to perform byte load and store operations on Alpha implementations that support them; use them rather than the extract, insert, and mask byte instructions described in this section.
+</blockquote>
+
+Tru64 UNIX emulates these instructions in the operating system on processors without BWX, rather than in PALcode, so that older systems did not need new console firmware. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-November.mbox#L13714|"UPDATE Oracle 8.1.7 on pre EV5.6 = arrghhh"]], Sim Alam, tru64-unix-managers, 14 Nov 2001)] Linux does not emulate them: a process that executes one on a pre-EV56 processor receives ''SIGILL''.
+
+=== Which processors have BWX ===
+
+^ Processor ^ BWX ^
+| 21064, 21064A (EV4, EV45) | no |
+| 21066, 21068 (LCA) | no |
+| 21164 (EV5) | no |
+| 21164A (EV56) | yes |
+| 21164PC (PCA56) | yes |
+| 21264 and variants (EV6, EV67, EV68) | yes |
+| 21364 (EV7) | yes |
+
+=== Compiler support ===
+
+<code sh>
+alpha-unknown-linux-gnu-gcc -mcpu=ev56 …    # or pca56, ev6, ev67
+alpha-unknown-linux-gnu-gcc -mbwx …         # explicit
+alpha-unknown-linux-gnu-gcc -mno-bwx …      # force the pre-BWX sequences
+</code>
+
+With BWX enabled, ordinary C produces single instructions:
+
+<code asm>
+lb:	ldbu $0,0($16)
+lsb:	ldbu $0,0($16) ; sextb $0,$0
+sb:	stb  $17,0($16)
+lw:	ldwu $0,0($16)
+sw:	stw  $17,0($16)
+</code>
+
+Two further flags address the non-atomicity described below:
+
+^ Flag ^ Meaning ^
+| ''-msafe-bwa'' | emit multi-thread and async-signal safe code for byte and word memory accesses |
+| ''-msafe-partial'' | the same for partial memory accesses |
+
+The compile-time predicate is ''%%__alpha_bwx__%%'', defined when BWX code generation is enabled.
+
+GCC has no builtins for the BWX instructions: ''%%__builtin_alpha_ldbu%%'', ''%%__builtin_alpha_ldwu%%'', ''%%__builtin_alpha_stb%%'' and ''%%__builtin_alpha_stw%%'' have never existed. The instructions are obtained by compiling with ''-mbwx'' and writing ordinary ''unsigned char'' and ''unsigned short'' accesses. GCC provides builtins for the pre-BWX byte-manipulation instructions: ''%%__builtin_alpha_extbl%%'', ''%%__builtin_alpha_insbl%%'', ''%%__builtin_alpha_mskbl%%'' and the rest of the extract, insert and mask family, along with ''%%__builtin_alpha_amask%%'', ''%%__builtin_alpha_implver%%'', ''%%__builtin_alpha_cmpbge%%'', ''%%__builtin_alpha_zap%%'' and ''%%__builtin_alpha_zapnot%%''.
+
+=== Performance effect of BWX ===
+
+In 1999 a FreeBSD ''make buildworld'' on a 533 MHz AlphaPC 164LX took 10% less wall-clock time and 14% less user time when the system was built with ''-mcpu=ev56''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-June.mbox#L4698|"Significant speedups from -mcpu=ev56"]], John Polstra, freebsd-alpha, 21 Jun 1999)] ''-mcpu=ev56'' also selects scheduling for the 21164A, so the figure is an upper bound on the contribution of BWX alone.
+
+=== Detecting BWX at runtime ===
+
+''amask(1) == 0'' indicates that BWX is present. See [[documentation:amask|Architecture Mask (amask)]] for the instruction, its bit assignments and the kernel's ''AT_HWCAP'' export.
+
 ==== Pre-BWX byte and word access ====
 
 === Loading a byte ===
@@ -93,154 +168,21 @@ The Architecture Reference Manual's comment states the ordering constraint: the 
 
 An //aligned// word store is a single read-modify-write, as for a byte.
 
-==== BWX: the Byte/Word Extension ====
-
-BWX comprises six instructions. From Appendix D of the Architecture Reference Manual, 4th edition:
-
-<code>
-0      Support for the byte/word extension (BWX)
-       The instructions that comprise the BWX extension are LDBU, LDWU, SEXTB, SEXTW,
-       STB, and STW.
-</code>
-
-^ Instruction ^ Opcode ^ Operation ^
-| ''LDBU Ra, disp(Rb)'' | 0x0A | load byte, zero-extended to 64 bits |
-| ''LDWU Ra, disp(Rb)'' | 0x0C | load 16-bit word, zero-extended to 64 bits |
-| ''STW Ra, disp(Rb)'' | 0x0D | store 16-bit word |
-| ''STB Ra, disp(Rb)'' | 0x0E | store byte |
-| ''SEXTB Rb, Rc'' | 0x1C.00 | sign-extend byte |
-| ''SEXTW Rb, Rc'' | 0x1C.01 | sign-extend word |
-
-There is no sign-extending byte or word //load//; the equivalent is ''LDBU'' followed by ''SEXTB''.
-
-The Architecture Reference Manual states which form to prefer:
-
-<blockquote>
-LDBU and STB are the recommended way to perform byte load and store operations on Alpha implementations that support them; use them rather than the extract, insert, and mask byte instructions described in this section.
-</blockquote>
-
-On implementations without BWX, these six instructions are supported by software emulation, so encountering one is not fatal, but execution is slow. The emulation lives in the operating system, not in PALcode. Tom Blinn explained Digital's reasoning for Tru64 UNIX: "On all Alpha systems, when you get an "invalid instruction" trap, control vectors from the PAL into the system's kernel, and the emulation is all done in software." Doing it in PALcode would have meant reissuing both the OpenVMS and UNIX PALcode for every older system and relying on users to update their console firmware, "so ALL of the support for the new instructions on older platforms resides in system software, NOT in firmware." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/tru64-unix-managers-mbox/2001-November.mbox#L13714|"UPDATE Oracle 8.1.7 on pre EV5.6 = arrghhh"]], Sim Alam, tru64-unix-managers, 14 Nov 2001)] The occasion was Oracle 8.1.7, rebuilt to use the byte and word instructions and very slow on pre-EV56 machines as a result.
-
-The lack of byte stores also shaped Digital's hardware. No dumb (byte-per-pixel) color frame buffers were offered for the early Alpha systems, and the DECstation PMAG-AA monochrome card, which exposes each pixel as a byte, was left unsupported: "Alpha's don't even have byte access, hence the do abysmal with dumb color frame buffers (hence none is offered on them)." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-May.mbox#L1711|"Re: Support for the PMAG-AA graphics adapter under OSF/1 1.X & 2.0"]], Burkhard Neidecker-Lutz, comp.unix.osf.osf1, 31 May 1994)]
-
-=== Which processors have BWX ===
-
-^ Processor ^ BWX ^
-| 21064, 21064A (EV4, EV45) | no |
-| 21066, 21068 (LCA) | no |
-| 21164 (EV5) | no |
-| 21164A (EV56) | yes |
-| 21164PC (PCA56) | yes |
-| 21264 and variants (EV6, EV67, EV68) | yes |
-| 21364 (EV7) | yes |
-
-PCA56 is often omitted from lists of BWX parts. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-March.mbox#L20844|"Re: which new alpha chips are which"]], Eric Smith, axp-list, 19 Mar 1997)]
-
-=== Compiler support ===
-
-<code sh>
-alpha-unknown-linux-gnu-gcc -mcpu=ev56 …    # or pca56, ev6, ev67
-alpha-unknown-linux-gnu-gcc -mbwx …         # explicit
-alpha-unknown-linux-gnu-gcc -mno-bwx …      # force the pre-BWX sequences
-</code>
-
-With BWX enabled, ordinary C produces single instructions:
-
-<code asm>
-lb:	ldbu $0,0($16)
-lsb:	ldbu $0,0($16) ; sextb $0,$0
-sb:	stb  $17,0($16)
-lw:	ldwu $0,0($16)
-sw:	stw  $17,0($16)
-</code>
-
-Two further flags address the non-atomicity described below:
-
-^ Flag ^ Meaning ^
-| ''-msafe-bwa'' | emit multi-thread and async-signal safe code for byte and word memory accesses |
-| ''-msafe-partial'' | the same for partial memory accesses |
-
-The compile-time predicate is ''%%__alpha_bwx__%%'', defined when BWX code generation is enabled.
-
-GCC has no builtins for the BWX instructions: ''%%__builtin_alpha_ldbu%%'', ''%%__builtin_alpha_ldwu%%'', ''%%__builtin_alpha_stb%%'' and ''%%__builtin_alpha_stw%%'' have never existed. The instructions are obtained by compiling with ''-mbwx'' and writing ordinary ''unsigned char'' and ''unsigned short'' accesses. GCC provides builtins for the pre-BWX byte-manipulation instructions: ''%%__builtin_alpha_extbl%%'', ''%%__builtin_alpha_insbl%%'', ''%%__builtin_alpha_mskbl%%'' and the rest of the extract, insert and mask family, along with ''%%__builtin_alpha_amask%%'', ''%%__builtin_alpha_implver%%'', ''%%__builtin_alpha_cmpbge%%'', ''%%__builtin_alpha_zap%%'' and ''%%__builtin_alpha_zapnot%%''.
-
-=== Performance effect of BWX ===
-
-Whole-program measurements are scarce, since few users had otherwise identical machines with and without BWX. The available figures are before-and-after measurements of rebuilding the same source with and without ''-mcpu=ev56''. John Polstra timed a FreeBSD ''make buildworld'' on an AlphaPC 164LX at 533 MHz in 1999: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-June.mbox#L4698|"Significant speedups from -mcpu=ev56"]], John Polstra, freebsd-alpha, 21 Jun 1999)]
-
-<code>
-Without -mcpu=ev56:  6570.76 real      4855.53 user       963.15 sys
-With    -mcpu=ev56:  5913.08 real      4156.91 user       991.84 sys
-</code>
-
-That is 10% off wall-clock time and 14% off user time, for a workload consisting mostly of pointer chasing and byte-at-a-time string handling, which the pre-BWX sequences make expensive. ''-mcpu=ev56'' also selects scheduling for the 21164A, so the figure is an upper bound on the contribution of BWX alone. The kernel in this test was built //without// the option.
-
-=== Detecting BWX at runtime ===
-
-''AMASK'' clears the bits of its operand that correspond to extensions the processor //implements//. A zero result means every requested feature is present.
-
-<code c>
-#define AMASK_BWX (1UL << 0)
-
-static inline unsigned long amask(unsigned long mask)
-{
-	unsigned long r;
-	__asm__ ("amask %1,%0" : "=r"(r) : "rI"(mask));
-	return r;
-}
-
-int has_bwx = (amask(AMASK_BWX) == 0);
-</code>
-
-The bit assignments, from Appendix D of the Architecture Reference Manual:
-
-^ Bit ^ Extension ^
-| 0 | byte/word extension (BWX) |
-| 1 | square-root and floating-point convert extension (FIX) |
-| 2 | count extension (CIX) |
-| 8 | multimedia extension (MVI) |
-| 9 | precise arithmetic trap reporting in hardware |
-| 12 | prefetch with modify intent |
-
-On EV4, EV45, LCA and EV5, ''AMASK'' copies its operand through unchanged, so every extension correctly reports as absent.
-
-The kernel spells this ''amask()'' in ''arch/alpha/include/asm/special_insns.h'', and inverts the sense before exporting it to userspace: ''%%#define ELF_HWCAP (~amask(-1))%%'', so bits in ''AT_HWCAP'' are set for features that are present.
-
 ==== Atomicity of byte and word access ====
 
 === The problem ===
 
 On a pre-BWX Alpha, storing a byte means loading the containing quadword, modifying one byte of it, and storing the whole quadword back. If another processor stores to a //different// byte of the same quadword in between, that store is silently lost.
 
-C and C++ both require that distinct scalar objects can be updated concurrently without interfering. Pre-BWX Alpha cannot honor that for ''char'' and ''short'' without ''-msafe-bwa''. Neither can the Linux kernel's expectations.
+C and C++ both require that distinct scalar objects can be updated concurrently without interfering. Pre-BWX Alpha cannot honor that for ''char'' and ''short'' without ''-msafe-bwa'', which GCC 15 added for this purpose. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=commit;h=3d4d82211c8cbfde0b852bde1603b5d549426df7|"Alpha: Add option to avoid data races for sub-longword memory stores [PR117759]"]], Maciej W. Rozycki, GCC, 30 Mar 2025)] The Linux kernel likewise assumes atomic byte stores.
 
-Michael Cree, then maintaining Debian's Alpha port, in December 2022: [(>[[https://lists.debian.org/msgid-search/Y5gtYxqv78cTCdau@creeky|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, debian-alpha, 13 Dec 2022)]
-
-<blockquote>
-Yes. The first extension added is the byte-word extension which came in with EV56. That provides CPU instructions for byte and word (16-bit) memory accesses. That is the most important one: possibly a third of the bugs in the repository extend from non-atomic byte and word accesses. The kernel developers have expressed a view that they would like to assume on all arches that byte and word memory accesses are atomic and the only architecture that is holding them back from that assumption are old Alphas without BWX. There is an old open bug on gcc related to the non-atomic memory accesses of old Alphas and that one is basically cannot fix.
-</blockquote>
-
-Cree had made the same argument eight years earlier, in 2014: [(>[[https://lists.debian.org/msgid-search/20140905084622.GC5281@omega|"RFC: compile with BWX thus only support EV56 and later CPUs"]], Michael Cree, debian-alpha, 5 Sep 2014)]
-
-<blockquote>
-There is a discussion on the Linux kernel mailing list that the kernel in future will only support architectures that can guarantee atomic aligned scalar accesses down to the byte level (at the moment the requirement is only for int (32bit) and long (64bit)). The only architecture that does not meet this new requirement is older Alphas that do not have the byte-word extension (BWX) CPU instructions, that is, EV4, EV45 and EV5. Thus the writing is on the wall that there will be no more Linux kernels for these older Alphas.
-
-Furthermore, I estimate that a majority of the bugs I have fixed in the Debian Alpha distribution over the last couple of years could have been fixed by compiling with the BWX.
-</blockquote>
+Non-atomic byte and word stores were a common source of bugs. Michael Cree, then maintaining Debian's Alpha port, estimated in 2022 that possibly a third of the bugs in the Debian Alpha repository stemmed from them, and noted that kernel developers wanted to assume atomic byte and word access on all architectures, which only pre-BWX Alpha prevented. [(>[[https://lists.debian.org/msgid-search/Y5gtYxqv78cTCdau@creeky|"Re: glibc regression on alpha with 2.34+"]], Michael Cree, debian-alpha, 13 Dec 2022)] He had made the same argument in 2014. [(>[[https://lists.debian.org/msgid-search/20140905084622.GC5281@omega|"RFC: compile with BWX thus only support EV56 and later CPUs"]], Michael Cree, debian-alpha, 5 Sep 2014)]
 
 === How it ended ===
 
-Debian-Ports raised its Alpha baseline to EV56 in 2023. Linux followed for 6.10. Arnd Bergmann's pull request, quoted on debian-alpha in May 2024: [(>[[https://lists.debian.org/msgid-search/b4adb884e4c1014ecce7d1857adb7feb48ba837f.camel@physik.fu-berlin.de|"Re: [GIT PULL] alpha: cleanups and build fixes for 6.10"]], John Paul Adrian Glaubitz quoting Arnd Bergmann, debian-alpha, 12 May 2024)]
+Debian-Ports raised its Alpha baseline to EV56 in 2023, and Linux followed in 6.10. Arnd Bergmann's pull request noted that Alpha EV5 and earlier was the only CPU family supported by the kernel without native byte access, and that parts of the RCU code already relied on byte access and did not work reliably on EV5. [(>[[https://lists.debian.org/msgid-search/b4adb884e4c1014ecce7d1857adb7feb48ba837f.camel@physik.fu-berlin.de|"Re: [GIT PULL] alpha: cleanups and build fixes for 6.10"]], John Paul Adrian Glaubitz quoting Arnd Bergmann, debian-alpha, 12 May 2024)] Linux 6.10 dropped pre-EV56 support, and removed Jensen, LCA and APECS support along with it.
 
-<blockquote>
-I had investigated dropping support for alpha EV5 and earlier a while ago after noticing that this is the only supported CPU family in the kernel without native byte access and that Debian has already dropped support for this generation last year [1] in order to improve performance for the newer machines.
-
-This topic came up again when Paul E. McKenney noticed that parts of the RCU code already rely on byte access and do not work on alpha EV5 reliably, so we decided on using my series to avoid the problem entirely.
-</blockquote>
-
-RCU had therefore been unreliable on pre-BWX Alpha. Linux 6.10 dropped pre-EV56 support, and Jensen, LCA and APECS support was removed along with it.
-
-Current builds for Alpha consequently target EV56 or later; no supported alternative remains.
+Linux and Debian therefore require EV56 or later.
 
 === Load-locked and store-conditional are not affected ===
 
@@ -329,8 +271,6 @@ atomic_fetch_or_explicit(&flags,  1U << 0, memory_order_relaxed);
 atomic_fetch_and_explicit(&flags, ~(1U << 1), memory_order_relaxed);
 </code>
 
-An //atomic bit-field// is not an alternative, and is not legal C: a bit-field's type may only be ''_Bool'', ''signed int'', ''unsigned int'' or an implementation-defined type, so ''%%_Atomic unsigned char flag : 1;%%'' is rejected by the compiler.
-
 === Contention causes retries rather than deadlock ===
 
 Sustained contention can starve an individual thread, but cannot stall the system. The architecture requires that:
@@ -378,7 +318,7 @@ __EXTERN_INLINE void cia_iowrite8(u8 b, void __iomem *xaddr)
 }
 </code>
 
-Replicating the byte to all four lanes is a Jensen-specific technique rather than the general one.
+Only the Jensen replicated the byte to all four lanes.
 
 Barriers are mandatory rather than advisory. From the same manual:
 
@@ -392,7 +332,7 @@ Sparse access is markedly slower than dense: every read is a load plus an extrac
 
 A dense mapping is linear: physical byte N corresponds to bus address N, with no stride and no lane encoding.
 
-Dense space is a chipset feature rather than a CPU feature, a point frequently misstated. Pre-BWX chipsets such as APECS, LCA and T2 do provide a dense memory window, usable for longword and quadword access on an EV4. They cannot provide byte and word access through it, so Linux converts a dense address back into the sparse window to service ''readb''/''writeb'':
+Dense space is a chipset feature rather than a CPU feature. Pre-BWX chipsets such as APECS, LCA and T2 do provide a dense memory window, usable for longword and quadword access on an EV4. They cannot provide byte and word access through it, so Linux converted a dense address back into the sparse window to service ''readb''/''writeb''. From the APECS support removed in Linux 6.10:
 
 <code c>
 	if (addr >= APECS_DENSE_MEM) {
@@ -444,121 +384,15 @@ On other architectures you'll only see a _window_ into the IO space, so that the
 
 That "window" is the HAE (host address extension) register, which supplies the high address bits that do not fit in the sparse encoding. Every sparse access has to set it, and the kernel caches its value in ''alpha_mv.hae_cache'' to avoid rewriting it unnecessarily.
 
-=== BWX had to be enabled by the console ===
-
-Jay Estabrook, March 1998: [(>"RE: Re: ev56 optimization -> illegal instruction", Jay Estabrook, axp-list, 14 Mar 1998)]
-
-<blockquote>
-Now, the PC164 *does* have an EV56, but by default (SRM and ARC consoles) the BWX (Byte-Word Extension) is *not* enabled, I believe. So when you attempt to run code that includes BWX instructions, you *will* get an illegal instruction fault. Control of this option is in one of those CPU registers that can only be accessed via PALcode, so I guess one could modify the MILO PALcode init to enable this, if one wanted.
-
-[...] And even though CIA-2 purportedly allowed byte-word access to I/O space (ie in addition to the normal SPARSE and analogous to DENSE), it never worked. PYXIS was the first core logic to implement this and have it work.
-</blockquote>
-
-Richard Henderson confirmed the workaround later that year: [(>"Re: egcs and PC164 (ev56 ?)", Richard Henderson, axp-list, 18 Dec 1998)]
-
-<blockquote>
-You need a different MILO. There is a bit on the CPU that determines if BWX support is enabled, and for some reason that bit was off in early versions of the EBSDK PALcode.
-</blockquote>
-
 === BWX in the core logic ===
 
-A processor with BWX still cannot make byte-granular accesses to I/O space unless the core logic implements them too, and that capability is enabled separately. NetBSD reports both facts at attach time:
+A processor with BWX can make byte-granular accesses to I/O space only if the core logic also implements them. Separately, early EBSDK PALcode left BWX disabled in the CPU on some EV56 systems, so BWX code failed with an illegal instruction until a later MILO enabled it. [(>"RE: Re: ev56 optimization -> illegal instruction", Jay Estabrook, axp-list, 14 Mar 1998)] [(>"Re: egcs and PC164 (ev56 ?)", Richard Henderson, axp-list, 18 Dec 1998)]
 
-<code>
-cia0 at mainbus0: DECchip 2117x Core Logic Chipset (Pyxis), pass 1
-cia0: extended capabilities: 1<BWEN>
-cia0: using BWX for PCI config and device access
-</code>
-
-''BWEN'' is the chipset's byte/word enable; on the 21171 and 21172 it is reported alongside ''DWEN''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-July.mbox#L4288|"Miata"]], Johan Danielsson, port-alpha, 28 Jul 1998)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/2002-January.mbox#L2435|"hw.chipset.bwx = 0 on PC164 with EV56-CPU?"]], Bernd Walter, freebsd-alpha, 13 Jan 2002)] NetBSD added this path for the 21172 and Pyxis in June 1998. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-June.mbox#L69|"README: BWX support added for PCI on ALCOR2/Pyxis"]], Jason Thorpe, port-alpha, 4 Jun 1998)]
-
-Estabrook's remark above, that I/O-space byte and word access "never worked" on CIA-2 and that Pyxis was the first core logic to get it right, does not match later BSD experience. FreeBSD's ''alpha/pci/cia.c'' treated the 21171 and 21172 identically and so left the 21172's BWX off; Paul V. Bolotoff's 2005 patch distinguished them, after which an AlphaServer 800 reported ''hw.chipset.type: alcor2'' with ''hw.chipset.bwx: 1'' and, in his words, was "up and running as usual". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2005-September.mbox#L5417|"[patch] cia BWX oddity in RELENG4"]], Paul V. Bolotoff, freebsd-alpha, 30 Sep 2005)] Both statements may be true of different silicon revisions, so whether CIA-2 has usable I/O BWX is unsettled for any particular board.
+According to Jay Estabrook, byte and word access to I/O space never worked on the 21172 (CIA-2), and Pyxis was the first core logic to implement it correctly. FreeBSD later enabled it on a 21172-based AlphaServer 800 without reported problems, so the two may describe different silicon revisions. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2005-September.mbox#L5417|"[patch] cia BWX oddity in RELENG4"]], Paul V. Bolotoff, freebsd-alpha, 30 Sep 2005)]
 
 ==== Jensen ====
 
-The [[hardware:systems|Jensen]], sold as the DEC 2000 AXP Model 300 and the DECpc AXP 150 (which differed only in bundled software), was an early EV4-based EISA machine that predates every later Alpha I/O convention. Linux support for it was removed in 6.10.
-
-=== Windows ===
-
-<code c>
-#define EISA_INTA		(IDENT_ADDR + 0x100000000UL)
-#define EISA_FEPROM0		(IDENT_ADDR + 0x180000000UL)
-#define EISA_FEPROM1		(IDENT_ADDR + 0x1A0000000UL)
-#define EISA_VL82C106		(IDENT_ADDR + 0x1C0000000UL)
-#define EISA_HAE		(IDENT_ADDR + 0x1D0000000UL)
-#define EISA_SYSCTL		(IDENT_ADDR + 0x1E0000000UL)
-#define EISA_SPARE		(IDENT_ADDR + 0x1F0000000UL)
-#define EISA_MEM		(IDENT_ADDR + 0x200000000UL)
-#define EISA_IO			(IDENT_ADDR + 0x300000000UL)
-</code>
-
-=== Local versus bus I/O ===
-
-A feature of Jensen omitted from most descriptions is that the keyboard, RTC, parallel port and first two serial lines are not on the EISA bus. They are part of a VL82C106 combination chip with its own window, a 512-byte stride, no size encoding, no lane encoding and no HAE:
-
-<code c>
-__EXTERN_INLINE void jensen_local_outb(u8 b, unsigned long addr)
-{
-	*(vuip)((addr << 9) + EISA_VL82C106) = b;
-	mb();
-}
-
-#define jensen_is_local(addr) ( \
-/* keyboard */	(addr == 0x60 || addr == 0x64) || \
-/* RTC */	(addr == 0x170 || addr == 0x171) || \
-/* mb COM2 */	(addr >= 0x2f8 && addr <= 0x2ff) || \
-/* mb LPT1 */	(addr >= 0x3bc && addr <= 0x3be) || \
-/* mb COM2 */	(addr >= 0x3f8 && addr <= 0x3ff))
-
-__EXTERN_INLINE void jensen_outb(u8 b, unsigned long addr)
-{
-	if (jensen_is_local(addr))
-		jensen_local_outb(b, addr);
-	else
-		jensen_bus_outb(b, addr);
-}
-</code>
-
-=== Bus I/O encoding ===
-
-Only the bus path uses the sparse encoding, and Jensen's stride is 128 bytes rather than the 32 of later systems:
-
-<code>
-Physical = EISA_IO + (port << 7) + ((length - 1) << 5)
-</code>
-
-with offsets ''0x00'' byte, ''0x20'' word, ''0x60'' longword and quadword. As above, the encoded value for a longword is 3, not 2.
-
-<code c>
-__EXTERN_INLINE void jensen_bus_outb(u8 b, unsigned long addr)
-{
-	jensen_set_hae(0);
-	*(vuip)((addr << 7) + EISA_IO + 0x00) = b * 0x01010101;
-	mb();
-}
-</code>
-
-This is the only path on which the byte is replicated to all four lanes. Port I/O calls ''jensen_set_hae(0)'' because EISA I/O addresses are only 16 bits wide.
-
-=== Memory space ===
-
-Jensen's EISA memory window uses the same 128-byte stride, with the top address bits supplied by the HAE:
-
-<code>
-Physical = EISA_MEM + ((addr & JENSEN_HAE_MASK) << 7) + ((length - 1) << 5)
-</code>
-
-<code c>
-#define JENSEN_HAE_MASK		0x1ffffff
-
-__EXTERN_INLINE void jensen_set_hae(unsigned long addr)
-{
-	/* hae on the Jensen is bits 31:25 shifted right */
-	addr >>= 25;
-	if (addr != alpha_mv.hae_cache)
-		set_hae(addr);
-}
-</code>
+The [[hardware:systems|Jensen]] (DEC 2000 AXP, DECpc AXP 150), an early EV4-based EISA machine whose Linux support was removed in 6.10, predates these conventions: it used a 128-byte sparse stride, replicated bytes to all four lanes, had no dense space, and reached its keyboard, RTC, parallel and serial ports through a separate local I/O window.
 
 ==== Summary ====
 
@@ -567,7 +401,7 @@ __EXTERN_INLINE void jensen_set_hae(unsigned long addr)
 | Pre-BWX byte store | ''LDQ_U'' + ''INSBL'' + ''MSKBL'' + ''OR'' + ''STQ_U'', 5 instructions, not atomic |
 | Pre-BWX unaligned word store | two read-modify-writes, 10 instructions, high quadword stored first |
 | BWX | six instructions: ''LDBU'', ''LDWU'', ''STB'', ''STW'', ''SEXTB'', ''SEXTW'' |
-| BWX availability | EV56, PCA56, EV6 and later; emulated in software elsewhere |
+| BWX availability | EV56, PCA56, EV6 and later; ''SIGILL'' on earlier processors under Linux |
 | BWX detection | ''amask(1) == 0'' means present; ''AMASK'' clears bits for features that exist |
 | BWX builtins | none exist; ''-mbwx'' with ordinary C is used instead |
 | Byte/word atomicity | pre-BWX cannot provide it; this is why Linux 6.10 dropped pre-EV56 |
@@ -579,10 +413,10 @@ __EXTERN_INLINE void jensen_set_hae(unsigned long addr)
 
 ==== References ====
 
-  * {{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}. §4.6 covers the extract, insert and mask instructions and the canonical byte and word sequences; §4.11.1 covers ''AMASK''; Appendix D, Table D-3 gives the AMASK bit assignments. This is the only edition that documents BWX and AMASK; the 1992 and 1995 editions predate both.
+  * {{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}. §4.6 covers the extract, insert and mask instructions and the canonical byte and word sequences; §4.11.1 covers ''AMASK''; Appendix D, Table D-3 gives the AMASK bit assignments. The 1992 and 1995 editions predate BWX and AMASK; the [[documentation:references|Alpha Architecture Handbook, Version 4]] also documents both.
   * {{wiki:documentation:references:alpha_architecture_reference_manual_1st_edition.pdf?linkonly|Alpha Architecture Reference Manual, First Edition}}, §4.2, for the ''LDx_L''/''STx_C'' lock range definition.
   * DECchip 21171-CA Technical Reference Manual, Chapter 6, for the PCI sparse space encodings and the memory barrier requirement.
-  * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/special_insns.h|''arch/alpha/include/asm/special_insns.h'']] for ''amask()''. The ''core_apecs.h'', ''core_lca.h'', ''core_t2.h'', ''core_cia.h'' and ''jensen.h'' headers were removed in Linux 6.10 by ''430ad3f0ddd7'' ("alpha: remove LCA and APECS based machines") and ''f81f335a56a8'' ("alpha: remove DECpc AXP150 (Jensen) support"), and are available in earlier revisions.
+  * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/special_insns.h|''arch/alpha/include/asm/special_insns.h'']] for ''amask()''. The ''core_apecs.h'', ''core_lca.h'' and ''jensen.h'' headers were removed in Linux 6.10 by ''430ad3f0ddd7'' ("alpha: remove LCA and APECS based machines") and ''f81f335a56a8'' ("alpha: remove DECpc AXP150 (Jensen) support"), and are available in earlier revisions.
   * Arnd Bergmann, ''a4184174be36'' ("alpha: drop pre-EV56 support"), Linux 6.10.
   * [[documentation:amask|Architecture Mask (amask)]].
 

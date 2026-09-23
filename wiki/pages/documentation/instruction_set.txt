@@ -1,69 +1,12 @@
 ===== Alpha Instruction Set =====
 
-==== Primer ====
-
-Raymond Chen's blog series about the Alpha is a detailed, Windows-focused discussion of the instruction set.
-
-  * [[https://devblogs.microsoft.com/oldnewthing/20170807-00/?p=96766|The Alpha AXP, part 1: Initial plunge]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170808-00/?p=96775|The Alpha AXP, part 2: Integer calculations]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170809-00/?p=96785|The Alpha AXP, part 3: Integer constants]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170810-00/?p=96795|The Alpha AXP, part 4: Bit 15. Ugh. Bit 15.]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170811-00/?p=96805|The Alpha AXP, part 5: Conditional operations and control flow]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170814-00/?p=96806|The Alpha AXP, part 6: Memory access, basics]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170815-00/?p=96816|The Alpha AXP, part 7: Memory access, loading unaligned data]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170816-00/?p=96825|The Alpha AXP, part 8: Memory access, storing bytes and words and unaligned data]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170817-00/?p=96835|The Alpha AXP, part 9: The memory model and atomic memory operations]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170818-00/?p=96845|The Alpha AXP, part 10: Atomic updates to byte and word memory units]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170821-00/?p=96855|The Alpha AXP, part 11: Processor faults]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170822-00/?p=96865|The Alpha AXP, part 12: How you detect carry on a processor with no carry?]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170823-00/?p=96875|The Alpha AXP, part 13: On treating a 64-bit processor as if it were a 32-bit processor]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170825-00/?p=96887|The Alpha AXP, part 14: On the strange behavior of writes to the zero register]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170828-00/?p=96895|The Alpha AXP, part 15: Variadic functions]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170829-00/?p=96897|The Alpha AXP, part 16: What are the dire consequences of having 32-bit values in non-canonical form?]]
-  * [[https://devblogs.microsoft.com/oldnewthing/20170830-00/?p=96906|The Alpha AXP, part 17: Reconstructing a call stack]]
-
-There were valuable comments on the blog posts, but they appear to have been lost when the blogging platform changed.
-
-==== Example program ====
-
-<code asm>
-# hello.S
-# gcc hello.S -o hello
-# ./hello
-.data
-PRINT:	.ascii		"Hello, World!\n"
-
-.text
-	.align	4
-	.set	noreorder
-	.arch	ev4
-	.globl	main
-	.ent	main
-
-main:	ldgp	$gp,0($27)		# load global pointer
-	lda	$sp,-16($sp)		# allocate a stack frame
-	stq	$26,0($sp)		# save return address to stack
-
-	lda	$16,PRINT		# load format string
-					# $16 is first argument to functions
-	jsr	$26,printf		# call printf
-	ldgp	$gp,0($26)		# reload global pointer
-					# (necessary after function calls)
-
-	mov	$31,$0			# return val = 0
-	ldq	$26,0($sp)		# load return address from stack
-	lda	$sp,16($sp)		# release the stack frame
-	ret	$31,($26),1		# return, (1 signifies return from a procedure)
-	.end	main
-</code>
-
 ==== Registers ====
 
 === Integer ===
 
 There are 32 integer registers. The ''$31'' register holds the constant value 0. Writes to it are ignored.
 
-By convention 12 registers are for temporary values, 6 are saved across function calls, and 6 are for passing arguments to functions.
+By convention 12 registers are for temporary values, 7 are saved across function calls, and 6 are for passing arguments to functions.
 
 ^ Register ^ Alternate Name ^ Preserved? ^ Purpose ^
 | **$0** | **$v0** | No | Return Value |
@@ -94,11 +37,44 @@ By convention, 15 registers are for temporary values, 8 are saved across functio
 | **$f22**–**$f30** | No | Temporary Registers |
 | **$f31** | | Zero Sink |
 
+==== Example program ====
+
+<code asm>
+# hello.S
+# gcc hello.S -o hello
+# ./hello
+.data
+PRINT:	.asciz		"Hello, World!\n"
+
+.text
+	.align	4
+	.set	noreorder
+	.arch	ev4
+	.globl	main
+	.ent	main
+
+main:	ldgp	$gp,0($27)		# load global pointer
+	lda	$sp,-16($sp)		# allocate a stack frame
+	stq	$26,0($sp)		# save return address to stack
+
+	lda	$16,PRINT		# load format string
+					# $16 is first argument to functions
+	jsr	$26,printf		# call printf
+	ldgp	$gp,0($26)		# reload global pointer
+					# (necessary after function calls)
+
+	mov	$31,$0			# return val = 0
+	ldq	$26,0($sp)		# load return address from stack
+	lda	$sp,16($sp)		# release the stack frame
+	ret	$31,($26),1		# return, (1 signifies return from a procedure)
+	.end	main
+</code>
+
 ==== ISA extensions ====
 
 === Presence detection ===
 
-To determine the presence of instruction set extensions at runtime, use the [[amask]] instruction.
+The [[amask]] instruction reports which instruction set extensions are present at runtime.
 
 === Byte/Word eXtensions (BWX) ===
 
@@ -116,8 +92,7 @@ The [[wp>DEC_Alpha#Byte-Word_Extensions_(BWX)|Byte/Word eXtensions (BWX)]] were 
 
 [[wp>DEC_Alpha#Motion_Video_Instructions_(MVI)|Motion Video Instructions (MVI)]] were introduced in the PCA56 and are available in all subsequent implementations.
 
-
-^ Mnemonic ^ Instruction ^
+^ Mnemonic ^ Description ^
 | **maxsb8** | Vector Signed Byte Maximum |
 | **maxsw4** | Vector Signed Word Maximum |
 | **maxub8** | Vector Unsigned Byte Maximum |
@@ -155,5 +130,27 @@ The [[wp>DEC_Alpha#Count_Extensions_(CIX)|Count Instruction eXtensions (CIX)]] w
 | **ctlz** | Count Leading Zeros |
 | **ctpop** | Count Population (Count number of 1's) |
 | **cttz** | Count Trailing Zeros |
+
+==== Further reading ====
+
+Raymond Chen's blog series about the Alpha is a detailed, Windows-focused discussion of the instruction set.
+
+  * [[https://devblogs.microsoft.com/oldnewthing/20170807-00/?p=96766|The Alpha AXP, part 1: Initial plunge]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170808-00/?p=96775|The Alpha AXP, part 2: Integer calculations]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170809-00/?p=96785|The Alpha AXP, part 3: Integer constants]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170810-00/?p=96795|The Alpha AXP, part 4: Bit 15. Ugh. Bit 15.]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170811-00/?p=96805|The Alpha AXP, part 5: Conditional operations and control flow]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170814-00/?p=96806|The Alpha AXP, part 6: Memory access, basics]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170815-00/?p=96816|The Alpha AXP, part 7: Memory access, loading unaligned data]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170816-00/?p=96825|The Alpha AXP, part 8: Memory access, storing bytes and words and unaligned data]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170817-00/?p=96835|The Alpha AXP, part 9: The memory model and atomic memory operations]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170818-00/?p=96845|The Alpha AXP, part 10: Atomic updates to byte and word memory units]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170821-00/?p=96855|The Alpha AXP, part 11: Processor faults]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170822-00/?p=96865|The Alpha AXP, part 12: How you detect carry on a processor with no carry?]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170823-00/?p=96875|The Alpha AXP, part 13: On treating a 64-bit processor as if it were a 32-bit processor]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170825-00/?p=96887|The Alpha AXP, part 14: On the strange behavior of writes to the zero register]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170828-00/?p=96895|The Alpha AXP, part 15: Variadic functions]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170829-00/?p=96897|The Alpha AXP, part 16: What are the dire consequences of having 32-bit values in non-canonical form?]]
+  * [[https://devblogs.microsoft.com/oldnewthing/20170830-00/?p=96906|The Alpha AXP, part 17: Reconstructing a call stack]]
 
 {{tag>documentation}}

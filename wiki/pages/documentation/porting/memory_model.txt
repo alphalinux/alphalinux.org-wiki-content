@@ -103,7 +103,7 @@ int v = p->value;         /* may read the pre-initialization contents */
 
 Thread B needs a barrier between the two loads even though the second load depends on the first. In the kernel this was spelled ''smp_read_barrier_depends()'', which expanded to an inline ''mb'' on Alpha (there being no read barrier) and to nothing at all on every other architecture.
 
-That macro no longer exists. The history is frequently misreported:
+That macro no longer exists. The relevant changes were:
 
 ^ Version ^ Change ^ Commit ^
 | v4.15 | ''READ_ONCE()'' on Alpha gained an unconditional barrier, which subsumes the problem for almost all kernel code | ''76ebbe78f739'' "locking/barriers: Add implicit smp_read_barrier_depends() to READ_ONCE()" [(>Peter Zijlstra, [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=76ebbe78f7390aee075a7f3768af197ded1bdfbb|''76ebbe78f739'' "locking/barriers: Add implicit smp_read_barrier_depends() to READ_ONCE()"]], Linux v4.15)] |
@@ -392,19 +392,7 @@ Linux does this with a cross-processor shootdown. For the instruction stream the
 
 === When an IMB is required ===
 
-How often an operating system must issue ''CALL_PAL IMB'' is determined by the architecture rather than by any one processor, and kernels that answered the question by reasoning about a particular implementation encountered failures. In 1999 FreeBSD issued an IMB only when it ran out of ASNs, on the assumption that I-cache blocks are tagged with the ASN the way translation buffer entries are, while NetBSD issued one from a great many more places. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L4906|"I-stream memory barrier"]], Dmitrij Tejblum, freebsd-alpha, 25 Apr 1999)] Jason Thorpe, who wrote much of the NetBSD/alpha pmap, explained why NetBSD does not make that assumption: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L4776|"Re: I-stream memory barrier"]], Jason Thorpe, freebsd-alpha, 26 Apr 1999)]
-
-<blockquote>
-`On many implementations', not on all. Even though I know the I-cache layout on the 21164, I didn't allow my pmap module to make any assumptions based on that knowledge (I even ignored how IMB is implemented in the 21164 PALcode %%:-)%%.
-
-The architecture manual states that an IMB should be done whenever the mapping for the I-stream changes. This is in the IMB PALcode op description. I optimize out unnecessary IMBs on unmap by tracking VM_PROT_EXECUTE in a software PTE bit.
-</blockquote>
-
-<blockquote>
-Basically, the NetBSD/alpha pmap is written to the architecture manual, not to any specific processor manual, and will therefore Just Work with any Alpha processor implementation.
-</blockquote>
-
-The resulting rule is to issue ''CALL_PAL IMB'' whenever the mapping for the instruction stream changes, and to use a software PTE bit to skip those that provably cannot matter. Doug Rabson agreed, and proposed giving the FreeBSD pmap the same software ''PG_EXEC'' bit. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L341|"Re: I-stream memory barrier"]], Doug Rabson, freebsd-alpha, 27 Apr 1999)] The symptom of omitting a required IMB is not a clean failure: Tejblum investigated the question after single-threaded builds failed "mysteriously". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L4837|"Re: I-stream memory barrier"]], Dmitrij Tejblum, freebsd-alpha, 26 Apr 1999)]
+The architecture requires ''CALL_PAL IMB'' whenever the mapping for the instruction stream changes, independent of how a particular processor tags its instruction cache. An operating system can use a software PTE bit to skip invalidations that cannot matter. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-April.mbox#L4776|"Re: I-stream memory barrier"]], Jason Thorpe, freebsd-alpha, 26 Apr 1999)]
 
 ==== What GCC emits ====
 
@@ -427,7 +415,7 @@ fence:   mb  ;  ret
 
 Two points follow from this output:
 
-  * A release store emits ''MB'' before the store, not ''WMB''. This is frequently misstated.
+  * A release store emits ''MB'' before the store, not ''WMB''.
   * GCC's Alpha back end has no ''WMB'' pattern, and ''mb'' is the only barrier it emits. The single barrier pattern in ''gcc/config/alpha/sync.md'' expands ''UNSPEC_MB'' to the string ''"mb"'', and ''grep -r wmb gcc/config/alpha/'' returns nothing. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/sync.md|''gcc/config/alpha/sync.md'']], GCC)]
 
 The legacy ''%%__sync%%'' builtins are full barriers by definition, and GCC brackets them accordingly:

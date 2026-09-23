@@ -1,15 +1,15 @@
 ===== Porting =====
 
-Notes on the parts of the Alpha architecture that software trips over when it is first built for Alpha.
+These pages describe the parts of the Alpha architecture that most often cause problems when software is first built for Alpha.
 
-A theme runs through most of these pages: the problems are rarely Alpha problems. They are latent bugs that other architectures hide. Alpha has no byte store, no unaligned load, no dependent-load ordering and no precise arithmetic traps, so it surfaces defects that x86 silently absorbs. Where that is the case, these pages say so and cite the evidence, because the most useful thing a porting note can do is explain why a change is a genuine fix rather than an architecture-specific workaround.
+Many of these failures are latent defects in portable code rather than Alpha-specific problems. The base architecture has no byte store, no unaligned-tolerant load, no dependent-load ordering and no precise arithmetic traps, so Alpha exposes defects that x86 tolerates. Where that is the case, these pages cite the evidence that a change is a genuine fix rather than an architecture-specific workaround.
 
 ^ Page ^ Topic ^
-| [[documentation:porting:unaligned_access|Unaligned Access]] | Why ''%%*(uint32_t *)(buf + 1)%%'' is undefined behavior in C, how it kills x86 programs too, and how to find and fix it |
-| [[documentation:porting:byte_word_access|Byte and Word Access]] | Life before BWX, the byte/word extension, sparse and dense I/O, and why non-atomic byte access ended pre-EV56 support |
+| [[documentation:porting:unaligned_access|Unaligned Access]] | Why ''%%*(uint32_t *)(buf + 1)%%'' is undefined behavior in C, how it also crashes x86 programs, and how to find and fix it |
+| [[documentation:porting:byte_word_access|Byte and Word Access]] | Pre-BWX byte and word access, the byte/word extension, sparse and dense I/O, and why non-atomic byte access ended pre-EV56 support |
 | [[documentation:porting:memory_model|Memory Model]] | The weakest memory model Linux supports, dependent load reordering, barriers, and load-locked / store-conditional |
 | [[documentation:porting:floating_point|Floating Point]] | Imprecise traps, software completion, ''-mieee'', the FPCR, and denormals |
-| [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] | The January 1997 ABI break, and what actually caused it |
+| [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] | The January 1997 ABI break, and its cause |
 
 See also [[documentation:instruction_set|Instruction Set]], [[documentation:amask|Architecture Mask (amask)]] and [[documentation:references|References]].
 

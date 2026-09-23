@@ -90,7 +90,8 @@ Kernel code tests it with the architectural polarity, for example ''if (!amask(A
 
 ==== References ====
 
-  * {{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}, section 4.11.1 and Appendix D, Table D-3. This is the only edition that documents ''AMASK''; the 1992 and 1995 editions predate it.
+  * {{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}, section 4.11.1 and Appendix D, Table D-3. The 1992 and 1995 editions predate ''AMASK''.
+  * {{wiki:documentation:references:alpha_architecture_handbook_v4.pdf?linkonly|Alpha Architecture Handbook, Version 4}} also documents ''AMASK''.
   * [[documentation:porting:byte_word_access|Byte and Word Access]] for what BWX adds.
 
 {{tag>documentation}}

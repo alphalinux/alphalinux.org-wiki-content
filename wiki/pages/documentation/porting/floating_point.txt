@@ -6,6 +6,15 @@ Most of these effects follow from one design decision: arithmetic traps on Alpha
 
 See also [[documentation:instruction_set|Instruction Set]] and [[documentation:amask|Architecture Mask (amask)]].
 
+==== Practical consequences ====
+
+  - A program that depends on NaNs, infinities, denormals or the IEEE exception flags must be compiled entirely with ''-mieee''. Objects compiled without it do not conform, and the resulting program behaves inconsistently between translation units.
+  - ''-mieee-with-inexact'' is required only where the inexact flag is read, and is the more expensive mode.
+  - ''-mieee'' is useful when debugging any floating-point problem, whether or not it is IEEE related, because it reports ''SIGFPE'' at the faulting instruction rather than some instructions later.
+  - Software completion requires ''CONFIG_MATHEMU'' in the kernel. Without it, correct programs receive ''SIGFPE''.
+  - Exception flags are tested through ''<fenv.h>'' rather than by reading the FPCR status bits, since the authoritative state is the kernel's software word and the FPCR can carry spurious bits from trap shadows.
+  - ''float'' arithmetic is genuinely single precision, so code tuned around x87 excess precision behaves differently.
+
 ==== Formats ====
 
 Alpha supports two families. Four formats have hardware arithmetic.
@@ -18,7 +27,7 @@ Alpha supports two families. Four formats have hardware arithmetic.
 | T_floating | IEEE | 64-bit | 1 + 11 + 52 | excess-1023 | yes |
 | X_floating | IEEE | 128-bit | 1 + 15 + 112 | excess-16383 | no |
 
-X_floating is entirely emulated in software. Digital chose it for REAL*16 in its Fortran compilers in 1993, in preference to the VAX H_floating layout, because customers wanted IEEE conformance: "The ALPHA AXP hardware does not support an extended precision floating point datatype." A 128-bit value is kept "in even-odd pairs of fixed point registers", with the sign and exponent in the odd register. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1993-August.mbox#L2905|"REAL*16 support planned for DEC Fortran on AXP systems"]], Steve Lionel, comp.unix.osf.osf1, 11 Aug 1993)]
+X_floating has no hardware support and is implemented entirely in software.
 
 H_floating is a VAX format with no support of any kind on Alpha. The Architecture Reference Manual lists it under "Data Types with No Hardware Support" and, unlike D_floating, promises no emulation either.
 
@@ -72,7 +81,7 @@ An implementation that includes IEEE floating-point may subset the ability to pe
 
 The 21064 (EV4) does not implement it. Its hardware reference manual says the Fbox supports "all rounding modes except round to +/- infinity, which can be provided in software". The 21164 (EV5) does: "The 21164 supports IEEE S_floating and T_floating data types, and all rounding modes."
 
-So on an EV4, a program using ''fesetround(FE_UPWARD)'' relies on the kernel emulating the resulting illegal instruction.
+Through Linux 6.9, a program using ''fesetround(FE_UPWARD)'' on an EV4 relied on the kernel emulating the resulting illegal instruction (see [[#illegal_instructions|Illegal instructions]]). Linux 6.10 removed support for EV4.
 
 ==== Trap modes and software completion ====
 
@@ -134,7 +143,7 @@ Precise trap support is reported by ''AMASK'' bit 9. ''AMASK'' clears bits for f
 
 ==== FPCR and SWCR: two different registers ====
 
-FPCR is the hardware control register and SWCR is the software control word the kernel maintains per thread. The two are frequently confused.
+FPCR is the hardware control register and SWCR is the software control word the kernel maintains per thread.
 
 === FPCR, the hardware register ===
 
@@ -182,7 +191,7 @@ The reason for the duplication is stated in the kernel source:
 	   set in the trap shadow of a software-complete insn.  */
 </code>
 
-Because a trap can surface in the shadow of a completed instruction, the FPCR's sticky status bits are not reliable. The authoritative exception state on Linux/Alpha is held in software, in ''thread_info->ieee_state''. The kernel merges the software word into the hardware register on each ''SSI_IEEE_FP_CONTROL'' call:
+Because a trap can surface in the shadow of a completed instruction, the FPCR's sticky status bits are not reliable. The authoritative exception state on Alpha/Linux is held in software, in ''thread_info->ieee_state''. The kernel merges the software word into the hardware register on each ''SSI_IEEE_FP_CONTROL'' call:
 
 <code c>
 	*state = (*state & ~IEEE_SW_MASK) | (swcr & IEEE_SW_MASK);
@@ -227,25 +236,11 @@ long (*alpha_fp_emul)(...) = (void *)dummy_emul;
 
 and every software-completion trap becomes ''SIGFPE''. The option lives in ''arch/alpha/Kconfig.debug'', not ''arch/alpha/Kconfig'', is enabled in the shipped ''defconfig'', and can be built as a module.
 
-This became a user-visible option in February 1998, in the course of fixing FP correctness bugs found by ''paranoia''. Richard Henderson's patch, on the Alpha list: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-February.mbox#L4204|"Re: [2.1.82] SERIOUS FLAWS in IEEE math handling on ALPHA."]], Richard Henderson, axp-list, 12 Feb 1998)]
-
-<blockquote>
-Attached is a patch that cures the problems as reported by paranoia.
-
-Note that to fix the sqrt tests, I removed the optimized sqrt routine from libc/sysdeps/alpha/w_sqrt.S, falling back on the libm-ieee764 version, and rebuilt libm.so. At some point someone might want to fix up the alpha-optimized sqrt to cope with denormals, but ...
-</blockquote>
-
-The emulator has had defects of its own. In September 2000, a user reported that ''x *= 0.5'' and ''x /= 2.0'' gave different results for denormals. Henderson: [(>"Re: Alpha/Linux FP denormal processing", Richard Henderson, axp-list, 19 Sep 2000)]
-
-<blockquote>
-Yes indeed you've found a bug in the kernel's FP emulation. I'll see about fixing it.
-
-Rather than fix the old udiv128 function, which was trying to do 128/128 bit division, I've pulled in a subroutine from libgcc that does 128/64 bit division, which is all we need here.
-</blockquote>
+It became a user-visible option in February 1998, when Richard Henderson fixed floating-point correctness bugs found by the ''paranoia'' test program. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-February.mbox#L4204|"Re: [2.1.82] SERIOUS FLAWS in IEEE math handling on ALPHA."]], Richard Henderson, axp-list, 12 Feb 1998)]
 
 === Illegal instructions ===
 
-An instruction the hardware does not implement (a directed-rounding operation on EV4, for instance) arrives as ''opDEC'' in ''do_entIF()''. Linux does not emulate it; it delivers ''SIGILL'' with ''ILL_ILLOPC''.
+An instruction the hardware does not implement arrives as ''opDEC'' in ''do_entIF()''. Through Linux 6.9, on EV4 the kernel passed it to the floating-point emulator, which handles the directed-rounding operations EV4 lacks. Any other unimplemented instruction results in ''SIGILL'' with ''ILL_ILLOPC''.
 
 ==== The glibc side ====
 
@@ -256,20 +251,14 @@ extern unsigned long int __ieee_get_fp_control (void);
 extern void __ieee_set_fp_control (unsigned long int __value);
 </code>
 
-declared in ''sysdeps/alpha/fpu/bits/fenv.h'' and exported from ''sysdeps/alpha/fpu/Versions''. They are thin wrappers over ''osf_getsysinfo(GSI_IEEE_FP_CONTROL)'' and ''osf_setsysinfo(SSI_IEEE_FP_CONTROL)''. Everything portable, ''fegetround'', ''fesetround'', ''feenableexcept'', ''fetestexcept'' and the rest, is built on top of them. GCC also emits calls to them directly when handling ''FENV_ACCESS''-style requirements.
+declared in ''sysdeps/alpha/fpu/bits/fenv.h'' and exported from ''sysdeps/alpha/fpu/Versions''. They are thin wrappers over ''osf_getsysinfo(GSI_IEEE_FP_CONTROL)'' and ''osf_setsysinfo(SSI_IEEE_FP_CONTROL)''. Everything portable, ''fegetround'', ''fesetround'', ''feenableexcept'', ''fetestexcept'' and the rest, is built on top of them. GCC also emits calls to them directly when expanding C11 atomic compound assignment on floating-point types (''TARGET_ATOMIC_ASSIGN_EXPAND_FENV'').
 
 Two consequences follow:
 
   * glibc builds itself with ''-mieee''. ''sysdeps/alpha/Makefile'' sets ''sysdep-CFLAGS += -mieee -mfp-rounding-mode=d'', and uses ''-mieee-with-inexact'' for a handful of files (''s_fma.c'', ''s_fmaf.c'', the ''lrint'' and ''llrint'' family).
   * Because IEEE behavior is a property of //how each object was compiled//, mixing ''-mieee'' and non-''-mieee'' objects produces a program that is IEEE-conformant in some functions and not in others. Henderson once proposed shipping a separate ''libm_ieee'' to address this; it never happened. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-May.mbox#L12795|"Re: log(-1) raises SIGFPE"]], Richard Henderson, axp-list, 9 May 1997)]
 
-Historically, Linux/Alpha's default behavior differed visibly from Linux/x86 because the trap-enable bits were inherited from Digital UNIX: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L33734|"Re: SIGFPE -- the answer"]], Richard Henderson, axp-list, 17 Apr 1997)]
-
-<blockquote>
-Linux follows DEC in calling those functions ieee_get_fp_control() and ieee_set_fp_control() respectively.
-
-And to answer the question that came up elsewhere: those bits are on by default on Linux/Alpha because they are on by default on DU.
-</blockquote>
+Early Alpha/Linux enabled these traps by default because Digital UNIX did, which made its default behavior differ visibly from Linux on x86. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L33734|"Re: SIGFPE -- the answer"]], Richard Henderson, axp-list, 17 Apr 1997)]
 
 ==== Compiler flags ====
 
@@ -281,37 +270,13 @@ And to answer the question that came up elsewhere: those bits are on by default 
 | ''-mtrap-precision='' | ''p'' (default, program), ''f'' (function), ''i'' (instruction). Digital's equivalents are ''-scope_safe'' and ''-resumption_safe''. |
 | ''-mieee-conformant'' | marks the code IEEE conformant. Requires ''-mtrap-precision=i'' and ''-mfp-trap-mode=su'' or ''sui''. Its only effect is to emit ''.eflag 48'' in the prologue. |
 
-''-mieee'' is not the default on Alpha Linux. Richard Henderson gave the reasons in 1997: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-May.mbox#L18387|"Re: log(-1) raises SIGFPE"]], Richard Henderson, axp-list, 14 May 1997)]
+Upstream GCC does not enable ''-mieee'' by default on Alpha. The reasons given in 1997 were that Digital UNIX did not enable it either, that it carries a noticeable performance cost, and that few programs depend on non-finite arithmetic; libraries used by such programs, ''libm'' in particular, must also be built with it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-May.mbox#L18387|"Re: log(-1) raises SIGFPE"]], Richard Henderson, axp-list, 14 May 1997)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-May.mbox#L12795|"Re: log(-1) raises SIGFPE"]], Richard Henderson, axp-list, 9 May 1997)] A 2003 patch to make it the default was rejected by Henderson, who cited the long-standing behavior of both GCC and DEC C, the performance penalty on pre-EV6 CPUs, and his experience that ''SIGFPE'' from subnormals in non-math programs usually indicated reads of uninitialized data. [(>[[https://gcc.gnu.org/ml/gcc-patches/2003-07/msg02144.html|"Re: Alpha -mieee Patch"]], Richard Henderson, gcc-patches, 21 Jul 2003)]
 
-<blockquote>
-<blockquote>
-Why isn't -mieee the default?
-</blockquote>
+Debian and Gentoo patch their GCC packages to enable ''-mieee'' by default. Debian's patch enables it unless ''-ffinite-math-only'' (part of ''-ffast-math'') is given, because the glibc math functions produce denormals, NaNs, and infinities. [(>[[https://salsa.debian.org/toolchain-team/gcc/-/blob/master/debian/patches/alpha-ieee.diff|alpha-ieee.diff]], Debian GCC packaging)] [(>[[https://salsa.debian.org/toolchain-team/gcc/-/blob/master/debian/patches/alpha-ieee-doc.diff|alpha-ieee-doc.diff]], Debian GCC packaging)] Gentoo's patch adds ''-mno-ieee'' to turn it off, and is carried in nearly every Gentoo GCC patchset. [(>[[https://github.com/gentoo/gcc-patches/blob/master/17.0.0/gentoo/05_all_alpha-mieee-default.patch|05_all_alpha-mieee-default.patch]], Gentoo GCC patchset 17.0.0)] Code built with these compilers therefore has ''-mieee'' semantics even when the build system does not ask for them.
 
-(A) It isn't for Digital Unix either, so in theory people building packages for Alpha know to expect it.
-
-(B) It is a noticable performance hit; the pipeline stalls while instructions are determining whether they will fault for software completion.
-
-(C) Not very many programs actually care about non-finite arithmetic. Sure, so you give them a NaN, but they can't deal with that any better than if you just went ahead and faulted.
-
-    There are exceptions, but that is why -mieee is there as opposed to be missing entirely.
-</blockquote>
-
-and, on what the flag enables: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-May.mbox#L12795|"Re: log(-1) raises SIGFPE"]], Richard Henderson, axp-list, 9 May 1997)]
-
-<blockquote>
-Not directly. You must compile with -mieee to get them which turns on software completion. Incidentally, libm must be built with -mieee as well in this case.
-</blockquote>
-
-David Mosberger-Tang noted that ''-mieee'' is useful even where NaN behavior is not required: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L14170|"gcc -mieee flag (was: Request for Jim)"]], David Mosberger-Tang, axp-list, 7 Apr 1997)]
-
-<blockquote>
-It's not recommended when you care about performance but it's extremely useful for debugging (since with -mieee you'll see the SIGFPE where it happens and not a dozen or so instructions later).
-</blockquote>
+The option is also useful for debugging, because it reports ''SIGFPE'' at the faulting instruction rather than some instructions later. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1997-April.mbox#L14170|"gcc -mieee flag (was: Request for Jim)"]], David Mosberger-Tang, axp-list, 7 Apr 1997)]
 
 ''-mieee'' therefore changes both the results produced and the precision with which traps are reported.
-
-The DEC OSF/1 compilers behaved the same way. Without IEEE flags, 5.0/0.0 killed the program with "Floating exception", and ''-ieee_with_no_inexact'' made it print ''INF'': "If you want IEEE semantics, you have to tell the compiler with the -ieee_xxx flags." [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-September.mbox#L25407|"Re: IEEE Floating Point problem"]], Burkhard Neidecker-Lutz, comp.unix.osf.osf1, 2 Sep 1994)] Ignoring ''SIGFPE'' is no substitute: without software completion, 1/0 then evaluates to 0 rather than infinity. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-September.mbox#L24735|"IEEE Floating Point problem"]], David Williss, comp.unix.osf.osf1, 1 Sep 1994)]
 
 === What -mieee costs ===
 
@@ -327,22 +292,6 @@ The size of the performance cost depends on how dense the floating-point work is
 </code>
 
 That is 3.7 times slower on a loop consisting only of floating-point multiply and add, which is close to the worst case. The cost is per floating-point instruction, so a program that spends most of its time elsewhere pays proportionally less.
-
-=== The same question on the BSDs ===
-
-The question arose on other Alpha operating systems, which reached the same conclusion. FreeBSD did not build with ''-mieee'' either, and in 1999 a bug report showed the effect on the C library: ''strtod("2.49521e-297")'' raised ''SIGFPE'' on a 21164A while working on i586. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-July.mbox#L3215|"alpha/12623: strtod(3) FPE on alphaev56"]], Matthew Seaman, freebsd-alpha, 13 Jul 1999)] Shimokawa's diagnosis names the mechanism: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-July.mbox#L3180|"Re: alpha/12623: strtod(3) FPE on alphaev56"]], Hidetoshi Shimokawa, freebsd-alpha, 13 Jul 1999)]
-
-<blockquote>
-It generates denormal numbers which can not be treaded by the hardware on alpha. It should be compiled with the option `-mtrap-precision=i -mfp-trap-mode=su' to enable software completion.
-</blockquote>
-
-This is the denormal rule described above, reached by ordinary library code: a string-to-double conversion near the bottom of the exponent range produces a denormal, the hardware cannot produce one without software completion, and the process terminates. John Polstra concluded that a library, unlike an application, cannot make the choice for itself: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/1999-July.mbox#L3100|"Re: alpha/12623: strtod(3) FPE on alphaev56"]], John Polstra, freebsd-alpha, 13 Jul 1999)]
-
-<blockquote>
-Yes, or the equivalent "-mieee". In my opinion, all of the libraries (if not the whole world) should be compiled that way. In fact, this option should be the default. Users who wanted a little extra speed and who knew what they are doing could turn it off.
-</blockquote>
-
-The same reasoning applies on Linux: whatever an application chooses, ''libm'' and ''libc'' have to be built for software completion, which is why Henderson's answer above ends with "libm must be built with -mieee as well in this case".
 
 ==== Comparisons ====
 
@@ -393,15 +342,6 @@ Alpha hardware does not produce denormal results. Without a trap qualifier, unde
 
 As noted above, no conversion instruction exists between the VAX and IEEE families in either direction.
 
-==== Practical consequences ====
-
-  - A program that depends on NaNs, infinities, denormals or the IEEE exception flags must be compiled entirely with ''-mieee''. Objects compiled without it do not conform, and the resulting program behaves inconsistently between translation units.
-  - ''-mieee-with-inexact'' is required only where the inexact flag is read, and is the more expensive mode.
-  - ''-mieee'' is useful when debugging any floating-point problem, whether or not it is IEEE related, because it reports ''SIGFPE'' at the faulting instruction rather than some instructions later.
-  - Software completion requires ''CONFIG_MATHEMU'' in the kernel. Without it, correct programs receive ''SIGFPE''.
-  - Exception flags are tested through ''<fenv.h>'' rather than by reading the FPCR status bits, since the authoritative state is the kernel's software word and the FPCR can carry spurious bits from trap shadows.
-  - ''float'' arithmetic is genuinely single precision, so code tuned around x87 excess precision behaves differently.
-
 ==== References ====
 
   * {{wiki:documentation:references:alpha_architecture_reference_manual_2nd_edition.pdf?linkonly|Alpha AXP Architecture Reference Manual, Second Edition}}. Section 2.2 covers the data formats; 4.7 covers the floating-point subsets, rounding modes, trap modes and the FPCR (Table 4-8); 4.7.6.1 states the seven software-completion conditions; 4.10 is the instruction reference.
@@ -410,12 +350,5 @@ As noted above, no conversion instruction exists between the VAX and IEEE famili
   * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/fpu.h|''arch/alpha/include/uapi/asm/fpu.h'']] for the FPCR and SWCR definitions, [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/traps.c|''traps.c'']] for ''do_entArith'', [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/osf_sys.c|''osf_sys.c'']] for ''osf_setsysinfo'', and ''arch/alpha/math-emu/'' for the emulator.
   * GCC: ''gcc/config/alpha/alpha.opt'' and the DEC Alpha Options node of ''gcc/doc/invoke.texi''.
   * glibc: ''sysdeps/alpha/fpu/'' and ''sysdeps/unix/sysv/linux/alpha/''.
-
-=== Further mailing list reading ===
-
-All on ''axp-list''. See [[history:community#mailing_lists|Mailing Lists]] for archive locations.
-
-  * Richard Henderson, "Re: Ieee on linux/alpha", 9 December 1997, on ''ieee_set_fp_control()''.
-  * Jim Paradis, "SIGFPE", 9 April 1997, and Jerry Feldman, "Re: Ieee on linux/alpha", 10 December 1997, on trap shadows and the ''/S'' qualifier.
 
 {{tag>documentation porting}}
