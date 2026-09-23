@@ -1,0 +1,61 @@
+===== Glossary =====
+
+Terms used throughout this wiki and in Alpha documentation. See also the [[:faq|FAQ]].
+
+==== Processors ====
+
+Digital named each Alpha processor design with an EV ("Extended VAX") number, and sold it under a 21//x//64 part number. The consoles report part numbers, so the EV name often has to be looked up; see [[hardware:cpus#names_and_type_codes|CPUs: Names and type codes]].
+
+^ Name ^ Part ^ Notes ^
+| **EV4** | 21064 | The first Alpha, 1992. Supported by Linux up to 6.9 |
+| **EV45** | 21064A | EV4 with larger caches and a faster FPU. Up to Linux 6.9 |
+| **LCA4**, **LCA45** | 21066, 21068, 21066A, 21068A | "Low Cost Alpha": an EV4 core with an integrated memory and PCI controller. Up to Linux 6.9 |
+| **EV5** | 21164 | Four-issue, with an on-chip secondary cache. Up to Linux 6.9 |
+| **EV56** | 21164A | EV5 with the BWX extension. The oldest processor current kernels support |
+| **PCA56**, **PCA57** | 21164PC | A cheaper EV56 without the on-chip secondary cache, and with MVI |
+| **EV6** | 21264 | Out-of-order execution. Adds FIX and MVI |
+| **EV67** | 21264A | Adds CIX |
+| **EV68** | 21264B, 21264C, 21264D | Die shrinks of the EV67, in several variants (EV68AL, EV68CB, EV68CX) |
+| **EV7** | 21364 | EV68 core with integrated memory controllers and interprocessor links, used in the ES47, ES80, and GS1280 |
+| **EV79** | 21364A | A die shrink of the EV7, cancelled |
+| **EV8** | 21464 | A four-thread simultaneous multithreading design, cancelled in 2001 |
+
+==== Instruction set extensions ====
+
+The Alpha architecture was extended after the first processors shipped. Each extension has a bit in the result of the [[documentation:amask|amask]] instruction, and a GCC ''-m'' option. See [[documentation:instruction_set#isa_extensions|Instruction Set: ISA extensions]].
+
+  * **BWX**, the byte/word extension: loads and stores of single bytes and 16-bit words, and sign extension. First in the EV56. Without it, a byte store is a read-modify-write sequence of several instructions, which cannot be made atomic; this is why Linux 6.10 dropped pre-EV56 processors. See [[documentation:porting:byte_word_access|Byte and Word Access]].
+  * **MVI**, the motion video instructions: byte and word minimum and maximum, pixel error, and pack and unpack. First in the PCA56.
+  * **FIX**, the floating-point extension: square root, and moves between the integer and floating-point registers. First in the EV6.
+  * **CIX**, the count extension: count leading zeros, trailing zeros, and population. First in the EV67.
+
+==== Firmware and booting ====
+
+  * **PALcode**, the Privileged Architecture Library: a layer of code that runs in a special processor mode, between the hardware and the operating system, and implements operations such as memory management, interrupts, and system calls. Each operating system family has its own; Linux uses the OSF/1 (Tru64 UNIX) PALcode. Firmware supplies the PALcode, which is why ARC systems cannot run Linux without MILO. See [[software:firmware:srm#palcode|SRM Console: PALcode]].
+  * **SRM**, the console firmware for OpenVMS and Digital UNIX, named after the //Alpha System Reference Manual// that specifies it. It has a ''%%>>>%%'' command prompt, and is the firmware Linux should boot from. See [[software:firmware:srm|SRM Console]] and [[documentation:srm|Using the SRM Console]].
+  * **ARC**, the menu-driven firmware for Windows NT, after the Advanced RISC Computing specification. See [[software:firmware:arc|ARC Firmware]].
+  * **AlphaBIOS**, the later, PC BIOS-like firmware for Windows NT that replaced ARC. Also on the [[software:firmware:arc|ARC Firmware]] page.
+  * **ARCSBIOS**, the firmware of Deskstation's Ruffian board.
+  * **MILO**, the Alpha Linux Miniloader: a boot loader that brings its own PALcode, so that Linux can boot from ARC and AlphaBIOS. See [[software:boot_loaders:milo|MILO]].
+  * **aboot**, the Linux boot loader for SRM systems. See [[software:boot_loaders:aboot|aboot]].
+  * **HWRPB**, the Hardware Restart Parameter Block: the structure in which the firmware describes the system to the operating system, including its type, processors, and memory. See [[software:firmware:srm#hwrpb|SRM Console: HWRPB]].
+  * **LFU**, the Loadable Firmware Update utility, which installs firmware from the Alpha Systems Firmware Update CD. See [[software:firmware:srm#updating_firmware|Updating firmware]].
+  * **RMC**, the remote management console of the later Compaq servers: a separate controller, reached through COM1, that can power, halt, and reset the system. See [[documentation:srm#remote_management|Using the SRM Console]].
+  * **BSD disklabel**, the partition table format that SRM systems boot from. See [[documentation:installation#partitioning|Installation]].
+
+==== Systems and chipsets ====
+
+  * **Core logic**, Digital's term for the chipset that connects the processor to memory and the I/O buses. Its name usually names the kernel platform, such as CIA, Pyxis, Tsunami, or Titan. See [[hardware:chipsets|Chipsets]].
+  * **Codename**, the internal name of a system, such as Miata for the Personal Workstation or Clipper for the ES40. The kernel uses codenames for its platforms. See [[hardware:systems#naming|Systems: Naming]].
+  * **Machine vector**, the kernel's table of platform-specific routines. A generic kernel picks one at boot from the HWRPB, and the ''alpha_mv='' option overrides the choice. See [[documentation:kernel#configuring_for_a_system|Kernel]].
+  * **Hose**, a PCI bus root, on systems with more than one. SRM device names and the kernel both number them.
+  * **Sparse and dense space**, the two ways Alpha systems map PCI memory and I/O space. Sparse space encodes the access size in the address, so that pre-BWX processors can make byte and word accesses to devices; dense space maps device memory directly. See [[documentation:porting:byte_word_access|Byte and Word Access]].
+
+==== Names ====
+
+  * **AXP**, Digital's original marketing name for Alpha, as in "DEC OSF/1 AXP" and "OpenVMS AXP". It was dropped in the mid-1990s. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)]
+  * **Digital**, **DEC**, **Compaq**, **HP**: Digital Equipment Corporation designed Alpha, and was bought by Compaq in 1998, which merged with HP in 2002. See [[history:companies|Companies]].
+  * **API**, Alpha Processor, Inc., later API NetWorks, the Samsung-backed company that sold Alpha motherboards such as the UP1000 and UP2000. See [[history:companies|Companies]].
+  * **OSF/1**, **Digital UNIX**, **Tru64 UNIX**: successive names of Digital's UNIX for Alpha. See [[software:operating_systems:tru64|Tru64 UNIX]].
+
+{{tag>glossary}}

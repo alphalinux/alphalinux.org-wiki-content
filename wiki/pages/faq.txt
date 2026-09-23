@@ -1,0 +1,86 @@
+===== Frequently Asked Questions =====
+
+Short answers to the questions most often asked about Linux on Alpha, with links to the pages that answer them in full. Terms are explained in the [[:glossary|Glossary]].
+
+==== Hardware and firmware ====
+
+=== Will a current distribution run on my Alpha? ===
+
+Only if it has an EV56 (21164A) or later processor. Linux 6.10 removed support for the EV4, EV45, and EV5 generations, so systems such as the Multia, AlphaStation 200 and 400, and the EB164 can run nothing newer than Linux 6.9, and no current distribution. Systems sold with an EV5 that also accept an EV56, such as the AlphaStation 500 and 600, work once the processor is upgraded. [(>[[https://git.kernel.org/torvalds/c/a4184174be36|"alpha: drop pre-EV56 support"]], Linux 6.10)] See [[status#processor_baseline|Current Status]], and the current kernel column of the [[hardware:systems|Systems]] table.
+
+=== Which firmware does my system need? ===
+
+For Linux, the [[software:firmware:srm|SRM console]], wherever the system has it. SRM boots Linux with [[software:boot_loaders:aboot|aboot]], the boot loader that current distributions install, and it is the only firmware that supports multiprocessor systems and every 21264 system. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-July.mbox#L37024|"Re: SMP for AlphaServer?"]], Jay Estabrook, axp-list, 14 Jul 1998)] The ARC and AlphaBIOS firmware were written for Windows NT, and boot Linux only through [[software:boot_loaders:milo|MILO]], which no distribution has shipped for many years.
+
+  * **Systems with only SRM**, such as the AlphaServers, need nothing further. Update to the last SRM version; see [[software:firmware:srm#final_versions|Final versions]].
+  * **Systems with both**, such as the Personal Workstation, the AlphaStation 500 and 600, and the 21264 workstations and servers, should be switched to SRM. See [[software:firmware:arc#switching_to_srm|Switching to SRM]].
+  * **Systems whose flash holds only one firmware**, such as the AlphaPC 164LX and 164SX sold with AlphaBIOS, can be reflashed with SRM. See [[software:firmware:srm#updating_firmware|Updating firmware]].
+  * **Systems with no SRM**, the Alpha XL family and the Ruffian (AlphaPC 164UX), can only boot Linux with MILO. See [[documentation:installation#arc-only_systems|ARC-only systems]].
+
+=== My system forgets its settings and the time when it is unplugged ===
+
+The console settings and the clock are kept in memory backed by a battery on the motherboard, and after twenty or more years that battery is usually dead. Replace it. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2010-August.mbox#L757|"Minifridge"]], Jay Estabrook, axp-list, 20 Aug 2010)] See [[hardware:systems#common_problems|Systems: Common problems]].
+
+=== How do I get a serial console? ===
+
+''set console serial'' and ''init'' at the SRM prompt, and ''console=ttyS0'' on the kernel command line. Both are needed. See [[documentation:srm#serial_console|Using the SRM Console]].
+
+=== Can I try Alpha/Linux without Alpha hardware? ===
+
+Yes, with QEMU, which emulates an ES40-class system and runs current Debian and Gentoo. See [[documentation:qemu|QEMU]].
+
+==== Installing and booting ====
+
+=== Why can't fdisk create a partition table SRM will boot? ===
+
+SRM needs a BSD disklabel, and ''fdisk'' from util-linux has been unable to create one since about version 2.23. Use ''parted'' with ''mktable bsd''. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2024-April.mbox#L85|"Re: [gentoo-alpha] fdisk on mini-installer iso"]], Matt Turner, gentoo-alpha, 8 Apr 2024)] See [[documentation:installation#partitioning|Installation: Partitioning]].
+
+=== aboot says "unknown compression method" ===
+
+aboot tries to load the kernel uncompressed and then compressed, and prints this if both fail, whatever the actual cause. Usually the path or partition number is wrong. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2004-December.mbox#L2652|"New Red Hat 7.2 Alpha install on DEC PWS 600au"]], Jim McCarthy, axp-list, 11 Dec 2004)] Boot with ''-flags i'' and use aboot's ''d'' command to list the partition's contents. See [[software:boot_loaders:aboot#known_issues|aboot: Known issues]].
+
+=== The kernel panics with "Unsupported system type" ===
+
+The kernel was configured for a different system. Use a generic kernel, or configure it for this system; see [[documentation:kernel#configuring_for_a_system|Kernel: Configuring for a system]].
+
+==== Running programs ====
+
+=== What do "unaligned trap" messages mean? ===
+
+Messages such as
+
+<code>
+dbus-daemon(366): unaligned trap at 0000020000080bf0: 00000000f6857c0e 28 18
+</code>
+
+mean that the program read or wrote a 4 or 8 byte value at an address that was not a multiple of its size. Alpha cannot do that in hardware, so the kernel traps the access, performs it in software, and logs the message. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2021-March.mbox#L470|"Bug#986009: installation-reports: document qemu workarounds and bug in newer d-i image (fwd)"]], Thorsten Glaser, debian-alpha, 27 Mar 2021)] The program keeps running and gets the right result, but each such access is far slower than an aligned one. The message gives the program name and PID, the address of the faulting instruction, the data address, the opcode (''28'' is a 4-byte load, ''29'' an 8-byte load, ''2c'' and ''2d'' the stores), and the register.
+
+The cause is almost always a bug in the program, typically a pointer cast from a ''char'' buffer to a wider type, and the same code is undefined behavior on every architecture. It should be reported to the program's developers. How to find the instruction and fix the code is described in [[documentation:porting:unaligned_access|Unaligned Access]].
+
+=== Linking fails with "relocation truncated to fit" ===
+
+Alpha code addresses global data through the global pointer with a 16-bit displacement, which limits some tables to 64 KiB. The error appears when one of them overflows: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-November.mbox#L43360|"ld reports 'relocation truncated to fit'"]], Topi Kanerva, axp-list, 24 Nov 1996)]
+
+  * In a shared library, the usual cause is that it was compiled with ''-fpic'', which on Alpha implies ''-msmall-data''. Compile with ''-fPIC'' instead, which implies ''-mlarge-data''. [(>[[https://gcc.gnu.org/onlinedocs/gcc/DEC-Alpha-Options.html|DEC Alpha Options]], GCC manual)]
+  * In a program compiled with ''-msmall-data'', drop the option.
+  * In a large kernel module, build the driver into the kernel instead.
+
+See [[documentation:toolchains#relocation_truncated_to_fit|Toolchains]] for the details.
+
+=== A program dies with "Illegal instruction" ===
+
+The program was built for a newer processor than the one running it: for example, code built with ''-mcpu=ev67'' on a 21164A, which lacks the FIX and CIX instructions. Rebuild with a lower ''-mcpu''; see [[documentation:toolchains#selecting_a_processor|Toolchains: Selecting a processor]]. The [[documentation:amask|amask]] instruction shows which extensions the processor implements.
+
+=== A program cannot find libc.so.6 ===
+
+Alpha's C library is ''libc.so.6.1''. Code that hard-codes ''libc.so.6'', for example in a ''dlopen()'' call or in a language's foreign function interface, fails on Alpha. See [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]].
+
+=== Why is a program built with long double so slow? ===
+
+''long double'' is the 128-bit IEEE quadruple format on Alpha, and every operation on it is a library call. See [[documentation:porting:abi#long_double|Linux ABI Differences]].
+
+=== Is there Clang, Rust, or Go for Alpha? ===
+
+No Clang, and no ''rustc'', because LLVM has no Alpha back end. Go code can be built with ''gccgo''. See [[status#what_is_missing|Current Status]].
+
+{{tag>faq}}
