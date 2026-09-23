@@ -115,6 +115,12 @@ int main(void)
 }
 </code>
 
+The kernel also passes a processor class as ''AT_PLATFORM'': ''ev56'' for any 21164-family processor, ''ev6'' for any later processor without CIX, and ''ev67'' for one with it. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/elf.h?h=v7.3-rc1|arch/alpha/include/asm/elf.h]], Linux 7.3)] Both values can be checked without writing a program: ''LD_SHOW_AUXV=1'' makes the dynamic linker print the auxiliary vector, including ''HWCAP'' in hexadecimal and ''PLATFORM'', before running the program named. [(>[[https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/unix/sysv/linux/dl-sysdep.c|sysdeps/unix/sysv/linux/dl-sysdep.c]], glibc)]
+
+<code>
+LD_SHOW_AUXV=1 /bin/true
+</code>
+
 ==== References ====
 
   * {{wiki:documentation:references:alpha_architecture_reference_manual_4th_edition.pdf?linkonly|Alpha Architecture Reference Manual, Fourth Edition}}, section 4.11.1 and Appendix D, Table D-3. The 1992 and 1995 editions predate ''AMASK''.

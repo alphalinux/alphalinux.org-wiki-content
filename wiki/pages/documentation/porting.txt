@@ -10,7 +10,7 @@ Many of these failures are latent defects in portable code rather than Alpha-spe
 | [[documentation:porting:memory_model|Memory Model]] | The weakest memory model Linux supports, dependent load reordering, barriers, and load-locked / store-conditional |
 | [[documentation:porting:floating_point|Floating Point]] | ''-mieee'', imprecise traps, software completion, the FPCR, and denormals |
 | [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] | Code that names ''libc.so.6'', and the January 1997 ABI break behind the different name |
-| [[documentation:porting:abi|Linux ABI Differences]] | The 8 KiB page size, 128-bit ''long double'', and the system call, ''errno'', signal, and ''ioctl'' numbers that differ from x86-64 |
+| [[documentation:porting:abi|Linux ABI Differences]] | The 8 KiB page size, 128-bit ''long double'', ''va_list'', the 1024 Hz clock tick, and the system call, ''errno'', signal, and ''ioctl'' numbers that differ from x86-64 |
 
 ==== Symptoms ====
 
@@ -22,19 +22,61 @@ Many of these failures are latent defects in portable code rather than Alpha-spe
 | Intermittent failures in lock-free code | Missing memory barriers | [[documentation:porting:memory_model|Memory Model]] |
 | ''libc.so.6: cannot open shared object file'' | The C library named by file name | [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]] |
 | Wrong ''errno'' values, signals, or ''ioctl'' requests; ''EINVAL'' from ''mmap()'' | Numbers copied from x86, or a 4 KiB page size assumed | [[documentation:porting:abi|Linux ABI Differences]] |
+| CPU times from ''times()'' or ''/proc'' about ten times too large | Clock ticks assumed to be 100 per second | [[documentation:porting:abi#clock_ticks|Linux ABI Differences]] |
+| ''conversion ... to non-scalar type %%__gnuc_va_list%%'' at compile time | A ''va_list'' treated as a pointer | [[documentation:porting:abi#va_list|Linux ABI Differences]] |
 | ''relocation truncated to fit'' at link time | GOT or small data area overflow | [[documentation:toolchains#relocation_truncated_to_fit|Toolchains]] |
 
 ==== Checklist ====
 
   * **No LLVM.** Clang, Rust (except through GCC-based efforts), Zig, and other LLVM-based compilers are not available; code must build with GCC. See [[documentation:toolchains#not_available_on_alpha|Toolchains]].
-  * **Processor baseline.** Current kernels require an EV56 (21164A) or later, but the compiler's default may be older: Debian's GCC defaults to ''-mcpu=ev56'', Gentoo's to the architecture baseline. See [[documentation:toolchains#distribution_baselines|Distribution baselines]].
+  * **Processor baseline.** Current kernels require an EV56 (21164A) or later, but the compiler's default may be older: Debian's GCC defaults to ''-mcpu=ev56'', Gentoo's to the architecture baseline. Gentoo's release stages are built with ''-mcpu=ev4'', so the code in them stores bytes and words with non-atomic pre-BWX sequences (see [[documentation:porting:byte_word_access#atomicity_of_byte_and_word_access|Byte and Word Access]]). [(>[[https://gitweb.gentoo.org/proj/catalyst.git/tree/arch/alpha.toml|arch/alpha.toml]], catalyst)] [(>[[https://gitweb.gentoo.org/proj/releng.git/tree/releases/specs-qemu/alpha/stage3-openrc-23.spec|releases/specs-qemu/alpha/stage3-openrc-23.spec]], Gentoo releng)] See [[documentation:toolchains#distribution_baselines|Distribution baselines]].
   * **''-mieee''.** Debian and Gentoo enable it by default; upstream GCC does not. Code that handles NaN, infinity, or denormals needs it. See [[documentation:porting:floating_point|Floating Point]].
   * **8 KiB pages.** Obtain the page size with ''sysconf(_SC_PAGESIZE)''. See [[documentation:porting:abi#page_size|Page size]].
   * **Alignment.** Misaligned ordinary loads and stores are fixed up by the kernel, slowly; misaligned atomic operations always raise ''SIGBUS''. See [[documentation:porting:unaligned_access|Unaligned Access]].
   * **Sub-word atomics.** Atomic operations on 8-bit and 16-bit objects are built from quadword load-locked/store-conditional sequences. See [[documentation:porting:memory_model|Memory Model]].
+  * **Integer division** is a library call. Alpha has no integer divide instruction, and GCC calls helper routines with a nonstandard register convention. See [[documentation:instruction_set#integer_division|Instruction Set]].
+  * **JIT compilers and hand-written assembly** have to issue the ''imb'' PALcode call after writing code and before running it (see [[documentation:instruction_set#palcode_calls|PALcode calls]]), change page protections in 8 KiB units (see [[documentation:porting:abi#page_size|Page size]]), set up ''$27'' and ''$29'' as the calling convention requires (see [[documentation:instruction_set#registers|Registers]]), implement or call integer division, and assemble for EV56 or later so that byte stores are atomic (see [[documentation:toolchains#binutils|binutils]]).
   * **Large shared libraries** may need ''-fPIC'' instead of ''-fpic''. See [[documentation:toolchains#relocation_truncated_to_fit|Toolchains]].
   * **The C library** is ''libc.so.6.1'', packaged in Debian as ''libc6.1'' and ''libc6.1-dev'' rather than ''libc6'' and ''libc6-dev''. See [[documentation:porting:libc_soname|Why Alpha Has libc.so.6.1]].
-  * **The target triplet** is ''alpha-unknown-linux-gnu'' (''alpha-linux-gnu'' on Debian). Processor-specific triplets such as ''alphaev67-unknown-linux-gnu'' are also valid, so configure scripts should match ''alpha*''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config.gcc|gcc/config.gcc]], GCC)]
+  * **The target triplet** is ''alpha-unknown-linux-gnu'' (''alpha-linux-gnu'' on Debian). Processor-specific triplets such as ''alphaev67-unknown-linux-gnu'' are also valid, so configure scripts should match ''alpha*''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config.gcc|gcc/config.gcc]], GCC)] ''config.guess'' run on an Alpha returns such a triplet itself, taking the processor from the ''cpu model'' line of ''/proc/cpuinfo'': ''alphaev67-unknown-linux-gnu'' on an EV67, for example. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=config.guess|config.guess]], GCC)] Meson's CPU family for Alpha is ''alpha'', which it counts as a 64-bit family. [(>[[https://github.com/mesonbuild/meson/blob/master/docs/markdown/Reference-tables.md|Reference tables]], Meson)] [(>[[https://github.com/mesonbuild/meson/blob/master/mesonbuild/envconfig.py|mesonbuild/envconfig.py]], Meson)]
+
+==== Testing and diagnosis ====
+
+=== What the compiler targets ===
+
+The predefined macros show which processor and floating-point mode a compiler targets, including defaults that a distribution builds into it:
+
+<code>
+gcc -dM -E - </dev/null | grep -E '__alpha_|_IEEE_FP'
+</code>
+
+GCC defines ''%%__alpha_bwx__%%'', ''%%__alpha_max__%%'', ''%%__alpha_fix__%%'', and ''%%__alpha_cix__%%'' for each enabled extension, one of ''%%__alpha_ev4__%%'', ''%%__alpha_ev5__%%'', or ''%%__alpha_ev6__%%'' for the scheduling family, ''_IEEE_FP'' under ''-mieee'', and ''_IEEE_FP_INEXACT'' under ''-mieee-with-inexact''. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/config/alpha/alpha.h|gcc/config/alpha/alpha.h]], GCC)] Output with no ''%%__alpha_bwx__%%'' means that byte and word stores are compiled as non-atomic pre-BWX sequences. ''gcc -Q --help=target'' lists the Alpha options and the values in effect, such as ''-mcpu='' and ''-mieee''.
+
+=== What a binary contains ===
+
+''objdump -d'' shows how a binary was compiled. Floating-point instructions with a ''/su'' or ''/sui'' suffix (''addt/su'') come from ''-mieee'' or ''-mieee-with-inexact'', as do ''trapb'' barriers in code built for processors before the EV6 (see [[documentation:porting:floating_point#trap_shadows_trapb_and_excb|Trap shadows]]); a ''/d'' suffix from ''-mfp-rounding-mode=d''. ''stb'' and ''stw'' instructions mean the code was built for BWX; byte stores built without it appear as ''ldq_u'', ''mskbl'', ''insbl'', ''stq_u'' sequences.
+
+=== What the processor provides ===
+
+''LD_SHOW_AUXV=1'' makes the dynamic linker print the auxiliary vector before running any program: ''HWCAP'' holds the extension bits described in [[documentation:amask#in_the_kernel|Architecture Mask]], ''PLATFORM'' the kernel's processor class (''ev56'', ''ev6'', or ''ev67''), and ''CLKTCK'' the 1024 Hz clock tick. [(>[[https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/unix/sysv/linux/dl-sysdep.c|sysdeps/unix/sysv/linux/dl-sysdep.c]], glibc)] [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/elf.h?h=v7.3-rc1|arch/alpha/include/asm/elf.h]], Linux 7.3)]
+
+<code>
+LD_SHOW_AUXV=1 /bin/true
+</code>
+
+=== Testing under QEMU ===
+
+[[documentation:qemu#user-mode_emulation|qemu-alpha]] runs Alpha programs on another host, which is enough to find build failures, wrong constants, and most ABI problems. It does not reproduce everything real hardware does:
+
+  * **Unaligned accesses** succeed silently in user mode, with no kernel fixup, log message, or counter, unless the program has asked for ''SIGBUS'' with ''prctl(PR_SET_UNALIGN)''. [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/target/alpha/cpu.c|target/alpha/cpu.c]], QEMU 11.1.0)] [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/target/alpha/translate.c|target/alpha/translate.c]], QEMU 11.1.0)] They have to be found on hardware or with the methods in [[documentation:porting:unaligned_access#finding_unaligned_accesses|Finding unaligned accesses]].
+  * **Memory ordering** is the host's, since QEMU declares no ordering requirement of its own for Alpha guests, [(>[[https://gitlab.com/qemu-project/qemu/-/blob/v11.1.0/target/alpha/cpu.c|target/alpha/cpu.c]], QEMU 11.1.0)] so bugs from missing barriers often do not show up. Such bugs need a multiprocessor Alpha to reproduce; see [[documentation:qemu#limitations|QEMU: Limitations]] and [[documentation:porting:memory_model|Memory Model]].
+  * **Processor selection** follows ''-cpu''; the default, EV67, runs code that would raise ''SIGILL'' on an EV56.
+
+=== Tools that are not available ===
+
+  * **Valgrind** has no Alpha port. [(>[[https://valgrind.org/info/platforms.html|Supported Platforms]], valgrind.org)]
+  * **GCC's sanitizers** (AddressSanitizer, ThreadSanitizer, UndefinedBehaviorSanitizer and the others) are unavailable, since GCC does not build its sanitizer runtime library for targets that library's configuration does not list, and Alpha is not listed. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=libsanitizer/configure.tgt|libsanitizer/configure.tgt]], GCC)] [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=configure.ac|configure.ac]], GCC)] Misaligned accesses can instead be found by building the same code with UBSan on another architecture; see [[documentation:porting:unaligned_access#ubsan_on_a_non-alpha_host|UBSan on a non-Alpha host]].
+  * **gdbserver** has no Alpha support; GDB runs natively. See [[documentation:toolchains#gdb|Toolchains: GDB]].
 
 ==== Terms ====
 

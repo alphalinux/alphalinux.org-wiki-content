@@ -15,15 +15,16 @@ See also [[documentation:instruction_set|Instruction Set]] and [[documentation:a
   - Software completion requires ''CONFIG_MATHEMU'' in the kernel. Without it, correct programs receive ''SIGFPE''.
   - Exception flags are tested through ''<fenv.h>'' rather than by reading the FPCR status bits, since the authoritative state is the kernel's software word and the FPCR can carry spurious bits from trap shadows.
   - ''-mieee'' is expensive on processors before the EV6, and cheap on the EV6 and later only when the code is compiled with ''-mcpu=ev6'' or ''-mcpu=ev67''. Code built for ''ev56'' pays the full cost even on an EV6 (see [[#what_-mieee_costs|What -mieee costs]]).
+  - ''fesetround()'' has no effect on code compiled with the default ''-mfp-rounding-mode=n''. glibc's ''fesetround()'' sets the dynamic rounding field of the FPCR, [(>[[https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/alpha/fpu/fesetround.c|sysdeps/alpha/fpu/fesetround.c]], glibc)] which only instructions with the ''/D'' qualifier consult; the others round as encoded in the instruction (see [[#rounding_modes|Rounding modes]]). Code that changes the rounding mode at run time, such as interval arithmetic or tests of ''<fenv.h>'' rounding, must be compiled with ''-mfp-rounding-mode=d'', as glibc itself is. [(>[[https://gcc.gnu.org/onlinedocs/gcc/DEC-Alpha-Options.html|DEC Alpha Options]], GCC manual)] ''-frounding-math'' alone is not enough before GCC 17, in which it also selects dynamic rounding on Alpha. [(>[[https://gcc.gnu.org/git/?p=gcc.git;a=commit;h=a7a7368a2f78b53adff0371045be97ac7eb1ec35|"alpha: honor -frounding-math by selecting dynamic rounding"]], Matt Turner, GCC, 18 Aug 2026)]
   - ''float'' arithmetic is genuinely single precision, so code tuned around x87 excess precision behaves differently.
 
 ==== Compiler flags ====
 
 ^ Flag ^ Effect ^
 | ''-mieee'' | IEEE-conformant except that the inexact flag is not maintained. Sets ''-mtrap-precision=i'' (except with ''-mcpu=ev6'' or later; see [[#trap_shadows_trapb_and_excb|Trap shadows]]) and emits ''/SU''. Defines ''_IEEE_FP''. |
-| ''-mieee-with-inexact'' | as above but maintains the inexact flag; emits ''/SUI''. Additionally defines ''_IEEE_FP_EXACT''. Significantly slower. |
+| ''-mieee-with-inexact'' | as above but maintains the inexact flag; emits ''/SUI''. Additionally defines ''_IEEE_FP_INEXACT''. Significantly slower. |
 | ''-mfp-trap-mode='' | ''n'' (default), ''u'', ''su'', ''sui'' |
-| ''-mfp-rounding-mode='' | ''n'' (default), ''m'', ''c'', ''d''. There is no ''p'' value, matching the ISA. ''-frounding-math'' makes ''d'' the default. |
+| ''-mfp-rounding-mode='' | ''n'' (default), ''m'', ''c'', ''d''. There is no ''p'' value, matching the ISA. From GCC 17, ''-frounding-math'' makes ''d'' the default. |
 | ''-mtrap-precision='' | ''p'' (default, program), ''f'' (function), ''i'' (instruction) |
 | ''-mieee-conformant'' | marks the code IEEE conformant. Requires ''-mtrap-precision=i'' and ''-mfp-trap-mode=su'' or ''sui''. Its only effect is to emit ''.eflag 48'' in the prologue. |
 
