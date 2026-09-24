@@ -86,6 +86,7 @@ Articles about Alpha in the general and trade press, from 1993, shortly after Di
 | CNET | 1997-10-27 | [[https://www.cnet.com/tech/tech-industry/digital-has-new-alpha-intel-servers/|Digital has new Alpha, Intel servers]] |
 | CNET | 1997-10-27 | [[https://www.cnet.com/tech/services-and-software/intel-digital-settle-suit/|Intel, Digital settle suit]] |
 | CNET | 1997-10-27 | [[https://www.cnet.com/tech/tech-industry/digital-intel-settle-score/|Digital, Intel settle score]] |
+| Intel | 1997-10-27 | [[https://www.intel.com/pressroom/archive/releases/1997/CN102797.HTM|Digital And Intel Announce Long Term Agreement To Expand Relationship; Move To Settle Litigation]] |
 | CNET | 1997-10-27 | [[https://web.archive.org/web/20030819023513/http://news.com.com:80/2100-1001_3-204687.html|Settlement good for Digital, bad for Alpha]] |
 | LA Times | 1997-10-28 | [[https://www.latimes.com/archives/la-xpm-1997-oct-28-fi-47463-story.html|Intel to Buy Chip-Making Operations From Digital]] |
 | CNET | 1997-10-30 | [[https://www.cnet.com/tech/tech-industry/samsung-unveils-700-mhz-chip/|Samsung unveils 700-MHz chip]] |
