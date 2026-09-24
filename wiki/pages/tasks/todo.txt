@@ -7,11 +7,11 @@ Work planned or under way on Alpha support in the projects below. The owner is t
 | In progress | Generic kernel compression support | [[user:mattst88|Matt Turner]] | |
 | In progress | ''ProfileMe'' profiling support | [[user:mattst88|Matt Turner]] | |
 | In progress | Profiling support for processors before the EV67 | [[user:mattst88|Matt Turner]] | |
-| In progress | Hugepage support | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/alpha-hugetlb-tests|tests]] |
+| In progress | Hugepage support | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux/alpha-hugetlb-tests|tests]] |
 | Not started | vDSO support | | |
 ^ GCC ^^^^
-| In progress | Switch to LRA for BWX | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-July/724654.html|patch]], [[https://github.com/alphalinux-org/issues/issues/3|issue]] |
-| In progress | Switch to LRA for non-BWX | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/issues/issues/3|issue]] |
+| In progress | Switch to LRA for BWX | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-July/724654.html|patch]], [[https://github.com/alphalinux/issues/issues/3|issue]] |
+| In progress | Switch to LRA for non-BWX | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux/issues/issues/3|issue]] |
 | In progress | Fix test suite failures | [[user:mattst88|Matt Turner]] | |
 ^ glibc ^^^^
 | In progress | Fix test suite failures | [[user:mattst88|Matt Turner]], [[user:lindholm|Magnus Lindholm]] | |
@@ -23,7 +23,7 @@ Work planned or under way on Alpha support in the projects below. The owner is t
 ^ QEMU ^^^^
 | Not started | SRM console callbacks in qemu-palcode, so that aboot can boot a disk | | |
 ^ Other software ^^^^
-| Not started | Alpha support in libseccomp | | [[https://github.com/alphalinux-org/issues/issues/2|issue]] |
+| Not started | Alpha support in libseccomp | | [[https://github.com/alphalinux/issues/issues/2|issue]] |
 
 ==== Recently completed ====
 
@@ -35,9 +35,9 @@ Completed tasks stay here until the release that includes them, and are then rem
 | GCC | Stack protector support | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-August/729301.html|patch]] |
 | GCC | IFUNC support | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-August/726956.html|patch]] |
 | binutils | IFUNC support | [[user:mattst88|Matt Turner]] | [[https://sourceware.org/pipermail/binutils/2026-September/151152.html|patch]] |
-| aboot | XFS support | [[user:lindholm|Magnus Lindholm]] | [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
-| aboot | ext4 support | [[user:lindholm|Magnus Lindholm]] | [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
-| aboot | Release 2.0 | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux-org/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
+| aboot | XFS support | [[user:lindholm|Magnus Lindholm]] | [[https://github.com/alphalinux/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
+| aboot | ext4 support | [[user:lindholm|Magnus Lindholm]] | [[https://github.com/alphalinux/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
+| aboot | Release 2.0 | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
 | Other software | Basic Alpha support in gperftools | [[user:creemj|Michael Cree]] | [[https://github.com/gperftools/gperftools/commit/5f64fd287a4046911b3d676f90128979982e4088|commit]] |
 
 {{tag>tasks}}

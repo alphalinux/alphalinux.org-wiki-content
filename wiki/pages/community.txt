@@ -28,8 +28,8 @@ Gentoo has a [[https://forums.gentoo.org/viewforum.php?f=32|Gentoo on Alternativ
 
 ==== Issue tracker ====
 
-Known problems that affect Linux on Alpha across projects are tracked in [[https://github.com/alphalinux-org/issues/issues|alphalinux-org/issues]] on GitHub. How to report a bug is described under [[tasks:bugs|Bugs]].
+Known problems that affect Linux on Alpha across projects are tracked in [[https://github.com/alphalinux/issues/issues|alphalinux/issues]] on GitHub. How to report a bug is described under [[tasks:bugs|Bugs]].
 
-The port's own tools, among them [[software:boot_loaders:aboot|aboot]] and [[software:boot_loaders:milo|MILO]], and the [[https://github.com/alphalinux-org/mailing-list-archives|mailing list archives]] cited throughout this wiki, are kept in the [[https://github.com/alphalinux-org|alphalinux-org]] organization on GitHub.
+The port's own tools, among them [[software:boot_loaders:aboot|aboot]] and [[software:boot_loaders:milo|MILO]], and the [[https://github.com/alphalinux/mailing-list-archives|mailing list archives]] cited throughout this wiki, are kept in the [[https://github.com/alphalinux|alphalinux]] organization on GitHub.
 
 {{tag>community}}

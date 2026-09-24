@@ -31,7 +31,7 @@ The kernel configuration names the systems each platform covers, and builds the 
 
 ==== 21071 and 21072 ====
 
-The 21071 and 21072 are "two configurations of a core logic chip set for the DECchip 21064 family", providing a 32-bit PCI interface, cache and memory control, and the data paths between them. Digital shipped them with the [[hardware:motherboards:eb64plus|EB64+]] evaluation kit, "an example PC mother board" that also served as the debug platform for the chips, with the aim of letting designers build uniprocessor Alpha systems "with minimal design and engineering effort". [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L5135|"Development of Digital's PCI Chip Sets and Evaluation Kit for the DECchip 21064 Microprocessor"]], Samyojita A. Nadkarni et al., Digital Technical Journal, biz.digital.articles, 17 Sep 1994)]
+The 21071 and 21072 are "two configurations of a core logic chip set for the DECchip 21064 family", providing a 32-bit PCI interface, cache and memory control, and the data paths between them. Digital shipped them with the [[hardware:motherboards:eb64plus|EB64+]] evaluation kit, "an example PC mother board" that also served as the debug platform for the chips, with the aim of letting designers build uniprocessor Alpha systems "with minimal design and engineering effort". [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-September.mbox#L5135|"Development of Digital's PCI Chip Sets and Evaluation Kit for the DECchip 21064 Microprocessor"]], Samyojita A. Nadkarni et al., Digital Technical Journal, biz.digital.articles, 17 Sep 1994)]
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:chipsets:21071:21071_21072_data_sheet.pdf?linkonly|DECchip 21071 and DECchip 21072 Core Logic Chipsets Data Sheet}} | EC-QAEMB-TE | January 1996 |
@@ -47,7 +47,7 @@ The 21171 (CIA) is the core logic of the [[hardware:motherboards:eb164|EB164]] a
 
 ==== 21172 ====
 
-The 21172 (CIA-2) is the core logic of the [[hardware:motherboards:pc164|AlphaPC 164]]. Although it was intended to allow byte and word access to I/O space, this never worked, so Linux uses sparse I/O addressing on it as on the 21171. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L18328|"RE: Re: ev56 optimization -> illegal instruction"]], Jay Estabrook, axp-list, 14 Mar 1998)]
+The 21172 (CIA-2) is the core logic of the [[hardware:motherboards:pc164|AlphaPC 164]]. Although it was intended to allow byte and word access to I/O space, this never worked, so Linux uses sparse I/O addressing on it as on the 21171. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1998-March.mbox#L18328|"RE: Re: ev56 optimization -> illegal instruction"]], Jay Estabrook, axp-list, 14 Mar 1998)]
 
 ^ Document ^ Part number ^ Date ^
 | {{wiki:hardware:chipsets:21172:21172_technical_reference_manual.pdf?linkonly|Digital Semiconductor 21172 Core Logic Chipset Technical Reference Manual}} | EC-QUQJA-TE | April 1996 |
@@ -55,7 +55,7 @@ The 21172 (CIA-2) is the core logic of the [[hardware:motherboards:pc164|AlphaPC
 
 ==== 21174 ====
 
-Early 21174 (Pyxis) parts have an erratum affecting DMA that crosses a page boundary when the scatter-gather hardware is in use, [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-October.mbox#L3263|"Re: pci cards supported by SRM?"]], Jay Estabrook, debian-alpha, 9 Oct 2003)] which operating systems must work around. NetBSD prints a warning when it detects a pass 1 Pyxis. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-July.mbox#L4288|"Miata"]], Johan Danielsson, port-alpha, 28 Jul 1998)] On the Personal Workstation (Miata), the PCI-to-PCI bridge in front of the 32-bit slots masks the bug; see [[hardware:other#personal_workstation_64-bit_slots|Other Hardware]] for the 64-bit slots, which are not behind it.
+Early 21174 (Pyxis) parts have an erratum affecting DMA that crosses a page boundary when the scatter-gather hardware is in use, [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/debian-alpha-mbox/2003-October.mbox#L3263|"Re: pci cards supported by SRM?"]], Jay Estabrook, debian-alpha, 9 Oct 2003)] which operating systems must work around. NetBSD prints a warning when it detects a pass 1 Pyxis. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/netbsd-port-alpha-mbox/1998-July.mbox#L4288|"Miata"]], Johan Danielsson, port-alpha, 28 Jul 1998)] On the Personal Workstation (Miata), the PCI-to-PCI bridge in front of the 32-bit slots masks the bug; see [[hardware:other#personal_workstation_64-bit_slots|Other Hardware]] for the 64-bit slots, which are not behind it.
 
 Pyxis was also the first Alpha core logic on which byte and word access to I/O space worked, and Linux enables it on every Pyxis system; [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_cia.c?h=v7.3-rc1|arch/alpha/kernel/core_cia.c]], Linux 7.3)] see [[documentation:porting:byte_word_access#bwx_in_the_core_logic|Byte and Word Access]].
 
@@ -64,7 +64,7 @@ Pyxis was also the first Alpha core logic on which byte and word access to I/O s
 
 ==== Polaris ====
 
-The VLSI Technology Polaris system controller is used only on the [[hardware:motherboards:pc164rx|AlphaPC 164RX]]. It supports only 32-bit PCI. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002)] Linux supports it in ''core_polaris.c''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_polaris.c?h=v7.3-rc1|arch/alpha/kernel/core_polaris.c]], Linux 7.3)]
+The VLSI Technology Polaris system controller is used only on the [[hardware:motherboards:pc164rx|AlphaPC 164RX]]. It supports only 32-bit PCI. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2002-January.mbox#L2348|"Re: Kernel 2.4.17"]], Jay Estabrook, axp-list, 8 Jan 2002)] Linux supports it in ''core_polaris.c''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/core_polaris.c?h=v7.3-rc1|arch/alpha/kernel/core_polaris.c]], Linux 7.3)]
 
 ==== 21272 ====
 

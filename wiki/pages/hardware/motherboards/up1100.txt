@@ -27,7 +27,7 @@ wiki:hardware:motherboards:up1100:up1100-1.jpg API NetWorks UP1100
   * 1x AGP 2x (see [[#known_issues|Known issues]])
   * 3x 33 MHz 32-bit PCI slots
   * DECchip 21143 Ethernet
-  * ALi M5451 Sound [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L44443|"2.4.0 on UP1100"]], Michal Jaegermann, axp-list, 24 Nov 2000)]
+  * ALi M5451 Sound [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L44443|"2.4.0 on UP1100"]], Michal Jaegermann, axp-list, 24 Nov 2000)]
   * 2x Ultra DMA 33/66 IDE connectors, 2x USB ports, 2x serial ports, an ECP/EPP parallel port, and a floppy controller, all driven by the M1535D, plus PS/2 keyboard and mouse ports [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 1-2)]
   * ATX form factor, 12 in x 9.6 in (30.48 cm x 24.38 cm) [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 1-1)]
   * Front panel connectors for the power button, reset button, power LED, hard disk activity LED, speaker, and keyboard lock [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, p. 2-3)]
@@ -35,16 +35,16 @@ wiki:hardware:motherboards:up1100:up1100-1.jpg API NetWorks UP1100
 
 ==== Memory ====
 
-  * The AMD-751 can address at most 768 MiB. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L30727|"Re: UP1100 delivery problems"]], Rich Payne, axp-list, 26 Mar 2002)] The maximum configuration is 3x 256 MiB ECC unbuffered (not registered) CL3 SDRAM DIMMs. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L32024|"Re: UP1100 delivery problems"]], Maurice Hilarius, axp-list, 26 Mar 2002)]
-  * Unlike DEC's Alpha systems, the UP1100 works with a single DIMM. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-December.mbox#L1027|"Alpha hardware"]], Jay Estabrook, axp-list, 5 Dec 2008)]
+  * The AMD-751 can address at most 768 MiB. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L30727|"Re: UP1100 delivery problems"]], Rich Payne, axp-list, 26 Mar 2002)] The maximum configuration is 3x 256 MiB ECC unbuffered (not registered) CL3 SDRAM DIMMs. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2002-March.mbox#L32024|"Re: UP1100 delivery problems"]], Maurice Hilarius, axp-list, 26 Mar 2002)]
+  * Unlike DEC's Alpha systems, the UP1100 works with a single DIMM. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2008-December.mbox#L1027|"Alpha hardware"]], Jay Estabrook, axp-list, 5 Dec 2008)]
 
 ==== Power supply ====
 
-The UP1100 can run from a good quality 300 W power supply, but 350 W to 400 W is recommended. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-September.mbox#L17709|"Re: Power Supply for UP 2000."]], Maurice Hilarius, axp-list, 22 Sep 2001)] The manual specifies a 300 W ATX power supply connected through a standard 20-pin ATX connector, and recommends the EMACS AP2-5300F (28 A at +3.3 V, 30 A at +5 V) or a comparable supply. [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, pp. 3-1 to 3-2)]
+The UP1100 can run from a good quality 300 W power supply, but 350 W to 400 W is recommended. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2001-September.mbox#L17709|"Re: Power Supply for UP 2000."]], Maurice Hilarius, axp-list, 22 Sep 2001)] The manual specifies a 300 W ATX power supply connected through a standard 20-pin ATX connector, and recommends the EMACS AP2-5300F (28 A at +3.3 V, 30 A at +5 V) or a comparable supply. [(>{{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}}, pp. 3-1 to 3-2)]
 
 ==== Firmware ====
 
-The UP1100 uses the SRM console. UP1100 SRM releases include 5.6-13. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L31967|"Re: UP1100 and linux 2.4.0, anyone?"]], John Jasen, axp-list, 30 Jan 2001)] After API closed, 5.6-13 was available from Microway's web site. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2005-November.mbox#L7025|"UP1100 and disk size"]], Robert Funnell, debian-alpha, 10 Nov 2005)] The UP1000 and UP1100 SRM images are different and cannot be used on each other's boards. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L30608|"Re: 2.40test10 working?"]], Rich Payne, axp-list, 17 Nov 2000)]
+The UP1100 uses the SRM console. UP1100 SRM releases include 5.6-13. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L31967|"Re: UP1100 and linux 2.4.0, anyone?"]], John Jasen, axp-list, 30 Jan 2001)] After API closed, 5.6-13 was available from Microway's web site. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/debian-alpha-mbox/2005-November.mbox#L7025|"UP1100 and disk size"]], Robert Funnell, debian-alpha, 10 Nov 2005)] The UP1000 and UP1100 SRM images are different and cannot be used on each other's boards. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L30608|"Re: 2.40test10 working?"]], Rich Payne, axp-list, 17 Nov 2000)]
 
 The A5.6-13 package, ''up1100_srm_A5.6-13.zip'' (the ''gtsrm.rom'' image and the ''up1100fw.txt'' file list), is kept in the [[https://github.com/alphalinux/firmware/tree/master/api/UP1100|alphalinux/firmware]] repository, with A5.6-12 in its ''archive'' directory. The two files are copied to a DOS floppy, and ''lfu'' is run from SRM with ''dva0'' as the device and ''up1100fw.txt'' as the file list; ''update srm'' then writes the image. [(>''readme.1st'' in [[https://github.com/alphalinux/firmware/blob/master/api/UP1100/up1100_srm_A5.6-13.zip|up1100_srm_A5.6-13.zip]], alphalinux/firmware repository)]
 
@@ -54,7 +54,7 @@ If the flash is corrupted, for example by a power failure during an update, the 
 
 ==== Linux ====
 
-Current kernels support the UP1100 with ''CONFIG_ALPHA_NAUTILUS'' or a generic kernel; it boots from SRM with [[software:boot_loaders:aboot|aboot]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-August.mbox#L5596|"Can't install non-Nautilus on UP1100"]], Robert Funnell, debian-alpha, 28 Aug 2000)] The onboard devices use these drivers:
+Current kernels support the UP1100 with ''CONFIG_ALPHA_NAUTILUS'' or a generic kernel; it boots from SRM with [[software:boot_loaders:aboot|aboot]]. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/debian-alpha-mbox/2000-August.mbox#L5596|"Can't install non-Nautilus on UP1100"]], Robert Funnell, debian-alpha, 28 Aug 2000)] The onboard devices use these drivers:
   * IDE (ALi M1535D): ''pata_ali'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_ali.c?h=v7.3-rc1|drivers/ata/pata_ali.c]], Linux 7.3)]
   * Ethernet (DECchip 21143): ''tulip'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/net/ethernet/dec/tulip/tulip_core.c?h=v7.3-rc1|drivers/net/ethernet/dec/tulip/tulip_core.c]], Linux 7.3)]
   * Sound (ALi M5451): ''snd-ali5451'' [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/pci/ali5451/ali5451.c?h=v7.3-rc1|sound/pci/ali5451/ali5451.c]], Linux 7.3)]
@@ -64,8 +64,8 @@ Current kernels support the UP1100 with ''CONFIG_ALPHA_NAUTILUS'' or a generic k
   * The IDE controller's DMA engine cannot perform 48-bit LBA transfers on ALi revisions before C5, so the ''pata_ali'' driver uses PIO for accesses beyond the first 128 GiB of a disk. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/ata/pata_ali.c?h=v7.3-rc1|drivers/ata/pata_ali.c]], Linux 7.3)]
   * The AGP slot is limited to PCI transfers; see [[hardware:motherboards:up1000#known_issues|UP1000]].
   * ATI Rage II and Rage Pro based video cards do not work; see [[hardware:motherboards:up1000#known_issues|UP1000]].
-  * The BIOS emulator in the UP1100's SRM firmware cannot initialize any AGP Radeon card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L2650|"AW: Some observations regarding FC* on UP2000+"]], Jay Estabrook, axp-list, 24 Apr 2008)] The UP1500's newer firmware does not have this problem. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)]
-  * There is no halt switch connector on the motherboard. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L3592|"Re: UP1100 & Matrox"]], Rich Payne, debian-alpha, 26 Oct 2000)]
+  * The BIOS emulator in the UP1100's SRM firmware cannot initialize any AGP Radeon card. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2008-April.mbox#L2650|"AW: Some observations regarding FC* on UP2000+"]], Jay Estabrook, axp-list, 24 Apr 2008)] The UP1500's newer firmware does not have this problem. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/debian-alpha-mbox/2003-December.mbox#L2218|"Re: PCI Video Card?"]], Jay Estabrook, debian-alpha, 4 Dec 2003)]
+  * There is no halt switch connector on the motherboard. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/debian-alpha-mbox/2000-October.mbox#L3592|"Re: UP1100 & Matrox"]], Rich Payne, debian-alpha, 26 Oct 2000)]
 
 ==== Conflicting information ====
 
@@ -74,8 +74,8 @@ The following sources conflict with each other or with the account given above. 
   * **South bridge**
     * {{wiki:hardware:motherboards:up1100:up1100_spec_sheet.pdf?linkonly|UP1100 Spec Sheet}} and {{wiki:hardware:motherboards:up1100:up1100_specsheet.pdf?linkonly|UP1100 Spec Sheet (May 2000)}}: "M1543C"
     * {{wiki:hardware:motherboards:up1100:up1100_user_manual.pdf?linkonly|UP1100 User Manual}} and {{wiki:hardware:motherboards:up1100:up1100_technical_reference_manual.pdf?linkonly|UP1100 Technical Reference Manual}}: "M1535D"
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L32543|"Re: UP1100 and linux 2.4.0, anyone?"]], John Jasen, axp-list, 31 Jan 2001: "According to the users guide, its an ALI M1535D PCI to ISA bridge."
-    * [[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L31513|"Re: UP1100 and linux 2.4.0, anyone?"]], Michal Jaegermann, axp-list, 30 Jan 2001: "the one I have here reports '[ALi] M1533 PCI to ISA Bridge [Aladdin"
+    * [[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L32543|"Re: UP1100 and linux 2.4.0, anyone?"]], John Jasen, axp-list, 31 Jan 2001: "According to the users guide, its an ALI M1535D PCI to ISA bridge."
+    * [[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2001-January.mbox#L31513|"Re: UP1100 and linux 2.4.0, anyone?"]], Michal Jaegermann, axp-list, 30 Jan 2001: "the one I have here reports '[ALi] M1533 PCI to ISA Bridge [Aladdin"
 
 ==== Documentation ====
 

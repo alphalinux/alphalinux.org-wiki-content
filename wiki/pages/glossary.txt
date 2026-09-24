@@ -64,7 +64,7 @@ The Alpha architecture was extended after the first processors shipped. Each ext
 
 ==== Names ====
 
-  * **AXP**, Digital's original marketing name for Alpha, as in "DEC OSF/1 AXP" and "OpenVMS AXP". It was dropped in the mid-1990s. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)]
+  * **AXP**, Digital's original marketing name for Alpha, as in "DEC OSF/1 AXP" and "OpenVMS AXP". It was dropped in the mid-1990s. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-announce-mbox/googlegroups-1994-November.mbox#L36280|"Linux/Alpha Progress Report - Part 2"]], Jim Paradis, comp.os.linux.announce, 18 Nov 1994)]
   * **Digital**, **DEC**, **Compaq**, **HP**: Digital Equipment Corporation designed Alpha, and was bought by Compaq in 1998, which merged with HP in 2002. See [[history:companies|Companies]].
   * **API**, Alpha Processor, Inc., later API NetWorks, the Samsung-backed company that sold Alpha motherboards such as the UP1000 and UP2000. See [[history:companies|Companies]].
   * **OSF/1**, **Digital UNIX**, **Tru64 UNIX**: successive names of Digital's UNIX for Alpha. See [[software:operating_systems:tru64|Tru64 UNIX]].

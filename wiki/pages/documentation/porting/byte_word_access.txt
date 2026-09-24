@@ -372,7 +372,7 @@ Tsunami, Polaris and Irongate likewise. The kernel expresses the capability per 
 
 === I/O memory is not accessed as memory ===
 
-Linus Torvalds stated the rule that has been kernel policy since, on the Alpha list in 1996: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L2088|"Re: MMIO for new NCR810 driver?"]], Linus Torvalds, axp-list, 13 Jul 1996)]
+Linus Torvalds stated the rule that has been kernel policy since, on the Alpha list in 1996: [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1996-July.mbox#L2088|"Re: MMIO for new NCR810 driver?"]], Linus Torvalds, axp-list, 13 Jul 1996)]
 
 <blockquote>
 You MUST NOT access IO memory any other way than read/write[bwl]().
@@ -385,7 +385,7 @@ That "window" is the HAE (host address extension) register, which supplies the h
 
 === BWX in the core logic ===
 
-A processor with BWX can make byte-granular accesses to I/O space only if the core logic also implements them. Byte and word access to I/O space was reported never to have worked on the 21172 (CIA-2), with Pyxis the first core logic to implement it correctly, although FreeBSD later enabled it on a 21172-based AlphaServer 800 without reported problems. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2005-September.mbox#L5417|"[patch] cia BWX oddity in RELENG4"]], Paul V. Bolotoff, freebsd-alpha, 30 Sep 2005)]
+A processor with BWX can make byte-granular accesses to I/O space only if the core logic also implements them. Byte and word access to I/O space was reported never to have worked on the 21172 (CIA-2), with Pyxis the first core logic to implement it correctly, although FreeBSD later enabled it on a 21172-based AlphaServer 800 without reported problems. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/freebsd-alpha-mbox/gmane-2005-September.mbox#L5417|"[patch] cia BWX oddity in RELENG4"]], Paul V. Bolotoff, freebsd-alpha, 30 Sep 2005)]
 
 ==== Jensen ====
 

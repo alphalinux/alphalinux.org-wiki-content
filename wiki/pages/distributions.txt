@@ -47,7 +47,7 @@ Many Linux distributions formerly supported Alpha. The table lists each one's la
 | SuSE Linux | 7.1 | Former members of the SuSE Alpha team later released an unofficial SuSE Linux 8.1 Alpha Edition. See [[history:companies#suse|SuSE]]. |
 | Mandrake Linux | 7.1 | Developed in the open on the cooker-axp list. See [[history:companies#mandrakesoft|MandrakeSoft]]. |
 | TurboLinux | 6.0 | Alpha edition shipped in July 2000. See [[history:companies#turbolinux|TurboLinux]]. |
-| AlphaCore | 3 | Unofficial port of Fedora Core to Alpha. Its last release, Alpha Core 3, was based on Fedora Core 5. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2007-March.mbox#L114|"Alpha Core 3 is available"]], Sergey Tikhonov, axp-list, 5 Mar 2007)] |
+| AlphaCore | 3 | Unofficial port of Fedora Core to Alpha. Its last release, Alpha Core 3, was based on Fedora Core 5. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2007-March.mbox#L114|"Alpha Core 3 is available"]], Sergey Tikhonov, axp-list, 5 Mar 2007)] |
 | CentOS | 4 | The Alpha tree was declared end of life by its maintainer in August 2006. |
 
 A Slackware port to Alpha was attempted more than once, most seriously in 2001, but was never completed and had been abandoned by 2004.

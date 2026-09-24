@@ -1,6 +1,6 @@
 ===== Bugs =====
 
-How to report a bug that affects Linux on Alpha, and where to find the Alpha-specific bugs already open in each project's tracker. Problems that span several projects are tracked in [[https://github.com/alphalinux-org/issues/issues|alphalinux-org/issues]].
+How to report a bug that affects Linux on Alpha, and where to find the Alpha-specific bugs already open in each project's tracker. Problems that span several projects are tracked in [[https://github.com/alphalinux/issues/issues|alphalinux/issues]].
 
 ==== How to report a bug ====
 

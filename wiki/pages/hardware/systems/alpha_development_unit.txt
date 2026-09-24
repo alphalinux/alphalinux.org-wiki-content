@@ -7,11 +7,11 @@
 ^ Linux | Never |
 </WRAP>
 
-The Alpha Development Unit (ADU) was a prototype Alpha system on which Digital did its operating system work before any Alpha system shipped; it was never sold. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)]
+The Alpha Development Unit (ADU) was a prototype Alpha system on which Digital did its operating system work before any Alpha system shipped; it was never sold. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)]
 
 ==== Specifications ====
 
-The ADU consisted of: [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)]
+The ADU consisted of: [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)]
 
   * A washing-machine-sized box holding the Alpha prototype hardware
   * A DECstation 5000 on top, acting as host, I/O processor, and front end
@@ -19,8 +19,8 @@ The ADU consisted of: [(>[[https://github.com/alphalinux-org/mailing-list-archiv
 
 ==== History ====
 
-ULTRIX ran on the ADUs first, then OSF/1, whose development continued on them until the first DEC 3000 Model 500 (Flamingo) systems arrived. Support for the ADU was dropped before the first release of DEC OSF/1 for Alpha, although some engineers inside Digital kept theirs running through the first two releases. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)]
+ULTRIX ran on the ADUs first, then OSF/1, whose development continued on them until the first DEC 3000 Model 500 (Flamingo) systems arrived. Support for the ADU was dropped before the first release of DEC OSF/1 for Alpha, although some engineers inside Digital kept theirs running through the first two releases. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)]
 
-ULTRIX on Alpha was an advanced development effort only. It ran on the ADU, was never carried to the production machines, and was never a product. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)] OpenVMS first booted on Manniquin, an EVAX emulator running on a VAX, before it ran on the ADU. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2001-July.mbox#L7344|"Re: Compaq kills Alpha"]], Fred Kleinsorge, comp.sys.dec, 30 Jul 2001)]
+ULTRIX on Alpha was an advanced development effort only. It ran on the ADU, was never carried to the production machines, and was never a product. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1994-December.mbox#L5386|"Re: Ultrix for Alpha (?)"]], Farrell Woods, comp.sys.dec, 21 Dec 1994)] OpenVMS first booted on Manniquin, an EVAX emulator running on a VAX, before it ran on the ADU. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2001-July.mbox#L7344|"Re: Compaq kills Alpha"]], Fred Kleinsorge, comp.sys.dec, 30 Jul 2001)]
 
 {{tag>hardware system digital}}

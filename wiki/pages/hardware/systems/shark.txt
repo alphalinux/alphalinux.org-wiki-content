@@ -13,18 +13,18 @@
 ^ Linux | Supported |
 </WRAP>
 
-The CS20 is a 1U dual processor 21264 server designed by Alpha Processor, Inc., later API NetWorks, and the DS20L is Compaq's version of it. Apart from the front cover, the two differ only in their SRM firmware and the SCSI controller on the PCI riser card. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2002-July.mbox#L17774|"Re: API / CS20"]], Kurt A. Ludwig, axp-list, 29 Jul 2002)]
+The CS20 is a 1U dual processor 21264 server designed by Alpha Processor, Inc., later API NetWorks, and the DS20L is Compaq's version of it. Apart from the front cover, the two differ only in their SRM firmware and the SCSI controller on the PCI riser card. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2002-July.mbox#L17774|"Re: API / CS20"]], Kurt A. Ludwig, axp-list, 29 Jul 2002)]
 
 ==== Specifications ====
 
-Except where noted, the following comes from API's specification for the CS20. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L7232|"CS-20 Dual 21264 1U server"]], Bill Broadley, axp-list, 3 Nov 2000, quoting API's web site)]
+Except where noted, the following comes from API's specification for the CS20. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L7232|"CS-20 Dual 21264 1U server"]], Bill Broadley, axp-list, 3 Nov 2000, quoting API's web site)]
 
   * Two 667 MHz [[wp>Alpha_21264#Alpha_21264A|21264A]] or 833 MHz [[wp>Alpha_21264#Alpha_21264B|21264B]] CPUs with 4 MiB of DDR L2 cache each
   * Two 64-bit 33 MHz PCI slots
   * Onboard Ultra3 SCSI (Symbios 53c1000)
   * 1U rackmount
   * Up to 2 GiB of memory in eight DIMM slots on the DS20L [(>{{wiki:hardware:systems:alphaserver_ds20l:alphaserver_ds20l_technical_summary.pdf?linkonly|AlphaServer DS20L System Technical Summary}}, 2002, p. 5)]
-  * Two independent PCI buses, with most onboard devices on bus 0, so demanding cards perform better on the second bus [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L10816|"Re: matroxfb on SMP alpha"]], Peter Petrakis, debian-alpha, 24 Jan 2003)]
+  * Two independent PCI buses, with most onboard devices on bus 0, so demanding cards perform better on the second bus [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/debian-alpha-mbox/2003-January.mbox#L10816|"Re: matroxfb on SMP alpha"]], Peter Petrakis, debian-alpha, 24 Jan 2003)]
 
 ==== Firmware ====
 
@@ -42,8 +42,8 @@ The SRM console is used through the COM1 or COM2 serial port, at 9600 baud by de
 
 ==== Known issues ====
 
-  * **Power supplies:** the DS20L and CS20 power supplies are prone to failure, which shows as the front LED changing from flashing green to steady red. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2007-July.mbox#L1197|"API CS20 / DS20L power supply flaw"]], SDF Poster, comp.sys.dec, 23 Jul 2007)] [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2012-November.mbox#L152|"Re: WTD: UP1500 or UP2000+ motherboard"]], Marc Schlensog, comp.os.linux.alpha, 12 Nov 2012)] On one DS20L the replacement capacitors failed as well. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2019-September.mbox#L1|"[gentoo-alpha] Gentoo/Alpha is without a build machine"]], Matt Turner, gentoo-alpha, 1 Sep 2019)]
-  * **Noise:** the systems are loud. [(>[[https://github.com/alphalinux-org/mailing-list-archives/blob/main/gentoo-alpha-mbox/2011-February.mbox#L1|"[gentoo-alpha] ABOOT problem..."]], Romuald Lobet, gentoo-alpha, 26 Feb 2011)] The DS20L is rated at a sound power level of 6.7 B, 51 dBA for bystanders, idle or operating. [(>{{wiki:hardware:systems:alphaserver_ds20l:alphaserver_ds20l_users_guide.pdf?linkonly|AlphaServer DS20L User's Guide}}, p. 1-9)]
+  * **Power supplies:** the DS20L and CS20 power supplies are prone to failure, which shows as the front LED changing from flashing green to steady red. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2007-July.mbox#L1197|"API CS20 / DS20L power supply flaw"]], SDF Poster, comp.sys.dec, 23 Jul 2007)] [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2012-November.mbox#L152|"Re: WTD: UP1500 or UP2000+ motherboard"]], Marc Schlensog, comp.os.linux.alpha, 12 Nov 2012)] On one DS20L the replacement capacitors failed as well. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/gentoo-alpha-mbox/2019-September.mbox#L1|"[gentoo-alpha] Gentoo/Alpha is without a build machine"]], Matt Turner, gentoo-alpha, 1 Sep 2019)]
+  * **Noise:** the systems are loud. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/gentoo-alpha-mbox/2011-February.mbox#L1|"[gentoo-alpha] ABOOT problem..."]], Romuald Lobet, gentoo-alpha, 26 Feb 2011)] The DS20L is rated at a sound power level of 6.7 B, 51 dBA for bystanders, idle or operating. [(>{{wiki:hardware:systems:alphaserver_ds20l:alphaserver_ds20l_users_guide.pdf?linkonly|AlphaServer DS20L User's Guide}}, p. 1-9)]
   * **Power:** a DS20L typically draws 275 W. [(>{{wiki:hardware:systems:alphaserver_ds20l:alphaserver_ds20l_users_guide.pdf?linkonly|AlphaServer DS20L User's Guide}}, p. 1-5)]
 
 ==== Documentation ====
