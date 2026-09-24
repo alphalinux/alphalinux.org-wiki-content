@@ -119,6 +119,6 @@ No Clang, and no ''rustc'', because LLVM has no Alpha back end. Alpha support is
 
 === Where can I ask a question? ===
 
-On the linux-alpha mailing list or in **#alpha** on Libera.Chat, or on a distribution's own Alpha list. See [[:community|Community]]. Report bugs to the affected project; see [[tasks:bugs|Bugs]].
+On the linux-alpha mailing list, in **#alpha** on Libera.Chat, in the alphalinux organization's [[https://github.com/orgs/alphalinux/discussions|GitHub Discussions]], or on a distribution's own Alpha list. See [[:community|Community]]. Report bugs to the affected project; see [[tasks:bugs|Bugs]].
 
 {{tag>faq}}

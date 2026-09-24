@@ -4,7 +4,7 @@ Corrections and new material are welcome. This page describes how to get an acco
 
 ==== Getting an account ====
 
-Anyone can read the wiki, but editing needs an account, and self-registration is disabled to keep out spam. To get an account, ask in **#alpha** on Libera.Chat or on the linux-alpha mailing list (see [[:community|Community]]), or contact the wiki's maintainer, [[user:mattst88|Matt Turner]]. Each account has a user page under ''user:'', which can say who you are and what you work on.
+Anyone can read the wiki, but editing needs an account, and self-registration is disabled to keep out spam. To get an account, ask in **#alpha** on Libera.Chat, on the linux-alpha mailing list, or in [[https://github.com/orgs/alphalinux/discussions|GitHub Discussions]] (see [[:community|Community]]), or contact the wiki's maintainer, [[user:mattst88|Matt Turner]]. Each account has a user page under ''user:'', which can say who you are and what you work on.
 
 Small corrections can also be sent the same way, without an account: say which page, what is wrong, and the source for the correct information.
 

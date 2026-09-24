@@ -24,6 +24,8 @@ General Alpha discussion takes place in **#alpha** on [[https://libera.chat/|Lib
 
 ==== Forums ====
 
+The [[https://github.com/alphalinux|alphalinux]] organization on GitHub hosts [[https://github.com/orgs/alphalinux/discussions|GitHub Discussions]] for questions, announcements, and general discussion of Linux on Alpha.
+
 Gentoo has a [[https://forums.gentoo.org/viewforum.php?f=32|Gentoo on Alternative Architectures forum]].
 
 ==== Issue tracker ====
