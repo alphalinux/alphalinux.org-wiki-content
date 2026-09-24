@@ -13,7 +13,7 @@
 ^ Linux | Supported |
 </WRAP>
 
-The AlphaPC 164LX is an ATX form factor motherboard for the EV56 (21164A), released by Digital in 1997 and later also made by Samsung (see [[#digital_and_samsung_boards|Digital and Samsung boards]]). [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1997-April.mbox#L1|"Press/Alpha 21164 Microprocessor Streaks to 600MHz, Sets New Records"]], Digital Press and Analysts News, biz.digital.announce, 2 Apr 1997)]
+The AlphaPC 164LX is an ATX form factor motherboard for the EV56 (21164A), released by Digital in 1997 and later also made by Samsung (see [[#firmware|Firmware]]). [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1997-April.mbox#L1|"Press/Alpha 21164 Microprocessor Streaks to 600MHz, Sets New Records"]], Digital Press and Analysts News, biz.digital.announce, 2 Apr 1997)]
 
 <gallery right aligned nocrop>
 wiki:hardware:motherboards:pc164lx:pc164lx-1.jpg Digital AlphaPC 164LX
