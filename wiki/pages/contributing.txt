@@ -4,9 +4,15 @@ Corrections and new material are welcome. This page describes how to get an acco
 
 ==== Getting an account ====
 
-Anyone can read the wiki, but editing needs an account, and self-registration is disabled to keep out spam. To get an account, ask in **#alpha** on Libera.Chat, on the linux-alpha mailing list, or in [[https://github.com/orgs/alphalinux/discussions|GitHub Discussions]] (see [[:community|Community]]), or contact the wiki's maintainer, [[user:mattst88|Matt Turner]]. Each account has a user page under ''user:'', which can say who you are and what you work on.
+Anyone can read the wiki, but editing needs an account, and self-registration is disabled to keep out spam. To request an account, [[https://github.com/alphalinux/issues/issues/new?title=Wiki+account+request|open an issue]] in [[https://github.com/alphalinux/issues|alphalinux/issues]] on GitHub, or message **mattst88** in **#alpha** on Libera.Chat, giving:
 
-Small corrections can also be sent the same way, without an account: say which page, what is wrong, and the source for the correct information.
+  * your name,
+  * your email address, to which the account's password is sent, and
+  * which Alpha systems you have.
+
+The wiki's maintainer, [[user:mattst88|Matt Turner]], creates accounts by hand. Issues and **#alpha** are public; if you would rather not post your email address there, say so and send it privately instead. Each account has a user page under ''user:'', which can say who you are and what you work on.
+
+Small corrections can also be sent without an account, in **#alpha** on Libera.Chat, on the linux-alpha mailing list, or in [[https://github.com/orgs/alphalinux/discussions|GitHub Discussions]] (see [[:community|Community]]): say which page, what is wrong, and the source for the correct information.
 
 The wiki is DokuWiki. Every edit is committed to a git repository, where it can be reviewed and reverted. Content is licensed under the GNU Free Documentation License.
 
