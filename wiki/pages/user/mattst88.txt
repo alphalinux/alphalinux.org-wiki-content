@@ -1,6 +1,6 @@
 ===== mattst88 =====
 
-Matt Turner ([[https://github.com/mattst88|GitHub]]) maintains this wiki.
+Matt Turner ([[https://github.com/mattst88|GitHub]]) maintains this wiki. His personal website is https://mattst88.com/ where he has an irregularly updated blog and a section for this [[https://mattst88.com/computers/|pet computers]].
 
 He is a maintainer of the Alpha architecture in the Linux kernel and a longtime Gentoo Linux developer. He has also worked on Mesa and graphics drivers, at Intel (the i965 driver) and later at Google.
 
