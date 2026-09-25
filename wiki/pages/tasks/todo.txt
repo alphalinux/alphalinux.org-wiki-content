@@ -19,7 +19,7 @@ Work planned or under way on Alpha support in the projects below. The owner is t
 | In progress | ''mem*'' and ''str*'' function optimizations | [[user:mattst88|Matt Turner]] | |
 ^ Rust ^^^^
 | In progress | Alpha target in rustc_codegen_gcc, the GCC back end for ''rustc'' | | [[https://github.com/rust-lang/rustc_codegen_gcc/issues/742|issue #742]] |
-| Not started | Alpha target specification and standard library support in ''rustc'', for use with rustc_codegen_gcc; ''rustc'' cannot target Alpha through LLVM | | |
+| In progress | Alpha target specification and standard library support in ''rustc'', for use with rustc_codegen_gcc; ''rustc'' cannot target Alpha through LLVM | | [[https://github.com/linmag7/rust_alpha_stuff|rust-alpha]]|
 ^ QEMU ^^^^
 | Not started | SRM console callbacks in qemu-palcode, so that aboot can boot a disk | | |
 ^ Other software ^^^^
