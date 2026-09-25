@@ -2,6 +2,8 @@
 
 ~~TOC_HERE~~
 
+Digital, Samsung, and Alpha Processor, Inc. (API) sold Alpha motherboards, both as evaluation boards for designers and as OEM boards for system integrators. Each board has its own page, listed in the table below. Complete systems are under [[hardware:systems|Systems]], and the core logic on each board is described on the [[hardware:chipsets|Chipsets]] page.
+
 ----
 
 ^ Motherboard ^  CPU  ^^  Memory  ^^ Chipset ^ Cache ^  PCI  ^^ AGP ^ ISA ^
