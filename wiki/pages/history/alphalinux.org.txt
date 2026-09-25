@@ -44,7 +44,7 @@ Payne and the other maintainers had recovered the domain by the end of that year
 
 ==== Revival: the wiki era (2008 to 2012) ====
 
-By 2008 alphalinux.org had gone years without updates. In April 2008, Matt Turner emailed Petrakis, proposing to take over maintenance himself. Petrakis agreed and suggested starting with a wiki section to see if it could attract contributors.
+By 2008 alphalinux.org had gone years without updates. In April 2008, [[user:mattst88|Matt Turner]] emailed Petrakis, proposing to take over maintenance himself. Petrakis agreed and suggested starting with a wiki section to see if it could attract contributors.
 
 Turner created a MediaWiki installation in July 2008 and announced it on **axp-list** as a central location for Alpha hardware, Alpha/Linux support, SRM versions, Alpha assembly and optimization, and Alpha software. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2008-July.mbox#L1157|"AlphaLinux.org gets a Wiki"]], Matt Turner, axp-list, 22 Jul 2008)]
 
@@ -58,6 +58,6 @@ In June 2012 the server crashed and the wiki database, which had not been backed
 
 ==== Later ownership (2015 to present) ====
 
-In 2015, Petrakis and Payne, who still held the domain, transferred alphalinux.org to Gareth Randall, who maintained the site and a small wiki until mid-2026. Randall then transferred the domain to Turner, who created the [[https://github.com/alphalinux|alphalinux]] organization on GitHub to host repositories for Alpha packages (aboot, MILO), mailing list archives, and the content of this wiki. The wiki was rebuilt on DokuWiki in September 2026.
+In 2015, Petrakis and Payne, who still held the domain, transferred alphalinux.org to [[user:gareth|Gareth Randall]], who maintained the site and a small wiki until mid-2026. Randall then transferred the domain to Turner, who created the [[https://github.com/alphalinux|alphalinux]] organization on GitHub to host repositories for Alpha packages (aboot, MILO), mailing list archives, and the content of this wiki. The wiki was rebuilt on DokuWiki in September 2026.
 
 {{tag>history}}
