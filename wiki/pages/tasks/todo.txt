@@ -9,6 +9,8 @@ Work planned or under way on Alpha support in the projects below. The owner is t
 | In progress | Profiling support for processors before the EV67 | [[user:mattst88|Matt Turner]] | |
 | In progress | Hugepage support | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux/alpha-hugetlb-tests|tests]] |
 | Not started | vDSO support | | |
+| In progress | Contiguous allocations support (CMA) |[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20260219205514.4434-1-linmag7@gmail.com/|lore link]]|
+| In progress | Jump label (static key) support |[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20260225110548.31431-1-linmag7@gmail.com/|lore link]]|
 ^ GCC ^^^^
 | In progress | Switch to LRA for BWX | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-July/724654.html|patch]], [[https://github.com/alphalinux/issues/issues/3|issue]] |
 | In progress | Switch to LRA for non-BWX | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux/issues/issues/3|issue]] |
