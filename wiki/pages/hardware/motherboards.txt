@@ -1,5 +1,9 @@
 ===== Motherboards =====
 
+~~TOC_HERE~~
+
+----
+
 ^ Motherboard ^  CPU  ^^  Memory  ^^ Chipset ^ Cache ^  PCI  ^^ AGP ^ ISA ^
 ^ ^ Type ^ Frequency ^ Type ^ Max memory ^ ^ ^ 64-bit ^ 32-bit ^ ^ ^
 | [[hardware:motherboards:eb64|EB64]] | [[wp>Alpha_21064|21064/EV4]] | 150 MHz | FPM Parity | 64 MiB | None | 128 - 512 KiB | 0 | 0 | 0 | 2 |
