@@ -97,6 +97,7 @@ The following sources conflict with each other or with the account given above. 
 | {{wiki:hardware:systems:alphaserver_1200:alphaserver_1200_technical_summary.pdf?linkonly|AlphaServer 1200 System Technical Summary}} | | 1997 |
 | {{wiki:software:firmware:alphaserver_1200_v6.0_firmware_release_notes.pdf?linkonly|AlphaServer 1200 Firmware Release Notes, SRM Console V6.0-4}} | | September 2001 |
 | {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_technical_guide.pdf?linkonly|DIGITAL AlphaServer 4000 and 4100 Systems Technical Guide}} | EC-G9261-10 | July 1998 |
+| {{wiki:hardware:chipsets:mcpcia:rawhide.pdf?linkonly|Rawhide System Programmer's Manual, Revision 1.4}} | | May 1996 |
 | {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_4100_brochure.pdf?linkonly|DIGITAL AlphaServer 4000 and 4100 systems brochure}} | | |
 | {{wiki:hardware:systems:alphaserver_4100:alphaserver_4000_data_sheet.pdf?linkonly|AlphaServer 4000 systems data sheet}} | | |
 | {{wiki:hardware:systems:alphaserver_4100:alphaserver_4100_data_sheet.pdf?linkonly|Compaq AlphaServer 4100 data sheet}} | | |
