@@ -1,0 +1,72 @@
+===== Takara (Digital 21164 PICMG SBC) =====
+
+<WRAP box right 340px>
+^ Takara ^^
+^ Codename | Takara; the kernel's ''systype'' 32 (''ST_DEC_TAKARA''), and "DEC_EV56_PBP" to Tru64 UNIX |
+^ Also sold as | DMCC 21164 PICMG SBC (Digital), Force Flexor A164/500 (Force Computers) |
+^ CPU | [[wp>Alpha_21164#Alpha_21164A|21164A]] (EV56), 500 MHz on the A164/500 |
+^ Core logic | [[hardware:chipsets#21171|CIA]] |
+^ Memory | EDO DRAM, four slots on the reported 512 MiB board |
+^ Buses | PCI and ISA, from a PICMG passive backplane |
+^ Form factor | PICMG single board computer |
+^ Firmware | SRM (V5.7-9 reported on the A164/500) or AlphaBIOS, [[software:boot_loaders:milo|MILO]] |
+^ Kernel option | ''CONFIG_ALPHA_TAKARA'' |
+^ Linux | Untested |
+</WRAP>
+
+Takara is the codename of Digital's 21164 single board computer in the PICMG (PCI Industrial Computer Manufacturers Group) form factor, part of the Modular Computing Components (DMCC) line that Digital sold to OEMs for use with passive PCI backplanes. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1996-April.mbox#L807|"Press/Digital Expands PCI Product Portfolio"]], Digital Press and Analysts News, biz.digital.announce, 4 Apr 1996)] [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1997-July.mbox#L41306|"Re: Alpha Systems"]], Vikas Sontakke, comp.sys.dec, 1 Jul 1997)] Digital's Alpha engineer for Linux described it as a "DEC TOEM board". [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L24945|"FAQ info (was Re: Linux on Compaq XP1000)"]], Jay Estabrook, axp-list, 9 Mar 1999)] Compaq sold the OEM division to SMART Modular, which sold it to Force Computers. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L11232|"RE: Request For Comment: Low-Cost Alpha Platform Suggestion"]], Kirk E., axp-list, 9 Apr 2001)] The [[hardware:motherboards:eiger|Eiger]] is its 21264 counterpart.
+
+==== Specifications ====
+
+  * One 21164A CPU, 500 MHz on the Force Flexor A164/500 [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2002-July.mbox#L11596|"New to Alpha/Linux, Help with setting up a 21164/500mhz Unit"]], craig, comp.os.linux.alpha, 12 Jul 2002)] [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2004-February.mbox#L84|"Booting Gentoo on Takara"]], Jay Maynard, comp.os.linux.alpha, 7 Feb 2004)]
+  * CIA core logic, [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_takara.c?h=v7.3-rc1|arch/alpha/kernel/sys_takara.c]], Linux 7.3)] with a PC873xx Super I/O chip whose IDE the kernel enables, and an SIO ISA bridge [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_takara.c?h=v7.3-rc1|arch/alpha/kernel/sys_takara.c]], Linux 7.3)]
+  * Memory: a 21164A board with 512 MiB of EDO DRAM in four slots was reported in 2002; [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2002-July.mbox#L11596|"New to Alpha/Linux, Help with setting up a 21164/500mhz Unit"]], craig, comp.os.linux.alpha, 12 Jul 2002)] a 21164 board at 366 MHz with 256 MiB was reported in 2001 [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2001-September.mbox#L6389|"No boot on DMCC Alpha 21064A 233 Mhz"]], Aldfrid Klein, comp.os.linux.alpha, 4 Sep 2001)]
+  * PCI slots depend on the backplane, from 3 to 16 [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L50256|"map_irq"]], Iain Grant, axp-list, 28 Oct 1999)]
+  * Identification: the kernel's HWRPB system type is 32, [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/asm/hwrpb.h?h=v7.3-rc1|arch/alpha/include/asm/hwrpb.h]], Linux 7.3)] and Tru64 UNIX lists it as "DEC_EV56_PBP TAKARA Passive Backplance SBC" [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/tru64-unix-managers-mbox/gmane-2003-June.mbox#L7396|"SUMMANY: Problem finding number of CPUs online"]], Dr. David Kirkby, tru64-unix-managers, 9 Jun 2003)]
+  * COM1 is on the daughtercard, not on the main CPU board [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2004-June.mbox#L12419|"Re: Please HELP! I Screwed my alpha"]], Jay Maynard, comp.os.linux.alpha, 24 Jun 2004)]
+
+The PCI interrupts arrive through a master interrupt register at I/O port 0x500. On the default backplane PCI devices 1, 2, and 3 sit at slots 20, 19, and 18, and jumpers can move them to slots 8, 7, and 6. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_takara.c?h=v7.3-rc1|arch/alpha/kernel/sys_takara.c]], Linux 7.3)]
+
+==== Firmware ====
+
+The single flash ROM holds either SRM, for Tru64 UNIX and OpenVMS, or AlphaBIOS, for Windows NT; programming one console overwrites the other. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L27305|"Re: FW: True64 on Cabriolet"]], jmd, axp-list, 11 Nov 1999)] Digital's firmware FTP directory had separate ''dmcc21064a'', ''dmcc21164'', and ''dmcc21164a'' directories. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7397|"Re: How to flash MILO? ( Not a faq )"]], Peter Rival, axp-list, 6 Oct 1999)] A Force Flexor A164/500 reported SRM V5.7-9. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2002-July.mbox#L11596|"New to Alpha/Linux, Help with setting up a 21164/500mhz Unit"]], craig, comp.os.linux.alpha, 12 Jul 2002)]
+
+After an SRM update the console may appear on the COM1 serial port instead of the graphics card. Connect a terminal at 9600 baud, 8 data bits, no parity, and 1 stop bit, and run ''set console graphics''. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2004-June.mbox#L12419|"Re: Please HELP! I Screwed my alpha"]], Jay Maynard, comp.os.linux.alpha, 24 Jun 2004)]
+
+==== Linux ====
+
+The kernel supports the Takara with ''CONFIG_ALPHA_TAKARA'' (or a generic kernel), which selects the EV56 code and offers the choice of booting from SRM or from MILO. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/Kconfig?h=v7.3-rc1|arch/alpha/Kconfig]], Linux 7.3)] Linux 6.10 removed support for processors older than the EV56 (21164A), so only 21164A boards such as the A164/500 remain supported. No report of a current kernel on a Takara has been found, and the board has a history of boot problems.
+
+  * In 1997 Jay Estabrook did not expect Linux/Alpha to run on the DMCC cards, but a test port to a 21064A daughtercard had taken only a few days. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1997-June.mbox#L7631|"Re: Digital's OEM CPU cards"]], Jay Estabrook, axp-list, 5 Jun 1997)] Red Hat Alpha 5.2 ran on a Takara by February 1999. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-February.mbox#L36195|"RE: parallel webcam w/ alphastation?"]], Iain Grant, axp-list, 23 Feb 1999)]
+  * The kernel's Takara support was written for the three-slot backplane. In 1999 an engineer at SMART Modular asked how to extend ''takara_map_irq'' to the larger backplanes. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L50256|"map_irq"]], Iain Grant, axp-list, 28 Oct 1999)] The current kernel has a separate SRM interrupt table covering slots behind PCI-to-PCI bridges. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_takara.c?h=v7.3-rc1|arch/alpha/kernel/sys_takara.c]], Linux 7.3)]
+  * Debian's 1998 installer plan listed ''takara'' among the subarchitectures with their own MILO and kernel. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/debian-alpha-mbox/1998-June.mbox#L2671|"Re: booting/installing debian-alpha"]], Kristoffer Rose, debian-alpha, 11 Jun 1998)] MILO 2.2 could be built for it. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L55365|"Milo-2.2 Release 13"]], Stefan Reinauer, axp-list, 30 Nov 1999)]
+  * The board boots under SRM with aboot; a 21164 board at 366 MHz reported itself as a "Takara" system to the kernel on the SuSE 7.1 CD and completed an installation. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2001-September.mbox#L6389|"No boot on DMCC Alpha 21064A 233 Mhz"]], Aldfrid Klein, comp.os.linux.alpha, 4 Sep 2001)]
+
+==== Known issues ====
+
+  * **Kernel paging panic:** in 2004 the Debian 2.4.18 and 2.4.24 kernels, a Gentoo LiveCD, and a Takara-specific kernel all panicked at boot with "unable to handle kernel paging request" on a 21164/500 board, while the Debian installer's 2.2.20 kernel ran. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2004-February.mbox#L1641|"Re: Booting Gentoo on Takara"]], Jay Maynard, comp.os.linux.alpha, 8 Feb 2004)] The reporter traced it to ''takara_swizzle'' dereferencing a null pointer, [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/gentoo-alpha-mbox/2004-February.mbox#L2336|"Re: [gentoo-alpha] LiveCD refuses to boot on Takara"]], Jay Maynard, gentoo-alpha, 18 Feb 2004)] and in June 2004 said kernels through 2.6.6 still panicked and that he had submitted a patch. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2004-June.mbox#L12419|"Re: Please HELP! I Screwed my alpha"]], Jay Maynard, comp.os.linux.alpha, 24 Jun 2004)] The current ''takara_swizzle'' returns at once for a device on the root bus, before it reads ''dev->bus->self''. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_takara.c?h=v7.3-rc1|arch/alpha/kernel/sys_takara.c]], Linux 7.3)] Whether that is the patch, and when it went in, has not been established.
+  * **Behind bridges:** the swizzle routine handles only cards with an INTA pin behind a built-in bridge, and warns that it cannot handle a card-based bridge behind a built-in one. [(>[[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/kernel/sys_takara.c?h=v7.3-rc1|arch/alpha/kernel/sys_takara.c]], Linux 7.3)]
+  * **IRQ assignment on Linux 2.0:** PCI SCSI and Ethernet cards could not get interrupts on a 21164 PICMG board running Red Hat 5.0 with a patched 2.0.33 kernel. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1998-May.mbox#L18448|"Installing Redhat 5.0 to PICMG Alpha SBC"]], Shinji Sumimoto, axp-list, 13 May 1998)]
+  * **21064A boards:** a DMCC 21064A 233 MHz board did not boot the SuSE 7.1 kernel, and SRM reported "halt error = 5" or "halt error = 6". A 21164 board of the same family booted. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2001-September.mbox#L6389|"No boot on DMCC Alpha 21064A 233 Mhz"]], Aldfrid Klein, comp.os.linux.alpha, 4 Sep 2001)]
+
+==== History ====
+
+Digital announced its Alpha PICMG backplane systems and single board computers in April 1996. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/biz-digital-announce-mbox/googlegroups-1996-April.mbox#L807|"Press/Digital Expands PCI Product Portfolio"]], Digital Press and Analysts News, biz.digital.announce, 4 Apr 1996)] An EV56 Takara was still awaited in June 1997 and was orderable by July, when it was described as the PICMG CPU card that had won best of show at the computer telephony show. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-1997-July.mbox#L41306|"Re: Alpha Systems"]], Vikas Sontakke, comp.sys.dec, 1 Jul 1997)] By October 1999 the OEM group had passed from Compaq to SMART Modular Technologies, [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L12376|"Re: Enter IEEE 1275, OpenBoot firmware console RE: SRM multi OS'es"]], Mike Breen, axp-list, 9 Oct 1999)] and it later passed to Force Computers. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L11232|"RE: Request For Comment: Low-Cost Alpha Platform Suggestion"]], Kirk E., axp-list, 9 Apr 2001)]
+
+==== Conflicting information ====
+
+The following sources conflict with each other or with the account given above. They are listed here for further investigation.
+
+  * **Processor generations and PCI slot count**
+    * [[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-March.mbox#L24945|"FAQ info (was Re: Linux on Compaq XP1000)"]], Jay Estabrook, axp-list, 9 Mar 1999: "TAKARA is a DEC TOEM board, available with EV4 or EV5 daughtercard, and from 4 to 13 PCI slots"
+    * [[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L50256|"map_irq"]], Iain Grant, axp-list, 28 Oct 1999: "configured with 3 to 16 PCI slots"; the 500 MHz boards reported elsewhere have a 21164A, an EV56
+  * **Top clock speed**
+    * [[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2001-April.mbox#L11232|"RE: Request For Comment: Low-Cost Alpha Platform Suggestion"]], Kirk E., axp-list, 9 Apr 2001: the EV56 design tops out at 600 MHz with 2 MiB of cache; every Takara reported on the lists is a 500 MHz or slower board
+
+==== Documentation ====
+
+^ Document ^ Part number ^ Date ^
+| 21164 PICMG SBC Technical Reference Manual, once at ''manuals.alphainside.com'' [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L36803|"RE: SBC Alphas"]], Kurt Ludwig, axp-list, 21 Nov 2000)] | | |
+| DIGITAL 21164 PICMG SBC and 21064A PICMG SBC firmware release notes, V5.5 (''dmcc_v55_fw_relnote.txt'') [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L27305|"Re: FW: True64 on Cabriolet"]], jmd, axp-list, 11 Nov 1999)] | | |
+
+{{tag>hardware motherboard 21164 digital}}

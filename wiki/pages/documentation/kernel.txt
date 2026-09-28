@@ -60,7 +60,7 @@ The system type is chosen under "Alpha system type" in the configuration. A gene
 | ''CONFIG_ALPHA_GENERIC'' | All supported systems |
 | ''CONFIG_ALPHA_ALCOR'' | [[hardware:systems:alcor|AlphaStation 500 and 600, Alpha XL 366 and 433]] |
 | ''CONFIG_ALPHA_DP264'' | [[hardware:systems:monet|XP1000]], [[hardware:systems:webbrick|DS10, DS10L, XP900]], [[hardware:systems:goldrush|DS20, DS20E]], [[hardware:systems:clipper|ES40]], [[hardware:motherboards:pc264dp|264DP]], [[hardware:motherboards:up2000|UP2000, UP2000+]], and QEMU |
-| ''CONFIG_ALPHA_EIGER'' | An OEM board based on the Tsunami chipset |
+| ''CONFIG_ALPHA_EIGER'' | [[hardware:motherboards:eiger|Eiger]] (SMARTengine 21264 PCI/ISA SBC, Force Flexor A264) |
 | ''CONFIG_ALPHA_LX164'' | [[hardware:motherboards:pc164lx|AlphaPC 164LX]] |
 | ''CONFIG_ALPHA_MARVEL'' | [[hardware:systems:marvel|ES47, ES80, GS1280]] |
 | ''CONFIG_ALPHA_MIATA'' | [[hardware:systems:miata|Personal Workstation]] |
@@ -74,7 +74,7 @@ The system type is chosen under "Alpha system type" in the configuration. A gene
 | ''CONFIG_ALPHA_SABLE'' | [[hardware:systems:sable|AlphaServer 2000 and 2100]] with 21164A CPUs |
 | ''CONFIG_ALPHA_SHARK'' | [[hardware:systems:shark|DS20L, CS20]] |
 | ''CONFIG_ALPHA_SX164'' | [[hardware:motherboards:pc164sx|AlphaPC 164SX]] |
-| ''CONFIG_ALPHA_TAKARA'' | An OEM 21164 board |
+| ''CONFIG_ALPHA_TAKARA'' | [[hardware:motherboards:takara|Takara]] (Digital 21164 PICMG SBC, Force Flexor A164) |
 | ''CONFIG_ALPHA_TITAN'' | [[hardware:systems:titan|DS15, DS25, ES45]] |
 | ''CONFIG_ALPHA_WILDFIRE'' | [[hardware:systems:wildfire|GS80, GS160, GS320]] |
 
