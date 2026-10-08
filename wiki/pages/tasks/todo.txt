@@ -9,6 +9,8 @@ Work planned or under way on Alpha support in the projects below. The owner is t
 | In progress | Profiling support for processors before the EV67 | [[user:mattst88|Matt Turner]] | |
 | In progress | Hugepage support | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux/alpha-hugetlb-tests|tests]] |
 | Not started | vDSO support | | |
+| In progress | Fix stale TLB translations breaking copy-on-write and writeback|[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20260923074903.862898-1-linmag7@gmail.com/|lore link]]|
+| In progress | Load the MMU context on a direct mm switch |[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20261008195608.965266-1-linmag7@gmail.com/|lore link]]|
 | In progress | Contiguous allocations support (CMA) |[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20260219205514.4434-1-linmag7@gmail.com/|lore link]]|
 | In progress | Jump label (static key) support |[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20260225110548.31431-1-linmag7@gmail.com/|lore link]]|
 | In progress | Machine check handler for tsunami |[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20251125224352.32034-1-linmag7@gmail.com/|lore link]]|
