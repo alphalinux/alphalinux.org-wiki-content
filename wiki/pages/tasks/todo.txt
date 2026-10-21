@@ -4,16 +4,11 @@ Work planned or under way on Alpha support in the projects below. The owner is t
 
 ^ Status ^ Task ^ Owner ^ Link ^
 ^ Linux ^^^^
-| In progress | Generic kernel compression support | [[user:mattst88|Matt Turner]] | |
 | In progress | ''ProfileMe'' profiling support | [[user:mattst88|Matt Turner]] | |
 | In progress | Profiling support for processors before the EV67 | [[user:mattst88|Matt Turner]] | |
-| In progress | Hugepage support | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux/alpha-hugetlb-tests|tests]] |
 | Not started | vDSO support | | |
-| In progress | Fix stale TLB translations breaking copy-on-write and writeback|[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20260923074903.862898-1-linmag7@gmail.com/|lore link]]|
-| In progress | Load the MMU context on a direct mm switch |[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20261008195608.965266-1-linmag7@gmail.com/|lore link]]|
 | In progress | Contiguous allocations support (CMA) |[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20260219205514.4434-1-linmag7@gmail.com/|lore link]]|
 | In progress | Jump label (static key) support |[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20260225110548.31431-1-linmag7@gmail.com/|lore link]]|
-| In progress | Machine check handler for tsunami |[[user:lindholm|Magnus Lindholm]] | [[https://lore.kernel.org/linux-alpha/20251125224352.32034-1-linmag7@gmail.com/|lore link]]|
 ^ GCC ^^^^
 | In progress | Switch to LRA for BWX | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-July/724654.html|patch]], [[https://github.com/alphalinux/issues/issues/3|issue]] |
 | In progress | Switch to LRA for non-BWX | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux/issues/issues/3|issue]] |
@@ -37,6 +32,11 @@ Completed tasks stay here until the release that includes them, and are then rem
 ^ Project ^ Task ^ Owner ^ Link ^
 | Linux | SECCOMP and SECCOMP_FILTER support | [[user:lindholm|Magnus Lindholm]] | [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a10e80be6343cbdaabe80f82cbd640fe3772d102|Linux 7.1]] |
 | Linux | GENERIC_ENTRY support | [[user:lindholm|Magnus Lindholm]] | [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=ca58a3dde621067333f481547db4afc587d7708a|Linux 7.3]] |
+| Linux | Generic kernel compression support | [[user:mattst88|Matt Turner]] | [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=c437950dceb88a92ca526f5ce3afd327c4fce457|Linux 7.4]] |
+| Linux | Hugepage support | [[user:mattst88|Matt Turner]] | [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=8ba8994e76e45a47e749a7f92fdfe0ee701362e3|Linux 7.4]] |
+| Linux | Fix stale TLB translations breaking copy-on-write and writeback | [[user:lindholm|Magnus Lindholm]] | [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=c0db730bf05eb3c10c1fae64b19f6913dce129fc|Linux 7.4]] |
+| Linux | Load the MMU context on a direct mm switch | [[user:lindholm|Magnus Lindholm]] | [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9b8be19d5dc9525a408942e2e8012873199e7455|Linux 7.4]] |
+| Linux | Machine check handler for tsunami | [[user:lindholm|Magnus Lindholm]] | [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=2c8792df90e565d5a280549f37f5c5563f76ebe3|Linux 7.4]] |
 | GCC | Stack protector support | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-August/729301.html|patch]] |
 | GCC | IFUNC support | [[user:mattst88|Matt Turner]] | [[https://gcc.gnu.org/pipermail/gcc-patches/2026-August/726956.html|patch]] |
 | binutils | IFUNC support | [[user:mattst88|Matt Turner]] | [[https://sourceware.org/pipermail/binutils/2026-September/151152.html|patch]] |
