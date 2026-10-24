@@ -24,7 +24,7 @@ Work planned or under way on Alpha support in the projects below. The owner is t
 | Not started | SRM console callbacks in qemu-palcode, so that aboot can boot a disk | | |
 ^ Other software ^^^^
 | Not started | Alpha support in libseccomp | | [[https://github.com/alphalinux/issues/issues/2|issue]] |
-
+| In progress | Alpha fixes for strace |[[user:lindholm|Magnus Lindholm]] | [[https://github.com/strace/strace/pull/430|github]] |
 ==== Recently completed ====
 
 Completed tasks stay here until the release that includes them, and are then removed; the [[:news|News]] records them.
