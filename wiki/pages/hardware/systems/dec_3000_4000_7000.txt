@@ -7,7 +7,7 @@
 ^ Processors | Up to 2 (DEC 4000), up to 6 (DEC 7000, 10000) |
 ^ Memory | DEC 3000: up to 1 GiB, SIMMs |
 ^ Buses | TURBOchannel (3000), Futurebus+ (4000), LSB with XMI, Futurebus+, and VAXBI I/O (7000, 10000) |
-^ Firmware | SRM (last V7.0 on the DEC 3000, V4.0 on the DEC 4000, V5.0 on the DEC 7000 and 10000) |
+^ Firmware | SRM (last V7.0 on the DEC 3000, V4.0 on the DEC 4000, V5.4 on the DEC 7000 and 10000) |
 ^ Kernel option | None |
 ^ Linux | Never |
 </WRAP>
@@ -56,6 +56,8 @@ A DEC 7000 could be upgraded in its cabinet to an [[hardware:systems:turbolaser|
 
 The Model 600 needs console firmware V3.0 or later. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-June.mbox#L5580|"Re: Does osf/1 1.3 run on Dec 3000/600"]], Dave Parker, comp.unix.osf.osf1, 22 Jun 1994)] The firmware CD carries three DEC 3000 images, one for the Model 300 series, one for the 400, 600, and 700, and one for the 500, 800, and 900, matching the Pelican, Sandpiper, and Flamingo families. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1995-April.mbox#L23565|"Re: (?) Firmware update for DecStation 3000"]], Andrew Gallatin, comp.unix.osf.osf1, 4 Apr 1995)] On the Model 400 the firmware update jumper can only be reached by nearly dismantling the machine. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1994-September.mbox#L6787|"Re: Will DEC OSF/1 become usable on "small" machines?"]], Andrew Gallatin, comp.unix.osf.osf1, 18 Sep 1994)]
 
+The last DEC 7000 and DEC 10000 firmware update, V18 of March 1999, carries SRM console V5.4-4819. [(>''dec7000_v18_fw_relnote.pdf'', DEC 7000 AXP and DEC 10000 AXP Systems Firmware Update Procedures, March 1999, ''ftp.digital.com/pub/Digital/Alpha/firmware/archive/doc/'')] The console version went from V5.0 to V5.4 to match the other Alpha platforms of the time; there were no versions V5.1 to V5.3. [(>''fwreadme.txt'', DEC 7000/10000 firmware update V18, ''ftp.digital.com/pub/Digital/Alpha/firmware/archive/dec7000/'')] The ''SMMTABLE.TXT'' file on the V7.3 firmware CD still lists 5.0 for both systems. [(>''SMMTABLE.TXT'', Alpha Systems Firmware Update CD V7.3, 14 Mar 2007)]
+
 The Ethernet port is chosen at the console with ''set ethernet thick'' or ''set ethernet tenbt'', on the DEC 4000 as well. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-unix-osf-osf1-mbox/googlegroups-1995-August.mbox#L8638|"DEC OSF/1 AXP Frequently Asked Questions"]], Steve Lionel, comp.unix.osf.osf1, 21 Aug 1995)]
 
 ==== Linux ====
@@ -76,6 +78,10 @@ The DEC 3000 ran OpenVMS and DEC OSF/1, and never ran Windows NT, for which it h
 ==== Conflicting information ====
 
 The following sources conflict with each other or with the account given above. They are listed here for further investigation.
+
+  * **Last DEC 7000 and DEC 10000 SRM version**
+    * ''SMMTABLE.TXT'', Alpha Systems Firmware Update CD V7.3, 14 Mar 2007: 5.0
+    * ''dec7000_v18_fw_relnote.pdf'', DEC 7000 AXP and DEC 10000 AXP Systems Firmware Update Procedures, March 1999, ''ftp.digital.com/pub/Digital/Alpha/firmware/archive/doc/'': "version V5.4-4819 Mar 9 1999 15:28:15"
 
   * **DEC 3000 Model 900 CPU**
     * [[https://github.com/alphalinux/mailing-list-archives/blob/main/biz-digital-articles-mbox/googlegroups-1994-August.mbox#L2333|"Rackmount DEC 3000 Model 900 AXP Servers and Workstations"]], Customer Update, biz.digital.articles, 1 Aug 1994, gives the CPU as "DECchip 21064" at 275 MHz.

@@ -101,7 +101,7 @@ The ''SMMTABLE.TXT'' file on the V7.3 firmware CD (March 2007) lists the last SR
 | DECpc AXP 150, DEC 2000 (Jensen) | 2.2 |
 | DEC 3000 | 7.0 |
 | DEC 4000 | 4.0 |
-| DEC 7000, DEC 10000 | 5.0 |
+| DEC 7000, DEC 10000 | 5.0 (V5.4-4819 in the V18 update of March 1999; see the [[hardware:systems:dec_3000_4000_7000#conflicting_information|DEC 7000 page]]) |
 | AXPpci33 (Noname) | 4.7 |
 | AlphaPC 164 | 5.5 (5.5-1 according to Jay Estabrook [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2004-April.mbox#L872|"seeking SRM device support info..."]], Jay Estabrook, axp-list, 2 Apr 2004)]; see the [[hardware:motherboards:pc164#conflicting_information|AlphaPC 164 page]]) |
 | AlphaPC 164LX | 5.8 |
