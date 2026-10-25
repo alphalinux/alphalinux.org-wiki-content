@@ -46,7 +46,7 @@ Cache is optional and the board runs without it. [(>[[https://github.com/alphali
 
 ==== Firmware ====
 
-The flash ROM holds one console at a time, either ARC for Windows NT or SRM for Digital UNIX, and either can be overwritten with the other. Updates are done from a floppy: a FAT floppy with ''fwupdate.exe'' through the ARC "Install new firmware" menu item, or an SRM boot block floppy written from the firmware image, booted with ''b dva0'' and updated with ''update srm'' or ''update arc''. The last version distributed by Digital is V1.4, which contains ARC 4.42 and SRM X4.3-3114 and needs at least 16 MiB of memory to run. [(>''read_me.txt'', Digital, ''ftp.digital.com/pub/Digital/axppci/'')] [(>''update.txt'', Digital, 3 August 1995)] A later update, V1.6, carries SRM X4.7-1760, [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2010-August.mbox#L1379|"Re: AXPpci33 TOY Battery, DS12887+"]], Ralf Folkerts, comp.sys.dec, 7 Aug 2010)] and the V7.3 firmware CD lists 4.7 as the last SRM version for the board (see [[software:firmware:srm#final_versions|SRM Console: Final versions]]).
+The flash ROM holds one console at a time, either ARC for Windows NT or SRM for Digital UNIX, and either can be overwritten with the other. Updates are done from a floppy: a FAT floppy with ''fwupdate.exe'' through the ARC "Install new firmware" menu item, or an SRM boot block floppy written from the firmware image, booted with ''b dva0'' and updated with ''update srm'' or ''update arc''. The last version distributed by Digital is V1.4, which contains ARC 4.42 and SRM X4.3-3114 and needs at least 16 MiB of memory to run. [(>''read_me.txt'', Digital, ''ftp.digital.com/pub/Digital/axppci/'')] [(>''update.txt'', Digital, 3 August 1995)] A later update, V1.6, carries SRM X4.7-1860 (built 1 November 1996) and ARC V4.50, [(>''fwreadme.txt'' and the console build stamp in ''decaxppci33_v1_6.exe'', AXPpci33 firmware update V1.6, ''ftp.digital.com/pub/Digital/Alpha/firmware/archive/decaxppci33/'')] and the V7.3 firmware CD lists 4.7 as the last SRM version for the board (see [[software:firmware:srm#final_versions|SRM Console: Final versions]]).
 
 The serial ROM is a separate socketed part. Version 0.5, distributed as an Intel hex file for a ROM programmer, is required for 233 MHz operation, and version 0.4 or later is required for 64 MiB SIMMs. [(>''read_me.txt'', Digital, ''ftp.digital.com/pub/Digital/axppci/'')] [(>{{wiki:hardware:motherboards:axppci33:axppci33_oem_design_guide.pdf?linkonly|Digital AXPpci 33 Alpha PC Motherboard OEM Design Guide}})]
 
@@ -88,6 +88,10 @@ Bare boards carry no processor, cache, or memory; preconfigured boards add a pro
 ==== Conflicting information ====
 
 The following sources conflict with each other or with the account given above. They are listed here for further investigation.
+
+  * **SRM version in the V1.6 update**
+    * Console build stamp in ''decaxppci33_v1_6.exe'': X4.7-1860, built 1 November 1996.
+    * [[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2010-August.mbox#L1379|"Re: AXPpci33 TOY Battery, DS12887+"]], Ralf Folkerts, comp.sys.dec, 7 Aug 2010: "the Firmware was the most recent (X4.7-1760)", then updated with V1.6.
 
   * **Slot count**
     * {{wiki:hardware:motherboards:axppci33:axppci33_oem_design_guide.pdf?linkonly|Digital AXPpci 33 Alpha PC Motherboard OEM Design Guide}}: "Total of seven option slots", three PCI and five ISA, one long PCI slot sharing a bulkhead with one long ISA slot.
