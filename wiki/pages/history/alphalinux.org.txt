@@ -58,6 +58,6 @@ In June 2012 the server crashed and the wiki database, which had not been backed
 
 ==== Later ownership (2015 to present) ====
 
-In 2015, Petrakis and Payne, who still held the domain, transferred alphalinux.org to [[user:gareth|Gareth Randall]], who maintained the site and a small wiki until mid-2026. Randall then transferred the domain to Turner, who created the [[https://github.com/alphalinux|alphalinux]] organization on GitHub to host repositories for Alpha packages (aboot, MILO), mailing list archives, and the content of this wiki. The wiki was rebuilt on DokuWiki in September 2026.
+In 2015, Petrakis and Payne, who still held the domain, transferred alphalinux.org to [[user:gareth|Gareth Randall]], who maintained the site and a small wiki until mid-2026. Randall then transferred the domain to Turner, who created the [[https://github.com/alphalinux|alphalinux]] organization on GitHub to host repositories for Alpha packages (aboot, MILO), mailing list archives, and the content of this wiki. The wiki was rebuilt on DokuWiki in September 2026. Turner announced it on **linux-alpha** in October 2026, asking for photographs of Alpha hardware and for documentation the wiki did not yet have. [(>[[https://lore.kernel.org/linux-alpha/20261025171857.8ed673bb5900@gmail.com/|"alphalinux.org has a wiki again"]], Matt Turner, linux-alpha, 25 Oct 2026)]
 
 {{tag>history}}
