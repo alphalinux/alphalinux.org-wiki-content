@@ -52,7 +52,7 @@ Details and sources are on each board's page.
 | [[hardware:motherboards:axppci33|AXPpci 33]] | Baby AT | NCR 53C810 SCSI, IDE, floppy, 2 serial, parallel | ARC, SRM, MILO | Linux 6.9 and earlier |
 | [[hardware:motherboards:pc64|AlphaPC 64]] | Baby AT | IDE, floppy, 2 serial, parallel | ARC 4.49-7, SRM 4.8, MILO | Linux 6.9 and earlier |
 | [[hardware:motherboards:eb164|EB164]] | Full-size AT | IDE, floppy, 2 serial, parallel | ARC, SRM 4.8, MILO | Linux 6.9 and earlier |
-| [[hardware:motherboards:pc164|AlphaPC 164]] | ATX | CMD646 IDE, floppy, 2 serial, parallel | ARC or SRM 5.6, MILO | Supported |
+| [[hardware:motherboards:pc164|AlphaPC 164]] | ATX | CMD646 IDE, floppy, 2 serial, parallel | ARC or SRM 5.5-1, MILO | Supported |
 | [[hardware:motherboards:takara|Takara]] | PICMG | PC873xx Super I/O with IDE, COM1 | SRM V5.7-11 or AlphaBIOS, MILO | Untested |
 | [[hardware:motherboards:pc164lx|AlphaPC 164LX]] | ATX | CMD646 IDE, floppy, 2 serial, parallel | SRM 5.8 or AlphaBIOS, MILO | Supported |
 | [[hardware:motherboards:pc164sx|AlphaPC 164SX]] | ATX | Cypress IDE, floppy, 2 serial, parallel | SRM 5.8 or AlphaBIOS, MILO | Supported |
