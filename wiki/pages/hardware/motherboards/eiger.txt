@@ -9,7 +9,7 @@
 ^ Memory | 512 MiB and 1 GiB configurations reported |
 ^ Buses | 64-bit PCI and ISA, from a PICMG passive backplane |
 ^ Form factor | PICMG single board computer with a separate I/O card |
-^ Firmware | SRM (V5.7-2 reported), AlphaBIOS |
+^ Firmware | SRM (last V5.7-12), AlphaBIOS |
 ^ Kernel option | ''CONFIG_ALPHA_EIGER'' |
 ^ Linux | Untested |
 </WRAP>
@@ -30,7 +30,7 @@ The kernel's HWRPB system type is 37, [(>[[https://git.kernel.org/pub/scm/linux/
 
 ==== Firmware ====
 
-The console reports itself as "FORCE 21264 Alpha PCI/ISA SBC Console V5.7-2 built May 16 2001", [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2001-November.mbox#L727|"RH7.0 Install Works; RH7.1 Install Fails"]], Karl, comp.os.linux.alpha, 30 Nov 2001)] and an SMARTengine board of 2000 ran "SMARTengine/Alpha 21264 PCI/ISA SBC console v5.6-6903", which printed "ERROR: ISA table corrupt!" at boot; the owner's attempt to clear it by running ''init'' failed. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L32683|"ERROR: ISA table corrupt!"]], Ford Prefect, axp-list, 17 Nov 2000)] The board also runs AlphaBIOS. Force told one owner that SRM could not see devices behind a PCI-to-PCI bridge, and his board halted at "E7" until then. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2005-December.mbox#L7551|"Re: Decent alpha system for OpenVMS newbie"]], Marc Schlensog, comp.sys.dec, 1 Dec 2005)]
+The console reports itself as "FORCE 21264 Alpha PCI/ISA SBC Console V5.7-2 built May 16 2001", [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2001-November.mbox#L727|"RH7.0 Install Works; RH7.1 Install Fails"]], Karl, comp.os.linux.alpha, 30 Nov 2001)] and an SMARTengine board of 2000 ran "SMARTengine/Alpha 21264 PCI/ISA SBC console v5.6-6903", which printed "ERROR: ISA table corrupt!" at boot; the owner's attempt to clear it by running ''init'' failed. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/2000-November.mbox#L32683|"ERROR: ISA table corrupt!"]], Ford Prefect, axp-list, 17 Nov 2000)] The last firmware update for the board, V1.7 of March 2002 for the Force Flexor A/264, carries SRM V5.7-12 and AlphaBIOS V5.70b. [(>''fwreadme.txt'', Force Flexor A/264 firmware update V1.7, March 2002, ''ftp.digital.com/pub/Digital/Alpha/firmware/archive/dmcc21264/'')] Force told one owner that SRM could not see devices behind a PCI-to-PCI bridge, and his board halted at "E7" until then. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-sys-dec-mbox/googlegroups-2005-December.mbox#L7551|"Re: Decent alpha system for OpenVMS newbie"]], Marc Schlensog, comp.sys.dec, 1 Dec 2005)] SRM V5.7-12 added support for the Intel 21152 PCI-to-PCI bridge. [(>''fwreadme.txt'', Force Flexor A/264 firmware update V1.7, March 2002, ''ftp.digital.com/pub/Digital/Alpha/firmware/archive/dmcc21264/'')]
 
 ==== Linux ====
 
