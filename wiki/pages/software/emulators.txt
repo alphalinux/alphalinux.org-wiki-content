@@ -4,7 +4,7 @@ Two kinds of emulator are relevant to Alpha: emulators of Alpha systems, which r
 
 ^ Emulator ^ Emulated system ^ Host ^ License ^ Status ^ Linux guest ^
 | [[#qemu|QEMU]] | DP264/Clipper (AlphaServer ES40 class), Linux user mode | Many | GPL | Maintained | Current distributions |
-| [[#es40_and_axpbox|ES40, AXPbox, ES40-Emu]] | AlphaServer ES40 | Linux, Windows, macOS | GPL v2 | AXPbox and ES40-Emu maintained | Old distributions only |
+| [[#es40_and_axpbox|ES40, AXPbox, ES40-Emu]] | AlphaServer ES40 | Linux, Windows, macOS | GPL v2 | AXPbox and ES40-Emu maintained | Current distributions (ES40-Emu) |
 | [[#avanti_and_freeaxp|FreeAXP, Avanti]] | AlphaServer 400 | 64-bit Windows | Freeware; proprietary | Sold | No |
 | [[#charon-axp_and_personal_alpha|Charon-AXP, Personal Alpha]] | Various; AlphaServer DS10 (Personal Alpha+) | Windows | Proprietary; freeware | Sold; Personal Alpha withdrawn | No |
 | [[#alphavm|AlphaVM]] | Tsunami/Typhoon systems | Windows, Linux | Proprietary | Sold | Boots, unsupported |
@@ -15,9 +15,9 @@ Two kinds of emulator are relevant to Alpha: emulators of Alpha systems, which r
 
 ==== Choosing an emulator ====
 
-  * **Running or developing Alpha/Linux:** QEMU's system emulator. It is the only emulator on which current Linux distributions are known to install and run, and Debian uses it to build packages. See [[documentation:qemu|QEMU]] for how to install and boot a distribution.
+  * **Running or developing Alpha/Linux:** QEMU's system emulator. It is the most widely used, and Debian uses it to build packages; current distributions also run on ES40-Emu. See [[documentation:qemu|QEMU]] for how to install and boot a distribution.
   * **Building or repairing an Alpha/Linux file system from another machine:** QEMU's user-mode emulator, ''qemu-alpha'', with ''binfmt_misc'', to run Alpha programs in a chroot. See [[documentation:qemu#user-mode_emulation|QEMU: User-mode emulation]].
-  * **Running the real SRM console:** AXPbox and ES40-Emu run the firmware from an AlphaServer ES40 ROM image, which QEMU does not. Of Linux distributions, only old ones are known to work on them.
+  * **Running the real SRM console:** AXPbox and ES40-Emu run the firmware from an AlphaServer ES40 ROM image, which QEMU does not. Current Linux distributions run on ES40-Emu; on AXPbox, only old ones are known to work.
   * **OpenVMS or Tru64 UNIX:** neither runs under QEMU. Free options are FreeAXP, AlphaVM-Basic, AXPbox, and ES40-Emu; commercial ones are Avanti, Charon-AXP, AlphaVM, and vtAlpha.
   * **Windows NT or Windows 2000 for Alpha:** ES40-Emu, which runs the ARC firmware.
 
@@ -49,7 +49,7 @@ The ES40 emulator, written by Camiel Vanderhoeven, emulates an AlphaServer ES40 
 
 [[https://github.com/lenticularis39/axpbox|AXPbox]] is a fork of the ES40 emulator, renamed to avoid confusion with the AlphaServer ES40. It emulates SCSI, sound, IDE, serial ports, Ethernet (using pcap, or TUN/TAP on Linux), and VGA graphics (using SDL). [(>[[https://github.com/lenticularis39/axpbox|AXPbox README]])] Version 1.0.0 was released on 23 January 2021 and 1.2.0 on 11 July 2026. [(>[[https://github.com/lenticularis39/axpbox/releases|AXPbox releases]])] Its guest support table lists OpenVMS 8.4 and NetBSD 9.2 as working, and Debian 5.0 as hanging on boot. [(>[[https://github.com/lenticularis39/axpbox/wiki/Guest-support|"Guest support"]], AXPbox wiki)] The ROM image is not included: AXPbox's OpenVMS installation guide has the user download the ES40 SRM console image ''cl67srmrom.exe'' separately and name it in the configuration file. [(>[[https://github.com/lenticularis39/axpbox/wiki/OpenVMS-installation-guide|"OpenVMS installation guide"]], AXPbox wiki)]
 
-AXPbox backports features from the ES40-Emu project, where its README says active development now happens. [(>[[https://github.com/lenticularis39/axpbox|AXPbox README]])] [[https://github.com/ES40-Emu/es40|ES40-Emu]] added a JIT compiler, S3 graphics, and the ARC firmware, so it can run Windows NT and Windows 2000 for Alpha. [(>[[https://www.osnews.com/story/145445/|"Improved DEC Alpha emulator runs Windows 2000 for Alpha and OpenVMS and Tru64 with X11"]], Thom Holwerda, OSnews, 5 Jul 2026)] The only Linux distribution its README reports working is Red Hat 7.2; no current distribution is known to run on either emulator. [(>[[https://github.com/ES40-Emu/es40|ES40-Emu README]], 7 May 2026 entry)]
+AXPbox backports features from the ES40-Emu project, where its README says active development now happens. [(>[[https://github.com/lenticularis39/axpbox|AXPbox README]])] [[https://github.com/ES40-Emu/es40|ES40-Emu]] added a JIT compiler, S3 graphics, and the ARC firmware, so it can run Windows NT and Windows 2000 for Alpha. [(>[[https://www.osnews.com/story/145445/|"Improved DEC Alpha emulator runs Windows 2000 for Alpha and OpenVMS and Tru64 with X11"]], Thom Holwerda, OSnews, 5 Jul 2026)] Its README's May 2026 status listed only Red Hat 7.2 among working Linux distributions. [(>[[https://github.com/ES40-Emu/es40|ES40-Emu README]], 7 May 2026 entry)] Current distributions now run as well: in September 2026 ES40-Emu fixed a CPU bug that broke Linux 6.19 kernels and a chipset timer bug, in the ALi M1543C's 8254 PIT status, that hung other Linux kernels. Both fixes are in ES40-Emu 0.88. [(>[[https://github.com/ES40-Emu/es40/commit/7f197cb4|"AlphaCPU: Fix FP disabled operation (FEN clear) with F31 destination"]], ES40-Emu, 22 Sep 2026)] [(>[[https://github.com/ES40-Emu/es40/commit/f77dbb8f|"AliM1543C: PIT status value correction (fixes other linuxes, previous commit fixed 6.19 kernel)"]], ES40-Emu, 22 Sep 2026)]
 
 === Avanti and FreeAXP ===
 
