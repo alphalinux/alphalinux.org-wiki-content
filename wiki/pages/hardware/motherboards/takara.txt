@@ -9,7 +9,7 @@
 ^ Memory | EDO DRAM, four slots on the reported 512 MiB board |
 ^ Buses | PCI and ISA, from a PICMG passive backplane |
 ^ Form factor | PICMG single board computer |
-^ Firmware | SRM (V5.7-9 reported on the A164/500) or AlphaBIOS, [[software:boot_loaders:milo|MILO]] |
+^ Firmware | SRM (last V5.7-11 on the 21164A board) or AlphaBIOS, [[software:boot_loaders:milo|MILO]] |
 ^ Kernel option | ''CONFIG_ALPHA_TAKARA'' |
 ^ Linux | Untested |
 </WRAP>
@@ -29,7 +29,7 @@ The PCI interrupts arrive through a master interrupt register at I/O port 0x500.
 
 ==== Firmware ====
 
-The single flash ROM holds either SRM, for Tru64 UNIX and OpenVMS, or AlphaBIOS, for Windows NT; programming one console overwrites the other. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L27305|"Re: FW: True64 on Cabriolet"]], jmd, axp-list, 11 Nov 1999)] Digital's firmware FTP directory had separate ''dmcc21064a'', ''dmcc21164'', and ''dmcc21164a'' directories. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7397|"Re: How to flash MILO? ( Not a faq )"]], Peter Rival, axp-list, 6 Oct 1999)] A Force Flexor A164/500 reported SRM V5.7-9. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2002-July.mbox#L11596|"New to Alpha/Linux, Help with setting up a 21164/500mhz Unit"]], craig, comp.os.linux.alpha, 12 Jul 2002)]
+The single flash ROM holds either SRM, for Tru64 UNIX and OpenVMS, or AlphaBIOS, for Windows NT; programming one console overwrites the other. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-November.mbox#L27305|"Re: FW: True64 on Cabriolet"]], jmd, axp-list, 11 Nov 1999)] Digital's firmware FTP directory had separate ''dmcc21064a'', ''dmcc21164'', and ''dmcc21164a'' directories. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/axp-list-mbox/1999-October.mbox#L7397|"Re: How to flash MILO? ( Not a faq )"]], Peter Rival, axp-list, 6 Oct 1999)] A Force Flexor A164/500 reported SRM V5.7-9. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2002-July.mbox#L11596|"New to Alpha/Linux, Help with setting up a 21164/500mhz Unit"]], craig, comp.os.linux.alpha, 12 Jul 2002)] The last firmware update for the 21164A board, V2.8 of March 2002 for the Force Flexor A/164, carries SRM V5.7-11 and AlphaBIOS V5.70. [(>''fwreadme.txt'', Force Flexor A/164 firmware update V2.8, March 2002, ''ftp.digital.com/pub/Digital/Alpha/firmware/archive/dmcc21164a/'')]
 
 After an SRM update the console may appear on the COM1 serial port instead of the graphics card. Connect a terminal at 9600 baud, 8 data bits, no parity, and 1 stop bit, and run ''set console graphics''. [(>[[https://github.com/alphalinux/mailing-list-archives/blob/main/comp-os-linux-alpha-mbox/googlegroups-2004-June.mbox#L12419|"Re: Please HELP! I Screwed my alpha"]], Jay Maynard, comp.os.linux.alpha, 24 Jun 2004)]
 
