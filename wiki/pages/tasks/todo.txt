@@ -44,5 +44,6 @@ Completed tasks stay here until the release that includes them, and are then rem
 | aboot | ext4 support | [[user:lindholm|Magnus Lindholm]] | [[https://github.com/alphalinux/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
 | aboot | Release 2.0 | [[user:mattst88|Matt Turner]] | [[https://github.com/alphalinux/aboot/releases/tag/aboot-2.0|aboot 2.0]] |
 | Other software | Basic Alpha support in gperftools | [[user:creemj|Michael Cree]] | [[https://github.com/gperftools/gperftools/commit/5f64fd287a4046911b3d676f90128979982e4088|commit]] |
+| Other software | Alpha support in Boost: architecture detection and fcontext | [[user:mattst88|Matt Turner]] | [[https://github.com/boostorg/boost/pull/1161|boost]], [[https://github.com/boostorg/context/pull/342|context]], [[https://github.com/boostorg/predef/pull/142|predef]], [[https://github.com/boostorg/config/pull/556|config]], [[https://github.com/bfgroup/b2/pull/617|b2]] |
 
 {{tag>tasks}}
