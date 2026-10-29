@@ -33,6 +33,7 @@ The Extensions column lists the optional instruction set extensions that GCC ena
 ==== Socket 499 (AlphaPC 164, 164LX, 164UX/BX, Personal Workstation) ====
 
 ^ Manufacturer ^ Part Number ^ Type ^ Frequency ^
+| Digital | 21-43918-02 | EV56 | 366 MHz |
 | Digital | 21-43918-03 | EV56 | 400 MHz |
 | Digital | 21-43918-10 | EV56 | 433 MHz |
 | Digital | 21-43918-35 | EV56 | 533 MHz |
