@@ -96,7 +96,7 @@ The following sources conflict with each other or with the account given above. 
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_user_information.pdf?linkonly|hp AlphaServer ES47/ES80/GS1280 User Information, Version 3.0}} | | June 2004 |
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_installation_information.pdf?linkonly|hp AlphaServer ES47/ES80/GS1280 Installation Information, Revision 4.0}} | | May 2004 |
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_getting_started_with_partitions.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Getting Started With Partitions, Version 4.0}} | | January 2005 |
-| {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_station_users_guide.pdf?linkonly|AlphaServer Management Station User's Guide, Version 4.0}} | | July 2004 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_station_users_guide.pdf?linkonly|AlphaServer Management Station User's Guide, Version 5.0}} | | July 2005 |
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_trade_ups.pdf?linkonly|HP AlphaServer ES47 Trade-ups}} | EK-ES478-TU.C01 | June 2004 |
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_memory_option_installation_card.pdf?linkonly|AlphaServer ES47/ES80/GS1280 Memory Option Installation Card}} | EK-EGMEM-UP.B01 | |
 | {{wiki:hardware:systems:alphaserver_es47:alphaserver_es47_es80_gs1280_io_module_installation_card.pdf?linkonly|AlphaServer ES47/ES80/GS1280 I/O Module Installation Card}} | EK-EGRIS-UP.A01 | |

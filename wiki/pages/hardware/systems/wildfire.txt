@@ -66,7 +66,7 @@ The following sources conflict with each other or with the account given above. 
 | {{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_installation_guide.pdf?linkonly|AlphaServer GS80 Installation Guide}} | EK-GSR80-IN.A01 | October 2000 |
 | {{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_site_preparation.pdf?linkonly|AlphaServer GS80/160/320 Site Preparation}} | EK-GS320-SP.C01 | September 2000 |
 | {{wiki:hardware:systems:alphaserver_gs80:alphaserver_gs80_160_320_system_management_console_installation_and_users_guide.pdf?linkonly|AlphaServer GS80/160/320 System Management Console Installation and User's Guide}} | EK-GSCON-IN.D01 | February 2001 |
-| {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_station_users_guide.pdf?linkonly|AlphaServer Management Station User's Guide, Version 4.0}} | | July 2004 |
+| {{wiki:hardware:systems:alphaserver_es47:alphaserver_management_station_users_guide.pdf?linkonly|AlphaServer Management Station User's Guide, Version 5.0}} | | July 2005 |
 | {{wiki:software:firmware:alphaserver_gs320_v7.3_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.3 Firmware Release Notes}} | | April 2007 |
 | {{wiki:software:firmware:alphaserver_gs320_v7.2_firmware_release_notes.pdf?linkonly|AlphaServer GS80/160/320 V7.2 Firmware Release Notes and Update Procedures}} | | June 2006 |
 
